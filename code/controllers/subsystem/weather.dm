@@ -12,15 +12,71 @@ SUBSYSTEM_DEF(weather)
 	var/list/eligible_zlevels = list()
 	var/list/next_hit_by_zlevel = list() //Used by barometers to know when the next storm is coming
 
+	/// The current weather profile the round has chosen.
+	var/datum/weather_profile/current_profile
+
 /datum/controller/subsystem/weather/fire()
+
+	//Get Candidate Lists (From weather chunking system) to filter through.
+	//Chunking does the heavy lifting, we just clean up whatever it gives us.
+	var/list/mob_canidates = weather_chunking.get_mobs_in_chunks(our_event.impacted_chunks) //TD: Impacted chunks takes from weather coverage subsystem otherwise what was this all for???
+	var/list/object_canidates = weather_chunking.get_objects_in_chunks(our_event.impacted_chunks)
+
+	//Simulated threading setup for batch processing.
+	var/static/mob_batch_index = 1
+	var/static/obj_batch_index = 1
+	var/batch_size = 10
+
+	//Get actual lists for storage (Mobs, Obj, Area)
+	var/list/mobs_to_affect = list()
+	var/list/objects_to_affect = list()
+	var/list/areas_to_affect = our_event.impacted_areas
+
+	var/list/mob_type_map = list() //Optional hashmap for more filtering of mobs.
+
+	for(var/mob/living/M in mob_canidates)
+		if(!M.needs_weather_update)
+			continue
+		mobs_to_affect += M
+		M.needs_weather_update = FALSE
+
+	for(var/obj/O in object_canidates)
+		if(!O.needs_weather_update)
+			continue
+		objects_to_affect += M
+		O.needs_weather_update = FALSE
+
+	//We've populated our mobs and objects filtered lists, lets slice them now into batches.
+	var/list/mob_slice = mobs_to_affect.Copy(mob_batch_index, mob_batch_index, + batch_size)
+	var/list/obj_slice = objects_to_affect.Copy(obj_batch_index, obj_batch_index, + batch_size)
+
 	// process active weather
 	for(var/V in processing)
 		var/datum/weather/our_event = V
 		if(our_event.aesthetic || our_event.stage != MAIN_STAGE)
 			continue
-		for(var/mob/act_on as anything in GLOB.mob_living_list)
-			if(our_event.can_weather_act(act_on))
-				our_event.weather_act(act_on)
+
+		//Ticking weather effects to reduce cooldown.
+		//We handle evaluating if weather can act later so the subsystem is cleaner.
+		for(var/datum/weather/effect/E in our_event.weather_effects)
+			if(world.time % E.tick_interval == 0)
+				E.tick()
+
+			//Global effects, once per weather effect.
+			if(is_type_in_list(E, global_effect_types))
+				E.apply_global_effect
+
+			//Applying to Mobs
+			if(E.affects_mobs)
+				E.apply_to_mobs(mob_slice)
+
+			//Applying to Objects
+			if(E.affects_objects)
+				E.apply_to_objects(obj_slice)
+
+			//Applying to Areas
+			if(E.affects_areas)
+				E.apply_to_area
 
 	// start random weather on relevant levels
 	for(var/z in eligible_zlevels)
@@ -35,6 +91,13 @@ SUBSYSTEM_DEF(weather)
 	for(var/V in subtypesof(/datum/weather))
 		var/datum/weather/W = V
 		var/probability = initial(W.probability)
+
+		// Applying map-specific probability overrides first
+		var/datum/map_config/current_map_config = SSmapping.config
+		var/overrides = current_map_config.weather_overrides[V]
+		if((overrides && "probability") in overrides) //Do probability overrides specifically exist?
+			probability = overrides["probability"]
+
 		var/target_trait = initial(W.target_trait)
 
 		// any weather with a probability set may occur at random
