@@ -7,17 +7,21 @@
 // /datum/modular_map_generator/base_room
 // 	name = "Standart Room"
 
-/datum/modular_map_generator
-	name = "modular map generator"
+// /datum/modular_map_generator
+// 	name = "modular map generator"
 
-	var/list/templates = (
-		/datum/room_template/room = 0.6,
-		/datum/room_template/corridor = 0.4
-	)
+// 	var/list/templates = (
+// 		/datum/room_template/room = 0.6,
+// 		/datum/room_template/corridor = 0.4
+// 	)
 
-/datum/modular_map_generator/proc/generate() // that proc is like making SCHEME for our SCP SECRET LAB map
-	var/list/layout = list() // empty assoc list for "return stuff", "return stuff" will be used for spawn of stuff
 
-	return layout
+// that proc is like making SCHEME for our SCP SECRET LAB map
+// /datum/modular_map_generator/proc/generate()
+	// empty assoc list for "return stuff", "return stuff" will be used for spawn of stuff
+	// var/list/layout = list()
 
-/datum/modular_map_generator/proc/spawn_the_map() // that proce is spawning the generate map, with help of SCHEME
+	// return layout
+
+// that proce is spawning the generate map, with help of SCHEME
+// /datum/modular_map_generator/proc/spawn_the_map()

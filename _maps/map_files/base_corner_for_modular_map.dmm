@@ -1,0 +1,135 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/iron/showroomfloor,
+/area/space)
+"j" = (
+/turf/closed/wall/mineral/titanium,
+/area/space)
+"p" = (
+/obj/machinery/door/airlock,
+/turf/open/floor/iron/showroomfloor,
+/area/space)
+"Y" = (
+/turf/open/space/basic,
+/area/space)
+
+(1,1,1) = {"
+Y
+Y
+Y
+Y
+Y
+j
+j
+p
+j
+j
+"}
+(2,1,1) = {"
+Y
+Y
+Y
+Y
+Y
+j
+a
+a
+a
+j
+"}
+(3,1,1) = {"
+Y
+Y
+Y
+Y
+Y
+j
+a
+a
+a
+j
+"}
+(4,1,1) = {"
+Y
+Y
+Y
+Y
+Y
+j
+a
+a
+a
+j
+"}
+(5,1,1) = {"
+Y
+Y
+Y
+Y
+Y
+j
+a
+a
+a
+j
+"}
+(6,1,1) = {"
+j
+j
+j
+j
+j
+j
+a
+a
+a
+j
+"}
+(7,1,1) = {"
+j
+a
+a
+a
+a
+a
+a
+a
+a
+j
+"}
+(8,1,1) = {"
+p
+a
+a
+a
+a
+a
+a
+a
+a
+j
+"}
+(9,1,1) = {"
+j
+a
+a
+a
+a
+a
+a
+a
+a
+j
+"}
+(10,1,1) = {"
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+"}
