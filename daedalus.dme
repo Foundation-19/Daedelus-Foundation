@@ -34,6 +34,7 @@
 #include "code\__DEFINES\_tick.dm"
 #include "code\__DEFINES\abstract.dm"
 #include "code\__DEFINES\access.dm"
+#include "code\modules\SCP\scp-1206-ru.dm"
 #include "code\modules\SCP\foundation19_jobs\foundation19_access.dm"
 #include "code\__DEFINES\achievements.dm"
 #include "code\__DEFINES\acid.dm"
