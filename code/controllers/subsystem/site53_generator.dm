@@ -135,18 +135,6 @@ SUBSYSTEM_DEF(site53_generator)
 		var/turf/T = locate(pos[1], pos[2], z_level)
 		if(T)
 			new /obj/machinery/power/apc(T)
-	var/turf/ez_office = locate(sx + 20, sy + 5, z_level)
-	if(ez_office)
-		new /obj/machinery/photocopier(ez_office)
-	var/turf/lcz_lab = locate(sx + 6, sy + 14, z_level)
-	if(lcz_lab)
-		new /obj/machinery/photocopier(lcz_lab)
-	var/turf/hcz_obs = locate(sx + 15, sy + 14, z_level)
-	if(hcz_obs)
-		new /obj/machinery/computer/containment_protocol_console(hcz_obs)
-	var/turf/ez_admin = locate(sx + 22, sy + 5, z_level)
-	if(ez_admin)
-		new /obj/machinery/computer/personnel_management_console(ez_admin)
 
 /obj/machinery/door/airlock/scp
 	name = "Containment Airlock"
