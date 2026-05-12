@@ -209,3 +209,50 @@
 			H.adjustOxyLoss(5)
 			to_chat(H, span_warning("You inhale [contaminant_type] from the vents! Your lungs burn!"))
 			H.emote("cough")
+
+/datum/round_event_control/scp_anomalous_fauna_migration
+	name = "Anomalous Fauna Incursion"
+	typepath = /datum/round_event/scp_anomalous_fauna_migration
+	weight = 10
+	min_players = 5
+	earliest_start = 15 MINUTES
+	max_occurrences = 3
+
+/datum/round_event/scp_anomalous_fauna_migration
+	announceWhen = 3
+	startWhen = 50
+	var/hasAnnounced = FALSE
+
+/datum/round_event/scp_anomalous_fauna_migration/setup()
+	startWhen = rand(40, 60)
+
+/datum/round_event/scp_anomalous_fauna_migration/announce(fake)
+	priority_announce("Anomalous biological entities detected in facility perimeter. Security personnel respond immediately.", "BREACH ALERT", sound_type = ANNOUNCER_ALERT)
+
+/datum/round_event/scp_anomalous_fauna_migration/start()
+	var/list/spawn_locs = list()
+	for(var/obj/effect/landmark/carpspawn/C in GLOB.landmarks_list)
+		spawn_locs += C.loc
+	if(!length(spawn_locs))
+		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+			if(istype(get_area(L), /area/scp/lcz) || istype(get_area(L), /area/scp/hcz))
+				spawn_locs += L.loc
+	if(!length(spawn_locs))
+		return
+	var/list/fauna_types = list(
+		/mob/living/simple_animal/hostile/anomalous_fauna/void_crawler,
+		/mob/living/simple_animal/hostile/anomalous_fauna/void_crawler,
+		/mob/living/simple_animal/hostile/anomalous_fauna/void_crawler,
+		/mob/living/simple_animal/hostile/anomalous_fauna/aberrant_hound,
+		/mob/living/simple_animal/hostile/anomalous_fauna/aberrant_hound,
+		/mob/living/simple_animal/hostile/anomalous_fauna/shadow_stalker,
+		/mob/living/simple_animal/hostile/anomalous_fauna/thermal_wraith,
+		/mob/living/simple_animal/hostile/anomalous_fauna/crystal_geode,
+	)
+	for(var/i in 1 to rand(3, 6))
+		var/turf/T = pick(spawn_locs)
+		var/fauna_type = pick(fauna_types)
+		var/mob/living/simple_animal/hostile/anomalous_fauna/F = new fauna_type(T)
+		if(!hasAnnounced)
+			announce_to_ghosts(F)
+			hasAnnounced = TRUE

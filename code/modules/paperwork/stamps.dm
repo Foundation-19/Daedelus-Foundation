@@ -78,14 +78,59 @@
 	dye_color = DYE_CHAP
 
 /obj/item/stamp/centcom
-	name = "CentCom rubber stamp"
+	name = "O5 Council rubber stamp"
 	icon_state = "stamp-centcom"
 	dye_color = DYE_CENTCOM
 
 /obj/item/stamp/syndicate
-	name = "red rubber stamp"
+	name = "Chaos Insurgency rubber stamp"
 	icon_state = "stamp-syndicate"
 	dye_color = DYE_SYNDICATE
+
+/obj/item/stamp/sitedirector
+	name = "Site Director's rubber stamp"
+	icon_state = "stamp-cap"
+	dye_color = DYE_CAPTAIN
+
+/obj/item/stamp/ethics
+	name = "Ethics Committee rubber stamp"
+	icon_state = "stamp-law"
+	dye_color = DYE_LAW
+
+/obj/item/stamp/mtf_commander
+	name = "MTF Commander's rubber stamp"
+	icon_state = "stamp-hos"
+	dye_color = DYE_HOS
+
+/obj/item/stamp/lcz_supervisor
+	name = "LCZ Supervisor's rubber stamp"
+	icon_state = "stamp-rd"
+	dye_color = DYE_RD
+
+/obj/item/stamp/hcz_supervisor
+	name = "HCZ Supervisor's rubber stamp"
+	icon_state = "stamp-ce"
+	dye_color = DYE_CE
+
+/obj/item/stamp/ez_supervisor
+	name = "EZ Supervisor's rubber stamp"
+	icon_state = "stamp-hop"
+	dye_color = DYE_HOP
+
+/obj/item/stamp/dclass_overseer
+	name = "D-Class Overseer's rubber stamp"
+	icon_state = "stamp-qm"
+	dye_color = DYE_QM
+
+/obj/item/stamp/amnestic_auth
+	name = "Amnestic Authorization rubber stamp"
+	icon_state = "stamp-cmo"
+	dye_color = DYE_CMO
+
+/obj/item/stamp/classified
+	name = "\improper CLASSIFIED rubber stamp"
+	icon_state = "stamp-deny"
+	dye_color = DYE_REDCOAT
 
 /obj/item/stamp/attack_paw(mob/user, list/modifiers)
 	return attack_hand(user, modifiers)

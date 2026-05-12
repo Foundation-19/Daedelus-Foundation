@@ -62,7 +62,10 @@
 	data["num_copies"] = num_copies
 
 	try
-		var/list/blanks = json_decode(file2text("config/blanks.json"))
+		var/raw = file2text("config/blanks.json")
+		if(copytext(raw, 1, 2) == "\uFEFF")
+			raw = copytext(raw, 2)
+		var/list/blanks = json_decode(raw)
 		if (blanks != null)
 			data["blanks"] = blanks
 			data["category"] = category
@@ -184,15 +187,40 @@
 			if (toner_cartridge.charges - PAPER_TONER_USE < 0)
 				to_chat(usr, span_warning("There is not enough toner in [src] to print the form, please replace the cartridge."))
 				return FALSE
-			do_copy_loop(CALLBACK(src, PROC_REF(make_blank_print)), usr)
-			var/obj/item/paper/printblank = new /obj/item/paper (loc)
-			var/printname = params["name"]
-			var/list/printinfo
-			for(var/infoline as anything in params["info"])
-				printinfo += infoline
-			printblank.name = printname
-			printblank.info = printinfo
-			return printblank
+			var/print_code = params["code"]
+			if(!print_code)
+				return FALSE
+			var/raw = file2text("config/blanks.json")
+			if(copytext(raw, 1, 2) == "\uFEFF")
+				raw = copytext(raw, 2)
+			var/list/blanks = json_decode(raw)
+			var/list/found_blank
+			for(var/list/blank as anything in blanks)
+				if(blank["code"] == print_code)
+					found_blank = blank
+					break
+			if(!found_blank)
+				return FALSE
+			var/obj/item/paper/printblank = new /obj/item/paper(loc)
+			printblank.name = found_blank["name"]
+			var/list/rawinfo = found_blank["info"]
+			if(!islist(rawinfo))
+				rawinfo = list(rawinfo)
+			var/list/flat = list()
+			var/list/queue = rawinfo.Copy()
+			while(queue.len)
+				var/entry = queue[1]
+				queue.Cut(1, 2)
+				if(islist(entry))
+					var/list/sub = entry
+					for(var/i in 1 to sub.len)
+						queue.Insert(1, sub[sub.len - i + 1])
+				else
+					flat += entry
+			printblank.info = jointext(flat, "")
+			toner_cartridge.charges -= PAPER_TONER_USE
+			give_pixel_offset(printblank)
+			return TRUE
 
 /**
  * Determines if the photocopier has enough toner to create `num_copies` amount of copies of the currently inserted item.
