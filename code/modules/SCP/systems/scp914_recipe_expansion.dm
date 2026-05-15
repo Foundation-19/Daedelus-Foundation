@@ -237,6 +237,11 @@ GLOBAL_DATUM_INIT(scp914_discovery, /datum/scp914_recipe_discovery, new())
 		name = "dull pen"
 		desc = "A pen that has lost its mesmerizing quality."
 
+/datum/movespeed_modifier/scp914_soundless
+	id = "scp914_soundless"
+	slowdown = 0
+	variable = TRUE
+
 /obj/item/clothing/shoes/scp914_soundless
 	name = "soundless shoes"
 	desc = "Shoes that make absolutely no sound when walking. The effect lasts about 5 minutes."
@@ -248,13 +253,13 @@ GLOBAL_DATUM_INIT(scp914_discovery, /datum/scp914_recipe_discovery, new())
 	. = ..()
 	if(slot == ITEM_SLOT_FEET && !effect_active)
 		effect_active = TRUE
-		H.add_movespeed_modifier("scp914_soundless", slowdown = -0.5)
+		H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/scp914_soundless, TRUE, -0.5)
 		addtimer(CALLBACK(src, .proc/expire_silence, H), effect_duration)
 
 /obj/item/clothing/shoes/scp914_soundless/proc/expire_silence(mob/living/carbon/human/H)
 	effect_active = FALSE
 	if(H)
-		H.remove_movespeed_modifier("scp914_soundless")
+		H.remove_movespeed_modifier(/datum/movespeed_modifier/scp914_soundless)
 		to_chat(H, span_notice("Your soundless shoes lose their effect."))
 	name = "worn soundless shoes"
 	desc = "Shoes that have lost their anomalous silence."
@@ -332,6 +337,7 @@ GLOBAL_DATUM_INIT(scp914_discovery, /datum/scp914_recipe_discovery, new())
 	ui_interact(user)
 
 /obj/item/book/scp914_recipe_book/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "SCP914RecipeBook", "SCP-914 Recipe Book")

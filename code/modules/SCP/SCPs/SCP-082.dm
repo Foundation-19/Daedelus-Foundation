@@ -87,7 +87,7 @@
 		. += "<span class='notice'>He appears content and well-fed.</span>"
 	. += "<span class='notice'>He stands nearly 2.4 meters tall, a gentleman of considerable stature.</span>"
 
-/mob/living/scp/scp082/say(message)
+/mob/living/scp/scp082/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, filterproof = null, range = 7)
 	. = ..()
 	if(!.)
 		return

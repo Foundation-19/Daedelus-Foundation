@@ -4,8 +4,8 @@
 /obj/item/reagent_containers/glass/bottle/scp008
 	name = "SCP-008"
 	desc = "A sealed container containing a highly contagious zombie plague. Extremely dangerous."
-	icon = 'icons/scp/scpstructures(32x32).dmi'
-	icon_state = "bottle"
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle-4"
 	var/containment_breached = FALSE
 	var/infection_strength = 50
 	var/list/infected_targets = list()
@@ -90,13 +90,13 @@
 
 	switch(infection_type)
 		if("airborne")
-			icon_state = "bottle"
+			icon_state = "bottle-4"
 		if("contact")
-			icon_state = "bottle_contact"
+			icon_state = "bottle-4"
 		if("fluid")
-			icon_state = "bottle_fluid"
+			icon_state = "bottle-4"
 		if("aerosol")
-			icon_state = "bottle_aerosol"
+			icon_state = "bottle-4"
 
 /obj/item/reagent_containers/glass/bottle/scp008/proc/process_infection_spread()
 	// Only spread if containment is breached
@@ -106,10 +106,21 @@
 	var/infection_type = infection_system.get_infection_type()
 	var/spread_range = get_spread_range(infection_type)
 
+	// Clean up stale entries in infected/zombified targets
+	for(var/key in infected_targets)
+		var/mob/living/carbon/human/H = infected_targets[key]
+		if(QDELETED(H))
+			infected_targets -= key
+	for(var/key in zombified_targets)
+		var/mob/living/carbon/human/H = zombified_targets[key]
+		if(QDELETED(H))
+			zombified_targets -= key
+
 	// Check for nearby targets to infect
 	for(var/mob/living/carbon/human/H in range(spread_range, src))
 		if(H != src && !H.SCP && H.stat != DEAD)
-			if(!(H in infected_targets) && !(H in zombified_targets))
+			var/key = REF(H)
+			if(!infected_targets[key] && !zombified_targets[key])
 				attempt_infection(H, infection_type)
 
 /obj/item/reagent_containers/glass/bottle/scp008/proc/get_spread_range(infection_type)
@@ -154,10 +165,11 @@
 	if(!target || target.stat == DEAD)
 		return
 
-	if((target in infected_targets) || (target in zombified_targets))
+	var/key = REF(target)
+	if(infected_targets[key] || zombified_targets[key])
 		return
 
-	infected_targets += target
+	infected_targets[key] = target
 	total_infections_caused++
 	containment_breached = TRUE
 	containment_status = "breached"
@@ -216,8 +228,9 @@
 	if(!target || target.stat == DEAD)
 		return
 
-	infected_targets -= target
-	zombified_targets += target
+	var/key = REF(target)
+	infected_targets -= key
+	zombified_targets[key] = target
 	total_host_deaths++
 
 	visible_message("<span class='danger'>[target] has been completely zombified by SCP-008!</span>")
@@ -412,7 +425,6 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/scp008_zombie/process()
-	// Process infection spread
 	if(can_infect && world.time >= infection_cooldown + infection_cooldown_time)
 		process_infection_spread()
 		infection_cooldown = world.time
@@ -458,17 +470,6 @@
 // END OF SCP-008 REDESIGN
 // ============================================================================
 
-/obj/item/reagent_containers/glass/bottle/scp008/proc/on_infection(mob/living/carbon/human/victim)
-	if(!victim)
-		return
-	hook_scp_combat(victim, "SCP-008", 0, infection_strength)
-
-/obj/item/reagent_containers/glass/bottle/scp008/proc/on_zombification(mob/living/carbon/human/victim)
-	if(!victim)
-		return
-	hook_player_death_near_scp(victim, "SCP-008")
-
 /obj/item/reagent_containers/glass/bottle/scp008/proc/on_containment_breach()
 	hook_scp_breach("SCP-008", src)
-
 

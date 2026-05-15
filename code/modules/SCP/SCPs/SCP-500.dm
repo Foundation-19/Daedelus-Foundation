@@ -2,7 +2,7 @@
 	name = "small plastic jar"
 	desc = "A small plastic jar labeled 'SCP-500'. It contains a limited supply of red pills that can cure any disease or affliction."
 	icon = 'icons/scp/scpstructures(32x32).dmi'
-	icon_state = "scp500_jar"
+	icon_state = "great_wave"
 
 /obj/item/storage/pill_bottle/scp500/Initialize()
 	. = ..()
@@ -41,8 +41,7 @@
 	H.setToxLoss(0)
 	H.setOxyLoss(0)
 	H.setCloneLoss(0)
-	if(H.stamina)
-		H.stamina.adjust(H.stamina.maximum - H.stamina.current)
+	H.stamina.adjust(H.stamina.maximum - H.stamina.current)
 	H.setOrganLoss(ORGAN_SLOT_BRAIN, 0)
 	H.reagents?.remove_all()
 	H.SetUnconscious(0)
@@ -61,3 +60,4 @@
 /obj/item/reagent_containers/pill/scp500/examine(mob/user)
 	. = ..()
 	to_chat(user, span_notice("A small red pill from SCP-500. One dose cures any disease or affliction. There are only 47 of these in existence."))
+

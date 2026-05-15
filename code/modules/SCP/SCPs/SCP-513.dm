@@ -2,7 +2,7 @@
 	name = "SCP-513"
 	desc = "A rusted cowbell. Touching it makes you want to ring it."
 	icon = 'icons/scp/scp-513.dmi'
-	icon_state = "bell"
+	icon_state = "mindfuckcowbell"
 	var/ring_cooldown = 0
 	var/ring_cooldown_time = 30 SECONDS
 	var/hear_radius = 7
@@ -61,6 +61,7 @@
 	var/sighting_interval_min = 90 SECONDS
 	var/sighting_interval_max = 300 SECONDS
 	var/next_sighting = 0
+	var/obj/effect/scp513_1/ghost_effect
 
 /datum/element/scp513_stalked/Attach(datum/target)
 	. = ..()
@@ -69,6 +70,7 @@
 	var/mob/living/carbon/human/H = target
 	stalk_duration = 0
 	next_sighting = world.time + rand(sighting_interval_min, sighting_interval_max)
+	ghost_effect = new /obj/effect/scp513_1(get_turf(H), H)
 	RegisterSignal(H, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 	RegisterSignal(H, COMSIG_PARENT_QDELETING, PROC_REF(on_target_destroy))
 	to_chat(H, "<span class='warning'>You feel like something is watching you from just out of sight...</span>")
@@ -78,6 +80,7 @@
 	var/mob/living/carbon/human/H = source
 	UnregisterSignal(H, COMSIG_LIVING_LIFE)
 	UnregisterSignal(H, COMSIG_PARENT_QDELETING)
+	QDEL_NULL(ghost_effect)
 
 /datum/element/scp513_stalked/proc/on_target_destroy(datum/source)
 	SIGNAL_HANDLER
@@ -95,6 +98,7 @@
 		next_sighting = world.time + rand(sighting_interval_min, sighting_interval_max)
 
 /datum/element/scp513_stalked/proc/trigger_sighting(mob/living/carbon/human/H)
+	set waitfor = FALSE
 	var/list/sightings = list(
 		"You catch a glimpse of a tall, thin figure in your peripheral vision. When you turn, nothing is there.",
 		"For a moment, you see a gangly silhouette standing in the doorway. It vanishes when you blink.",
@@ -120,7 +124,7 @@
 	name = "SCP-513-1"
 	desc = "A tall, thin figure with disproportionately long limbs. It seems to flicker in and out of existence."
 	icon = 'icons/scp/scp-513-1.dmi'
-	icon_state = "shadow"
+	icon_state = "visual"
 	density = FALSE
 	anchored = TRUE
 	invisibility = INVISIBILITY_MAXIMUM
@@ -168,3 +172,4 @@
 	if(victim?.client)
 		victim.client.images -= ghost_image
 	qdel(ghost_image)
+

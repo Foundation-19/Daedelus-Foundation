@@ -129,15 +129,7 @@
 #define SCP914_FINE "FINE"
 #define SCP914_VERY_FINE "VERY FINE"
 
-// ===== SCP RADIO FREQUENCIES (non-overlapping with base frequencies) =====
-#define FREQ_SCP_COMMAND 1361
-#define FREQ_SCP_SECURITY 1363
-#define FREQ_SCP_SCIENCE 1365
-#define FREQ_SCP_MEDICAL 1367
-#define FREQ_SCP_CONTAINMENT 1369
-#define FREQ_SCP_MTF 1371
-#define FREQ_SCP_ENGINEERING 1373
-#define FREQ_SCP_DCLASS 1375
+// ===== SCP RADIO FREQUENCIES moved to code/__DEFINES/radio.dm =====
 
 // ===== FACILITY LOCKDOWN =====
 #define LOCKDOWN_NONE 0

@@ -7,6 +7,7 @@
 	user_mind = user.mind
 
 /datum/persistent_progression_ui/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	if(!user.client)
 		return
 
@@ -389,6 +390,7 @@
 
 // Classes overview UI
 /datum/persistent_progression_classes_ui/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "PersistentProgressionClasses", "Available Classes", 800, 600)
@@ -436,6 +438,7 @@
 
 // Factions overview UI
 /datum/persistent_progression_factions_ui/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "PersistentProgressionFactions", "Available Factions", 800, 600)
@@ -482,6 +485,7 @@
 	ui_interact(admin.mob, null)
 
 /datum/persistent_progression_admin_ui/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "PersistentProgressionAdmin", "Persistent Progression Admin", 1000, 700)
@@ -586,6 +590,7 @@
 	ckey = target_ckey
 
 /datum/persistent_progression_player_view_ui/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "PersistentProgressionPlayerView", "Player Progress - [ckey]", 800, 600)

@@ -340,7 +340,7 @@ SUBSYSTEM_DEF(dclass)
 			player.notify_lights_out()
 
 // Get or create D-Class player data
-/datum/dclass_manager/proc/get_dclass_player(ckey)
+/datum/dclass_manager/proc/get_dclass_player(ckey) as /datum/dclass_player
 	if(!(ckey in dclass_players))
 		dclass_players[ckey] = new /datum/dclass_player(ckey)
 	return dclass_players[ckey]

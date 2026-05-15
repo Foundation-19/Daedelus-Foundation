@@ -79,6 +79,7 @@
 	update_icon()
 
 /obj/machinery/scranton_reality_anchor/update_icon()
+	. = ..()
 	if(active)
 		icon_state = "hub_on"
 		set_light(range, 2, LIGHT_COLOR_BLUE)
@@ -89,7 +90,7 @@
 /obj/machinery/scranton_reality_anchor/attack_hand(mob/user)
 	if(!ishuman(user))
 		return
-	if(!do_after(user, src, 3 SECONDS))
+	if(!do_after(user, 3 SECONDS, src))
 		return
 	if(active)
 		deactivate()
@@ -122,6 +123,7 @@
 	. += span_notice("Suppressed Entities: [length(suppressed_mobs)]")
 
 /obj/machinery/scranton_reality_anchor/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ScrantonRealityAnchor", "Scranton Reality Anchor")

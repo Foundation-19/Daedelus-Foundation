@@ -13,6 +13,7 @@
 	var/breach_triggered = FALSE
 
 /datum/game_mode/scp_testing/pre_setup()
+	..()
 	return TRUE
 
 /datum/game_mode/scp_testing/post_setup(report)
@@ -38,6 +39,7 @@
 	priority_announce("ALERT: Testing incident involving [scp_id]. Containment breach confirmed. Security personnel respond immediately.", "TESTING INCIDENT", sound_type = ANNOUNCER_ALERT)
 
 /datum/game_mode/scp_testing/check_finished()
+	..()
 	if(!SSticker.setup_done)
 		return FALSE
 	var/time_elapsed = world.time - round_start_time

@@ -189,7 +189,7 @@ SUBSYSTEM_DEF(foundation_pathogens)
 	if(SSscp_research?.manager)
 		if(SSscp_research.manager.total_research_points < point_cost)
 			return FALSE
-		SSscp_research.manager.total_research_points -= point_cost
+		adjust_global_research_points(-point_cost, "pathogen_research_start")
 
 	var/research_time = get_research_time(pathogen_type)
 
@@ -290,7 +290,7 @@ SUBSYSTEM_DEF(foundation_pathogens)
 	if(reason == "cure")
 		points *= 2
 	if(SSscp_research && SSscp_research.manager)
-		SSscp_research.manager.total_research_points += points
+		adjust_global_research_points(points, "pathogen_research")
 
 /datum/controller/subsystem/foundation_pathogens/proc/award_pathogen_research_points_by_type(pathogen_type, research_stage, reason)
 	var/points = 0
@@ -314,7 +314,7 @@ SUBSYSTEM_DEF(foundation_pathogens)
 	else if(research_stage >= RESEARCH_STAGE_COUNTERMEASURE)
 		points *= 2
 	if(SSscp_research && SSscp_research.manager)
-		SSscp_research.manager.total_research_points += points
+		adjust_global_research_points(points, "pathogen_research")
 
 /datum/controller/subsystem/foundation_pathogens/proc/process_cross_scp_interactions(datum/pathogen/foundation/F)
 	if(!F || !F.affected_mob || QDELETED(F.affected_mob))

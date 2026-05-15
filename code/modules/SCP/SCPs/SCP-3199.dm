@@ -39,7 +39,7 @@
 	QDEL_NULL(research_system)
 	return ..()
 
-/mob/living/scp/scp3199/Life(datum/controller/process/mobs/parent)
+/mob/living/scp/scp3199/Life(seconds_per_tick = SSMOBS_DT, times_fired)
 	. = ..()
 	if(stat == DEAD)
 		return

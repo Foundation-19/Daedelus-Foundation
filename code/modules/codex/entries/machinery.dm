@@ -64,7 +64,7 @@
 
 /datum/codex_entry/machine/microwave
 	name = "Microwave"
-	associated_paths = list(/obj/machinery/microwave)
+	associated_paths = list(/obj/machinery/appliance/cooker/microwave)
 	controls_text = "Right Click - Turn on."
 
 /datum/codex_entry/machine/iv_drip

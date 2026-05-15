@@ -15,6 +15,7 @@
 	var/scp_stolen = FALSE
 
 /datum/game_mode/scp_ci_raid/pre_setup()
+	..()
 	return TRUE
 
 /datum/game_mode/scp_ci_raid/post_setup(report)
@@ -51,7 +52,7 @@
 		var/turf/T = pick(spawn_turfs)
 		var/mob/living/carbon/human/H = new(T)
 		H.equipOutfit(/datum/outfit/ci_operative)
-		var/datum/mind/M = new /datum/mind(key="")
+		var/datum/mind/M = new /datum/mind("")
 		M.transfer_to(H)
 		var/datum/antagonist/ci_operative/ci_antag = new()
 		ci_antag.objective = ci_objective
@@ -73,6 +74,7 @@
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/end_ci_raid), 2 MINUTES)
 
 /datum/game_mode/scp_ci_raid/check_finished()
+	..()
 	if(!SSticker.setup_done)
 		return FALSE
 	if(raid_phase >= 3)
@@ -140,4 +142,4 @@
 	id = /obj/item/card/id/advanced/chameleon
 
 /proc/end_ci_raid()
-	SSticker.force_ending = TRUE
+	SSticker.set_force_ending(TRUE)

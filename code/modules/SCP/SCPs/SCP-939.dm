@@ -140,7 +140,7 @@
 	if(ishuman(target))
 		voice_system?.learn_voice(target)
 
-/mob/living/scp/scp939/Hear(message, atom/movable/speaker, message_language, radio_freq, list/spans, list/message_mods)
+/mob/living/scp/scp939/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), atom/sound_loc, message_range)
 	. = ..()
 	if(speaker && ishuman(speaker))
 		voice_system?.learn_voice(speaker)

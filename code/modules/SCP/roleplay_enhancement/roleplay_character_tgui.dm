@@ -172,6 +172,7 @@
 	return "foundation"
 
 /datum/roleplay_character_ui/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "RoleplayCharacterSheet", "SCP Foundation - Character Sheet", 800, 600)

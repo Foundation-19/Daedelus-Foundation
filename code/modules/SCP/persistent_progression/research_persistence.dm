@@ -158,21 +158,35 @@ SUBSYSTEM_DEF(research_persistence)
 
 // Research Persistence Manager Methods
 /datum/research_persistence_manager/proc/process_research()
-	// Update research statistics
+	sync_from_scp_research()
 	update_research_statistics()
-
-	// Process active projects
 	process_projects()
-
-	// Update research facilities
 	update_facilities()
-
-	// Process grants
 	process_grants()
 
-	// Save data periodically
-	if(world.time % 3000 == 0) // Every 5 minutes
+	if(world.time % 3000 == 0)
 		save_research_data()
+		if(SSscp_research?.manager)
+			SSscp_research.manager.save_research_persistence()
+
+/datum/research_persistence_manager/proc/sync_from_scp_research()
+	if(!SSscp_research || !SSscp_research.manager)
+		return
+	var/datum/scp_research_manager/M = SSscp_research.manager
+	for(var/project_id in M.research_projects)
+		var/datum/research_data/scp_project = M.research_projects[project_id]
+		if(!research_projects[project_id])
+			var/datum/research_persistence_project/p = new /datum/research_persistence_project(project_id, "SCP-[scp_project.scp_designation] Research", "Research on SCP-[scp_project.scp_designation] - [scp_project.research_type]", scp_project.research_type, scp_project.researcher_ckey)
+			p.progress = round((scp_project.research_points / max(1, scp_project.research_cost)) * 100)
+			p.status = scp_project.status
+			research_projects[project_id] = p
+		else
+			var/datum/research_persistence_project/p = research_projects[project_id]
+			p.progress = round((scp_project.research_points / max(1, scp_project.research_cost)) * 100)
+			p.status = scp_project.status
+			if(scp_project.status == "COMPLETED" && p.status != "COMPLETED")
+				p.actual_completion = world.time
+				completed_projects++
 
 /datum/research_persistence_manager/proc/add_research_project(var/project_name, var/project_description, var/research_field, var/lead_researcher, var/budget = 0, var/priority = 1)
 	var/project_id = "project_[world.time]"

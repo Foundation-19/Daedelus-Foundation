@@ -12,6 +12,7 @@
 #define EXPERIMENT_OUTCOME_FAILURE_MAJOR 7
 #define EXPERIMENT_OUTCOME_CATASTROPHIC 8
 
+#ifndef EXPERIMENT_TYPE_BEHAVIORAL
 #define EXPERIMENT_TYPE_BEHAVIORAL 1
 #define EXPERIMENT_TYPE_CONTAINMENT 2
 #define EXPERIMENT_TYPE_INTERACTION 3
@@ -28,6 +29,7 @@
 #define EXPERIMENT_RISK_MEDIUM 3
 #define EXPERIMENT_RISK_HIGH 4
 #define EXPERIMENT_RISK_CRITICAL 5
+#endif
 
 #define EXPERIMENT_ACCESS_NONE 0
 #define EXPERIMENT_ACCESS_OBSERVE 1
@@ -181,6 +183,7 @@ SUBSYSTEM_DEF(scp_experiments)
 	
 	active_experiments[exp_id] = experiment
 	global_experiment_count++
+	hook_scp_experiment(researcher, scp_id, experiment_type)
 	
 	SSscp_persistence.manager?.scp_instances?[scp_id]?.add_interaction_record(researcher, "experiment_started:[experiment_type]")
 	
@@ -226,7 +229,9 @@ SUBSYSTEM_DEF(scp_experiments)
 			trigger_catastrophe(exp, researcher)
 	
 	SSscp_persistence.manager?.scp_instances?[exp.scp_id]?.add_interaction_record(researcher, "experiment_completed:[outcome]")
-	
+	adjust_global_research_points(max(0, xp_change), "experiment_completion:[exp.scp_id]")
+	track_scp_interaction(researcher, exp.scp_id, "experiment", outcome)
+
 	return TRUE
 
 /datum/scp_experiment_manager/proc/calculate_xp_change(outcome, modifier)

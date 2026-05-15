@@ -1,8 +1,8 @@
 /obj/item/paper/scp012
 	name = "SCP-012"
 	desc = "A sheet of paper with an incomplete musical composition that seems to drive those who read it to complete it with their own blood."
-	icon = 'icons/scp/scp-012.dmi'
-	icon_state = "paper"
+	icon = 'icons/scp/scpstructures(32x32).dmi'
+	icon_state = "scp012"
 	var/completion_progress = 0
 	var/max_completion = 100
 	var/list/affected_composers = list()
@@ -12,6 +12,7 @@
 	var/composition_cooldown_time = 60 SECONDS
 	var/max_obsession = 100
 	var/persistence_cooldown = 0
+	var/message_cooldown = 30 SECONDS
 
 	// Persistence tracking
 	var/composers_affected = 0
@@ -47,15 +48,25 @@
 
 // Core mechanics
 /obj/item/paper/scp012/process()
-	// Drain sanity from nearby targets
+	if(world.time < composition_cooldown + 20)
+		return
+	composition_cooldown = world.time
 	drain_nearby_sanity()
 
 // Drain sanity from nearby targets
 /obj/item/paper/scp012/proc/drain_nearby_sanity()
+	var/list/stale_keys = list()
+	for(var/ckey in affected_composers)
+		var/list/data = affected_composers[ckey]
+		var/mob/living/carbon/human/stored_mob = data["mob"]
+		if(QDELETED(stored_mob) || stored_mob.stat == DEAD)
+			stale_keys += ckey
+	for(var/ckey in stale_keys)
+		affected_composers -= ckey
+
 	for(var/mob/living/carbon/human/H in range(sanity_drain_radius, src))
 		if(H.SCP || H.stat == DEAD)
 			continue
-
 		apply_sanity_drain(H)
 
 // Apply sanity drain effect
@@ -63,29 +74,44 @@
 	if(!target)
 		return
 
+	var/ckey = target.ckey || REF(target)
+
 	// Initialize obsession level if not present
-	if(!(target in affected_composers))
-		affected_composers[target] = 0
+	if(!affected_composers[ckey])
+		affected_composers[ckey] = list("mob" = target, "obsession" = 0, "last_message" = 0)
+
+	var/list/data = affected_composers[ckey]
+
+	// Update mob ref in case of re-login
+	data["mob"] = target
 
 	// Increase obsession level
-	affected_composers[target] = min(max_obsession, affected_composers[target] + 2)
+	data["obsession"] = min(max_obsession, data["obsession"] + 2)
 	sanity_drained++
 
 	// Apply sanity effects based on obsession level
-	var/obsession_level = affected_composers[target]
+	var/obsession_level = data["obsession"]
+	var/last_message = data["last_message"]
+	var/can_message = (world.time > last_message + message_cooldown)
 
 	if(obsession_level >= 20)
-		to_chat(target, "<span class='warning'>You feel drawn to the musical composition...</span>")
+		if(can_message)
+			to_chat(target, "<span class='warning'>You feel drawn to the musical composition...</span>")
+			data["last_message"] = world.time
 		target.adjustToxLoss(1)
 
 	if(obsession_level >= 40)
-		to_chat(target, "<span class='danger'>The composition is calling to you! You must complete it!</span>")
+		if(can_message)
+			to_chat(target, "<span class='danger'>The composition is calling to you! You must complete it!</span>")
+			data["last_message"] = world.time
 		target.adjustToxLoss(3)
 		if(target.stamina)
 			target.stamina.adjust(-10)
 
 	if(obsession_level >= 60)
-		to_chat(target, "<span class='danger'>The music is overwhelming! You can't think of anything else!</span>")
+		if(can_message)
+			to_chat(target, "<span class='danger'>The music is overwhelming! You can't think of anything else!</span>")
+			data["last_message"] = world.time
 		target.adjustToxLoss(5)
 		if(target.stamina)
 			target.stamina.adjust(-20)
@@ -93,10 +119,13 @@
 		// Random movement towards the composition
 		if(prob(30))
 			step_towards(target, src)
-			to_chat(target, "<span class='danger'>You move closer to the composition!</span>")
+			if(can_message)
+				to_chat(target, "<span class='danger'>You move closer to the composition!</span>")
 
 	if(obsession_level >= 80)
-		to_chat(target, "<span class='danger'>You're completely obsessed! You must complete the composition with your blood!</span>")
+		if(can_message)
+			to_chat(target, "<span class='danger'>You're completely obsessed! You must complete the composition with your blood!</span>")
+			data["last_message"] = world.time
 		target.adjustToxLoss(8)
 		if(target.stamina)
 			target.stamina.adjust(-30)
@@ -106,7 +135,9 @@
 			attempt_completion(target)
 
 	if(obsession_level >= 100)
-		to_chat(target, "<span class='danger'>The obsession has consumed you! You will complete the composition or die trying!</span>")
+		if(can_message)
+			to_chat(target, "<span class='danger'>The obsession has consumed you! You will complete the composition or die trying!</span>")
+			data["last_message"] = world.time
 		target.adjustToxLoss(15)
 		if(target.stamina)
 			target.stamina.adjust(-50)
@@ -263,7 +294,8 @@
 			to_chat(user, "<span class='danger'>A sheet of paper with an incomplete musical composition. You feel strangely drawn to it...</span>")
 
 			// Apply initial obsession
-			if(!(H in affected_composers))
-				affected_composers[H] = 10
+			var/ckey = H.ckey || REF(H)
+			if(!affected_composers[ckey])
+				affected_composers[ckey] = list("mob" = H, "obsession" = 10, "last_message" = 0)
 				to_chat(user, "<span class='warning'>The composition begins to call to you...</span>")
 

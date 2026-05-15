@@ -231,7 +231,7 @@
 		return
 	. += "[icon_state]-[result]"
 
-/obj/item/dice/microwave_act(obj/machinery/microwave/M)
+/obj/item/dice/microwave_act(obj/machinery/M)
 	if(microwave_riggable)
 		rigged = DICE_BASICALLY_RIGGED
 		rigged_value = result

@@ -1,7 +1,16 @@
-import { useBackend, useSharedState } from '../../backend';
-import { Box, Button, Dropdown, Input, NoticeBox, Section, Flex, LabeledList, ColorBox, Icon, Table, Tabs } from '../../components';
+import { sortBy } from 'common/collections';
+import { isEscape, KEY } from 'common/keys';
+import { Component } from 'react';
+
+import { resolveAsset } from '../../assets';
+import { useBackend, useLocalState, useSharedState } from '../../backend';
+import { Box, Button, Dropdown, Input, NoticeBox, Section, Flex, LabeledList, ColorBox, Icon, KeyListener, Stack, Table, Tabs, Tooltip, TrackOutsideClicks } from '../../components';
+import { fetchRetry } from '../../http';
 import { Window } from '../../layouts';
 import { CharacterPreview } from '../PreferencesMenu/CharacterPreview';
+import { ServerPreferencesFetcher } from '../PreferencesMenu/ServerPreferencesFetcher';
+import features from '../PreferencesMenu/preferences/features';
+import { FeatureValueInput } from '../PreferencesMenu/preferences/features/base';
 import { C, term, TermBox, TermHeader, TermLabel, TermValue, TermRow, TermDivider, TermButton, PriorityButtons } from './shared';
 
 const TABS = [
@@ -9,7 +18,6 @@ const TABS = [
   { key: 'faction', label: 'FACTION' },
   { key: 'jobs', label: 'ASSIGNMENT' },
   { key: 'custom', label: 'PERSONNEL' },
-  { key: 'species', label: 'SPECIES' },
   { key: 'quirks', label: 'PSYCHE' },
   { key: 'languages', label: 'LANG' },
   { key: 'loadout', label: 'EQUIP' },
@@ -21,7 +29,8 @@ const TABS = [
   { key: 'finalize', label: 'COMMIT' },
 ];
 
-const inputStyle = { fontFamily: C.mono, fontSize: '14px', height: '32px', minHeight: '32px' };
+const inputStyle = { fontFamily: C.mono, fontSize: '14px', height: '32px', minHeight: '32px', width: '100%' };
+const wideInputStyle = { fontFamily: C.mono, fontSize: '14px', height: '32px', minHeight: '32px', flex: 1, minWidth: '180px' };
 
 // ── OVERVIEW PAGE ──────────────────────────────────────────────
 const OverviewPage = ({ data }: any) => (
@@ -143,14 +152,11 @@ const CustomizationPage = () => {
   const names: Record<string, any> = charPrefs.names || {};
   const nonContextual: Record<string, any> = charPrefs.non_contextual || {};
   const randomization: Record<string, any> = charPrefs.randomization || {};
-  const speciesChoices: string[] = data.species_choices || [];
-  const speciesNames: Record<string, string> = data.species_names || {};
-  const currentSpeciesId: string = data.species_id || '';
   const genderChoices: string[] = data.gender_choices || ['male', 'female', 'plural'];
   const [nameDraft, setNameDraft] = useSharedState('CS.nameDraft', data.real_name || '');
   const [ageDraft, setAgeDraft] = useSharedState('CS.ageDraft', String(data.age ?? ''));
-  const [eyeDraft, setEyeDraft] = useSharedState('CS.eyeDraft', data.eye_color || '');
-  const [hairDraft, setHairDraft] = useSharedState('CS.hairDraft', data.hair_color || '');
+  const [eyeDraft, setEyeDraft] = useSharedState('CS.eyeDraft', (data.eye_color || '').replace('#', ''));
+  const [hairDraft, setHairDraft] = useSharedState('CS.hairDraft', (data.hair_color || '').replace('#', ''));
 
   const renderPrefRow = (key: string, val: any) => {
     if (val === null || val === undefined) return null;
@@ -190,7 +196,7 @@ const CustomizationPage = () => {
       <Box style={{ marginBottom: '14px' }}>
         <TermLabel>DESIGNATION</TermLabel>
         <Box style={{ display: 'flex', gap: '6px', marginTop: '4px' }}>
-          <Input fluid value={nameDraft} onChange={(_: any, v: string) => setNameDraft(v)} style={inputStyle} />
+          <Input fluid value={nameDraft} onChange={(_: any, v: string) => setNameDraft(v)} style={wideInputStyle} />
           <TermButton onClick={() => act('set_preference', { preference: 'real_name', value: nameDraft })}>SAVE</TermButton>
           <TermButton color="yellow" onClick={() => act('randomize_name', { preference: 'real_name' })}>RAND</TermButton>
         </Box>
@@ -198,7 +204,7 @@ const CustomizationPage = () => {
       <Box style={{ marginBottom: '14px' }}>
         <TermLabel>AGE</TermLabel>
         <Box style={{ display: 'flex', gap: '6px', marginTop: '4px' }}>
-          <Input fluid value={ageDraft} onChange={(_: any, v: string) => setAgeDraft(v.replace(/[^0-9]/g, ''))} style={inputStyle} />
+          <Input fluid value={ageDraft} onChange={(_: any, v: string) => setAgeDraft(v.replace(/[^0-9]/g, ''))} style={wideInputStyle} />
           <TermButton onClick={() => act('set_preference', { preference: 'age', value: Number(ageDraft) })}>SAVE</TermButton>
         </Box>
       </Box>
@@ -208,29 +214,25 @@ const CustomizationPage = () => {
           <Dropdown width="100%" options={genderChoices} selected={data.gender || ''} displayText={data.gender || 'SELECT...'} onSelected={(v: string) => act('set_preference', { preference: 'gender', value: v })} />
         </Box>
       </Box>
-      <Box style={{ marginBottom: '14px' }}>
-        <TermLabel>SPECIES</TermLabel>
-        <Box style={{ marginTop: '4px' }}>
-          <Dropdown width="100%" options={speciesChoices.map((id: string) => ({ value: id, displayText: speciesNames[id] || id }))} selected={currentSpeciesId} displayText={speciesNames[currentSpeciesId] || currentSpeciesId || 'SELECT...'} onSelected={(v: string) => act('set_preference', { preference: 'species', value: v })} />
-        </Box>
-      </Box>
 
       <TermDivider />
       <TermHeader>BIOMETRIC DATA</TermHeader>
       <Box style={{ marginBottom: '14px' }}>
         <TermLabel>EYE COLOR</TermLabel>
         <Box style={{ display: 'flex', gap: '6px', alignItems: 'center', marginTop: '4px' }}>
-          <Input fluid value={eyeDraft} onChange={(_: any, v: string) => setEyeDraft(v.replace(/[^0-9A-Fa-f]/g, '').slice(0, 6))} style={inputStyle} />
+          <Input value={eyeDraft} onChange={(_: any, v: string) => setEyeDraft(v.replace(/[^0-9A-Fa-f]/g, '').slice(0, 6))} style={wideInputStyle} />
           <Box style={{ width: '32px', height: '32px', background: eyeDraft ? `#${eyeDraft}` : 'transparent', border: `1px solid ${C.border}`, flexShrink: 0 }} />
-          <TermButton onClick={() => act('set_preference', { preference: 'eye_color', value: eyeDraft })}>SAVE</TermButton>
+          <TermButton onClick={() => act('set_preference', { preference: 'eye_color', value: `#${eyeDraft}` })}>SAVE</TermButton>
+          <TermButton color="yellow" onClick={() => act('set_color_preference', { preference: 'eye_color' })}>PICK</TermButton>
         </Box>
       </Box>
       <Box style={{ marginBottom: '14px' }}>
         <TermLabel>HAIR COLOR</TermLabel>
         <Box style={{ display: 'flex', gap: '6px', alignItems: 'center', marginTop: '4px' }}>
-          <Input fluid value={hairDraft} onChange={(_: any, v: string) => setHairDraft(v.replace(/[^0-9A-Fa-f]/g, '').slice(0, 6))} style={inputStyle} />
+          <Input value={hairDraft} onChange={(_: any, v: string) => setHairDraft(v.replace(/[^0-9A-Fa-f]/g, '').slice(0, 6))} style={wideInputStyle} />
           <Box style={{ width: '32px', height: '32px', background: hairDraft ? `#${hairDraft}` : 'transparent', border: `1px solid ${C.border}`, flexShrink: 0 }} />
-          <TermButton onClick={() => act('set_preference', { preference: 'hair_color', value: hairDraft })}>SAVE</TermButton>
+          <TermButton onClick={() => act('set_preference', { preference: 'hair_color', value: `#${hairDraft}` })}>SAVE</TermButton>
+          <TermButton color="yellow" onClick={() => act('set_color_preference', { preference: 'hair_color' })}>PICK</TermButton>
         </Box>
       </Box>
 
@@ -281,31 +283,6 @@ const CustomizationPage = () => {
       <TermDivider />
       <Box style={{ display: 'flex', gap: '6px' }}>
         <TermButton color="yellow" onClick={() => act('randomize_character')}>RANDOMIZE ALL</TermButton>
-      </Box>
-    </TermBox>
-  );
-};
-
-// ── SPECIES PAGE ───────────────────────────────────────────────
-const SpeciesPage = () => {
-  const { act, data }: any = useBackend();
-  const speciesChoices: string[] = data.species_choices || [];
-  const speciesNames: Record<string, string> = data.species_names || {};
-  const currentSpeciesId: string = data.species_id || '';
-
-  return (
-    <TermBox>
-      <TermHeader>SPECIES SELECTION</TermHeader>
-      <Box style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginBottom: '12px' }}>
-        {speciesChoices.map((id: string) => (
-          <TermButton key={id} selected={id === currentSpeciesId} color={id === currentSpeciesId ? 'green' : undefined} onClick={() => act('set_preference', { preference: 'species', value: id })}>
-            {speciesNames[id] || id}
-          </TermButton>
-        ))}
-      </Box>
-      <TermDivider />
-      <Box style={term({ color: C.textDim, fontSize: '11px', fontStyle: 'italic' })}>
-        Select a species to view details. Species features are available on the PERSONNEL tab after selection.
       </Box>
     </TermBox>
   );
@@ -447,76 +424,352 @@ const AntagonistsPage = () => {
 const GamePage = () => {
   const { act, data }: any = useBackend();
   const charPrefs: any = data.character_preferences || {};
-  const gamePrefs: Record<string, any> = charPrefs.game_preferences || {};
-  const categories: string[] = Object.keys(gamePrefs).sort();
+  const gamePrefs: Record<string, unknown> = charPrefs.game_preferences || {};
+  const [activeCategory, setActiveCategory] = useSharedState('CS.gameCategory', '');
 
-  if (!categories.length) return <TermBox><NoticeBox>NO GAME PREFERENCES LOADED</NoticeBox></TermBox>;
+  const categories: Record<string, { featureId: string; feature: any; value: unknown }[]> = {};
+  const featureIds = Object.keys(gamePrefs);
+
+  for (const featureId of featureIds) {
+    const value = gamePrefs[featureId];
+    const feature = features[featureId];
+    const category = feature?.category || 'GENERAL';
+    if (!categories[category]) categories[category] = [];
+    categories[category].push({ featureId, feature, value });
+  }
+
+  const sortedCategories = Object.keys(categories).sort();
+  const currentCat = activeCategory || sortedCategories[0] || '';
+
+  if (!featureIds.length) return <TermBox><NoticeBox>NO GAME PREFERENCES LOADED</NoticeBox></TermBox>;
 
   return (
     <TermBox>
       <TermHeader>SYSTEM CONFIGURATION</TermHeader>
-      {categories.map((cat) => (
-        <Box key={cat} style={{ marginBottom: '12px' }}>
-          <TermHeader style={{ fontSize: '9px', marginBottom: '4px' }}>{cat.replace(/_/g, ' ')}</TermHeader>
-          <Box style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
-            {Object.entries(gamePrefs[cat]).map(([key, val]: [string, any]) => {
-              if (typeof val === 'boolean') {
-                return <TermButton key={key} selected={!!val} color={val ? 'green' : undefined} onClick={() => act('set_preference', { preference: key, value: !val })}>{key.replace(/_/g, ' ')}</TermButton>;
-              }
-              if (typeof val === 'object' && val?.choices) {
-                return (
-                  <TermRow key={key}>
-                    <TermLabel>{key.replace(/_/g, ' ')}</TermLabel>
-                    <Dropdown width="150px" options={val.choices} selected={val.selected} displayText={val.selected || 'SELECT...'} onSelected={(v: string) => act('set_preference', { preference: key, value: v })} />
-                  </TermRow>
-                );
-              }
-              if (typeof val === 'number') {
-                return <TermRow key={key}><TermLabel>{key.replace(/_/g, ' ')}</TermLabel><TermValue>{String(val)}</TermValue></TermRow>;
-              }
-              return null;
-            })}
-          </Box>
-        </Box>
-      ))}
+      <Box style={{ display: 'flex', flexWrap: 'wrap', gap: '2px', marginBottom: '8px', borderBottom: `1px solid ${C.border}`, paddingBottom: '8px' }}>
+        {sortedCategories.map((cat) => (
+          <TermButton key={cat} selected={cat === currentCat} onClick={() => setActiveCategory(cat)}>
+            {cat}
+          </TermButton>
+        ))}
+      </Box>
+      <ServerPreferencesFetcher render={(serverData: any) => {
+        const items = categories[currentCat] || [];
+        return items.map(({ featureId, feature, value }) => {
+          const featureName = feature?.name || featureId.replace(/_/g, ' ');
+          const hasDescription = !!feature?.description;
+          const nameElement = hasDescription ? (
+            <Tooltip content={feature.description} position="bottom-start">
+              <Box as="span" style={{ borderBottom: `1px dotted ${C.amber}`, cursor: 'help' }}>{featureName}</Box>
+            </Tooltip>
+          ) : featureName;
+
+          return (
+            <Box key={featureId} style={{ marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '8px', borderBottom: `1px solid ${C.border}`, paddingBottom: '6px' }}>
+              <Box style={{ flex: '0 0 40%', fontFamily: C.mono, fontSize: '10px', color: C.text, letterSpacing: '0.05em' }}>
+                {nameElement}
+              </Box>
+              <Box style={{ flex: 1 }}>
+                {feature ? (
+                  <FeatureValueInput feature={feature} featureId={featureId} value={value} act={act} />
+                ) : (
+                  <Box style={{ fontFamily: C.mono, fontSize: '10px', color: C.redBright }}>
+                    [{String(value)}]
+                  </Box>
+                )}
+              </Box>
+            </Box>
+          );
+        });
+      }} />
     </TermBox>
   );
 };
 
 // ── KEYBINDINGS PAGE ───────────────────────────────────────────
-const KeybindingsPage = () => {
-  const { act, data }: any = useBackend();
-  const keybindings: Record<string, string[]> = data.keybindings || {};
-  const entries = Object.entries(keybindings);
-  const [filter, setFilter] = useSharedState('CS.keyFilter', '');
 
-  const filtered = filter
-    ? entries.filter(([name]) => name.toLowerCase().includes(filter.toLowerCase()))
-    : entries;
-
-  return (
-    <TermBox>
-      <TermHeader>KEYBINDING CONFIGURATION</TermHeader>
-      <Box style={{ display: 'flex', gap: '6px', marginBottom: '10px', alignItems: 'center' }}>
-        <TermLabel>FILTER</TermLabel>
-        <Input fluid value={filter} onChange={(_: any, v: string) => setFilter(v)} style={inputStyle} placeholder="Search bindings..." />
-      </Box>
-      <Box style={{ display: 'flex', gap: '6px', marginBottom: '10px' }}>
-        <TermButton color="yellow" onClick={() => act('reset_all_keybinds')}>RESET ALL</TermButton>
-        <TermButton onClick={() => act('reset_keybinds_to_defaults', { keybind_name: 'ALL' })}>DEFAULTS</TermButton>
-      </Box>
-      {filtered.length === 0 ? (
-        <Box style={term({ color: C.textDim, fontStyle: 'italic' })}>NO KEYBINDINGS FOUND</Box>
-      ) : filtered.map(([name, keys]: [string, any]) => (
-        <TermRow key={name}>
-          <TermLabel style={{ flex: 1, fontSize: '10px' }}>{name.replace(/_/g, ' ')}</TermLabel>
-          <TermValue style={{ flex: 1, fontSize: '10px' }}>{Array.isArray(keys) ? keys.join(', ') || '—' : String(keys)}</TermValue>
-          <TermButton color="red" onClick={() => act('reset_keybinds_to_defaults', { keybind_name: name })}>RST</TermButton>
-        </TermRow>
-      ))}
-    </TermBox>
-  );
+type Keybinding = {
+  description?: string;
+  name: string;
 };
+
+type Keybindings = Record<string, Record<string, Keybinding>>;
+
+const KEY_CODE_TO_BYOND: Record<string, string> = {
+  DEL: 'Delete',
+  DOWN: 'South',
+  END: 'Southwest',
+  HOME: 'Northwest',
+  INSERT: 'Insert',
+  LEFT: 'West',
+  PAGEDOWN: 'Southeast',
+  PAGEUP: 'Northeast',
+  RIGHT: 'East',
+  SPACEBAR: 'Space',
+  UP: 'North',
+};
+
+const DOM_KEY_LOCATION_NUMPAD = 3;
+
+function isStandardKey(event: KeyboardEvent): boolean {
+  return (
+    event.key !== KEY.Alt &&
+    event.key !== KEY.Control &&
+    event.key !== KEY.Shift &&
+    !isEscape(event.key)
+  );
+}
+
+const formatKeyboardEvent = (event: KeyboardEvent): string => {
+  let text = '';
+  if (event.altKey) text += 'Alt';
+  if (event.ctrlKey) text += 'Ctrl';
+  if (event.shiftKey) text += 'Shift';
+  if (event.location === DOM_KEY_LOCATION_NUMPAD) text += 'Numpad';
+  if (isStandardKey(event)) {
+    const key = event.key.toUpperCase();
+    text += KEY_CODE_TO_BYOND[key] || key;
+  }
+  return text;
+};
+
+const sortKeybindings = sortBy(([_, keybinding]: [string, Keybinding]) => keybinding.name);
+const sortKeybindingsByCategory = sortBy(([category]: [string, Record<string, Keybinding>]) => category);
+
+const moveToBottom = (entries: [string, unknown][], findCategory: string) => {
+  const idx = entries.findIndex(([cat]) => cat === findCategory);
+  if (idx >= 0) entries.push(entries.splice(idx, 1)[0]);
+};
+
+const KeybindingName = (props: { keybinding: Keybinding }) => {
+  const { keybinding } = props;
+  if (keybinding.description) {
+    return (
+      <Tooltip content={keybinding.description} position="bottom">
+        <Box as="span" style={{ borderBottom: `1px dotted ${C.amber}`, cursor: 'help' }}>
+          {keybinding.name}
+        </Box>
+      </Tooltip>
+    );
+  }
+  return <span>{keybinding.name}</span>;
+};
+
+const KeybindingSlot = (props: {
+  currentHotkey?: string;
+  onClick?: () => void;
+  typingHotkey?: string;
+}) => {
+  const { currentHotkey, onClick, typingHotkey } = props;
+  const isCapturing = typingHotkey !== undefined;
+  const child = (
+    <TermButton
+      fluid
+      selected={isCapturing}
+      color={isCapturing ? 'yellow' : undefined}
+      onClick={(event: any) => {
+        event.stopPropagation();
+        onClick?.();
+      }}
+      style={{ textAlign: 'center', minWidth: '70px' }}
+    >
+      {typingHotkey || currentHotkey || '—'}
+    </TermButton>
+  );
+  if (isCapturing && onClick) {
+    return <TrackOutsideClicks onOutsideClick={onClick}>{child}</TrackOutsideClicks>;
+  }
+  return child;
+};
+
+type KeybindingsPageState = {
+  keybindings?: Keybindings;
+  lastKeyboardEvent?: KeyboardEvent;
+  rebindingHotkey?: [string, number];
+  selectedKeybindings?: Record<string, string[]>;
+  activeCategory?: string;
+};
+
+class KeybindingsPageInner extends Component<{}, KeybindingsPageState> {
+  cancelNextKeyUp?: number;
+  keybindingOnClicks: Record<string, (() => void)[]> = {};
+  lastKeybinds?: Record<string, string[]>;
+
+  state: KeybindingsPageState = {
+    lastKeyboardEvent: undefined,
+    keybindings: undefined,
+    selectedKeybindings: undefined,
+    rebindingHotkey: undefined,
+    activeCategory: undefined,
+  };
+
+  constructor(props: any) {
+    super(props);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleKeyUp = this.handleKeyUp.bind(this);
+  }
+
+  componentDidMount() {
+    this.populateSelectedKeybindings();
+    this.populateKeybindings();
+  }
+
+  componentDidUpdate() {
+    const { data }: any = useBackend();
+    if (data.keybindings !== this.lastKeybinds) {
+      this.populateSelectedKeybindings();
+    }
+  }
+
+  setRebindingHotkey(value?: string) {
+    const { act }: any = useBackend();
+    this.setState((state) => {
+      let sel = state.selectedKeybindings;
+      if (!sel || !state.rebindingHotkey) return state;
+      sel = { ...sel };
+      const [keybindName, slot] = state.rebindingHotkey;
+      if (sel[keybindName]) {
+        if (value) {
+          sel[keybindName] = [...sel[keybindName]];
+          sel[keybindName][Math.min(sel[keybindName].length, slot)] = value;
+        } else {
+          sel[keybindName] = [...sel[keybindName]];
+          sel[keybindName].splice(slot, 1);
+        }
+      } else if (!value) {
+        return state;
+      } else {
+        sel[keybindName] = [value];
+      }
+      act('set_keybindings', {
+        keybind_name: keybindName,
+        hotkeys: sel[keybindName],
+      });
+      return { lastKeyboardEvent: undefined, rebindingHotkey: undefined, selectedKeybindings: sel };
+    });
+  }
+
+  handleKeyDown(keyEvent: any) {
+    const event: KeyboardEvent = keyEvent.event;
+    if (!this.state.rebindingHotkey) return;
+    event.preventDefault();
+    this.cancelNextKeyUp = keyEvent.code;
+    if (isStandardKey(event)) {
+      this.setRebindingHotkey(formatKeyboardEvent(event));
+    } else if (isEscape(event.key)) {
+      this.setRebindingHotkey(undefined);
+    } else {
+      this.setState({ lastKeyboardEvent: event });
+    }
+  }
+
+  handleKeyUp(keyEvent: any) {
+    if (this.cancelNextKeyUp === keyEvent.code) {
+      this.cancelNextKeyUp = undefined;
+      keyEvent.event.preventDefault();
+    }
+    const { lastKeyboardEvent, rebindingHotkey } = this.state;
+    if (rebindingHotkey && lastKeyboardEvent) {
+      this.setRebindingHotkey(formatKeyboardEvent(lastKeyboardEvent));
+    }
+  }
+
+  getKeybindingOnClick(keybindingId: string, slot: number): () => void {
+    if (!this.keybindingOnClicks[keybindingId]) this.keybindingOnClicks[keybindingId] = [];
+    if (!this.keybindingOnClicks[keybindingId][slot]) {
+      this.keybindingOnClicks[keybindingId][slot] = () => {
+        if (this.state.rebindingHotkey === undefined) {
+          this.setState({ lastKeyboardEvent: undefined, rebindingHotkey: [keybindingId, slot] });
+        } else {
+          this.setState({ lastKeyboardEvent: undefined, rebindingHotkey: undefined });
+        }
+      };
+    }
+    return this.keybindingOnClicks[keybindingId][slot];
+  }
+
+  getTypingHotkey(keybindingId: string, slot: number): string | undefined {
+    const { lastKeyboardEvent, rebindingHotkey } = this.state;
+    if (!rebindingHotkey || rebindingHotkey[0] !== keybindingId || rebindingHotkey[1] !== slot) return undefined;
+    if (lastKeyboardEvent === undefined) return '...';
+    return formatKeyboardEvent(lastKeyboardEvent);
+  }
+
+  async populateKeybindings() {
+    const resp = await fetchRetry(resolveAsset('keybindings.json'));
+    const data: Keybindings = await resp.json();
+    this.setState({ keybindings: data, activeCategory: Object.keys(data).sort()[0] });
+  }
+
+  populateSelectedKeybindings() {
+    const { data }: any = useBackend();
+    this.lastKeybinds = data.keybindings;
+    this.setState({
+      selectedKeybindings: Object.fromEntries(
+        Object.entries(data.keybindings as Record<string, string[]>).map(([kb, hotkeys]) => [
+          kb,
+          hotkeys.filter((v) => v !== 'Unbound'),
+        ]),
+      ),
+    });
+  }
+
+  render() {
+    const { act }: any = useBackend();
+    const keybindings = this.state.keybindings;
+    if (!keybindings) {
+      return <TermBox><Box style={term({ color: C.textDim, fontStyle: 'italic' })}>LOADING KEYBINDING DATA...</Box></TermBox>;
+    }
+
+    const entries = sortKeybindingsByCategory(Object.entries(keybindings));
+    moveToBottom(entries, 'EMOTE');
+    moveToBottom(entries, 'ADMIN');
+
+    const categories = entries.map(([cat]) => cat);
+    const activeCat = this.state.activeCategory || categories[0];
+    const catData = entries.find(([c]) => c === activeCat);
+
+    return (
+      <TermBox>
+        <KeyListener onKeyDown={this.handleKeyDown} onKeyUp={this.handleKeyUp} />
+        <TermHeader>KEYBINDING CONFIGURATION</TermHeader>
+        <Box style={{ display: 'flex', flexWrap: 'wrap', gap: '2px', marginBottom: '8px', borderBottom: `1px solid ${C.border}`, paddingBottom: '8px' }}>
+          {categories.map((cat) => (
+            <TermButton key={cat} selected={cat === activeCat} onClick={() => this.setState({ activeCategory: cat })}>
+              {cat}
+            </TermButton>
+          ))}
+        </Box>
+        {catData && sortKeybindings(Object.entries(catData[1])).map(([keybindingId, keybinding]) => {
+          const keys = this.state.selectedKeybindings?.[keybindingId] || [];
+          return (
+            <Box key={keybindingId} style={{ marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '4px', borderBottom: `1px solid ${C.border}`, paddingBottom: '4px' }}>
+              <Box style={{ flex: '0 0 30%', fontFamily: C.mono, fontSize: '10px', color: C.text, letterSpacing: '0.05em' }}>
+                <KeybindingName keybinding={keybinding} />
+              </Box>
+              {[0, 1, 2].map((slot) => (
+                <Box key={slot} style={{ flex: '0 0 18%' }}>
+                  <KeybindingSlot
+                    currentHotkey={keys[slot]}
+                    typingHotkey={this.getTypingHotkey(keybindingId, slot)}
+                    onClick={this.getKeybindingOnClick(keybindingId, slot)}
+                  />
+                </Box>
+              ))}
+              <Box style={{ flex: '0 0 12%' }}>
+                <TermButton color="red" fluid onClick={() => act('reset_keybinds_to_defaults', { keybind_name: keybindingId })} style={{ textAlign: 'center' }}>RST</TermButton>
+              </Box>
+            </Box>
+          );
+        })}
+        <TermDivider />
+        <TermButton color="red" onClick={() => act('reset_all_keybinds')}>RESET ALL KEYBINDINGS</TermButton>
+      </TermBox>
+    );
+  }
+}
+
+const KeybindingsPage = () => <KeybindingsPageInner />;
 
 // ── FINALIZE PAGE ──────────────────────────────────────────────
 const FinalizePage = ({ data, act }: any) => (
@@ -587,7 +840,6 @@ export const CharacterSetup = () => {
               {active === 'faction' && <FactionClassPage />}
               {active === 'jobs' && <JobsPage />}
               {active === 'custom' && <CustomizationPage />}
-              {active === 'species' && <SpeciesPage />}
               {active === 'quirks' && <QuirksPage />}
               {active === 'languages' && <LanguagesPage />}
               {active === 'loadout' && <LoadoutPage />}

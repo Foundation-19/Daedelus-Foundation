@@ -265,7 +265,7 @@
 		if(materials_collected > 0)
 			to_chat(user, "<span class='notice'>Its button eyes seem to watch you carefully...</span>")
 
-/mob/living/simple_animal/scp1048/death()
+/mob/living/simple_animal/scp1048/death(gibbed, cause_of_death = "Unknown")
 	visible_message("<span class='danger'>[src] falls over, its stuffing spilling out!</span>")
 	return ..()
 
@@ -451,7 +451,7 @@
 		to_chat(H, "<span class='userdanger'>A wave of sickening energy washes over you from [src]!</span>")
 		hook_scp_combat(H, "SCP-1048-C", 10, 0)
 
-/mob/living/simple_animal/hostile/scp1048_copy/death()
+/mob/living/simple_animal/hostile/scp1048_copy/death(gibbed, cause_of_death = "Unknown")
 	visible_message("<span class='danger'>[src] collapses into a pile of grotesque organic matter!</span>")
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 	return ..()

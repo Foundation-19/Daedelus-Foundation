@@ -194,6 +194,7 @@
 	return containment_procedures
 
 /obj/machinery/scp_containment_console/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ScpContainmentChecklist", name)

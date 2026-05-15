@@ -63,7 +63,8 @@
 	if(!squad_leader || !isturf(get_turf(squad_leader)))
 		return
 	var/turf/leader_turf = get_turf(squad_leader)
-	var/list/positions = new /datum/mtf_formation().get_formation_positions(formation, leader_turf)
+	var/datum/mtf_formation/formation_obj = new /datum/mtf_formation()
+	var/list/positions = formation_obj.get_formation_positions(formation, leader_turf)
 	var/i = 1
 	for(var/mob/living/carbon/human/H as anything in squad_members)
 		if(H == squad_leader)
@@ -275,6 +276,7 @@ GLOBAL_LIST_EMPTY(mtf_squads)
 	idle_power_usage = 200
 
 /obj/machinery/computer/mtf_tactical_console/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "MTFTacticalConsole", "MTF Tactical Command")

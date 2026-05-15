@@ -66,7 +66,8 @@
 
 	// Maintain history size limit
 	if(length(skill_usage_history[skill_name]) > max_history_entries)
-		skill_usage_history[skill_name].Cut(1, 2)
+		var/list/L = skill_usage_history[skill_name]
+		L.Cut(1, 2)
 
 	// Update efficiency if enough data
 	update_skill_efficiency(skill_name)

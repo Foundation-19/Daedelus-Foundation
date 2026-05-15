@@ -88,7 +88,7 @@
 		"declared_time" = world.time
 	))
 
-	priority_announce("QUARANTINE DECLARED: [target_area.name] has been placed under quarantine. Reason: [reason]. All personnel must evacuate immediately.", sound_type = ANNOUNCER_ALERT)
+	priority_announce("QUARANTINE DECLARED: [target_area.name] has been placed under quarantine. Reason: [reason]. All personnel must evacuate immediately.", null, null, ANNOUNCER_ALERT)
 
 /datum/contagion_tracker/proc/lift_quarantine(area/target_area)
 	if(!target_area)
@@ -98,7 +98,7 @@
 		var/list/zone = quarantine_zones[i]
 		if(zone["area"] == target_area)
 			quarantine_zones.Cut(i, i + 1)
-			priority_announce("QUARANTINE LIFTED: [target_area.name] is no longer under quarantine.", sound_type = ANNOUNCER_DEFAULT)
+			priority_announce("QUARANTINE LIFTED: [target_area.name] is no longer under quarantine.", null, null, ANNOUNCER_DEFAULT)
 			return
 
 /datum/contagion_tracker/proc/get_contagion_report()
@@ -252,6 +252,7 @@ GLOBAL_DATUM_INIT(contagion_tracker, /datum/contagion_tracker, new())
 	idle_power_usage = 200
 
 /obj/machinery/computer/contagion_console/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ContagionConsole", "Contagion Monitor")

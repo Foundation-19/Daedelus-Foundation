@@ -10,12 +10,12 @@
 #define TRANSFORMATION_STAGE_HORROR 4
 #define TRANSFORMATION_STAGE_MONSTER 5
 
-/obj/item/clothing/accessory/scp427
+/obj/item/clothing/neck/scp427
 	name = "ornate locket"
 	desc = "A small, ornately carved locket made out of polished silver material. An intricate floral pattern covers its surface."
 	icon = 'icons/obj/clothing/accessories.dmi'
-	icon_state = "locket"
-	w_class = 2
+	icon_state = "bronze"
+	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_MASK | ITEM_SLOT_NECK
 	var/locket_open = FALSE
 	var/addiction_strength = 0
@@ -65,11 +65,11 @@
 		),
 	)
 
-/obj/item/clothing/accessory/scp427/Initialize()
+/obj/item/clothing/neck/scp427/Initialize()
 	. = ..()
 	SCP = new /datum/scp(src, "Ornate Locket", SCP_SAFE, "427")
 
-/obj/item/clothing/accessory/scp427/process(delta_time)
+/obj/item/clothing/neck/scp427/process(delta_time)
 	var/mob/living/carbon/human/user = loc
 	if(!istype(user))
 		return
@@ -91,7 +91,7 @@
 	handle_addiction(user)
 	apply_sanity_effects(user)
 
-/obj/item/clothing/accessory/scp427/proc/apply_healing(mob/living/carbon/human/user)
+/obj/item/clothing/neck/scp427/proc/apply_healing(mob/living/carbon/human/user)
 	var/heal_modifier = 1.0
 
 	if(transformation_stage[user.ckey || "\ref[user]"] >= TRANSFORMATION_STAGE_MUTATION)
@@ -107,7 +107,7 @@
 	if(user.sanity)
 		user.sanity.adjust_sanity(1, "SCP-427 euphoria")
 
-/obj/item/clothing/accessory/scp427/proc/update_transformation_stage(mob/living/carbon/human/user)
+/obj/item/clothing/neck/scp427/proc/update_transformation_stage(mob/living/carbon/human/user)
 	var/user_key = user.ckey || "\ref[user]"
 	var/current_time = time_used[user_key]
 	var/current_stage = transformation_stage[user_key]
@@ -128,7 +128,7 @@
 		on_stage_change(user, current_stage, new_stage)
 		transformation_stage[user_key] = new_stage
 
-/obj/item/clothing/accessory/scp427/proc/on_stage_change(mob/living/carbon/human/user, old_stage, new_stage)
+/obj/item/clothing/neck/scp427/proc/on_stage_change(mob/living/carbon/human/user, old_stage, new_stage)
 	if(!user || !user.client)
 		return
 
@@ -154,7 +154,7 @@
 		if(TRANSFORMATION_STAGE_MONSTER)
 			begin_full_transformation(user)
 
-/obj/item/clothing/accessory/scp427/proc/apply_stage_effects(mob/living/carbon/human/user)
+/obj/item/clothing/neck/scp427/proc/apply_stage_effects(mob/living/carbon/human/user)
 	var/stage = transformation_stage[user.ckey || "\ref[user]"]
 
 	switch(stage)
@@ -189,7 +189,7 @@
 				)
 				shake_camera(user, 3, 2)
 
-/obj/item/clothing/accessory/scp427/proc/apply_mutation_effects(mob/living/carbon/human/user)
+/obj/item/clothing/neck/scp427/proc/apply_mutation_effects(mob/living/carbon/human/user)
 	if(!user.client)
 		return
 
@@ -198,7 +198,7 @@
 
 	to_chat(user, "<span class='danger'>The world takes on a reddish tint as your body begins to change...</span>")
 
-/obj/item/clothing/accessory/scp427/proc/apply_body_horror_effects(mob/living/carbon/human/user)
+/obj/item/clothing/neck/scp427/proc/apply_body_horror_effects(mob/living/carbon/human/user)
 	if(!user.client)
 		return
 
@@ -211,7 +211,7 @@
 		for(var/filter in pmc.get_filters("scp427_wave"))
 			animate(filter, time = 10 SECONDS, loop = -1, easing = LINEAR_EASING, offset = 8, flags = ANIMATION_PARALLEL)
 
-/obj/item/clothing/accessory/scp427/proc/begin_full_transformation(mob/living/carbon/human/user)
+/obj/item/clothing/neck/scp427/proc/begin_full_transformation(mob/living/carbon/human/user)
 	var/turf/user_turf = get_turf(user)
 	forceMove(user_turf)
 
@@ -224,14 +224,12 @@
 	user.Stun(60)
 	shake_camera(user, 10, 4)
 
-	// Clear any existing visual effects
 	clear_visual_effects(user)
 
-	// Create transformation sequence
 	deltimer(transformation_timer_id)
-	transformation_timer_id = addtimer(CALLBACK(src, .proc/complete_transformation, user), 50, TIMER_STOPPABLE)
+	transformation_timer_id = addtimer(CALLBACK(src, PROC_REF(complete_transformation), user), 50, TIMER_STOPPABLE)
 
-/obj/item/clothing/accessory/scp427/proc/complete_transformation(mob/living/carbon/human/user)
+/obj/item/clothing/neck/scp427/proc/complete_transformation(mob/living/carbon/human/user)
 	if(!user)
 		return
 
@@ -249,17 +247,15 @@
 	user.ghostize(TRUE)
 	user.dust()
 
-	// Create SCP-427-1 monster
 	var/mob/living/simple_animal/hostile/scp427_1/monster = new /mob/living/simple_animal/hostile/scp427_1(user_turf)
 	monster.name = "SCP-427-1"
 	monster.desc = "A horrific amalgamation of flesh, bone, and muscle. Its form constantly shifts and writhes."
 	monster.transformed_from = user.name
 
 	hook_scp_breach("SCP-427", src)
-	hook_player_death_near_scp(user, "SCP-427")
 	on_transformation(user)
 
-/obj/item/clothing/accessory/scp427/proc/handle_addiction(mob/living/carbon/human/user)
+/obj/item/clothing/neck/scp427/proc/handle_addiction(mob/living/carbon/human/user)
 	if(!locket_open && addiction_strength > 0)
 		if(prob(addiction_strength * 10))
 			to_chat(user, "<span class='warning'>You feel an intense craving to open the locket again.</span>")
@@ -272,13 +268,13 @@
 				"<span class='danger'>Your hand moves toward the locket against your will!</span>"
 			)
 			deltimer(addiction_timer_id)
-			addiction_timer_id = addtimer(CALLBACK(src, /obj/item/clothing/accessory/scp427/proc/attempt_auto_open, user), 10, TIMER_STOPPABLE)
+			addiction_timer_id = addtimer(CALLBACK(src, PROC_REF(attempt_auto_open), user), 10, TIMER_STOPPABLE)
 
-/obj/item/clothing/accessory/scp427/proc/attempt_auto_open(mob/living/carbon/human/user)
+/obj/item/clothing/neck/scp427/proc/attempt_auto_open(mob/living/carbon/human/user)
 	if(user && !locket_open && user.is_holding(src))
 		attack_self(user)
 
-/obj/item/clothing/accessory/scp427/proc/apply_sanity_effects(mob/living/carbon/human/user)
+/obj/item/clothing/neck/scp427/proc/apply_sanity_effects(mob/living/carbon/human/user)
 	if(!user.sanity)
 		return
 
@@ -305,7 +301,7 @@
 		if(sanity_damage_accumulated[user_key] >= 30)
 			user.sanity.add_trauma("scp_exposure", 10)
 
-/obj/item/clothing/accessory/scp427/proc/clear_visual_effects(mob/living/carbon/human/user)
+/obj/item/clothing/neck/scp427/proc/clear_visual_effects(mob/living/carbon/human/user)
 	if(!user || !user.client)
 		return
 
@@ -318,7 +314,7 @@
 	if(pmc)
 		pmc.remove_filter("scp427_wave")
 
-/obj/item/clothing/accessory/scp427/attack_self(mob/user)
+/obj/item/clothing/neck/scp427/attack_self(mob/user)
 	if(!ishuman(user))
 		return
 
@@ -327,28 +323,28 @@
 	to_chat(user, "You flip \the [src] [locket_open ? "open" : "closed"].")
 
 	if(locket_open)
-		icon_state = "locket_open"
+		icon_state = "bronze"
 		START_PROCESSING(SSobj, src)
 		to_chat(user, "<span class='notice'>You feel a warm, healing energy emanating from the locket.</span>")
 	else
-		icon_state = "locket"
+		icon_state = "bronze"
 		STOP_PROCESSING(SSobj, src)
 		to_chat(user, "<span class='notice'>The healing energy fades as you close the locket.</span>")
 		clear_visual_effects(H)
 
-/obj/item/clothing/accessory/scp427/equipped(mob/user, slot)
+/obj/item/clothing/neck/scp427/equipped(mob/user, slot)
 	. = ..()
 	if(locket_open && ishuman(user))
 		to_chat(user, "<span class='notice'>The locket's healing energy flows through you.</span>")
 
-/obj/item/clothing/accessory/scp427/unequipped(mob/user)
+/obj/item/clothing/neck/scp427/unequipped(mob/user)
 	. = ..()
 	if(ishuman(user))
 		clear_visual_effects(user)
 		if(locket_open)
 			to_chat(user, "<span class='notice'>The locket's effects fade as you remove it.</span>")
 
-/obj/item/clothing/accessory/scp427/examine(mob/user)
+/obj/item/clothing/neck/scp427/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>This ornate locket seems to have healing properties when opened.</span>"
 
@@ -371,7 +367,7 @@
 				if(TRANSFORMATION_STAGE_MONSTER)
 					. += "<span class='userdanger'>TRANSFORMATION IS IMMINENT!</span>"
 
-/obj/item/clothing/accessory/scp427/Destroy()
+/obj/item/clothing/neck/scp427/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	deltimer(transformation_timer_id)
 	deltimer(addiction_timer_id)
@@ -386,10 +382,10 @@
 /mob/living/simple_animal/hostile/scp427_1
 	name = "SCP-427-1"
 	desc = "A horrific amalgamation of flesh, bone, and muscle. Its form constantly shifts and writhes."
-	icon = 'icons/mob/animal.dmi'
-	icon_state = "horror"
-	icon_living = "horror"
-	icon_dead = "horror_dead"
+	icon = 'icons/mob/eldritch_mobs.dmi'
+	icon_state = "armsy_start"
+	icon_living = "armsy_start"
+	icon_dead = "armsy_start"
 	maxHealth = 200
 	health = 200
 	harm_intent_damage = 15
@@ -427,13 +423,14 @@
 	fade_out = 20
 
 // Hook integration
-/obj/item/clothing/accessory/scp427/proc/on_healing_applied(mob/living/carbon/human/patient, amount)
+/obj/item/clothing/neck/scp427/proc/on_healing_applied(mob/living/carbon/human/patient, amount)
 	if(!patient)
 		return
 	hook_scp_care(patient, "SCP-427", "healing")
 
-/obj/item/clothing/accessory/scp427/proc/on_transformation(mob/living/carbon/human/victim)
+/obj/item/clothing/neck/scp427/proc/on_transformation(mob/living/carbon/human/victim)
 	if(!victim)
 		return
-	hook_scp_breach("SCP-427", src)
 	hook_player_death_near_scp(victim, "SCP-427")
+
+

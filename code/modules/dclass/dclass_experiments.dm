@@ -186,8 +186,10 @@ SUBSYSTEM_DEF(dclass_experiments)
 		return FALSE
 
 	var/was_voluntary = FALSE
+	var/related_exp_id = null
 	if(subject.ckey in active_test_subjects)
 		was_voluntary = active_test_subjects[subject.ckey]["voluntary"]
+		related_exp_id = active_test_subjects[subject.ckey]["experiment_id"]
 		active_test_subjects -= subject.ckey
 
 	player.record_test(scp_id, "standard", outcome, danger_level)
@@ -209,6 +211,11 @@ SUBSYSTEM_DEF(dclass_experiments)
 	record_test_history(subject.ckey, scp_id, outcome, danger_level, credit_reward)
 
 	player.status = DCLASS_STATUS_GENERAL
+
+	track_scp_interaction(subject, scp_id, "dclass_testing", outcome)
+	if(SSscp_experiments?.manager && related_exp_id && SSscp_experiments.manager.active_experiments[related_exp_id])
+		var/exp_outcome = (outcome == "success" || outcome == "partial_success") ? 2 : 5
+		SSscp_experiments.manager.complete_experiment(related_exp_id, exp_outcome, subject)
 
 	to_chat(subject, span_notice("Testing complete. You earned [credit_reward] credits."))
 

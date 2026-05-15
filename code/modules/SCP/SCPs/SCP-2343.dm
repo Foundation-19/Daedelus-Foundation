@@ -35,7 +35,7 @@
 	benevolence_system?.process_benevolence()
 	research_system?.process_research()
 
-/mob/living/scp/scp2343/say(message)
+/mob/living/scp/scp2343/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, filterproof = null, range = 7)
 	. = ..()
 	if(.)
 		for(var/mob/living/carbon/human/H in range(5, src))

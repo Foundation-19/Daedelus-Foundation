@@ -5,6 +5,7 @@
 	src.user = user
 
 /datum/storytelling_ui/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "StorytellingSystem", "SCP Foundation - Round Narrative", 800, 600)

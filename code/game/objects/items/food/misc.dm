@@ -42,7 +42,7 @@
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/cheese/wedge, 5, 30, table_required = TRUE)
 
 /obj/item/food/cheese/wheel/MakeBakeable()
-	AddComponent(/datum/component/bakeable, /obj/item/food/baked_cheese, rand(20 SECONDS, 25 SECONDS), TRUE, TRUE)
+	return
 
 /obj/item/food/cheese/royal
 	name = "royal cheese"
@@ -362,7 +362,6 @@
 	tastes = list("sweet potato" = 1)
 	foodtypes = VEGETABLES | SUGAR
 	w_class = WEIGHT_CLASS_SMALL
-	burns_in_oven = TRUE
 
 /obj/item/food/roastparsnip
 	name = "roast parsnip"
@@ -854,10 +853,9 @@
 	tastes = list("aged cheese" = 1)
 	foodtypes = DAIRY | VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
-	burns_on_grill = TRUE
 
 /obj/item/food/firm_cheese_slice/MakeGrillable()
-	AddComponent(/datum/component/grillable, /obj/item/food/grilled_cheese, rand(25 SECONDS, 35 SECONDS), TRUE, TRUE)
+	return
 
 /obj/item/food/mozzarella
 	name = "mozzarella cheese"
@@ -876,7 +874,6 @@
 	tastes = list("toast" = 1)
 	foodtypes = GRAIN
 	w_class = WEIGHT_CLASS_SMALL
-	burns_on_grill = TRUE
 
 /obj/item/food/pesto
 	name = "pesto"
@@ -912,7 +909,6 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 5, /datum/reagent/consumable/char = 1)
 	tastes = list("bell pepper" = 1, "char" = 1)
 	foodtypes = VEGETABLES
-	burns_in_oven = TRUE
 
 //DONK DINNER: THE INNOVATIVE WAY TO GET YOUR DAILY RECOMMENDED ALLOWANCE OF SALT... AND THEN SOME!
 /obj/item/food/ready_donk

@@ -16,6 +16,7 @@
 #define COMPONENT_STATE_ERROR          4
 #define COMPONENT_STATE_DESTROYED      5
 
+#ifndef COMPONENT_EVENT_TICK
 #define COMPONENT_EVENT_TICK           "tick"
 #define COMPONENT_EVENT_ACTIVATE       "activate"
 #define COMPONENT_EVENT_DEACTIVATE     "deactivate"
@@ -27,6 +28,7 @@
 #define COMPONENT_EVENT_INTERACT       "interact"
 #define COMPONENT_EVENT_DEATH          "death"
 #define COMPONENT_EVENT_REVIVE         "revive"
+#endif
 
 // Advanced Component Base Class
 /datum/scp_advanced_component

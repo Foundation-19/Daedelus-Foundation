@@ -6,6 +6,8 @@
 #define HCZ_GAS_SLEEPING 1
 #define HCZ_GAS_SUPPRESSANT 2
 #define HCZ_GAS_NEUROTOXIN 3
+#define HCZ_GAS_MEMETIC_SCRUBBER 4
+#define HCZ_GAS_AMNESTIC_VAPOR 5
 
 /obj/machinery/computer/hcz_gas_console
 	name = "HCZ Gas Control Console"
@@ -26,6 +28,7 @@
 	var/gas_tick_timerid
 
 /obj/machinery/computer/hcz_gas_console/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "HCZGasConsole", "SCP FOUNDATION — HCZ GAS CONTROL")
@@ -66,7 +69,7 @@
 	switch(action)
 		if("selectGas")
 			var/new_type = text2num(params["gasType"])
-			if(isnull(new_type) || new_type < HCZ_GAS_NONE || new_type > HCZ_GAS_NEUROTOXIN)
+			if(isnull(new_type) || new_type < HCZ_GAS_NONE || new_type > HCZ_GAS_AMNESTIC_VAPOR)
 				return
 			if(gas_active)
 				return
@@ -97,6 +100,10 @@
 			return "Fire Suppressant"
 		if(HCZ_GAS_NEUROTOXIN)
 			return "Neurotoxin"
+		if(HCZ_GAS_MEMETIC_SCRUBBER)
+			return "Memetic Scrubber"
+		if(HCZ_GAS_AMNESTIC_VAPOR)
+			return "Class-A Amnestic Vapor"
 
 /obj/machinery/computer/hcz_gas_console/proc/release_gas()
 	gas_active = TRUE
@@ -107,7 +114,7 @@
 			continue
 		affected_areas += A
 
-	priority_announce("GAS RELEASE INITIATED in Heavy Containment Zone — [get_gas_name(gas_type)] active. All personnel don breathing apparatus immediately.", sub_title = "HCZ GAS ALERT", sound_type = ANNOUNCER_ALERT)
+	priority_announce("GAS RELEASE INITIATED in Heavy Containment Zone — [get_gas_name(gas_type)] active. All personnel don breathing apparatus immediately.", null, "HCZ GAS ALERT", ANNOUNCER_ALERT)
 
 	apply_gas_effects()
 	gas_tick_timerid = addtimer(CALLBACK(src, PROC_REF(gas_tick)), 5 SECONDS, TIMER_LOOP | TIMER_STOPPABLE)
@@ -147,6 +154,18 @@
 			C.adjustToxLoss(2)
 			if(prob(20))
 				C.emote("cough")
+		if(HCZ_GAS_MEMETIC_SCRUBBER)
+			if(C.has_status_effect(/datum/status_effect/memetic_shield))
+				return
+			C.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
+			if(prob(30))
+				C.emote("cough")
+		if(HCZ_GAS_AMNESTIC_VAPOR)
+			C.blur_eyes(10)
+			C.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
+			C.drowsyness += 10
+			if(prob(15))
+				C.emote("cough")
 
 /obj/machinery/computer/hcz_gas_console/proc/stop_gas()
 	gas_active = FALSE
@@ -154,7 +173,7 @@
 	vent_cooldown = world.time + 2 MINUTES
 	deltimer(gas_tick_timerid)
 	gas_tick_timerid = null
-	priority_announce("Gas release in Heavy Containment Zone has been terminated. Ventilation systems clearing residual agents.", sub_title = "HCZ GAS CLEAR")
+	priority_announce("Gas release in Heavy Containment Zone has been terminated. Ventilation systems clearing residual agents.", null, "HCZ GAS CLEAR")
 
 /obj/machinery/computer/hcz_gas_console/Destroy()
 	if(gas_active)
@@ -169,3 +188,5 @@
 #undef HCZ_GAS_SLEEPING
 #undef HCZ_GAS_SUPPRESSANT
 #undef HCZ_GAS_NEUROTOXIN
+#undef HCZ_GAS_MEMETIC_SCRUBBER
+#undef HCZ_GAS_AMNESTIC_VAPOR

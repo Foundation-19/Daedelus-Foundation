@@ -1,5 +1,3 @@
-// SCP-966 Modular, verb-less systems
-
 /datum/scp966_sleep_system
 	var/mob/living/scp/scp966/owner
 	var/next_drain = 0
@@ -20,8 +18,13 @@
 	for(var/mob/living/carbon/human/H in range(effect_radius, owner))
 		if(H == owner || H.stat == DEAD)
 			continue
-		H.adjustBruteLoss(intensity * 0.2)
-		to_chat(H, "<span class='warning'>An oppressive exhaustion presses upon you.</span>")
+		H.adjust_drowsyness(intensity * 2)
+		if(prob(30))
+			to_chat(H, "<span class='warning'>An oppressive exhaustion presses upon you. Your eyelids feel heavy.</span>")
+		if(H.drowsyness >= 60 && prob(15))
+			H.AdjustSleeping(20)
+			to_chat(H, "<span class='warning'>You can't keep your eyes open any longer...</span>")
+			owner.victims_sleep_deprived++
 
 /datum/scp966_stealth_system
 	var/mob/living/scp/scp966/owner
@@ -38,7 +41,6 @@
 	if(world.time > next_toggle && prob(10))
 		next_toggle = world.time + toggle_interval
 		active = !active
-		// Cosmetic cue for nearby observers
 		if(!active && prob(30))
 			owner.visible_message("<span class='notice'>A shimmer reveals something in the air, then fades.</span>")
 
@@ -57,7 +59,6 @@
 	if(world.time < next_scan)
 		return
 	next_scan = world.time + scan_interval
-	// Track one nearby target opportunistically
 	var/list/candidates = list()
 	for(var/mob/living/carbon/human/H in view(6, owner))
 		if(H != owner && H.stat != DEAD)
@@ -90,7 +91,9 @@
 		if(length(victims))
 			var/mob/living/carbon/human/v = pick(victims)
 			to_chat(v, "<span class='danger'>A waking nightmare grips you with dread.</span>")
-			v.sanity?.adjust_sanity(-2)
+			v.adjust_drowsyness(8)
+			v.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
+			owner.nightmares_caused++
 
 /datum/scp966_research_system
 	var/mob/living/scp/scp966/owner
@@ -107,7 +110,3 @@
 		return
 	last = world.time
 	owner.SCP?.award_research(null, "sleep_deprivation_phenomena", 8)
-
-
-
-

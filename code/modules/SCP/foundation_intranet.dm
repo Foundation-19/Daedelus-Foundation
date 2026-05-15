@@ -13,6 +13,7 @@
 	var/clearance_level = 0
 
 /obj/machinery/computer/foundation_intranet/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "NtosFoundationIntranet", "FOUNDATION INTRANET")
@@ -114,5 +115,5 @@
 			if(!report_text)
 				return
 			access_logs += "Submitted [report_type] report"
-			priority_announce("Foundation Intranet: New [report_type] report submitted. Command staff review requested.", "INTRANET NOTIFICATION", sound_type = null)
+			priority_announce("Foundation Intranet: New [report_type] report submitted. Command staff review requested.", "INTRANET NOTIFICATION", null, null)
 			. = TRUE

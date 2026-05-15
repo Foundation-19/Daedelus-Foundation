@@ -20,6 +20,7 @@
 	ui_interact(user)
 
 /obj/machinery/nuclearbomb/foundation/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "FoundationWarhead", name)
@@ -57,11 +58,11 @@
 				return
 			foundation_authorized = !foundation_authorized
 			if(foundation_authorized)
-				priority_announce("ON-SITE WARHEAD AUTHORIZATION DETECTED. AWAITING CONFIRMATION CODE.", sound_type = 'sound/misc/notice1.ogg')
+				priority_announce("ON-SITE WARHEAD AUTHORIZATION DETECTED. AWAITING CONFIRMATION CODE.", null, null, 'sound/misc/notice1.ogg')
 				log_game("[key_name(H)] authorized the Foundation on-site warhead.")
 				message_admins("[ADMIN_LOOKUPFLW(H)] authorized the Foundation on-site warhead.")
 			else
-				priority_announce("On-site warhead authorization revoked.", sound_type = 'sound/misc/notice1.ogg')
+				priority_announce("On-site warhead authorization revoked.", null, null, 'sound/misc/notice1.ogg')
 				if(timing)
 					timer_set = 90
 					timing = FALSE
@@ -79,7 +80,7 @@
 				yes_code = TRUE
 				timing = TRUE
 				detonation_timer = world.time + (timer_set * 10)
-				priority_announce("ON-SITE WARHEAD ARMED. DETONATION IN [timer_set] SECONDS. ALL PERSONNEL EVACUATE IMMEDIATELY.", sound_type = 'sound/misc/airraid.ogg')
+				priority_announce("ON-SITE WARHEAD ARMED. DETONATION IN [timer_set] SECONDS. ALL PERSONNEL EVACUATE IMMEDIATELY.", null, null, 'sound/misc/airraid.ogg')
 				log_game("[key_name(H)] confirmed the Foundation on-site warhead. Detonation in [timer_set] seconds.")
 				message_admins("[ADMIN_LOOKUPFLW(H)] confirmed the Foundation on-site warhead!")
 				update_appearance()
@@ -97,7 +98,7 @@
 			foundation_authorized = FALSE
 			update_appearance()
 			STOP_PROCESSING(SSobj, src)
-			priority_announce("On-site warhead detonation cancelled.", sound_type = 'sound/misc/notice1.ogg')
+			priority_announce("On-site warhead detonation cancelled.", null, null, 'sound/misc/notice1.ogg')
 			log_game("[key_name(H)] cancelled the Foundation on-site warhead.")
 		if("set_timer")
 			if(!foundation_authorized || timing)
@@ -138,7 +139,7 @@
 			continue
 		L.gib()
 
-	SSticker.force_ending = TRUE
+	SSticker.set_force_ending(TRUE)
 
 /obj/machinery/nuclearbomb/foundation/update_icon_state()
 	. = ..()

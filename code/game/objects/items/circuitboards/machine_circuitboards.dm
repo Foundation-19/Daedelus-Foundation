@@ -945,21 +945,21 @@
 /obj/item/circuitboard/machine/deep_fryer
 	name = "circuit board (Deep Fryer)"
 	greyscale_colors = CIRCUIT_COLOR_SERVICE
-	build_path = /obj/machinery/deepfryer
-	req_components = list(/obj/item/stock_parts/micro_laser = 1)
+	build_path = /obj/machinery/appliance/cooker/fryer
+	req_components = list(/obj/item/stock_parts/micro_laser = 1, /obj/item/stock_parts/capacitor = 2)
 	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/griddle
 	name = "circuit board (Griddle)"
 	greyscale_colors = CIRCUIT_COLOR_SERVICE
-	build_path = /obj/machinery/griddle
+	build_path = /obj/machinery/appliance/cooker/griddle
 	req_components = list(/obj/item/stock_parts/micro_laser = 1)
 	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/oven
 	name = "circuit board (Oven)"
 	greyscale_colors = CIRCUIT_COLOR_SERVICE
-	build_path = /obj/machinery/oven
+	build_path = /obj/machinery/appliance/cooker/oven
 	req_components = list(/obj/item/stock_parts/micro_laser = 1)
 	needs_anchored = FALSE
 
@@ -1012,7 +1012,7 @@
 /obj/item/circuitboard/machine/microwave
 	name = "Microwave (Machine Board)"
 	greyscale_colors = CIRCUIT_COLOR_SERVICE
-	build_path = /obj/machinery/microwave
+	build_path = /obj/machinery/appliance/cooker/microwave
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 1,
 		/obj/item/stock_parts/matter_bin = 1,

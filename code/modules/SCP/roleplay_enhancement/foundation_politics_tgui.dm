@@ -7,6 +7,7 @@
 	src.user = user
 
 /datum/foundation_politics_ui/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
 		ui = new(user, src, "FoundationPolitics", "SCP Foundation - Politics & Hierarchy", 800, 600)

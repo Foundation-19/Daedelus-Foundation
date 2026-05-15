@@ -189,7 +189,7 @@
 
 	return discover_after
 
-/obj/item/reagent_containers/syringe/microwave_act(obj/machinery/microwave/M)
+/obj/item/reagent_containers/syringe/microwave_act(obj/machinery/M)
 	. = ..()
 	if(prob(10) || istype(M, /obj/machinery/autoclave))
 		sterilize()

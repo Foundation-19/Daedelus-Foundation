@@ -107,16 +107,9 @@
 		return
 	dclass.visible_message(span_danger("[dclass] breaks free from the restraints!"), span_notice("You break free from the restraints!"))
 	if(dclass.handcuffed)
-		var/obj/item/restraints/R = dclass.handcuffed
-		dclass.set_handcuffed(null)
-		if(R)
-			R.forceMove(get_turf(dclass))
+		dclass.dropItemToGround(dclass.handcuffed, force = TRUE)
 	if(dclass.legcuffed)
-		var/obj/item/restraints/R = dclass.legcuffed
-		dclass.legcuffed = null
-		dclass.update_icons()
-		if(R)
-			R.forceMove(get_turf(dclass))
+		dclass.dropItemToGround(dclass.legcuffed, force = TRUE)
 	on_escort_lost()
 
 /datum/dclass_restraint_tracker/proc/on_failed_escape()

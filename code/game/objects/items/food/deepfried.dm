@@ -1,3 +1,11 @@
+GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
+	/obj/item/reagent_containers/glass,
+	/obj/item/reagent_containers/syringe,
+	/obj/item/reagent_containers/food/condiment,
+	/obj/item/storage,
+	/obj/item/delivery,
+	/obj/item/his_grace)))
+
 /obj/item/food/deepfryholder
 	name = "Deep Fried Foods Holder Obj"
 	desc = "If you can see this description the code for the deep fryer fucked up."

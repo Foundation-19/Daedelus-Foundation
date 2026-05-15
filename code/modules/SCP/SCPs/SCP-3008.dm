@@ -28,7 +28,7 @@
 	if(!entrance_landmark)
 		entrance_landmark = new /obj/effect/landmark/ikea_entrance(get_turf(src))
 
-	create_ikea_interior()
+	addtimer(CALLBACK(src, PROC_REF(create_ikea_interior)), 0)
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/scp3008/Destroy()

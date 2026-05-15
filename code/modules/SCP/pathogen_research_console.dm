@@ -11,6 +11,7 @@
 	var/obj/item/reagent_containers/inserted_sample
 
 /obj/machinery/computer/pathogen_research_console/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "PathogenResearchConsole", name)
@@ -22,9 +23,10 @@
 	data["active_infections"] = list()
 	for(var/key in SSfoundation_pathogens.active_infections)
 		var/list/inf = SSfoundation_pathogens.active_infections[key]
+		var/mob/host_mob = inf["host"]
 		data["active_infections"] += list(list(
 			"pathogen_type" = inf["pathogen_type"],
-			"host_name" = inf["host"] ? inf["host"].name : "Unknown",
+			"host_name" = host_mob ? host_mob.name : "Unknown",
 			"bsl" = inf["bsl"],
 			"time" = inf["time"],
 		))
@@ -190,7 +192,7 @@
 			var/point_cost = SSfoundation_pathogens.get_research_cost(pkey)["points"]
 			SSfoundation_pathogens.active_research -= pkey
 			if(SSscp_research?.manager)
-				SSscp_research.manager.total_research_points += round(point_cost * 0.5)
+				adjust_global_research_points(round(point_cost * 0.5), "pathogen_research_cancel_refund")
 			. = TRUE
 
 		if("dispense_cure")

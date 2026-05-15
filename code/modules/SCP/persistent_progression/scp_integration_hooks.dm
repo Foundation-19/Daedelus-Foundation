@@ -1,3 +1,4 @@
+#ifndef INTERACTION_TYPE_OBSERVATION
 #define INTERACTION_TYPE_OBSERVATION 1
 #define INTERACTION_TYPE_COMBAT 2
 #define INTERACTION_TYPE_CONTAINMENT 3
@@ -14,6 +15,7 @@
 #define INTERACTION_RISK_MEDIUM 2
 #define INTERACTION_RISK_HIGH 3
 #define INTERACTION_RISK_CRITICAL 4
+#endif
 
 /proc/hook_scp_breach(scp_id, atom/scp_atom)
 	if(!scp_id)
@@ -44,6 +46,19 @@
 		SSscp_persistence.manager.active_breaches++
 		SSscp_persistence.manager.global_containment_stability = max(0, SSscp_persistence.manager.global_containment_stability - 10)
 
+	var/is_keter = FALSE
+	if(SSscp_persistence?.manager?.scp_instances?[scp_id])
+		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[scp_id]
+		if(instance.containment_class == SCP_KETER)
+			is_keter = TRUE
+
+	if(SSsecurity_level)
+		var/target_level = SEC_LEVEL_RED
+		if(is_keter)
+			target_level = SEC_LEVEL_DELTA
+		if(SSsecurity_level.current_level < target_level)
+			set_foundation_security_code(target_level, "Containment breach: [scp_id]")
+
 	if(SScontainment_evaluation)
 		trigger_containment_evaluation(scp_id)
 
@@ -60,6 +75,7 @@
 				break
 
 	report_breach_to_round_log(scp_id, breach_zone)
+	track_containment_breach_response(scp_id, list())
 
 	if(GLOB.scp_role_controller)
 		var/scp_type = get_scp_type_from_id(scp_id)
@@ -137,6 +153,7 @@
 	if(SSscp_interactions)
 		SSscp_interactions.manager?.log_interaction(player, scp_id, interaction_type, data)
 	hook_dclass_scp_interaction(player, scp_id, interaction_type, data)
+	track_scp_interaction(player, scp_id, interaction_type, "completed")
 
 	if(SSpersistent_progression)
 		var/datum/persistent_player_data/pdata = SSpersistent_progression.get_player_data(player.ckey)

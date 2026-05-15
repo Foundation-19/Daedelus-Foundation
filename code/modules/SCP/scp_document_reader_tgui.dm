@@ -2,6 +2,7 @@
 // Replaces the old HTML-based document reader with a proper SCP-terminal TGUI
 
 /obj/item/scp_document_reader/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "SCPDocumentReader", "SCP FOUNDATION — DOCUMENT TERMINAL")

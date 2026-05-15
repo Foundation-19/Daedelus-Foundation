@@ -1,4 +1,13 @@
 /mob/living/simple_animal/hostile/zombie/scp049_1
+	name = "SCP-049-1"
+	desc = "A reanimated corpse, the result of SCP-049's 'cure'. It shambles with unnatural purpose."
+	icon_state = "zombie"
+	maxHealth = SCP049_1_MAX_HEALTH
+	health = SCP049_1_MAX_HEALTH
+	melee_damage_lower = SCP049_1_MELEE_DAMAGE_LOWER
+	melee_damage_upper = SCP049_1_MELEE_DAMAGE_UPPER
+	move_to_delay = SCP049_1_MOVE_DELAY
+	faction = list("scp049")
 	var/mob/living/scp/scp049/master
 	var/obedience_level = 50
 	var/decay_timer
@@ -7,6 +16,10 @@
 	var/decay_health_loss = 5
 	var/current_command = "guard"
 	AIStatus = AI_ON
+
+/mob/living/simple_animal/hostile/zombie/scp049_1/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_PESTILENCE_IMMUNE, "scp049_1")
 
 /mob/living/simple_animal/hostile/zombie/scp049_1/proc/setup_servant(mob/living/scp/scp049/creator)
 	master = creator
@@ -80,7 +93,7 @@
 			if(random_turf)
 				Goto(random_turf, move_to_delay, 1)
 
-/mob/living/simple_animal/hostile/zombie/scp049_1/death(gibbed)
+/mob/living/simple_animal/hostile/zombie/scp049_1/death(gibbed, cause_of_death = "Unknown")
 	if(master && master.command_system)
 		master.command_system.on_servant_death(src)
 	return ..()
@@ -179,3 +192,4 @@
 		return
 	start_cooldown()
 	scp_mob.command_system.command_servants(command)
+

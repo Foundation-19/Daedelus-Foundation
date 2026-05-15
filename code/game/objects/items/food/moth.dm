@@ -103,7 +103,6 @@
 	tastes = list("cheese" = 1)
 	foodtypes = DAIRY
 	w_class = WEIGHT_CLASS_SMALL
-	burns_in_oven = TRUE
 
 /obj/item/food/baked_cheese_platter
 	name = "stanntkraktælo" //stannt = oven, krakt = baked, ælo = cheese
@@ -127,7 +126,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/food/raw_green_lasagne/MakeBakeable()
-	AddComponent(/datum/component/bakeable, /obj/item/food/green_lasagne, rand(25 SECONDS, 45 SECONDS), TRUE, TRUE)
+	return
 
 /obj/item/food/green_lasagne
 	name = "green lasagne al forno"
@@ -138,7 +137,6 @@
 	tastes = list("cheese" = 1, "pesto" = 1, "pasta" = 1)
 	foodtypes = VEGETABLES | GRAIN | NUTS
 	w_class = WEIGHT_CLASS_NORMAL
-	burns_in_oven = TRUE
 
 /obj/item/food/green_lasagne/MakeProcessable()
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/green_lasagne_slice, 6, 30, table_required = TRUE)
@@ -164,7 +162,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/food/raw_baked_rice/MakeBakeable()
-	AddComponent(/datum/component/bakeable, /obj/item/food/big_baked_rice, rand(25 SECONDS, 45 SECONDS), TRUE, TRUE)
+	return
 
 /obj/item/food/big_baked_rice
 	name = "big baked rice"
@@ -175,7 +173,6 @@
 	tastes = list("rice" = 1, "potato" = 1, "veggies" = 1)
 	foodtypes = VEGETABLES | GRAIN
 	w_class = WEIGHT_CLASS_NORMAL
-	burns_in_oven = TRUE
 
 /obj/item/food/big_baked_rice/MakeProcessable()
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/lil_baked_rice, 6, 30, table_required = TRUE)
@@ -199,7 +196,6 @@
 	tastes = list("corn" = 1, "char" = 1)
 	foodtypes = VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
-	burns_in_oven = TRUE
 
 /obj/item/food/buttered_baked_corn
 	name = "buttered baked corn"
@@ -232,7 +228,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/food/raw_ratatouille/MakeBakeable()
-	AddComponent(/datum/component/bakeable, /obj/item/food/ratatouille, rand(25 SECONDS, 45 SECONDS), TRUE, TRUE)
+	return
 
 /obj/item/food/ratatouille
 	name = "ratatouille"
@@ -243,7 +239,6 @@
 	tastes = list("veggies" = 1, "roasted peppers" = 1, "char" = 1)
 	foodtypes = VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
-	burns_in_oven = TRUE
 
 /obj/item/food/mozzarella_sticks
 	name = "mozzarella sticks"
@@ -266,7 +261,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/food/raw_stuffed_peppers/MakeBakeable()
-	AddComponent(/datum/component/bakeable, /obj/item/food/stuffed_peppers, rand(15 SECONDS, 35 SECONDS), TRUE, TRUE)
+	return
 
 /obj/item/food/stuffed_peppers
 	name = "voltölpaprik"
@@ -277,7 +272,6 @@
 	tastes = list("creamy cheese" = 1, "herbs" = 1, "onion" = 1, "bell pepper" = 1)
 	foodtypes = DAIRY | VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
-	burns_in_oven = TRUE
 
 /obj/item/food/fueljacks_lunch
 	name = "\improper Fueljack's lunch"
@@ -511,7 +505,7 @@
 	foodtypes = GRAIN | VEGETABLES | DAIRY
 
 /obj/item/food/raw_mothic_margherita/MakeBakeable()
-	AddComponent(/datum/component/bakeable, /obj/item/food/pizza/mothic_margherita, rand(20 SECONDS, 40 SECONDS), TRUE, TRUE)
+	return
 
 /obj/item/food/pizza/mothic_margherita
 	name = "mothic margherita pizza"
@@ -542,7 +536,7 @@
 	foodtypes = GRAIN | VEGETABLES | DAIRY
 
 /obj/item/food/raw_mothic_firecracker/MakeBakeable()
-	AddComponent(/datum/component/bakeable, /obj/item/food/pizza/mothic_firecracker, rand(20 SECONDS, 40 SECONDS), TRUE, TRUE)
+	return
 
 /obj/item/food/pizza/mothic_firecracker
 	name = "mothic firecracker pizza"
@@ -573,7 +567,7 @@
 	foodtypes = GRAIN | VEGETABLES | DAIRY
 
 /obj/item/food/raw_mothic_five_cheese/MakeBakeable()
-	AddComponent(/datum/component/bakeable, /obj/item/food/pizza/mothic_five_cheese, rand(20 SECONDS, 40 SECONDS), TRUE, TRUE)
+	return
 
 /obj/item/food/pizza/mothic_five_cheese
 	name = "mothic five-cheese pizza"
@@ -604,7 +598,7 @@
 	foodtypes = GRAIN | VEGETABLES | DAIRY
 
 /obj/item/food/raw_mothic_white_pie/MakeBakeable()
-	AddComponent(/datum/component/bakeable, /obj/item/food/pizza/mothic_white_pie, rand(20 SECONDS, 40 SECONDS), TRUE, TRUE)
+	return
 
 /obj/item/food/pizza/mothic_white_pie
 	name = "mothic white-pie pizza"
@@ -635,7 +629,7 @@
 	foodtypes = GRAIN | VEGETABLES | DAIRY | NUTS
 
 /obj/item/food/raw_mothic_pesto/MakeBakeable()
-	AddComponent(/datum/component/bakeable, /obj/item/food/pizza/mothic_pesto, rand(20 SECONDS, 40 SECONDS), TRUE, TRUE)
+	return
 
 /obj/item/food/pizza/mothic_pesto
 	name = "mothic pesto pizza"
@@ -666,7 +660,7 @@
 	foodtypes = GRAIN | VEGETABLES
 
 /obj/item/food/raw_mothic_garlic/MakeBakeable()
-	AddComponent(/datum/component/bakeable, /obj/item/food/pizza/mothic_garlic, rand(20 SECONDS, 40 SECONDS), TRUE, TRUE)
+	return
 
 /obj/item/food/pizza/mothic_garlic
 	name = "mothic garlic pizzabread"

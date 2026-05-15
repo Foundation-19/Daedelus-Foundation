@@ -1,6 +1,7 @@
 // D-Class Player Datum
 // Handles individual D-Class player data and progression
 
+#ifndef DCLASS_TRUST_HOSTILE
 #define DCLASS_TRUST_HOSTILE 0
 #define DCLASS_TRUST_SUSPICIOUS 1
 #define DCLASS_TRUST_NEUTRAL 2
@@ -11,6 +12,7 @@
 #define DCLASS_STATUS_TEST_SUBJECT 1
 #define DCLASS_STATUS_MEDICAL_SUBJECT 2
 #define DCLASS_STATUS_CONTAINMENT_ASSIST 3
+#endif
 
 #define DCLASS_FACTION_NONE 0
 #define DCLASS_FACTION_REBELS 1

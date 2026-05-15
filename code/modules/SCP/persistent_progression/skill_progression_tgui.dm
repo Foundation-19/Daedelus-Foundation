@@ -10,6 +10,7 @@
 	user_mind = user.mind
 
 /datum/skill_progression_ui/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	if(!user.client)
 		return
 

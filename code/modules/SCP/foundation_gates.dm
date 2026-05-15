@@ -76,6 +76,7 @@
 	ui_interact(H)
 
 /obj/machinery/foundation_gate_control/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "FoundationGateControl", name)

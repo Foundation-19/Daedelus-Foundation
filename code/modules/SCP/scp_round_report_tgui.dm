@@ -13,6 +13,7 @@
 	return GLOB.default_state
 
 /datum/scp_round_report_ui/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "SCPRoundReport", "Site-53 Round Report")
@@ -51,6 +52,7 @@
 	return data
 
 /datum/scp_round_report_ui/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
 	switch(action)
 		if("close")
 			qdel(src)

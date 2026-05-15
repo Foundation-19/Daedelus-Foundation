@@ -81,7 +81,7 @@
 	sparks.start()
 
 	// If door is weak enough, break it
-	if(door.atom_integrity <= breach_power)
+	if(door.get_integrity() <= breach_power)
 		door.deconstruct(FALSE)
 
 

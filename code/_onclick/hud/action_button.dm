@@ -346,7 +346,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 
 /atom/movable/screen/button_palette/proc/set_expanded(new_expanded)
 	var/datum/action_group/our_group = our_hud.palette_actions
-	if(!length(our_group.actions)) //Looks dumb, trust me lad
+	if(!our_group || !length(our_group.actions))
 		new_expanded = FALSE
 	if(expanded == new_expanded)
 		return
@@ -397,7 +397,8 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 	if(.)
 		return FALSE
 
-	our_hud.palette_actions.scroll(scroll_direction)
+	if(our_hud.palette_actions)
+		our_hud.palette_actions.scroll(scroll_direction)
 
 /atom/movable/screen/palette_scroll/MouseEntered(location, control, params)
 	. = ..()

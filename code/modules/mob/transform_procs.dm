@@ -1,7 +1,8 @@
 #define TRANSFORMATION_DURATION 22
 
-// Vision cone system defines
+#ifndef FOV_DEFAULT
 #define FOV_DEFAULT 1
+#endif
 
 /mob/living/carbon/proc/monkeyize()
 	if (notransform || transformation_timer)

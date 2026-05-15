@@ -75,6 +75,7 @@
 	return data
 
 /datum/loadout_ui/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
 	var/datum/preferences/prefs = owner?.prefs
 	switch(action)
 		if ("loadout_toggle")

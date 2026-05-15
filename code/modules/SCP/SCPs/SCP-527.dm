@@ -35,7 +35,7 @@
 	if(aquatic_system)
 		aquatic_system.process_aquatic()
 
-/mob/living/scp/scp527/say(message)
+/mob/living/scp/scp527/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, filterproof = null, range = 7)
 	. = ..()
 	if(.)
 		for(var/mob/living/carbon/human/H in range(5, src))

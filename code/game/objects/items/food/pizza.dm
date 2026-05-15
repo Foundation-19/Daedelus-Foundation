@@ -7,7 +7,6 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1)
 	foodtypes = GRAIN | DAIRY | VEGETABLES
 	venue_value = FOOD_PRICE_CHEAP
-	burns_in_oven = TRUE
 	/// type is spawned 6 at a time and replaces this pizza when processed by cutting tool
 	var/obj/item/food/pizzaslice/slice_type
 	///What label pizza boxes use if this pizza spawns in them.
@@ -15,11 +14,10 @@
 
 /obj/item/food/pizza/raw
 	foodtypes = GRAIN | DAIRY | VEGETABLES | RAW
-	burns_in_oven = FALSE
 	slice_type = null
 
 /obj/item/food/pizza/raw/MakeBakeable()
-	AddComponent(/datum/component/bakeable, /obj/item/food/pizza, rand(70 SECONDS, 80 SECONDS), TRUE, TRUE)
+	return
 
 /obj/item/food/pizza/MakeProcessable()
 	if (slice_type)
@@ -54,11 +52,10 @@
 	name = "raw pizza margherita"
 	icon_state = "pizzamargherita_raw"
 	foodtypes = GRAIN | VEGETABLES | DAIRY | RAW
-	burns_in_oven = FALSE
 	slice_type = null
 
 /obj/item/food/pizza/margherita/raw/MakeBakeable()
-	AddComponent(/datum/component/bakeable, /obj/item/food/pizza/margherita, rand(70 SECONDS, 80 SECONDS), TRUE, TRUE)
+	return
 
 /obj/item/food/pizzaslice/margherita
 	name = "margherita slice"
@@ -84,11 +81,10 @@
 	name = "raw meatpizza"
 	icon_state = "meatpizza_raw"
 	foodtypes = GRAIN | VEGETABLES| DAIRY | MEAT | RAW
-	burns_in_oven = FALSE
 	slice_type = null
 
 /obj/item/food/pizza/meat/raw/MakeBakeable()
-	AddComponent(/datum/component/bakeable, /obj/item/food/pizza/meat, rand(70 SECONDS, 80 SECONDS), TRUE, TRUE)
+	return
 
 /obj/item/food/pizzaslice/meat
 	name = "meatpizza slice"
@@ -111,11 +107,10 @@
 	name = "raw mushroom pizza"
 	icon_state = "mushroompizza_raw"
 	foodtypes = GRAIN | VEGETABLES | DAIRY | RAW
-	burns_in_oven = FALSE
 	slice_type = null
 
 /obj/item/food/pizza/mushroom/raw/MakeBakeable()
-	AddComponent(/datum/component/bakeable, /obj/item/food/pizza/mushroom, rand(70 SECONDS, 80 SECONDS), TRUE, TRUE)
+	return
 
 /obj/item/food/pizzaslice/mushroom
 	name = "mushroom pizza slice"
@@ -140,11 +135,10 @@
 	name = "raw vegetable pizza"
 	icon_state = "vegetablepizza_raw"
 	foodtypes = GRAIN | VEGETABLES | DAIRY | RAW
-	burns_in_oven = FALSE
 	slice_type = null
 
 /obj/item/food/pizza/vegetable/raw/MakeBakeable()
-	AddComponent(/datum/component/bakeable, /obj/item/food/pizza/vegetable, rand(70 SECONDS, 80 SECONDS), TRUE, TRUE)
+	return
 
 /obj/item/food/pizzaslice/vegetable
 	name = "vegetable pizza slice"
@@ -168,11 +162,10 @@
 	name = "raw donkpocket pizza"
 	icon_state = "donkpocketpizza_raw"
 	foodtypes = GRAIN | VEGETABLES | DAIRY | MEAT | JUNKFOOD | RAW
-	burns_in_oven = FALSE
 	slice_type = null
 
 /obj/item/food/pizza/donkpocket/raw/MakeBakeable()
-	AddComponent(/datum/component/bakeable, /obj/item/food/pizza/donkpocket, rand(70 SECONDS, 80 SECONDS), TRUE, TRUE)
+	return
 
 /obj/item/food/pizzaslice/donkpocket
 	name = "donkpocket pizza slice"
@@ -196,11 +189,10 @@
 	name = "raw dank pizza"
 	icon_state = "dankpizza_raw"
 	foodtypes = GRAIN | VEGETABLES | DAIRY | RAW
-	burns_in_oven = FALSE
 	slice_type = null
 
 /obj/item/food/pizza/dank/raw/MakeBakeable()
-	AddComponent(/datum/component/bakeable, /obj/item/food/pizza/dank, rand(70 SECONDS, 80 SECONDS), TRUE, TRUE)
+	return
 
 /obj/item/food/pizzaslice/dank
 	name = "dank pizza slice"
@@ -224,11 +216,10 @@
 	name = "raw sassysage pizza"
 	icon_state = "sassysagepizza_raw"
 	foodtypes = GRAIN | VEGETABLES | DAIRY | MEAT | RAW
-	burns_in_oven = FALSE
 	slice_type = null
 
 /obj/item/food/pizza/sassysage/raw/MakeBakeable()
-	AddComponent(/datum/component/bakeable, /obj/item/food/pizza/sassysage, rand(70 SECONDS, 80 SECONDS), TRUE, TRUE)
+	return
 
 /obj/item/food/pizzaslice/sassysage
 	name = "sassysage pizza slice"
@@ -252,11 +243,10 @@
 	name = "raw Hawaiian pizza"
 	icon_state = "pineapplepizza_raw"
 	foodtypes = GRAIN | VEGETABLES | DAIRY | MEAT | FRUIT | PINEAPPLE | RAW
-	burns_in_oven = FALSE
 	slice_type = null
 
 /obj/item/food/pizza/pineapple/raw/MakeBakeable()
-	AddComponent(/datum/component/bakeable, /obj/item/food/pizza/pineapple, rand(70 SECONDS, 80 SECONDS), TRUE, TRUE)
+	return
 
 /obj/item/food/pizzaslice/pineapple
 	name = "\improper Hawaiian pizza slice"
@@ -296,11 +286,10 @@
 	name = "raw Arnold pizza"
 	icon_state = "arnoldpizza_raw"
 	foodtypes = GRAIN | DAIRY | VEGETABLES | RAW
-	burns_in_oven = FALSE
 	slice_type = null
 
 /obj/item/food/pizza/arnold/raw/MakeBakeable()
-	AddComponent(/datum/component/bakeable, /obj/item/food/pizza/arnold, rand(70 SECONDS, 80 SECONDS), TRUE, TRUE)
+	return
 
 //fuck it, i will leave this at the food level for now.
 /obj/item/food/proc/try_break_off(mob/living/attacker, mob/living/user) //maybe i give you a pizza maybe i break off your arm

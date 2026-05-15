@@ -16,6 +16,7 @@
 	var/evacuation_progress = 0
 
 /datum/game_mode/scp_keter_scenario/pre_setup()
+	..()
 	return TRUE
 
 /datum/game_mode/scp_keter_scenario/post_setup(report)
@@ -80,7 +81,7 @@
 
 /datum/game_mode/scp_keter_scenario/proc/detonate_nuke()
 	GLOB.station_was_nuked = TRUE
-	SSticker.force_ending = TRUE
+	SSticker.set_force_ending(TRUE)
 
 /datum/game_mode/scp_keter_scenario/process(delta_time)
 	if(scenario_phase >= 2)
@@ -96,9 +97,10 @@
 			addtimer(CALLBACK(src, .proc/end_round), 3 MINUTES)
 
 /datum/game_mode/scp_keter_scenario/proc/end_round()
-	SSticker.force_ending = TRUE
+	SSticker.set_force_ending(TRUE)
 
 /datum/game_mode/scp_keter_scenario/check_finished()
+	..()
 	if(!SSticker.setup_done)
 		return FALSE
 	if(GLOB.station_was_nuked)

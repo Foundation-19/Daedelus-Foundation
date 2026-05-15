@@ -1680,7 +1680,7 @@
 	button_icon_state = "spell_default"
 	cooldown_time = 60 SECONDS
 
-/datum/action/innate/scp_ability/scp3199_produce_egg/Trigger()
+/datum/action/innate/scp_ability/scp3199_produce_egg/Trigger(trigger_flags)
 	var/mob/living/user = usr
 	if(!user)
 		return
@@ -1697,7 +1697,7 @@
 	button_icon_state = "spell_default"
 	cooldown_time = 30 SECONDS
 
-/datum/action/innate/scp_ability/scp3199_protect_hatchlings/Trigger()
+/datum/action/innate/scp_ability/scp3199_protect_hatchlings/Trigger(trigger_flags)
 	var/mob/living/user = usr
 	if(!user)
 		return
@@ -1783,7 +1783,7 @@
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
 	button_icon_state = "spell_default"
 
-/datum/action/innate/sarkic_ritual/Trigger()
+/datum/action/innate/sarkic_ritual/Trigger(trigger_flags)
 	to_chat(owner, span_notice("You perform a Sarkic ritual."))
 
 /datum/action/innate/insurgency_equipment
@@ -1792,7 +1792,7 @@
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
 	button_icon_state = "default"
 
-/datum/action/innate/insurgency_equipment/Trigger()
+/datum/action/innate/insurgency_equipment/Trigger(trigger_flags)
 	to_chat(owner, span_notice("You request equipment from the Insurgency."))
 
 /datum/action/innate/serpents_knowledge
@@ -1801,7 +1801,7 @@
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
 	button_icon_state = "default"
 
-/datum/action/innate/serpents_knowledge/Trigger()
+/datum/action/innate/serpents_knowledge/Trigger(trigger_flags)
 	to_chat(owner, span_notice("You share knowledge of the anomalous."))
 
 // ================================================================
@@ -1823,6 +1823,7 @@
 		to_chat(user, span_notice("The hood covers your face. Face-viewing triggers are suppressed."))
 
 /obj/item/clothing/head/hood_scp096/unequipped(mob/user, slot)
+	..()
 	if(slot == ITEM_SLOT_HEAD && istype(user, /mob/living/scp/scp096))
 		to_chat(user, span_warning("The hood is removed! Your face is now exposed!"))
 

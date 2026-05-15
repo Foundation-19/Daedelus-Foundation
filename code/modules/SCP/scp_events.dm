@@ -17,7 +17,7 @@
 	zone_affected = pick(zones)
 
 /datum/round_event/scp_memetic_outbreak/announce(fake)
-	priority_announce("WARNING: Memetic hazard detected in [zone_affected]. All personnel avoid visual contact with unverified screens and documents. Research personnel deploy countermeasures.", "MEMETIC HAZARD", sound_type = ANNOUNCER_ALERT)
+	priority_announce("WARNING: Memetic hazard detected in [zone_affected]. All personnel avoid visual contact with unverified screens and documents. Research personnel deploy countermeasures.", "MEMETIC HAZARD", null, ANNOUNCER_ALERT)
 
 /datum/round_event/scp_memetic_outbreak/tick()
 	if(activeFor % 5 != 0)
@@ -51,7 +51,7 @@
 	endWhen = 20
 
 /datum/round_event/scp_containment_degradation/announce(fake)
-	priority_announce("NOTICE: Containment integrity monitoring detected degradation in structural elements. Engineering personnel inspect containment walls.", "CONTAINMENT WARNING", sound_type = ANNOUNCER_DEFAULT)
+	priority_announce("NOTICE: Containment integrity monitoring detected degradation in structural elements. Engineering personnel inspect containment walls.", "CONTAINMENT WARNING", null, ANNOUNCER_DEFAULT)
 
 /datum/round_event/scp_containment_degradation/start()
 	var/damaged = 0
@@ -78,7 +78,7 @@
 	endWhen = 25
 
 /datum/round_event/scp_cognito_hazard/announce(fake)
-	priority_announce("ALERT: Cognitohazardous signal detected in facility communication systems. Disable visual displays if symptoms occur.", "COGNIHAZARD", sound_type = ANNOUNCER_ALERT)
+	priority_announce("ALERT: Cognitohazardous signal detected in facility communication systems. Disable visual displays if symptoms occur.", "COGNIHAZARD", null, ANNOUNCER_ALERT)
 
 /datum/round_event/scp_cognito_hazard/tick()
 	if(activeFor % 8 != 0)
@@ -111,7 +111,7 @@
 	endWhen = 30
 
 /datum/round_event/scp_dclass_uprising/announce(fake)
-	priority_announce("ALERT: Unauthorized D-Class assembly detected. Security personnel respond to D-Class areas. Elevate security protocols.", "D-CLASS ALERT", sound_type = ANNOUNCER_ALERT)
+	priority_announce("ALERT: Unauthorized D-Class assembly detected. Security personnel respond to D-Class areas. Elevate security protocols.", "D-CLASS ALERT", null, ANNOUNCER_ALERT)
 
 /datum/round_event/scp_dclass_uprising/start()
 	if(SSdclass?.manager)
@@ -151,7 +151,7 @@
 	endWhen = 20
 
 /datum/round_event/scp_power_surge/announce(fake)
-	priority_announce("WARNING: Anomalous power surge detected in containment grid. Backup generators standing by.", "POWER SURGE", sound_type = ANNOUNCER_POWEROFF)
+	priority_announce("WARNING: Anomalous power surge detected in containment grid. Backup generators standing by.", "POWER SURGE", null, ANNOUNCER_POWEROFF)
 
 /datum/round_event/scp_power_surge/start()
 	var/list/surge_apcs = list()
@@ -191,7 +191,7 @@
 	contaminant_type = pick("unknown particulate", "anomalous gas", "biohazardous vapor")
 
 /datum/round_event/scp_vent_contamination/announce(fake)
-	priority_announce("WARNING: [capitalize(contaminant_type)] detected in ventilation system. Affected zones: LCZ corridors. Personnel don breathing protection.", "VENT CONTAMINATION", sound_type = ANNOUNCER_ALERT)
+	priority_announce("WARNING: [capitalize(contaminant_type)] detected in ventilation system. Affected zones: LCZ corridors. Personnel don breathing protection.", "VENT CONTAMINATION", null, ANNOUNCER_ALERT)
 
 /datum/round_event/scp_vent_contamination/tick()
 	if(activeFor % 6 != 0)

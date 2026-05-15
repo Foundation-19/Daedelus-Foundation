@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(scp_persistence)
 	var/list/cached_scp_atoms = list()
 	var/list/cached_scp_mobs = list()
 	var/cache_dirty = TRUE
+	
 
 /datum/controller/subsystem/scp_persistence/Initialize()
 	manager = new /datum/scp_persistence_manager()
@@ -27,11 +28,10 @@ SUBSYSTEM_DEF(scp_persistence)
 		if(id)
 			cached_scp_atoms[id] = S
 			cached_scp_mobs[id] = S
-	for(var/obj/O in world)
-		if(findtext(O.name, "SCP-"))
-			var/id = manager?.get_scp_id(O)
-			if(id && !(id in cached_scp_atoms))
-				cached_scp_atoms[id] = O
+	for(var/obj/O in GLOB.SCP_list)
+		var/id = manager?.get_scp_id(O)
+		if(id && !(id in cached_scp_atoms))
+			cached_scp_atoms[id] = O
 	cache_dirty = FALSE
 
 /datum/controller/subsystem/scp_persistence/proc/mark_cache_dirty()
@@ -39,7 +39,7 @@ SUBSYSTEM_DEF(scp_persistence)
 
 // SCP Persistence Manager
 /datum/scp_persistence_manager
-	var/list/scp_instances = list()
+	var/list/datum/scp_instance/scp_instances = list()
 	var/list/research_projects = list()
 	var/list/containment_protocols = list()
 	var/list/anomaly_effects = list()

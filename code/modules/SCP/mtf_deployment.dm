@@ -22,7 +22,16 @@
 		"mtf_beta7" = list("name" = "Beta-7 'Maz Hatters'", "desc" = "Biohazard specialists. Best for SCP-008/049 breaches.", "specialty" = "Biohazard / Quarantine", "size" = 3, "min_breach" = 1),
 	)
 
+/obj/machinery/mtf_deployment_console/Initialize(mapload)
+	. = ..()
+	SET_TRACKING(__TYPE__)
+
+/obj/machinery/mtf_deployment_console/Destroy()
+	UNSET_TRACKING(__TYPE__)
+	return ..()
+
 /obj/machinery/mtf_deployment_console/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "MTFDeployment", "SCP FOUNDATION — MTF DEPLOYMENT TERMINAL")
@@ -133,7 +142,7 @@
 /obj/machinery/mtf_deployment_console/proc/deploy_mtf_team(team_key, list/team_data, mob/deployer)
 	deployment_cooldown = world.time + deployment_cooldown_time
 
-	priority_announce("ATTENTION: Mobile Task Force [team_data["name"]] has been deployed to Site-53. All personnel cooperate with MTF operations.", "MTF DEPLOYMENT", sound_type = ANNOUNCER_ALERT)
+	priority_announce("ATTENTION: Mobile Task Force [team_data["name"]] has been deployed to Site-53. All personnel cooperate with MTF operations.", "MTF DEPLOYMENT", null, ANNOUNCER_ALERT)
 
 	var/list/spawn_turfs = list()
 	for(var/turf/T in get_area_turfs(/area/scp/surface/helipad))

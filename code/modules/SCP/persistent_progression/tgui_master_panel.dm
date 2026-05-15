@@ -6,6 +6,7 @@
 	ui_interact(admin.mob, null)
 
 /datum/persistent_progression_master_ui/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
 		ui = new(user, src, "PersistenceMasterPanel", "SCP Foundation - Persistence Control Terminal", 800, 600)

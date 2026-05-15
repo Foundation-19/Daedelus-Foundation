@@ -35,6 +35,7 @@
 	ui_interact(user)
 
 /obj/machinery/hvac_control_console/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "HVACControl", name)
@@ -58,13 +59,13 @@
 		zone_data["vents_total"] = 0
 		zone_data["scrubbers_total"] = 0
 		var/area/zone_type = zones[zone_name]
-		for(var/obj/machinery/atmospherics/components/unary/vent_pump/V in world)
+		for(var/obj/machinery/atmospherics/components/unary/vent_pump/V in INSTANCES_OF(/obj/machinery/atmospherics/components/unary/vent_pump))
 			var/area/A = get_area(V)
 			if(istype(A, zone_type))
 				zone_data["vents_total"]++
 				if(V.on)
 					zone_data["vents_active"]++
-		for(var/obj/machinery/atmospherics/components/unary/vent_scrubber/S in world)
+		for(var/obj/machinery/atmospherics/components/unary/vent_scrubber/S in INSTANCES_OF(/obj/machinery/atmospherics/components/unary/vent_scrubber))
 			var/area/A = get_area(S)
 			if(istype(A, zone_type))
 				zone_data["scrubbers_total"]++
@@ -78,6 +79,8 @@
 	if(.)
 		return
 
+	if(!ishuman(usr))
+		return
 	var/mob/living/carbon/human/H = usr
 	var/obj/item/card/id/id_card = H.get_idcard(TRUE)
 	if(!id_card || !(ACCESS_ENGINEERING in id_card.access))
@@ -101,7 +104,7 @@
 					zone_type = /area/scp/surface
 			if(!zone_type)
 				return
-			for(var/obj/machinery/atmospherics/components/unary/vent_pump/V in world)
+			for(var/obj/machinery/atmospherics/components/unary/vent_pump/V in INSTANCES_OF(/obj/machinery/atmospherics/components/unary/vent_pump))
 				var/area/A = get_area(V)
 				if(istype(A, zone_type))
 					V.on = !V.on
@@ -122,7 +125,7 @@
 					zone_type = /area/scp/surface
 			if(!zone_type)
 				return
-			for(var/obj/machinery/atmospherics/components/unary/vent_scrubber/S in world)
+			for(var/obj/machinery/atmospherics/components/unary/vent_scrubber/S in INSTANCES_OF(/obj/machinery/atmospherics/components/unary/vent_scrubber))
 				var/area/A = get_area(S)
 				if(istype(A, zone_type))
 					S.on = !S.on

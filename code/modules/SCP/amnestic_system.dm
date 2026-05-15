@@ -22,6 +22,7 @@
 	var/amnestic_stock_e = 1
 
 /obj/machinery/amnestic_dispenser/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ScpAmnesticDispenser", "SCP FOUNDATION — AMNESTIC DISPENSER")
@@ -243,7 +244,7 @@
 	cooldown = world.time + cooldown_time
 	visible_message(span_warning("[src] hisses as amnestic gas begins to fill the area!"))
 	playsound(src, 'sound/effects/smoke.ogg', 50, TRUE)
-	priority_announce("NOTICE: Class-A amnestic gas release in [get_area_name(src)]. Personnel may experience mild disorientation.", "AMNESTIC RELEASE", sound_type = ANNOUNCER_DEFAULT)
+	priority_announce("NOTICE: Class-A amnestic gas release in [get_area_name(src)]. Personnel may experience mild disorientation.", "AMNESTIC RELEASE", null, ANNOUNCER_DEFAULT)
 
 	release_gas()
 	addtimer(CALLBACK(src, .proc/stop_gas), gas_duration)

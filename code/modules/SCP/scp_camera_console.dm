@@ -15,6 +15,7 @@
 	var/anomaly_detection_enabled = TRUE
 
 /obj/machinery/computer/scp_camera_console/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "SCPCameraConsole")
@@ -81,33 +82,33 @@
 
 /obj/machinery/computer/scp_camera_console/proc/get_zone_cameras(zone)
 	. = list()
-	for(var/obj/machinery/camera/C in world)
+	for(var/obj/machinery/camera/C in INSTANCES_OF(/obj/machinery/camera))
 		if(!C)
 			continue
+		var/area/cam_area = get_area(C)
+		if(!cam_area)
+			continue
 		if(zone == "All Zones")
-			var/area/cam_area = get_area(C)
 			if(istype(cam_area, /area/scp))
 				. += C
 		else
-			var/area/cam_area = get_area(C)
-			if(!cam_area)
-				continue
-			switch(zone)
-				if("Light Containment")
-					if(istype(cam_area, /area/scp/lcz))
-						. += C
-				if("Heavy Containment")
-					if(istype(cam_area, /area/scp/hcz))
-						. += C
-				if("Entrance Zone")
-					if(istype(cam_area, /area/scp/ez))
-						. += C
-				if("D-Class Block")
-					if(istype(cam_area, /area/scp/dclass))
-						. += C
-				if("Surface")
-					if(istype(cam_area, /area/scp/surface))
-						. += C
+			var/area/zone_type = camera_zone_to_area(zone)
+			if(zone_type && istype(cam_area, zone_type))
+				. += C
+
+/obj/machinery/computer/scp_camera_console/proc/camera_zone_to_area(zone)
+	switch(zone)
+		if("Light Containment")
+			return /area/scp/lcz
+		if("Heavy Containment")
+			return /area/scp/hcz
+		if("Entrance Zone")
+			return /area/scp/ez
+		if("D-Class Block")
+			return /area/scp/dclass
+		if("Surface")
+			return /area/scp/surface
+	return null
 
 /obj/machinery/computer/scp_camera_console/proc/view_camera(mob/user, obj/machinery/camera/C)
 	if(!ishuman(user))

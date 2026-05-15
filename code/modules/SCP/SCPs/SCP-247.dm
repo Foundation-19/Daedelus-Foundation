@@ -111,7 +111,7 @@
 			to_chat(user, "<span class='notice'>What a sweet little kitty! It looks so soft and harmless...</span>")
 			to_chat(user, "<span class='notice'>You really want to pet it!</span>")
 
-/mob/living/simple_animal/hostile/scp247/death()
+/mob/living/simple_animal/hostile/scp247/death(gibbed, cause_of_death = "Unknown")
 	affected_viewers = list()
 	approach_targets = list()
 	visible_message("<span class='danger'>The creature collapses, its true form briefly visible - an enormous Bengal tiger!</span>")

@@ -51,7 +51,7 @@
 			to_chat(H, "<span class='danger'>The D-Class are refusing to follow orders!</span>")
 			if(H.sanity)
 				H.sanity.adjust_sanity(-10, "dclass_unrest")
-	priority_announce("D-Class unrest has been detected in the facility. Security personnel are advised to monitor the situation.", sound_type = ANNOUNCER_ALERT)
+	priority_announce("D-Class unrest has been detected in the facility. Security personnel are advised to monitor the situation.", null, null, ANNOUNCER_ALERT)
 	hook_storytelling_riot(1)
 	if(SSfoundation_politics?.manager)
 		SSfoundation_politics.manager.political_tensions = min(100, SSfoundation_politics.manager.political_tensions + 10)
@@ -110,15 +110,15 @@
 	stage++
 	switch(stage)
 		if(2)
-			priority_announce("D-Class personnel are protesting in the cell blocks. Demands have been issued: [english_list(demands)].", sound_type = ANNOUNCER_ALERT)
+			priority_announce("D-Class personnel are protesting in the cell blocks. Demands have been issued: [english_list(demands)].", null, null, ANNOUNCER_ALERT)
 			for(var/mob/living/carbon/human/H in rioting_dclass)
 				if(QDELETED(H) || H.stat == DEAD)
 					continue
 				to_chat(H, "<span class='warning'>You gather with the other D-Class, raising your voices in protest!</span>")
 			if(prob(20))
-				priority_announce("D-Class property damage reported in the cell block area.", sound_type = ANNOUNCER_ALERT)
+				priority_announce("D-Class property damage reported in the cell block area.", null, null, ANNOUNCER_ALERT)
 		if(3)
-			priority_announce("ALERT: D-Class riot in progress! Security personnel engage immediately. Containment integrity at risk.", sound_type = ANNOUNCER_ALERT)
+			priority_announce("ALERT: D-Class riot in progress! Security personnel engage immediately. Containment integrity at risk.", null, null, ANNOUNCER_ALERT)
 			for(var/mob/living/carbon/human/H in rioting_dclass)
 				if(QDELETED(H) || H.stat == DEAD)
 					continue
@@ -135,9 +135,9 @@
 					var/obj/machinery/door/airlock/target = pick(valid_airlocks)
 					if(!QDELETED(target) && target.density)
 						target.open()
-					priority_announce("Door breach detected near D-Class areas!", sound_type = ANNOUNCER_ALERT)
+					priority_announce("Door breach detected near D-Class areas!", null, null, ANNOUNCER_ALERT)
 		if(4)
-			priority_announce("CRITICAL: D-Class armed uprising in progress! All security personnel respond with lethal force authorized. Containment breach imminent.", sound_type = ANNOUNCER_ALERT)
+			priority_announce("CRITICAL: D-Class armed uprising in progress! All security personnel respond with lethal force authorized. Containment breach imminent.", null, null, ANNOUNCER_ALERT)
 			for(var/mob/living/carbon/human/H in rioting_dclass)
 				if(QDELETED(H) || H.stat == DEAD)
 					continue
@@ -167,7 +167,7 @@
 	negotiator = H
 	negotiation_progress = 0
 	to_chat(H, "<span class='notice'>You begin negotiating with the D-Class rioters.</span>")
-	priority_announce("Negotiations with D-Class rioters have begun.", sound_type = ANNOUNCER_DEFAULT)
+	priority_announce("Negotiations with D-Class rioters have begun.", null, null, ANNOUNCER_DEFAULT)
 	return TRUE
 
 /datum/dclass_riot/proc/progress_negotiation(amount)
@@ -176,7 +176,7 @@
 		if(stage > 1)
 			stage--
 			negotiation_progress = 0
-			priority_announce("D-Class rioters have agreed to de-escalate. Current stage: [stage].", sound_type = ANNOUNCER_DEFAULT)
+			priority_announce("D-Class rioters have agreed to de-escalate. Current stage: [stage].", null, null, ANNOUNCER_DEFAULT)
 			if(stage <= 1)
 				end_riot(FALSE)
 		else
@@ -193,7 +193,7 @@
 		if(QDELETED(H) || H.stat == DEAD)
 			continue
 		to_chat(H, "<span class='notice'>The Foundation has agreed to: [demand]. Some rioters calm down.</span>")
-	priority_announce("The Foundation has partially met D-Class demands: [demand].", sound_type = ANNOUNCER_DEFAULT)
+	priority_announce("The Foundation has partially met D-Class demands: [demand].", null, null, ANNOUNCER_DEFAULT)
 	if(length(met_demands) >= length(demands) || negotiation_progress >= 100)
 		partial_win = TRUE
 		end_riot(FALSE)
@@ -212,7 +212,7 @@
 	for(var/mob/living/carbon/human/H in rioting_dclass)
 		UnregisterSignal(H, COMSIG_LIVING_DEATH)
 	if(violent)
-		priority_announce("D-Class riot has been suppressed by force. Multiple casualties reported.", sound_type = ANNOUNCER_ALERT)
+		priority_announce("D-Class riot has been suppressed by force. Multiple casualties reported.", null, null, ANNOUNCER_ALERT)
 		for(var/mob/living/carbon/human/H in rioting_dclass)
 			if(QDELETED(H) || H.stat == DEAD)
 				continue
@@ -230,9 +230,9 @@
 				log_combat(null, H, "riotsuppressed", addition="D-Class riot collateral damage")
 	else
 		if(partial_win || length(met_demands) > 0)
-			priority_announce("D-Class unrest has been resolved through negotiation. Demands partially met: [english_list(met_demands)].", sound_type = ANNOUNCER_DEFAULT)
+			priority_announce("D-Class unrest has been resolved through negotiation. Demands partially met: [english_list(met_demands)].", null, null, ANNOUNCER_DEFAULT)
 		else
-			priority_announce("D-Class unrest has been resolved peacefully. Demands have been partially addressed.", sound_type = ANNOUNCER_DEFAULT)
+			priority_announce("D-Class unrest has been resolved peacefully. Demands have been partially addressed.", null, null, ANNOUNCER_DEFAULT)
 	if(SSfoundation_politics?.manager)
 		if(violent)
 			SSfoundation_politics.manager.political_tensions = min(100, SSfoundation_politics.manager.political_tensions + 15)
@@ -277,7 +277,7 @@
 	endWhen = 50
 
 /datum/round_event/dclass_riot/announce(fake)
-	priority_announce("ALERT: D-Class unrest is escalating in the facility. All security personnel prepare for riot response.", sound_type = ANNOUNCER_ALERT)
+	priority_announce("ALERT: D-Class unrest is escalating in the facility. All security personnel prepare for riot response.", null, null, ANNOUNCER_ALERT)
 
 /datum/round_event/dclass_riot/start()
 	riot = new /datum/dclass_riot()
@@ -361,6 +361,7 @@ SUBSYSTEM_DEF(dclass_riot)
 	req_access = list(ACCESS_SECURITY)
 
 /obj/machinery/computer/dclass_riot_console/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "DClassRiotConsole", "D-Class Riot Control")

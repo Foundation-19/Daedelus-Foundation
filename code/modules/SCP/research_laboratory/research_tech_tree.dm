@@ -32,7 +32,7 @@
 	research_cost = cost
 
 /datum/tech_tree
-	var/list/nodes = list()
+	var/list/datum/tech_node/nodes = list()
 	var/list/unlocked_nodes = list()
 	var/research_points_available = 0
 	var/total_spent = 0

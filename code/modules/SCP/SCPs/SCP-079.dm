@@ -220,7 +220,7 @@
 
 	processing_power -= 35
 
-	priority_announce(message, "Automated Announcement System", sound_type = null)
+	priority_announce(message, "Automated Announcement System", null, null)
 	log_game("SCP-079 hijacked the PA system with message: [message]")
 
 	messages_broadcast += message
@@ -337,7 +337,7 @@
 			APC.energy_fail(rand(30, 90))
 
 	to_chat(src, span_danger("You unleash a cascade of hacks across nearby systems! [hacked_count] doors compromised!"))
-	priority_announce("CRITICAL: Widespread system compromise detected. SCP-079 is attempting a facility-wide network breach.", "SCP-079 CASCADE", sound_type = ANNOUNCER_ALERT)
+	priority_announce("CRITICAL: Widespread system compromise detected. SCP-079 is attempting a facility-wide network breach.", "SCP-079 CASCADE", null, ANNOUNCER_ALERT)
 	hack_cooldown = world.time + (hack_cooldown_time * 5)
 	return TRUE
 
@@ -632,7 +632,7 @@
 	hack_progress = 0
 	current_stage = 1
 	visible_message(span_notice("[src] begins the countermeasure sequence against SCP-079!"))
-	priority_announce("ATTENTION: SCP-079 recontainment countermeasures initiated. Network isolation in progress.", sound_type = ANNOUNCER_ALERT)
+	priority_announce("ATTENTION: SCP-079 recontainment countermeasures initiated. Network isolation in progress.", null, null, ANNOUNCER_ALERT)
 
 	START_PROCESSING(SSobj, src)
 
@@ -680,7 +680,7 @@
 		ai.available_abilities = list("camera_hop", "toggle_door", "flicker_lights", "broadcast_message")
 
 	hook_scp_recontainment("SCP-079", list())
-	priority_announce("SCP-079 has been successfully recontained via countermeasure protocol. Network stability restored.", sound_type = ANNOUNCER_DEFAULT)
+	priority_announce("SCP-079 has been successfully recontained via countermeasure protocol. Network stability restored.", null, null, ANNOUNCER_DEFAULT)
 
 /obj/machinery/scp079_recontainment_terminal/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -750,5 +750,5 @@
 			hack_progress = 0
 			current_stage = 1
 			visible_message(span_notice("[src] begins the countermeasure sequence against SCP-079!"))
-			priority_announce("ATTENTION: SCP-079 recontainment countermeasures initiated. Network isolation in progress.", sound_type = ANNOUNCER_ALERT)
+			priority_announce("ATTENTION: SCP-079 recontainment countermeasures initiated. Network isolation in progress.", null, null, ANNOUNCER_ALERT)
 			START_PROCESSING(SSobj, src)

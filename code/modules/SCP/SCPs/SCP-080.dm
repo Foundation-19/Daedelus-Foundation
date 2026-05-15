@@ -108,12 +108,15 @@
 
 	darkness_radius = min(max_radius, darkness_radius + light_absorption_rate)
 
-	for(var/turf/T in range(darkness_radius, parent))
-		T.set_light(max(0, T.light - 0.1))
+	for(var/obj/machinery/light/L in range(darkness_radius, parent))
+		if(L.on)
+			L.set_on(FALSE)
+			L.visible_message("<span class='warning'>[L] flickers and dies!</span>")
 
 	for(var/obj/item/flashlight/F in range(darkness_radius, parent))
 		if(F.on)
 			F.on = FALSE
+			F.update_brightness()
 			F.visible_message("<span class='warning'>[F] flickers and dies!</span>")
 
 /datum/scp080_absorption_system
@@ -163,6 +166,3 @@
 
 /datum/scp080_research_system/New(obj/structure/P)
 	parent = P
-
-/datum/scp080_research_system/proc/log_absorption(mob/victim)
-	absorption_log["[world.time]"] = list("victim" = victim?.ckey)

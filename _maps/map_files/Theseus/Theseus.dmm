@@ -4476,7 +4476,7 @@
 /turf/open/space,
 /area/space/nearstation)
 "bAU" = (
-/obj/machinery/microwave{
+/obj/machinery/appliance/cooker/microwave{
 	pixel_y = 4
 	},
 /obj/structure/table/wood,
@@ -16658,7 +16658,7 @@
 /area/station/security/warden)
 "ggE" = (
 /obj/structure/table,
-/obj/machinery/microwave,
+/obj/machinery/appliance/cooker/microwave,
 /obj/machinery/firealarm/directional/west,
 /obj/effect/turf_decal/trimline/brown/warning{
 	dir = 6
@@ -20073,7 +20073,7 @@
 /turf/open/floor/wood,
 /area/station/service/library)
 "hCT" = (
-/obj/machinery/microwave{
+/obj/machinery/appliance/cooker/microwave{
 	pixel_x = -1;
 	pixel_y = 7
 	},
@@ -23591,7 +23591,7 @@
 /turf/open/floor/plating,
 /area/station/commons/storage/tools)
 "iRT" = (
-/obj/machinery/griddle,
+/obj/machinery/appliance/cooker/griddle,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron/white,
 /area/station/service/kitchen)
@@ -30477,7 +30477,7 @@
 /area/station/commons/fitness/recreation)
 "luY" = (
 /obj/structure/table,
-/obj/machinery/microwave,
+/obj/machinery/appliance/cooker/microwave,
 /obj/effect/turf_decal/trimline/brown/warning{
 	dir = 5
 	},
@@ -34712,7 +34712,7 @@
 "mWs" = (
 /obj/machinery/power/apc/auto_name/directional/west,
 /obj/structure/table/reinforced,
-/obj/machinery/microwave{
+/obj/machinery/appliance/cooker/microwave{
 	pixel_y = 6
 	},
 /obj/effect/turf_decal/tile/yellow{
@@ -35713,7 +35713,7 @@
 /area/station/maintenance/port)
 "nqV" = (
 /obj/structure/table,
-/obj/machinery/microwave{
+/obj/machinery/appliance/cooker/microwave{
 	pixel_y = 6
 	},
 /turf/open/floor/plating,
@@ -40078,7 +40078,7 @@
 /area/station/ai_monitored/command/storage/satellite)
 "oSm" = (
 /obj/structure/extinguisher_cabinet/directional/south,
-/obj/machinery/deepfryer,
+/obj/machinery/appliance/cooker/fryer,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
@@ -41131,7 +41131,7 @@
 "pmF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/machinery/microwave{
+/obj/machinery/appliance/cooker/microwave{
 	pixel_y = 6
 	},
 /obj/machinery/light_switch/directional/west{
@@ -41420,7 +41420,7 @@
 "pts" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/table/wood,
-/obj/machinery/microwave{
+/obj/machinery/appliance/cooker/microwave{
 	pixel_x = -1;
 	pixel_y = 4
 	},
@@ -49381,7 +49381,7 @@
 /turf/open/floor/carpet,
 /area/station/service/theater)
 "ssN" = (
-/obj/machinery/oven,
+/obj/machinery/appliance/cooker/oven,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron/white,
 /area/station/service/kitchen)
@@ -50032,7 +50032,7 @@
 /turf/open/floor/iron,
 /area/station/commons/fitness/recreation)
 "sDm" = (
-/obj/machinery/deepfryer,
+/obj/machinery/appliance/cooker/fryer,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
@@ -61409,7 +61409,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/port/aft)
 "wTt" = (
-/obj/machinery/oven,
+/obj/machinery/appliance/cooker/oven,
 /turf/open/floor/plating,
 /area/station/maintenance/port/aft)
 "wTG" = (

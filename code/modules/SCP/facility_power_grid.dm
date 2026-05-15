@@ -166,7 +166,7 @@ SUBSYSTEM_DEF(facility_power)
 		cascade_failure_active = FALSE
 		return
 	trigger_zone_failure(starting_zone, 3)
-	priority_announce("CRITICAL: Cascade power failure originating in [zone.name]. Adjacent zones at risk. All engineering personnel respond immediately.", "POWER GRID CASCADE", sound_type = ANNOUNCER_ALERT)
+	priority_announce("CRITICAL: Cascade power failure originating in [zone.name]. Adjacent zones at risk. All engineering personnel respond immediately.", "POWER GRID CASCADE", null, ANNOUNCER_ALERT)
 	var/list/adjacent_zones = get_adjacent_zones(starting_zone)
 	var/delay = 200
 	for(var/adj_tag in adjacent_zones)
@@ -178,7 +178,7 @@ SUBSYSTEM_DEF(facility_power)
 	trigger_zone_failure(zone_tag, severity)
 	var/datum/facility_power_zone/zone = power_zones[zone_tag]
 	if(zone)
-		priority_announce("Cascade failure has spread to [zone.name]. Power integrity compromised.", "POWER GRID CASCADE", sound_type = ANNOUNCER_ALERT)
+		priority_announce("Cascade failure has spread to [zone.name]. Power integrity compromised.", "POWER GRID CASCADE", null, ANNOUNCER_ALERT)
 
 /datum/controller/subsystem/facility_power/proc/end_cascade_failure()
 	cascade_failure_active = FALSE
@@ -240,7 +240,7 @@ SUBSYSTEM_DEF(facility_power)
 		if(A && !QDELETED(A))
 			A.charging = APC_CHARGING
 			A.machine_stat &= ~NOPOWER
-	priority_announce("Emergency generator activated in [zone.name]. Limited power restored. Fuel reserves: [zone.emergency_fuel]%.", "EMERGENCY POWER", sound_type = ANNOUNCER_ALERT)
+	priority_announce("Emergency generator activated in [zone.name]. Limited power restored. Fuel reserves: [zone.emergency_fuel]%.", "EMERGENCY POWER", null, ANNOUNCER_ALERT)
 	return TRUE
 
 /datum/controller/subsystem/facility_power/proc/tamper_apc(obj/machinery/power/apc/apc, mob/living/scp079/tamperer)
@@ -286,6 +286,7 @@ SUBSYSTEM_DEF(facility_power)
 	idle_power_usage = 200
 
 /obj/machinery/computer/facility_power_console/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "FacilityPowerConsole", "Facility Power Grid")

@@ -383,23 +383,6 @@
 	duration = 3 SECONDS
 	color = "#00ff00"
 
-// SCP-049-1 zombie definition
-/mob/living/simple_animal/hostile/zombie/scp049_1
-	name = "SCP-049-1"
-	desc = "A reanimated corpse, the result of SCP-049's 'cure'. It shambles with unnatural purpose."
-	icon_state = "zombie"
-	maxHealth = SCP049_1_MAX_HEALTH
-	health = SCP049_1_MAX_HEALTH
-	melee_damage_lower = SCP049_1_MELEE_DAMAGE_LOWER
-	melee_damage_upper = SCP049_1_MELEE_DAMAGE_UPPER
-	move_to_delay = SCP049_1_MOVE_DELAY
-	faction = list("scp049")
-
-/mob/living/simple_animal/hostile/zombie/scp049_1/Initialize()
-	. = ..()
-	ADD_TRAIT(src, TRAIT_PESTILENCE_IMMUNE, "scp049_1")
-
-
 // Progression Integration Hooks
 /mob/living/scp/scp049/proc/on_cure_attempt(mob/living/carbon/human/target)
 	if(!target || !target.ckey)

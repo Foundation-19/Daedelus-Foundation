@@ -101,7 +101,7 @@
 		hook_scp_combat(H, "SCP-1507", melee_damage_upper, 0)
 		attacks_made++
 
-/mob/living/simple_animal/hostile/retaliate/scp1507/death()
+/mob/living/simple_animal/hostile/retaliate/scp1507/death(gibbed, cause_of_death = "Unknown")
 	visible_message("<span class='danger'>[src] shatters into plastic pieces!</span>")
 	playsound(src, 'sound/effects/glassbr1.ogg', 50, TRUE)
 	if(flock_system)

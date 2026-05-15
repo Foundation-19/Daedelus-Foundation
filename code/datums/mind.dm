@@ -1,5 +1,6 @@
-// Vision cone system defines
+#ifndef FOV_DEFAULT
 #define FOV_DEFAULT 1
+#endif
 
 /* Note from Carnie:
 		The way datum/mind stuff works has been changed a lot.

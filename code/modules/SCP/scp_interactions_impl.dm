@@ -38,7 +38,7 @@
 	var/mob/living/scp/scp939/predator = istype(scp1, /mob/living/scp/scp939) ? scp1 : scp2
 	if(!ai || !predator)
 		return FALSE
-	priority_announce("...help me... is anyone there... I'm hurt...", "INTERCOM: DISTRESS SIGNAL", sound_type = null)
+	priority_announce("...help me... is anyone there... I'm hurt...", "INTERCOM: DISTRESS SIGNAL", null, null)
 	return TRUE
 
 /proc/interact_079_broadcast_035_propaganda(mob/living/scp1, mob/living/scp2)

@@ -100,7 +100,7 @@
 		else
 			narrative_phase = "climax"
 
-/mob/living/scp/scp2020/say(message)
+/mob/living/scp/scp2020/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, filterproof = null, range = 7)
 	. = ..()
 	if(.)
 		for(var/mob/living/carbon/human/H in range(5, src))
@@ -111,7 +111,7 @@
 /mob/living/scp/scp2020/proc/say_reaction(reaction)
 	say(reaction)
 
-/mob/living/scp/scp2020/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods, message_range)
+/mob/living/scp/scp2020/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), atom/sound_loc, message_range)
 	. = ..()
 
 	if(speaker == src)
@@ -234,7 +234,7 @@
 
 	to_chat(src, "<span class='notice'>[message]</span>")
 
-/mob/living/scp/scp2020/death()
+/mob/living/scp/scp2020/death(gibbed, cause_of_death = "Unknown")
 	say("I... I don't think... this is how the story... was supposed to end...")
 	visible_message("<span class='danger'>[src] collapses, looking genuinely surprised!</span>")
 	return ..()

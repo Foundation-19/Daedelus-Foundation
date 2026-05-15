@@ -4,12 +4,12 @@
 	button_icon = 'icons/obj/objects.dmi'
 	button_icon_state = "camera"
 
-/datum/action/ghost/scp_follow/IsAvailable()
+/datum/action/ghost/scp_follow/IsAvailable(feedback = FALSE)
 	if(!istype(owner, /mob/dead/observer))
 		return FALSE
 	return TRUE
 
-/datum/action/ghost/scp_follow/Trigger()
+/datum/action/ghost/scp_follow/Trigger(trigger_flags)
 	. = ..()
 	if(!IsAvailable())
 		return

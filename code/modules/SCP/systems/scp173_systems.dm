@@ -210,9 +210,8 @@
 	last_research_update = world.time
 	research_progress += 1
 	var/list/data = list(
-		"kills_count" = owner.kills_count,
-		"breach_events" = owner.breach_events,
-		"total_damage_dealt" = owner.total_damage_dealt,
+		"kills_count" = owner.combat_system?.kills_count || 0,
+		"breach_events" = owner.containment_system?.breach_events || 0,
 		"is_observed" = owner.observation_system?.is_being_observed || FALSE,
 		"observation_quality" = owner.observation_system?.observation_quality || 0,
 		"containment_integrity" = owner.containment_system?.containment_integrity || 100,

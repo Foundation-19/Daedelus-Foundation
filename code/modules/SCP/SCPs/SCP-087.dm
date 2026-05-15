@@ -37,6 +37,7 @@
 
 	// Register with SCP persistence system
 	// Start processing
+	RegisterSignal(src, COMSIG_ATOM_ENTERED, PROC_REF(on_crossed))
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/scp087/Destroy()
@@ -141,10 +142,7 @@
 		if(horror_system)
 			horror_system.increase_psychological_horror()
 
-/obj/structure/scp087/Crossed(atom/movable/AM)
-	. = ..()
-
-	// Automatic response to someone stepping on the stairs
+/obj/structure/scp087/proc/on_crossed(datum/source, atom/movable/AM)
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
 		if(H.stat != DEAD)

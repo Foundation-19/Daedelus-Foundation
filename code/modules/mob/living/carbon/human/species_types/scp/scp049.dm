@@ -131,4 +131,6 @@
 	human.update_body_parts()
 
 // Constants
+#ifndef SPECIES_SCP049
 #define SPECIES_SCP049 "scp049"
+#endif

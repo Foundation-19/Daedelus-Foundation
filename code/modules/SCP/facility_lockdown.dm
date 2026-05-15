@@ -20,8 +20,19 @@
 	var/blast_doors_closed = FALSE
 	var/list/jammed_radios = list()
 	var/saved_security_level = 0
-	var/cached_airlock_iteration = 0
+	var/cached_airlock_iteration_lockdown = 0
+	var/cached_airlock_iteration_unlock = 0
+	var/cached_elevator_iteration_lock = 0
+	var/cached_elevator_iteration_unlock = 0
 	var/airlock_cache_cooldown = 30 SECONDS
+
+/obj/machinery/facility_lockdown_console/Initialize(mapload)
+	. = ..()
+	SET_TRACKING(__TYPE__)
+
+/obj/machinery/facility_lockdown_console/Destroy()
+	UNSET_TRACKING(__TYPE__)
+	return ..()
 
 /obj/machinery/facility_lockdown_console/attack_hand(mob/user)
 	if(!ishuman(user))
@@ -49,6 +60,7 @@
 	initiate_lockdown(choice == "Full Lockdown" ? LOCKDOWN_FULL : LOCKDOWN_PARTIAL, reason, H)
 
 /obj/machinery/facility_lockdown_console/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "FacilityLockdown", "SCP FOUNDATION — FACILITY LOCKDOWN CONTROL")
@@ -130,7 +142,8 @@
 	priority_announce(
 		"ATTENTION: [level == LOCKDOWN_FULL ? "FULL" : "PARTIAL"] FACILITY LOCKDOWN INITIATED. Reason: [reason]. [level == LOCKDOWN_FULL ? "All personnel remain at current posts. Blast doors sealed. Elevators disabled." : "D-Class areas secured. Blast doors closing."]",
 		"FACILITY LOCKDOWN",
-		sound_type = ANNOUNCER_ALERT
+		null,
+		ANNOUNCER_ALERT
 	)
 
 	report_lockdown_to_round_log(reason, 0)
@@ -147,7 +160,7 @@
 	unjam_communications()
 	unlock_dclass_areas()
 
-	priority_announce("Facility lockdown has been lifted. All systems returning to normal operation.", "LOCKDOWN LIFTED", sound_type = ANNOUNCER_DEFAULT)
+	priority_announce("Facility lockdown has been lifted. All systems returning to normal operation.", "LOCKDOWN LIFTED", null, ANNOUNCER_DEFAULT)
 
 	report_lockdown_to_round_log("Lockdown lifted", world.time - lockdown_start_time)
 
@@ -182,9 +195,9 @@
 	if(SSdclass && SSdclass.manager)
 		saved_security_level = SSdclass.manager.current_security_level
 		SSdclass.manager.current_security_level = 4
-	if(world.time < cached_airlock_iteration)
+	if(world.time < cached_airlock_iteration_lockdown)
 		return
-	cached_airlock_iteration = world.time + airlock_cache_cooldown
+	cached_airlock_iteration_lockdown = world.time + airlock_cache_cooldown
 	for(var/obj/machinery/door/airlock/A in INSTANCES_OF(/obj/machinery/door/airlock))
 		var/area/area = get_area(A)
 		if(istype(area, /area/scp/dclass))
@@ -193,9 +206,9 @@
 /obj/machinery/facility_lockdown_console/proc/unlock_dclass_areas()
 	if(SSdclass && SSdclass.manager)
 		SSdclass.manager.current_security_level = saved_security_level ? saved_security_level : 1
-	if(world.time < cached_airlock_iteration)
+	if(world.time < cached_airlock_iteration_unlock)
 		return
-	cached_airlock_iteration = world.time + airlock_cache_cooldown
+	cached_airlock_iteration_unlock = world.time + airlock_cache_cooldown
 	for(var/obj/machinery/door/airlock/A in INSTANCES_OF(/obj/machinery/door/airlock))
 		var/area/area = get_area(A)
 		if(istype(area, /area/scp/dclass))
@@ -203,9 +216,9 @@
 
 /obj/machinery/facility_lockdown_console/proc/disable_elevators()
 	elevators_disabled = TRUE
-	if(world.time < cached_airlock_iteration)
+	if(world.time < cached_elevator_iteration_lock)
 		return
-	cached_airlock_iteration = world.time + airlock_cache_cooldown
+	cached_elevator_iteration_lock = world.time + airlock_cache_cooldown
 	for(var/obj/machinery/door/airlock/A in INSTANCES_OF(/obj/machinery/door/airlock))
 		var/area/area = get_area(A)
 		if(istype(area, /area/scp/surface) || istype(area, /area/scp/ez))
@@ -214,9 +227,9 @@
 
 /obj/machinery/facility_lockdown_console/proc/enable_elevators()
 	elevators_disabled = FALSE
-	if(world.time < cached_airlock_iteration)
+	if(world.time < cached_elevator_iteration_unlock)
 		return
-	cached_airlock_iteration = world.time + airlock_cache_cooldown
+	cached_elevator_iteration_unlock = world.time + airlock_cache_cooldown
 	for(var/obj/machinery/door/airlock/A in INSTANCES_OF(/obj/machinery/door/airlock))
 		var/area/area = get_area(A)
 		if(istype(area, /area/scp/surface) || istype(area, /area/scp/ez))
@@ -234,7 +247,7 @@
 		var/area/A = get_area(H)
 		if(istype(A, /area/scp/lcz) || istype(A, /area/scp/hcz))
 			var/obj/item/radio/R = H.ears
-			if(istype(R) && R.on)
+			if(istype(R) && R.is_on())
 				R.set_on(FALSE)
 				jammed_radios += R
 			to_chat(H, "<span class='warning'>Your radio crackles and goes silent. Communications are being jammed.</span>")

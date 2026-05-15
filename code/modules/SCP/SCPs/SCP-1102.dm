@@ -28,9 +28,10 @@
 
 /obj/item/storage/briefcase/scp1102ru/attack_hand(mob/user)
 	. = ..()
-	if(!enter_point)
-		enter_point = new /obj/structure/ladder/scp1102ladder(get_turf(src))
-		enter_point.linked_case = src
+	if(enter_point && !QDELETED(enter_point))
+		return
+	enter_point = new /obj/structure/ladder/scp1102ladder(get_turf(src))
+	enter_point.linked_case = src
 
 /obj/item/storage/briefcase/scp1102ru/attack_self(mob/living/carbon/human/user)
 	if(!user || !istype(user))
@@ -40,9 +41,10 @@
 		to_chat(user, "<span class='warning'>The portal is still recharging...</span>")
 		return
 
-	if(!enter_point)
-		enter_point = new /obj/structure/ladder/scp1102ladder(get_turf(src))
-		enter_point.linked_case = src
+	if(enter_point && !QDELETED(enter_point))
+		qdel(enter_point)
+	enter_point = new /obj/structure/ladder/scp1102ladder(get_turf(src))
+	enter_point.linked_case = src
 
 	hook_scp_interaction(user, "SCP-1102-RU", INTERACTION_TYPE_EXPLORATION)
 	explorations++
@@ -159,10 +161,6 @@
 /datum/scp1102_portal_system/New(obj/item/P)
 	parent = P
 
-/datum/scp1102_portal_system/proc/process_portal()
-	if(portal_stability < max_stability)
-		portal_stability = min(max_stability, portal_stability + recharge_rate)
-
 /datum/scp1102_research_system
 	var/obj/item/parent
 	var/list/exploration_log = list()
@@ -170,10 +168,6 @@
 
 /datum/scp1102_research_system/New(obj/item/P)
 	parent = P
-
-/datum/scp1102_research_system/proc/log_exploration(mob/explorer, depth)
-	exploration_log["[world.time]"] = list("explorer" = explorer?.ckey, "depth" = depth)
-	total_depth_achieved = max(total_depth_achieved, depth)
 
 /datum/scp1102ladder_depth_system
 	var/obj/structure/parent

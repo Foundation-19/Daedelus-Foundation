@@ -126,6 +126,12 @@ SUBSYSTEM_DEF(ticker)
 
 	return ..()
 
+/datum/controller/subsystem/ticker/proc/set_force_ending(val)
+	force_ending = val
+
+/datum/controller/subsystem/ticker/proc/is_force_ending()
+	return force_ending
+
 /datum/controller/subsystem/ticker/fire()
 	switch(current_state)
 		if(GAME_STATE_STARTUP)

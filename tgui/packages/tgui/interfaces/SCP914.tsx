@@ -37,7 +37,7 @@ const settingColors: Record<string, string> = {
   COARSE: '#ff8800',
   '1:1': '#ffaa00',
   FINE: '#00ff41',
-  VERY_FINE: '#aa00ff',
+  'VERY FINE': '#aa00ff',
 };
 
 export const SCP914 = (_props: unknown) => {

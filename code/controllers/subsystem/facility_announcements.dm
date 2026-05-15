@@ -96,7 +96,7 @@ SUBSYSTEM_DEF(facility_announcements)
 			announcement = pick(routine_messages)
 
 	if(announcement)
-		priority_announce(announcement, sound_type = null, sender = "Facility Automated Announcement System")
+		priority_announce(announcement, "Facility Automated Announcement System", sound_type = null)
 		last_announcement_time = world.time
 
 /datum/controller/subsystem/facility_announcements/proc/get_shift_phase()
@@ -112,5 +112,5 @@ SUBSYSTEM_DEF(facility_announcements)
 
 /datum/controller/subsystem/facility_announcements/proc/announce_breach(scp_id, zone_name)
 	var/message = "CONTAINMENT BREACH DETECTED: [scp_id] has breached containment in [zone_name]. All security personnel respond immediately. Research staff, seal your laboratories. D-Class personnel, return to your cells."
-	priority_announce(message, sound_type = ANNOUNCER_ALERT, sender = "Foundation Emergency Alert System")
+	priority_announce(message, "Foundation Emergency Alert System", sound_type = ANNOUNCER_ALERT)
 	last_announcement_time = world.time

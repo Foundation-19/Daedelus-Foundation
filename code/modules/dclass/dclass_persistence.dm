@@ -94,7 +94,7 @@
 
 // Enhanced Persistence Manager
 /datum/dclass_persistence_manager
-	var/list/persistent_data = list() // ckey -> datum/dclass_persistence_data
+	var/list/datum/dclass_persistence_data/persistent_data = list()
 	var/list/achievements = list()
 	var/persistence_file = "data/dclass_persistence.json"
 	var/backup_file = "data/dclass_persistence_backup.json"

@@ -28,12 +28,17 @@
 
 /obj/machinery/tesla_gate/Initialize(mapload)
 	. = ..()
+	SET_TRACKING(__TYPE__)
 	find_linked_gate()
+
+/obj/machinery/tesla_gate/Destroy()
+	UNSET_TRACKING(__TYPE__)
+	return ..()
 
 /obj/machinery/tesla_gate/proc/find_linked_gate()
 	if(!linked_gate_id)
 		return
-	for(var/obj/machinery/tesla_gate/T in world)
+	for(var/obj/machinery/tesla_gate/T in INSTANCES_OF(/obj/machinery/tesla_gate))
 		if(T != src && T.linked_gate_id == linked_gate_id)
 			linked_gate = T
 			T.linked_gate = src
@@ -105,6 +110,7 @@
 	addtimer(CALLBACK(src, .proc/deactivate), 30 SECONDS)
 
 /obj/machinery/tesla_gate/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ScpTeslaGate", "SCP FOUNDATION — TESLA GATE CONTROL")

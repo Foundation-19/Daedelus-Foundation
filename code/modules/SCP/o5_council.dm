@@ -24,6 +24,7 @@
 	ui_interact(H)
 
 /obj/machinery/o5_council_console/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "O5Council", name)
@@ -62,12 +63,13 @@
 				return
 			var/title = params["title"]
 			var/desc = params["description"]
+			var/vote_type_input = params["vote_type"]
 			if(!title)
 				return
-			var/datum/o5_vote/new_vote = new(title, desc, H.real_name)
+			var/datum/o5_vote/new_vote = new(title, desc, H.real_name, vote_type_input)
 			active_votes += new_vote
 			vote_cooldown = world.time + vote_cooldown_time
-			priority_announce("O5 COUNCIL VOTE CALLED: [title]. All O5 members report to the Council Chamber.", sound_type = 'sound/misc/notice1.ogg')
+			priority_announce("O5 COUNCIL VOTE CALLED: [title]. All O5 members report to the Council Chamber.", null, null, 'sound/misc/notice1.ogg')
 			log_game("[key_name(H)] called an O5 vote: [title]")
 		if("cast_vote")
 			var/vote_id = text2num(params["vote_id"])
@@ -87,35 +89,42 @@
 		if("authorize_warhead")
 			if(!(ACCESS_ADMIN in id_card.access))
 				return
-			priority_announce("O5 COUNCIL HAS AUTHORIZED THE ON-SITE WARHEAD. SITE DIRECTOR: CONFIRM DETONATION CODE.", sound_type = 'sound/misc/airraid.ogg')
+			priority_announce("O5 COUNCIL HAS AUTHORIZED THE ON-SITE WARHEAD. SITE DIRECTOR: CONFIRM DETONATION CODE.", null, null, 'sound/misc/airraid.ogg')
 			log_game("[key_name(H)] O5 authorized the on-site warhead via Council vote.")
-			for(var/obj/machinery/nuclearbomb/foundation/N in world)
-				N.foundation_authorized = TRUE
+			for(var/obj/machinery/nuclearbomb/N in INSTANCES_OF(/obj/machinery/nuclearbomb))
+				if(istype(N, /obj/machinery/nuclearbomb/foundation))
+					var/obj/machinery/nuclearbomb/foundation/FN = N
+					FN.foundation_authorized = TRUE
 
 /obj/machinery/o5_council_console/proc/check_vote_completion(datum/o5_vote/vote)
 	if(vote.yes_votes >= vote.required_votes)
 		vote.status = "passed"
-		priority_announce("O5 COUNCIL MEASURE PASSED: [vote.title].", sound_type = 'sound/misc/notice1.ogg')
+		priority_announce("O5 COUNCIL MEASURE PASSED: [vote.title].", null, null, 'sound/misc/notice1.ogg')
 		execute_vote_action(vote)
 	else if(vote.no_votes >= vote.required_votes)
 		vote.status = "vetoed"
-		priority_announce("O5 COUNCIL MEASURE VETOED: [vote.title].", sound_type = 'sound/misc/notice1.ogg')
+		priority_announce("O5 COUNCIL MEASURE VETOED: [vote.title].", null, null, 'sound/misc/notice1.ogg')
 
 /obj/machinery/o5_council_console/proc/execute_vote_action(datum/o5_vote/vote)
 	switch(vote.vote_type)
 		if("lockdown")
-			for(var/obj/machinery/facility_lockdown_console/L in world)
+			for(var/obj/machinery/facility_lockdown_console/L in INSTANCES_OF(/obj/machinery/facility_lockdown_console))
 				L.initiate_lockdown(LOCKDOWN_FULL)
 		if("mtf_deploy")
-			for(var/obj/machinery/mtf_deployment_console/M in world)
-				var/list/team_data = M.available_teams["mtf_epsilon11"]
-				if(team_data)
-					M.deploy_mtf_team("mtf_epsilon11", team_data, null)
+			for(var/obj/machinery/mtf_deployment_console/M in INSTANCES_OF(/obj/machinery/mtf_deployment_console))
+				if(!M.available_teams || !M.available_teams["mtf_epsilon11"])
+					message_admins("O5 MTF deployment failed: No epsilon-11 team data available on [M].")
+					continue
+				M.deploy_mtf_team("mtf_epsilon11", M.available_teams["mtf_epsilon11"], null)
 		if("warhead")
-			for(var/obj/machinery/nuclearbomb/foundation/N in world)
-				N.foundation_authorized = TRUE
+			for(var/obj/machinery/nuclearbomb/N in INSTANCES_OF(/obj/machinery/nuclearbomb))
+				if(istype(N, /obj/machinery/nuclearbomb/foundation))
+					var/obj/machinery/nuclearbomb/foundation/FN = N
+					FN.foundation_authorized = TRUE
 		if("evacuation")
-			priority_announce("EVACUATION ORDERED BY O5 COUNCIL. ALL NON-ESSENTIAL PERSONNEL PROCEED TO SURFACE EXITS.", sound_type = 'sound/misc/airraid.ogg')
+			priority_announce("EVACUATION ORDERED BY O5 COUNCIL. ALL NON-ESSENTIAL PERSONNEL PROCEED TO SURFACE EXITS.", null, null, 'sound/misc/airraid.ogg')
+		if("general")
+			log_game("O5 Council general vote passed: [vote.title]")
 
 /datum/o5_vote
 	var/id
@@ -129,16 +138,10 @@
 	var/initiator
 	var/list/voted_ckeys = list()
 
-/datum/o5_vote/New(vote_title, vote_desc, vote_initiator)
+/datum/o5_vote/New(vote_title, vote_desc, vote_initiator, vote_type_input)
 	id = world.time
 	title = vote_title
 	description = vote_desc
 	initiator = vote_initiator
-	if(findtext(vote_title, "lockdown"))
-		vote_type = "lockdown"
-	else if(findtext(vote_title, "MTF") || findtext(vote_title, "task force"))
-		vote_type = "mtf_deploy"
-	else if(findtext(vote_title, "warhead") || findtext(vote_title, "nuke"))
-		vote_type = "warhead"
-	else if(findtext(vote_title, "evac"))
-		vote_type = "evacuation"
+	if(vote_type_input)
+		vote_type = vote_type_input

@@ -714,6 +714,7 @@
 			return
 
 /obj/machinery/computer/scp_containment_terminal/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "SCPContainmentTerminal")
@@ -727,6 +728,9 @@
 		data = linked_system.get_data()
 	var/mob/living/L = user
 	data["is_scp"] = istype(L) && L.scp_containment_system
+	data["scp_id"] = linked_system?.get_scp_id()
+	data["has_scp_experiments"] = !!SSscp_experiments?.manager
+	data["has_dclass_experiments"] = !!SSdclass_experiments
 	return data
 
 /obj/machinery/computer/scp_containment_terminal/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -740,6 +744,27 @@
 			linked_system.perform_interaction(params["id"])
 			return TRUE
 		if("refresh")
+			return TRUE
+		if("start_experiment")
+			if(!ishuman(usr))
+				return
+			var/mob/living/carbon/human/H = usr
+			var/exp_type = text2num(params["experiment_type"]) || 1
+			var/scp_id = linked_system.get_scp_id()
+			if(SSscp_experiments?.manager && scp_id)
+				var/datum/scp_experiment/exp = SSscp_experiments.manager.start_experiment(scp_id, exp_type, H)
+				if(exp)
+					to_chat(H, "<span class='notice'>Experiment started on [scp_id].</span>")
+			return TRUE
+		if("request_subject")
+			if(!ishuman(usr))
+				return
+			var/mob/living/carbon/human/H = usr
+			var/danger_level = text2num(params["danger_level"]) || 1
+			var/scp_id = linked_system.get_scp_id()
+			if(SSdclass_experiments && scp_id)
+				SSdclass_experiments.request_test_subject(H, scp_id, "containment_test", danger_level, FALSE)
+				to_chat(H, "<span class='notice'>D-Class test subject requested for [scp_id].</span>")
 			return TRUE
 
 /obj/machinery/computer/scp_containment_terminal/ui_state(mob/user)

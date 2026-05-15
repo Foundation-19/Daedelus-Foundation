@@ -375,8 +375,11 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "greyscale_smoke"
 
-/obj/effect/pocket_dimension_hazard/acid_pool/Crossed(atom/movable/AM)
+/obj/effect/pocket_dimension_hazard/acid_pool/Initialize()
 	. = ..()
+	RegisterSignal(src, COMSIG_ATOM_ENTERED, PROC_REF(on_crossed))
+
+/obj/effect/pocket_dimension_hazard/acid_pool/proc/on_crossed(datum/source, atom/movable/AM)
 	if(!istype(AM, /mob/living/carbon/human))
 		return
 	var/mob/living/carbon/human/H = AM
@@ -391,8 +394,11 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "curse"
 
-/obj/effect/pocket_dimension_hazard/sanity_drain/Crossed(atom/movable/AM)
+/obj/effect/pocket_dimension_hazard/sanity_drain/Initialize()
 	. = ..()
+	RegisterSignal(src, COMSIG_ATOM_ENTERED, PROC_REF(on_crossed))
+
+/obj/effect/pocket_dimension_hazard/sanity_drain/proc/on_crossed(datum/source, atom/movable/AM)
 	if(!istype(AM, /mob/living/carbon/human))
 		return
 	var/mob/living/carbon/human/H = AM

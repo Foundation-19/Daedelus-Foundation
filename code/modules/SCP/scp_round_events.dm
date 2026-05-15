@@ -15,7 +15,7 @@
 	endWhen = 50
 
 /datum/round_event/scp_containment_breach/announce(fake)
-	priority_announce("ALERT: Containment failure detected in secure storage. All security personnel respond immediately.", sound_type = ANNOUNCER_ALERT)
+	priority_announce("ALERT: Containment failure detected in secure storage. All security personnel respond immediately.", null, null, ANNOUNCER_ALERT)
 
 /datum/round_event/scp_containment_breach/start()
 	var/list/breachable_scps = list("SCP-173", "SCP-049", "SCP-096", "SCP-106", "SCP-939", "SCP-457", "SCP-035", "SCP-682")
@@ -40,7 +40,7 @@
 
 /datum/round_event/scp_containment_breach/tick()
 	if(activeFor == 30)
-		priority_announce("ALERT: [breached_scp] containment status: BREACHED. Enact recontainment protocol immediately.", sound_type = ANNOUNCER_ALERT)
+		priority_announce("ALERT: [breached_scp] containment status: BREACHED. Enact recontainment protocol immediately.", null, null, ANNOUNCER_ALERT)
 
 /datum/round_event_control/scp_power_fluctuation
 	name = "SCP Facility Power Fluctuation"
@@ -58,7 +58,7 @@
 	endWhen = 30
 
 /datum/round_event/scp_power_fluctuation/announce(fake)
-	priority_announce("WARNING: Power grid instability detected in containment wing. Backup generators standing by.", sound_type = ANNOUNCER_POWEROFF)
+	priority_announce("WARNING: Power grid instability detected in containment wing. Backup generators standing by.", null, null, ANNOUNCER_POWEROFF)
 
 /datum/round_event/scp_power_fluctuation/start()
 	for(var/obj/machinery/power/apc/A as anything in INSTANCES_OF(/obj/machinery/power/apc))
@@ -98,7 +98,7 @@
 	endWhen = 20
 
 /datum/round_event/scp_memetic_hazard/announce(fake)
-	priority_announce("WARNING: Memetic hazard detected in facility. Avoid unauthorized visual contact with anomalous objects.", sound_type = ANNOUNCER_ALERT)
+	priority_announce("WARNING: Memetic hazard detected in facility. Avoid unauthorized visual contact with anomalous objects.", null, null, ANNOUNCER_ALERT)
 
 /datum/round_event/scp_memetic_hazard/start()
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
@@ -129,7 +129,7 @@
 	endWhen = 40
 
 /datum/round_event/scp_cascade_warning/announce(fake)
-	priority_announce("CRITICAL: Multiple SCP containment anomalies detected. Facility-wide cascade event possible. All personnel brace for impact.", sound_type = ANNOUNCER_ALERT)
+	priority_announce("CRITICAL: Multiple SCP containment anomalies detected. Facility-wide cascade event possible. All personnel brace for impact.", null, null, ANNOUNCER_ALERT)
 
 /datum/round_event/scp_cascade_warning/start()
 	var/list/breachable = list("SCP-173", "SCP-106", "SCP-049", "SCP-682", "SCP-096")
@@ -195,12 +195,12 @@
 	endWhen = 10
 
 /datum/round_event/scp_research_breakthrough/announce(fake)
-	priority_announce("NOTICE: Anomalous research data spike detected. Research personnel review new findings.", sound_type = ANNOUNCER_DEFAULT)
+	priority_announce("NOTICE: Anomalous research data spike detected. Research personnel review new findings.", null, null, ANNOUNCER_DEFAULT)
 
 /datum/round_event/scp_research_breakthrough/start()
 	if(SSscp_research && SSscp_research.manager)
 		var/bonus_points = rand(100, 500)
-		SSscp_research.manager.total_research_points += bonus_points
+		adjust_global_research_points(bonus_points, "round_event_breakthrough")
 		if(SSscp_research.manager.research_breakthroughs < 99)
 			SSscp_research.manager.research_breakthroughs++
 		var/list/researchers_notified = list()
@@ -232,7 +232,7 @@
 
 /datum/round_event/scp_security_alert/announce(fake)
 	var/alert_type = pick("unauthorized access", "intrusion detection", "suspicious activity", "contraband detection")
-	priority_announce("SECURITY ALERT: [alert_type] reported in containment wing. Security personnel investigate.", sound_type = ANNOUNCER_ALERT)
+	priority_announce("SECURITY ALERT: [alert_type] reported in containment wing. Security personnel investigate.", null, null, ANNOUNCER_ALERT)
 
 /datum/round_event/scp_security_alert/start()
 	var/list/contraband_types = list("improvised_tool", "contraband_note", "hidden_keycard")
@@ -267,7 +267,7 @@
 	endWhen = 30
 
 /datum/round_event/scp_dclass_uprising/announce(fake)
-	priority_announce("ALERT: D-Class disturbance reported in cell block. Security personnel respond to D-Class areas.", sound_type = ANNOUNCER_ALERT)
+	priority_announce("ALERT: D-Class disturbance reported in cell block. Security personnel respond to D-Class areas.", null, null, ANNOUNCER_ALERT)
 
 /datum/round_event/scp_dclass_uprising/start()
 	var/dclass_count = 0
@@ -308,7 +308,7 @@
 	endWhen = 600
 
 /datum/round_event/scp_ci_raid/announce(fake)
-	priority_announce("SECURITY BREACH: Unidentified hostiles have breached the facility perimeter. All security personnel engage hostile forces.", sound_type = ANNOUNCER_ALERT)
+	priority_announce("SECURITY BREACH: Unidentified hostiles have breached the facility perimeter. All security personnel engage hostile forces.", null, null, ANNOUNCER_ALERT)
 
 /datum/round_event/scp_ci_raid/start()
 	var/list/entry_points = list()
@@ -347,7 +347,7 @@
 
 /datum/round_event/scp_ci_raid/tick()
 	if(activeFor == 50)
-		priority_announce("INTEL UPDATE: Hostile operatives detected near containment areas. Security status: ORANGE.", sound_type = ANNOUNCER_DEFAULT)
+		priority_announce("INTEL UPDATE: Hostile operatives detected near containment areas. Security status: ORANGE.", null, null, ANNOUNCER_DEFAULT)
 
 /datum/round_event/scp_ci_raid/end()
 	var/survivors = 0
@@ -365,7 +365,7 @@
 					primary_completed = TRUE
 
 	if(primary_completed && survivors > 0)
-		priority_announce("CRITICAL FAILURE: Chaos Insurgency operatives completed primary objective. Containment breach confirmed.", sound_type = ANNOUNCER_ALERT)
+		priority_announce("CRITICAL FAILURE: Chaos Insurgency operatives completed primary objective. Containment breach confirmed.", null, null, ANNOUNCER_ALERT)
 		for(var/mob/living/carbon/human/H in GLOB.player_list)
 			if(QDELETED(H))
 				continue
@@ -375,9 +375,9 @@
 			SSfoundation_politics.manager.spend_budget("security", 10000, "CI Raid Damages")
 			SSfoundation_politics.manager.spend_budget("administrative", 5000, "CI Raid Response")
 	else if(survivors == 0)
-		priority_announce("THREAT NEUTRALIZED: All hostile operatives eliminated. Security forces triumphant.", sound_type = ANNOUNCER_DEFAULT)
+		priority_announce("THREAT NEUTRALIZED: All hostile operatives eliminated. Security forces triumphant.", null, null, ANNOUNCER_DEFAULT)
 	else
-		priority_announce("ALERT: Hostile operatives withdrew. Containment maintained.", sound_type = ANNOUNCER_DEFAULT)
+		priority_announce("ALERT: Hostile operatives withdrew. Containment maintained.", null, null, ANNOUNCER_DEFAULT)
 	spawned_mobs.Cut()
 
 /datum/round_event_control/scp_pathogen_outbreak
@@ -398,7 +398,7 @@
 	endWhen = 40
 
 /datum/round_event/scp_pathogen_outbreak/announce(fake)
-	priority_announce("MEDICAL ALERT: Pathogen contamination detected in the facility. Medical personnel enact containment protocols immediately.", sound_type = ANNOUNCER_ALERT)
+	priority_announce("MEDICAL ALERT: Pathogen contamination detected in the facility. Medical personnel enact containment protocols immediately.", null, null, ANNOUNCER_ALERT)
 
 /datum/round_event/scp_pathogen_outbreak/start()
 	var/list/candidate_pathogens = list(
@@ -441,7 +441,7 @@
 /datum/round_event/scp_pathogen_outbreak/tick()
 	if(activeFor == 20)
 		if(infection_count > 0)
-			priority_announce("MEDICAL UPDATE: Pathogen outbreak confirmed. [infection_count] case(s) identified. Contagion tracking active.", sound_type = ANNOUNCER_DEFAULT)
+			priority_announce("MEDICAL UPDATE: Pathogen outbreak confirmed. [infection_count] case(s) identified. Contagion tracking active.", null, null, ANNOUNCER_DEFAULT)
 			if(GLOB.contagion_tracker)
 				for(var/list/contagion in GLOB.contagion_tracker.active_contagions)
 					contagion["spread_count"] = 0
@@ -464,7 +464,7 @@
 	endWhen = 60
 
 /datum/round_event/scp_anomalous_pathogen_release/announce(fake)
-	priority_announce("CRITICAL MEDICAL ALERT: Anomalous pathogen containment failure! BSL-4 protocols enacted immediately. All personnel avoid medical wing.", sound_type = ANNOUNCER_ALERT)
+	priority_announce("CRITICAL MEDICAL ALERT: Anomalous pathogen containment failure! BSL-4 protocols enacted immediately. All personnel avoid medical wing.", null, null, ANNOUNCER_ALERT)
 
 /datum/round_event/scp_anomalous_pathogen_release/start()
 	var/list/anomalous_candidates = list(
@@ -508,7 +508,7 @@
 
 /datum/round_event/scp_anomalous_pathogen_release/tick()
 	if(activeFor == 15)
-		priority_announce("BIOSAFETY WARNING: Anomalous pathogen spreading. Decontamination showers active. BSL-4 quarantine in effect.", sound_type = ANNOUNCER_ALERT)
+		priority_announce("BIOSAFETY WARNING: Anomalous pathogen spreading. Decontamination showers active. BSL-4 quarantine in effect.", null, null, ANNOUNCER_ALERT)
 		for(var/obj/machinery/decon_shower/D in INSTANCES_OF(/obj/machinery/decon_shower))
 			if(!QDELETED(D) && !D.active && world.time >= D.cooldown)
 				D.activate_decon()
@@ -518,7 +518,7 @@
 			for(var/ckey in GLOB.contagion_tracker.exposed_personnel)
 				total_exposed += length(GLOB.contagion_tracker.exposed_personnel[ckey])
 			if(total_exposed > 3)
-				priority_announce("CRITICAL: Anomalous contagion is spreading rapidly. Facility-wide quarantine considered.", sound_type = ANNOUNCER_ALERT)
+				priority_announce("CRITICAL: Anomalous contagion is spreading rapidly. Facility-wide quarantine considered.", null, null, ANNOUNCER_ALERT)
 				for(var/mob/living/carbon/human/H in GLOB.player_list)
 					if(QDELETED(H) || H.stat == DEAD || !H.client)
 						continue
@@ -543,7 +543,7 @@
 	endWhen = 20
 
 /datum/round_event/scp_biosafety_drill/announce(fake)
-	priority_announce("NOTICE: Biosafety drill commencing. All medical personnel verify decontamination equipment. This is a drill.", sound_type = ANNOUNCER_DEFAULT)
+	priority_announce("NOTICE: Biosafety drill commencing. All medical personnel verify decontamination equipment. This is a drill.", null, null, ANNOUNCER_DEFAULT)
 
 /datum/round_event/scp_biosafety_drill/start()
 	for(var/mob/living/carbon/human/H in GLOB.player_list)

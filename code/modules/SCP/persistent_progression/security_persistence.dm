@@ -943,7 +943,7 @@ SUBSYSTEM_DEF(security_persistence)
 	var/threat_count = 0
 
 	// Check security records console
-	for(var/obj/machinery/computer/secure_data/sec_console in world)
+	for(var/obj/machinery/computer/secure_data/sec_console in INSTANCES_OF(/obj/machinery/computer/secure_data))
 		if(sec_console.z == 1)
 			if(sec_console.obj_flags & EMAGGED)
 				threat_count++
@@ -977,7 +977,7 @@ SUBSYSTEM_DEF(security_persistence)
 	var/compromised_cameras = 0
 
 	// Check camera systems
-	for(var/obj/machinery/camera/camera in world)
+	for(var/obj/machinery/camera/camera in INSTANCES_OF(/obj/machinery/camera))
 		if(camera.z == 1)
 			total_cameras++
 			if(camera.obj_flags & EMAGGED)
@@ -990,7 +990,7 @@ SUBSYSTEM_DEF(security_persistence)
 				results["severity"] += 1
 
 	// Check camera monitoring console
-	for(var/obj/machinery/computer/security/security_console in world)
+	for(var/obj/machinery/computer/security/security_console in INSTANCES_OF(/obj/machinery/computer/security))
 		if(security_console.z == 1)
 			if(security_console.obj_flags & EMAGGED)
 				threat_count++
@@ -1013,7 +1013,7 @@ SUBSYSTEM_DEF(security_persistence)
 	var/threat_count = 0
 
 	// Check communications console
-	for(var/obj/machinery/computer/communications/comm in world)
+	for(var/obj/machinery/computer/communications/comm in INSTANCES_OF(/obj/machinery/computer/communications))
 		if(comm.z == 1)
 			if(comm.obj_flags & EMAGGED)
 				threat_count++
@@ -1036,14 +1036,14 @@ SUBSYSTEM_DEF(security_persistence)
 	var/threat_count = 0
 
 	// Check medical records console
-	for(var/obj/machinery/computer/med_data/med_console in world)
+	for(var/obj/machinery/computer/med_data/med_console in INSTANCES_OF(/obj/machinery/computer/med_data))
 		if(med_console.z == 1 && med_console.obj_flags & EMAGGED)
 			threat_count++
 			results["threats"] += "Compromised medical records at [med_console.loc]"
 			results["severity"] += 3
 
 	// Check crew monitoring console
-	for(var/obj/machinery/computer/crew/crew_console in world)
+	for(var/obj/machinery/computer/crew/crew_console in INSTANCES_OF(/obj/machinery/computer/crew))
 		if(crew_console.z == 1 && crew_console.obj_flags & EMAGGED)
 			threat_count++
 			results["threats"] += "Compromised crew monitoring at [crew_console.loc]"
@@ -1060,7 +1060,7 @@ SUBSYSTEM_DEF(security_persistence)
 	var/threat_count = 0
 
 	// Check telecommunications
-	for(var/obj/machinery/telecomms/telecomms in world)
+	for(var/obj/machinery/telecomms/telecomms in INSTANCES_OF(/obj/machinery/telecomms))
 		if(telecomms.z == 1 && telecomms.obj_flags & EMAGGED)
 			threat_count++
 			results["threats"] += "Compromised telecomms at [telecomms.loc]"

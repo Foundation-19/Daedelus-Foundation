@@ -1,6 +1,3 @@
-// SCP-966 - Sleep Killer
-// An invisible creature that causes sleep deprivation and hunts sleeping prey
-
 /mob/living/scp/scp966
 	name = "SCP-966"
 	desc = "An invisible creature that causes sleep deprivation. You can barely make out its shimmering outline."
@@ -27,7 +24,6 @@
 	SCP.min_time = 10 MINUTES
 
 	addtimer(CALLBACK(src, PROC_REF(initialize_systems)), 1)
-
 
 	grant_language(/datum/language/common, TRUE, TRUE)
 
@@ -65,12 +61,13 @@
 	if(H.stat == DEAD)
 		return ..()
 
-	if(sleep_system && H.drowsyness < 30)
-		H.adjustBruteLoss(sleep_system.intensity * 3)
+	if(sleep_system && H.drowsyness >= 30)
+		H.apply_damage(sleep_system.intensity * 3, BRUTE)
 		H.visible_message("<span class='danger'>Something invisible slashes at [H]!</span>", "<span class='danger'>You feel claws tear into you!</span>")
+		hook_scp_combat(H, "SCP-966", sleep_system.intensity * 3, 10)
 		return
 
-	to_chat(src, "<span class='warning'>[H] is too alert to attack effectively.</span>")
+	to_chat(src, "<span class='warning'>[H] is too alert to attack effectively. Weaken them first with sleep deprivation.</span>")
 
 /mob/living/scp/scp966/proc/toggle_invisibility()
 	if(stealth_system?.active)
@@ -99,7 +96,7 @@
 		target.drowsyness = max(0, target.drowsyness - 20)
 		victims_sleep_deprived++
 		hook_scp_interaction(target, "SCP-966", INTERACTION_TYPE_COMBAT)
-		to_chat(target, "<span class='danger'>A wave of wakefulness crashes over you!</span>")
+		to_chat(target, "<span class='danger'>A wave of unnatural wakefulness crashes over you! You feel exhausted but cannot sleep.</span>")
 
 /mob/living/scp/scp966/proc/stalk_target()
 	var/list/targets = list()
@@ -135,6 +132,21 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.SCP)
-			to_chat(H, "<span class='warning'>SCP-966: A sleep-inducing predator. Victims suffer extreme sleep deprivation.</span>")
+			to_chat(H, "<span class='warning'>SCP-966: A sleep-inducing predator. Victims suffer extreme sleep deprivation before being attacked.</span>")
 		else
-			to_chat(H, "<span class='warning'>You can barely see something shimmering in the air...</span>")
+			var/can_see = FALSE
+			if(istype(H.glasses, /obj/item/clothing/glasses/night))
+				can_see = TRUE
+			if(H.has_quirk(/datum/quirk/item_quirk/nearsighted))
+				can_see = FALSE
+			if(can_see)
+				to_chat(H, "<span class='warning'>Through your lenses, you can make out a thin, skeletal figure crouching in the air...</span>")
+			else
+				to_chat(H, "<span class='warning'>You can barely see something shimmering in the air...</span>")
+
+/mob/living/scp/scp966/get_status_tab_items()
+	. = ..()
+	. += "Victims Deprived: [victims_sleep_deprived]"
+	. += "Stalked Targets: [length(stalk_system?.stalked) || 0]"
+	. += "Nightmares Caused: [nightmares_caused]"
+	. += "Sleep Intensity: [sleep_system?.intensity || 0]/[sleep_system?.max_intensity || 5]"

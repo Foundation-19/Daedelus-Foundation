@@ -2,7 +2,7 @@
 	name = "SCP-914"
 	desc = "A massive clockwork device with various settings for refining objects. It seems to be constantly ticking and whirring."
 	icon = 'icons/scp/SCP-914-64x64.dmi'
-	icon_state = "scp914"
+	icon_state = "center"
 	density = TRUE
 	anchored = TRUE
 
@@ -64,6 +64,7 @@
 	return TRUE
 
 /obj/machinery/scp914/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "SCP914", "SCP-914")
@@ -125,7 +126,7 @@
 			visible_message("<span class='notice'>SCP-914 begins refining on [refinement_system.refinement_setting] setting.</span>")
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
-				hook_scp_experiment(H, "SCP-914", "refinement")
+				hook_scp_experiment(H, "SCP-914", EXPERIMENT_TYPE_TECHNICAL)
 			. = TRUE
 		if("insert_item")
 			if(!refinement_system || refinement_system.active)
@@ -415,8 +416,7 @@
 /obj/structure/scp914_booth
 	name = "SCP-914 Booth"
 	desc = "A booth connected to SCP-914."
-	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "dwainer"
+	icon = 'icons/scp/SCP-914-32x64.dmi'
 	anchored = TRUE
 	density = TRUE
 	var/obj/machinery/scp914/linked_machine
@@ -425,6 +425,7 @@
 /obj/structure/scp914_booth/input
 	name = "SCP-914 Input Booth"
 	desc = "Place items here to be refined by SCP-914."
+	icon_state = "input"
 	booth_type = "input"
 
 /obj/structure/scp914_booth/input/attackby(obj/item/I, mob/user, params)
@@ -438,6 +439,7 @@
 /obj/structure/scp914_booth/output
 	name = "SCP-914 Output Booth"
 	desc = "Refined items will appear here."
+	icon_state = "output"
 	booth_type = "output"
 
 /obj/structure/scp914_booth/output/attack_hand(mob/user)
@@ -447,8 +449,11 @@
 	if(!length(RS.output_objects))
 		to_chat(user, "<span class='notice'>No items in output.</span>")
 		return
-	var/obj/item/I = pop(RS.output_objects)
+	var/obj/item/I = RS.output_objects[length(RS.output_objects)]
+	RS.output_objects.Cut(length(RS.output_objects), 0)
 	if(I)
 		I.forceMove(get_turf(user))
 		user.put_in_hands(I)
 		to_chat(user, "<span class='notice'>Retrieved [I.name] from SCP-914 output.</span>")
+
+

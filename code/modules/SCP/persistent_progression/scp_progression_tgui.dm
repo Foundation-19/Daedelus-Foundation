@@ -5,6 +5,7 @@
 	user = target_user
 
 /datum/scp_progression_ui/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "SCPProgression", "SCP Progression", 1200, 800)

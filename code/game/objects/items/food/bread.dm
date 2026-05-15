@@ -32,7 +32,6 @@
 	foodtypes = GRAIN
 	w_class = WEIGHT_CLASS_SMALL
 	venue_value = FOOD_PRICE_CHEAP
-	burns_in_oven = TRUE
 
 /obj/item/food/bread/plain/Initialize(mapload)
 	. = ..()
@@ -55,7 +54,7 @@
 	AddComponent(/datum/component/customizable_reagent_holder, null, CUSTOM_INGREDIENT_ICON_STACK)
 
 /obj/item/food/breadslice/plain/MakeGrillable()
-	AddComponent(/datum/component/grillable, /obj/item/food/griddle_toast, rand(15 SECONDS, 25 SECONDS), TRUE, TRUE)
+	return
 
 /obj/item/food/breadslice/moldy
 	name = "moldy 'bread' slice"

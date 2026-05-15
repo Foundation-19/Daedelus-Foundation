@@ -4,7 +4,7 @@
 	var/spawn_location
 
 /datum/round_event/anomalous_item/announce(fake)
-	priority_announce("Anomalous item detected in [anomaly_name]. Security personnel advised to investigate and contain.", sound_type = 'sound/misc/notice1.ogg')
+	priority_announce("Anomalous item detected in [anomaly_name]. Security personnel advised to investigate and contain.", null, null, 'sound/misc/notice1.ogg')
 
 /datum/round_event/anomalous_item/start()
 	var/list/valid_areas = list()

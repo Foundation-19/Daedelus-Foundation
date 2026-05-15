@@ -179,7 +179,7 @@
 
 // Faction Manager - Handles all D-Class factions
 /datum/dclass_faction_manager
-	var/list/factions = list()
+	var/list/datum/dclass_faction/factions = list()
 	var/faction_formation_cooldown = 0
 	var/faction_formation_interval = 15 MINUTES
 	var/list/rivalries = list()

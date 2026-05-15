@@ -51,11 +51,48 @@
 #define RADIO_CHANNEL_CTF_GREEN "Green Team"
 #define RADIO_CHANNEL_CTF_YELLOW "Yellow Team"
 
+#define RADIO_CHANNEL_CI "Chaos Insurgency"
+#define RADIO_KEY_CI "i"
+#define RADIO_TOKEN_CI ":i"
+
+#define RADIO_CHANNEL_SCP_COMMAND "Foundation"
+#define RADIO_KEY_SCP_COMMAND "f"
+#define RADIO_TOKEN_SCP_COMMAND ":f"
+
+#define RADIO_CHANNEL_SCP_SECURITY "Tactical"
+#define RADIO_KEY_SCP_SECURITY "t"
+#define RADIO_TOKEN_SCP_SECURITY ":t"
+
+#define RADIO_CHANNEL_SCP_SCIENCE "Research"
+#define RADIO_KEY_SCP_SCIENCE "r"
+#define RADIO_TOKEN_SCP_SCIENCE ":r"
+
+#define RADIO_CHANNEL_SCP_MEDICAL "Medical"
+#define RADIO_KEY_SCP_MEDICAL "p"
+#define RADIO_TOKEN_SCP_MEDICAL ":p"
+
+#define RADIO_CHANNEL_SCP_CONTAINMENT "Containment"
+#define RADIO_KEY_SCP_CONTAINMENT "o"
+#define RADIO_TOKEN_SCP_CONTAINMENT ":o"
+
+#define RADIO_CHANNEL_SCP_MTF "MTF"
+#define RADIO_KEY_SCP_MTF "q"
+#define RADIO_TOKEN_SCP_MTF ":q"
+
+#define RADIO_CHANNEL_SCP_ENGINEERING "Maintenance"
+#define RADIO_KEY_SCP_ENGINEERING "g"
+#define RADIO_TOKEN_SCP_ENGINEERING ":g"
+
+#define RADIO_CHANNEL_SCP_DCLASS "DClass"
+#define RADIO_KEY_SCP_DCLASS "d"
+#define RADIO_TOKEN_SCP_DCLASS ":d"
+
 
 #define MIN_FREE_FREQ 1201 // -------------------------------------------------
 // Frequencies are always odd numbers and range from 1201 to 1599.
 
 #define FREQ_SYNDICATE 1213  // Nuke op comms frequency, dark brown
+#define FREQ_SCP_CI 1211  // Chaos Insurgency comms frequency
 #define FREQ_CTF_RED 1215  // CTF red team comms frequency, red
 #define FREQ_CTF_BLUE 1217  // CTF blue team comms frequency, blue
 #define FREQ_CTF_GREEN 1219  // CTF green team comms frequency, green
@@ -68,6 +105,15 @@
 #define FREQ_MEDICAL 1355  // Medical comms frequency, soft blue
 #define FREQ_ENGINEERING 1357  // Engineering comms frequency, orange
 #define FREQ_SECURITY 1359  // Security comms frequency, red
+
+#define FREQ_SCP_COMMAND 1361  // SCP Foundation command
+#define FREQ_SCP_SECURITY 1363  // SCP Foundation security
+#define FREQ_SCP_SCIENCE 1365  // SCP Foundation science
+#define FREQ_SCP_MEDICAL 1367  // SCP Foundation medical
+#define FREQ_SCP_CONTAINMENT 1369  // SCP Foundation containment
+#define FREQ_SCP_MTF 1371  // SCP Foundation MTF
+#define FREQ_SCP_ENGINEERING 1373  // SCP Foundation engineering
+#define FREQ_SCP_DCLASS 1375  // SCP Foundation D-Class
 
 #define FREQ_HOLOGRID_SOLUTION 1433
 #define FREQ_STATUS_DISPLAYS 1435

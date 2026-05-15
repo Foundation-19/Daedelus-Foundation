@@ -308,6 +308,9 @@
 		if(H.ckey)
 			hook_scp_combat(H, "SCP-106", 25, 0)
 
+/mob/living/scp/scp106/proc/toggle_corrosion(on)
+	corrosion_active = on
+
 /mob/living/scp/scp106/get_status_tab_items()
 	var/list/status_items = ..()
 	if(phasing_system)
@@ -356,9 +359,3 @@
 			H.sanity.adjust_sanity(-2, "scp106_residue")
 		if(prob(10))
 			to_chat(H, span_warning("The black ooze burns your feet!"))
-
-/area/scp/pocket_dimension
-	name = "Pocket Dimension"
-	icon_state = "pocket"
-	has_gravity = STANDARD_GRAVITY
-	ambient_buzz = 'sound/ambience/ambimystery.ogg'

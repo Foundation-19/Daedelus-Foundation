@@ -73,7 +73,7 @@
 			base_quality = 2.0
 		if("FINE")
 			base_quality = 3.5
-		if("VERY_FINE")
+		if("VERY FINE")
 			base_quality = 5.0
 
 	refinement_quality = base_quality * (1 + (refinement_mastery / 100))

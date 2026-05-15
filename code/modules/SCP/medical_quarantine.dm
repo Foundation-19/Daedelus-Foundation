@@ -69,7 +69,7 @@
 
 /obj/machinery/quarantine_console/proc/activate_quarantine(mob/user)
 	quarantine_active = TRUE
-	priority_announce("MEDICAL ALERT: Quarantine protocols activated in Medical Quarantine Zone. All infected personnel report to quarantine immediately.", "QUARANTINE", sound_type = ANNOUNCER_ALERT)
+	priority_announce("MEDICAL ALERT: Quarantine protocols activated in Medical Quarantine Zone. All infected personnel report to quarantine immediately.", "QUARANTINE", null, ANNOUNCER_ALERT)
 
 	for(var/obj/machinery/door/airlock/A in INSTANCES_OF(/obj/machinery/door/airlock))
 		var/area/area = get_area(A)
@@ -99,7 +99,7 @@
 		if(istype(area, /area/scp/medical/quarantine/airlock))
 			A.unlock()
 
-	priority_announce("Medical quarantine has been lifted. All quarantine patients cleared for release.", "QUARANTINE LIFTED", sound_type = ANNOUNCER_DEFAULT)
+	priority_announce("Medical quarantine has been lifted. All quarantine patients cleared for release.", "QUARANTINE LIFTED", null, ANNOUNCER_DEFAULT)
 	to_chat(user, "<span class='notice'>Quarantine lifted. Airlocks unlocked.</span>")
 
 /obj/machinery/quarantine_console/proc/run_decontamination(mob/user)
@@ -250,3 +250,134 @@
 			if(H.sanity)
 				H.sanity.adjust_sanity(10, "quarantine_treatment")
 			to_chat(H, "<span class='notice'>General treatment applied. You feel slightly better.</span>")
+
+/datum/status_effect/bsl4_contagion
+	id = "bsl4_contagion"
+	duration = -1
+	alert_type = /atom/movable/screen/alert/status_effect/bsl4_contagion
+	var/stage = 1
+	var/max_stage = 5
+	var/contagion_name = "Unknown Pathogen"
+	var/stage_timer = 0
+	var/stage_interval = 1200
+	var/spread_range = 2
+	var/contagious = TRUE
+
+/datum/status_effect/bsl4_contagion/proc/advance_stage()
+	if(stage >= max_stage)
+		return
+	stage++
+	switch(stage)
+		if(2)
+			to_chat(owner, span_warning("You feel feverish and begin to sweat profusely."))
+		if(3)
+			owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
+			owner.adjustToxLoss(10)
+			to_chat(owner, span_warning("Your skin breaks out in lesions. You feel violently ill."))
+		if(4)
+			owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 20)
+			owner.adjustToxLoss(20)
+			owner.blur_eyes(20)
+			to_chat(owner, span_warning("Blood seeps from your eyes and nose. Your body is shutting down."))
+		if(5)
+			owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 40)
+			owner.adjustToxLoss(40)
+			contagious = TRUE
+			spread_range = 4
+			to_chat(owner, span_warning("You are a walking biohazard. Your body is failing."))
+	if(GLOB.scp_admin_log)
+		GLOB.scp_admin_log.log_event("CONTAGION", contagion_name, owner.ckey, null, "BSL-4 contagion advanced to stage [stage]", "HIGH")
+
+/datum/status_effect/bsl4_contagion/tick()
+	stage_timer++
+	if(stage_timer >= stage_interval / 10)
+		stage_timer = 0
+		advance_stage()
+	if(contagious)
+		spread_contagion()
+	if(stage >= 3 && prob(10))
+		if(iscarbon(owner))
+			var/mob/living/carbon/C = owner
+			C.vomit(blood = TRUE)
+	if(stage >= 4 && prob(5))
+		owner.adjustOxyLoss(5)
+
+/datum/status_effect/bsl4_contagion/proc/spread_contagion()
+	if(!contagious || !isliving(owner))
+		return
+	var/mob/living/source = owner
+	if(source.stat == DEAD)
+		return
+	var/obj/item/clothing/mask/M = null
+	if(iscarbon(source))
+		var/mob/living/carbon/C = source
+		M = C.wear_mask
+	if(M && (M.flags_cover & MASKCOVERSMOUTH))
+		return
+	for(var/mob/living/carbon/human/H in hearers(spread_range, source))
+		if(H == source || H.stat == DEAD)
+			continue
+		if(H.has_status_effect(/datum/status_effect/bsl4_contagion))
+			continue
+		var/obj/item/clothing/mask/HM = H.wear_mask
+		if(HM && (HM.flags_cover & MASKCOVERSMOUTH))
+			continue
+		if(prob(15 * stage))
+			H.apply_status_effect(/datum/status_effect/bsl4_contagion)
+
+/datum/status_effect/bsl4_contagion/proc/cure()
+	owner.remove_status_effect(/datum/status_effect/bsl4_contagion)
+	to_chat(owner, span_notice("The contagion clears from your system."))
+
+/atom/movable/screen/alert/status_effect/bsl4_contagion
+	name = "BSL-4 Contagion"
+	desc = "You are infected with a biohazardous contagion. Seek medical attention immediately."
+	icon_state = "disease"
+
+/obj/item/biohazard_scanner
+	name = "biohazard scanner"
+	desc = "A handheld scanner for detecting BSL-4 level contagions in personnel."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "health"
+	w_class = WEIGHT_CLASS_SMALL
+	var/last_scan = 0
+	var/scan_cooldown = 50
+
+/obj/item/biohazard_scanner/attack(mob/living/target, mob/living/user)
+	if(!ishuman(target))
+		return
+	if(world.time < last_scan + scan_cooldown)
+		to_chat(user, span_warning("Scanner is recharging."))
+		return
+	last_scan = world.time
+	var/mob/living/carbon/human/H = target
+	var/datum/status_effect/bsl4_contagion/C = H.has_status_effect(/datum/status_effect/bsl4_contagion)
+	if(C)
+		to_chat(user, span_warning("CONTAGION DETECTED: [C.contagion_name] - Stage [C.stage]/[C.max_stage] - [C.contagious ? "CONTAGIOUS" : "Non-contagious"]"))
+		playsound(src, 'sound/machines/twobeep.ogg', 50, TRUE)
+	else
+		to_chat(user, span_notice("No BSL-4 contagions detected in [H.name]."))
+		playsound(src, 'sound/machines/ping.ogg', 50, TRUE)
+
+/obj/item/biohazard_sample
+	name = "biohazard sample"
+	desc = "A sealed container holding a BSL-4 pathogen sample. Handle with extreme caution."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "vial"
+	w_class = WEIGHT_CLASS_TINY
+	var/contagion_name = "Unknown Pathogen"
+	var/virulence = 3
+
+/obj/item/biohazard_sample/attack_self(mob/user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(!H.wear_mask || !(H.wear_mask.flags_cover & MASKCOVERSMOUTH))
+		to_chat(H, span_warning("The sample container cracks open! Pathogen exposure!"))
+		var/datum/status_effect/bsl4_contagion/C = H.apply_status_effect(/datum/status_effect/bsl4_contagion)
+		if(C)
+			C.contagion_name = contagion_name
+			C.max_stage = virulence
+		qdel(src)
+	else
+		to_chat(H, span_notice("Your mask protects you from the sample exposure."))

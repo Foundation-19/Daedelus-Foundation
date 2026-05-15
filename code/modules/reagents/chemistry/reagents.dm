@@ -122,7 +122,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 
 /// Called from [/datum/reagents/proc/metabolize]
 /datum/reagent/proc/on_mob_life(mob/living/carbon/M, location, do_addiction)
-	SHOULD_NOT_OVERRIDE(TRUE)
+	SHOULD_NOT_OVERRIDE(FALSE)
 	SHOULD_NOT_SLEEP(TRUE)
 
 	current_cycle++

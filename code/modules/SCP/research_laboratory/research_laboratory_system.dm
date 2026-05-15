@@ -97,8 +97,7 @@ SUBSYSTEM_DEF(research_laboratory)
 	var/points = experiment["research_points"] || 100
 	total_research_points += points
 	total_experiments_conducted++
-	if(SSscp_research && SSscp_research.manager)
-		SSscp_research.manager.total_research_points += points
+	adjust_global_research_points(points, "lab_experiment")
 
 /datum/research_laboratory_manager/proc/update_safety_rating()
 	var/active_high_risk = 0
@@ -444,8 +443,10 @@ SUBSYSTEM_DEF(research_laboratory)
 		return FALSE
 	var/cost = tech_tree.nodes[node_id].research_cost
 	total_research_points -= cost
+	adjust_global_research_points(-cost, "tech_unlock:[node_id]")
 	if(!tech_tree.unlock_node(node_id, user?.ckey))
 		total_research_points += cost
+		adjust_global_research_points(cost, "tech_unlock_refund:[node_id]")
 		return FALSE
 	apply_tech_unlock(node_id, user)
 	return TRUE
@@ -461,13 +462,16 @@ SUBSYSTEM_DEF(research_laboratory)
 			continue
 		if(H.job && (H.job in list("Research Director", "Scientist", "Senior Researcher", "Site Director")))
 			to_chat(H, "<span class='boldnotice'>RESEARCH BREAKTHROUGH: [node.name] unlocked!</span>")
-	switch(node_id)
-		if("improved_containment")
-			apply_containment_bonus(0.1)
-		if("containment_reinforcement")
-			apply_containment_bonus(0.15)
-		if("keter_protocols")
-			apply_containment_bonus(0.2)
+	if(SSscp_research?.manager)
+		SSscp_research.manager.apply_tech_bonuses(node_id)
+	else
+		switch(node_id)
+			if("improved_containment")
+				apply_containment_bonus(0.1)
+			if("containment_reinforcement")
+				apply_containment_bonus(0.15)
+			if("keter_protocols")
+				apply_containment_bonus(0.2)
 
 /datum/research_laboratory_manager/proc/apply_containment_bonus(bonus)
 	for(var/scp_id in SSscp_persistence?.manager?.scp_instances)
@@ -476,37 +480,38 @@ SUBSYSTEM_DEF(research_laboratory)
 			instance.containment_effectiveness = min(1.0, instance.containment_effectiveness + bonus)
 			instance.containment_difficulty = max(1, instance.containment_difficulty - 1)
 
-/obj/machinery/computer/scp_research_console
-	name = "SCP Research Console"
-	desc = "A terminal for accessing the SCP Foundation research database."
+/obj/machinery/computer/research_laboratory_console
+	name = "Research Laboratory Console"
+	desc = "An advanced terminal for managing SCP experiments, research teams, and technology."
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "research"
-	circuit = /obj/item/circuitboard/computer/scp_research
+	circuit = /obj/item/circuitboard/computer/research_laboratory_console
 	req_access = list(ACCESS_SCIENCE)
 	var/admin_virtual = FALSE
 
-/obj/machinery/computer/scp_research_console/ui_status(mob/user, datum/ui_state/state)
+/obj/machinery/computer/research_laboratory_console/ui_status(mob/user, datum/ui_state/state)
 	if(admin_virtual && check_rights_for(user?.client, R_ADMIN))
 		return UI_INTERACTIVE
 	return ..()
 
-/obj/machinery/computer/scp_research_console/ui_close(mob/user)
+/obj/machinery/computer/research_laboratory_console/ui_close(mob/user)
 	. = ..()
 	if(admin_virtual)
 		qdel(src)
 
-/obj/machinery/computer/scp_research_console/ui_interact(mob/user, datum/tgui/ui)
+/obj/machinery/computer/research_laboratory_console/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ResearchLaboratory", "SCP Research Terminal")
 		ui.open()
 
-/obj/machinery/computer/scp_research_console/ui_data(mob/user)
+/obj/machinery/computer/research_laboratory_console/ui_data(mob/user)
 	if(!SSresearch_laboratory || !SSresearch_laboratory.manager)
 		return list()
 	return SSresearch_laboratory.manager.get_all_data(user)
 
-/obj/machinery/computer/scp_research_console/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/obj/machinery/computer/research_laboratory_console/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
@@ -569,6 +574,9 @@ SUBSYSTEM_DEF(research_laboratory)
 				var/datum/scp_experiment/exp = mgr.start_scp_experiment(H, scp_id, exp_type)
 				if(!exp)
 					to_chat(H, "<span class='warning'>Failed to start experiment.</span>")
+				else if(SSdclass_experiments)
+					SSdclass_experiments.request_test_subject(H, scp_id, "lab_experiment", 2, FALSE)
+					to_chat(H, "<span class='notice'>D-Class test subject requested.</span>")
 			. = TRUE
 
 		if("suspend_experiment")
@@ -602,9 +610,9 @@ SUBSYSTEM_DEF(research_laboratory)
 				mgr.record_safety_violation(protocol_id)
 			. = TRUE
 
-/obj/item/circuitboard/computer/scp_research
-	name = "SCP Research Console (Computer Board)"
-	build_path = /obj/machinery/computer/scp_research_console
+/obj/item/circuitboard/computer/research_laboratory_console
+	name = "Research Laboratory Console (Computer Board)"
+	build_path = /obj/machinery/computer/research_laboratory_console
 
 /client/proc/open_research_laboratory()
 	set name = "Research Laboratory"
@@ -615,6 +623,6 @@ SUBSYSTEM_DEF(research_laboratory)
 	if(!SSresearch_laboratory || !SSresearch_laboratory.manager)
 		to_chat(src, "<span class='warning'>Research laboratory system not available.</span>")
 		return
-	var/obj/machinery/computer/scp_research_console/virtual_console = new()
+	var/obj/machinery/computer/research_laboratory_console/virtual_console = new()
 	virtual_console.admin_virtual = TRUE
 	virtual_console.ui_interact(mob)

@@ -118,13 +118,13 @@
 
 	switch(numeric_level)
 		if(SEC_LEVEL_GREEN)
-			priority_announce(announcement_text, sub_title = "SECURITY CODE: [code_name] — All Clear", sound_type = ANNOUNCER_ALERT)
+			priority_announce(announcement_text, null, "SECURITY CODE: [code_name] — All Clear", ANNOUNCER_ALERT)
 		if(SEC_LEVEL_BLUE)
-			priority_announce(announcement_text, sub_title = "SECURITY CODE: [code_name] — Caution", sound_type = ANNOUNCER_ALERT)
+			priority_announce(announcement_text, null, "SECURITY CODE: [code_name] — Caution", ANNOUNCER_ALERT)
 		if(SEC_LEVEL_RED)
-			priority_announce(announcement_text, sub_title = "SECURITY CODE: [code_name] — Breach", sound_type = ANNOUNCER_ALERT)
+			priority_announce(announcement_text, null, "SECURITY CODE: [code_name] — Breach", ANNOUNCER_ALERT)
 		if(SEC_LEVEL_DELTA)
-			priority_announce(announcement_text, sub_title = "SECURITY CODE: [code_name] — CRITICAL", sound_type = ANNOUNCER_ALERT)
+			priority_announce(announcement_text, null, "SECURITY CODE: [code_name] — CRITICAL", ANNOUNCER_ALERT)
 
 	set_security_level(numeric_level)
 
@@ -155,6 +155,7 @@
 	light_color = LIGHT_COLOR_BLOOD_MAGIC
 
 /obj/machinery/computer/foundation_security_console/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "FoundationSecurityConsole", "SCP FOUNDATION — SECURITY CODES")

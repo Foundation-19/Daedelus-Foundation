@@ -13,6 +13,7 @@
 	ui_interact(user)
 
 /obj/item/containtment_construction_kit/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ContainmentConstruction", name)

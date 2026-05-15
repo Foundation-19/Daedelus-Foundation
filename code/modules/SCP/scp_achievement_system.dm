@@ -180,6 +180,7 @@ SUBSYSTEM_DEF(scp_achievements)
 	idle_power_usage = 150
 
 /obj/machinery/computer/scp_achievement_console/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "SCPAchievementConsole", "SCP Achievements")

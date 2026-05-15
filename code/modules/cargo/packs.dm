@@ -2132,10 +2132,23 @@
 	cost = CARGO_CRATE_VALUE * 8
 	crate_type = /obj/structure/closet/crate
 	contains = list(/obj/item/stack/sheet/mineral/coal/five,
-					/obj/machinery/grill/unwrenched,
+					/obj/machinery/appliance/cooker/grill,
 					/obj/item/reagent_containers/food/drinks/soda_cans/monkey_energy
 					)
 	crate_name = "grilling starter kit crate"
+/datum/supply_pack/organic/kitchen_equipment
+	name = "Kitchen Equipment Kit"
+	desc = "Everything a chef needs to cook with precision. Contains an oven, microwave, griddle, and cooking containers."
+	cost = CARGO_CRATE_VALUE * 12
+	crate_type = /obj/structure/closet/crate
+	contains = list(/obj/machinery/appliance/cooker/oven,
+					/obj/machinery/appliance/cooker/microwave,
+					/obj/machinery/appliance/cooker/griddle,
+					/obj/item/reagent_containers/cooking_container/baking_sheet,
+					/obj/item/reagent_containers/cooking_container/pot,
+					/obj/item/reagent_containers/cooking_container/skillet,
+					/obj/item/reagent_containers/cooking_container/saucepan)
+	crate_name = "kitchen equipment crate"
 
 /datum/supply_pack/organic/grillfuel
 	name = "Grilling Fuel Kit"

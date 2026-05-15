@@ -611,7 +611,7 @@
 /obj/machinery/light/small/built/directional/west,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/table,
-/obj/machinery/microwave,
+/obj/machinery/appliance/cooker/microwave,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/sign/poster/contraband/random{
@@ -1151,7 +1151,7 @@
 /area/shuttle/abandoned/bar)
 "cV" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/deepfryer,
+/obj/machinery/appliance/cooker/fryer,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/shuttle/abandoned/bar)
@@ -1584,7 +1584,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/table,
-/obj/machinery/microwave{
+/obj/machinery/appliance/cooker/microwave{
 	pixel_x = -3;
 	pixel_y = 6
 	},

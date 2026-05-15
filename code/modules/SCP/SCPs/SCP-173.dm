@@ -10,19 +10,14 @@
 	persistence_id = "SCP-173"
 
 	// SCP-173 specific variables
-	var/state = "idle" // idle, moving, attacking, contained
-	var/kills_count = 0
-	var/breach_events = 0
-	var/total_damage_dealt = 0
+	var/state = "idle"
 
-	// Modular systems
 	var/datum/scp173_observation_system/observation_system
 	var/datum/scp173_movement_system/movement_system
 	var/datum/scp173_containment_system/containment_system
 	var/datum/scp173_combat_system/combat_system
 	var/datum/scp173_research_system/research_system
 
-	// Progression integration tracking
 	var/successful_movements = 0
 	var/victims_killed = 0
 	var/containment_breaches = 0
@@ -90,9 +85,8 @@
 		return
 
 	var/list/data = list(
-		"kills_count" = combat_system ? combat_system.kills_count : kills_count,
-		"breach_events" = containment_system ? containment_system.breach_events : breach_events,
-		"total_damage_dealt" = total_damage_dealt,
+		"kills_count" = combat_system ? combat_system.kills_count : 0,
+		"breach_events" = containment_system ? containment_system.breach_events : 0,
 		"is_observed" = observation_system ? observation_system.is_being_observed : FALSE,
 		"observation_quality" = observation_system ? observation_system.observation_quality : 0,
 		"containment_integrity" = containment_system ? containment_system.containment_integrity : 100,
@@ -107,9 +101,6 @@
 	// Load data from research system if available
 	if(research_system && research_system.research_data && length(research_system.research_data) > 0)
 		var/list/data = research_system.research_data
-		kills_count = data["kills_count"] || 0
-		breach_events = data["breach_events"] || 0
-		total_damage_dealt = data["total_damage_dealt"] || 0
 
 		if(containment_system)
 			containment_system.containment_integrity = data["containment_integrity"] || 100
@@ -139,9 +130,8 @@
 		status += "Kills Count: [combat_system.kills_count]"
 
 	status += "=== Statistics ==="
-	status += "Total Kills: [kills_count]"
-	status += "Total Breach Events: [breach_events]"
-	status += "Total Damage Dealt: [total_damage_dealt]"
+	status += "Total Kills: [combat_system ? combat_system.kills_count : 0]"
+	status += "Total Breach Events: [containment_system ? containment_system.breach_events : 0]"
 
 	return status
 
@@ -162,7 +152,8 @@
 
 // Progression Integration Hooks
 /mob/living/scp/scp173/proc/on_breach()
-	containment_breaches++
+	if(containment_system)
+		containment_system.breach_events++
 	hook_scp_breach("SCP-173", src)
 
 	for(var/mob/living/carbon/human/H in range(10, src))

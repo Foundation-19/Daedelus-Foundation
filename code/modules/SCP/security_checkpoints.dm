@@ -23,8 +23,11 @@
 	var/last_alert_time = 0
 	var/alert_cooldown = 30 SECONDS
 
-/obj/machinery/scp_checkpoint_scanner/Crossed(atom/movable/AM)
+/obj/machinery/scp_checkpoint_scanner/Initialize()
 	. = ..()
+	RegisterSignal(src, COMSIG_ATOM_ENTERED, PROC_REF(on_crossed))
+
+/obj/machinery/scp_checkpoint_scanner/proc/on_crossed(datum/source, atom/movable/AM)
 	if(!ishuman(AM))
 		return
 	if(world.time < scan_cooldown)

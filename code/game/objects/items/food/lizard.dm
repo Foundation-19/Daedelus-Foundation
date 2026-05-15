@@ -203,7 +203,6 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment/protein = 5, /datum/reagent/consumable/nutriment = 3)
 	tastes = list("fish" = 1)
 	foodtypes = SEAFOOD
-	burns_on_grill = TRUE
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/food/moonfish_demiglace
@@ -286,7 +285,7 @@
 	foodtypes = VEGETABLES | NUTS
 
 /obj/item/food/rootdough/MakeBakeable()
-	AddComponent(/datum/component/bakeable, /obj/item/food/bread/root, rand(30 SECONDS, 45 SECONDS), TRUE, TRUE)
+	return
 
 /obj/item/food/rootdough/MakeProcessable()
 	AddElement(/datum/element/processable, TOOL_ROLLINGPIN, /obj/item/food/flatrootdough, 1, 30, table_required = TRUE)
@@ -304,7 +303,7 @@
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/rootdoughslice, 3, 30, table_required = TRUE)
 
 /obj/item/food/flatrootdough/MakeGrillable()
-	AddComponent(/datum/component/grillable, /obj/item/food/root_flatbread, rand(25 SECONDS, 35 SECONDS), TRUE, TRUE)
+	return
 
 /obj/item/food/rootdoughslice
 	name = "rootdough ball"
@@ -320,7 +319,7 @@
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/spaghetti/nizaya, 1, 30, table_required = TRUE)
 
 /obj/item/food/rootdoughslice/MakeBakeable()
-	AddComponent(/datum/component/bakeable, /obj/item/food/rootroll, rand(30 SECONDS, 45 SECONDS), TRUE, TRUE)
+	return
 
 /obj/item/food/root_flatbread
 	name = "root flatbread"
@@ -330,7 +329,6 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 7)
 	tastes = list("bread" = 1, "earthy heat" = 1)
 	foodtypes = VEGETABLES | NUTS
-	burns_on_grill = TRUE
 
 /obj/item/food/rootroll
 	name = "rootroll"
@@ -341,7 +339,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	tastes = list("roll" = 1) // the roll tastes of roll.
 	foodtypes = VEGETABLES | NUTS
-	burns_in_oven = TRUE
 
 //Bread Dishes
 
@@ -355,7 +352,6 @@
 	foodtypes = VEGETABLES | NUTS
 	w_class = WEIGHT_CLASS_SMALL
 	venue_value = FOOD_PRICE_CHEAP
-	burns_in_oven = TRUE
 
 /obj/item/food/bread/root/Initialize(mapload)
 	. = ..()

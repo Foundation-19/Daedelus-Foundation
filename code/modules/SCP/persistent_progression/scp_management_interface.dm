@@ -335,6 +335,7 @@
 	)
 
 /datum/scp_management_interface/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
 		ui = new(user, src, "SCPManagementInterface")
@@ -765,9 +766,8 @@
 	if(!scp_id || !SSscp_persistence || !SSscp_persistence.manager)
 		return
 
-	// Find all instances of the SCP in the world
 	var/list/scp_objects = list()
-	for(var/obj/O in world)
+	for(var/obj/O in GLOB.SCP_list)
 		if(findtext(O.name, scp_id))
 			scp_objects += O
 

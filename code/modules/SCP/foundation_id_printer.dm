@@ -15,6 +15,7 @@
 	ui_interact(user)
 
 /obj/machinery/id_card_printer/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "FoundationIDPrinter", name)

@@ -22,6 +22,19 @@
 	var/mood_improvements = 0
 	var/comfort_provided = 0
 
+	var/tickle_cooldown = 0
+	var/tickle_cooldown_time = 8 SECONDS
+	var/calm_scp_cooldown = 0
+	var/calm_scp_cooldown_time = 30 SECONDS
+	var/babble_cooldown = 0
+	var/babble_cooldown_time = 12 SECONDS
+
+	var/static/list/glubby_prefixes = list("Glr", "Blrb", "Wrr", "Mrr", "Blp", "Gl", "Br", "Wr")
+	var/static/list/glubby_middles = list("u", "oo", "ub", "bl", "rr", "rp", "mp", "b")
+	var/static/list/glubby_suffixes = list("p!", "b!", "p~", "b~", "t!", "sh!", "rp!", "ble!")
+	var/static/list/happy_sounds = list('sound/effects/bamf.ogg', 'sound/machines/chime.ogg', 'sound/machines/ping.ogg')
+	var/static/list/tickle_sounds = list('sound/misc/slip.ogg', 'sound/effects/bamf.ogg')
+
 /mob/living/scp/scp999/Initialize()
 	. = ..()
 
@@ -44,14 +57,51 @@
 	mood_improved_targets = list()
 	return ..()
 
+/mob/living/scp/scp999/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, filterproof = null, range = 7)
+	if(!message || stat == DEAD)
+		return
+
+	if(!client || forced)
+		message = generate_glubby_speech()
+	else
+		message = glubbify(message)
+
+	..(message, bubble_type, list("scp999"), sanitize, language, ignore_spam, forced, filterproof, range)
+
+/mob/living/scp/scp999/proc/generate_glubby_speech()
+	var/num_parts = rand(2, 5)
+	var/list/parts = list()
+	for(var/i in 1 to num_parts)
+		parts += pick(glubby_prefixes) + pick(glubby_middles) + pick(glubby_suffixes)
+	return jointext(parts, " ")
+
+/mob/living/scp/scp999/proc/glubbify(message)
+	var/list/words = splittext(message, " ")
+	var/list/result = list()
+	for(var/word in words)
+		if(length(word) <= 2 || prob(25))
+			result += pick(glubby_prefixes) + pick(glubby_middles) + pick(glubby_suffixes)
+		else
+			var/first = copytext(word, 1, 2)
+			var/glub = pick(glubby_middles) + pick(glubby_middles)
+			var/end = pick(glubby_suffixes)
+			result += first + glub + end
+	return jointext(result, " ")
+
 /mob/living/scp/scp999/process_scp_effects()
 	. = ..()
 
 	provide_comfort()
 
-	var/mob/living/carbon/human/target = find_target()
-	if(target)
-		approach_target(target)
+	if(!client)
+		var/mob/living/carbon/human/target = find_target()
+		if(target)
+			approach_target(target)
+
+	if(prob(8))
+		auto_babble()
+
+	try_calm_nearby_scps()
 
 	update_happiness()
 
@@ -59,6 +109,14 @@
 		if(H.SCP)
 			continue
 		award_research_points("999", "behavior", 2, H.ckey)
+
+/mob/living/scp/scp999/proc/auto_babble()
+	if(world.time < babble_cooldown)
+		return
+	babble_cooldown = world.time + babble_cooldown_time
+	say(generate_glubby_speech())
+	if(prob(40))
+		playsound(src, pick(happy_sounds), 30, TRUE)
 
 /mob/living/scp/scp999/proc/provide_comfort()
 	if(world.time < healing_cooldown)
@@ -75,6 +133,9 @@
 			H.adjustBruteLoss(-heal_amount)
 			H.adjustFireLoss(-heal_amount)
 			H.adjustToxLoss(-heal_amount)
+
+		if(H.reagents && !H.reagents.has_reagent(/datum/reagent/medicine/anomalous_happiness))
+			H.reagents.add_reagent(/datum/reagent/medicine/anomalous_happiness, 2)
 
 		if(!(H.ckey in mood_improved_targets))
 			mood_improved_targets += H.ckey
@@ -116,12 +177,15 @@
 	healing_cooldown = world.time + healing_cooldown_time
 	var/heal_amount = healing_power
 
-	visible_message("<span class='notice'>[src] gently heals [target]!</span>")
-	playsound(src, 'sound/weapons/punch1.ogg', 30, TRUE)
+	visible_message("<span class='notice'>[src] gently nuzzles [target], enveloping them in warm slime!</span>")
+	playsound(src, pick(happy_sounds), 30, TRUE)
 
 	target.adjustBruteLoss(-heal_amount)
 	target.adjustFireLoss(-heal_amount)
 	target.adjustToxLoss(-heal_amount)
+
+	if(target.reagents)
+		target.reagents.add_reagent(/datum/reagent/medicine/anomalous_happiness, 5)
 
 	if(!(target.ckey in healed_targets))
 		healed_targets += target.ckey
@@ -129,7 +193,7 @@
 			healed_targets.Cut(1, 51)
 		healing_sessions++
 
-	to_chat(target, "<span class='notice'>You feel completely healed and rejuvenated!</span>")
+	to_chat(target, "<span class='notice'>You feel completely healed and rejuvenated! A warm euphoria spreads through you.</span>")
 
 	if(target && target.ckey)
 		hook_scp_care(target, "SCP-999", "healing")
@@ -141,32 +205,135 @@
 
 	add_interaction_record(target, "healing")
 
+/mob/living/scp/scp999/proc/try_calm_nearby_scps()
+	if(world.time < calm_scp_cooldown)
+		return
+
+	for(var/mob/living/scp/S in range(comfort_radius + 2, src))
+		if(S == src || S.stat == DEAD)
+			continue
+
+		if(istype(S, /mob/living/scp/scp096))
+			calm_scp096(S)
+			calm_scp_cooldown = world.time + calm_scp_cooldown_time
+			return
+
+		if(istype(S, /mob/living/scp/scp106))
+			calm_scp106(S)
+			calm_scp_cooldown = world.time + calm_scp_cooldown_time
+			return
+
+/mob/living/scp/scp999/proc/calm_scp096(mob/living/scp/scp096/scp096)
+	if(!scp096)
+		return
+
+	visible_message("<span class='notice'>[src] warbles soothingly at [scp096]. The air grows heavy with comfort.</span>")
+	playsound(src, pick(happy_sounds), 40, TRUE)
+
+	if(scp096.state == "screaming")
+		scp096.docile_grace_until = world.time + 15 SECONDS
+		to_chat(scp096, "<span class='notice'>A wave of calm washes over you. The rage struggles against the warmth...</span>")
+	else if(scp096.state == "docile")
+		scp096.docile_grace_until = world.time + 30 SECONDS
+		to_chat(scp096, "<span class='notice'>The warm presence soothes you. You feel less inclined to react.</span>")
+
+	for(var/mob/living/carbon/human/H in range(5, src))
+		award_research_points("999", "calm_scp", 20, H.ckey)
+
+/mob/living/scp/scp999/proc/calm_scp106(mob/living/scp/scp106/scp106)
+	if(!scp106)
+		return
+
+	visible_message("<span class='notice'>[src] blorbles at [scp106]. The corrosive entity seems to slow slightly.</span>")
+
+	if(scp106.corrosion_active)
+		scp106.corrosion_active = FALSE
+		addtimer(CALLBACK(scp106, /mob/living/scp/scp106/proc/toggle_corrosion, TRUE), 20 SECONDS)
+		to_chat(scp106, "<span class='notice'>An unusual warmth permeates you. The hunger fades, briefly.</span>")
+
+	for(var/mob/living/carbon/human/H in range(5, src))
+		award_research_points("999", "calm_scp", 15, H.ckey)
+
+
+
+/mob/living/scp/scp999/proc/tickle_target(mob/living/carbon/human/target)
+	if(!target || world.time < tickle_cooldown)
+		return
+
+	tickle_cooldown = world.time + tickle_cooldown_time
+
+	visible_message("<span class='notice'>[src] wraps around [target] and tickles them enthusiastically!</span>")
+	playsound(src, pick(tickle_sounds), 40, TRUE)
+
+	to_chat(target, "<span class='notice'>[src] tickles you! You can't help but laugh uncontrollably!</span>")
+
+	if(target.reagents)
+		target.reagents.add_reagent(/datum/reagent/medicine/anomalous_happiness, 8)
+
+	target.adjustBruteLoss(-5)
+	target.adjustFireLoss(-5)
+
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		H.adjustOrganLoss(ORGAN_SLOT_BRAIN, -3)
+
+	if(target.ckey)
+		hook_scp_interaction(target, "SCP-999", INTERACTION_TYPE_CARE, list("type" = "tickle"))
+
+/mob/living/scp/scp999/UnarmedAttack(atom/A)
+	if(ishuman(A))
+		var/mob/living/carbon/human/H = A
+		if(H.combat_mode)
+			heal_target(H)
+		else
+			tickle_target(H)
+		return
+
+	return ..()
+
+/mob/living/scp/scp999/attack_hand(mob/living/carbon/human/user)
+	if(user.combat_mode)
+		return ..()
+
+	if(world.time < tickle_cooldown)
+		to_chat(user, "<span class='notice'>[src] burbles happily at your touch!</span>")
+		if(user.reagents)
+			user.reagents.add_reagent(/datum/reagent/medicine/anomalous_happiness, 2)
+		return ..()
+
+	visible_message("<span class='notice'>[user] pets [src]! It warbles with delight!</span>")
+	playsound(src, pick(happy_sounds), 30, TRUE)
+
+	if(user.reagents)
+		user.reagents.add_reagent(/datum/reagent/medicine/anomalous_happiness, 3)
+
+	to_chat(user, "<span class='notice'>Touching [src] fills you with warm euphoria!</span>")
+
+	if(user.ckey)
+		hook_scp_interaction(user, "SCP-999", INTERACTION_TYPE_CARE, list("type" = "pet"))
+
+	return ..()
+
 /mob/living/scp/scp999/proc/update_happiness()
 	if(healing_sessions > 0 || comfort_provided > 0)
 		happiness_level = min(max_happiness, happiness_level + 1)
 
 	healing_power = 25 + (happiness_level / 4)
 
-/mob/living/scp/scp999/UnarmedAttack(atom/A)
-	if(ishuman(A))
-		var/mob/living/carbon/human/H = A
-		heal_target(H)
-		return
-
-	return ..()
-
 /mob/living/scp/scp999/proc/heal_nearby_ability()
 	if(world.time < healing_cooldown)
 		return
 
 	var/heal_amount = healing_power / 2
-	to_chat(src, "<span class='notice'>You heal nearby targets. Healed: [length(healed_targets)]</span>")
+	to_chat(src, "<span class='notice'>You release a burst of healing energy. Healed: [length(healed_targets)]</span>")
 
 	for(var/mob/living/carbon/human/H in range(comfort_radius, src))
 		if(H != src && !H.SCP)
 			H.adjustBruteLoss(-heal_amount)
 			H.adjustFireLoss(-heal_amount)
 			H.adjustToxLoss(-heal_amount)
+			if(H.reagents)
+				H.reagents.add_reagent(/datum/reagent/medicine/anomalous_happiness, 4)
 			if(!(H.ckey in healed_targets))
 				healed_targets += H.ckey
 				healing_sessions++
@@ -183,6 +350,8 @@
 			H.adjustBruteLoss(-(healing_power / 2))
 			H.adjustFireLoss(-(healing_power / 2))
 			H.adjustToxLoss(-(healing_power / 2))
+			if(H.reagents)
+				H.reagents.add_reagent(/datum/reagent/medicine/anomalous_happiness, 6)
 
 /mob/living/scp/scp999/proc/view_healing_stats_ability()
 	var/message = "<h2>SCP-999 Healing Statistics</h2>"
@@ -210,11 +379,11 @@
 		if(H.SCP)
 			to_chat(user, "<span class='warning'>This is SCP-999, a friendly gelatinous entity that heals and improves mood.</span>")
 		else
-			to_chat(user, "<span class='notice'>A friendly orange slime that seems to radiate happiness and healing energy.</span>")
+			to_chat(user, "<span class='notice'>A friendly orange slime that seems to radiate happiness and healing energy. Just being near it makes you feel lighter.</span>")
 
 /mob/living/scp/scp999/scp_death()
 	visible_message("<span class='danger'>[src] appears to lose its vibrant color and stops moving!</span>")
-	playsound(src, 'sound/weapons/punch1.ogg', 50, TRUE)
+	playsound(src, 'sound/machines/chime.ogg', 50, TRUE)
 	..()
 
 /mob/living/scp/scp999/proc/heal_nearby()
@@ -249,3 +418,42 @@
 			message += "<b>Interaction History:</b> [length(instance.interaction_history)] records<br>"
 
 	to_chat(src, "<span class='notice'>[message]</span>")
+
+/datum/reagent/medicine/anomalous_happiness
+	name = "Anomalous Happiness"
+	description = "A warm golden fluid secreted by SCP-999. Induces intense euphoria and mild healing."
+	taste_description = "warmth and joy"
+	reagent_state = LIQUID
+	color = "#FFB347"
+	ingest_met = 0.4
+	overdose_threshold = 30
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+
+/datum/reagent/medicine/anomalous_happiness/affect_blood(mob/living/carbon/C, removed)
+	if(C.stat == DEAD)
+		return
+	C.adjustBruteLoss(-0.5 * removed)
+	C.adjustFireLoss(-0.5 * removed)
+	if(prob(15))
+		var/list/messages = list(
+			"You feel a warm glow of happiness.",
+			"Everything seems a little brighter.",
+			"A sense of deep contentment settles over you.",
+			"You can't help but smile.",
+			"The world feels a little kinder."
+		)
+		to_chat(C, "<span class='notice'>[pick(messages)]</span>")
+
+/datum/reagent/medicine/anomalous_happiness/on_mob_metabolize(mob/living/carbon/C, class)
+	. = ..()
+	to_chat(C, "<span class='notice'>A wave of euphoria washes over you!</span>")
+
+/datum/reagent/medicine/anomalous_happiness/on_mob_end_metabolize(mob/living/carbon/C, class)
+	. = ..()
+	to_chat(C, "<span class='warning'>The warm happiness fades, leaving a gentle afterglow.</span>")
+
+/datum/reagent/medicine/anomalous_happiness/overdose_process(mob/living/carbon/C, removed)
+	if(prob(25))
+		to_chat(C, "<span class='warning'>The happiness is almost overwhelming... your thoughts feel hazy.</span>")
+		C.adjust_confusion(2 SECONDS)
+	C.adjust_drowsyness(1 SECONDS)

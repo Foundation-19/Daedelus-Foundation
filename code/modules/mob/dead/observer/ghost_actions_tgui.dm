@@ -52,6 +52,7 @@
 	return data
 
 /datum/ghost_actions_ui/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
 	if(!isobserver(usr))
 		return
 

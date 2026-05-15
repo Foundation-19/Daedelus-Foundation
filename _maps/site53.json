@@ -2,7 +2,7 @@
 	"version": 1,
 	"map_name": "Site 53",
 	"map_path": "map_files/site53",
-	"map_file": "site53.dmm",
+	"map_file": ["site53.dmm", "z1_admin.dmm", "z2_transit.dmm"],
 	"shuttles": {},
 	"run_mapping_tests": false
 }

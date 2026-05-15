@@ -59,7 +59,7 @@
 		var/mob/living/L = target
 		hook_scp_combat(L, "SCP-280", melee_damage_upper, 0)
 
-/mob/living/simple_animal/hostile/scp280/death()
+/mob/living/simple_animal/hostile/scp280/death(gibbed, cause_of_death = "Unknown")
 	hook_scp_recontainment("SCP-280", list())
 	return ..()
 

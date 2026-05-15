@@ -116,7 +116,7 @@
 /turf/open/floor/carpet/black,
 /area/misc/survivalpod)
 "t" = (
-/obj/machinery/microwave{
+/obj/machinery/appliance/cooker/microwave{
 	pixel_y = -2
 	},
 /obj/structure/window/reinforced/survival_pod{

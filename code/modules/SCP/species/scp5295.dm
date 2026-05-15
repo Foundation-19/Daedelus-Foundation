@@ -14,15 +14,14 @@
 	)
 
 	// Species-specific life tick hook if needed later
-	spec_life(mob/living/carbon/human/H)
-		. = ..()
-		if(!H)
-			return
-		// Light passive: occasional sanity nudge in observers due to temporal unease
-		if(prob(1))
-			for(var/mob/living/carbon/human/observer in view(3, H))
-				if(observer == H)
-					continue
-				observer.sanity?.adjust_sanity(-0.2)
+/datum/species/scp5295/spec_life(mob/living/carbon/human/H)
+	. = ..()
+	if(!H)
+		return
+	if(prob(1))
+		for(var/mob/living/carbon/human/observer in view(3, H))
+			if(observer == H)
+				continue
+			observer.sanity?.adjust_sanity(-0.2)
 
 

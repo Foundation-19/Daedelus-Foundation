@@ -22,8 +22,17 @@
 	)
 	var/list/door_log = list()
 	var/max_log_entries = 50
+	var/list/scp_area_types = list(/area/scp/lcz, /area/scp/hcz, /area/scp/ez, /area/scp/dclass, /area/scp/surface)
+	var/list/cached_scp_areas
+	var/area_cache_time = 0
+	var/area_cache_interval = 30 SECONDS
+	var/cached_total_doors = 0
+	var/cached_locked_doors = 0
+	var/door_cache_time = 0
+	var/door_cache_interval = 5 SECONDS
 
 /obj/machinery/computer/scp_door_control/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "SCPDoorControl")
@@ -48,11 +57,16 @@
 			break
 	data["total_doors"] = 0
 	data["locked_doors"] = 0
-	var/list/all_doors = get_all_controllable_doors()
-	data["total_doors"] = length(all_doors)
-	for(var/obj/machinery/door/D in all_doors)
-		if(D.locked)
-			data["locked_doors"]++
+	if(world.time >= door_cache_time + door_cache_interval)
+		var/list/all_doors = get_all_controllable_doors()
+		cached_total_doors = length(all_doors)
+		cached_locked_doors = 0
+		for(var/obj/machinery/door/D in all_doors)
+			if(D.locked)
+				cached_locked_doors++
+		door_cache_time = world.time
+	data["total_doors"] = cached_total_doors
+	data["locked_doors"] = cached_locked_doors
 	return data
 
 /obj/machinery/computer/scp_door_control/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -94,84 +108,84 @@
 			return "Bolted"
 	return "Unknown"
 
+/obj/machinery/computer/scp_door_control/proc/get_scp_areas()
+	if(!cached_scp_areas || world.time >= area_cache_time + area_cache_interval)
+		cached_scp_areas = list()
+		for(var/area_type in scp_area_types)
+			for(var/area/A in world)
+				if(istype(A, area_type))
+					cached_scp_areas += A
+		area_cache_time = world.time
+	return cached_scp_areas
+
 /obj/machinery/computer/scp_door_control/proc/get_all_controllable_doors()
 	. = list()
-	for(var/obj/machinery/door/airlock/A in world)
-		if(!A)
-			continue
-		var/area/door_area = get_area(A)
-		if(!door_area)
-			continue
-		if(istype(door_area, /area/scp) || istype(door_area, /area/station))
-			. += A
+	for(var/area/A in get_scp_areas())
+		for(var/obj/machinery/door/airlock/D in A.contents)
+			. += D
 
 /obj/machinery/computer/scp_door_control/proc/apply_zone_state(zone, state, mob/user)
-	for(var/obj/machinery/door/airlock/A in world)
-		if(!A)
+	var/area/zone_type = zone_to_area_type(zone)
+	if(!zone_type)
+		return
+	for(var/area/A in get_scp_areas())
+		if(!istype(A, zone_type))
 			continue
-		var/area/door_area = get_area(A)
-		if(!door_area)
-			continue
-		if(!is_door_in_zone(door_area, zone))
-			continue
-		switch(state)
-			if(DOOR_CONTROL_NONE)
-				A.locked = FALSE
-				A.update_icon()
-			if(DOOR_CONTROL_LOCKED)
-				A.locked = TRUE
-				A.close()
-				A.update_icon()
-			if(DOOR_CONTROL_OPEN)
-				A.locked = FALSE
-				A.open()
-			if(DOOR_CONTROL_BOLTED)
-				A.locked = TRUE
-				A.close()
-				A.update_icon()
+		for(var/obj/machinery/door/airlock/D in A.contents)
+			switch(state)
+				if(DOOR_CONTROL_NONE)
+					D.unlock()
+				if(DOOR_CONTROL_LOCKED)
+					D.lock()
+					D.close()
+				if(DOOR_CONTROL_OPEN)
+					D.unlock()
+					D.open()
+				if(DOOR_CONTROL_BOLTED)
+					D.lock()
+					D.close()
 
-/obj/machinery/computer/scp_door_control/proc/is_door_in_zone(area/door_area, zone)
+/obj/machinery/computer/scp_door_control/proc/zone_to_area_type(zone)
 	switch(zone)
 		if("Light Containment")
-			return istype(door_area, /area/scp/lcz)
+			return /area/scp/lcz
 		if("Heavy Containment")
-			return istype(door_area, /area/scp/hcz)
+			return /area/scp/hcz
 		if("Entrance Zone")
-			return istype(door_area, /area/scp/ez)
+			return /area/scp/ez
 		if("D-Class Block")
-			return istype(door_area, /area/scp/dclass)
+			return /area/scp/dclass
 		if("Surface")
-			return istype(door_area, /area/scp/surface)
-	return FALSE
+			return /area/scp/surface
+	return null
+
+/obj/machinery/computer/scp_door_control/proc/is_door_in_zone(area/door_area, zone)
+	return istype(door_area, zone_to_area_type(zone))
 
 /obj/machinery/computer/scp_door_control/proc/emergency_open_all()
 	for(var/obj/machinery/door/airlock/A in get_all_controllable_doors())
-		A.locked = FALSE
+		A.unlock()
 		A.open()
-		A.update_icon()
 
 /obj/machinery/computer/scp_door_control/proc/emergency_lock_all()
 	for(var/obj/machinery/door/airlock/A in get_all_controllable_doors())
-		A.locked = TRUE
+		A.lock()
 		A.close()
-		A.update_icon()
 
 /obj/machinery/computer/scp_door_control/proc/cycle_zone_airlocks(zone)
-	for(var/obj/machinery/door/airlock/A in world)
-		if(!A)
+	var/area/zone_type = zone_to_area_type(zone)
+	if(!zone_type)
+		return
+	for(var/area/A in get_scp_areas())
+		if(!istype(A, zone_type))
 			continue
-		var/area/door_area = get_area(A)
-		if(!door_area)
-			continue
-		if(!is_door_in_zone(door_area, zone))
-			continue
-		var/obj/machinery/door/D = A
-		if(A.density)
-			D.open()
-			addtimer(CALLBACK(D, /obj/machinery/door/proc/close), 50)
-		else
-			D.close()
-			addtimer(CALLBACK(D, /obj/machinery/door/proc/open), 50)
+		for(var/obj/machinery/door/airlock/D in A.contents)
+			if(D.density)
+				D.open()
+				addtimer(CALLBACK(D, /obj/machinery/door/proc/close), 50)
+			else
+				D.close()
+				addtimer(CALLBACK(D, /obj/machinery/door/proc/open), 50)
 
 /obj/machinery/computer/scp_door_control/proc/log_door_action(action_text)
 	door_log += list(list("text" = action_text, "time" = time2text(world.time, "HH:MM:SS")))

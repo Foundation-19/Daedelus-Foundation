@@ -225,7 +225,7 @@
 
 /mob/proc/can_see_cone(atom/L)
 	if(!isliving(src))
-		return
+		return TRUE
 	if(!client)
 		return TRUE
 	if(hud_used && hud_used.fov)

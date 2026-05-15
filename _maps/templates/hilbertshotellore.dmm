@@ -207,7 +207,7 @@
 /area/misc/hilbertshotel)
 "aQ" = (
 /obj/structure/table/reinforced,
-/obj/machinery/microwave,
+/obj/machinery/appliance/cooker/microwave,
 /turf/open/indestructible/hotelwood,
 /area/misc/hilbertshotel)
 "aR" = (

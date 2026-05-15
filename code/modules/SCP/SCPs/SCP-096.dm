@@ -78,7 +78,10 @@
 
 /mob/living/scp/scp096/proc/process_screaming()
 	if(world.time >= scream_phase_end)
-		begin_pursuit()
+		if(length(target_queue))
+			begin_pursuit()
+		else
+			return_to_docile()
 		return
 
 	if(prob(25))
@@ -320,7 +323,9 @@
 
 /mob/living/scp/scp096/proc/attack_target()
 	var/mob/living/current_target = length(target_queue) ? target_queue[1] : null
-	if(!current_target || current_target.stat == DEAD)
+	if(!current_target || !isliving(current_target) || current_target.stat == DEAD)
+		if(current_target && !isliving(current_target))
+			target_queue -= current_target
 		return
 
 	current_target.adjustBruteLoss(SCP096_PURSUIT_DAMAGE)

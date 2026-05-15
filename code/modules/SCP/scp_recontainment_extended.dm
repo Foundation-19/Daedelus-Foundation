@@ -62,7 +62,7 @@
 	bath_active = TRUE
 	containment_progress = 0
 	visible_message("<span class='danger'>[src] begins filling with concentrated hydrochloric acid!</span>")
-	priority_announce("ATTENTION: SCP-682 acid containment protocol activated. All personnel clear the containment chamber.", sound_type = ANNOUNCER_ALERT)
+	priority_announce("ATTENTION: SCP-682 acid containment protocol activated. All personnel clear the containment chamber.", null, null, ANNOUNCER_ALERT)
 
 /obj/machinery/scp682_acid_bath/proc/process_acid_containment()
 	if(acid_level <= 0)
@@ -100,7 +100,7 @@
 		target.forceMove(get_turf(src))
 
 	hook_scp_recontainment("SCP-682", list())
-	priority_announce("SCP-682 has been recontained via acid bath protocol. Containment integrity being restored.", sound_type = ANNOUNCER_DEFAULT)
+	priority_announce("SCP-682 has been recontained via acid bath protocol. Containment integrity being restored.", null, null, ANNOUNCER_DEFAULT)
 
 	if(SSscp_persistence && SSscp_persistence.manager)
 		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-682"]
@@ -169,7 +169,7 @@
 					var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-939"]
 					if(instance && instance.containment_status == "breached")
 						hook_scp_recontainment("SCP-939", list(user))
-						priority_announce("SCP-939 has been neutralized via sonic lure protocol.", sound_type = ANNOUNCER_DEFAULT)
+						priority_announce("SCP-939 has been neutralized via sonic lure protocol.", null, null, ANNOUNCER_DEFAULT)
 	else
 		to_chat(user, "<span class='warning'>No SCP-939 instances within range.</span>")
 
@@ -256,7 +256,7 @@
 		visible_message("<span class='warning'>[src] shudders as shadows seep through the containment seams...</span>")
 
 /obj/machinery/scp017_light_chamber/proc/trigger_017_breach()
-	priority_announce("CRITICAL: SCP-017 containment failure! Light containment chamber compromised!", sound_type = ANNOUNCER_ALERT)
+	priority_announce("CRITICAL: SCP-017 containment failure! Light containment chamber compromised!", null, null, ANNOUNCER_ALERT)
 	hook_scp_breach("SCP-017", src)
 	containment_integrity = 100
 	chamber_light_level = 0
@@ -316,4 +316,4 @@
 				var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-017"]
 				if(instance && instance.containment_status == "breached")
 					hook_scp_recontainment("SCP-017", list())
-					priority_announce("SCP-017 has been recontained via light suppression protocol.", sound_type = ANNOUNCER_DEFAULT)
+					priority_announce("SCP-017 has been recontained via light suppression protocol.", null, null, ANNOUNCER_DEFAULT)

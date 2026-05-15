@@ -588,6 +588,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Visible on t-ray scanners if the atom/var/level == 1
 #define TRAIT_T_RAY_VISIBLE "t-ray-visible"
 #define TRAIT_FOOD_GRILLED "food_grilled"
+#define TRAIT_FOOD_COOKED "food_cooked"
 /// The items needs two hands to be carried
 #define TRAIT_NEEDS_TWO_HANDS "needstwohands"
 /// Can't be catched when thrown

@@ -35,6 +35,7 @@
 	var/facility_integrity = 100
 
 /datum/game_mode/scp_containment_breach/pre_setup()
+	..()
 	return TRUE
 
 /datum/game_mode/scp_containment_breach/post_setup(report)
@@ -118,7 +119,7 @@
 		var/turf/T = pick(spawn_turfs)
 		var/mob/living/carbon/human/H = new(T)
 		H.equipOutfit(/datum/outfit/mtf_operative)
-		var/datum/mind/M = new /datum/mind(key="")
+		var/datum/mind/M = new /datum/mind("")
 		M.transfer_to(H)
 		var/datum/antagonist/scp_mtf/mtf_antag = new()
 		mtf_antag.squad_name = squad_name
@@ -166,9 +167,10 @@
 	addtimer(CALLBACK(src, .proc/end_round), SCP_ROUND_DEBRIEF_TIME)
 
 /datum/game_mode/scp_containment_breach/proc/end_round()
-	SSticker.force_ending = TRUE
+	SSticker.set_force_ending(TRUE)
 
 /datum/game_mode/scp_containment_breach/check_finished()
+	..()
 	if(!SSticker.setup_done)
 		return FALSE
 	if(GLOB.station_was_nuked)

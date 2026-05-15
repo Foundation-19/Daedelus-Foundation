@@ -177,7 +177,7 @@ const OverviewTab = ({ departments, factions, power_structures, metrics }) => {
                 <Flex.Item>
                   <Box fontWeight="bold">{dept.name}</Box>
                   <Box fontSize="0.9em" color="rgba(255, 255, 255, 0.7)">
-                    Head: {dept.head} • Budget: ${dept.budget?.toLocaleString()}
+                    Head: {dept.head} ΓÇó Budget: ${dept.budget?.toLocaleString()}
                   </Box>
                 </Flex.Item>
                 <Flex.Item>
@@ -215,7 +215,7 @@ const OverviewTab = ({ departments, factions, power_structures, metrics }) => {
                 <Flex.Item>
                   <Box fontWeight="bold">{faction.name}</Box>
                   <Box fontSize="0.9em" color="rgba(255, 255, 255, 0.7)">
-                    Leader: {faction.leader} • {faction.membership || 0} members
+                    Leader: {faction.leader} ΓÇó {faction.membership || 0} members
                   </Box>
                 </Flex.Item>
                 <Flex.Item>
@@ -269,7 +269,7 @@ const DepartmentsTab = ({
             >
               <Box fontWeight="bold">{dept.name}</Box>
               <Box fontSize="0.9em" color="rgba(255, 255, 255, 0.7)">
-                {dept.type} • {dept.status || 'active'}
+                {dept.type} ΓÇó {dept.status || 'active'}
               </Box>
               <Box fontSize="0.8em" color="rgba(255, 255, 255, 0.5)">
                 {dept.members?.length || 0} members
@@ -384,7 +384,7 @@ const DepartmentDetailView = ({ department }) => {
                       fontSize="0.9em"
                       color="rgba(0, 255, 0, 0.7)"
                     >
-                      • {ally}
+                      ΓÇó {ally}
                     </Box>
                   ))
                 ) : (
@@ -404,7 +404,7 @@ const DepartmentDetailView = ({ department }) => {
                       fontSize="0.9em"
                       color="rgba(255, 0, 0, 0.7)"
                     >
-                      • {rival}
+                      ΓÇó {rival}
                     </Box>
                   ))
                 ) : (
@@ -443,7 +443,7 @@ const FactionsTab = ({ factions, selectedFaction, setSelectedFaction }) => {
             >
               <Box fontWeight="bold">{faction.name}</Box>
               <Box fontSize="0.9em" color="rgba(255, 255, 255, 0.7)">
-                {faction.type} • {faction.membership || 0} members
+                {faction.type} ΓÇó {faction.membership || 0} members
               </Box>
               <Box fontSize="0.8em" color="rgba(255, 255, 255, 0.5)">
                 {faction.influence}/100 influence
@@ -567,7 +567,7 @@ const FactionDetailView = ({ faction }) => {
                       fontSize="0.9em"
                       color="rgba(0, 255, 0, 0.7)"
                     >
-                      • {ally}
+                      ΓÇó {ally}
                     </Box>
                   ))
                 ) : (
@@ -587,7 +587,7 @@ const FactionDetailView = ({ faction }) => {
                       fontSize="0.9em"
                       color="rgba(255, 0, 0, 0.7)"
                     >
-                      • {enemy}
+                      ΓÇó {enemy}
                     </Box>
                   ))
                 ) : (
@@ -619,7 +619,7 @@ const PowerStructuresTab = ({ power_structures }) => {
               <Flex.Item>
                 <Box fontWeight="bold">{structure.name}</Box>
                 <Box fontSize="0.9em" color="rgba(255, 255, 255, 0.7)">
-                  Type: {structure.type} • Leader: {structure.leader}
+                  Type: {structure.type} ΓÇó Leader: {structure.leader}
                 </Box>
                 <Box fontSize="0.8em" color="rgba(255, 255, 255, 0.5)">
                   {structure.members?.length || 0} members
@@ -702,7 +702,7 @@ const PoliticalEventsTab = ({ events }) => {
           >
             <Box fontWeight="bold">{event.event_title}</Box>
             <Box fontSize="0.9em" color="rgba(255, 255, 255, 0.7)">
-              Type: {event.event_type} • Impact: {event.event_impact}
+              Type: {event.event_type} ΓÇó Impact: {event.event_impact}
             </Box>
             <Box fontSize="0.8em" color="rgba(255, 255, 255, 0.5)">
               {event.event_description}
@@ -742,7 +742,7 @@ const ConflictsTab = ({ conflicts, alliances }) => {
               >
                 <Box fontWeight="bold">{conflict.conflict_title}</Box>
                 <Box fontSize="0.9em" color="rgba(255, 255, 255, 0.7)">
-                  Type: {conflict.conflict_type} • Severity:{' '}
+                  Type: {conflict.conflict_type} ΓÇó Severity:{' '}
                   {conflict.conflict_severity}/10
                 </Box>
                 <Box fontSize="0.8em" color="rgba(255, 255, 255, 0.5)">
@@ -773,7 +773,7 @@ const ConflictsTab = ({ conflicts, alliances }) => {
               >
                 <Box fontWeight="bold">{alliance.alliance_name}</Box>
                 <Box fontSize="0.9em" color="rgba(255, 255, 255, 0.7)">
-                  Type: {alliance.alliance_type} • Strength:{' '}
+                  Type: {alliance.alliance_type} ΓÇó Strength:{' '}
                   {alliance.alliance_strength}/100
                 </Box>
                 <Box fontSize="0.8em" color="rgba(255, 255, 255, 0.5)">

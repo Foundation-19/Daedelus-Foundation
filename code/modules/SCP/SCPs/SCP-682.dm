@@ -115,7 +115,7 @@
 		handle_damage_adaptation(amount, "burn")
 	return ..(amount, updating_health, forced)
 
-/mob/living/scp/scp682/adjustToxLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/scp/scp682/adjustToxLoss(amount, updating_health = TRUE, forced = FALSE, cause_of_death = "Systemic organ failure")
 	if(amount > 0 && !forced)
 		if(evolution_system && ("damage_resistance_toxin" in evolution_system.active_adaptations))
 			amount *= 0.5

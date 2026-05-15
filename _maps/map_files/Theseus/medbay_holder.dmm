@@ -1351,12 +1351,12 @@
 /turf/open/floor/plating,
 /area/station/maintenance/port/aft)
 "es" = (
-/obj/machinery/oven,
+/obj/machinery/appliance/cooker/oven,
 /turf/open/floor/plating,
 /area/station/maintenance/port/aft)
 "et" = (
 /obj/structure/table,
-/obj/machinery/microwave{
+/obj/machinery/appliance/cooker/microwave{
 	pixel_y = 6
 	},
 /turf/open/floor/plating,
@@ -7945,7 +7945,7 @@
 /area/station/medical/break_room)
 "zt" = (
 /obj/structure/table/reinforced,
-/obj/machinery/microwave{
+/obj/machinery/appliance/cooker/microwave{
 	pixel_y = 6
 	},
 /obj/effect/turf_decal/tile/neutral{

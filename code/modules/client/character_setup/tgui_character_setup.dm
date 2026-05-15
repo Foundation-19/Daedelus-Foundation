@@ -56,12 +56,10 @@
 	else if (prefs.character_preview_view.client != prefs.parent)
 		prefs.character_preview_view.register_to_client(prefs.parent)
 	data["character_preview_view"] = prefs.character_preview_view.assigned_map
-	var/list/species_choices = list()
+	var/list/species_choices = list(SPECIES_HUMAN)
 	var/list/species_names = list()
-	for (var/species_id in get_selectable_species())
-		var/datum/species/S = GLOB.species_list[species_id]
-		species_choices += species_id
-		species_names[species_id] = initial(S.name)
+	var/datum/species/human_species = GLOB.species_list[SPECIES_HUMAN]
+	species_names[SPECIES_HUMAN] = initial(human_species.name)
 	data["species_choices"] = species_choices
 	data["species_names"] = species_names
 	data["gender_choices"] = list("male", "female", "plural")
@@ -182,27 +180,26 @@
 	. = ..()
 	if(.)
 		return
+	var/result = FALSE
 	switch(action)
 		if ("reset_all_keybinds")
 			for (var/datum/preference_middleware/keybindings/kb_mw in prefs.middleware)
-				return kb_mw.reset_all_keybinds(params, usr)
+				result = kb_mw.reset_all_keybinds(params, usr)
 		if ("reset_keybinds_to_defaults")
 			for (var/datum/preference_middleware/keybindings/kb_mw2 in prefs.middleware)
-				return kb_mw2.reset_keybinds_to_defaults(params, usr)
+				result = kb_mw2.reset_keybinds_to_defaults(params, usr)
 		if ("set_keybindings")
 			for (var/datum/preference_middleware/keybindings/kb_mw3 in prefs.middleware)
-				return kb_mw3.set_keybindings(params)
+				result = kb_mw3.set_keybindings(params)
 		if ("loadout_toggle")
 			var/datum/preference/P = GLOB.preference_entries[/datum/preference/blob/loadout]
-			return P.button_act(usr, prefs, params)
+			result = P.button_act(usr, prefs, params)
 		if ("appearance_mods_act")
 			var/datum/preference/mod_pref = GLOB.preference_entries[/datum/preference/appearance_mods]
-			if(params["add"])
-				return mod_pref.button_act(usr, prefs, params)
-			return mod_pref.button_act(usr, prefs, params)
+			result = mod_pref.button_act(usr, prefs, params)
 		if ("augments_act")
 			var/datum/preference/aug_pref = GLOB.preference_entries[/datum/preference/blob/augments]
-			return aug_pref.user_edit(usr, prefs, params)
+			result = aug_pref.user_edit(usr, prefs, params)
 		if ("quirk_toggle")
 			var/quirk = params["quirk"]
 			var/list/user_quirks = prefs.read_preference(/datum/preference/blob/quirks) || list()
@@ -210,7 +207,7 @@
 				user_quirks -= quirk
 			else
 				user_quirks += quirk
-			return prefs.update_preference(GLOB.preference_entries[/datum/preference/blob/quirks], user_quirks)
+			result = prefs.update_preference(GLOB.preference_entries[/datum/preference/blob/quirks], user_quirks)
 		if ("language_toggle_understand")
 			var/datum/language/path = text2path(params["language"])
 			if (!path) return FALSE
@@ -225,11 +222,11 @@
 				user_languages -= path
 			else
 				user_languages[path] = value
-			return prefs.update_preference(GLOB.preference_entries[/datum/preference/blob/languages], user_languages)
+			result = prefs.update_preference(GLOB.preference_entries[/datum/preference/blob/languages], user_languages)
 		if ("rotate")
 			if (prefs.character_preview_view)
 				prefs.character_preview_view.dir = turn(prefs.character_preview_view.dir, -90)
-			return TRUE
+			result = TRUE
 		if ("language_toggle_speak")
 			var/datum/language/path2 = text2path(params["language"])
 			if (!path2) return FALSE
@@ -244,40 +241,41 @@
 				user_languages2 -= path2
 			else
 				user_languages2[path2] = value2
-			return prefs.update_preference(GLOB.preference_entries[/datum/preference/blob/languages], user_languages2)
+			result = prefs.update_preference(GLOB.preference_entries[/datum/preference/blob/languages], user_languages2)
 		if ("open_preferences")
-			return prefs.ui_interact(usr)
+			prefs.ui_interact(usr)
+			return TRUE
 		if ("open_loadout")
 			new /datum/loadout_ui(usr.client)
 			return TRUE
 		if ("open_appearance_mods")
-			return prefs.ui_act("appearance_mods", list(), null, null)
+			prefs.ui_act("appearance_mods", list(), null, null)
+			return TRUE
 		if ("antag_select_all")
 			var/list/ant = prefs.read_preference(/datum/preference/blob/antagonists) || list()
 			for (var/role in ant)
 				ant[role] = TRUE
-			return prefs.update_preference(GLOB.preference_entries[/datum/preference/blob/antagonists], ant)
+			result = prefs.update_preference(GLOB.preference_entries[/datum/preference/blob/antagonists], ant)
 		if ("antag_select_all_available")
 			var/list/ant2 = prefs.read_preference(/datum/preference/blob/antagonists) || list()
 			for (var/role2 in get_scp_roles())
 				ant2[role2] = TRUE
-			return prefs.update_preference(GLOB.preference_entries[/datum/preference/blob/antagonists], ant2)
+			result = prefs.update_preference(GLOB.preference_entries[/datum/preference/blob/antagonists], ant2)
 		if ("antag_deselect_all")
 			var/list/ant3 = prefs.read_preference(/datum/preference/blob/antagonists) || list()
 			for (var/role3 in ant3)
 				ant3[role3] = FALSE
-			return prefs.update_preference(GLOB.preference_entries[/datum/preference/blob/antagonists], ant3)
+			result = prefs.update_preference(GLOB.preference_entries[/datum/preference/blob/antagonists], ant3)
 		if ("antag_toggle")
 			var/role4 = params["role"]
 			var/list/ant4 = prefs.read_preference(/datum/preference/blob/antagonists) || list()
 			if (role4 in ant4)
 				ant4[role4] = !ant4[role4]
-				return prefs.update_preference(GLOB.preference_entries[/datum/preference/blob/antagonists], ant4)
-			return FALSE
+				result = prefs.update_preference(GLOB.preference_entries[/datum/preference/blob/antagonists], ant4)
 		if ("set_preference")
 			var/key = params["preference"]
 			var/value = params["value"]
-			return prefs.ui_act("set_preference", list("preference" = key, "value" = value), null, null)
+			result = prefs.ui_act("set_preference", list("preference" = key, "value" = value), null, null)
 		if ("finalize")
 			var/list/job_prefs = prefs.read_preference(/datum/preference/blob/job_priority) || list()
 			var/selected_job
@@ -299,14 +297,14 @@
 			prefs.save_character()
 			prefs.save_preferences()
 			to_chat(usr, span_notice("Character setup saved."))
-			return TRUE
+			result = TRUE
 		if ("set_faction")
 			if (!prefs) return FALSE
 			var/locked = !!(prefs.read_preference(/datum/preference/blob/faction_class_state)?["locked"])
 			if (locked) return FALSE
 			var/value2 = params["value"]
 			if (!(value2 in get_faction_to_classes())) return FALSE
-			return prefs.update_preference(GLOB.preference_entries[/datum/preference/choiced/faction], value2)
+			result = prefs.update_preference(GLOB.preference_entries[/datum/preference/choiced/faction], value2)
 		if ("set_class")
 			if (!prefs) return FALSE
 			var/locked2 = !!(prefs.read_preference(/datum/preference/blob/faction_class_state)?["locked"])
@@ -315,14 +313,13 @@
 			var/value3 = params["value"]
 			var/list/classes = get_faction_to_classes()[f]
 			if (!classes || !(value3 in classes)) return FALSE
-			return prefs.update_preference(GLOB.preference_entries[/datum/preference/choiced/class], value3)
+			result = prefs.update_preference(GLOB.preference_entries[/datum/preference/choiced/class], value3)
 		if ("commit_faction_class")
 			var/list/lock_state = prefs.read_preference(/datum/preference/blob/faction_class_state) || list()
 			lock_state["locked"] = TRUE
-			var/success = prefs.update_preference(GLOB.preference_entries[/datum/preference/blob/faction_class_state], lock_state)
-			if (success)
+			result = prefs.update_preference(GLOB.preference_entries[/datum/preference/blob/faction_class_state], lock_state)
+			if (result)
 				SYNC_PERSONNEL_RECORD()
-			return success
 		if ("request_reset_faction_class")
 			var/list/state2 = prefs.read_preference(/datum/preference/blob/faction_class_state) || list()
 			var/tokens = state2?["tokens"] || 0
@@ -331,13 +328,13 @@
 			state2["locked"] = FALSE
 			prefs.update_preference(GLOB.preference_entries[/datum/preference/choiced/faction], null)
 			prefs.update_preference(GLOB.preference_entries[/datum/preference/choiced/class], null)
-			return prefs.update_preference(GLOB.preference_entries[/datum/preference/blob/faction_class_state], state2)
+			result = prefs.update_preference(GLOB.preference_entries[/datum/preference/blob/faction_class_state], state2)
 		if ("admin_override_unlock")
 			if (!usr?.client?.holder) return FALSE
 			var/list/astate = prefs.read_preference(/datum/preference/blob/faction_class_state) || list()
 			astate["locked"] = FALSE
 			astate["tokens"] = (astate["tokens"] || 0) + 1
-			return prefs.update_preference(GLOB.preference_entries[/datum/preference/blob/faction_class_state], astate)
+			result = prefs.update_preference(GLOB.preference_entries[/datum/preference/blob/faction_class_state], astate)
 		if ("set_job_priority")
 			var/job = params["job"]
 			var/level = text2num(params["level"])
@@ -357,10 +354,9 @@
 							else
 								job_prefs[other_job] = JP_MEDIUM
 				job_prefs[job] = level
-			var/applied = prefs.update_preference(GLOB.preference_entries[/datum/preference/blob/job_priority], job_prefs)
-			if (applied && level == JP_HIGH)
+			result = prefs.update_preference(GLOB.preference_entries[/datum/preference/blob/job_priority], job_prefs)
+			if (result && level == JP_HIGH)
 				SYNC_PERSONNEL_RECORD(job)
-			return applied
 		if ("close")
 			return TRUE
 		if ("change_slot")
@@ -373,7 +369,7 @@
 				preference_middleware.on_new_character(usr)
 			if (prefs.character_preview_view)
 				prefs.character_preview_view.update_body()
-			return TRUE
+			result = TRUE
 		if ("randomize_name")
 			var/name_key = params["preference"] || "real_name"
 			var/datum/preference/name/P = GLOB.preference_entries_by_key[name_key]
@@ -383,32 +379,32 @@
 			var/datum/species/S = GLOB.species_list[species_type]
 			var/gender = prefs.read_preference(/datum/preference/choiced/gender)
 			var/new_name = S?.random_name(gender, TRUE) || random_unique_name(gender)
-			return prefs.update_preference(P, new_name)
+			result = prefs.update_preference(P, new_name)
 		if ("randomize_character")
 			prefs.randomise_appearance_prefs()
 			prefs.save_character()
 			if (prefs.character_preview_view)
 				prefs.character_preview_view.update_body()
-			return TRUE
+			result = TRUE
 		if ("set_color_preference")
 			var/color_key = params["preference"]
 			var/new_color = input(usr, "Choose color", "Character Preference") as color|null
 			if (new_color)
-				return prefs.ui_act("set_preference", list("preference" = color_key, "value" = new_color), null, null)
-			return FALSE
+				result = prefs.ui_act("set_preference", list("preference" = color_key, "value" = new_color), null, null)
 		if ("set_random_preference")
 			var/rand_key = params["preference"]
 			var/rand_value = params["value"]
-			return prefs.ui_act("set_preference", list("preference" = rand_key, "value" = rand_value), null, null)
+			result = prefs.ui_act("set_preference", list("preference" = rand_key, "value" = rand_value), null, null)
 		if ("set_preview_pref")
 			var/preview_val = params["value"]
 			if (preview_val in list(PREVIEW_PREF_JOB, PREVIEW_PREF_LOADOUT, PREVIEW_PREF_UNDERWEAR))
 				prefs.preview_pref = preview_val
 				if (prefs.character_preview_view)
 					prefs.character_preview_view.update_body()
-				return TRUE
-			return FALSE
-	return FALSE
+				result = TRUE
+	if (result)
+		SStgui.update_uis(src)
+	return result
 
 /datum/character_setup_ui/proc/SYNC_PERSONNEL_RECORD(job_title)
 	if (!SSpersonnel_persistence || !SSpersonnel_persistence.manager)

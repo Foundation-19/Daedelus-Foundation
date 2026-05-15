@@ -31,7 +31,7 @@
 	used = TRUE
 	user.visible_message(span_warning("[user] activates the supply beacon!"))
 	playsound(src, 'sound/machines/triple_beep.ogg', 50, TRUE)
-	priority_announce("ALERT: Unauthorized supply signal detected at [get_area_name(src)]. Possible hostile resupply operation.", "SECURITY ALERT", sound_type = ANNOUNCER_ALERT)
+	priority_announce("ALERT: Unauthorized supply signal detected at [get_area_name(src)]. Possible hostile resupply operation.", "SECURITY ALERT", null, ANNOUNCER_ALERT)
 
 	var/turf/T = get_turf(src)
 	addtimer(CALLBACK(GLOBAL_PROC, /proc/spawn_ci_crate, T), 10 SECONDS)

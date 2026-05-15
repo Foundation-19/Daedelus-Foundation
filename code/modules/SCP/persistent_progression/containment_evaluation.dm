@@ -251,7 +251,7 @@ SUBSYSTEM_DEF(containment_evaluation)
 	var/status = "active"
 	var/rating
 	
-	var/list/metrics = list()
+	var/list/datum/containment_metric/metrics = list()
 	var/list/participants = list()
 	var/list/events = list()
 	

@@ -9,6 +9,7 @@
 	idle_power_usage = 200
 
 /obj/machinery/scp_monitoring_console/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "SCPMonitoringConsole", "SCP Monitoring")
@@ -86,6 +87,7 @@
 	idle_power_usage = 300
 
 /obj/machinery/scp_research_terminal/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "SCPResearchTerminal", "SCP Research")
@@ -99,7 +101,7 @@
 	var/list/experiments = list()
 
 	if(SSpersistent_progression)
-		var/datum/persistent_player_data/pdata = SSpersistent_progression.get_player_data(usr.ckey)
+		var/datum/persistent_player_data/pdata = SSpersistent_progression.get_player_data(user.ckey)
 		if(pdata)
 			data["research_points"] = pdata.total_research_completed * 10
 			data["experiments_completed"] = pdata.total_research_completed

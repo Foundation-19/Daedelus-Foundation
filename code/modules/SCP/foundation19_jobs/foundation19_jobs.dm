@@ -13,12 +13,14 @@
 #define EXP_TYPE_LCZ "LCZ"
 #define EXP_TYPE_HCZ "HCZ"
 #define EXP_TYPE_EZ "EZ"
+#ifndef EXP_TYPE_SECURITY
 #define EXP_TYPE_SECURITY "Security"
 #define EXP_TYPE_MEDICAL "Medical"
 #define EXP_TYPE_SCIENCE "Science"
 #define EXP_TYPE_ENGINEERING "Engineering"
 #define EXP_TYPE_SUPPLY "Supply"
 #define EXP_TYPE_SERVICE "Service"
+#endif
 #define EXP_TYPE_DCLASS "D-Class"
 
 // Skill Levels
@@ -37,16 +39,16 @@
 #define SKILL_SERVICE "Service"
 
 // Department Flags (SCP-specific, used by job_hooks and progression)
-#define DEPARTMENT_COMMAND (1<<0)
-#define DEPARTMENT_SECURITY (1<<1)
-#define DEPARTMENT_MEDICAL (1<<2)
-#define DEPARTMENT_SCIENCE (1<<3)
-#define DEPARTMENT_ENGINEERING (1<<4)
-#define DEPARTMENT_SUPPLY (1<<5)
-#define DEPARTMENT_SERVICE (1<<6)
-#define DEPARTMENT_LCZ (1<<7)
-#define DEPARTMENT_HCZ (1<<8)
-#define DEPARTMENT_EZ (1<<9)
+#define DEPT_FLAG_COMMAND (1<<0)
+#define DEPT_FLAG_SECURITY (1<<1)
+#define DEPT_FLAG_MEDICAL (1<<2)
+#define DEPT_FLAG_SCIENCE (1<<3)
+#define DEPT_FLAG_ENGINEERING (1<<4)
+#define DEPT_FLAG_SUPPLY (1<<5)
+#define DEPT_FLAG_SERVICE (1<<6)
+#define DEPT_FLAG_LCZ (1<<7)
+#define DEPT_FLAG_HCZ (1<<8)
+#define DEPT_FLAG_EZ (1<<9)
 
 // Job Categories
 #define JOB_CATEGORY_COMMAND "Command"
@@ -153,7 +155,9 @@
 
 // SCP-specific job defines (not in __DEFINES/jobs.dm)
 #define JOB_O5_REPRESENTATIVE "O5 Representative"
+#ifndef JOB_GUARD_COMMANDER
 #define JOB_GUARD_COMMANDER "Guard Commander"
+#endif
 #define JOB_LCZ_ZONE_COMMANDER "LCZ Zone Junior Lieutenant"
 #define JOB_HCZ_ZONE_COMMANDER "HCZ Zone Senior Lieutenant"
 #define JOB_EZ_ZONE_COMMANDER "EZ Zone Supervisor"

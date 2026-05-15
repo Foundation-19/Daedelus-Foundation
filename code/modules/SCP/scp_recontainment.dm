@@ -14,6 +14,7 @@
 	var/mob/living/carbon/human/victim
 
 /obj/machinery/scp_femur_breaker/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ScpFemurBreaker", "SCP-106 FEMUR BREAKER")
@@ -85,7 +86,7 @@
 		if(SSscp_persistence && SSscp_persistence.manager)
 			var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-106"]
 			if(instance && instance.containment_status == "breached")
-				priority_announce("ATTENTION: Femur Breaker protocol activated. SCP-106 is being lured back to containment.", sound_type = ANNOUNCER_ALERT)
+				priority_announce("ATTENTION: Femur Breaker protocol activated. SCP-106 is being lured back to containment.", null, null, ANNOUNCER_ALERT)
 				addtimer(CALLBACK(src, .proc/complete_femur_breaker, H), 300)
 
 		H.forceMove(get_turf(src))
@@ -108,7 +109,7 @@
 
 	var/list/recontain_list = !QDELETED(victim) ? list(victim) : list()
 	hook_scp_recontainment("SCP-106", recontain_list)
-	priority_announce("SCP-106 has been recontained via Femur Breaker protocol.", sound_type = ANNOUNCER_DEFAULT)
+	priority_announce("SCP-106 has been recontained via Femur Breaker protocol.", null, null, ANNOUNCER_DEFAULT)
 
 /obj/item/scp096_bag
 	name = "SCP-096 Containment Bag"
@@ -210,7 +211,7 @@
 		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-457"]
 		if(instance && instance.containment_status == "breached")
 			hook_scp_recontainment("SCP-457", list(user))
-			priority_announce("SCP-457 has been suppressed via fire containment system.", sound_type = ANNOUNCER_DEFAULT)
+			priority_announce("SCP-457 has been suppressed via fire containment system.", null, null, ANNOUNCER_DEFAULT)
 
 /obj/machinery/scp049_cure_station
 	name = "SCP-049 Containment Lure"
@@ -247,7 +248,7 @@
 	lure_active = TRUE
 	lure_cooldown = world.time + 600
 	visible_message(span_notice("[src] begins broadcasting the containment lure signal."))
-	priority_announce("SCP-049 containment lure protocol activated. The Doctor is being called back.", sound_type = ANNOUNCER_DEFAULT)
+	priority_announce("SCP-049 containment lure protocol activated. The Doctor is being called back.", null, null, ANNOUNCER_DEFAULT)
 
 	lure_scp049()
 
@@ -325,7 +326,7 @@
 		zombies_destroyed++
 	if(zombies_destroyed > 0)
 		hook_scp_recontainment("SCP-008", list())
-		priority_announce("SCP-008 biohazard incineration complete. [zombies_destroyed] instances neutralized.", sound_type = ANNOUNCER_DEFAULT)
+		priority_announce("SCP-008 biohazard incineration complete. [zombies_destroyed] instances neutralized.", null, null, ANNOUNCER_DEFAULT)
 	else
 		visible_message(span_notice("The incinerator shuts down. No SCP-008 instances detected."))
 
@@ -396,7 +397,7 @@
 		if(tv.active)
 			tv.deactivate()
 			hook_scp_recontainment("SCP-263", list(user))
-			priority_announce("SCP-263 has been remotely deactivated.", sound_type = ANNOUNCER_DEFAULT)
+			priority_announce("SCP-263 has been remotely deactivated.", null, null, ANNOUNCER_DEFAULT)
 			return
 	to_chat(user, span_warning("No active SCP-263 instance detected."))
 
@@ -451,7 +452,7 @@
 	if(confirm != "Deploy")
 		return
 	acid_cooldown = world.time + acid_cooldown_time
-	priority_announce("SCP-682 containment protocol activated. Deploying hydrochloric acid.", sound_type = ANNOUNCER_ALERT)
+	priority_announce("SCP-682 containment protocol activated. Deploying hydrochloric acid.", null, null, ANNOUNCER_ALERT)
 	for(var/mob/living/scp/scp682/reptile in range(5, src))
 		reptile.adjustFireLoss(150)
 		reptile.visible_message(span_danger("Acid sprays over SCP-682! It thrashes in pain!"))

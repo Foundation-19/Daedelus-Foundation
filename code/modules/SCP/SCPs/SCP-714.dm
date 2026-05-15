@@ -5,7 +5,7 @@
 	name = "jade ring"
 	desc = "An ornate jade ring with intricate carvings. It feels cold to the touch."
 	icon = 'icons/scp/scp-714.dmi'
-	icon_state = "scp714"
+	icon_state = "scp-714"
 	w_class = WEIGHT_CLASS_SMALL
 
 	var/active = FALSE
@@ -92,9 +92,11 @@
 
 	for(var/effect_type in blocked_effects)
 		if(effect_type == "poison")
-			wearer.reagents?.remove_reagent("toxin", 1)
+			wearer.reagents?.remove_reagent(/datum/reagent/toxin, 1)
 		if(effect_type == "radiation")
-			REMOVE_TRAIT(wearer, TRAIT_IRRADIATED, "scp714")
+			var/datum/component/irradiated/rad_component = wearer.GetComponent(/datum/component/irradiated)
+			if(rad_component)
+				qdel(rad_component)
 
 /datum/scp714_protection_system/proc/check_protection(mob/living/carbon/human/wearer, effect_type)
 	if(effect_type in blocked_effects)
@@ -130,3 +132,4 @@
 /datum/scp714_research_system/proc/record_protection_event(mob/living/carbon/human/wearer, effect_blocked)
 	protection_events++
 	research_data["[world.time]"] = list("wearer" = wearer.ckey, "blocked" = effect_blocked)
+
