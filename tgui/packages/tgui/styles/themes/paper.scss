@@ -67,7 +67,7 @@ $font-size: 24px;
     background: transparent;
     border-bottom: 1px solid #000;
     outline: none;
-    background-color: rgba(255, 255, 62, 0.8);
+    background-color: transparent;
     padding: 0 4px;
     margin-right: 2px;
     line-height: 17px;
@@ -123,7 +123,7 @@ $font-size: 24px;
       background: transparent;
       border-bottom: 1px solid #000;
       outline: none;
-      background-color: rgba(255, 255, 62, 0.8);
+      background-color: transparent;
       padding: 0 4px;
       margin-right: 2px;
       line-height: 17px;
@@ -137,7 +137,7 @@ $font-size: 24px;
       background: transparent;
       border-bottom: 1px solid #000;
       outline: none;
-      background-color: rgba(255, 255, 62, 0.8);
+      background-color: transparent;
       padding: 0 4px;
       margin-right: 2px;
       line-height: 17px;
@@ -148,30 +148,338 @@ $font-size: 24px;
   .paper-field {
     position: relative;
     display: inline-block;
-
     border: none;
     background: transparent;
     border-bottom: 1px solid #000;
     outline: none;
-    background-color: rgba(255, 255, 62, 0.8);
+    background-color: transparent;
     padding: 0 4px;
     margin-right: 2px;
     line-height: 17px;
     overflow: visible;
+    min-width: 60px;
 
     input:disabled {
       position: relative;
       display: inline-block;
-
       border: none;
       background: transparent;
       border-bottom: 1px solid #000;
       outline: none;
-      background-color: rgba(255, 255, 62, 0.8);
+      background-color: transparent;
       padding: 0 4px;
       margin-right: 2px;
       line-height: 17px;
       overflow: visible;
     }
+  }
+
+  .redacted {
+    background-color: black;
+    color: black;
+  }
+
+  .paper-text img {
+    max-width: 64px;
+    max-height: 64px;
+    vertical-align: middle;
+  }
+
+  // ACS (Anomaly Classification System) - from SCP Wiki by Woedenaz, CC-BY-SA-3.0
+  .acs-hybrid-text-bar,
+  .acs-hybrid-text-bar * {
+    box-sizing: border-box;
+    word-break: normal;
+  }
+
+  .acs-hybrid-text-bar {
+    display: grid;
+    grid-template-areas:
+      "item item clear"
+      "contain disrupt disrupt"
+      "contain risk risk";
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 53% 1fr 1fr;
+    width: 100%;
+    height: 7.5rem;
+    position: relative;
+    text-transform: capitalize;
+    overflow: hidden;
+    font-weight: 800;
+    margin: 4px 0;
+  }
+
+  .acs-hybrid-text-bar strong {
+    font-weight: 400;
+  }
+
+  .acs-hybrid-text-bar > div {
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .acs-hybrid-text-bar > div strong {
+    margin-right: 0.25rem;
+  }
+
+  .acs-hybrid-text-bar > .acs-item {
+    align-items: flex-end;
+    padding: 0 0 0.15rem 0;
+    border-bottom: 0.125rem solid;
+    grid-area: item;
+    font-size: 1.75em;
+  }
+
+  .acs-hybrid-text-bar > .acs-item span {
+    padding-left: 0.75rem;
+  }
+
+  .acs-hybrid-text-bar > .acs-clear {
+    align-items: flex-end;
+    padding: 0.15rem;
+    grid-area: clear;
+    font-size: 1.25em;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-size: 1rem;
+    line-height: 1;
+    border-left: 0.125rem solid;
+    border-bottom: 0.125rem solid;
+  }
+
+  .acs-hybrid-text-bar > .acs-clear * {
+    width: 100%;
+  }
+
+  .acs-hybrid-text-bar > .acs-clear > .clearance-level-text {
+    color: rgba(0, 0, 0, 0);
+    position: relative;
+  }
+
+  .acs-hybrid-text-bar > .acs-clear > .clearance-level-text::before {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    color: rgba(12, 12, 12, 1);
+  }
+
+  .acs-hybrid-version.acs-clear-1 > .acs-clear {
+    box-shadow: inset 0.25rem 0 0 0 rgb(0, 159, 107);
+    padding-left: 0.5em;
+  }
+  .acs-hybrid-text-bar.acs-clear-1 > .acs-clear > .clearance-level-text::before {
+    content: "Unrestricted";
+  }
+
+  .acs-hybrid-version.acs-clear-2 > .acs-clear {
+    box-shadow: inset 0.25rem 0 0 0 rgb(0, 135, 189);
+    padding-left: 0.5em;
+  }
+  .acs-hybrid-text-bar.acs-clear-2 > .acs-clear > .clearance-level-text::before {
+    content: "Restricted";
+  }
+
+  .acs-hybrid-version.acs-clear-3 > .acs-clear {
+    box-shadow: inset 0.25rem 0 0 0 rgb(255, 211, 0);
+    padding-left: 0.5em;
+  }
+  .acs-hybrid-text-bar.acs-clear-3 > .acs-clear > .clearance-level-text::before {
+    content: "Confidential";
+  }
+
+  .acs-hybrid-version.acs-clear-4 > .acs-clear {
+    box-shadow: inset 0.25rem 0 0 0 rgb(255, 109, 0);
+    padding-left: 0.5em;
+  }
+  .acs-hybrid-text-bar.acs-clear-4 > .acs-clear > .clearance-level-text::before {
+    content: "Secret";
+  }
+
+  .acs-hybrid-version.acs-clear-5 > .acs-clear {
+    box-shadow: inset 0.25rem 0 0 0 rgb(196, 2, 51);
+    padding-left: 0.5em;
+  }
+  .acs-hybrid-text-bar.acs-clear-5 > .acs-clear > .clearance-level-text::before {
+    content: "Top Secret";
+  }
+
+  .acs-hybrid-version.acs-clear-6 > .acs-clear {
+    box-shadow: inset 0.25rem 0 0 0 rgb(12, 12, 12);
+    padding-left: 0.5em;
+  }
+  .acs-hybrid-text-bar.acs-clear-6 > .acs-clear > .clearance-level-text::before {
+    content: "Cosmic Top Secret";
+  }
+
+  .acs-hybrid-text-bar .acs-contain-container {
+    grid-area: contain;
+    font-size: 1.25em;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    border-right: 0.125rem solid;
+  }
+
+  .acs-hybrid-text-bar .acs-contain {
+    display: flex;
+    align-content: center;
+    justify-content: flex-start;
+    padding: 1.5rem 0.25rem 0.25rem 0.75em;
+    height: 100%;
+  }
+
+  .acs-hybrid-text-bar .acs-secondary {
+    display: none;
+    align-content: center;
+    justify-content: flex-start;
+    padding: 1.5rem 0.25rem 0.25rem 0.75em;
+  }
+
+  .acs-hybrid-text-bar.acs-yes .acs-secondary {
+    display: flex;
+  }
+
+  .acs-hybrid-version.acs-safe .acs-contain {
+    box-shadow: inset 0.5rem 0 0 0 rgb(0, 159, 107);
+  }
+  .acs-hybrid-version.acs-euclid .acs-contain {
+    box-shadow: inset 0.5rem 0 0 0 rgb(255, 211, 0);
+  }
+  .acs-hybrid-version.acs-keter .acs-contain {
+    box-shadow: inset 0.5rem 0 0 0 rgb(196, 2, 51);
+  }
+  .acs-hybrid-version.acs-neutralized .acs-contain,
+  .acs-hybrid-version.acs-pending .acs-contain,
+  .acs-hybrid-version.acs-explained .acs-contain {
+    box-shadow: inset 0.5rem 0 0 0 rgb(12, 12, 12);
+  }
+  .acs-hybrid-version.acs-yes .acs-secondary {
+    box-shadow: inset 0.5rem 0 0 0 rgba(66, 66, 72, 0.15);
+  }
+
+  .acs-hybrid-text-bar.acs-neutralized,
+  .acs-hybrid-text-bar.acs-pending,
+  .acs-hybrid-text-bar.acs-explained {
+    height: 6.5rem;
+    grid-template-areas:
+      "item item clear"
+      "contain contain contain";
+    grid-template-rows: 1fr 2.5rem;
+    grid-template-columns: 53% 1fr 1fr;
+  }
+
+  .acs-hybrid-text-bar.acs-neutralized .acs-disrupt,
+  .acs-hybrid-text-bar.acs-pending .acs-disrupt,
+  .acs-hybrid-text-bar.acs-explained .acs-disrupt,
+  .acs-hybrid-text-bar.acs-neutralized .acs-risk,
+  .acs-hybrid-text-bar.acs-pending .acs-risk,
+  .acs-hybrid-text-bar.acs-explained .acs-risk {
+    display: none;
+  }
+
+  .acs-hybrid-text-bar > .acs-disrupt {
+    grid-area: disrupt;
+    padding-left: 0.75em;
+  }
+
+  .acs-hybrid-text-bar > .acs-disrupt .disruption-class-number {
+    color: rgba(0, 0, 0, 0);
+    position: relative;
+  }
+
+  .acs-hybrid-text-bar > .acs-disrupt .disruption-class-number::before {
+    color: rgba(12, 12, 12, 1);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  .acs-hybrid-version.acs-dark > .acs-disrupt {
+    box-shadow: inset 0.25rem 0 0 0 rgb(0, 159, 107);
+  }
+  .acs-hybrid-text-bar.acs-dark > .acs-disrupt .disruption-class-number::before {
+    content: "1";
+  }
+  .acs-hybrid-version.acs-vlam > .acs-disrupt {
+    box-shadow: inset 0.25rem 0 0 0 rgb(0, 135, 189);
+  }
+  .acs-hybrid-text-bar.acs-vlam > .acs-disrupt .disruption-class-number::before {
+    content: "2";
+  }
+  .acs-hybrid-version.acs-keneq > .acs-disrupt {
+    box-shadow: inset 0.25rem 0 0 0 rgb(255, 211, 0);
+  }
+  .acs-hybrid-text-bar.acs-keneq > .acs-disrupt .disruption-class-number::before {
+    content: "3";
+  }
+  .acs-hybrid-version.acs-ekhi > .acs-disrupt {
+    box-shadow: inset 0.25rem 0 0 0 rgb(255, 109, 0);
+  }
+  .acs-hybrid-text-bar.acs-ekhi > .acs-disrupt .disruption-class-number::before {
+    content: "4";
+  }
+  .acs-hybrid-version.acs-amida > .acs-disrupt {
+    box-shadow: inset 0.25rem 0 0 0 rgb(196, 2, 51);
+  }
+  .acs-hybrid-text-bar.acs-amida > .acs-disrupt .disruption-class-number::before {
+    content: "5";
+  }
+
+  .acs-hybrid-text-bar > .acs-risk {
+    grid-area: risk;
+    padding-left: 0.75em;
+  }
+
+  .acs-hybrid-text-bar > .acs-risk .risk-class-number {
+    color: rgba(0, 0, 0, 0);
+    position: relative;
+  }
+
+  .acs-hybrid-text-bar > .acs-risk .risk-class-number::before {
+    color: rgba(12, 12, 12, 1);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  .acs-hybrid-version.acs-notice > .acs-risk {
+    box-shadow: inset 0.25rem 0 0 0 rgb(0, 159, 107);
+  }
+  .acs-hybrid-text-bar.acs-notice > .acs-risk .risk-class-number::before {
+    content: "1";
+  }
+  .acs-hybrid-version.acs-caution > .acs-risk {
+    box-shadow: inset 0.25rem 0 0 0 rgb(0, 135, 189);
+  }
+  .acs-hybrid-text-bar.acs-caution > .acs-risk .risk-class-number::before {
+    content: "2";
+  }
+  .acs-hybrid-version.acs-warning > .acs-risk {
+    box-shadow: inset 0.25rem 0 0 0 rgb(255, 211, 0);
+  }
+  .acs-hybrid-text-bar.acs-warning > .acs-risk .risk-class-number::before {
+    content: "3";
+  }
+  .acs-hybrid-version.acs-danger > .acs-risk {
+    box-shadow: inset 0.25rem 0 0 0 rgb(255, 109, 0);
+  }
+  .acs-hybrid-text-bar.acs-danger > .acs-risk .risk-class-number::before {
+    content: "4";
+  }
+  .acs-hybrid-version.acs-critical > .acs-risk {
+    box-shadow: inset 0.25rem 0 0 0 rgb(196, 2, 51);
+  }
+  .acs-hybrid-text-bar.acs-critical > .acs-risk .risk-class-number::before {
+    content: "5";
   }
 }

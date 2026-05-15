@@ -57,12 +57,88 @@ const createIDHeader = (index) => {
 // we will then output a TEXT input for it that hopefully covers
 // the exact amount of spaces
 const field_regex = /\[(_+)\]/g;
-const field_tag_regex = /\[<input\s+[^>]*\sid="(paperfield_\d+)"[^>]*>\]/gm;
+const field_tag_regex = /<input\s+[^>]*\sid="(paperfield_\d+)"[^>]*>/gm;
+const field_span_regex = /<span class="paper_field"><\/span>/g;
 const sign_regex = /%s(?:ign)?(?=\\s|$)?/gim;
+
+const SCP_LOGO_MAP = {
+  '[scplogo]': '<img src = scplogo.png>',
+  '[ethicslogo]': '<img src = ethics.png>',
+  '[o5logo]': '<img src = o5.png>',
+  '[adminlogo]': '<img src = admin.png>',
+  '[englogo]': '<img src = eng.png>',
+  '[mtflogo]': '<img src = mtf.png>',
+  '[loglogo]': '<img src = log.png>',
+  '[manlogo]': '<img src = man.png>',
+  '[medlogo]': '<img src = med.png>',
+  '[scilogo]': '<img src = sci.png>',
+  '[seclogo]': '<img src = sec.png>',
+  '[isdlogo]': '<img src = isd.png>',
+  '[dealogo]': '<img src = dea.png>',
+  '[intlogo]': '<img src = int.png>',
+  '[triblogo]': '<img src = trib.png>',
+  '[aiadlogo]': '<img src = aiad.png>',
+  '[amdlogo]': '<img src = amd.png>',
+  '[dcdlogo]': '<img src = dcd.png>',
+  '[fsdlogo]': '<img src = fsd.png>',
+  '[misilogo]': '<img src = misi.png>',
+  '[patalogo]': '<img src = pata.png>',
+  '[raisalogo]': '<img src = raisa.png>',
+  '[goclogo]': '<img src = ungoc.png>',
+  '[uiulogo]': '<img src = uiu.png>',
+  '[mcdlogo]': '<img src = mcd.png>',
+  '[grlogo]': '<img src = gr.png>',
+  '[arlogo]': '<img src = ar.png>',
+  '[cilogo]': '<img src = ci.png>',
+  '[shlogo]': '<img src = sh.png>',
+  '[cotbglogo]': '<img src = cotbg.png>',
+  '[coclogo]': '<img src = coc.png>',
+  '[cmaxlogo]': '<img src = cmax.png>',
+  '[mcflogo]': '<img src = mcf.png>',
+  '[wwslogo]': '<img src = wws.png>',
+  '[spclogo]': '<img src = spc.png>',
+};
+
+const scplogo_regex = /\[(?:scplogo|ethicslogo|o5logo|adminlogo|englogo|mtflogo|loglogo|manlogo|medlogo|scilogo|seclogo|isdlogo|dealogo|intlogo|triblogo|aiadlogo|amdlogo|dcdlogo|fsdlogo|misilogo|patalogo|raisalogo|goclogo|uiulogo|mcdlogo|grlogo|arlogo|cilogo|shlogo|cotbglogo|coclogo|cmaxlogo|mcflogo|wwslogo|spclogo)\]/gi;
+
+const redacted_regex = /\[redacted\]/gi;
+
+const acs_nosecondary_regex = /\[acs item_number=(\w+) clearance_level=(\w+) containment_class=(\w+) disruption_class=(\w+) risk_class=(\w+)\]/gi;
+const acs_secondary_regex = /\[acs item_number=(\w+) clearance_level=(\w+) containment_class=(\w+) secondary_class=(\w+) disruption_class=(\w+) risk_class=(\w+)\]/gi;
+
+const replaceSCPLogos = (txt) => {
+  return txt.replace(scplogo_regex, (match) => {
+    return SCP_LOGO_MAP[match.toLowerCase()] || match;
+  });
+};
+
+const replaceRedacted = (txt) => {
+  return txt.replace(redacted_regex, '<span class="redacted">R E D A C T E D</span>');
+};
+
+const replaceACS = (txt) => {
+  let result = txt.replace(acs_secondary_regex,
+    '<div class="acs-hybrid-text-bar acs-yes acs-hybrid-version acs-clear-$2 acs-$3 acs-$4 acs-$5 acs-$6"><div class="acs-item"><span><strong>Item#:</strong>$1</span></div><div class="acs-clear"><strong>Clearance Level $2:</strong> <span class="clearance-level-text">Clearance</span></div><div class="acs-contain-container"><div class="acs-contain"><div class="acs-text"><span><strong>Containment Class:</strong></span> <span>$3</span></div><div class="acs-icon"><img src="http://scp-wiki.wdfiles.com/local--files/component%3Aanomaly-class-bar/$3-icon.svg" alt=""></div></div><div class="acs-secondary"><div class="acs-text"><span><strong>Secondary Class:</strong></span> <span>$4</span></div><div class="acs-icon"><img src="http://scp-wiki.wdfiles.com/local--files/component%3Aanomaly-class-bar/$4-icon.svg" alt=""></div></div></div><div class="acs-disrupt"><div class="acs-text"><strong>Disruption Class:</strong> <span class="disruption-class-number">#</span>/$5</div><div class="acs-icon"><img src="http://scp-wiki.wdfiles.com/local--files/component%3Aanomaly-class-bar/$5-icon.svg" alt=""></div></div><div class="acs-risk"><div class="acs-text"><strong>Risk Class:</strong> <span class="risk-class-number">#</span>/$6</div><div class="acs-icon"><img src="http://scp-wiki.wdfiles.com/local--files/component%3Aanomaly-class-bar/$6-icon.svg" alt=""></div></div></div>'
+  );
+  result = result.replace(acs_nosecondary_regex,
+    '<div class="acs-hybrid-text-bar acs-hybrid-version acs-clear-$2 acs-$3 acs-$4 acs-$5"><div class="acs-item"><span><strong>Item#:</strong>$1</span></div><div class="acs-clear"><strong>Clearance Level $2:</strong> <span class="clearance-level-text">Clearance</span></div><div class="acs-contain-container"><div class="acs-contain"><div class="acs-text"><span><strong>Containment Class:</strong></span> <span>$3</span></div><div class="acs-icon"><img src="http://scp-wiki.wdfiles.com/local--files/component%3Aanomaly-class-bar/$3-icon.svg" alt=""></div></div><div class="acs-secondary"><div class="acs-text"><span><strong>Secondary Class:</strong></span> <span></span></div><div class="acs-icon"><img></div></div></div><div class="acs-disrupt"><div class="acs-text"><strong>Disruption Class:</strong> <span class="disruption-class-number">#</span>/$4</div><div class="acs-icon"><img src="http://scp-wiki.wdfiles.com/local--files/component%3Aanomaly-class-bar/$4-icon.svg" alt=""></div></div><div class="acs-risk"><div class="acs-text"><strong>Risk Class:</strong> <span class="risk-class-number">#</span>/$5</div><div class="acs-icon"><img src="http://scp-wiki.wdfiles.com/local--files/component%3Aanomaly-class-bar/$5-icon.svg" alt=""></div></div></div>'
+  );
+  return result;
+};
+
+const field_pencode_regex = /\[field\]/gi;
+
+const preprocessPencode = (txt) => {
+  txt = replaceACS(txt);
+  txt = replaceSCPLogos(txt);
+  txt = replaceRedacted(txt);
+  txt = txt.replace(field_pencode_regex, '<span class="paper_field"></span>');
+  return txt;
+};
 
 const createInputField = (length, width, font, fontsize, color, id) => {
   return (
-    '[<input ' +
+    '<input ' +
     'type="text" ' +
     'style="' +
     "font:'" +
@@ -89,7 +165,7 @@ const createInputField = (length, width, font, fontsize, color, id) => {
     'size=' +
     length +
     ' ' +
-    '/>]'
+    '/>'
   );
 };
 
@@ -118,19 +194,20 @@ const signDocument = (txt, color, user) => {
 };
 
 const run_marked_default = (value) => {
-  // Override function, any links and images should
-  // kill any other marked tokens we don't want here
   const walkTokens = (token) => {
     switch (token.type) {
       case 'url':
       case 'autolink':
       case 'reflink':
       case 'link':
-      case 'image':
         token.type = 'text';
-        // Once asset system is up change to some default image
-        // or rewrite for icon images
         token.href = '';
+        break;
+      case 'image':
+        if (token.href && !token.href.endsWith('.png') && !token.href.endsWith('.svg')) {
+          token.type = 'text';
+          token.href = '';
+        }
         break;
     }
   };
@@ -139,7 +216,6 @@ const run_marked_default = (value) => {
     smartypants: true,
     smartLists: true,
     walkTokens,
-    // Once assets are fixed might need to change this for them
     baseUrl: 'thisshouldbreakhttp',
   });
 };
@@ -227,7 +303,7 @@ const checkAllFields = (
     wrap.appendChild(target);
 
     values[id] = sanitized_text; // save the data
-    replace.push({ value: '[' + wrap.innerHTML + ']', raw_text: full_match });
+    replace.push({ value: wrap.innerHTML, raw_text: full_match });
   }
 
   if (replace.length > 0) {
@@ -278,10 +354,11 @@ const setInputReadonly = (text, readonly) => {
 const PaperSheetView = (props) => {
   const { value = '', stamps = [], backgroundColor, readOnly } = props;
   const stamp_list = stamps;
+  const processed_value = preprocessPencode(value);
   const text_html = {
     __html:
       '<span class="paper-text">' +
-      setInputReadonly(value, readOnly) +
+      setInputReadonly(processed_value, readOnly) +
       '</span>',
   };
   return (
@@ -444,8 +521,10 @@ const createPreview = (
       color,
       field_counter,
     );
+    // 3.5: Preprocess SCP pencode tags (logos, redacted, ACS) into HTML
+    const pencoded_text = preprocessPencode(fielded_text.text);
     // Fourth, parse the text using markup
-    const formatted_text = run_marked_default(fielded_text.text);
+    const formatted_text = run_marked_default(pencoded_text);
     // Fifth, we wrap the created text in the pin color, and font.
     // crayon is bold (<b> tags), maybe make fountain pin italic?
     const fonted_text = setFontinText(
@@ -756,15 +835,22 @@ const HelpToolip = () => {
   const input_field = {
     __html: '<input></input>',
   };
+  const logo_preview = {
+    __html: '<img src = scplogo.png style="max-width:32px;max-height:32px;vertical-align:middle;">',
+  };
+  const redacted_preview = {
+    __html: '<span style="background-color:black;color:black;">R E D A C T E D</span>',
+  };
   return (
     <Box
       position="absolute"
       left="10px"
       top="25px"
-      width="300px"
-      height="370px"
-      backgroundColor="#E8E4C9" // offset from paper color
+      width="350px"
+      height="580px"
+      backgroundColor="#E8E4C9"
       textAlign="center"
+      overflow="auto"
     >
       <h3>Papercode Syntax</h3>
       <Table>
@@ -869,6 +955,34 @@ const HelpToolip = () => {
               <li>Etc...</li>
             </ol>
           </Table.Cell>
+        </Table.Row>
+      </Table>
+
+      <h4>SCP Pencode Commands</h4>
+      <Table>
+        <Table.Row>
+          <Table.Cell>[scplogo]</Table.Cell>
+          <Table.Cell dangerouslySetInnerHTML={logo_preview} />
+        </Table.Row>
+
+        <Table.Row>
+          <Table.Cell>[redacted]</Table.Cell>
+          <Table.Cell dangerouslySetInnerHTML={redacted_preview} />
+        </Table.Row>
+
+        <Table.Row>
+          <Table.Cell>[scilogo] [seclogo]</Table.Cell>
+          <Table.Cell>Dept. logos</Table.Cell>
+        </Table.Row>
+
+        <Table.Row>
+          <Table.Cell>[goclogo] [cilogo]</Table.Cell>
+          <Table.Cell>GOI logos</Table.Cell>
+        </Table.Row>
+
+        <Table.Row>
+          <Table.Cell>[acs item_number=... ]</Table.Cell>
+          <Table.Cell>ACS bar</Table.Cell>
         </Table.Row>
       </Table>
     </Box>
