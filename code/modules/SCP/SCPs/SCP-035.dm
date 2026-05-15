@@ -429,7 +429,7 @@
 		if("Engineer", "Chief Engineer")
 			abilities += "Technical Skills"
 			abilities += "Repair Abilities"
-		if("Captain", "Head of Personnel")
+		if("Site Director", "Human Resources Director")
 			abilities += "Administrative Access"
 			abilities += "Command Authority"
 

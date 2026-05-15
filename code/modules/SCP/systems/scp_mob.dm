@@ -40,6 +40,9 @@
 	var/containment_check_interval = 30 SECONDS
 	var/list/containment_abilities = list()
 	var/list/active_containment_effects = list()
+	var/breached = FALSE
+	var/containment_procedures = "Standard containment procedures."
+	var/recontainment_procedures = "Standard recontainment protocol."
 
 	var/list/skill_cooldowns = list()
 	var/list/skill_levels = list()

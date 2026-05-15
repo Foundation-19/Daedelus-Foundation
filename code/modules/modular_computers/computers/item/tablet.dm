@@ -27,7 +27,7 @@
 	var/obj/item/insert_type = /obj/item/pen
 	var/obj/item/inserted_item
 
-	var/note = "Congratulations on your station upgrading to the new NtOS and Thinktronic based collaboration effort, bringing you the best in electronics and software since 2467!"  // the note used by the notekeeping app, stored here for convenience
+	var/note = "Welcome to the Foundation Notepad application. Use this to jot down notes, observations, and reminders. You can scan paper documents into this notepad by striking the tablet with the document."  // the note used by the notekeeping app, stored here for convenience
 
 /obj/item/modular_computer/tablet/Destroy()
 	QDEL_NULL(inserted_item)

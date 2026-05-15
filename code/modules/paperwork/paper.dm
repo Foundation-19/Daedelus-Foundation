@@ -277,6 +277,7 @@
 /obj/item/paper/ui_assets(mob/user)
 	return list(
 		get_asset_datum(/datum/asset/spritesheet/simple/paper),
+		get_asset_datum(/datum/asset/simple/scp_logos),
 	)
 
 /obj/item/paper/ui_interact(mob/user, datum/tgui/ui)
@@ -288,7 +289,7 @@
 
 /obj/item/paper/ui_static_data(mob/user)
 	. = list()
-	.["text"] = info
+	.["text"] = resolve_logo_urls(info)
 	if(length(add_info))
 		.["add_text"] = add_info
 		.["add_color"] = list()
@@ -456,6 +457,23 @@
 /obj/item/paper/natural/Initialize(mapload)
 	. = ..()
 	color = "#FFF5ED"
+
+/obj/item/paper/proc/resolve_logo_urls(html_text)
+	var/static/list/scp_logo_names = list(
+		"scplogo.png", "ethics.png", "o5.png", "admin.png", "eng.png",
+		"sec.png", "med.png", "sci.png", "log.png", "isd.png", "dea.png",
+		"man.png", "int.png", "mtf.png", "trib.png", "ungoc.png", "aiad.png",
+		"amd.png", "dcd.png", "fsd.png", "misi.png", "pata.png", "raisa.png",
+		"uiu.png", "gr.png", "mcd.png", "sh.png", "ci.png", "cotbg.png",
+		"cmax.png", "coc.png", "mcf.png", "ar.png", "wws.png", "spc.png",
+		"talisman.png",
+	)
+	for(var/logo_name in scp_logo_names)
+		var/url = SSassets.transport.get_asset_url(logo_name)
+		if(url)
+			html_text = replacetext(html_text, "src = [logo_name]", "src='[url]'")
+			html_text = replacetext(html_text, "src=[logo_name]", "src='[url]'")
+	return html_text
 
 /obj/item/paper/crumpled
 	name = "paper scrap"
