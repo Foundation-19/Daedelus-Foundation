@@ -55,7 +55,7 @@
 
 /datum/round_event/scp_containment_degradation/start()
 	var/damaged = 0
-	for(var/turf/closed/wall/scp_containment/W in world)
+	for(var/turf/closed/wall/scp_containment/W in INSTANCES_OF(/turf/closed/wall/scp_containment))
 		if(prob(20))
 			W.damage_containment(rand(15, 40), "containment_degradation_event")
 			damaged++

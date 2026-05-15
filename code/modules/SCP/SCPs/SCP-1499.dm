@@ -193,15 +193,17 @@
 	if(original_turf)
 		wearer.forceMove(original_turf)
 
-	for(var/obj/effect/scp1499_entity/E in spawned_entities_cleanup())
-		qdel(E)
+	var/obj/item/clothing/mask/gas/scp1499/mask_item = parent
+	if(mask_item?.entity_system)
+		for(var/obj/effect/scp1499_entity/E in mask_item.entity_system.spawned_entities)
+			qdel(E)
+		mask_item.entity_system.spawned_entities.Cut()
 
 /datum/scp1499_dimension_system/proc/spawned_entities_cleanup()
-	var/list/cleanup = list()
-	for(var/obj/effect/scp1499_entity/E)
-		if(E.z == dimension_z)
-			cleanup += E
-	return cleanup
+	var/obj/item/clothing/mask/gas/scp1499/mask_item = parent
+	if(!mask_item?.entity_system)
+		return list()
+	return mask_item.entity_system.spawned_entities.Copy()
 
 /datum/scp1499_dimension_system/proc/process_dimension(mob/living/carbon/human/wearer, duration)
 	if(!wearer)

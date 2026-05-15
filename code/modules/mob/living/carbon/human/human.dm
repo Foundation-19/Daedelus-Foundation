@@ -788,7 +788,7 @@
 				if(icon_num)
 					new_overlays += image('icons/hud/screen_gen.dmi', "[body_part.body_zone][icon_num]")
 
-				if(body_part.getPain() > 20)
+				if((body_part.getPain() || 0) > 20)
 					new_overlays += image('icons/hud/screen_gen.dmi', "[body_part.body_zone]pain")
 
 				if(body_part.bodypart_disabled) //Disabled limb

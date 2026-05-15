@@ -11,6 +11,14 @@
 	var/list/inbox = list()
 	var/max_messages = 50
 
+/obj/machinery/foundation_email_terminal/Initialize(mapload)
+	. = ..()
+	SET_TRACKING(__TYPE__)
+
+/obj/machinery/foundation_email_terminal/Destroy()
+	UNSET_TRACKING(__TYPE__)
+	return ..()
+
 /obj/machinery/foundation_email_terminal/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -57,7 +65,7 @@
 				"priority" = params["priority"] || "normal"
 			)
 
-			for(var/obj/machinery/foundation_email_terminal/T)
+			for(var/obj/machinery/foundation_email_terminal/T in INSTANCES_OF(/obj/machinery/foundation_email_terminal))
 				if(T == src)
 					continue
 				if(T.z != z)

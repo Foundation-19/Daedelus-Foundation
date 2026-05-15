@@ -34,7 +34,12 @@
 
 /turf/closed/wall/scp_containment/Initialize()
 	. = ..()
+	SET_TRACKING(__TYPE__)
 	update_damage_overlay()
+
+/turf/closed/wall/scp_containment/Destroy()
+	UNSET_TRACKING(__TYPE__)
+	return ..()
 
 /turf/closed/wall/scp_containment/examine(mob/user)
 	. = ..()

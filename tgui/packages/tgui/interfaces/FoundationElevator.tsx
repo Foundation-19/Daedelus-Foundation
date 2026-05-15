@@ -6,13 +6,13 @@ import { Box, Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 type FloorData = {
-  id: number;
+  id: string;
   name: string;
   accessible: BooleanLike;
 };
 
 type Data = {
-  current_floor: number;
+  current_floor: string;
   floors: FloorData[];
   moving: BooleanLike;
   door_open: BooleanLike;
@@ -21,6 +21,11 @@ type Data = {
 export const FoundationElevator = (props) => {
   const { act, data } = useBackend<Data>();
   const { current_floor, floors, moving, door_open } = data;
+
+  const currentName =
+    floors?.find((f) => f.id === current_floor)?.name ||
+    current_floor ||
+    'UNKNOWN';
 
   return (
     <Window theme="scp_terminal" width={350} height={450}>
@@ -36,12 +41,18 @@ export const FoundationElevator = (props) => {
                   fontSize: '16px',
                 }}
               >
-                {floors?.find((f) => f.id === current_floor)?.name || `FLOOR ${current_floor}`}
+                {currentName}
               </Box>
             </LabeledList.Item>
             <LabeledList.Item label="Status">
               {moving ? (
-                <Box style={{ color: '#8b0000', fontFamily: 'monospace', fontWeight: 'bold' }}>
+                <Box
+                  style={{
+                    color: '#8b0000',
+                    fontFamily: 'monospace',
+                    fontWeight: 'bold',
+                  }}
+                >
                   IN TRANSIT
                 </Box>
               ) : door_open ? (
@@ -66,17 +77,19 @@ export const FoundationElevator = (props) => {
                   disabled={moving || floor.id === current_floor || !floor.accessible}
                   style={{
                     fontFamily: 'monospace',
-                    background: floor.id === current_floor
-                      ? 'rgba(212,160,23,0.3)'
-                      : !floor.accessible
-                        ? 'rgba(20,20,25,0.8)'
+                    background:
+                      floor.id === current_floor
+                        ? 'rgba(212,160,23,0.3)'
                         : 'rgba(20,20,25,0.8)',
-                    border: `1px solid ${floor.id === current_floor ? '#d4a017' : !floor.accessible ? '#2a2a30' : '#2a2a30'}`,
-                    color: floor.id === current_floor
-                      ? '#d4a017'
-                      : !floor.accessible
-                        ? '#555560'
-                        : '#c8c8c8',
+                    border: `1px solid ${
+                      floor.id === current_floor ? '#d4a017' : '#2a2a30'
+                    }`,
+                    color:
+                      floor.id === current_floor
+                        ? '#d4a017'
+                        : !floor.accessible
+                          ? '#555560'
+                          : '#c8c8c8',
                     padding: '8px 12px',
                     textAlign: 'left',
                     fontWeight: floor.id === current_floor ? 'bold' : 'normal',

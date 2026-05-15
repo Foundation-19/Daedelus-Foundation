@@ -159,6 +159,13 @@
 	icon_screen = "power"
 	icon_keyboard = "power_key"
 	circuit = /obj/item/circuitboard/computer/reactor_control
+	var/obj/machinery/power/foundation_reactor/linked_reactor
+
+/obj/machinery/computer/reactor_control/Initialize(mapload)
+	. = ..()
+	for(var/obj/machinery/power/foundation_reactor/R in range(20, src))
+		linked_reactor = R
+		break
 
 /obj/machinery/computer/reactor_control/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
@@ -171,11 +178,7 @@
 	return GLOB.default_state
 
 /obj/machinery/computer/reactor_control/ui_data(mob/user)
-	var/obj/machinery/power/foundation_reactor/reactor = null
-	for(var/obj/machinery/power/foundation_reactor/R)
-		if(get_dist(R, src) <= 20)
-			reactor = R
-			break
+	var/obj/machinery/power/foundation_reactor/reactor = linked_reactor
 	var/list/data = list()
 
 	if(!reactor)
@@ -201,11 +204,7 @@
 	if(.)
 		return
 
-	var/obj/machinery/power/foundation_reactor/reactor = null
-	for(var/obj/machinery/power/foundation_reactor/R)
-		if(get_dist(R, src) <= 20)
-			reactor = R
-			break
+	var/obj/machinery/power/foundation_reactor/reactor = linked_reactor
 	if(!reactor)
 		return
 

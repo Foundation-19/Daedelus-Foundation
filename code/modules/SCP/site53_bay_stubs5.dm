@@ -58,225 +58,6 @@
 /obj/effect/step_trigger/thrower/train/north
 	name = "North"
 
-/obj/effect/turf_decal/borderfloorblack
-	name = "Borderfloorblack"
-
-/obj/effect/turf_decal/carpet/purple
-	name = "Carpet Purple"
-
-/obj/effect/turf_decal/carpet/red
-	name = "Carpet Red"
-
-/obj/effect/turf_decal/corner/b_green/bordercorner
-	name = "Bordercorner"
-
-/obj/effect/turf_decal/corner/beige/bordercee
-	name = "Bordercee"
-
-/obj/effect/turf_decal/corner/beige/bordercorner
-	name = "Bordercorner"
-
-/obj/effect/turf_decal/corner/black/bordercee
-	name = "Bordercee"
-
-/obj/effect/turf_decal/corner/black/bordercorner
-	name = "Bordercorner"
-
-/obj/effect/turf_decal/corner/black/mono
-	name = "Mono"
-
-/obj/effect/turf_decal/corner/blue/bordercee
-	name = "Bordercee"
-
-/obj/effect/turf_decal/corner/blue/full
-	name = "Full"
-
-/obj/effect/turf_decal/corner/blue/three_quarters
-	name = "Three Quarters"
-
-/obj/effect/turf_decal/corner/brown/bordercee
-	name = "Bordercee"
-
-/obj/effect/turf_decal/corner/euclid/bordercee
-	name = "Bordercee"
-
-/obj/effect/turf_decal/corner/euclid/full
-	name = "Full"
-
-/obj/effect/turf_decal/corner/grey/bordercorner
-	name = "Bordercorner"
-
-/obj/effect/turf_decal/corner/grey/diagonal
-	name = "Diagonal"
-
-/obj/effect/turf_decal/corner/keter/bordercee
-	name = "Bordercee"
-
-/obj/effect/turf_decal/corner/keter/mono
-	name = "Mono"
-
-/obj/effect/turf_decal/corner/lightgrey/border
-	name = "Lightgrey Border"
-
-/obj/effect/turf_decal/corner/lightgrey/bordercorner
-	name = "Lightgrey Bordercorner"
-
-/obj/effect/turf_decal/corner/lime/mono
-	name = "Mono"
-
-/obj/effect/turf_decal/corner/orange/bordercee
-	name = "Bordercee"
-
-/obj/effect/turf_decal/corner/orange/diagonal
-	name = "Diagonal"
-
-/obj/effect/turf_decal/corner/paleblue/bordercee
-	name = "Bordercee"
-
-/obj/effect/turf_decal/corner/paleblue/three_quarters
-	name = "Three Quarters"
-
-/obj/effect/turf_decal/corner/purple/bordercee
-	name = "Bordercee"
-
-/obj/effect/turf_decal/corner/purple/bordercorner
-	name = "Bordercorner"
-
-/obj/effect/turf_decal/corner/purple/full
-	name = "Full"
-
-/obj/effect/turf_decal/corner/purple/mono
-	name = "Mono"
-
-/obj/effect/turf_decal/corner/red/borderfull
-	name = "Borderfull"
-
-/obj/effect/turf_decal/corner/red/full
-	name = "Full"
-
-/obj/effect/turf_decal/corner/research/bordercee
-	name = "Bordercee"
-
-/obj/effect/turf_decal/corner/research/bordercorner
-	name = "Bordercorner"
-
-/obj/effect/turf_decal/corner/research/full
-	name = "Full"
-
-/obj/effect/turf_decal/corner/research/mono
-	name = "Mono"
-
-/obj/effect/turf_decal/corner/research/three_quarters
-	name = "Three Quarters"
-
-/obj/effect/turf_decal/corner/safe/half
-	name = "Half"
-
-/obj/effect/turf_decal/corner/safe/three_quarters
-	name = "Three Quarters"
-
-/obj/effect/turf_decal/corner/white
-	name = "White"
-
-/obj/effect/turf_decal/corner/white/bordercee
-	name = "White Bordercee"
-
-/obj/effect/turf_decal/corner/white/bordercorner
-	name = "White Bordercorner"
-
-/obj/effect/turf_decal/corner/white/mono
-	name = "White Mono"
-
-/obj/effect/turf_decal/corner/yellow/bordercee
-	name = "Bordercee"
-
-/obj/effect/turf_decal/corner/yellow/borderfull
-	name = "Borderfull"
-
-/obj/effect/turf_decal/corner/yellow/full
-	name = "Full"
-
-/obj/effect/turf_decal/floordetail
-	name = "Floordetail"
-
-/obj/effect/turf_decal/floordetail/edgedrain
-	name = "Floordetail Edgedrain"
-
-/obj/effect/turf_decal/industrial/fire
-	name = "Industrial Fire"
-
-/obj/effect/turf_decal/industrial/firstaid
-	name = "Industrial Firstaid"
-
-/obj/effect/turf_decal/industrial/hatch/blue
-	name = "Blue"
-
-/obj/effect/turf_decal/industrial/hatch/orange
-	name = "Orange"
-
-/obj/effect/turf_decal/industrial/loading
-	name = "Industrial Loading"
-
-/obj/effect/turf_decal/industrial/outline/blue
-	name = "Blue"
-
-/obj/effect/turf_decal/industrial/outline/grey
-	name = "Grey"
-
-/obj/effect/turf_decal/industrial/radiation
-	name = "Industrial Radiation"
-
-/obj/effect/turf_decal/industrial/radiation/corner
-	name = "Industrial Radiation Corner"
-
-/obj/effect/turf_decal/industrial/shutoff
-	name = "Industrial Shutoff"
-
-/obj/effect/turf_decal/industrial/warning/cee
-	name = "Cee"
-
-/obj/effect/turf_decal/industrial/warning/dust
-	name = "Dust"
-
-/obj/effect/turf_decal/industrial/warning/dust/corner
-	name = "Dust Corner"
-
-/obj/effect/turf_decal/industrial/warning/full
-	name = "Full"
-
-/obj/effect/turf_decal/industrial/warning/fulltile
-	name = "Fulltile"
-
-/obj/effect/turf_decal/scp/arrow
-	name = "Scp Arrow"
-
-/obj/effect/turf_decal/snow
-	name = "Snow"
-
-/obj/effect/turf_decal/spline/fancy/wood/corner
-	name = "Corner"
-
-/obj/effect/turf_decal/spline/plain/blue
-	name = "Spline Plain Blue"
-
-/obj/effect/turf_decal/spline/plain/yellow
-	name = "Spline Plain Yellow"
-
-/obj/effect/turf_decal/stoneborder
-	name = "Stoneborder"
-
-/obj/effect/turf_decal/stoneborder/corner
-	name = "Stoneborder Corner"
-
-/obj/effect/turf_decal/stripes/green
-	name = "Green"
-
-/obj/effect/turf_decal/stripes/gunmetal
-	name = "Gunmetal"
-
-/obj/effect/turf_decal/stripes/white
-	name = "White"
-
 /obj/item/ammo_box/c4545
 	name = "C4545"
 
@@ -532,8 +313,6 @@
 /obj/item/clothing/accessory/toggleable/corpjacket
 	name = "Toggleable Corpjacket"
 
-/obj/item/clothing/glasses/hud/scramble
-	name = "Scramble"
 
 /obj/item/clothing/glasses/hud/scramble/experimental
 	name = "Scramble Experimental"
@@ -553,11 +332,7 @@
 /obj/item/clothing/gloves/latex/nitrile
 	name = "Latex Nitrile"
 
-/obj/item/clothing/gloves/tactical/alpha
-	name = "Tactical Alpha"
 
-/obj/item/clothing/gloves/thick
-	name = "Thick"
 
 /obj/item/clothing/gloves/thick/botany
 	name = "Thick Botany"
@@ -565,8 +340,6 @@
 /obj/item/clothing/gloves/thick/miner
 	name = "Thick Miner"
 
-/obj/item/clothing/gloves/thick/swat
-	name = "Thick Swat"
 
 /obj/item/clothing/gloves/white
 	name = "White"
@@ -574,14 +347,10 @@
 /obj/item/clothing/head/bandana/orange
 	name = "Orange"
 
-/obj/item/clothing/head/beret/mtf
-	name = "MTF"
 
 /obj/item/clothing/head/beret/mtf/omega
 	name = "MTF Omega"
 
-/obj/item/clothing/head/beret/scp/alpha
-	name = "Scp Alpha"
 
 /obj/item/clothing/head/bio_hood/anomaly
 	name = "Anomaly"
@@ -607,11 +376,7 @@
 /obj/item/clothing/head/hardhat/firefighter
 	name = "Firefighter"
 
-/obj/item/clothing/head/helmet/mtftactical
-	name = "Mtftactical"
 
-/obj/item/clothing/head/helmet/scp/goc
-	name = "Scp Goc"
 
 /obj/item/clothing/head/helmet/space/void/excavation
 	name = "Void Excavation"
@@ -637,14 +402,10 @@
 /obj/item/clothing/mask/chewable/candy/gum
 	name = "Chewable Candy Gum"
 
-/obj/item/clothing/mask/gas/goc
-	name = "Goc"
 
 /obj/item/clothing/mask/gas/half
 	name = "Half"
 
-/obj/item/clothing/mask/gas/mtf
-	name = "MTF"
 
 /obj/item/clothing/mask/rubber/species/unathi
 	name = "Rubber Species Unathi"
@@ -661,8 +422,6 @@
 /obj/item/clothing/shoes/hightops/orange
 	name = "Hightops Orange"
 
-/obj/item/clothing/shoes/swat
-	name = "Swat"
 
 /obj/item/clothing/shoes/swimmingfins
 	name = "Swimmingfins"
@@ -673,8 +432,6 @@
 /obj/item/clothing/suit/armor/comms
 	name = "Comms"
 
-/obj/item/clothing/suit/armor/goc
-	name = "Goc"
 
 /obj/item/clothing/suit/armor/hos/coat
 	name = "Coat"
@@ -685,8 +442,6 @@
 /obj/item/clothing/suit/armor/hos/vest
 	name = "Vest"
 
-/obj/item/clothing/suit/armor/mtftactical
-	name = "Mtftactical"
 
 /obj/item/clothing/suit/armor/pcarrier/medium
 	name = "Pcarrier Medium"
@@ -739,8 +494,6 @@
 /obj/item/clothing/suit/storage/toggle/labcoat/cmo/md
 	name = "Storage Toggle Labcoat CMO Md"
 
-/obj/item/clothing/suit/storage/vest/nt/isd
-	name = "Storage Vest Nt Isd"
 
 /obj/item/clothing/suit/surgicalapron
 	name = "Surgicalapron"
@@ -751,11 +504,7 @@
 /obj/item/clothing/under/kilt
 	name = "Kilt"
 
-/obj/item/clothing/under/mtf
-	name = "MTF"
 
-/obj/item/clothing/under/mtf/epsilon11
-	name = "MTF Epsilon11"
 
 /obj/item/clothing/under/police
 	name = "Police"
@@ -775,8 +524,6 @@
 /obj/item/clothing/under/rank/security/comms
 	name = "Comms"
 
-/obj/item/clothing/under/rank/security/goc
-	name = "Goc"
 
 /obj/item/clothing/under/rank/security/lcz
 	name = "LCZ"
@@ -2145,12 +1892,30 @@
 
 /obj/machinery/power/smes/buildable/max_cap_in_out
 	name = "Buildable Max Cap In Out"
+	charge = 5e6
+	capacity = 5e6
+	input_level = 200000
+	output_level = 200000
+	input_attempt = TRUE
+	output_attempt = TRUE
 
 /obj/machinery/power/smes/buildable/preset/ds90/substation_full
-	name = "Buildable Preset Ds90 Substation Full"
+	name = "Substation SMES"
+	charge = 90e6
+	capacity = 90e6
+	input_level = 200000
+	output_level = 200000
+	input_attempt = TRUE
+	output_attempt = TRUE
 
 /obj/machinery/power/smes/buildable/preset/on_full
-	name = "Buildable Preset On Full"
+	name = "Full Output SMES"
+	charge = 200e6
+	capacity = 200e6
+	input_level = 200000
+	output_level = 200000
+	input_attempt = TRUE
+	output_attempt = TRUE
 
 /obj/machinery/recharger/wallcharger
 	name = "Wallcharger"

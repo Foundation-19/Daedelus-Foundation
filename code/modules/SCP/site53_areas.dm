@@ -1,5 +1,9 @@
 // Site53 map areas - auto-generated for map compatibility
 
+/area/site53
+	has_gravity = STANDARD_GRAVITY
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED
+
 /area/site53/engineering/atmos
 	name = "Engineering Atmos"
 
@@ -200,9 +204,13 @@
 
 /area/site53/llcz/mine/explored
 	name = "Llcz Mine Explored"
+	outdoors = TRUE
+	requires_power = FALSE
 
 /area/site53/llcz/mine/unexplored
 	name = "Llcz Mine Unexplored"
+	outdoors = TRUE
+	requires_power = FALSE
 
 /area/site53/llcz/mining/miningops
 	name = "Llcz Mining Miningops"
@@ -263,6 +271,7 @@
 
 /area/site53/lowertrams/escape
 	name = "Lowertrams Escape"
+	requires_power = FALSE
 
 /area/site53/lowertrams/hczmaint
 	name = "Lowertrams Hczmaint"
@@ -386,6 +395,7 @@
 
 /area/site53/surface
 	name = "Surface"
+	outdoors = TRUE
 
 /area/site53/surface/bunker
 	name = "Surface Bunker"
@@ -395,18 +405,28 @@
 
 /area/site53/surface/explorers/surrounding
 	name = "Surface Explorers Surrounding"
+	outdoors = TRUE
+	requires_power = FALSE
 
 /area/site53/surface/surface/caves
 	name = "Surface Surface Caves"
+	outdoors = TRUE
+	requires_power = FALSE
 
 /area/site53/surface/surface/east
 	name = "Surface Surface East"
+	outdoors = TRUE
+	requires_power = FALSE
 
 /area/site53/surface/surface/upper
 	name = "Surface Surface Upper"
+	outdoors = TRUE
+	requires_power = FALSE
 
 /area/site53/surface/surface/west
 	name = "Surface Surface West"
+	outdoors = TRUE
+	requires_power = FALSE
 
 /area/site53/tram/scpcar
 	name = "Tram Scpcar"

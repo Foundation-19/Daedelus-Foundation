@@ -419,6 +419,7 @@
 	. += "Abilities: [english_list(available_abilities)]"
 
 /mob/living/scp079/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "SCP079CameraInterface", "Camera Network Interface")
@@ -683,6 +684,7 @@
 	priority_announce("SCP-079 has been successfully recontained via countermeasure protocol. Network stability restored.", null, null, ANNOUNCER_DEFAULT)
 
 /obj/machinery/scp079_recontainment_terminal/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "SCP079Recontainment", "SCP-079 Recontainment")

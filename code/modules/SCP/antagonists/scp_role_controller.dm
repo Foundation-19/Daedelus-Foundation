@@ -326,9 +326,12 @@ GLOBAL_LIST_EMPTY(scp_spawn_turfs)
 		if(length(GLOB.station_turfs))
 			spawn_turfs = GLOB.station_turfs
 		else
-			for(var/turf/T in world)
-				if(is_station_level(T.z))
-					spawn_turfs += T
+			for(var/area/A in GLOB.the_station_areas)
+				for(var/turf/T in A)
+					if(is_station_level(T.z))
+						spawn_turfs += T
+					if(length(spawn_turfs) >= 50)
+						break
 				if(length(spawn_turfs) >= 50)
 					break
 	if(!length(spawn_turfs))

@@ -7,7 +7,7 @@
 /mob/living/carbon/getPain()
 	. = 0
 	for(var/obj/item/bodypart/BP as anything in bodyparts)
-		. += BP.getPain()
+		. += BP.getPain() || 0
 
 	. -= CHEM_EFFECT_MAGNITUDE(src, CE_PAINKILLER)
 

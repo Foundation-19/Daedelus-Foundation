@@ -801,6 +801,11 @@ SUBSYSTEM_DEF(job)
 		return pick(arrivals_turfs)
 
 	stack_trace("Unable to find last resort spawn point.")
+	var/area/fallback = GLOB.areas_by_type[/area/site53/uez/hallway]
+	if(fallback)
+		var/list/turf/fallback_turfs = get_area_turfs(fallback)
+		if(length(fallback_turfs))
+			return pick(fallback_turfs)
 	return GET_ERROR_ROOM
 
 

@@ -918,16 +918,19 @@ SUBSYSTEM_DEF(security_persistence)
 				results["severity"] += 3
 
 	// Check for unauthorized access points
-	for(var/obj/machinery/door/firedoor/firedoor in world)
-		if(firedoor.z == 1 && firedoor.obj_flags & EMAGGED)
-			threat_count++
-			results["threats"] += "Compromised fire door at [firedoor.loc]"
-			results["severity"] += 2
+	for(var/area/A in GLOB.areas)
+		for(var/obj/machinery/door/firedoor/firedoor in A)
+			if(firedoor.z != 1)
+				continue
+			if(firedoor.obj_flags & EMAGGED)
+				threat_count++
+				results["threats"] += "Compromised fire door at [firedoor.loc]"
+				results["severity"] += 2
 
 	// Check for security breaches in maintenance
 	var/maintenance_breaches = 0
-	for(var/turf/open/floor/plating/floor in world)
-		if(floor.z == 1 && istype(floor.loc, /area/station/maintenance))
+	for(var/area/station/maintenance/M in GLOB.areas)
+		for(var/turf/open/floor/plating/floor in M)
 			maintenance_breaches++
 
 	if(maintenance_breaches > 10)
@@ -1021,7 +1024,7 @@ SUBSYSTEM_DEF(security_persistence)
 				results["severity"] += 5
 
 	// Check radio systems
-	for(var/obj/item/radio/radio in world)
+	for(var/obj/item/radio/radio in GLOB.all_radios)
 		if(radio.z == 1 && radio.obj_flags & EMAGGED)
 			threat_count++
 			results["threats"] += "Compromised radio at [radio.loc]"
