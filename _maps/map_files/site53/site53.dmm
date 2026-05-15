@@ -2279,7 +2279,7 @@
 /area/site53/llcz/dclass/primaryhallway)
 "axF" = (
 /obj/structure/table,
-/obj/machinery/microwave{
+/obj/machinery/appliance/cooker/microwave{
 	pixel_y = 8
 	},
 /obj/effect/turf_decal/corner/beige/border{
@@ -7899,7 +7899,7 @@
 /area/site53/medical/surgery/hall)
 "bHE" = (
 /obj/structure/table/reinforced,
-/scp5295,
+/obj/effect/scp5295,
 /obj/effect/turf_decal/corner/safe/mono,
 /turf/open/floor/iron/smooth,
 /area/site53/llcz/scp5295)
@@ -9230,7 +9230,7 @@
 /area/site53/uez/commandpanicbunker)
 "bVT" = (
 /obj/structure/table/stone,
-/obj/machinery/microwave{
+/obj/machinery/appliance/cooker/microwave{
 	pixel_y = 8
 	},
 /turf/open/floor/iron/white,
@@ -9910,7 +9910,7 @@
 /turf/open/floor/iron/dark/smooth,
 /area/site53/llcz/mining/miningops)
 "cdo" = (
-/obj/machinery/griddle,
+/obj/machinery/appliance/cooker/griddle,
 /obj/effect/turf_decal/corner/black/diagonal,
 /turf/open/floor/iron/white,
 /area/site53/llcz/dclass/kitchen)
@@ -10125,7 +10125,7 @@
 /turf/open/floor/iron/white/smooth,
 /area/site53/llcz/dclass/medicalpost/surgery)
 "cfD" = (
-/obj/machinery/griddle,
+/obj/machinery/appliance/cooker/griddle,
 /turf/open/floor/iron/white,
 /area/site53/ulcz/scp082/kitchen)
 "cfH" = (
@@ -10143,7 +10143,7 @@
 /area/site53/uez/hallway)
 "cfL" = (
 /obj/structure/table,
-/obj/machinery/microwave{
+/obj/machinery/appliance/cooker/microwave{
 	pixel_y = 8
 	},
 /turf/open/floor/wood,
@@ -10783,7 +10783,7 @@
 /turf/open/floor/iron/white/smooth,
 /area/site53/llcz/dclass/primaryhallway)
 "cmR" = (
-/obj/machinery/microwave,
+/obj/machinery/appliance/cooker/microwave,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -22513,7 +22513,7 @@
 /obj/effect/turf_decal/corner/orange/half{
 	dir = 1
 	},
-/obj/machinery/microwave,
+/obj/machinery/appliance/cooker/microwave,
 /obj/structure/table,
 /obj/structure/cable{
 	d1 = 4;
@@ -35836,7 +35836,7 @@
 /area/site53/uez/equipmentroom)
 "hrj" = (
 /obj/structure/table/wood,
-/obj/machinery/microwave{
+/obj/machinery/appliance/cooker/microwave{
 	pixel_y = 6
 	},
 /obj/machinery/light{
@@ -37428,7 +37428,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/microwave{
+/obj/machinery/appliance/cooker/microwave{
 	pixel_y = 8
 	},
 /turf/open/floor/wood,
@@ -48031,7 +48031,7 @@
 /area/site53/upper_surface/serverfarmcontrol)
 "jVe" = (
 /obj/effect/decal/cleanable/dirt,
-/cigarbutt,
+/obj/item/cigarbutt,
 /turf/open/floor/iron/dark/smooth,
 /area/site53/llcz/entrance_checkpoint)
 "jVi" = (
@@ -49727,7 +49727,7 @@
 	},
 /area/site53/lhcz/scp895)
 "kmA" = (
-/obj/machinery/griddle,
+/obj/machinery/appliance/cooker/griddle,
 /turf/open/floor/carpet/blue,
 /area/site53/uez/commandpanicbunker)
 "kmC" = (
@@ -53933,7 +53933,7 @@
 "ldR" = (
 /obj/effect/turf_decal/corner/b_green/border,
 /obj/effect/decal/cleanable/dirt,
-/spitwad,
+/obj/effect/decal/spitwad,
 /turf/open/floor/iron/dark/smooth,
 /area/site53/llcz/entrance_checkpoint)
 "lea" = (
@@ -54733,7 +54733,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/microwave{
+/obj/machinery/appliance/cooker/microwave{
 	pixel_y = 8
 	},
 /turf/open/floor/wood,
@@ -57486,7 +57486,7 @@
 /area/site53/ulcz/hallways)
 "lRV" = (
 /obj/effect/turf_decal/corner/black/diagonal,
-/obj/machinery/microwave{
+/obj/machinery/appliance/cooker/microwave{
 	pixel_y = 5
 	},
 /obj/structure/table/reinforced,
@@ -61410,7 +61410,7 @@
 /turf/open/floor/iron,
 /area/site53/science/aiccore)
 "mHS" = (
-/obj/machinery/oven{
+/obj/machinery/appliance/cooker/oven{
 	pixel_x = 1;
 	pixel_y = 4
 	},
@@ -61501,7 +61501,7 @@
 /area/site53/uez/equipmentroom)
 "mIB" = (
 /obj/effect/turf_decal/corner/black/diagonal,
-/obj/machinery/oven,
+/obj/machinery/appliance/cooker/oven,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -69010,7 +69010,7 @@
 /turf/open/floor/iron/smooth,
 /area/site53/reswing/lowres/xenobotany)
 "oqb" = (
-/obj/machinery/oven,
+/obj/machinery/appliance/cooker/oven,
 /turf/open/floor/iron/white/smooth,
 /area/site53/lowertrams/restaurantkitchenarea)
 "oqc" = (
@@ -69508,7 +69508,7 @@
 /area/site53/uhcz/scp247observation)
 "owF" = (
 /obj/effect/decal/cleanable/dirt,
-/lollibutt,
+/obj/item/lollibutt,
 /turf/open/floor/iron/dark/smooth,
 /area/site53/llcz/entrance_checkpoint)
 "owH" = (
@@ -70264,7 +70264,7 @@
 /area/quartermaster/hangar)
 "oHg" = (
 /obj/effect/turf_decal/corner/black/diagonal,
-/obj/machinery/oven,
+/obj/machinery/appliance/cooker/oven,
 /turf/open/floor/iron/white,
 /area/site53/lhcz/scp049containment)
 "oHm" = (
@@ -70698,7 +70698,7 @@
 /area/site53/engineering/primaryhallway)
 "oLQ" = (
 /obj/machinery/light,
-/obj/machinery/oven,
+/obj/machinery/appliance/cooker/oven,
 /turf/open/floor/iron/dark/smooth,
 /area/site53/lowertrams/restaurantkitchenarea)
 "oLR" = (
@@ -71260,7 +71260,7 @@
 /area/site53/lowertrams/hub)
 "oQI" = (
 /obj/structure/table/reinforced,
-/obj/machinery/oven{
+/obj/machinery/appliance/cooker/oven{
 	pixel_x = 1;
 	pixel_y = 4
 	},
@@ -78016,7 +78016,7 @@
 /area/vacant/prototype/engine)
 "qkr" = (
 /obj/structure/table/reinforced,
-/obj/machinery/microwave{
+/obj/machinery/appliance/cooker/microwave{
 	pixel_y = 8
 	},
 /obj/effect/turf_decal/corner/black/diagonal,
@@ -80092,7 +80092,7 @@
 	},
 /area/site53/lhcz/scp049containment)
 "qHx" = (
-/obj/machinery/deepfryer,
+/obj/machinery/appliance/cooker/fryer,
 /obj/effect/turf_decal/corner/black/diagonal,
 /obj/structure/cable/green{
 	d2 = 2;
@@ -80368,7 +80368,7 @@
 /turf/open/floor/carpet/green,
 /area/site53/uez/commandpanicbunker)
 "qKy" = (
-/obj/machinery/deepfryer,
+/obj/machinery/appliance/cooker/fryer,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -82594,7 +82594,7 @@
 /turf/open/floor/plating,
 /area/site53/engineering/primaryhallway)
 "rfN" = (
-/obj/machinery/griddle,
+/obj/machinery/appliance/cooker/griddle,
 /turf/open/floor/iron/white/smooth,
 /area/site53/ulcz/humanoidcontainment)
 "rgh" = (
@@ -83687,7 +83687,7 @@
 /turf/open/floor/iron/dark,
 /area/site53/llcz/scp294)
 "rpQ" = (
-/obj/machinery/oven,
+/obj/machinery/appliance/cooker/oven,
 /turf/open/floor/carpet/blue,
 /area/site53/uez/commandpanicbunker)
 "rqb" = (
@@ -85204,7 +85204,7 @@
 	},
 /area/site53/lhcz/hallway)
 "rFe" = (
-/obj/machinery/deepfryer,
+/obj/machinery/appliance/cooker/fryer,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -85254,7 +85254,7 @@
 /area/site53/uez/equipmentroom)
 "rFy" = (
 /obj/effect/turf_decal/corner/black/diagonal,
-/obj/machinery/griddle,
+/obj/machinery/appliance/cooker/griddle,
 /turf/open/floor/iron/white,
 /area/site53/lhcz/scp049containment)
 "rFz" = (
@@ -90301,7 +90301,7 @@
 /turf/open/floor/iron/smooth,
 /area/site53/upper_surface/entrancehallway2)
 "sGF" = (
-/obj/machinery/oven,
+/obj/machinery/appliance/cooker/oven,
 /turf/open/floor/carpet/blue,
 /area/site53/uez/commandpanicbunker)
 "sGH" = (
@@ -91034,7 +91034,7 @@
 /turf/closed/wall/r_wall,
 /area/site53/llcz/dclass/primaryhallway)
 "sOg" = (
-/obj/machinery/griddle,
+/obj/machinery/appliance/cooker/griddle,
 /turf/open/floor/iron/dark/smooth,
 /area/site53/lowertrams/restaurantkitchenarea)
 "sOk" = (
@@ -95716,7 +95716,7 @@
 /turf/open/floor/carpet/purple,
 /area/site53/uez/hallway)
 "tLj" = (
-/obj/machinery/oven,
+/obj/machinery/appliance/cooker/oven,
 /obj/effect/turf_decal/corner/black/diagonal,
 /obj/machinery/light{
 	dir = 1
@@ -97232,7 +97232,7 @@
 /turf/open/floor/iron/dark/smooth,
 /area/site53/llcz/dclass/isolation)
 "ubx" = (
-/obj/machinery/microwave,
+/obj/machinery/appliance/cooker/microwave,
 /obj/structure/table,
 /obj/effect/turf_decal/corner/yellow/half{
 	dir = 1
@@ -97776,7 +97776,7 @@
 /turf/open/floor/iron/smooth,
 /area/site53/engineering/atmos)
 "ugP" = (
-/obj/machinery/oven,
+/obj/machinery/appliance/cooker/oven,
 /turf/open/floor/iron/white,
 /area/site53/ulcz/scp082/kitchen)
 "ugR" = (
@@ -99914,7 +99914,7 @@
 	},
 /area/site53/logistics/logistics)
 "uDW" = (
-/obj/machinery/deepfryer,
+/obj/machinery/appliance/cooker/fryer,
 /turf/open/floor/carpet/blue,
 /area/site53/uez/commandpanicbunker)
 "uEa" = (
@@ -103360,7 +103360,7 @@
 /turf/open/floor/iron/white/smooth,
 /area/site53/reswing/lowres/Lowerresearchwing)
 "vqj" = (
-/obj/machinery/deepfryer,
+/obj/machinery/appliance/cooker/fryer,
 /obj/machinery/camera/autoname{
 	name = "SCP-049 Observation 2";
 	network = list("Heavy Containment Zone Network")
@@ -105557,7 +105557,7 @@
 /turf/open/floor/iron/white/smooth,
 /area/site53/reswing/lowres/Anomaly)
 "vQc" = (
-/obj/machinery/microwave,
+/obj/machinery/appliance/cooker/microwave,
 /obj/structure/table,
 /turf/open/floor/iron/white/smooth,
 /area/site53/lowertrams/restaurantkitchenarea)
@@ -109960,7 +109960,7 @@
 /turf/open/floor/iron/dark,
 /area/site53/uhcz/securitypost)
 "wOs" = (
-/obj/machinery/microwave,
+/obj/machinery/appliance/cooker/microwave,
 /obj/structure/table,
 /turf/open/floor/iron/dark/smooth,
 /area/site53/ulcz/humanoidcontainment)
@@ -110206,7 +110206,7 @@
 /area/site53/science/aicobservation)
 "wQr" = (
 /obj/structure/table,
-/obj/machinery/microwave,
+/obj/machinery/appliance/cooker/microwave,
 /obj/machinery/camera/network/entrance{
 	dir = 8
 	},

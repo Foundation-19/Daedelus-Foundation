@@ -17,25 +17,6 @@
 
 
 
-/obj/machinery/cooker
-	name = "cooker"
-
-
-/obj/machinery/cooker/candy
-	name = "candy machine"
-
-/obj/machinery/cooker/cereal
-	name = "cereal maker"
-
-/obj/machinery/cooker/fryer
-	name = "deep fryer"
-
-/obj/machinery/cooker/grill
-	name = "grill"
-
-/obj/machinery/cooker/oven
-	name = "oven"
-
 /obj/machinery/cryopod
 	name = "cryogenic pod"
 
@@ -102,9 +83,6 @@
 
 /obj/machinery/self_destruct
 	name = "self-destruct mechanism"
-
-/obj/machinery/stove
-	name = "stove"
 
 /obj/structure/scp_914
 	name = "SCP-914"
