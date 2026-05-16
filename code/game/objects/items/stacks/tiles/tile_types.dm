@@ -137,6 +137,12 @@
 	turf_type = /turf/open/floor/wood
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/tile/wood
+	tile_reskin_types = list(
+		/obj/item/stack/tile/wood,
+		/obj/item/stack/tile/wood/large,
+		/obj/item/stack/tile/wood/tile,
+		/obj/item/stack/tile/wood/parquet,
+	)
 
 
 //Bamboo

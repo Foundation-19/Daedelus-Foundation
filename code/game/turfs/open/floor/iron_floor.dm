@@ -27,8 +27,40 @@
 /turf/open/floor/iron/airless
 	initial_gas = AIRLESS_ATMOS
 
-/turf/open/floor/iron/norn
-	icon_state = "floor_norn"
+/turf/open/floor/iron/edge
+	icon_state = "floor_edge"
+	base_icon_state = "floor_edge"
+	floor_tile = /obj/item/stack/tile/iron/edge
+
+/turf/open/floor/iron/half
+	icon_state = "floor_half"
+	base_icon_state = "floor_half"
+	floor_tile = /obj/item/stack/tile/iron/half
+
+/turf/open/floor/iron/corner
+	icon_state = "floor_corner"
+	base_icon_state = "floor_corner"
+	floor_tile = /obj/item/stack/tile/iron/corner
+
+/turf/open/floor/iron/large
+	icon_state = "floor_large"
+	base_icon_state = "floor_large"
+	floor_tile = /obj/item/stack/tile/iron/large
+
+/turf/open/floor/iron/small
+	icon_state = "small"
+	base_icon_state = "small"
+	floor_tile = /obj/item/stack/tile/iron/small
+
+/turf/open/floor/iron/diagonal
+	icon_state = "diagonal"
+	base_icon_state = "diagonal"
+	floor_tile = /obj/item/stack/tile/iron/diagonal
+
+/turf/open/floor/iron/herringbone
+	icon_state = "herringbone"
+	base_icon_state = "herringbone"
+	floor_tile = /obj/item/stack/tile/iron/herringbone
 
 /turf/open/floor/iron/telecomms
 	initial_gas = TCOMMS_ATMOS
@@ -63,6 +95,41 @@
 	icon_state = "darkfull"
 	base_icon_state = "darkfull"
 	floor_tile = /obj/item/stack/tile/iron/dark
+
+/turf/open/floor/iron/dark/edge
+	icon_state = "dark_edge"
+	base_icon_state = "dark_edge"
+	floor_tile = /obj/item/stack/tile/iron/edge
+
+/turf/open/floor/iron/dark/half
+	icon_state = "dark_half"
+	base_icon_state = "dark_half"
+	floor_tile = /obj/item/stack/tile/iron/half
+
+/turf/open/floor/iron/dark/corner
+	icon_state = "dark_corner"
+	base_icon_state = "dark_corner"
+	floor_tile = /obj/item/stack/tile/iron/corner
+
+/turf/open/floor/iron/dark/large
+	icon_state = "dark_large"
+	base_icon_state = "dark_large"
+	floor_tile = /obj/item/stack/tile/iron/large
+
+/turf/open/floor/iron/dark/small
+	icon_state = "dark_small"
+	base_icon_state = "dark_small"
+	floor_tile = /obj/item/stack/tile/iron/small
+
+/turf/open/floor/iron/dark/diagonal
+	icon_state = "dark_diagonal"
+	base_icon_state = "dark_diagonal"
+	floor_tile = /obj/item/stack/tile/iron/diagonal
+
+/turf/open/floor/iron/dark/herringbone
+	icon_state = "dark_herringbone"
+	base_icon_state = "dark_herringbone"
+	floor_tile = /obj/item/stack/tile/iron/herringbone
 
 /turf/open/floor/iron/dark/side
 	icon_state = "dark"
@@ -123,6 +190,41 @@
 	icon_state = "white"
 	base_icon_state = "white"
 	floor_tile = /obj/item/stack/tile/iron/white
+
+/turf/open/floor/iron/white/edge
+	icon_state = "white_edge"
+	base_icon_state = "white_edge"
+	floor_tile = /obj/item/stack/tile/iron/white/edge
+
+/turf/open/floor/iron/white/half
+	icon_state = "white_half"
+	base_icon_state = "white_half"
+	floor_tile = /obj/item/stack/tile/iron/white/half
+
+/turf/open/floor/iron/white/corner
+	icon_state = "white_corner"
+	base_icon_state = "white_corner"
+	floor_tile = /obj/item/stack/tile/iron/white/corner
+
+/turf/open/floor/iron/white/large
+	icon_state = "white_large"
+	base_icon_state = "white_large"
+	floor_tile = /obj/item/stack/tile/iron/white/large
+
+/turf/open/floor/iron/white/small
+	icon_state = "white_small"
+	base_icon_state = "white_small"
+	floor_tile = /obj/item/stack/tile/iron/white/small
+
+/turf/open/floor/iron/white/diagonal
+	icon_state = "white_diagonal"
+	base_icon_state = "white_diagonal"
+	floor_tile = /obj/item/stack/tile/iron/white/diagonal
+
+/turf/open/floor/iron/white/herringbone
+	icon_state = "white_herringbone"
+	base_icon_state = "white_herringbone"
+	floor_tile = /obj/item/stack/tile/iron/white/herringbone
 
 /turf/open/floor/iron/white/side
 	icon_state = "whitehall"
@@ -235,9 +337,29 @@
 	initial_gas = AIRLESS_ATMOS
 
 /turf/open/floor/iron/freezer
-	icon_state = "freezerfloor"
-	base_icon_state = "freezerfloor"
+	icon_state = "freezer"
+	base_icon_state = "freezer"
 	floor_tile = /obj/item/stack/tile/iron/freezer
+
+/turf/open/floor/iron/freezer_edge
+	icon_state = "freezer_edge"
+	base_icon_state = "freezer_edge"
+	floor_tile = /obj/item/stack/tile/iron/freezer_edge
+
+/turf/open/floor/iron/freezer_half
+	icon_state = "freezer_half"
+	base_icon_state = "freezer_half"
+	floor_tile = /obj/item/stack/tile/iron/freezer_half
+
+/turf/open/floor/iron/freezer_corner
+	icon_state = "freezer_corner"
+	base_icon_state = "freezer_corner"
+	floor_tile = /obj/item/stack/tile/iron/freezer_corner
+
+/turf/open/floor/iron/freezer_large
+	icon_state = "freezer_large"
+	base_icon_state = "freezer_large"
+	floor_tile = /obj/item/stack/tile/iron/freezer_large
 
 /turf/open/floor/iron/freezer/airless
 	initial_gas = AIRLESS_ATMOS
@@ -246,9 +368,9 @@
 	name = "cold room floor"
 	initial_gas = KITCHEN_COLDROOM_ATMOS
 
-/turf/open/floor/iron/kitchen_coldroom/freezerfloor
-	icon_state = "freezerfloor"
-	base_icon_state = "freezerfloor"
+/turf/open/floor/iron/kitchen_coldroom/freezer
+	icon_state = "freezer"
+	base_icon_state = "freezer"
 	floor_tile = /obj/item/stack/tile/iron/freezer
 
 /turf/open/floor/iron/grimy
