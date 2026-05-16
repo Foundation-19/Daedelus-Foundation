@@ -777,7 +777,7 @@
 // Corner Decals
 
 /obj/effect/turf_decal/ported/corner
-	icon_state = "corner_white"
+	icon_state = "bordercolor"
 	alpha = 229
 
 /obj/effect/turf_decal/ported/corner/grey
@@ -785,10 +785,10 @@
 	color = "#8d8c8c"
 
 /obj/effect/turf_decal/ported/corner/grey/diagonal
-	icon_state = "corner_white_diagonal"
+	icon_state = "bordercolorcorner"
 
 /obj/effect/turf_decal/ported/corner/grey/three_quarters
-	icon_state = "corner_white_three_quarters"
+	icon_state = "bordercolorcee"
 
 /obj/effect/turf_decal/ported/corner/grey/full
 	icon_state = "corner_white_full"
@@ -797,10 +797,10 @@
 	icon_state = "bordercolor"
 
 /obj/effect/turf_decal/ported/corner/grey/half
-	icon_state = "bordercolorhalf"
+	icon_state = "borderhalf"
 
 /obj/effect/turf_decal/ported/corner/grey/mono
-	icon_state = "bordercolormonofull"
+	icon_state = "bordercolorfull"
 
 // Hatch Decals
 

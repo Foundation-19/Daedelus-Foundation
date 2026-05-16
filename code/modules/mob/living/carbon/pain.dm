@@ -7,6 +7,9 @@
 /mob/living/carbon/getPain()
 	. = 0
 	for(var/obj/item/bodypart/BP as anything in bodyparts)
+		if(QDELETED(BP) || !istype(BP))
+			bodyparts -= BP
+			continue
 		. += BP.getPain() || 0
 
 	. -= CHEM_EFFECT_MAGNITUDE(src, CE_PAINKILLER)
@@ -334,6 +337,9 @@
 	var/highest_bp_pain = 0
 	var/obj/item/bodypart/damaged_part
 	for(var/obj/item/bodypart/loop as anything in bodyparts)
+		if(QDELETED(loop) || !istype(loop))
+			bodyparts -= loop
+			continue
 		if(loop.bodypart_flags & BP_NO_PAIN)
 			continue
 

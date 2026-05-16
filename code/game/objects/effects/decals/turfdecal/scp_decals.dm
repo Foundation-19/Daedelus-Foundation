@@ -1,6 +1,29 @@
 // SCP Foundation & Bay12 Decal Definitions
 // These use /tg/'s element-based decal system (turf_decal -> datum/element/decal at runtime)
+// All corner/border decals use decals-ported.dmi which has the Bay12-style border states
 // Organized by category: SCP containment zones, Foundation colors, industrial, misc
+//
+// Icon state mapping (Bay12 name -> actual state in decals-ported.dmi):
+//   corner_white          -> bordercolor
+//   bordercolor           -> bordercolor (exists)
+//   bordercolorcorner     -> bordercolorcorner (exists)
+//   bordercolorcee        -> bordercolorcee (exists)
+//   bordercolormonofull   -> bordercolorfull
+//   corner_white_full     -> corner_white_full (exists)
+//   corner_white_diagonal -> bordercolorcorner
+//   corner_white_three_quarters -> bordercolorcee
+//   bordercolorhalf       -> borderhalf
+//   bordercolorfull       -> bordercolorfull (exists)
+
+// ============================================================
+// BASE CORNER DECAL - override icon to use decals-ported.dmi
+// The parent /obj/effect/turf_decal uses decals.dmi which lacks border states
+// ============================================================
+
+/obj/effect/turf_decal/corner
+	icon = 'icons/turf/decals-ported.dmi'
+	icon_state = "bordercolor"
+	alpha = 229
 
 // ============================================================
 // SCP CONTAINMENT ZONE CORNER DECALS
@@ -11,7 +34,6 @@
 	color = "#CCFF00"
 
 /obj/effect/turf_decal/corner/euclid/border
-	icon_state = "bordercolor"
 	color = "#CCFF00"
 
 /obj/effect/turf_decal/corner/euclid/bordercorner
@@ -27,14 +49,13 @@
 	color = "#CCFF00"
 
 /obj/effect/turf_decal/corner/euclid/mono
-	icon_state = "bordercolormonofull"
+	icon_state = "bordercolorfull"
 	color = "#CCFF00"
 
 /obj/effect/turf_decal/corner/keter
 	color = "#FF0000"
 
 /obj/effect/turf_decal/corner/keter/border
-	icon_state = "bordercolor"
 	color = "#FF0000"
 
 /obj/effect/turf_decal/corner/keter/bordercorner
@@ -46,14 +67,13 @@
 	color = "#FF0000"
 
 /obj/effect/turf_decal/corner/keter/mono
-	icon_state = "bordercolormonofull"
+	icon_state = "bordercolorfull"
 	color = "#FF0000"
 
 /obj/effect/turf_decal/corner/safe
 	color = "#00CC00"
 
 /obj/effect/turf_decal/corner/safe/border
-	icon_state = "bordercolor"
 	color = "#00CC00"
 
 /obj/effect/turf_decal/corner/safe/bordercorner
@@ -61,22 +81,21 @@
 	color = "#00CC00"
 
 /obj/effect/turf_decal/corner/safe/mono
-	icon_state = "bordercolormonofull"
+	icon_state = "bordercolorfull"
 	color = "#00CC00"
 
 /obj/effect/turf_decal/corner/safe/half
-	icon_state = "bordercolorhalf"
+	icon_state = "borderhalf"
 	color = "#00CC00"
 
 /obj/effect/turf_decal/corner/safe/three_quarters
-	icon_state = "corner_white_three_quarters"
+	icon_state = "bordercolorcee"
 	color = "#00CC00"
 
 /obj/effect/turf_decal/corner/research
 	color = "#9933FF"
 
 /obj/effect/turf_decal/corner/research/border
-	icon_state = "bordercolor"
 	color = "#9933FF"
 
 /obj/effect/turf_decal/corner/research/bordercorner
@@ -92,11 +111,11 @@
 	color = "#9933FF"
 
 /obj/effect/turf_decal/corner/research/mono
-	icon_state = "bordercolormonofull"
+	icon_state = "bordercolorfull"
 	color = "#9933FF"
 
 /obj/effect/turf_decal/corner/research/three_quarters
-	icon_state = "corner_white_three_quarters"
+	icon_state = "bordercolorcee"
 	color = "#9933FF"
 
 // ============================================================
@@ -108,7 +127,6 @@
 	color = "#66B2FF"
 
 /obj/effect/turf_decal/corner/paleblue/border
-	icon_state = "bordercolor"
 	color = "#66B2FF"
 
 /obj/effect/turf_decal/corner/paleblue/bordercorner
@@ -120,26 +138,25 @@
 	color = "#66B2FF"
 
 /obj/effect/turf_decal/corner/paleblue/diagonal
-	icon_state = "corner_white_diagonal"
+	icon_state = "bordercolorcorner"
 	color = "#66B2FF"
 
 /obj/effect/turf_decal/corner/paleblue/mono
-	icon_state = "bordercolormonofull"
+	icon_state = "bordercolorfull"
 	color = "#66B2FF"
 
 /obj/effect/turf_decal/corner/paleblue/half
-	icon_state = "bordercolorhalf"
+	icon_state = "borderhalf"
 	color = "#66B2FF"
 
 /obj/effect/turf_decal/corner/paleblue/three_quarters
-	icon_state = "corner_white_three_quarters"
+	icon_state = "bordercolorcee"
 	color = "#66B2FF"
 
 /obj/effect/turf_decal/corner/beige
 	color = "#C8A882"
 
 /obj/effect/turf_decal/corner/beige/border
-	icon_state = "bordercolor"
 	color = "#C8A882"
 
 /obj/effect/turf_decal/corner/beige/bordercorner
@@ -151,14 +168,13 @@
 	color = "#C8A882"
 
 /obj/effect/turf_decal/corner/beige/mono
-	icon_state = "bordercolormonofull"
+	icon_state = "bordercolorfull"
 	color = "#C8A882"
 
 /obj/effect/turf_decal/corner/b_green
 	color = "#00FF00"
 
 /obj/effect/turf_decal/corner/b_green/border
-	icon_state = "bordercolor"
 	color = "#00FF00"
 
 /obj/effect/turf_decal/corner/b_green/bordercorner
@@ -169,7 +185,6 @@
 	color = "#99FF00"
 
 /obj/effect/turf_decal/corner/lime/border
-	icon_state = "bordercolor"
 	color = "#99FF00"
 
 /obj/effect/turf_decal/corner/lime/bordercorner
@@ -177,14 +192,13 @@
 	color = "#99FF00"
 
 /obj/effect/turf_decal/corner/lime/mono
-	icon_state = "bordercolormonofull"
+	icon_state = "bordercolorfull"
 	color = "#99FF00"
 
 /obj/effect/turf_decal/corner/purple
 	color = "#CC00FF"
 
 /obj/effect/turf_decal/corner/purple/border
-	icon_state = "bordercolor"
 	color = "#CC00FF"
 
 /obj/effect/turf_decal/corner/purple/bordercorner
@@ -200,14 +214,13 @@
 	color = "#CC00FF"
 
 /obj/effect/turf_decal/corner/purple/mono
-	icon_state = "bordercolormonofull"
+	icon_state = "bordercolorfull"
 	color = "#CC00FF"
 
 /obj/effect/turf_decal/corner/brown
 	color = "#865C2A"
 
 /obj/effect/turf_decal/corner/brown/border
-	icon_state = "bordercolor"
 	color = "#865C2A"
 
 /obj/effect/turf_decal/corner/brown/bordercorner
@@ -219,14 +232,13 @@
 	color = "#865C2A"
 
 /obj/effect/turf_decal/corner/brown/mono
-	icon_state = "bordercolormonofull"
+	icon_state = "bordercolorfull"
 	color = "#865C2A"
 
 /obj/effect/turf_decal/corner/orange
 	color = "#FF9900"
 
 /obj/effect/turf_decal/corner/orange/border
-	icon_state = "bordercolor"
 	color = "#FF9900"
 
 /obj/effect/turf_decal/corner/orange/bordercorner
@@ -238,26 +250,25 @@
 	color = "#FF9900"
 
 /obj/effect/turf_decal/corner/orange/mono
-	icon_state = "bordercolormonofull"
+	icon_state = "bordercolorfull"
 	color = "#FF9900"
 
 /obj/effect/turf_decal/corner/orange/half
-	icon_state = "bordercolorhalf"
+	icon_state = "borderhalf"
 	color = "#FF9900"
 
 /obj/effect/turf_decal/corner/orange/diagonal
-	icon_state = "corner_white_diagonal"
+	icon_state = "bordercolorcorner"
 	color = "#FF9900"
 
 /obj/effect/turf_decal/corner/orange/three_quarters
-	icon_state = "corner_white_three_quarters"
+	icon_state = "bordercolorcee"
 	color = "#FF9900"
 
 /obj/effect/turf_decal/corner/green
 	color = "#00CC00"
 
 /obj/effect/turf_decal/corner/green/border
-	icon_state = "bordercolor"
 	color = "#00CC00"
 
 /obj/effect/turf_decal/corner/green/bordercorner
@@ -265,14 +276,13 @@
 	color = "#00CC00"
 
 /obj/effect/turf_decal/corner/green/mono
-	icon_state = "bordercolormonofull"
+	icon_state = "bordercolorfull"
 	color = "#00CC00"
 
 /obj/effect/turf_decal/corner/grey
 	color = "#8D8C8C"
 
 /obj/effect/turf_decal/corner/grey/border
-	icon_state = "bordercolor"
 	color = "#8D8C8C"
 
 /obj/effect/turf_decal/corner/grey/bordercorner
@@ -280,18 +290,17 @@
 	color = "#8D8C8C"
 
 /obj/effect/turf_decal/corner/grey/mono
-	icon_state = "bordercolormonofull"
+	icon_state = "bordercolorfull"
 	color = "#8D8C8C"
 
 /obj/effect/turf_decal/corner/grey/diagonal
-	icon_state = "corner_white_diagonal"
+	icon_state = "bordercolorcorner"
 	color = "#8D8C8C"
 
 /obj/effect/turf_decal/corner/black
 	color = "#333333"
 
 /obj/effect/turf_decal/corner/black/border
-	icon_state = "bordercolor"
 	color = "#333333"
 
 /obj/effect/turf_decal/corner/black/bordercorner
@@ -303,7 +312,7 @@
 	color = "#333333"
 
 /obj/effect/turf_decal/corner/black/diagonal
-	icon_state = "corner_white_diagonal"
+	icon_state = "bordercolorcorner"
 	color = "#333333"
 
 /obj/effect/turf_decal/corner/black/full
@@ -311,14 +320,13 @@
 	color = "#333333"
 
 /obj/effect/turf_decal/corner/black/mono
-	icon_state = "bordercolormonofull"
+	icon_state = "bordercolorfull"
 	color = "#333333"
 
 /obj/effect/turf_decal/corner/blue
 	color = "#0066FF"
 
 /obj/effect/turf_decal/corner/blue/border
-	icon_state = "bordercolor"
 	color = "#0066FF"
 
 /obj/effect/turf_decal/corner/blue/bordercorner
@@ -334,18 +342,17 @@
 	color = "#0066FF"
 
 /obj/effect/turf_decal/corner/blue/three_quarters
-	icon_state = "corner_white_three_quarters"
+	icon_state = "bordercolorcee"
 	color = "#0066FF"
 
 /obj/effect/turf_decal/corner/blue/mono
-	icon_state = "bordercolormonofull"
+	icon_state = "bordercolorfull"
 	color = "#0066FF"
 
 /obj/effect/turf_decal/corner/yellow
 	color = "#FFCC00"
 
 /obj/effect/turf_decal/corner/yellow/border
-	icon_state = "bordercolor"
 	color = "#FFCC00"
 
 /obj/effect/turf_decal/corner/yellow/bordercorner
@@ -361,15 +368,15 @@
 	color = "#FFCC00"
 
 /obj/effect/turf_decal/corner/yellow/mono
-	icon_state = "bordercolormonofull"
+	icon_state = "bordercolorfull"
 	color = "#FFCC00"
 
 /obj/effect/turf_decal/corner/yellow/diagonal
-	icon_state = "corner_white_diagonal"
+	icon_state = "bordercolorcorner"
 	color = "#FFCC00"
 
 /obj/effect/turf_decal/corner/yellow/half
-	icon_state = "bordercolorhalf"
+	icon_state = "borderhalf"
 	color = "#FFCC00"
 
 /obj/effect/turf_decal/corner/yellow/full
@@ -377,14 +384,13 @@
 	color = "#FFCC00"
 
 /obj/effect/turf_decal/corner/yellow/three_quarters
-	icon_state = "corner_white_three_quarters"
+	icon_state = "bordercolorcee"
 	color = "#FFCC00"
 
 /obj/effect/turf_decal/corner/red
 	color = "#CC0000"
 
 /obj/effect/turf_decal/corner/red/border
-	icon_state = "bordercolor"
 	color = "#CC0000"
 
 /obj/effect/turf_decal/corner/red/bordercorner
@@ -400,7 +406,7 @@
 	color = "#CC0000"
 
 /obj/effect/turf_decal/corner/red/diagonal
-	icon_state = "corner_white_diagonal"
+	icon_state = "bordercolorcorner"
 	color = "#CC0000"
 
 /obj/effect/turf_decal/corner/red/full
@@ -408,14 +414,13 @@
 	color = "#CC0000"
 
 /obj/effect/turf_decal/corner/red/mono
-	icon_state = "bordercolormonofull"
+	icon_state = "bordercolorfull"
 	color = "#CC0000"
 
 /obj/effect/turf_decal/corner/white
 	color = "#FFFFFF"
 
 /obj/effect/turf_decal/corner/white/border
-	icon_state = "bordercolor"
 	color = "#FFFFFF"
 
 /obj/effect/turf_decal/corner/white/bordercorner
@@ -427,14 +432,13 @@
 	color = "#FFFFFF"
 
 /obj/effect/turf_decal/corner/white/mono
-	icon_state = "bordercolormonofull"
+	icon_state = "bordercolorfull"
 	color = "#FFFFFF"
 
 /obj/effect/turf_decal/corner/lightgrey
 	color = "#D4D4D4"
 
 /obj/effect/turf_decal/corner/lightgrey/border
-	icon_state = "bordercolor"
 	color = "#D4D4D4"
 
 /obj/effect/turf_decal/corner/lightgrey/bordercorner
@@ -444,6 +448,7 @@
 // ============================================================
 // INDUSTRIAL DECALS (Foundation variant)
 // Used for hazard markings, loading zones, etc.
+// All use decals-ported.dmi which has danger/delivery/outline states
 // ============================================================
 
 /obj/effect/turf_decal/industrial
@@ -498,19 +503,24 @@
 	color = COLOR_BLUE_GRAY
 
 /obj/effect/turf_decal/industrial/fire
-	icon_state = "fire"
+	icon_state = "danger"
+	color = "#FF0000"
 
 /obj/effect/turf_decal/industrial/firstaid
-	icon_state = "firstaid"
+	icon_state = "outline"
+	color = "#FFFFFF"
 
 /obj/effect/turf_decal/industrial/loading
+	icon = 'icons/turf/decals.dmi'
 	icon_state = "loadingarea"
 
 /obj/effect/turf_decal/industrial/radiation
-	icon_state = "radiation"
+	icon_state = "danger"
+	color = "#00FF00"
 
 /obj/effect/turf_decal/industrial/radiation/corner
-	icon_state = "radiation_corner"
+	icon_state = "dangercorner"
+	color = "#00FF00"
 
 /obj/effect/turf_decal/industrial/shutoff
 	icon_state = "shutoff"
@@ -518,6 +528,7 @@
 // ============================================================
 // STRIPE DECALS (Foundation color variants)
 // Warning stripe markings in various colors
+// These use the base decals.dmi which has warningline states
 // ============================================================
 
 /obj/effect/turf_decal/stripes/red
@@ -565,45 +576,51 @@
 
 // ============================================================
 // CARPET DECALS
+// carpet_* states don't exist in any DMI - use spline_plain as fallback
 // ============================================================
 
 /obj/effect/turf_decal/carpet
 	icon = 'icons/turf/decals-ported.dmi'
-	icon_state = "carpet"
+	icon_state = "spline_plain"
 
 /obj/effect/turf_decal/carpet/green
-	icon_state = "carpet_green"
+	icon_state = "spline_plain"
+	color = "#00CC00"
 
 /obj/effect/turf_decal/carpet/orange
-	icon_state = "carpet_orange"
+	icon_state = "spline_plain"
+	color = "#FF9900"
 
 /obj/effect/turf_decal/carpet/purple
-	icon_state = "carpet_purple"
+	icon_state = "spline_plain"
+	color = "#9933FF"
 
 /obj/effect/turf_decal/carpet/red
-	icon_state = "carpet_red"
+	icon_state = "spline_plain"
+	color = "#CC0000"
 
 // ============================================================
 // SPLINE DECALS (Foundation color variants)
+// spline_fancy doesn't exist in any DMI - use spline_plain as fallback
 // ============================================================
 
 /obj/effect/turf_decal/spline
 	icon = 'icons/turf/decals-ported.dmi'
 
 /obj/effect/turf_decal/spline/fancy
-	icon_state = "spline_fancy"
+	icon_state = "spline_plain"
 
 /obj/effect/turf_decal/spline/fancy/black
 	color = COLOR_GRAY
 
 /obj/effect/turf_decal/spline/fancy/black/corner
-	icon_state = "spline_fancy_corner"
+	icon_state = "spline_plain_cee"
 
 /obj/effect/turf_decal/spline/fancy/wood
 	color = "#cb9e04"
 
 /obj/effect/turf_decal/spline/fancy/wood/corner
-	icon_state = "spline_fancy_corner"
+	icon_state = "spline_plain_cee"
 
 /obj/effect/turf_decal/spline/plain
 	icon_state = "spline_plain"
@@ -623,10 +640,11 @@
 // ============================================================
 
 /obj/effect/turf_decal/chapel
-	icon = 'icons/turf/decals-ported.dmi'
+	icon = 'icons/turf/floors.dmi'
 	icon_state = "chapel"
 
 /obj/effect/turf_decal/snow
+	icon = 'icons/turf/overlays.dmi'
 	icon_state = "snowfloor"
 
 /obj/effect/turf_decal/stoneborder
@@ -640,7 +658,6 @@
 	icon = 'icons/turf/decals-ported.dmi'
 	icon_state = "borderfloor_black"
 
-// Floor detail aliases (map uses /floordetail, /tg/ has /ported/floordetail)
 /obj/effect/turf_decal/floordetail
 	icon = 'icons/turf/decals-ported.dmi'
 	icon_state = "manydot"
@@ -648,7 +665,6 @@
 /obj/effect/turf_decal/floordetail/edgedrain
 	icon_state = "edge"
 
-// SCP-specific decal
 /obj/effect/turf_decal/scp
 	icon = 'icons/turf/decals-ported.dmi'
 

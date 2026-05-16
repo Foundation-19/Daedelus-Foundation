@@ -247,7 +247,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		read_preference(preference_type)
 
 	//Load prefs
-	alt_job_titles = save_data["alt_job_titles"]
+	alt_job_titles = save_data["alt_job_titles"] || list()
 
 	//try to fix any outdated data if necessary
 	//preference updating will handle saving the updated data for us.

@@ -286,6 +286,9 @@
 
 /mob/living/carbon/proc/handle_bodyparts(delta_time, times_fired)
 	for(var/obj/item/bodypart/limb as anything in bodyparts)
+		if(QDELETED(limb) || !istype(limb))
+			bodyparts -= limb
+			continue
 		. |= limb.on_life(delta_time, times_fired) || 0
 
 /mob/living/carbon/proc/handle_organs(delta_time, times_fired)

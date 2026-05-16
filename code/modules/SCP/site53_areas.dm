@@ -2,7 +2,7 @@
 
 /area/site53
 	has_gravity = STANDARD_GRAVITY
-	area_flags = VALID_TERRITORY | BLOBS_ALLOWED
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA | CULT_PERMITTED | SHOW_NAME
 
 /area/site53/engineering/atmos
 	name = "Engineering Atmos"

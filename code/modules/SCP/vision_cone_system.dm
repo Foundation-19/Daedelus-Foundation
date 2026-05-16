@@ -117,11 +117,14 @@
 	return result
 
 /mob/living/update_vision_cone()
-	if(client)
-		if(hud_used && hud_used.fov)
-			hud_used.fov.dir = src.dir
-			hud_used.fov_blocker.dir = src.dir
-		START_PROCESSING(SSincone, client)
+	if(!client)
+		return
+	if(isobserver(client.eye))
+		return
+	if(hud_used && hud_used.fov)
+		hud_used.fov.dir = src.dir
+		hud_used.fov_blocker.dir = src.dir
+	START_PROCESSING(SSincone, client)
 
 /client/proc/update_cone()
 	if(mob)
@@ -129,6 +132,9 @@
 
 /mob/living/update_cone()
 	if(!client)
+		return
+	if(isobserver(client.eye))
+		hide_cone()
 		return
 
 	for(var/image/old_img in client.hidden_atoms)
@@ -266,6 +272,8 @@
 /mob/proc/update_cone_show()
 	if(!client)
 		return
+	if(isobserver(src))
+		return hide_cone()
 	if(client.perspective != MOB_PERSPECTIVE)
 		return hide_cone()
 	if(client.eye != src)
@@ -371,6 +379,7 @@
 	client.hidden_images.Cut()
 	var/atom/movable/screen/plane_master/game_world_fov_hidden/PM = locate(/atom/movable/screen/plane_master/game_world_fov_hidden) in client.screen
 	if(PM)
+		client.screen -= PM
 		PM.backdrop(src)
 
 /atom/movable/screen/fov_blocker
