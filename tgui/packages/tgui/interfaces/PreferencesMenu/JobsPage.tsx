@@ -94,13 +94,13 @@ const PriorityHeaders = () => {
     <Stack>
       <Stack.Item grow />
 
-      <Stack.Item className={className}>Off</Stack.Item>
+      <Stack.Item className={className}>OFF</Stack.Item>
 
-      <Stack.Item className={className}>Low</Stack.Item>
+      <Stack.Item className={className}>LOW</Stack.Item>
 
-      <Stack.Item className={className}>Medium</Stack.Item>
+      <Stack.Item className={className}>MED</Stack.Item>
 
-      <Stack.Item className={className}>High</Stack.Item>
+      <Stack.Item className={className}>HIGH</Stack.Item>
     </Stack>
   );
 };

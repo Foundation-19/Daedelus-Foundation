@@ -715,9 +715,8 @@
 	else
 		. = ..()
 
-/obj/item/stack/microwave_act(obj/machinery/microwave/M)
-	if(istype(M) && M.dirty < 100)
-		M.dirty += amount
+/obj/item/stack/microwave_act(obj/machinery/M)
+	. = ..()
 
 /*
  * Recipe datum

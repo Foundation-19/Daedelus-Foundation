@@ -1191,11 +1191,9 @@ DEFINE_INTERACTABLE(/obj/item)
 		MO.desc = "Looks like this was \an [src] some time ago."
 		..()
 
-/obj/item/proc/microwave_act(obj/machinery/microwave/M)
+/obj/item/proc/microwave_act(obj/machinery/M)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_MICROWAVE_ACT, M) & COMPONENT_SUCCESFUL_MICROWAVE)
 		return TRUE
-	if(istype(M) && M.dirty < 100)
-		M.dirty++
 
 /obj/item/proc/grind_requirements(obj/machinery/reagentgrinder/R) //Used to check for extra requirements for grinding an object
 	return TRUE

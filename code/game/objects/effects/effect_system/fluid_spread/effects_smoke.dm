@@ -448,6 +448,7 @@
 /// Helper to quickly create a cloud of reagent smoke
 /proc/do_chem_smoke(range = 0, amount = DIAMOND_AREA(range), atom/holder = null, location = null, reagent_type = /datum/reagent/water, reagent_volume = 10, log = FALSE)
 	var/datum/reagents/smoke_reagents = new/datum/reagents(reagent_volume)
+	smoke_reagents.my_atom = holder
 	smoke_reagents.add_reagent(reagent_type, reagent_volume)
 
 	var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
@@ -464,6 +465,7 @@
 /datum/effect_system/fluid_spread/smoke/chem/New()
 	..()
 	chemholder = new(1000, NO_REACT)
+	chemholder.my_atom = src
 
 /datum/effect_system/fluid_spread/smoke/chem/Destroy()
 	QDEL_NULL(chemholder)

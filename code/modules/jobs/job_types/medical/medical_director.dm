@@ -69,7 +69,8 @@
 	suit = /obj/item/clothing/suit/toggle/labcoat/cmo
 	belt = /obj/item/pager/aether
 	ears = /obj/item/radio/headset/heads/cmo
-	shoes = /obj/item/clothing/shoes/sneakers/blue
+	shoes = /obj/item/clothing/shoes/laceup
+	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 	l_pocket = /obj/item/pinpointer/crew
 	l_hand = /obj/item/aether_tome
 

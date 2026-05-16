@@ -257,3 +257,136 @@ $department_map: (
     }
   }
 }
+
+.theme-scp_terminal {
+  .PreferencesMenu {
+    &__Jobs {
+      &__departments {
+        @each $department-name, $color-value in $department_map {
+          &--#{$department-name} {
+            background: rgba(0, 0, 0, 0.6);
+            border-bottom: 1px solid rgba(139, 0, 0, 0.4);
+            border-left: 1px solid rgba(139, 0, 0, 0.4);
+            border-right: 1px solid rgba(139, 0, 0, 0.4);
+            color: #c8c8c8;
+
+            &.head {
+              background: rgba($color-value, 0.3);
+              border: 1px solid $color-value;
+            }
+
+            &:first-child {
+              border-top: 1px solid rgba(139, 0, 0, 0.4);
+            }
+
+            .options {
+              background: rgba(0, 0, 0, 0.4);
+            }
+
+            .job-name {
+              font-family: 'Consolas', 'Courier New', monospace;
+              text-transform: uppercase;
+              font-size: 0.9em;
+              letter-spacing: 0.05em;
+            }
+          }
+        }
+
+        &--Captain {
+          border: 2px solid rgba(212, 160, 23, 0.8);
+
+          &:first-child {
+            border-top: 2px solid rgba(212, 160, 23, 0.8);
+          }
+        }
+
+        &__priority {
+          border: 1px solid rgba(139, 0, 0, 0.3);
+
+          &--off::after {
+            background: rgba(139, 0, 0, 0.4);
+          }
+        }
+      }
+
+      &__PriorityHeader {
+        font-family: 'Consolas', 'Courier New', monospace;
+        color: #6a6a70;
+        text-transform: uppercase;
+        font-size: 0.8em;
+      }
+    }
+
+    &__Antags {
+      &__antagSelection {
+        &__antagonist {
+          .antagonist-icon-parent {
+            border-color: #5c0000;
+            border-radius: 0;
+
+            .antagonist-icon {
+              border-radius: 0;
+            }
+          }
+
+          &--off {
+            .antagonist-icon-parent {
+              border-color: #5c0000;
+            }
+          }
+
+          &--on {
+            .antagonist-icon-parent {
+              border-color: #0a6e0a;
+              box-shadow: 0 0 8px rgba(10, 110, 10, 0.4);
+            }
+          }
+
+          &--banned {
+            .antagonist-icon-parent {
+              border-color: #2a2a30;
+            }
+          }
+        }
+      }
+    }
+
+    &__Quirks {
+      &__QuirkList {
+        background-color: #0a0a0c;
+        border: 1px solid #2a2a30;
+
+        &__quirk {
+          background-color: #111114;
+          border-bottom: 1px solid #2a2a30;
+          color: #c8c8c8;
+          font-family: 'Consolas', 'Courier New', monospace;
+
+          &--positive {
+            background-color: rgba(10, 110, 10, 0.3);
+          }
+
+          &--neutral {
+            background-color: #111114;
+          }
+
+          &--negative {
+            background-color: rgba(139, 0, 0, 0.3);
+          }
+
+          &:hover {
+            background-color: #1a1a20;
+
+            &.PreferencesMenu__Quirks__QuirkList__quirk--positive {
+              background-color: rgba(10, 110, 10, 0.5);
+            }
+
+            &.PreferencesMenu__Quirks__QuirkList__quirk--negative {
+              background-color: rgba(139, 0, 0, 0.5);
+            }
+          }
+        }
+      }
+    }
+  }
+}

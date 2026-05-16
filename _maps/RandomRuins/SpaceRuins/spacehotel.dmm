@@ -1605,7 +1605,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/hotel/workroom)
 "nE" = (
-/obj/machinery/griddle,
+/obj/machinery/appliance/cooker/griddle,
 /obj/machinery/light/directional/north,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/hotel/bar)
@@ -1981,7 +1981,7 @@
 /area/ruin/space/has_grav/hotel)
 "sL" = (
 /obj/structure/table/reinforced,
-/obj/machinery/microwave{
+/obj/machinery/appliance/cooker/microwave{
 	pixel_y = 7
 	},
 /obj/structure/window/reinforced/survival_pod{
@@ -3726,7 +3726,7 @@
 /turf/open/floor/carpet/blue,
 /area/ruin/space/has_grav/hotel)
 "OR" = (
-/obj/machinery/deepfryer,
+/obj/machinery/appliance/cooker/fryer,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/hotel/bar)
 "OS" = (
@@ -4081,7 +4081,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/hotel/workroom)
 "Tm" = (
-/obj/machinery/oven,
+/obj/machinery/appliance/cooker/oven,
 /obj/structure/sign/warning/nosmoking/circle{
 	pixel_y = 32
 	},

@@ -9,7 +9,6 @@
 	tastes = list("pancakes" = 1)
 	foodtypes = GRAIN | SUGAR | BREAKFAST
 	w_class = WEIGHT_CLASS_SMALL
-	burns_on_grill = TRUE
 	venue_value = FOOD_PRICE_CHEAP
 
 /obj/item/food/pancakes/raw
@@ -19,14 +18,9 @@
 	inhand_icon_state = "rawpancakes"
 	food_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("milky batter" = 1)
-	burns_on_grill = FALSE
 
 /obj/item/food/pancakes/raw/MakeGrillable()
-	AddComponent(/datum/component/grillable,\
-				cook_result = /obj/item/food/pancakes,\
-				required_cook_time = rand(30 SECONDS, 40 SECONDS),\
-				positive_result = TRUE,\
-				use_large_steam_sprite = TRUE)
+	return
 
 /obj/item/food/pancakes/raw/attackby(obj/item/garnish, mob/living/user, params)
 	var/newresult
@@ -45,7 +39,7 @@
 	if(newresult)
 		qdel(garnish)
 		to_chat(user, span_notice("You add [garnish] to [src]."))
-		AddComponent(/datum/component/grillable, cook_result = newresult)
+		// Grillable handled by cooking_recipe system
 
 /obj/item/food/pancakes/raw/examine(mob/user)
 	. = ..()

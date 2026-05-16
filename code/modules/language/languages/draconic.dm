@@ -3,7 +3,7 @@
 	desc = "The common language of the Jinans, composed of sibilant hisses, grumbles, and clicks."
 	key = "o"
 	space_chance = 40
-	flags = parent_type::flags | (LANGUAGE_SELECTABLE_SPEAK | LANGUAGE_SELECTABLE_UNDERSTAND)
+	flags = parent_type::flags  // Hidden from selection - fantasy language
 
 	syllables = list(
 		"ji", "na", "an", "ua", "au", "ou", "uo", "uh", "hu", "ar", "ra",

@@ -22,6 +22,18 @@ GLOBAL_LIST_INIT(limb_overlays_cache, list())
 	// No, xenos don't actually use bodyparts. Don't ask.
 	var/mob/living/carbon/human/human_owner = owner
 
+	// Handle SCPs and other mobs without DNA
+	if(!human_owner || !human_owner.dna || !human_owner.dna.species)
+		// Use default values for mobs without DNA
+		species_flags_list = list()
+		mutcolors = list()
+		limb_gender = "m"
+		skin_tone = ""
+		species_color = null
+		draw_color = get_override_color()
+		recolor_cosmetic_organs()
+		return TRUE
+
 	var/datum/species/owner_species = human_owner.dna.species
 	species_flags_list = human_owner.dna.species.species_traits
 	mutcolors = human_owner.dna.mutant_colors.Copy()

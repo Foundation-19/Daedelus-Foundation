@@ -822,6 +822,8 @@ GLOBAL_LIST_EMPTY(map_model_default)
 	//then instance the /turf
 	//NOTE: this used to place any turfs before the last "underneath" it using .appearance and underlays
 	//We don't actually use this, and all it did was cost cpu, so we don't do this anymore
+	if(index < 1)
+		return
 	if(members[index] != /turf/template_noop)
 		if(members_attributes[index] != default_list)
 			world.preloader_setup(members_attributes[index], members[index])

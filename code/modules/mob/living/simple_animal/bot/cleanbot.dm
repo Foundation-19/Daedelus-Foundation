@@ -41,20 +41,20 @@
 	var/static/list/officers_titles = list(
 		JOB_SITE_DIRECTOR,
 		JOB_HUMAN_RESOURCES_DIRECTOR,
-		JOB_SECURITY_DIRECTOR,
+		JOB_GUARD_COMMANDER,
 	)
 	var/static/list/command_titles = list(
 		JOB_SITE_DIRECTOR = "Cpt.",
 		JOB_HUMAN_RESOURCES_DIRECTOR = "Lt.",
 	)
 	var/static/list/security_titles = list(
-		JOB_SECURITY_DIRECTOR = "Maj.",
+		JOB_GUARD_COMMANDER = "Maj.",
 		JOB_WARDEN = "Sgt.",
 		JOB_INVESTIGATIONS_AGENT = "Det.",
 		JOB_SECURITY_OFFICER = "Officer",
-		JOB_EZ_COMMANDER = "Cdr.",
-		JOB_LCZ_COMMANDER = "Cdr.",
-		JOB_HCZ_COMMANDER = "Cdr.",
+		JOB_EZ_ZONE_SUPERVISOR = "Cdr.",
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT = "Cdr.",
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT = "Cdr.",
 		JOB_SENIOR_EZ_GUARD = "Sgt.",
 		JOB_SENIOR_LCZ_GUARD = "Sgt.",
 		JOB_SENIOR_HCZ_GUARD = "Sgt.",

@@ -313,9 +313,9 @@ SUBSYSTEM_DEF(budget_system)
 			))
 
 	// Store alerts
-	if(alerts.len > 0)
+	if(length(alerts) > 0)
 		budget_alerts[alert_id] = alerts
-		world.log << "Budget: Generated [alerts.len] budget alerts"
+		world.log << "Budget: Generated [length(alerts)] budget alerts"
 
 	return alerts
 
@@ -358,13 +358,13 @@ SUBSYSTEM_DEF(budget_system)
 /datum/budget_manager/proc/get_budget_trends()
 	var/list/trends = list()
 
-	if(budget_history.len < 2)
+	if(length(budget_history) < 2)
 		return trends
 
 	// Calculate spending trends
 	var/list/timestamps = sortTim(budget_history, GLOBAL_PROC_REF(cmp_numeric_asc))
 	var/oldest_data = budget_history[timestamps[1]]
-	var/newest_data = budget_history[timestamps[timestamps.len]]
+	var/newest_data = budget_history[timestamps[length(timestamps)]]
 
 	var/time_span = newest_data["timestamp"] - oldest_data["timestamp"]
 	var/spending_change = (newest_data["total_budget"] - newest_data["current_balance"]) - (oldest_data["total_budget"] - oldest_data["current_balance"])
@@ -718,7 +718,7 @@ SUBSYSTEM_DEF(budget_system)
 	manager = new /datum/budget_manager()
 	manager.initialize_department_budgets()
 	manager.load_budget_data()
-	world.log << "Budget system initialized with [manager.department_budgets.len] departments"
+	world.log << "Budget system initialized with [length(manager.department_budgets)] departments"
 	return ..()
 
 /datum/controller/subsystem/budget_system/fire()

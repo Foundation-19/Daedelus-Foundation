@@ -306,7 +306,7 @@ rough example of the "cone" made by the 3 dirs checked
 /atom/proc/contains(atom/target)
 	if(!target)
 		return FALSE
-	for(var/atom/location = target.loc, location, location = location.loc)
+	for(var/atom/location = target.loc; location; location = location.loc)
 		if(location == src)
 			return TRUE
 

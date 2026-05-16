@@ -40,6 +40,8 @@
 	set waitfor = FALSE
 	// Minimal sleep to defer initialization to after client constructor
 	sleep(1)
+	if(!client)
+		return
 	initialized_at = world.time
 	// Perform a clean initialization
 	window.initialize(

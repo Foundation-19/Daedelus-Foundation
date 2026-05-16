@@ -8,7 +8,7 @@
 
 /datum/game_mode/mixed
 	name = "Mixed"
-	weight = GAMEMODE_WEIGHT_COMMON
+	weight = GAMEMODE_WEIGHT_NEVER
 	force_pre_setup_check = TRUE
 
 	///The antagonist selectors for this gamemode.

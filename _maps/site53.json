@@ -1,0 +1,34 @@
+{
+	"version": 1,
+	"map_name": "Site 53",
+	"map_path": "map_files/site53",
+	"map_file": ["site53.dmm", "z1_admin.dmm", "z2_transit.dmm"],
+	"traits": [
+		{
+			"Up": 1,
+			"Linkage": "Cross"
+		},
+		{
+			"Up": 1,
+			"Down": -1,
+			"Linkage": "Cross"
+		},
+		{
+			"Up": 1,
+			"Down": -1,
+			"Linkage": "Cross"
+		},
+		{
+			"Down": -1,
+			"Linkage": "Cross"
+		},
+		{
+			"Linkage": "Cross"
+		},
+		{
+			"Linkage": "Cross"
+		}
+	],
+	"shuttles": {},
+	"run_mapping_tests": false
+}

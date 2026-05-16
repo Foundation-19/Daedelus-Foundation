@@ -11,7 +11,7 @@
 
 // Heads
 /datum/job/security_director
-	alt_titles = list(JOB_SECURITY_DIRECTOR, "Guard Commander")
+	alt_titles = list(JOB_GUARD_COMMANDER, "Security Director")
 
 /datum/job/goi_rep
 	alt_titles = list(

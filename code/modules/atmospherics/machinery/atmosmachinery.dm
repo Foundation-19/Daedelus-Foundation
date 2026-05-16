@@ -29,6 +29,10 @@
 	var/initialize_directions = NONE
 	///The color of the pipe
 	var/pipe_color = COLOR_VERY_LIGHT_GRAY
+	var/tag_north = 0
+	var/tag_south = 0
+	var/tag_east = 0
+	var/tag_west = 0
 	///What layer the pipe is in (from 1 to 5, default 3)
 	var/piping_layer = PIPING_LAYER_DEFAULT
 	///The flags of the pipe/component (PIPING_ALL_LAYER | PIPING_ONE_PER_TURF | PIPING_DEFAULT_LAYER_ONLY | PIPING_CARDINAL_AUTONORMALIZE)

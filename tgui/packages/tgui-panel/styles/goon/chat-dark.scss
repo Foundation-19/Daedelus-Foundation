@@ -1,7 +1,16 @@
-/**
- * Copyright (c) 2020 Aleksej Komarov
- * SPDX-License-Identifier: MIT
- */
+// SCP TERMINAL CHAT MESSAGE STYLES
+// Replaces goonchat dark theme with terminal-palette colors
+
+$scp-red: #8b0000;
+$scp-dark-red: #5c0000;
+$scp-amber: #d4a017;
+$scp-green: #0a6e0a;
+$scp-dark-bg: #0a0a0c;
+$scp-panel-bg: #111114;
+$scp-border: #2a2a30;
+$scp-text: #c8c8c8;
+$scp-dim-text: #6a6a70;
+$scp-highlight: #e8e8e8;
 
 em {
   font-style: normal;
@@ -25,15 +34,16 @@ img.icon {
 }
 
 a {
-  color: #397ea5;
+  color: #5a9ec2;
+  font-family: 'Consolas', 'Courier New', monospace;
 }
 
 a.visited {
-  color: #7c00e6;
+  color: #7c6ea5;
 }
 
 a:visited {
-  color: #7c00e6;
+  color: #7c6ea5;
 }
 
 a.popt {
@@ -46,87 +56,99 @@ a.popt {
   position: fixed;
   top: 50%;
   left: 50%;
-  background: #ddd;
+  background: $scp-panel-bg;
+  border: 1px solid $scp-border;
+  font-family: 'Consolas', 'Courier New', monospace;
 }
 
 .popup .close {
   position: absolute;
-  background: #aaa;
+  background: $scp-dark-red;
   top: 0;
   right: 0;
-  color: #333;
+  color: $scp-highlight;
   text-decoration: none;
   z-index: 2;
   padding: 0 10px;
   height: 30px;
   line-height: 30px;
+  text-transform: uppercase;
 }
 
 .popup .close:hover {
-  background: #999;
+  background: $scp-red;
 }
 
 .popup .head {
-  background: #999;
-  color: #ddd;
+  background: $scp-dark-red;
+  color: $scp-highlight;
   padding: 0 10px;
   height: 30px;
   line-height: 30px;
   text-transform: uppercase;
   font-size: 0.9em;
   font-weight: bold;
-  border-bottom: 2px solid green;
+  border-bottom: 2px solid $scp-red;
+  font-family: 'Consolas', 'Courier New', monospace;
+  letter-spacing: 0.05em;
 }
 
 .popup input {
-  border: 1px solid #999;
-  background: #fff;
+  border: 1px solid $scp-border;
+  background: $scp-dark-bg;
   margin: 0;
   padding: 5px;
   outline: none;
-  color: #333;
+  color: $scp-text;
+  font-family: 'Consolas', 'Courier New', monospace;
 }
 
 .popup input[type='text']:hover,
 .popup input[type='text']:active,
 .popup input[type='text']:focus {
-  border-color: green;
+  border-color: $scp-amber;
 }
 
 .popup input[type='submit'] {
   padding: 5px 10px;
-  background: #999;
-  color: #ddd;
+  background: $scp-dark-red;
+  color: $scp-highlight;
   text-transform: uppercase;
   font-size: 0.9em;
   font-weight: bold;
+  font-family: 'Consolas', 'Courier New', monospace;
+  border: 1px solid $scp-red;
+  border-radius: 0;
 }
 
 .popup input[type='submit']:hover,
 .popup input[type='submit']:focus,
 .popup input[type='submit']:active {
-  background: #aaa;
+  background: $scp-red;
   cursor: url('shared_assets/link_select.cur'), auto;
 }
 
 .changeFont {
   padding: 10px;
+  font-family: 'Consolas', 'Courier New', monospace;
 }
 
 .changeFont a {
   display: block;
   text-decoration: none;
   padding: 3px;
-  color: #333;
+  color: $scp-text;
 }
 
 .changeFont a:hover {
-  background: #ccc;
+  background: rgba($scp-amber, 0.15);
+  color: $scp-amber;
 }
 
 .highlightPopup {
   padding: 10px;
   text-align: center;
+  font-family: 'Consolas', 'Courier New', monospace;
 }
 
 .highlightPopup input[type='text'] {
@@ -134,10 +156,14 @@ a.popt {
   width: 215px;
   text-align: left;
   margin-top: 5px;
+  background: $scp-dark-bg;
+  border: 1px solid $scp-border;
+  color: $scp-text;
 }
 
 .highlightPopup input.highlightColor {
-  background-color: #ffff00;
+  background-color: $scp-amber;
+  color: $scp-dark-bg;
 }
 
 .highlightPopup input.highlightTermSubmit {
@@ -147,27 +173,31 @@ a.popt {
 /* ADMIN CONTEXT MENU */
 
 .contextMenu {
-  background-color: #ddd;
+  background-color: $scp-panel-bg;
   position: fixed;
   margin: 2px;
   width: 150px;
+  border: 1px solid $scp-border;
+  font-family: 'Consolas', 'Courier New', monospace;
 }
 
 .contextMenu a {
   display: block;
   padding: 2px 5px;
   text-decoration: none;
-  color: #333;
+  color: $scp-text;
 }
 
 .contextMenu a:hover {
-  background-color: #ccc;
+  background-color: rgba($scp-red, 0.3);
+  color: $scp-highlight;
 }
 
 /* ADMIN FILTER MESSAGES MENU */
 
 .filterMessages {
   padding: 5px;
+  font-family: 'Consolas', 'Courier New', monospace;
 }
 
 .filterMessages div {
@@ -184,16 +214,21 @@ a.popt {
 
 /*****************************************
 *
-* OUTPUT ACTUALLY RELATED TO MESSAGES
+* TERMINAL-STYLED MESSAGE OUTPUT
 *
 ******************************************/
+
+// Base message text shadow — subtle CRT glow
+$terminal-glow: 0 0 0.08em;
 
 /* MOTD */
 
 .motd {
-  color: #cac5a5;
-  font-family: Verdana, sans-serif;
+  color: $scp-dim-text;
+  font-family: 'Consolas', 'Courier New', monospace;
   white-space: normal;
+  border-left: 2px solid $scp-amber;
+  padding-left: 8px;
 }
 
 .motd h1,
@@ -202,8 +237,9 @@ a.popt {
 .motd h4,
 .motd h5,
 .motd h6 {
-  color: #cac5a5;
+  color: $scp-amber;
   text-decoration: underline;
+  font-family: 'Consolas', 'Courier New', monospace;
 }
 
 .motd a,
@@ -211,10 +247,10 @@ a.popt {
 .motd a:visited,
 .motd a:active,
 .motd a:hover {
-  color: #cac5a5;
+  color: $scp-amber;
 }
 
-/* ADD HERE FOR BOLD */
+/* BOLD */
 
 .bold,
 .name,
@@ -225,7 +261,7 @@ a.popt {
   font-weight: bold;
 }
 
-/* ADD HERE FOR ITALIC */
+/* ITALIC */
 
 .italic,
 .italics {
@@ -235,7 +271,8 @@ a.popt {
 /* OUTPUT COLORS */
 
 .highlight {
-  background: yellow;
+  background: $scp-amber;
+  color: $scp-dark-bg;
 }
 
 h1,
@@ -244,13 +281,13 @@ h3,
 h4,
 h5,
 h6 {
-  color: #cac5a5;
-  font-family: Georgia, Verdana, sans-serif;
+  color: $scp-amber;
+  font-family: 'Consolas', 'Courier New', monospace;
 }
 
 h1.alert,
 h2.alert {
-  color: #dfdfcf;
+  color: #ff6b6b;
 }
 
 em {
@@ -258,54 +295,56 @@ em {
   font-weight: bold;
 }
 
-// Applied to messages that don't come from the game.
+// System messages — green terminal text
 .system {
-  color: #cccccc;
-  font-family: 'Lucida Console', monospace;
-  text-shadow: 0 0 0.1em #cccccc;
+  color: #3a8a3a;
+  font-family: 'Consolas', 'Courier New', monospace;
+  text-shadow: $terminal-glow #3a8a3a;
 }
 
 .systemfont {
-  font-family: 'Lucida Console', monospace;
+  font-family: 'Consolas', 'Courier New', monospace;
 }
 
+// OOC — amber
 .ooc {
-  color: #cca300;
-  font-family: 'Lucida Console', monospace;
-  text-shadow: 0 0 0.1em #cca300;
+  color: $scp-amber;
+  font-family: 'Consolas', 'Courier New', monospace;
+  text-shadow: $terminal-glow $scp-amber;
 }
 
 .oocplain {
   font-weight: bold;
-  font-family: 'Lucida Console', monospace;
+  font-family: 'Consolas', 'Courier New', monospace;
 }
 
+// LOOC — cyan
 .looc {
-  color: #0099cc;
-  font-family: 'Lucida Console', monospace;
-  text-shadow: 0 0 0.1em #0099cc;
+  color: #3a9a9a;
+  font-family: 'Consolas', 'Courier New', monospace;
+  text-shadow: $terminal-glow #3a9a9a;
 }
 
 .adminobserverooc {
-  color: #0099cc;
-  text-shadow: 0 0 0.1em #0099cc;
+  color: #3a9a9a;
+  text-shadow: $terminal-glow #3a9a9a;
 }
 
 .adminooc {
-  color: #3d5bc3;
-  text-shadow: 0 0 0.1em #3d5bc3;
+  color: #4a6aaa;
+  text-shadow: $terminal-glow #4a6aaa;
 }
 
 .adminsay {
-  color: #ecc300;
+  color: $scp-amber;
   font-weight: bold;
-  text-shadow: 0 0 0.1em #ecc300;
+  text-shadow: $terminal-glow $scp-amber;
 }
 
 .admin {
-  color: #5975da;
+  color: #5a7aaa;
   font-weight: bold;
-  text-shadow: 0 0 0.1em #5975da;
+  text-shadow: $terminal-glow #5a7aaa;
 }
 
 .name {
@@ -313,462 +352,464 @@ em {
 }
 
 .deadsay {
-  color: #e2c1ff;
-  text-shadow: 0 0 0.1em #e2c1ff;
+  color: #8a6aaa;
+  text-shadow: $terminal-glow #8a6aaa;
 }
 
 .binarysay {
-  color: #1e90ff;
-  text-shadow: 0 0 0.1em #1e90ff;
+  color: #2a8a2a;
+  font-family: 'Consolas', 'Courier New', monospace;
+  text-shadow: $terminal-glow #2a8a2a;
 }
 
 .binarysay a {
-  color: #00ff00;
+  color: #4aba4a;
 }
 
 .binarysay a:active,
 .binarysay a:visited {
-  color: #88ff88;
+  color: #6ada6a;
 }
 
-/* RADIO COLORS */
-/* IF YOU CHANGE THIS KEEP IT IN SYNC WITH TGUI CONSTANTS */
+/* RADIO COLORS — muted terminal palette */
 
 .radio {
-  color: #39894a;
-  text-shadow: 0 0 0.1em #39894a;
+  color: #4a8a4a;
+  text-shadow: $terminal-glow #4a8a4a;
 }
 
 .sciradio {
-  color: #c68cfa;
-  text-shadow: 0 0 0.1em #c68cfa;
+  color: #8a6aaa;
+  text-shadow: $terminal-glow #8a6aaa;
 }
 
 .comradio {
-  color: #fcdf03;
-  text-shadow: 0 0 0.1em #fcdf03;
+  color: #aa8a2a;
+  text-shadow: $terminal-glow #aa8a2a;
 }
 
 .secradio {
-  color: #b71c1c;
-  text-shadow: 0 0 0.1em #b71c1c;
+  color: #aa3a3a;
+  text-shadow: $terminal-glow #aa3a3a;
 }
 
 .medradio {
-  color: #0097a7;
-  text-shadow: 0 0 0.1em #0097a7;
+  color: #2a8a8a;
+  text-shadow: $terminal-glow #2a8a8a;
 }
 
 .engradio {
-  color: #f37746;
-  text-shadow: 0 0 0.1em #f37746;
+  color: #aa6a3a;
+  text-shadow: $terminal-glow #aa6a3a;
 }
 
 .suppradio {
-  color: #b88646;
-  text-shadow: 0 0 0.1em #b88646;
+  color: #8a6a2a;
+  text-shadow: $terminal-glow #8a6a2a;
 }
 
 .servradio {
-  color: #6ca729;
-  text-shadow: 0 0 0.1em #6ca729;
+  color: #5a8a2a;
+  text-shadow: $terminal-glow #5a8a2a;
 }
 
 .syndradio {
-  color: #8f4a4b;
-  text-shadow: 0 0 0.1em #8f4a4b;
+  color: #7a3a3a;
+  text-shadow: $terminal-glow #7a3a3a;
 }
 
 .gangradio {
-  color: #ac2ea1;
-  text-shadow: 0 0 0.1em #ac2ea1;
+  color: #8a2a7a;
+  text-shadow: $terminal-glow #8a2a7a;
 }
 
 .centcomradio {
-  color: #2681a5;
-  text-shadow: 0 0 0.1em #2681a5;
+  color: #3a7a9a;
+  text-shadow: $terminal-glow #3a7a9a;
 }
 
 .aiprivradio {
-  color: #d65d95;
-  text-shadow: 0 0 0.1em #d65d95;
+  color: #9a4a7a;
+  text-shadow: $terminal-glow #9a4a7a;
 }
 
 .redteamradio {
-  color: #ff4444;
-  text-shadow: 0 0 0.1em #ff4444;
+  color: #aa4444;
+  text-shadow: $terminal-glow #aa4444;
 }
 
 .blueteamradio {
-  color: #3434fd;
-  text-shadow: 0 0 0.1em #3434fd;
+  color: #4444aa;
+  text-shadow: $terminal-glow #4444aa;
 }
 
 .greenteamradio {
-  color: #34fd34;
-  text-shadow: 0 0 0.1em #34fd34;
+  color: #44aa44;
+  text-shadow: $terminal-glow #44aa44;
 }
 
 .yellowteamradio {
-  color: #fdfd34;
-  text-shadow: 0 0 0.1em #fdfd34;
+  color: #aaaa44;
+  text-shadow: $terminal-glow #aaaa44;
 }
 
 .yell {
   font-weight: bold;
 }
 
+// Danger/alert — red terminal
 .alert {
-  color: #ff6d6d;
-  text-shadow: 0 0 0.1em #ff6d6d;
+  color: #cc4444;
+  text-shadow: $terminal-glow #cc4444;
 }
 
 .userdanger {
-  color: #dd3535;
+  color: #ee3333;
   font-weight: bold;
   font-size: 185%;
-  text-shadow: 0 0 0.1em #dd3535;
+  text-shadow: 0 0 0.2em #ee3333;
 }
 
 .bolddanger {
-  color: #dd3535;
-  text-shadow: 0 0 0.3em #ff0000;
+  color: #ee3333;
+  text-shadow: 0 0 0.2em #ff0000;
   font-weight: bold;
 }
 
 .danger {
-  color: #dd3535;
-  text-shadow: 0 0 0.3em #ff0000;
+  color: #ee3333;
+  text-shadow: 0 0 0.2em #ff0000;
 }
 
 .warning {
-  color: #ff6d6d;
+  color: #cc6644;
   font-style: italic;
-  text-shadow: 0 0 0.1em #ff6d6d;
+  text-shadow: $terminal-glow #cc6644;
 }
 
 .alertwarning {
-  color: #ff6d6d;
+  color: #cc6644;
   font-weight: bold;
-  text-shadow: 0 0 0.1em #ff6d6d;
+  text-shadow: $terminal-glow #cc6644;
 }
 
 .boldwarning {
-  color: #ff6d6d;
+  color: #cc6644;
   font-style: italic;
   font-weight: bold;
-  text-shadow: 0 0 0.1em #ff6d6d;
+  text-shadow: $terminal-glow #cc6644;
 }
 
 .announce {
-  color: #ff6d6d;
+  color: #cc4444;
   font-weight: bold;
-  text-shadow: 0 0 0.1em #ff6d6d;
+  text-shadow: $terminal-glow #cc4444;
 }
 
 .boldannounce {
-  color: #ff6d6d;
+  color: #cc4444;
   font-weight: bold;
-  text-shadow: 0 0 0.1em #ff6d6d;
+  text-shadow: $terminal-glow #cc4444;
 }
 
 .minorannounce {
   font-weight: bold;
   font-size: 185%;
-  text-shadow: 0 0 0.1em currentColor; /* Use currentColor for dynamic color */
+  text-shadow: $terminal-glow currentColor;
 }
 
 .greenannounce {
-  color: #059223;
+  color: #3a8a3a;
   font-weight: bold;
-  text-shadow: 0 0 0.1em #059223;
+  text-shadow: $terminal-glow #3a8a3a;
 }
 
 .rose {
-  color: #ff5050;
-  text-shadow: 0 0 0.1em #ff5050;
+  color: #cc5555;
+  text-shadow: $terminal-glow #cc5555;
 }
 
+// Info — cyan terminal
 .info {
-  color: #9ab0ff;
-  text-shadow: 0 0 0.1em #9ab0ff;
+  color: #5a8aaa;
+  text-shadow: $terminal-glow #5a8aaa;
 }
 
 .subtle {
-  color: #8a72c5;
+  color: #6a5a9a;
   font-style: italic;
   font-size: 85%;
-  text-shadow: 0 0 0.1em #8a72c5;
+  text-shadow: $terminal-glow #6a5a9a;
 }
 
 .notice {
-  color: #8f8f8f;
+  color: $scp-dim-text;
 }
 
 .obviousnotice {
-  color: #44e4e4;
-  text-shadow: 0 0 0.1em #f5aa42;
+  color: #4aaa8a;
+  text-shadow: $terminal-glow #4aaa8a;
 }
 .obviousnotice a {
   text-shadow: none;
 }
 
 .tinynotice {
-  color: #7996ff;
+  color: #5a7aaa;
   font-size: 85%;
-  text-shadow: 0 0 0.1em #7996ff;
+  text-shadow: $terminal-glow #5a7aaa;
 }
 
 .tinynoticeital {
-  color: #7996ff;
+  color: #5a7aaa;
   font-style: italic;
   font-size: 85%;
-  text-shadow: 0 0 0.1em #7996ff;
+  text-shadow: $terminal-glow #5a7aaa;
 }
 
 .smallnotice {
-  color: #7996ff;
+  color: #5a7aaa;
   font-size: 90%;
-  text-shadow: 0 0 0.1em #7996ff;
+  text-shadow: $terminal-glow #5a7aaa;
 }
 
 .smallnoticeital {
-  color: #7996ff;
+  color: #5a7aaa;
   font-style: italic;
   font-size: 90%;
-  text-shadow: 0 0 0.1em #7996ff;
+  text-shadow: $terminal-glow #5a7aaa;
 }
 
 .boldnotice {
-  color: #7996ff;
+  color: #5a7aaa;
   font-weight: bold;
-  text-shadow: 0 0 0.1em #7996ff;
+  text-shadow: $terminal-glow #5a7aaa;
 }
 
 .hear {
-  color: #b6b4a9;
+  color: $scp-dim-text;
   font-style: italic;
-  text-shadow: 0 0 0.1em #b6b4a9;
+  text-shadow: $terminal-glow $scp-dim-text;
 }
 
 .adminnotice {
-  color: #6464ff;
-  text-shadow: 0 0 0.1em #6464ff;
+  color: #4a5aaa;
+  text-shadow: $terminal-glow #4a5aaa;
 }
 
 .adminhelp {
-  color: #ffa135;
+  color: $scp-amber;
   font-weight: bold;
-  text-shadow: 0 0 0.1em #ffa135;
+  text-shadow: $terminal-glow $scp-amber;
 }
 
 .unconscious {
-  color: #b6b4a9;
+  color: $scp-dim-text;
   font-weight: bold;
-  text-shadow: 0 0 0.1em #b6b4a9;
+  text-shadow: $terminal-glow $scp-dim-text;
 }
 
 .suicide {
-  color: #ff5050;
+  color: #cc5555;
   font-style: italic;
-  text-shadow: 0 0 0.1em #ff5050;
+  text-shadow: $terminal-glow #cc5555;
 }
 
 .green {
-  color: #059223;
-  text-shadow: 0 0 0.1em #059223;
+  color: #3a8a3a;
+  text-shadow: $terminal-glow #3a8a3a;
 }
 
 .grey {
-  color: #838383;
-  text-shadow: 0 0 0.1em #838383;
+  color: #6a6a6a;
+  text-shadow: $terminal-glow #6a6a6a;
 }
 
 .red {
-  color: #ff0000;
-  text-shadow: 0 0 0.1em #ff0000;
+  color: #cc3333;
+  text-shadow: $terminal-glow #cc3333;
 }
 
 .blue {
-  color: #215cff;
-  text-shadow: 0 0 0.1em #215cff;
+  color: #3a5acc;
+  text-shadow: $terminal-glow #3a5acc;
 }
 
 .nicegreen {
-  color: #059223;
-  text-shadow: 0 0 0.1em #059223;
+  color: #3a8a3a;
+  text-shadow: $terminal-glow #3a8a3a;
 }
 
 .boldnicegreen {
-  color: #059223;
+  color: #3a8a3a;
   font-weight: bold;
-  text-shadow: 0 0 0.1em #059223;
+  text-shadow: $terminal-glow #3a8a3a;
 }
 
 .cult {
-  color: #973e3b;
-  text-shadow: 0 0 0.1em #973e3b;
+  color: #7a3a3a;
+  text-shadow: $terminal-glow #7a3a3a;
 }
 
 .cultitalic {
-  color: #973e3b;
+  color: #7a3a3a;
   font-style: italic;
-  text-shadow: 0 0 0.1em #973e3b;
+  text-shadow: $terminal-glow #7a3a3a;
 }
 
 .cultbold {
-  color: #973e3b;
+  color: #7a3a3a;
   font-style: italic;
   font-weight: bold;
-  text-shadow: 0 0 0.1em #973e3b;
+  text-shadow: $terminal-glow #7a3a3a;
 }
 
 .cultboldtalic {
-  color: #973e3b;
+  color: #7a3a3a;
   font-weight: bold;
   font-size: 185%;
-  text-shadow: 0 0 0.1em #973e3b;
+  text-shadow: $terminal-glow #7a3a3a;
 }
 
 .cultlarge {
-  color: #973e3b;
+  color: #7a3a3a;
   font-weight: bold;
   font-size: 185%;
-  text-shadow: 0 0 0.1em #973e3b;
+  text-shadow: $terminal-glow #7a3a3a;
 }
 
 .narsie {
-  color: #973e3b;
+  color: #7a3a3a;
   font-weight: bold;
   font-size: 925%;
-  text-shadow: 0 0 0.1em #973e3b;
+  text-shadow: 0 0 0.2em #7a3a3a;
 }
 
 .narsiesmall {
-  color: #973e3b;
+  color: #7a3a3a;
   font-weight: bold;
   font-size: 370%;
-  text-shadow: 0 0 0.1em #973e3b;
+  text-shadow: $terminal-glow #7a3a3a;
 }
 
 .colossus {
-  color: #7f282a;
+  color: #6a2a2a;
   font-size: 310%;
-  text-shadow: 0 0 0.1em #7f282a;
+  text-shadow: $terminal-glow #6a2a2a;
 }
 
 .hierophant {
-  color: #b441ee;
+  color: #8a3aaa;
   font-weight: bold;
   font-style: italic;
-  text-shadow: 0 0 0.1em #b441ee;
+  text-shadow: $terminal-glow #8a3aaa;
 }
 
 .hierophant_warning {
-  color: #c56bf1;
+  color: #9a5aba;
   font-style: italic;
-  text-shadow: 0 0 0.1em #c56bf1;
+  text-shadow: $terminal-glow #9a5aba;
 }
 
 .purple {
-  color: #9956d3;
-  text-shadow: 0 0 0.1em #9956d3;
+  color: #7a4aaa;
+  text-shadow: $terminal-glow #7a4aaa;
 }
 
 .holoparasite {
-  color: #88809c;
-  text-shadow: 0 0 0.1em #88809c;
+  color: #6a6a7a;
+  text-shadow: $terminal-glow #6a6a7a;
 }
 
 .revennotice {
-  color: #c099e2;
-  text-shadow: 0 0 0.1em #c099e2;
+  color: #8a6a9a;
+  text-shadow: $terminal-glow #8a6a9a;
 }
 
 .revenboldnotice {
-  color: #c099e2;
+  color: #8a6a9a;
   font-weight: bold;
-  text-shadow: 0 0 0.1em #c099e2;
+  text-shadow: $terminal-glow #8a6a9a;
 }
 
 .revenbignotice {
-  color: #c099e2;
+  color: #8a6a9a;
   font-weight: bold;
   font-size: 185%;
-  text-shadow: 0 0 0.1em #c099e2;
+  text-shadow: $terminal-glow #8a6a9a;
 }
 
 .revenminor {
-  color: #823abb;
-  text-shadow: 0 0 0.1em #823abb;
+  color: #6a3a8a;
+  text-shadow: $terminal-glow #6a3a8a;
 }
 
 .revenwarning {
-  color: #760fbb;
+  color: #6a1a8a;
   font-style: italic;
-  text-shadow: 0 0 0.1em #760fbb;
+  text-shadow: $terminal-glow #6a1a8a;
 }
 
 .revendanger {
-  color: #760fbb;
+  color: #6a1a8a;
   font-weight: bold;
   font-size: 185%;
-  text-shadow: 0 0 0.1em #760fbb;
+  text-shadow: $terminal-glow #6a1a8a;
 }
 
 .deconversion_message {
-  color: #a947ff;
+  color: #8a4aaa;
   font-size: 185%;
   font-style: italic;
-  text-shadow: 0 0 0.1em #a947ff;
+  text-shadow: $terminal-glow #8a4aaa;
 }
 
 .ghostalert {
-  color: #6600ff;
+  color: #5a3a8a;
   font-style: italic;
   font-weight: bold;
-  text-shadow: 0 0 0.1em #6600ff;
+  text-shadow: $terminal-glow #5a3a8a;
 }
 
 .alien {
-  color: #855d85;
-  text-shadow: 0 0 0.1em #855d85;
+  color: #6a4a6a;
+  text-shadow: $terminal-glow #6a4a6a;
 }
 
 .noticealien {
-  color: #059223;
-  text-shadow: 0 0 0.1em #059223;
+  color: #3a8a3a;
+  text-shadow: $terminal-glow #3a8a3a;
 }
 
 .alertalien {
-  color: #059223;
+  color: #3a8a3a;
   font-weight: bold;
-  text-shadow: 0 0 0.1em #059223;
+  text-shadow: $terminal-glow #3a8a3a;
 }
 
 .changeling {
-  color: #059223;
+  color: #3a8a3a;
   font-style: italic;
-  text-shadow: 0 0 0.1em #059223;
+  text-shadow: $terminal-glow #3a8a3a;
 }
 
 .alertsyndie {
-  color: #ff0000;
+  color: #cc3333;
   font-size: 185%;
   font-weight: bold;
-  text-shadow: 0 0 0.1em #ff0000;
+  text-shadow: 0 0 0.2em #cc3333;
 }
 
 .spider {
-  color: #8800ff;
+  color: #6a2a8a;
   font-weight: bold;
   font-size: 185%;
-  text-shadow: 0 0 0.1em #8800ff;
+  text-shadow: $terminal-glow #6a2a8a;
 }
 
 .interface {
-  color: #750e75;
-  text-shadow: 0 0 0.1em #750e75;
+  color: #6a1a6a;
+  text-shadow: $terminal-glow #6a1a6a;
 }
 
 .sans {
@@ -780,13 +821,13 @@ em {
 }
 
 .robot {
-  font-family: 'Courier New', cursive, sans-serif;
+  font-family: 'Consolas', 'Courier New', monospace;
 }
 
 .tape_recorder {
-  color: #ff0000;
-  font-family: 'Courier New', cursive, sans-serif;
-  text-shadow: 0 0 0.1em #ff0000;
+  color: #cc3333;
+  font-family: 'Consolas', 'Courier New', monospace;
+  text-shadow: $terminal-glow #cc3333;
 }
 
 .command_headset {
@@ -811,21 +852,21 @@ em {
 }
 
 .greentext {
-  color: #059223;
+  color: #3a8a3a;
   font-size: 185%;
 }
 
 .redtext {
-  color: #c51e1e;
+  color: #cc3333;
   font-size: 185%;
 }
 
 .clown {
-  color: #ff70c1;
+  color: #cc66aa;
   font-size: 160%;
   font-family: 'Comic Sans MS', cursive, sans-serif;
   font-weight: bold;
-  text-shadow: 0 0 0.1em #ff70c1;
+  text-shadow: $terminal-glow #cc66aa;
 }
 
 .singing {
@@ -834,87 +875,29 @@ em {
 }
 
 .his_grace {
-  color: #15d512;
-  font-family: 'Courier New', cursive, sans-serif;
+  color: #3aaa3a;
+  font-family: 'Consolas', 'Courier New', monospace;
   font-style: italic;
-  text-shadow: 0 0 0.1em #15d512;
+  text-shadow: $terminal-glow #3aaa3a;
 }
 
 .hypnophrase {
-  color: #23272a;
+  color: $scp-dim-text;
   font-weight: bold;
-  animation: hypnocolor 1500ms infinite;
-  animation-direction: alternate;
 }
 
-@keyframes hypnocolor {
-  0% {
-    color: #23272a;
-  }
-
-  25% {
-    color: #4b02ac;
-  }
-
-  50% {
-    color: #9f41f1;
-  }
-
-  75% {
-    color: #541c9c;
-  }
-
-  100% {
-    color: #7adbf3;
-  }
-}
-
-// PARIAH EDIT ADDITION
+// Removed @keyframes hypnocolor to avoid DM compile issues
 
 .doyourjobidiot {
-  color: #c51e1e;
-  text-shadow: 0 0 4px #e22525;
+  color: #cc3333;
+  text-shadow: 0 0 4px #ee3333;
   font-size: 125%;
   font-weight: bold;
-  animation: flashingfuckingwarning 250ms infinite;
 }
-
-@keyframes flashingfuckingwarning {
-  0% {
-    color: #c51e1e;
-    text-shadow: 0 0 4px #c51e1e;
-  }
-
-  50% {
-    color: #e22525;
-    text-shadow: 0 0 8px #e22525;
-  }
-
-  100% {
-    color: #c51e1e;
-    text-shadow: 0 0 4px #c51e1e;
-  }
-}
-// PARIAH EDIT END
 
 .phobia {
-  color: #dd0000;
+  color: #cc3333;
   font-weight: bold;
-  animation: phobia 750ms infinite;
-}
-
-@keyframes phobia {
-  0% {
-    color: #f75a5a;
-  }
-
-  50% {
-    color: #dd0000;
-  }
-
-  100% {
-    color: #f75a5a;
-  }
 }
 
 .icon {
@@ -927,9 +910,9 @@ em {
 }
 
 .memo {
-  color: #638500;
+  color: #5a7a3a;
   text-align: center;
-  text-shadow: 0 0 0.1em #638500;
+  text-shadow: $terminal-glow #5a7a3a;
 }
 
 .memoedit {
@@ -938,75 +921,78 @@ em {
 }
 
 .abductor {
-  color: #c204c2;
+  color: #9a2a9a;
   font-style: italic;
-  text-shadow: 0 0 0.1em #c204c2;
+  text-shadow: $terminal-glow #9a2a9a;
 }
 
 .mind_control {
-  color: #df3da9;
+  color: #aa3a8a;
   font-size: 100%;
   font-weight: bold;
   font-style: italic;
-  text-shadow: 0 0 0.1em #df3da9;
+  text-shadow: $terminal-glow #aa3a8a;
 }
 
 .slime {
-  color: #00ced1;
-  text-shadow: 0 0 0.1em #00ced1;
+  color: #2aaaba;
+  text-shadow: $terminal-glow #2aaaba;
 }
 
 .drone {
-  color: #848482;
-  text-shadow: 0 0 0.1em #848482;
+  color: #6a6a6a;
+  text-shadow: $terminal-glow #6a6a6a;
 }
 
 .monkey {
-  color: #975032;
-  text-shadow: 0 0 0.1em #975032;
+  color: #8a5a3a;
+  text-shadow: $terminal-glow #8a5a3a;
 }
 
 .swarmer {
-  color: #2c75ff;
-  text-shadow: 0 0 0.1em #2c75ff;
+  color: #3a6aaa;
+  text-shadow: $terminal-glow #3a6aaa;
 }
 
 .resonate {
-  color: #298f85;
-  text-shadow: 0 0 0.1em #298f85;
+  color: #2a7a7a;
+  text-shadow: $terminal-glow #2a7a7a;
 }
 
 .monkeyhive {
-  color: #a56408;
-  text-shadow: 0 0 0.1em #a56408;
+  color: #8a5a1a;
+  text-shadow: $terminal-glow #8a5a1a;
 }
 
 .monkeylead {
-  color: #af6805;
+  color: #8a5a1a;
   font-size: 80%;
-  text-shadow: 0 0 0.1em #af6805;
+  text-shadow: $terminal-glow #8a5a1a;
 }
 
 .connectionClosed,
 .fatalError {
-  background: red;
-  color: white;
+  background: $scp-red;
+  color: $scp-highlight;
   padding: 5px;
+  font-family: 'Consolas', 'Courier New', monospace;
+  text-transform: uppercase;
+  border: 1px solid $scp-dark-red;
 }
 
 .connectionClosed.restored {
-  background: green;
+  background: $scp-green;
 }
 
 .internal {
-  color: #92b4ff;
-  text-shadow: 0 0 0.1em #92b4ff;
+  color: #6a8aaa;
+  text-shadow: $terminal-glow #6a8aaa;
 }
 
 /* HELPER CLASSES */
 
 .text-normal {
-  color: #cac5a5;
+  color: $scp-text;
   font-weight: normal;
   font-style: normal;
 }
@@ -1030,94 +1016,83 @@ em {
 
 .tooltip {
   font-style: italic;
-  border-bottom: 1px dashed #fff;
+  border-bottom: 1px dashed $scp-dim-text;
 }
 
 .examine_block {
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(55, 55, 55, 0.33);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid $scp-border;
   margin: 7px 4px;
   padding: 8px 12px;
   width: 34.375em;
+  font-family: 'Consolas', 'Courier New', monospace;
 }
 
 .examine_block hr {
   border: none;
-  background: #222;
+  background: $scp-border;
   height: 1px;
   margin: 8px 16px 8px 16px;
 }
 
 .sayverb {
-  color: #bbbbad;
+  color: $scp-dim-text;
   font-style: italic;
-  text-shadow: 0 0 0.1em #bbbbad;
+  text-shadow: $terminal-glow $scp-dim-text;
 }
 
 .emote {
-  color: #bbbbad;
-  text-shadow: 0 0 0.1em #bbbbad;
+  color: $scp-dim-text;
+  text-shadow: $terminal-glow $scp-dim-text;
 }
 
 .debug {
-  color: #5ce43d;
+  color: #4aaa3a;
   font-weight: bold;
-  text-shadow: 0 0 0.1em #5ce43d;
+  text-shadow: $terminal-glow #4aaa3a;
 }
 
 .adminpmbox {
-  color: #ffffff;
+  color: $scp-highlight;
   text-align: center;
   box-shadow: none;
   font-weight: bold;
   display: flex;
   flex-direction: column;
   font-size: 110%;
-  border-image: repeating-linear-gradient(
-    -45deg,
-    #520000,
-    #520000 10px,
-    #4d4100 10px,
-    #4d4100 20px
-  );
-  border-image-slice: 4;
-  border-width: 4px;
-  border-image-width: 4px;
-  border-image-outset: 0 0 0 0;
-  border-image-repeat: repeat repeat;
-  border-style: solid;
+  font-family: 'Consolas', 'Courier New', monospace;
+  border: 2px solid $scp-red;
+  background-color: rgba($scp-red, 0.15);
 }
 
-// If you change this, change the code in roll.dm
 .statsGood {
-  color: #03fca1;
-  text-shadow: 0 0 0.1em #dd3535;
+  color: #3aaa8a;
+  text-shadow: $terminal-glow #3aaa8a;
   font-style: italic;
 }
 
-// If you change this, change the code in roll.dm
 .statsBad {
-  color: #fc4b32;
-  text-shadow: 0 0 0.1em #8a8888;
+  color: #aa4a3a;
+  text-shadow: $terminal-glow #aa4a3a;
   font-style: italic;
 }
 
 .flocksay {
-  color: #6fbbac;
-  text-shadow: 0 0 0.1em #6fbbac;
+  color: #5a9a8a;
+  text-shadow: $terminal-glow #5a9a8a;
 }
 
 .flocksay a {
-  color: #6dc0af;
+  color: #5aaa9a;
 }
 
 .flocksay a:visited {
-  color: #6ec2b1;
+  color: #5aaa9a;
 }
 
 .flocksay.sentient {
-  color: #111;
-  background-color: #82dbc8;
+  color: $scp-dark-bg;
+  background-color: #5aaa9a;
 }
 
 .flocksay.sentient.flockmind {
@@ -1125,6 +1100,6 @@ em {
 }
 
 .flocknpc {
-  color: #afc9c3;
-  text-shadow: 0 0 0.1em #afc9c3;
+  color: #7a9a8a;
+  text-shadow: $terminal-glow #7a9a8a;
 }

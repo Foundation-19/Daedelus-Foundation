@@ -496,8 +496,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	SHOULD_CALL_PARENT(TRUE)
 	if(prob(5) && boarder.client && ishuman(boarder))
 		LAZYADDASSOC(ckeys_that_have_been_here, boarder.ckey, TRUE)
-		spawn(0)
-			display_flavor(boarder)
+		addtimer(CALLBACK(src, PROC_REF(display_flavor), boarder), 0)
 
 ///Called by airalarms and firealarms to communicate the status of the area to relevant machines
 /area/proc/communicate_fire_alert(code)

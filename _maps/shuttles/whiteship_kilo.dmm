@@ -1644,7 +1644,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/machinery/microwave{
+/obj/machinery/appliance/cooker/microwave{
 	pixel_y = 5
 	},
 /obj/machinery/power/apc/auto_name/directional/west,

@@ -48,12 +48,13 @@
 	jobtype = /datum/job/assistant_medical_director
 
 	id_trim = /datum/id_trim/job/assistant_medical_director
-	uniform = /obj/item/clothing/under/rank/medical/doctor
-	suit = /obj/item/clothing/suit/toggle/labcoat/md
+	uniform = /obj/item/clothing/under/rank/medical/scrubs/purple
+	suit = /obj/item/clothing/suit/toggle/labcoat
 	suit_store = /obj/item/flashlight/pen
 	belt = /obj/item/modular_computer/tablet/pda/medical
 	ears = /obj/item/radio/headset/headset_med
-	shoes = /obj/item/clothing/shoes/sneakers/white
+	shoes = /obj/item/clothing/shoes/laceup
+	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 	l_hand = /obj/item/storage/medkit/surgery
 
 	backpack = /obj/item/storage/backpack/medic

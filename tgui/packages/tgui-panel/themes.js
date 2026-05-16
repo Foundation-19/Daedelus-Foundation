@@ -6,9 +6,13 @@
 
 import { THEME_DARK, THEME_LIGHT } from './settings/constants';
 
-const COLOR_DARK_BG = '#222020';
-const COLOR_DARK_BG_DARKER = '#171717';
-const COLOR_DARK_TEXT = '#ABC7A2';
+const COLOR_DARK_BG = '#0a0a0c';
+const COLOR_DARK_BG_DARKER = '#08080a';
+const COLOR_DARK_TEXT = '#c8c8c8';
+const COLOR_AMBER = '#d4a017';
+const COLOR_DARK_RED = '#5c0000';
+const COLOR_RED = '#8b0000';
+const COLOR_BORDER = '#2a2a30';
 
 let setClientThemeTimer = null;
 
@@ -95,18 +99,18 @@ export const setClientTheme = (name) => {
       'mainwindow.background-color': COLOR_DARK_BG,
       'split.background-color': COLOR_DARK_BG,
       // Buttons
-      'changelog.background-color': '#494949',
-      'changelog.text-color': COLOR_DARK_TEXT,
-      'rules.background-color': '#494949',
-      'rules.text-color': COLOR_DARK_TEXT,
-      'wiki.background-color': '#494949',
-      'wiki.text-color': COLOR_DARK_TEXT,
-      'forum.background-color': '#494949',
-      'forum.text-color': COLOR_DARK_TEXT,
-      'github.background-color': '#3a3a3a',
+      'changelog.background-color': COLOR_DARK_RED,
+      'changelog.text-color': COLOR_AMBER,
+      'rules.background-color': COLOR_DARK_RED,
+      'rules.text-color': COLOR_AMBER,
+      'wiki.background-color': COLOR_DARK_RED,
+      'wiki.text-color': COLOR_AMBER,
+      'forum.background-color': COLOR_DARK_RED,
+      'forum.text-color': COLOR_AMBER,
+      'github.background-color': COLOR_BORDER,
       'github.text-color': COLOR_DARK_TEXT,
-      'report-issue.background-color': '#492020',
-      'report-issue.text-color': COLOR_DARK_TEXT,
+      'report-issue.background-color': COLOR_RED,
+      'report-issue.text-color': COLOR_AMBER,
       // Status and verb tabs
       'output.background-color': COLOR_DARK_BG_DARKER,
       'output.text-color': COLOR_DARK_TEXT,
@@ -120,11 +124,11 @@ export const setClientTheme = (name) => {
       'stat.suffix-color': COLOR_DARK_TEXT,
       // Say, OOC, me Buttons etc.
       'saybutton.background-color': COLOR_DARK_BG,
-      'saybutton.text-color': COLOR_DARK_TEXT,
+      'saybutton.text-color': COLOR_AMBER,
       'oocbutton.background-color': COLOR_DARK_BG,
-      'oocbutton.text-color': COLOR_DARK_TEXT,
+      'oocbutton.text-color': COLOR_AMBER,
       'mebutton.background-color': COLOR_DARK_BG,
-      'mebutton.text-color': COLOR_DARK_TEXT,
+      'mebutton.text-color': COLOR_AMBER,
       'asset_cache_browser.background-color': COLOR_DARK_BG,
       'asset_cache_browser.text-color': COLOR_DARK_TEXT,
       'tooltip.background-color': COLOR_DARK_BG,

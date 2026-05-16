@@ -86,6 +86,10 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 			if(skipcount > 0)
 				SEND_TEXT(world.log, "\[[time_stamp()]] Skipped [skipcount] runtimes in [E.file],[E.line].")
 				GLOB.error_cache.log_error(E, skip_count = skipcount)
+				// Also log to enhanced error manager
+				if(GLOB.enhanced_error_manager)
+					var/list/context = list("skip_count" = skipcount, "silenced" = TRUE)
+					log_enhanced_error(E, context)
 
 	error_last_seen[erroruid] = world.time
 	error_cooldown[erroruid] = cooldown
@@ -135,4 +139,22 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 
 	// This writes the regular format (unwrapping newlines and inserting timestamps as needed).
 	log_runtime("runtime error: [E.name]\n[E.desc]")
+
+	// Log to enhanced error manager if available
+	if(GLOB.enhanced_error_manager)
+		var/list/context = list()
+		if(usrinfo)
+			context["user_info"] = usrinfo
+		if(desclines)
+			context["description_lines"] = desclines
+		context["silenced"] = silencing
+		log_enhanced_error(E, context)
+
 #endif
+
+// Handle error silence proc (required for enhanced error manager integration)
+/proc/handle_error_silence(exception/E, list/context = null)
+	if(GLOB.enhanced_error_manager)
+		log_enhanced_error(E, context)
+	else
+		log_runtime("silenced error: [E.name]\n[E.desc]")

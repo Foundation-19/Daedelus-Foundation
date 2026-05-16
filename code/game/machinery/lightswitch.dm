@@ -39,6 +39,7 @@ DEFINE_INTERACTABLE(/obj/machinery/light_switch)
 	/// instead of the switch's location.
 	var/area/area = null
 	var/has_wires = TRUE
+	var/on = TRUE
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26)
 

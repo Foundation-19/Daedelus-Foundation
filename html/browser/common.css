@@ -2,10 +2,11 @@ body
 {
 	padding: 0;
 	margin: 0;
-	background-color: #272727;
+	background-color: #0a0a0c;
 	font-size: 12px;
-	color: #ffffff;
+	color: #c8c8c8;
 	line-height: 170%;
+	font-family: 'Consolas', 'Courier New', monospace;
 }
 
 hr
@@ -21,18 +22,21 @@ table
 
 a, button, a:link, a:visited, a:active, .linkOn, .linkOff
 {
-	color: #ffffff;
+	color: #e8e8e8;
 	text-decoration: none;
-	background: #4d4d4d ;
-	border: 1px solid rgba(255, 183, 0, 0.5);
+	background: #5c0000;
+	border: 1px solid #8b0000;
 	padding: 1px 4px 1px 4px;
 	margin: 0 2px 0 0;
-	/* Moved to cursors.css */
-	/* cursor: default; */
 	white-space: nowrap !important;
 	text-shadow: none !important;
 	-ms-user-select: none;
 	user-select: none;
+	border-radius: 0;
+	text-transform: uppercase;
+	font-family: 'Consolas', 'Courier New', monospace;
+	font-size: 11px;
+	letter-spacing: 0.05em;
 }
 
 .dmIcon
@@ -42,8 +46,9 @@ a, button, a:link, a:visited, a:active, .linkOn, .linkOff
 
 a:hover
 {
-	color: #ffffff;
-	background: #aa8136;
+	color: #d4a017;
+	background: #8b0000;
+	border-color: #d4a017;
 }
 
 a.inlineblock {
@@ -52,27 +57,26 @@ a.inlineblock {
 
 a.white, a.white:link, a.white:visited, a.white:active
 {
-	color: #40628a;
+	color: #0a0a0c;
 	text-decoration: none;
-	background: #ffffff;
-	border: 1px solid rgba(255, 183, 0, 0.3);
+	background: #d4a017;
+	border: 1px solid #d4a017;
 	padding: 1px 4px 1px 4px;
 	margin: 0 2px 0 0;
-	/* Moved to cursors.css */
-	/* cursor:default; */
 }
 
 a.white:hover
 {
-	color: #ffffff;
-	background: #40628a;
+	color: #e8e8e8;
+	background: #8b0000;
 }
 
 .linkOn, a.linkOn:link, a.linkOn:visited, a.linkOn:active, a.linkOn:hover
 {
-	color: #ffffff;
-	background: #aa8136;
-	border-color: rgba(255, 183, 0, 0.7);
+	color: #e8e8e8;
+	background: #8b0000;
+	border-color: #d4a017;
+	box-shadow: 0 0 6px rgba(139, 0, 0, 0.5);
 }
 
 .linkOff, a.linkOff:link, a.linkOff:visited, a.linkOff:active, a.linkOff:hover
@@ -116,7 +120,7 @@ a.rawLink
 }
 
 a.rawLink:hover {
-	color: #ffffff;
+	color: #d4a017;
 	text-decoration: underline;
 }
 
@@ -266,74 +270,76 @@ div.notice
 
 .computerPane
 {
-	border: 4px ridge #1c1c1c; /* SCP background color */
+	border: 1px solid #2a2a30;
 	padding: 4px;
 	margin: 3px 0;
-	color: #cccccc; /* SCP foreground color */
+	color: #c8c8c8;
 	overflow: hidden;
-	background-color: #1c1c1c; /* SCP background color */
+	background-color: #0a0a0c;
 	background-origin: border-box;
 	background-image:
 		repeating-linear-gradient(
 			0deg,
-			rgba(0, 0, 0, 0.25),
-			rgba(0, 0, 0, 0.25) 1px,
+			rgba(0, 0, 0, 0.15) 0px,
+			rgba(0, 0, 0, 0.15) 1px,
 			transparent 1px,
 			transparent 2px
 		),
 		radial-gradient(
-			rgba(204, 204, 204, 0.2), /* rgba(base.$color-fg, $background-radial-opacity) */
-			#1c1c1c 120% /* SCP background color */
+			rgba(212, 160, 23, 0.03),
+			#0a0a0c 120%
 		);
 }
 
 .computerPane hr{
-	background-color: rgba(204, 204, 204, 0.5); /* rgba(base.$color-fg, 0.5) */
-	border: 1px solid rgba(204, 204, 204, 0.5); /* rgba(base.$color-fg, 0.5) */
-	box-shadow: 0 0 10px #cccccc; /* base.$color-fg */
+	background-color: rgba(200, 200, 200, 0.3);
+	border: 1px solid rgba(200, 200, 200, 0.3);
+	box-shadow: 0 0 6px rgba(139, 0, 0, 0.2);
 }
 
 .computerPaneSimple /*Do not mix simple and non simple computerPanes*/
 {
-	background: #1c1c1c; /* SCP background color */
-	border: 1px solid #cccccc; /* SCP foreground color */
+	background: #111114;
+	border: 1px solid #2a2a30;
 	padding: 4px;
 	margin: 3px 0;
-	color: #cccccc; /* SCP foreground color */
+	color: #c8c8c8;
 }
 .computerLegend
 {
-	background-color: #1c1c1c; /* SCP background color */
-	color: #cccccc; /* SCP foreground color */
-	border: 2px solid rgba(204, 204, 204, 0.5); /* rgba(base.$color-fg, 0.5) */
+	background-color: #0a0a0c;
+	color: #d4a017;
+	border: 2px solid #8b0000;
 	padding: 4px;
 	margin: 3px 0;
 	text-align: center;
-	text-shadow: 0 0 0.417em #cccccc; /* SCP foreground color */
+	text-shadow: 0 0 0.3em rgba(212, 160, 23, 0.4);
 	overflow: hidden;
 	font-size: 15px;
-	font-family: monospace;
+	font-family: 'Consolas', 'Courier New', monospace;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
 }
 
 .computerPaneNested
 {
-	border: 1px solid rgba(204, 204, 204, 0.5); /* rgba(base.$color-fg, 0.5) */
+	border: 1px solid #2a2a30;
 	padding: 4px;
 	margin: 3px 0;
-	color: #cccccc; /* SCP foreground color */
+	color: #c8c8c8;
 	overflow: hidden;
 	background: none;
-	box-shadow: 0 0 10px #cccccc; /* SCP foreground color */
+	box-shadow: 0 0 6px rgba(139, 0, 0, 0.15);
 }
 
 .computerPaneNested::selection {
-	background: #0080FF;
+	background: #8b0000;
 	text-shadow: none;
 }
 
 .computerText{
-	text-shadow: 0 0 0.417em #cccccc; /* SCP foreground color */
-	color: #cccccc; /* SCP foreground color */
+	text-shadow: 0 0 0.3em rgba(212, 160, 23, 0.3);
+	color: #c8c8c8;
 }
 
 .statusDisplay
@@ -695,15 +701,13 @@ span.color_holder_box{
 	position: absolute;
 	top: 0;
 	right: -15px;
-	/* Remove display: inline-block if not required to be on the same line as text etc */
 	display: inline-block;
-	background-color: #cccccc; /* base.$color-fg */
+	background-color: #d4a017;
 	vertical-align: top;
 	width: 10px;
-	/* Set height to the line height of .text */
 	height: 24px;
 	animation: blink 1s step-end infinite;
-  }
+}
 
 @keyframes blink {
 	0% { opacity: 1.0; }

@@ -147,7 +147,7 @@
 	// Want to iterate all of it.
 	if(t_len > 3 * MAX_NAME_LEN)
 		return
-	for(var/i = 1, i <= t_len, i += length(char))
+	for(var/i = 1; i <= t_len; i += length(char))
 		char = t_in[i]
 		switch(text2ascii(char))
 
@@ -344,7 +344,7 @@
 	var/new_text = ""
 	var/lentext = length(text)
 	var/letter = ""
-	for(var/i = 1, i <= lentext, i += length(letter))
+	for(var/i = 1; i <= lentext; i += length(letter))
 		letter = text[i]
 		new_text = letter + new_text
 	return new_text
@@ -424,7 +424,7 @@ GLOBAL_LIST_INIT(binary, list("0","1"))
 /proc/findchar(haystack, needles, start=1, end=0)
 	var/char = ""
 	var/len = length(needles)
-	for(var/i = 1, i <= len, i += length(char))
+	for(var/i = 1; i <= len; i += length(char))
 		char = needles[i]
 		. = findtextEx(haystack, char, start, end)
 		if(.)
@@ -591,7 +591,7 @@ GLOBAL_LIST_INIT(binary, list("0","1"))
 	var/char = ""
 	var/lentext = length(text)
 	. = list()
-	for(var/i = 1, i <= lentext, i += length(char))
+	for(var/i = 1; i <= lentext; i += length(char))
 		char = text[i]
 		. += char
 
@@ -600,7 +600,7 @@ GLOBAL_LIST_INIT(binary, list("0","1"))
 	var/char = ""
 	var/ascii = 0
 	. = ""
-	for(var/i = 1, i <= lentext, i += length(char))
+	for(var/i = 1; i <= lentext; i += length(char))
 		char = text[i]
 		ascii = text2ascii(char)
 		switch(ascii)
@@ -632,7 +632,7 @@ GLOBAL_LIST_INIT(binary, list("0","1"))
 		var/lentext = length(string)
 		var/let = ""
 
-		for(var/pos = 1, pos <= lentext, pos += length(let))
+		for(var/pos = 1; pos <= lentext; pos += length(let))
 			let = string[pos]
 			if(!findtext(let, GLOB.is_alphanumeric))
 				continue
@@ -656,7 +656,7 @@ GLOBAL_LIST_INIT(binary, list("0","1"))
 			var/question = FALSE
 			var/periods = 0
 			lentext = length(punctbuffer)
-			for(var/pos = 1, pos <= lentext, pos += length(let))
+			for(var/pos = 1; pos <= lentext; pos += length(let))
 				let = punctbuffer[pos]
 				if(!exclaim && findtext(let, "!"))
 					exclaim = TRUE
@@ -940,7 +940,7 @@ GLOBAL_LIST_INIT(binary, list("0","1"))
 	var/letter = ""
 	// Have every letter have a chance of creating corruption on either side
 	// Small chance of letters being removed in place of corruption - still overall readable
-	for(var/letter_index = 1, letter_index <= lentext, letter_index += length(letter))
+	for(var/letter_index = 1; letter_index <= lentext; letter_index += length(letter))
 		letter = text[letter_index]
 
 		if (prob(15))
@@ -1101,7 +1101,7 @@ GLOBAL_LIST_INIT(binary, list("0","1"))
 	if (length(text) > max_length)
 		return
 	else
-		for(var/i = 1, i <= length(text), i += length(char))
+		for(var/i = 1; i <= length(text); i += length(char))
 			char = text[i]
 			switch(text2ascii(char))
 				if(0 to 31)

@@ -63,8 +63,7 @@ GLOBAL_LIST_INIT(all_pref_groups, init_all_pref_groups())
 
 		. += new module()
 
-	spawn(0)
-		_setup_cats()
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_setup_cats)), 0)
 
 	sortTim(., GLOBAL_PROC_REF(cmp_pref_modules))
 

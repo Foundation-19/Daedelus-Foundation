@@ -1,7 +1,7 @@
 /datum/round_event_control/solar_flare
 	name = "Solar Flare"
 	typepath = /datum/round_event/solar_flare
-	max_occurrences = 2
+	max_occurrences = 0
 	weight = 8
 	min_players = 5
 	earliest_start = 15 MINUTES

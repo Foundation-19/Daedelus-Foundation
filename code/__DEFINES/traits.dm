@@ -257,6 +257,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_ADDICTION "no_addiction"
 /// Makes whispers clearly heard from seven tiles away, the full hearing range
 #define TRAIT_GOOD_HEARING "good_hearing"
+#define TRAIT_CYCLOPS_LEFT "cyclops_left"
+#define TRAIT_CYCLOPS_RIGHT "cyclops_right"
 /// This mob's speech is heard through walls by dead players/observers even if it has no client. Idk a better name
 #define TRAIT_IMPORTANT_SPEAKER "important_speaker"
 
@@ -280,7 +282,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_DISSECTED "dissected"
 /// Can hear observers
 #define TRAIT_SIXTHSENSE "sixth_sense"
-#define TRAIT_FEARLESS "fearless"
 /// Ignores darkness for hearing
 #define TRAIT_HEAR_THROUGH_DARKNESS "hear_through_darkness"
 /// Ignores line of sight for the purposes of send_speech()
@@ -529,7 +530,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_LAVA_IMMUNE "lava_immune" //Used by lava turfs and The Floor Is Lava.
 #define TRAIT_ASHSTORM_IMMUNE "ashstorm_immune"
 #define TRAIT_SNOWSTORM_IMMUNE "snowstorm_immune"
-#define TRAIT_RAINSTORM_IMMUNE "rainstorm_immune"
 #define TRAIT_RADSTORM_IMMUNE "radstorm_immune"
 #define TRAIT_VOIDSTORM_IMMUNE "voidstorm_immune"
 #define TRAIT_WEATHER_IMMUNE "weather_immune" //Immune to ALL weather effects.
@@ -588,6 +588,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Visible on t-ray scanners if the atom/var/level == 1
 #define TRAIT_T_RAY_VISIBLE "t-ray-visible"
 #define TRAIT_FOOD_GRILLED "food_grilled"
+#define TRAIT_FOOD_COOKED "food_cooked"
 /// The items needs two hands to be carried
 #define TRAIT_NEEDS_TWO_HANDS "needstwohands"
 /// Can't be catched when thrown
@@ -639,7 +640,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_PHOTOGRAPHER "photographer"
 #define TRAIT_MUSICIAN "musician"
 #define TRAIT_LIGHT_DRINKER "light_drinker"
-#define TRAIT_FRIENDLY "friendly"
 #define TRAIT_GRABWEAKNESS "grab_weakness"
 #define TRAIT_BALD "bald"
 #define TRAIT_BADTOUCH "bad_touch"
@@ -1008,6 +1008,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// trait that prevents AI controllers from making new plans, but not executing plans
 #define TRAIT_AI_DISABLE_PLANNING "TRAIT_AI_DISABLE_PLANNING"
 
+// SCP trait source
+#define SCP_TRAIT "scp"
+
 // Flock trait sources
 /// Under control
 #define FLOCK_CONTROLLED_BY_OVERMIND_SOURCE "FLOCK_CONTROLLED_BY_OVERMIND_SOURCE"
@@ -1028,3 +1031,46 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Experiencing panic due to SCP-151
 #define TRAIT_SCP151_PANIC "scp151_panic"
+
+// SCP-035 Traits
+#define TRAIT_POSSESSION_IMMUNE "possession_immune"
+#define TRAIT_CORRUPTION_RESISTANT "corruption_resistant"
+
+// SCP-457 Traits
+#define TRAIT_FIRE_IMMUNE "fire_immune"
+#define TRAIT_HEAT_RESISTANT "heat_resistant"
+
+// SCP-682 Traits
+#define TRAIT_ADAPTIVE_EVOLUTION "adaptive_evolution"
+#define TRAIT_RAPID_REGENERATION "rapid_regeneration"
+
+// SCP-939 Traits
+#define TRAIT_VOICE_MIMICRY "voice_mimicry"
+#define TRAIT_PACK_COORDINATION "pack_coordination"
+
+// SCP-106 Traits
+#define TRAIT_DIMENSIONAL_PHASING "dimensional_phasing"
+#define TRAIT_CORROSIVE_TOUCH "corrosive_touch"
+
+// SCP-082 Traits
+#define TRAIT_ENHANCED_STRENGTH "enhanced_strength"
+#define TRAIT_CANNIBALISTIC "cannibalistic"
+
+// SCP-096 Traits
+#define TRAIT_RAGE_MANAGEMENT "rage_management"
+#define TRAIT_FACE_REVELATION "face_revelation"
+
+// SCP-343 Traits
+#define TRAIT_DIVINE_POWER "divine_power"
+#define TRAIT_REALITY_MANIPULATION "reality_manipulation"
+
+// SCP-5295 Traits
+#define TRAIT_TEMPORAL_IMMUNITY "temporal_immunity"
+#define TRAIT_REALITY_ANCHORING "reality_anchoring"
+#define TRAIT_CHRONOLOGICAL_AWARENESS "chronological_awareness"
+
+// SCP-2020 Traits
+#define TRAIT_PHASING_ABILITY "phasing_ability"
+#define TRAIT_TELEPORTATION_MASTERY "teleportation_mastery"
+#define TRAIT_STEALTH_CAPABILITY "stealth_capability"
+#define TRAIT_DIMENSIONAL_MOVEMENT "dimensional_movement"

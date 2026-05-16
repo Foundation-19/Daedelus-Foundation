@@ -163,7 +163,8 @@
 
 	// Approximate text height
 	var/complete_text = "<span class='center [extra_classes.Join(" ")]' style='color: [tgt_color]'>[owner.say_emphasis(text)]</span>"
-	var/mheight = WXH_TO_HEIGHT(owned_by.MeasureText(complete_text, null, 160))
+	var/measured = owned_by?.MeasureText(complete_text, null, 160)
+	var/mheight = measured ? WXH_TO_HEIGHT(measured) : CHAT_MESSAGE_APPROX_LHEIGHT
 
 
 	message_loc = isturf(target) ? target : get_atom_on_turf(target)
@@ -192,12 +193,13 @@
 	if (owned_by.seen_messages)
 		var/idx = 1
 		var/combined_height = approx_lines
-		var/datum/chatmessage/old_message = owned_by.seen_messages?[message_loc]?[length(owned_by.seen_messages?[message_loc])]
+		var/list/loc_messages = owned_by.seen_messages?[message_loc]
+		var/datum/chatmessage/old_message = loc_messages?[length(loc_messages)]
 		if(old_message?.message.maptext == message.maptext)
 			old_message.message.transform *= 1.1
 			return
 
-		for(var/datum/chatmessage/m as anything in owned_by.seen_messages[message_loc])
+		for(var/datum/chatmessage/m as anything in loc_messages)
 			animate(m.message, maptext_y = m.message.maptext_y + mheight, time = CHAT_MESSAGE_BUMP_TIME)
 
 			combined_height += m.approx_lines

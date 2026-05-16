@@ -33,11 +33,6 @@
 
 	/// Flags for clothing
 	var/clothing_flags = NONE
-	/// Flags for protection against various weather_effects
-	var/weather_protection_flags = NONE
-
-	var/weather_protection_level = 0 //Default: No protection
-
 
 	var/can_be_bloody = TRUE
 
@@ -68,6 +63,9 @@
 
 	/// A lazily initiated "food" version of the clothing for moths
 	var/obj/item/food/clothing/moth_snack
+	
+	// Vision cone system variables
+	var/block2add = 0 // FOV blocking flags for vision cone system
 
 /obj/item/clothing/Initialize(mapload)
 	if(clothing_flags & VOICEBOX_TOGGLABLE)

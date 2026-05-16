@@ -47,7 +47,7 @@ export const FaxMachine = (props) => {
   });
 
   return (
-    <Window width={550} height={630} theme={emagged ? 'syndicate' : 'ntos'}>
+    <Window width={550} height={630} theme={emagged ? 'syndicate' : 'scp_terminal'}>
       <Window.Content>
         <Section
           title="Nanotrasen Fax Device"

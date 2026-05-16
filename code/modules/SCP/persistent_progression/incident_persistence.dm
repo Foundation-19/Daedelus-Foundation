@@ -159,7 +159,7 @@ SUBSYSTEM_DEF(incident_persistence)
 	world.log << "Loading existing incident data..."
 	manager.load_existing_incident_data()
 
-	world.log << "Incident records count at initialization: [manager.incident_records.len]"
+	world.log << "Incident records count at initialization: [length(manager.incident_records)]"
 	return ..()
 
 /datum/controller/subsystem/incident_persistence/fire()

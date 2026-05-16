@@ -452,7 +452,7 @@
 	id = "oven_tray"
 	build_type = AUTOLATHE | FABRICATOR
 	materials = list(/datum/material/iron = 500)
-	build_path = /obj/item/plate/oven_tray
+	build_path = /obj/item/reagent_containers/cooking_container/baking_sheet
 	category = list(DCAT_DINNERWARE)
 	mapload_design_flags = DESIGN_FAB_SERVICE
 
@@ -469,3 +469,32 @@
 	build_path = /obj/item/data_terminal_construct
 	category = list(DCAT_ASSEMBLY, DCAT_RADIO)
 	mapload_design_flags = DESIGN_FAB_ENGINEERING
+/datum/design/cooking_pot
+	name = "Cooking Pot"
+	desc = "A large pot for stove cooking."
+	id = "cooking_pot"
+	build_type = AUTOLATHE | FABRICATOR
+	materials = list(/datum/material/iron = 750)
+	build_path = /obj/item/reagent_containers/cooking_container/pot
+	category = list(DCAT_DINNERWARE)
+	mapload_design_flags = DESIGN_FAB_SERVICE
+
+/datum/design/cast_iron_skillet
+	name = "Cast Iron Skillet"
+	desc = "A heavy skillet for stove cooking."
+	id = "cast_iron_skillet"
+	build_type = AUTOLATHE | FABRICATOR
+	materials = list(/datum/material/iron = 600)
+	build_path = /obj/item/reagent_containers/cooking_container/skillet
+	category = list(DCAT_DINNERWARE)
+	mapload_design_flags = DESIGN_FAB_SERVICE
+
+/datum/design/saucepan
+	name = "Saucepan"
+	desc = "A saucepan for simmering sauces."
+	id = "saucepan"
+	build_type = AUTOLATHE | FABRICATOR
+	materials = list(/datum/material/iron = 500)
+	build_path = /obj/item/reagent_containers/cooking_container/saucepan
+	category = list(DCAT_DINNERWARE)
+	mapload_design_flags = DESIGN_FAB_SERVICE

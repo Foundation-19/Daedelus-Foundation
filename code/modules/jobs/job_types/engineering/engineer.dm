@@ -58,7 +58,7 @@
 
 	id_trim = /datum/id_trim/job/junior_engineer
 	uniform = /obj/item/clothing/under/rank/engineering/engineer
-	belt = /obj/item/storage/belt/utility/full/engi
+	belt = /obj/item/storage/belt/utility/full
 	ears = /obj/item/radio/headset/headset_eng
 	head = /obj/item/clothing/head/hardhat
 	shoes = /obj/item/clothing/shoes/workboots
@@ -159,7 +159,7 @@
 
 	id_trim = /datum/id_trim/job/engineer
 	uniform = /obj/item/clothing/under/rank/engineering/engineer
-	belt = /obj/item/storage/belt/utility/full/engi
+	belt = /obj/item/storage/belt/utility/full
 	ears = /obj/item/radio/headset/headset_eng
 	head = /obj/item/clothing/head/hardhat
 	shoes = /obj/item/clothing/shoes/workboots
@@ -260,7 +260,7 @@
 
 	id_trim = /datum/id_trim/job/senior_engineer
 	uniform = /obj/item/clothing/under/rank/engineering/engineer
-	belt = /obj/item/storage/belt/utility/full/engi
+	belt = /obj/item/storage/belt/utility/full
 	ears = /obj/item/radio/headset/headset_eng
 	head = /obj/item/clothing/head/hardhat
 	shoes = /obj/item/clothing/shoes/workboots

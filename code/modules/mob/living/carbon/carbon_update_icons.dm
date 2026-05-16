@@ -247,7 +247,8 @@
 	for(var/obj/item/bodypart/limb as anything in bodyparts)
 		if(limb.is_stump)
 			continue
-		limb.update_limb(is_creating = update_limb_data) //Update limb actually doesn't do much, get_limb_icon is the cpu eater.
+		if(!limb.update_limb(is_creating = update_limb_data))
+			continue
 
 		var/old_key = icon_render_keys?[limb.body_zone] //Checks the mob's icon render key list for the bodypart
 		icon_render_keys[limb.body_zone] = !limb.is_husked ? json_encode(limb.generate_icon_key()) : json_encode(limb.generate_husk_key()) //Generates a key for the current bodypart

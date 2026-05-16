@@ -7,7 +7,8 @@
 	if (!preferences)
 		return
 
-	preferences.html_show(usr)
+	var/datum/character_setup_ui/setup = new(usr)
+	setup.ui_interact(usr)
 
 /datum/verbs/menu/Preferences/verb/open_game_preferences()
 	set category = "OOC"

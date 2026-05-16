@@ -57,15 +57,17 @@
 
 	id = /obj/item/card/id/advanced/black_blank
 	id_trim = /datum/id_trim/job/research_director
-	uniform = /obj/item/clothing/under/rank/rnd/research_director
+	uniform = /obj/item/clothing/under/rank/rnd/research_director/alt
 	backpack_contents = list(
 		/obj/item/assembly/flash/handheld,
 		/obj/item/laser_pointer
 	)
-	suit = /obj/item/clothing/suit/toggle/labcoat
+	suit = /obj/item/clothing/suit/toggle/labcoat/science
 	belt = /obj/item/modular_computer/tablet/pda/heads/rd
 	ears = /obj/item/radio/headset/heads/cmo
-	shoes = /obj/item/clothing/shoes/sneakers/brown
+	shoes = /obj/item/clothing/shoes/laceup
+	gloves = /obj/item/clothing/gloves/color/black
+	glasses = /obj/item/clothing/glasses/science
 	l_pocket = /obj/item/assembly/flash/handheld
 	r_pocket = /obj/item/laser_pointer
 	l_hand = /obj/item/clipboard

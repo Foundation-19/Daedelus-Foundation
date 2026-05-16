@@ -170,7 +170,8 @@ DEFINE_INTERACTABLE(/atom/movable/screen/movable/action_button)
  */
 /mob/proc/update_mob_action_buttons(update_flags = ALL, force = FALSE)
 	for(var/datum/action/current_action as anything in actions)
-		current_action.build_all_button_icons(update_flags, force)
+		if(current_action) // Add null check to prevent runtime errors
+			current_action.build_all_button_icons(update_flags, force)
 
 /**
  * This proc handles adding all of the mob's actions to their screen
@@ -188,6 +189,8 @@ DEFINE_INTERACTABLE(/atom/movable/screen/movable/action_button)
 		return
 
 	for(var/datum/action/action as anything in actions)
+		if(!action) // Add null check to prevent runtime errors
+			continue
 		var/atom/movable/screen/movable/action_button/button = action.viewers[hud_used]
 		action.build_all_button_icons()
 		if(reload_screen)
@@ -343,7 +346,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 
 /atom/movable/screen/button_palette/proc/set_expanded(new_expanded)
 	var/datum/action_group/our_group = our_hud.palette_actions
-	if(!length(our_group.actions)) //Looks dumb, trust me lad
+	if(!our_group || !length(our_group.actions))
 		new_expanded = FALSE
 	if(expanded == new_expanded)
 		return
@@ -394,7 +397,8 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 	if(.)
 		return FALSE
 
-	our_hud.palette_actions.scroll(scroll_direction)
+	if(our_hud.palette_actions)
+		our_hud.palette_actions.scroll(scroll_direction)
 
 /atom/movable/screen/palette_scroll/MouseEntered(location, control, params)
 	. = ..()

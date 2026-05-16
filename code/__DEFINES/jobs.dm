@@ -53,25 +53,25 @@
 
 //Security
 
-#define JOB_SECURITY_DIRECTOR "Security Director"
+#define JOB_GUARD_COMMANDER "Guard Commander"
 
-#define JOB_EZ_COMMANDER "EZ Commander"
-#define JOB_SENIOR_EZ_GUARD "Senior Guard"
-#define JOB_EZ_GUARD "EZ Guard"
-#define JOB_JUNIOR_EZ_GUARD "Junior Guard"
+#define JOB_EZ_ZONE_SUPERVISOR "EZ Zone Supervisor"
+#define JOB_SENIOR_EZ_GUARD "EZ Senior Agent"
+#define JOB_EZ_GUARD "EZ Agent"
+#define JOB_JUNIOR_EZ_GUARD "EZ Probationary Agent"
 
 #define JOB_RAISA_AGENT "RAISA Agent"
 #define JOB_INVESTIGATIONS_AGENT "Investigations Agent"
 
-#define JOB_LCZ_COMMANDER "LCZ Commander"
-#define JOB_SENIOR_LCZ_GUARD "Senior LCZ Guard"
+#define JOB_LCZ_ZONE_JUNIOR_LIEUTENANT "LCZ Zone Junior Lieutenant"
+#define JOB_SENIOR_LCZ_GUARD "LCZ Sergeant"
 #define JOB_LCZ_GUARD "LCZ Guard"
-#define JOB_JUNIOR_LCZ_GUARD "Junior LCZ Guard"
+#define JOB_JUNIOR_LCZ_GUARD "LCZ Cadet"
 
-#define JOB_HCZ_COMMANDER "HCZ Commander"
-#define JOB_SENIOR_HCZ_GUARD "Senior HCZ Guard"
+#define JOB_HCZ_ZONE_SENIOR_LIEUTENANT "HCZ Zone Senior Lieutenant"
+#define JOB_SENIOR_HCZ_GUARD "HCZ Sergeant"
 #define JOB_HCZ_GUARD "HCZ Guard"
-#define JOB_JUNIOR_HCZ_GUARD "Junior HCZ Guard"
+#define JOB_JUNIOR_HCZ_GUARD "HCZ Private"
 
 //Researcher
 #define JOB_RESEARCH_DIRECTOR "Research Director"
@@ -89,7 +89,7 @@
 #define JOB_CHEMIST "Chemist"
 #define JOB_TRAINEE_DOCTOR "Medical Resident"
 #define JOB_VIROLOGIST "Virologist"
-#define JOB_PSYCHOLOGIST "Psychologist"
+#define JOB_PSYCHOLOGIST "Psychiatrist"
 
 //Engineering
 #define JOB_ENGINEERING_DIRECTOR "Engineering Director"

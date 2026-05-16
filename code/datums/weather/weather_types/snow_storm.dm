@@ -1,4 +1,4 @@
-/datum/weather/weather_types/snow_storm
+/datum/weather/snow_storm
 	name = "snow storm"
 	desc = "Harsh snowstorms roam the topside of this arctic planet, burying any area unfortunate enough to be in its path."
 	probability = 90
@@ -15,18 +15,20 @@
 	end_duration = 100
 	end_message = "<span class='boldannounce'>The snowfall dies down, it should be safe to go outside again.</span>"
 
-	target_trait = ZTRAIT_PLANETARY_ENVIRONMENT
+	area_type = /area
+	protect_indoors = TRUE
+	target_trait = ZTRAIT_SNOWSTORM
 
 	immunity_type = TRAIT_SNOWSTORM_IMMUNE
 
 	barometer_predictable = TRUE
 	use_glow = FALSE
 
-/datum/weather/weather_types/snow_storm/weather_act(mob/living/L)
+/datum/weather/snow_storm/weather_act(mob/living/L)
 	L.adjust_bodytemperature(-rand(5,15))
 
 // since snowstorm is on a station z level, add extra checks to not annoy everyone
-/datum/weather/weather_types/snow_storm/can_get_alert(mob/player)
+/datum/weather/snow_storm/can_get_alert(mob/player)
 	if(!..())
 		return FALSE
 
@@ -42,12 +44,8 @@
 	if(istype(get_area(player), /area/mine))
 		return TRUE
 
-	var/list/impacted_chunk_keys = SSweather.weather_chunking.get_impacted_chunk_keys(src)
-	var/list/impacted_turfs = SSweather.weather_chunking.get_turfs_in_chunks(impacted_chunk_keys)
-	var/list/player_view = view(player)
-
-	for(var/turf/snow_turf in impacted_turfs)
-		if(snow_turf in player_view)
+	for(var/area/snow_area in impacted_areas)
+		if(locate(snow_area) in view(player))
 			return TRUE
 
 	return FALSE

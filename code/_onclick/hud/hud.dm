@@ -90,6 +90,8 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/atom/movable/screen/holomap/holomap_container
 	var/atom/movable/screen/progbar_container/use_timer
 	var/atom/movable/screen/vis_holder/vis_holder
+	var/atom/movable/screen/fov
+	var/atom/movable/screen/fov_blocker
 	// subtypes can override this to force a specific UI style
 	var/ui_style
 

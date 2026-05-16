@@ -13,9 +13,12 @@ Format:
 	votable (is this map votable)
 endmap
 
+map site53
+	default
+	votable
+endmap
+
 map theseus
-	#default
-	#voteweight 0.5
 	votable
 endmap
 

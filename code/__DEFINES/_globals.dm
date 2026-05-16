@@ -47,11 +47,29 @@
 /// Create a typed list global that is initialized as an empty list
 #define GLOBAL_LIST_EMPTY_TYPED(X, Typepath) GLOBAL_LIST_INIT_TYPED(X, Typepath, list())
 
+// OpenDream compatibility: alist and astype are BYOND 515+ features not supported by OpenDream
+#ifdef CIBUILDING
+#ifndef alist
+#define alist list
+#endif
+#ifndef astype
+#define astype(expr, typepath) (istype(expr, typepath) ? expr : null)
+#endif
+#endif
+
 /// Create an alist global with an initializer expression
+#ifdef CIBUILDING
+#define GLOBAL_ALIST_INIT(X, InitValue) GLOBAL_RAW(/list/##X); GLOBAL_MANAGED(X, InitValue)
+#else
 #define GLOBAL_ALIST_INIT(X, InitValue) GLOBAL_RAW(/alist/##X); GLOBAL_MANAGED(X, InitValue)
+#endif
 
 /// Create an alist global that is initialized as an empty list
+#ifdef CIBUILDING
+#define GLOBAL_ALIST_EMPTY(X) GLOBAL_ALIST_INIT(X, list())
+#else
 #define GLOBAL_ALIST_EMPTY(X) GLOBAL_ALIST_INIT(X, alist())
+#endif
 
 /// Create a typed global with an initializer expression
 #define GLOBAL_DATUM_INIT(X, Typepath, InitValue) GLOBAL_RAW(Typepath/##X); GLOBAL_MANAGED(X, InitValue)

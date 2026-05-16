@@ -5,6 +5,7 @@
 	name = "Market Crash"
 	typepath = /datum/round_event/market_crash
 	weight = 10
+	max_occurrences = 0
 
 /datum/round_event/market_crash
 	var/market_dip = 0

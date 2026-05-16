@@ -431,17 +431,17 @@ SUBSYSTEM_DEF(technology_persistence)
 	message += "<b>Research Budget:</b> $[manager.research_budget]<br>"
 	message += "<b>Research Efficiency:</b> [manager.research_efficiency * 100]%<br><br>"
 
-	message += "<h3>Research Projects ([manager.research_projects.len])</h3>"
+	message += "<h3>Research Projects ([length(manager.research_projects)])</h3>"
 	for(var/project_id in manager.research_projects)
 		var/datum/tech_research_project/project = manager.research_projects[project_id]
 		message += "<b>[project.project_name]:</b> [project.progress]% complete ([project.research_status])<br>"
 
-	message += "<h3>Technologies ([manager.technology_tree.len])</h3>"
+	message += "<h3>Technologies ([length(manager.technology_tree)])</h3>"
 	for(var/tech_id in manager.technology_tree)
 		var/datum/technology/tech = manager.technology_tree[tech_id]
 		message += "<b>[tech.tech_name]:</b> [tech.tech_status] (Level [tech.tech_level])<br>"
 
-	message += "<h3>Scientific Discoveries ([manager.scientific_discoveries.len])</h3>"
+	message += "<h3>Scientific Discoveries ([length(manager.scientific_discoveries)])</h3>"
 	for(var/discovery_id in manager.scientific_discoveries)
 		var/datum/scientific_discovery/discovery = manager.scientific_discoveries[discovery_id]
 		message += "<b>[discovery.discovery_name]:</b> [discovery.discovery_type] ([discovery.innovation_value] innovation)<br>"

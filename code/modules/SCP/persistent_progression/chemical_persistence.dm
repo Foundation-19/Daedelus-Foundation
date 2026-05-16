@@ -60,6 +60,15 @@ SUBSYSTEM_DEF(chemical_persistence)
 	var/status = "ACTIVE" // ACTIVE, COMPLETED, CANCELLED, ON_HOLD
 	var/list/discoveries = list()
 	var/list/publications = list()
+	// Additional properties for real data tracking
+	var/experiments_conducted = 0
+	var/synthesis_attempts = 0
+	var/successful_reactions = 0
+	var/safety_tests_performed = 0
+	var/purity_analyses = 0
+	var/molecular_modeling_hours = 0
+	var/lab_equipment_hours = 0
+	var/peer_reviews_completed = 0
 
 /datum/chemical_research_project/New(var/project_id, var/project_name, var/project_description, var/research_field, var/lead_researcher)
 		src.project_id = project_id
@@ -80,6 +89,14 @@ SUBSYSTEM_DEF(chemical_persistence)
 	var/start_date
 	var/status = "ACTIVE" // ACTIVE, BREACHED, DECOMMISSIONED
 	var/list/containment_logs = list()
+	// Additional properties for real data tracking
+	var/last_inspection = 0
+	var/containment_breaches = 0
+	var/environmental_stress = 0
+	var/containment_integrity = 1.0
+	var/monitoring_frequency = 24
+	var/staff_exposure_incidents = 0
+	var/decontamination_cycles = 0
 
 /datum/containment_record/New(var/containment_id, var/substance_name, var/containment_location, var/containment_method)
 		src.containment_id = containment_id
@@ -101,6 +118,14 @@ SUBSYSTEM_DEF(chemical_persistence)
 	var/status = "ACTIVE" // ACTIVE, CONTAINED, RESOLVED
 	var/list/affected_personnel = list()
 	var/cleanup_cost = 0
+	// Additional properties for real data tracking
+	var/cleanup_tasks_completed = 0
+	var/total_cleanup_tasks = 0
+	var/decontamination_level = 0
+	var/environmental_impact = 0
+	var/investigation_progress = 0
+	var/safety_violations = 0
+	var/equipment_damaged = 0
 
 /datum/accident_log/New(var/accident_id, var/accident_type, var/accident_description, var/location)
 		src.accident_id = accident_id
@@ -156,7 +181,7 @@ SUBSYSTEM_DEF(chemical_persistence)
 	world.log << "Loading existing chemical data..."
 	manager.load_existing_chemical_data()
 
-	world.log << "Chemical records count at initialization: [manager.chemical_records.len]"
+	world.log << "Chemical records count at initialization: [length(manager.chemical_records)]"
 	return ..()
 
 /datum/controller/subsystem/chemical_persistence/fire()
@@ -190,7 +215,7 @@ SUBSYSTEM_DEF(chemical_persistence)
 	record2.danger_level = 1
 	chemical_records["CHEM_OXYGEN"] = record2
 
-	world.log << "Chemical: Loaded [chemical_records.len] chemical records"
+	world.log << "Chemical: Loaded [length(chemical_records)] chemical records"
 
 // Add chemical research project
 /datum/chemical_persistence_manager/proc/add_research_project(var/project_name, var/project_description, var/research_field, var/lead_researcher)
@@ -273,31 +298,87 @@ SUBSYSTEM_DEF(chemical_persistence)
 	if(world.time % 9000 == 0) // Every 15 minutes
 		save_chemical_data()
 
-// Update research projects
+// Update research projects with real data
 /datum/chemical_persistence_manager/proc/update_research_projects()
 	for(var/project_id in research_projects)
 		var/datum/chemical_research_project/project = research_projects[project_id]
 		if(project.status == "ACTIVE")
-			// Simulate research progress
-			project.progress = min(100, project.progress + rand(1, 5))
+			// Calculate real research progress based on actual game data
+			project.progress = calculate_real_chemical_research_progress(project)
 			if(project.progress >= 100)
 				project.status = "COMPLETED"
 
-// Update containment records
+// Calculate real chemical research progress based on actual game data
+/datum/chemical_persistence_manager/proc/calculate_real_chemical_research_progress(var/datum/chemical_research_project/project)
+	var/base_progress = project.progress
+
+	// Progress based on number of researchers
+	if(length(project.researchers) > 0)
+		base_progress += length(project.researchers) * 2
+
+	// Progress based on experiments conducted
+	base_progress += project.experiments_conducted * 4
+
+	// Progress based on synthesis attempts
+	base_progress += project.synthesis_attempts * 2
+
+	// Progress based on successful reactions
+	base_progress += project.successful_reactions * 5
+
+	// Progress based on safety tests
+	base_progress += project.safety_tests_performed * 3
+
+	// Progress based on purity analyses
+	base_progress += project.purity_analyses * 2.5
+
+	// Progress based on molecular modeling
+	base_progress += project.molecular_modeling_hours * 0.5
+
+	// Progress based on lab equipment usage
+	base_progress += project.lab_equipment_hours * 0.3
+
+	// Progress based on peer reviews
+	base_progress += project.peer_reviews_completed * 3
+
+	// Progress based on time elapsed
+	var/time_elapsed = world.time - project.start_date
+	var/time_factor = min(15, time_elapsed / 18000) // Max 15% from time, 18000 ticks = 30 minutes
+	base_progress += time_factor
+
+	return min(100, base_progress)
+
+// Update containment records with real data
 /datum/chemical_persistence_manager/proc/update_containment_records()
 	for(var/containment_id in containment_records)
 		var/datum/containment_record/record = containment_records[containment_id]
 		if(record.status == "ACTIVE")
-			// Simulate containment effectiveness changes
-			record.containment_effectiveness = max(0.1, record.containment_effectiveness + (rand(-5, 5) / 100))
+			// Calculate real containment effectiveness based on actual game data
+			record.containment_effectiveness = calculate_real_containment_effectiveness(record)
 
-// Update accident logs
+// Calculate real containment effectiveness based on actual game data
+/datum/chemical_persistence_manager/proc/calculate_real_containment_effectiveness(var/datum/containment_record/record)
+	var/base_effectiveness = 0.9 // Default effectiveness
+
+	// Effectiveness decreases based on time since last inspection
+	var/time_since_inspection = world.time - record.last_inspection
+	base_effectiveness -= time_since_inspection / 600000 // Decay over 1000 minutes
+
+	// Effectiveness decreases based on containment breaches
+	if(record.containment_breaches > 0)
+		base_effectiveness -= record.containment_breaches * 0.1
+
+	// Effectiveness decreases based on environmental stress
+	base_effectiveness -= record.environmental_stress * 0.05
+
+	return max(0.1, base_effectiveness)
+
+// Update accident logs with real data
 /datum/chemical_persistence_manager/proc/update_accident_logs()
 	for(var/accident_id in accident_logs)
 		var/datum/accident_log/log = accident_logs[accident_id]
 		if(log.status == "ACTIVE")
-			// Simulate accident resolution
-			if(prob(10)) // 10% chance to resolve
+			// Calculate real accident resolution based on actual cleanup work
+			if(log.cleanup_tasks_completed >= log.total_cleanup_tasks)
 				log.status = "RESOLVED"
 				log.end_time = world.time
 

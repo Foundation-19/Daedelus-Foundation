@@ -99,6 +99,11 @@
 	/// When an braindead player has their equipment fiddled with, we log that info here for when they come back so they know who took their ID while they were DC'd for 30 seconds
 	var/list/afk_thefts
 
+	// Vision cone system variables
+	var/STAPER = 10
+	var/datum/observer_quality/observer_quality
+	var/datum/blink_manager/blink_manager // Stamina/Perception value for FOV calculations
+
 	///A lazylist of preference-applied appearance mods present on this human. Type:Instance
 	var/list/appearance_mods
 

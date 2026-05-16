@@ -126,6 +126,12 @@ SUBSYSTEM_DEF(ticker)
 
 	return ..()
 
+/datum/controller/subsystem/ticker/proc/set_force_ending(val)
+	force_ending = val
+
+/datum/controller/subsystem/ticker/proc/is_force_ending()
+	return force_ending
+
 /datum/controller/subsystem/ticker/fire()
 	switch(current_state)
 		if(GAME_STATE_STARTUP)
@@ -287,7 +293,17 @@ SUBSYSTEM_DEF(ticker)
 	round_start_timeofday = REALTIMEOFDAY
 	INVOKE_ASYNC(SSdbcore, TYPE_PROC_REF(/datum/controller/subsystem/dbcore,SetRoundStart))
 
-	to_chat(world, span_notice("<B>Welcome to [station_name()], enjoy your stay!</B>"))
+	var/list/boot_lines = list(
+		"<div style='background: #0a0a0c; border: 2px solid #8b0000; padding: 16px; margin: 10px 0; font-family: Consolas, Courier New, monospace; text-align: center;'>",
+		"<div style='color: #8b0000; font-size: 20px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.25em; text-shadow: 0 0 0.5em #8b0000;'>// SCP FOUNDATION — SITE-53 //</div>",
+		"<div style='color: #6a6a70; font-size: 11px; margin-top: 4px;'>SECURE. CONTAIN. PROTECT.</div>",
+		"<hr style='border: 1px solid #2a2a30; margin: 8px 0;'>",
+		"<div style='color: #d4a017; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em;'>System Initialization Complete</div>",
+		"<div style='color: #c8c8c8; font-size: 13px; margin-top: 6px;'>Welcome to <b style='color: #d4a017'>[station_name()]</b></div>",
+		"<div style='color: #6a6a70; font-size: 11px; margin-top: 4px;'>All personnel report to assigned stations. Containment protocols active.</div>",
+		"</div>",
+	)
+	to_chat(world, jointext(boot_lines, ""))
 	SEND_SOUND(world, sound(SSstation.announcer.get_rand_welcome_sound()))
 
 	current_state = GAME_STATE_PLAYING
@@ -301,6 +317,9 @@ SUBSYSTEM_DEF(ticker)
 
 	//Setup the antags AFTTTTER theyve gotten their jobs
 	mode.setup_antags()
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(find_scp_spawn_turfs)), 5 SECONDS)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(create_scp_ghost_spawners)), 8 SECONDS)
+	addtimer(CALLBACK(GLOB.scp_role_controller, TYPE_PROC_REF(/datum/scp_role_controller, offer_all_available_scp_roles)), 60 SECONDS)
 	PostSetup()
 	SSticker.ready_players = null
 	SSlobby.game_status?.alpha = 0
@@ -656,6 +675,8 @@ SUBSYSTEM_DEF(ticker)
 		return
 
 	to_chat(world, systemtext("Rebooting World in [DisplayTimeText(delay)]. [reason]"))
+
+	generate_scp_round_report()
 
 	var/roll_credits_in = CONFIG_GET(number/eor_credits_delay) * 10
 	if(roll_credits)

@@ -255,7 +255,7 @@ const SpeciesPageInner = (props: {
         <Button
           icon="arrow-left"
           onClick={props.handleClose}
-          content="Go Back"
+          content="RETURN TO PERSONNEL FILE"
         />
       </Stack.Item>
 
@@ -359,7 +359,7 @@ export const SpeciesPage = (props: { closeSpecies: () => void }) => {
             />
           );
         } else {
-          return <Box>Loading species...</Box>;
+          return <Box>LOADING SPECIES DATABASE...</Box>;
         }
       }}
     />

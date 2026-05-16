@@ -48,8 +48,8 @@
 	jobtype = /datum/job/medical_doctor
 
 	id_trim = /datum/id_trim/job/medical_doctor
-	uniform = /obj/item/clothing/under/rank/medical/doctor
-	suit = /obj/item/clothing/suit/toggle/labcoat/md
+	uniform = /obj/item/clothing/under/rank/medical/scrubs/blue
+	suit = /obj/item/clothing/suit/toggle/labcoat
 	suit_store = /obj/item/flashlight/pen
 	belt = /obj/item/modular_computer/tablet/pda/medical
 	ears = /obj/item/radio/headset/headset_med
@@ -107,7 +107,7 @@
 
 	departments_list = list(
 		/datum/job_department/medical,
-		)
+	)
 
 	family_heirlooms = list(/obj/item/storage/medkit/ancient/heirloom)
 
@@ -128,8 +128,8 @@
 	jobtype = /datum/job/trainee_doctor
 
 	id_trim = /datum/id_trim/job/trainee_doctor
-	uniform = /obj/item/clothing/under/rank/medical/doctor
-	suit = /obj/item/clothing/suit/toggle/labcoat/md
+	uniform = /obj/item/clothing/under/rank/medical/scrubs/blue
+	suit = /obj/item/clothing/suit/toggle/labcoat
 	suit_store = /obj/item/flashlight/pen
 	belt = /obj/item/modular_computer/tablet/pda/medical
 	ears = /obj/item/radio/headset/headset_med

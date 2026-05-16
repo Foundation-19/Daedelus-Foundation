@@ -1,5 +1,5 @@
 /datum/job/security_director
-	title = JOB_SECURITY_DIRECTOR
+	title = JOB_GUARD_COMMANDER
 	description = "Coordinate security personnel, ensure Administration's needs are met."
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_SITE_DIRECTOR)
@@ -65,13 +65,13 @@
 	popup.open(FALSE)
 
 /datum/outfit/job/security_director
-	name = JOB_SECURITY_DIRECTOR
+	name = JOB_GUARD_COMMANDER
 	jobtype = /datum/job/security_director
 
 	id = /obj/item/card/id/advanced/black_blank
 	id_trim = /datum/id_trim/job/security_director
-	uniform = /obj/item/clothing/under/rank/security/marshal
-	suit = /obj/item/clothing/suit/armor/vest/ballistic
+	uniform = /obj/item/clothing/under/scp/hos/guardcom
+	suit = /obj/item/clothing/suit/scp/hos/coat
 	suit_store = /obj/item/gun/energy/e_gun
 	backpack_contents = list(
 		/obj/item/storage/evidencebag = 1,
@@ -79,9 +79,10 @@
 	belt = /obj/item/modular_computer/tablet/pda/heads/hos
 	ears = /obj/item/radio/headset/heads/hos/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	gloves = /obj/item/clothing/gloves/color/black
-	head = /obj/item/clothing/head/marshal_hat
+	gloves = /obj/item/clothing/gloves/combat
+	head = /obj/item/clothing/head/beret/sec/guardcom
 	shoes = /obj/item/clothing/shoes/jackboots
+	mask = /obj/item/clothing/mask/balaclava
 	l_pocket = /obj/item/restraints/handcuffs
 	r_pocket = /obj/item/assembly/flash/handheld
 
@@ -97,7 +98,7 @@
 	implants = list(/obj/item/implant/mindshield)
 
 /datum/outfit/job/security_director/mod
-	name = "Security Director (MODsuit)"
+	name = "Guard Commander (MODsuit)"
 
 	suit_store = /obj/item/tank/internals/oxygen
 	back = /obj/item/mod/control/pre_equipped/safeguard

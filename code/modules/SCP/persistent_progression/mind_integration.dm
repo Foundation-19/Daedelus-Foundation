@@ -1,11 +1,17 @@
 /datum/mind
 	var/datum/persistent_player_data/persistent_data
+	var/datum/performance_tracker/performance_tracker
 
 /datum/mind/proc/initialize_persistent_data()
 	if(!key)
 		return
 
 	persistent_data = SSpersistent_progression.get_player_data(key)
+
+	if(current && ishuman(current))
+		var/mob/living/carbon/human/H = current
+		performance_tracker = new /datum/performance_tracker(H)
+		SSpersistent_progression.active_trackers[key] = performance_tracker
 
 	// Ensure verbs are available
 	if(current)
@@ -17,6 +23,7 @@
 			add_verb(current, /mob/living/carbon/human/proc/change_persistent_faction)
 			add_verb(current, /mob/living/carbon/human/proc/show_available_classes)
 			add_verb(current, /mob/living/carbon/human/proc/show_available_factions)
+			// SCP progression is now integrated into the main persistent progression system
 
 	if(persistent_data)
 		// Update last login
@@ -160,16 +167,13 @@
 
 	return achieved
 
-// Hook into mind transfer - handled in mind.dm
-
 // Hook into mind removal
 /datum/mind/proc/remove_from_mob()
-	// Save persistent data before removal
 	if(persistent_data && key)
 		SSpersistent_progression.save_player_data(key)
-
-	// Stop performance tracking
 	SSpersistent_progression.active_trackers -= key
+	if(performance_tracker)
+		QDEL_NULL(performance_tracker)
 
 // Faction integration methods
 /datum/mind/proc/apply_faction_to_mob()

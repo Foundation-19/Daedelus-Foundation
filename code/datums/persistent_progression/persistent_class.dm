@@ -156,3 +156,19 @@
         6 = "#FF6600"  // Orange
     )
     return rank_colors[rank_level]
+
+/datum/persistent_class/proc/export_to_json()
+    var/list/data = list()
+    data["class_id"] = class_id
+    data["class_name"] = class_name
+    data["class_description"] = class_description
+    data["required_rank"] = required_rank
+    data["max_rank"] = max_rank
+    data["allowed_factions"] = allowed_factions
+    data["class_abilities"] = class_abilities
+    data["class_equipment"] = class_equipment
+    data["alt_titles"] = alt_titles
+    data["icon_state"] = icon_state
+    data["color"] = color
+    data["experience_multiplier"] = experience_multiplier
+    return json_encode(data)

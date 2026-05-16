@@ -116,10 +116,11 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	var/needs_update = save_data_needs_update(savefile.get_entry())
 	if(needs_update == -2) //fatal, can't load any data
-		var/bacpath = "[path].updatebac" //todo: if the savefile version is higher then the server, check the backup, and give the player a prompt to load the backup
-		if (fexists(bacpath))
-			fdel(bacpath) //only keep 1 version of backup
-		fcopy(savefile.path, bacpath)
+		if(fexists(savefile.path))
+			var/bacpath = "[path].updatebac"
+			if(fexists(bacpath))
+				fdel(bacpath)
+			fcopy(savefile.path, bacpath)
 		return FALSE
 
 	apply_all_client_preferences()

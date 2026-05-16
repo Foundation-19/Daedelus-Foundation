@@ -43,6 +43,131 @@ SUBSYSTEM_DEF(persistence)
 	save_custom_outfits()
 	SaveDisplacedSCP216Items()
 
+	// Save D-Class persistence data
+	SaveDClassPersistence()
+
+	// Save Personnel persistence data
+	SavePersonnelPersistence()
+
+	// Save Security persistence data
+	SaveSecurityPersistence()
+
+	// Save Medical persistence data
+	SaveMedicalPersistence()
+
+	// Save Research persistence data
+	SaveResearchPersistence()
+
+	// Save Facility persistence data
+	SaveFacilityPersistence()
+
+	// Save Infrastructure persistence data
+	SaveInfrastructurePersistence()
+
+	// Save Chemical persistence data
+	SaveChemicalPersistence()
+
+	// Save Incident persistence data
+	SaveIncidentPersistence()
+
+	// Save Analytics persistence data
+	SaveAnalyticsPersistence()
+
+	// Save Technology persistence data
+	SaveTechnologyPersistence()
+
+	// Save Psychological persistence data
+	SavePsychologicalPersistence()
+
+	// Save SCP persistence data
+	SaveSCPPersistence()
+
+/datum/controller/subsystem/persistence/proc/SaveDClassPersistence()
+	if(SSdclass && SSdclass.manager && SSdclass.manager.persistence_manager)
+		SSdclass.manager.persistence_manager.save_persistence_data()
+
+/datum/controller/subsystem/persistence/proc/SavePersonnelPersistence()
+	if(SSpersonnel_persistence && SSpersonnel_persistence.manager)
+		SSpersonnel_persistence.manager.save_personnel_data()
+
+/datum/controller/subsystem/persistence/proc/SaveSecurityPersistence()
+	if(SSsecurity_persistence && SSsecurity_persistence.manager)
+		SSsecurity_persistence.manager.save_security_data()
+
+/datum/controller/subsystem/persistence/proc/SaveMedicalPersistence()
+	if(SSmedical_persistence && SSmedical_persistence.manager)
+		SSmedical_persistence.manager.save_medical_data()
+
+/datum/controller/subsystem/persistence/proc/SaveResearchPersistence()
+	if(SSresearch_persistence && SSresearch_persistence.manager)
+		SSresearch_persistence.manager.save_research_data()
+
+/datum/controller/subsystem/persistence/proc/SaveFacilityPersistence()
+	if(SSfacility_persistence && SSfacility_persistence.manager)
+		SSfacility_persistence.manager.save_facility_data()
+
+/datum/controller/subsystem/persistence/proc/SaveInfrastructurePersistence()
+	if(SSinfrastructure_persistence && SSinfrastructure_persistence.manager)
+		SSinfrastructure_persistence.manager.save_infrastructure_data()
+
+/datum/controller/subsystem/persistence/proc/SaveChemicalPersistence()
+	if(SSchemical_persistence && SSchemical_persistence.manager)
+		SSchemical_persistence.manager.save_chemical_data()
+
+/datum/controller/subsystem/persistence/proc/SaveIncidentPersistence()
+	if(SSincident_persistence && SSincident_persistence.manager)
+		SSincident_persistence.manager.save_incident_data()
+
+/datum/controller/subsystem/persistence/proc/SaveAnalyticsPersistence()
+	if(SSanalytics_persistence && SSanalytics_persistence.manager)
+		SSanalytics_persistence.manager.save_analytics_data()
+
+/datum/controller/subsystem/persistence/proc/SaveTechnologyPersistence()
+	if(SStechnology_persistence && SStechnology_persistence.manager)
+		SStechnology_persistence.manager.save_technology_data()
+
+/datum/controller/subsystem/persistence/proc/SavePsychologicalPersistence()
+	if(SSpsychological_persistence && SSpsychological_persistence.manager)
+		SSpsychological_persistence.manager.save_psychological_data()
+
+/datum/controller/subsystem/persistence/proc/SaveSCPPersistence()
+	if(SSscp_persistence && SSscp_persistence.manager)
+		SSscp_persistence.manager.save_scp_data()
+
+/datum/controller/subsystem/persistence/proc/load_adventures()
+	var/json_file = file("data/adventures.json")
+	if(!fexists(json_file))
+		return
+
+	var/list/json = json_decode(file2text(json_file))
+	if(!json)
+		return
+
+	// Load adventure data into the system
+	for(var/adventure_id in json)
+		// Process each adventure
+		world.log << "Persistence: Loaded adventure [adventure_id]"
+
+/datum/controller/subsystem/persistence/proc/initialize_persistence_managers()
+	// Initialize all persistence managers
+	world.log << "Persistence: Initializing persistence managers..."
+
+	// Ensure all subsystems are ready
+	if(!SSsecurity_persistence)
+		world.log << "Persistence: Warning - Security persistence subsystem not available"
+	if(!SSmedical_persistence)
+		world.log << "Persistence: Warning - Medical persistence subsystem not available"
+	if(!SSresearch_persistence)
+		world.log << "Persistence: Warning - Research persistence subsystem not available"
+	if(!SSpersonnel_persistence)
+		world.log << "Persistence: Warning - Personnel persistence subsystem not available"
+
+	world.log << "Persistence: Persistence managers initialized"
+
+/datum/controller/subsystem/persistence/Shutdown()
+	collect_data()
+	return ..()
+
 /datum/controller/subsystem/persistence/proc/LoadPoly()
 	for(var/mob/living/simple_animal/parrot/poly/P in GLOB.alive_mob_list)
 		twitterize(P.speech_buffer, "polytalk")

@@ -174,7 +174,7 @@ SUBSYSTEM_DEF(id_access)
 		),
 		"[ACCESS_SECURITY_LVL5]" = list(
 			"regions" = list(REGION_SECURITY),
-			"head" = JOB_SECURITY_DIRECTOR,
+			"head" = JOB_GUARD_COMMANDER,
 			"templates" = list(),
 			"pdas" = list(),
 		),
@@ -193,6 +193,12 @@ SUBSYSTEM_DEF(id_access)
 		"[ACCESS_ENGINEERING_LVL5]" = list(
 			"regions" = list(REGION_ENGINEERING),
 			"head" = JOB_ENGINEERING_DIRECTOR,
+			"templates" = list(),
+			"pdas" = list(),
+		),
+		"[ACCESS_LOGISTICS_LVL5]" = list(
+			"regions" = list(REGION_SUPPLY),
+			"head" = JOB_LOGISTICS_OFFICER,
 			"templates" = list(),
 			"pdas" = list(),
 		),

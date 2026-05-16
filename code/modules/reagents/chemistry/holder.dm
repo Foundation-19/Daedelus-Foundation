@@ -49,13 +49,17 @@
 	flags = new_flags
 
 /datum/reagents/Destroy()
-	//We're about to delete all reagents, so lets cleanup
+	if(is_reacting)
+		force_stop_reacting()
+	for(var/datum/equilibrium/eq as anything in reaction_list)
+		eq.holder = null
+		eq.reaction = null
+	QDEL_LAZYLIST(reaction_list)
+	failed_but_capable_reactions = null
 	for(var/datum/reagent/reagent as anything in reagent_list)
+		reagent.holder = null
 		qdel(reagent)
 	reagent_list = null
-	if(is_reacting) //If false, reaction list should be cleaned up
-		force_stop_reacting()
-	QDEL_LAZYLIST(reaction_list)
 	previous_reagent_list = null
 	if(my_atom && my_atom.reagents == src)
 		my_atom.reagents = null
@@ -1792,9 +1796,9 @@
 	reagents = new /datum/reagents(max_vol, flags)
 	reagents.my_atom = src
 	// Register signals for the new reagent holder with SSreagents
-	reagents.RegisterSignal(reagents, COMSIG_REAGENTS_ADD_REAGENT, TYPE_PROC_REF(/datum/controller/subsystem/processing/reagents, handle_reagent_add))
-	reagents.RegisterSignal(reagents, COMSIG_REAGENTS_REM_REAGENT, TYPE_PROC_REF(/datum/controller/subsystem/processing/reagents, handle_reagent_remove))
-	reagents.RegisterSignal(reagents, COMSIG_REAGENTS_CLEAR_REAGENTS, TYPE_PROC_REF(/datum/controller/subsystem/processing/reagents, handle_reagent_clear))
+	SSreagents.RegisterSignal(reagents, COMSIG_REAGENTS_ADD_REAGENT, TYPE_PROC_REF(/datum/controller/subsystem/processing/reagents, handle_reagent_add))
+	SSreagents.RegisterSignal(reagents, COMSIG_REAGENTS_REM_REAGENT, TYPE_PROC_REF(/datum/controller/subsystem/processing/reagents, handle_reagent_remove))
+	SSreagents.RegisterSignal(reagents, COMSIG_REAGENTS_CLEAR_REAGENTS, TYPE_PROC_REF(/datum/controller/subsystem/processing/reagents, handle_reagent_clear))
 
 	// Ensure initial reagents are registered with the SSreagents's location index
 	for(var/datum/reagent/R in reagents.reagent_list)

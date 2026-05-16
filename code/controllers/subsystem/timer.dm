@@ -522,7 +522,7 @@ SUBSYSTEM_DEF(timer)
 		/* 4 = */ flags,
 		/* 5 = */ callBack, /* Safe to hold this directly because it's never del'd */
 		/* 6 = */ "[callBack.object]",
-		/* 7 = */ text_ref(callBack.object),
+		/* 7 = */ "\ref[callBack.object]",
 		/* 8 = */ getcallingtype(),
 		/* 9 = */ callBack.delegate,
 		/* 10 = */ callBack.arguments ? callBack.arguments.Copy() : null,
@@ -530,16 +530,16 @@ SUBSYSTEM_DEF(timer)
 	)
 #else
 	// Generate a debuggable name for the timer, simpler but wayyyy cheaper, string generation is a bitch and this saves a LOT of time
-	timer_info = list(
-		/* 1 = */ id,
-		/* 2 = */ timeToRun,
-		/* 3 = */ wait,
-		/* 4 = */ flags,
-		/* 5 = */ callBack, /* Safe to hold this directly because it's never del'd */
-		/* 6 = */ "[callBack.object]",
-		/* 7 = */ getcallingtype(),
-		/* 8 = */ callBack.delegate,
-		/* 9 = */ "[source]"
+	timer_info = alist(
+		1 = id,
+		2 = timeToRun,
+		3 = wait,
+		4 = flags,
+		5 = callBack,
+		6 = "[callBack.object]",
+		7 = getcallingtype(),
+		8 = callBack.delegate,
+		9 = "[source]"
 	)
 #endif
 

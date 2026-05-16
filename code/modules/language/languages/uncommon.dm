@@ -13,4 +13,4 @@
 	)
 	icon_state = "galuncom"
 	default_priority = 90
-	flags = parent_type::flags | (LANGUAGE_SELECTABLE_SPEAK | LANGUAGE_SELECTABLE_UNDERSTAND)
+	flags = parent_type::flags  // Hidden from selection - sci-fi language

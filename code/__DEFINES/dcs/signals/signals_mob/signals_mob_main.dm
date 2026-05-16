@@ -163,3 +163,6 @@
 
 /// from base of [/datum/preference/toggle/motion_sickness] (new_value)
 #define COMSIG_MOB_MOTION_SICKNESS_UPDATE "client_prefs_motion_sickness_change"
+
+/// from SCP-049 door breaching: ()
+#define COMSIG_MOB_BREACH_DOORS "mob_breach_doors"

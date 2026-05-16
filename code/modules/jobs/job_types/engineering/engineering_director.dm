@@ -66,11 +66,12 @@
 	backpack_contents = list(
 		/obj/item/assembly/flash/handheld
 	)
-	belt = /obj/item/storage/belt/utility/chief/full
+	belt = /obj/item/storage/belt/utility/full
 	ears = /obj/item/radio/headset/heads/ce
-	gloves = /obj/item/clothing/gloves/color/black
+	gloves = /obj/item/clothing/gloves/color/yellow
 	head = /obj/item/clothing/head/hardhat/white
-	shoes = /obj/item/clothing/shoes/sneakers/brown
+	suit = /obj/item/clothing/suit/hazardvest
+	shoes = /obj/item/clothing/shoes/workboots
 	l_pocket = /obj/item/modular_computer/tablet/pda/heads/ce
 
 	backpack = /obj/item/storage/backpack/industrial

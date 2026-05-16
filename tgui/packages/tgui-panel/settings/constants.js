@@ -18,8 +18,11 @@ export const SETTINGS_TABS = [
 export const FONTS_DISABLED = 'System Default';
 
 export const FONTS = [
-  'Times New Roman', // By placing this at index zero, it is the default for our server
+  'Consolas',
   FONTS_DISABLED,
+  'Courier New',
+  'Lucida Console',
+  'Times New Roman',
   'Verdana',
   'Arial',
   'Arial Black',
@@ -28,8 +31,6 @@ export const FONTS = [
   'Lucida Sans Unicode',
   'Tahoma',
   'Trebuchet MS',
-  'Courier New',
-  'Lucida Console',
 ];
 
 export const THEME_DARK = 'dark';

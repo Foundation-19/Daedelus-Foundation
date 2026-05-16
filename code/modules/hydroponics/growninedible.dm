@@ -52,7 +52,7 @@
 		return TRUE
 	return FALSE
 
-/obj/item/grown/microwave_act(obj/machinery/microwave/M)
+/obj/item/grown/microwave_act(obj/machinery/M)
 	return
 
 /obj/item/grown/do_grind()

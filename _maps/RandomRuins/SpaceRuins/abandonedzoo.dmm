@@ -188,7 +188,7 @@
 /area/ruin/space/has_grav/abandonedzoo)
 "br" = (
 /obj/structure/table/reinforced,
-/obj/machinery/microwave,
+/obj/machinery/appliance/cooker/microwave,
 /turf/open/floor/iron/dark/side,
 /area/ruin/space/has_grav/abandonedzoo)
 "bu" = (

@@ -1,7 +1,7 @@
 /datum/round_event_control/shuttle_catastrophe
 	name = "Shuttle Catastrophe"
 	typepath = /datum/round_event/shuttle_catastrophe
-	max_occurrences = 1
+	max_occurrences = 0
 
 /datum/round_event_control/shuttle_catastrophe/canSpawnEvent(players)
 	if(SSshuttle.shuttle_purchased == SHUTTLEPURCHASE_FORCED)

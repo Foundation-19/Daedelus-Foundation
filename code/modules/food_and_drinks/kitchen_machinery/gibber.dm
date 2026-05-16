@@ -6,11 +6,12 @@
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/gibber
 
-	var/operating = FALSE //Is it on?
-	var/dirty = FALSE // Does it need cleaning?
-	var/gibtime = 40 // Time from starting until meat appears
+	var/operating = FALSE
+	var/dirty = FALSE
+	var/gibtime = 40
 	var/meat_produced = 2
 	var/ignore_clothing = FALSE
+	var/emagged = FALSE
 
 
 /obj/machinery/gibber/Initialize(mapload)

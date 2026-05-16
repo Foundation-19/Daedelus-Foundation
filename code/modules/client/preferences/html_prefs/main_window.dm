@@ -66,13 +66,25 @@
 	"}
 
 	winshow(user, "preferences_window", TRUE)
-	var/datum/browser/popup = new(user, "preferences_window", "<div align='center'>Character Setup</div>", 1200, 800)
+	var/datum/browser/popup = new(user, "preferences_window", "<div align='center'>Personnel_File.exe</div>", 1200, 800)
 	popup.set_content(content)
 	popup.open(FALSE)
 	onclose(user, "preferences_window", src)
 
 /datum/preferences/proc/html_create_window()
 	. = list()
+	// Top computer banner
+	. += {"
+	<div style='background:#101820;border:2px solid #2f4f4f;margin-bottom:6px'>
+		<div style='display:flex;justify-content:space-between;align-items:center;padding:6px 10px'>
+			<div><span class='computerText'>ENHANCED PERSONNEL FILE SYSTEM v2.1</span></div>
+			<div><span class='computerText'>User: [isnull(parent) ? "guest" : parent.ckey]</span></div>
+		</div>
+		<div style='padding:4px 10px;border-top:1px solid #2f4f4f'>
+			<span class='computerSubText'>Path: C:/FOUNDATION/HR/Personnel_File.exe</span>
+		</div>
+	</div>
+	"}
 	. += "<fieldset class='computerPane' style='min-height:900px'>"
 	. += "<legend class='computerLegend' style='margin: 0 auto'>[button_element(src, read_preference(/datum/preference/name/real_name), "change_slot=1")]</legend>"
 	. += html_create_subheader()
@@ -113,13 +125,15 @@
 
 /datum/preferences/proc/html_create_categories()
 	. = list()
-	. += "<div style='text-align: center'>"
+	. += {"
+	<div style='display:flex;justify-content:center;gap:8px;padding:6px 0;border-bottom:1px solid #202020;background:#0e1420'>
+	"}
 	for(var/datum/preference_group/category/P in GLOB.all_pref_groups)
 		if(selected_category == P)
-			. += "<span class='linkOn'>[P.name]</span>"
+			. += "<span class='linkOn' style='padding:4px 8px;border:1px solid #3a3a3a;background:#122438'>[P.name]</span>"
 		else
-			. += button_element(src, P.name, "select_category=\ref[P]")
-	. += "</div><HR style='background-color: #202020'>"
+			. += button_element(src, P.name, "select_category=\ref[P]", style = "padding:4px 8px;border:1px solid #3a3a3a")
+	. += "</div>"
 
 	return jointext(., "")
 

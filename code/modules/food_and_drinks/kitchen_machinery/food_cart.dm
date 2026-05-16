@@ -10,7 +10,7 @@
 	req_access = list(ACCESS_SERVICE)
 	flags_1 = NODECONSTRUCT_1
 	var/unpacked = FALSE
-	var/obj/machinery/griddle/stand/cart_griddle
+	var/obj/machinery/appliance/cooker/griddle/cart_griddle
 	var/obj/machinery/smartfridge/food/cart_smartfridge
 	var/obj/structure/table/reinforced/cart_table
 	var/obj/effect/food_cart_stand/cart_tent

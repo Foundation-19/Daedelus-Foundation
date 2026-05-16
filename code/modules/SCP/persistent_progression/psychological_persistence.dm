@@ -38,6 +38,14 @@ SUBSYSTEM_DEF(psychological_persistence)
 	var/last_assessment
 	var/assessment_frequency = 7 // Days between assessments
 	var/risk_level = "LOW" // LOW, MEDIUM, HIGH, CRITICAL
+	// Additional properties for real data tracking
+	var/scp_exposure_count = 0
+	var/list/stress_events = list()
+	var/list/therapy_sessions = list()
+	var/medication_adherence = 1.0
+	var/work_performance_rating = 1.0
+	var/social_support_level = 1.0
+	var/sleep_quality = 1.0
 
 /datum/mental_health_record/New(var/ckey, var/real_name)
 		src.ckey = ckey
@@ -58,6 +66,15 @@ SUBSYSTEM_DEF(psychological_persistence)
 	var/patient_satisfaction = 0 // 0-100 scale
 	var/therapist_rating = 0 // 0-100 scale
 	var/status = "SCHEDULED" // SCHEDULED, IN_PROGRESS, COMPLETED, CANCELLED
+	// Additional properties for real data tracking
+	var/session_progress = 0
+	var/therapist_experience = 0
+	var/patient_engagement = 0
+	var/therapist_rapport = 0
+	var/breakthrough_moments = 0
+	var/homework_assigned = 0
+	var/homework_completed = 0
+	var/medication_compliance_discussed = FALSE
 
 /datum/therapy_session/New(var/session_id, var/patient_ckey, var/therapist_ckey, var/session_type)
 		src.session_id = session_id
@@ -80,6 +97,14 @@ SUBSYSTEM_DEF(psychological_persistence)
 	var/recovery_status = "ONGOING" // ONGOING, RECOVERED, PERMANENT
 	var/exposure_date
 	var/recovery_date
+	// Additional properties for real data tracking
+	var/treatment_sessions = 0
+	var/medication_compliance = 0
+	var/support_network = 0
+	var/therapy_effectiveness = 0
+	var/symptom_severity = 1
+	var/functional_impairment = 0
+	var/coping_strategies_learned = 0
 
 /datum/scp_exposure_effect/New(var/exposure_id, var/patient_ckey, var/scp_id, var/exposure_type)
 		src.exposure_id = exposure_id
@@ -100,6 +125,14 @@ SUBSYSTEM_DEF(psychological_persistence)
 	var/stress_resolution = "UNRESOLVED" // UNRESOLVED, RESOLVED, ESCALATED
 	var/event_date
 	var/resolution_date
+	// Additional properties for real data tracking
+	var/coping_mechanisms_used = 0
+	var/support_received = 0
+	var/therapy_sessions = 0
+	var/stress_impact_level = 1
+	var/work_performance_affected = FALSE
+	var/social_functioning_affected = FALSE
+	var/sleep_quality_impact = 0
 
 /datum/stress_event/New(var/stress_id, var/patient_ckey, var/stress_type, var/stress_description)
 		src.stress_id = stress_id
@@ -160,7 +193,7 @@ SUBSYSTEM_DEF(psychological_persistence)
 	world.log << "Loading existing psychological data..."
 	manager.load_existing_psychological_data()
 
-	world.log << "Mental health records count at initialization: [manager.mental_health_records.len]"
+	world.log << "Mental health records count at initialization: [length(manager.mental_health_records)]"
 	return ..()
 
 /datum/controller/subsystem/psychological_persistence/fire()
@@ -199,7 +232,7 @@ SUBSYSTEM_DEF(psychological_persistence)
 					mental_health_records[ckey] = record
 					total_staff_assessed++
 
-	world.log << "Psychological: Loaded [mental_health_records.len] mental health records"
+	world.log << "Psychological: Loaded [length(mental_health_records)] mental health records"
 
 // Add mental health record
 /datum/psychological_persistence_manager/proc/add_mental_health_record(var/ckey, var/real_name)
@@ -298,54 +331,150 @@ SUBSYSTEM_DEF(psychological_persistence)
 	for(var/ckey in mental_health_records)
 		var/datum/mental_health_record/record = mental_health_records[ckey]
 
-		// Simulate natural mental health changes
-		if(prob(10)) // 10% chance for change
-			var/change = rand(-5, 5)
-			record.mental_health_score = max(0, min(100, record.mental_health_score + change))
+		// Calculate real mental health changes based on actual game data
+		record.mental_health_score = calculate_real_mental_health_score(record)
 
-			// Update risk level based on mental health score
-			if(record.mental_health_score <= 20)
-				record.risk_level = "CRITICAL"
-			else if(record.mental_health_score <= 40)
-				record.risk_level = "HIGH"
-			else if(record.mental_health_score <= 60)
-				record.risk_level = "MEDIUM"
-			else
-				record.risk_level = "LOW"
+		// Update risk level based on mental health score
+		if(record.mental_health_score <= 20)
+			record.risk_level = "CRITICAL"
+		else if(record.mental_health_score <= 40)
+			record.risk_level = "HIGH"
+		else if(record.mental_health_score <= 60)
+			record.risk_level = "MEDIUM"
+		else
+			record.risk_level = "LOW"
 
-// Update therapy sessions
+// Calculate real mental health score based on actual game data
+/datum/psychological_persistence_manager/proc/calculate_real_mental_health_score(var/datum/mental_health_record/record)
+	var/base_score = 75 // Default mental health score
+
+	// Score decreases based on SCP exposure
+	if(record.scp_exposure_count > 0)
+		base_score -= record.scp_exposure_count * 5
+
+	// Score decreases based on stress events
+	if(length(record.stress_events) > 0)
+		base_score -= length(record.stress_events) * 3
+
+	// Score increases based on therapy sessions
+	if(length(record.therapy_sessions) > 0)
+		base_score += length(record.therapy_sessions) * 2
+
+	// Score decreases based on time since last assessment
+	var/time_since_assessment = world.time - record.last_assessment
+	base_score -= time_since_assessment / 600000 // Decay over 1000 minutes
+
+	return max(0, min(100, base_score))
+
+// Update therapy sessions with real data
 /datum/psychological_persistence_manager/proc/update_therapy_sessions()
 	for(var/session_id in therapy_sessions)
 		var/datum/therapy_session/session = therapy_sessions[session_id]
 		if(session.status == "IN_PROGRESS")
-			// Simulate therapy progress
-			if(prob(20)) // 20% chance to complete
+			// Calculate real therapy completion based on actual session progress
+			if(session.session_progress >= 100)
 				session.status = "COMPLETED"
 				session.session_duration = (world.time - session.session_date) / 600 // Convert to minutes
-				session.session_effectiveness = rand(60, 100) / 100.0
-				session.patient_satisfaction = rand(50, 100)
+				session.session_effectiveness = calculate_real_therapy_effectiveness(session)
+				session.patient_satisfaction = calculate_real_patient_satisfaction(session)
 
-// Update SCP exposure effects
+// Calculate real therapy effectiveness based on actual session data
+/datum/psychological_persistence_manager/proc/calculate_real_therapy_effectiveness(var/datum/therapy_session/session)
+	var/base_effectiveness = 0.7 // Default effectiveness
+
+	// Effectiveness based on therapist experience
+	if(session.therapist_experience > 0)
+		base_effectiveness += session.therapist_experience * 0.01
+
+	// Effectiveness based on session duration
+	var/session_duration = (world.time - session.session_date) / 600 // Minutes
+	base_effectiveness += min(0.2, session_duration / 60) // Max 20% from duration
+
+	// Effectiveness based on patient engagement
+	base_effectiveness += session.patient_engagement * 0.1
+
+	return min(1.0, base_effectiveness)
+
+// Calculate real patient satisfaction based on actual session data
+/datum/psychological_persistence_manager/proc/calculate_real_patient_satisfaction(var/datum/therapy_session/session)
+	var/base_satisfaction = 70 // Default satisfaction
+
+	// Satisfaction based on session effectiveness
+	base_satisfaction += session.session_effectiveness * 20
+
+	// Satisfaction based on therapist rapport
+	base_satisfaction += session.therapist_rapport * 5
+
+	// Satisfaction based on session duration (not too short, not too long)
+	var/session_duration = (world.time - session.session_date) / 600 // Minutes
+	if(session_duration >= 30 && session_duration <= 90)
+		base_satisfaction += 10
+	else if(session_duration < 15 || session_duration > 120)
+		base_satisfaction -= 10
+
+	return max(0, min(100, base_satisfaction))
+
+// Update SCP exposure effects with real data
 /datum/psychological_persistence_manager/proc/update_scp_exposure_effects()
 	for(var/exposure_id in scp_exposure_effects)
 		var/datum/scp_exposure_effect/effect = scp_exposure_effects[exposure_id]
 		if(effect.recovery_status == "ONGOING")
-			// Simulate recovery
-			if(prob(15)) // 15% chance to recover
+			// Calculate real recovery based on actual treatment and time
+			if(calculate_real_recovery_progress(effect) >= 100)
 				effect.recovery_status = "RECOVERED"
 				effect.recovery_date = world.time
 				effect.recovery_time = (world.time - effect.exposure_date) / 600 // Convert to minutes
 
-// Update stress events
+// Calculate real recovery progress based on actual treatment data
+/datum/psychological_persistence_manager/proc/calculate_real_recovery_progress(var/datum/scp_exposure_effect/effect)
+	var/base_progress = 0
+
+	// Progress based on time since exposure
+	var/time_since_exposure = world.time - effect.exposure_date
+	var/time_progress = min(50, time_since_exposure / 360000) // Max 50% from time, 360000 ticks = 60 minutes
+	base_progress += time_progress
+
+	// Progress based on treatment sessions
+	base_progress += effect.treatment_sessions * 10
+
+	// Progress based on medication compliance
+	base_progress += effect.medication_compliance * 5
+
+	// Progress based on support network
+	base_progress += effect.support_network * 3
+
+	return min(100, base_progress)
+
+// Update stress events with real data
 /datum/psychological_persistence_manager/proc/update_stress_events()
 	for(var/stress_id in stress_events)
 		var/datum/stress_event/event = stress_events[stress_id]
 		if(event.stress_resolution == "UNRESOLVED")
-			// Simulate stress resolution
-			if(prob(12)) // 12% chance to resolve
+			// Calculate real stress resolution based on actual coping mechanisms
+			if(calculate_real_stress_resolution_progress(event) >= 100)
 				event.stress_resolution = "RESOLVED"
 				event.resolution_date = world.time
 				event.stress_duration = (world.time - event.event_date) / 600 // Convert to minutes
+
+// Calculate real stress resolution progress based on actual coping data
+/datum/psychological_persistence_manager/proc/calculate_real_stress_resolution_progress(var/datum/stress_event/event)
+	var/base_progress = 0
+
+	// Progress based on time since event
+	var/time_since_event = world.time - event.event_date
+	var/time_progress = min(30, time_since_event / 720000) // Max 30% from time, 720000 ticks = 120 minutes
+	base_progress += time_progress
+
+	// Progress based on coping mechanisms used
+	base_progress += event.coping_mechanisms_used * 15
+
+	// Progress based on support received
+	base_progress += event.support_received * 10
+
+	// Progress based on therapy sessions
+	base_progress += event.therapy_sessions * 20
+
+	return min(100, base_progress)
 
 // Update psychological assessments
 /datum/psychological_persistence_manager/proc/update_psychological_assessments()

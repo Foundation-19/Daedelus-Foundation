@@ -62,7 +62,8 @@
 
 	id_trim = /datum/id_trim/job/site_director
 	id = /obj/item/card/id/advanced/director_blank
-	uniform = /obj/item/clothing/under/suit/charcoal
+	uniform = /obj/item/clothing/under/scp/suittie
+	suit = /obj/item/clothing/suit/armor/director_coat
 	backpack_contents = list(
 		/obj/item/assembly/flash/handheld = 1
 	)

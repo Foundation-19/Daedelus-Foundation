@@ -77,25 +77,29 @@
 	timeofdeath = world.time
 	timeofdeath_as_ingame = stationtime2text()
 
-	// tgchat displays doc strings with formatting, so we do stupid shit instead
+	var/turf/T = get_turf(src)
+
 	var/list/death_message = list(
-		"<div style='text-align:center'><i>[span_statsbad("<span style='font-size: 300%;font-style: normal'>You Died</span>")]</i></div>",
-		"<div style='text-align:center'><i>[span_statsbad("<span style='font-size: 200%;font-style: normal'>Cause of Death: [cause_of_death]</span>")]</i></div>",
-		"<hr>",
-		span_obviousnotice("Your story may not be over yet. You are able to be resuscitated as long as your brain was not destroyed, and you have not been dead for 10 minutes."),
+		"<div style='background: #0a0a0c; border: 2px solid #8b0000; padding: 12px; margin: 8px 0; font-family: Consolas, Courier New, monospace; text-align: center;'>",
+		"<div style='color: #8b0000; font-size: 24px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.2em; text-shadow: 0 0 0.5em #8b0000;'>// CONNECTION TERMINATED //</div>",
+		"<hr style='border: 1px solid #2a2a30; margin: 8px 0;'>",
+		"<div style='color: #cc4444; font-size: 16px;'>CAUSE OF DEATH: <span style='color: #d4a017'>[cause_of_death]</span></div>",
+		"<div style='color: #6a6a70; font-size: 11px; margin-top: 4px;'>TIME: [stationtime2text()] | LOCATION: [get_area_name(T, TRUE)]</div>",
+		"<hr style='border: 1px solid #2a2a30; margin: 8px 0;'>",
+		"<div style='color: #6a6a70; font-size: 11px;'>Resuscitation possible if brain intact and death time &lt; 10 minutes.</div>",
 	)
 
 	if(ishuman(src))
-		death_message.Insert(3, "<div style='text-align:center'><i>[button_element(src, "Click here to see stats", "show_death_stats=1")]</i></div>")
+		death_message += "<div style='margin-top: 6px;'>[button_element(src, "// VIEW TERMIN STATS //", "show_death_stats=1")]</div>"
 		var/mob/living/carbon/human/H = src
 		H.time_of_death_stats = H.get_bodyscanner_data()
 
-	death_message = examine_block(jointext(death_message, ""))
+	death_message += "</div>"
+
+	death_message = jointext(death_message, "")
 	to_chat(src, death_message)
 
 	playsound_local(src, 'goon/sounds/revfocus.ogg', 50, vary = FALSE, pressure_affected = FALSE)
-
-	var/turf/T = get_turf(src)
 
 	if(mind && mind.name && mind.active)
 		if(!istype(T.loc, /area/centcom/ctf))
@@ -125,6 +129,6 @@
 	if (client)
 		client.move_delay = initial(client.move_delay)
 
-	if(!gibbed)
+	if(!gibbed && !QDELETED(src))
 		AddComponent(/datum/component/spook_factor, SPOOK_AMT_CORPSE)
 	return TRUE

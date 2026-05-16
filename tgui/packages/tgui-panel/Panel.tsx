@@ -80,17 +80,17 @@ export const Panel = (props) => {
             <Pane.Content scrollable>
               <ChatPanel lineHeight={settings.lineHeight} />
             </Pane.Content>
+            <div className="ChatTerminal__scanlines" />
+            <div className="ChatTerminal__vignette" />
             <Notifications>
               {game.connectionLostAt && (
                 <Notifications.Item rightSlot={<ReconnectButton />}>
-                  You are either AFK, experiencing lag or the connection has
-                  closed.
+                  {/* CONNECTION LOST — RECONNECTING... */}
                 </Notifications.Item>
               )}
               {game.roundRestartedAt && (
                 <Notifications.Item>
-                  The connection has been closed because the server is
-                  restarting. Please wait while you automatically reconnect.
+                  {/* SERVER RESTARTING — STANDBY... */}
                 </Notifications.Item>
               )}
             </Notifications>

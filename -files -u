@@ -1,0 +1,40 @@
+[1mdiff --git a/code/modules/client/preferences/html_prefs/categories/occupation.dm b/code/modules/client/preferences/html_prefs/categories/occupation.dm[m
+[1mindex fbef7c5b30..9212619f38 100644[m
+[1m--- a/code/modules/client/preferences/html_prefs/categories/occupation.dm[m
+[1m+++ b/code/modules/client/preferences/html_prefs/categories/occupation.dm[m
+[36m@@ -48,20 +48,24 @@[m
+ 	var/info_button = button_element(prefs, "?", "pref_act=[/datum/preference/choiced/employer];info=1")[m
+ [m
+ 	. += {"[m
+[31m-		<div class='flexColumn' style='justify-content: center;align-items: center; gap:3px; width:100%'>[m
+[31m-		<div class='computerLegend' style='margin: auto'><b>Faction</b></div>[m
+[31m-		<div style='font-size: 20px;text-align:center;width: 100%'>[employer_pref.get_button(prefs)][info_button]</div>[m
+[31m-		<div style='width: 100%'><HR></div>[m
+[32m+[m	[32m<fieldset class='computerPaneNested' style='display: inline-block;min-width:50%;max-width:50%;margin-left: auto;margin-right: auto'>[m
+[32m+[m		[32m<legend class='computerLegend tooltip'>[m
+[32m+[m			[32m<b>Faction</b>[m
+[32m+[m			[32m<span class='tooltiptext'>Choose your employer faction.</span>[m
+[32m+[m		[32m</legend>[m
+[32m+[m		[32m<div style='text-align: center; margin-bottom: 10px'>[m
+[32m+[m			[32m[employer_pref.get_button(prefs)][info_button][m
+ 		</div>[m
+[32m+[m	[32m</fieldset>[m
+ 	"}[m
+[31m-	// Table within a table for alignment, also allows you to easily add more columns.[m
+[32m+[m[41m	[m
+ 	. += {"[m
+[31m-		<center>[m
+[31m-		<tt>[m
+[31m-		<table width='100%' cellpadding='1' cellspacing='0'>[m
+[31m-			<tr>[m
+[31m-				<td width='20%'>[m
+[31m-					<table width='100%' cellpadding='1' cellspacing='0'>[m
+[32m+[m	[32m<fieldset class='computerPaneNested' style='display: inline-block;min-width:50%;max-width:50%;margin-left: auto;margin-right: auto'>[m
+[32m+[m		[32m<legend class='computerLegend tooltip'>[m
+[32m+[m			[32m<b>Occupation Preferences</b>[m
+[32m+[m			[32m<span class='tooltiptext'>Set your job preferences and priorities.</span>[m
+[32m+[m		[32m</legend>[m
+[32m+[m		[32m<div class='zebraTable' style='display: flex; flex-direction: column; height: 560px; overflow-y: scroll'>[m
+ 	"}[m
+ 	var/list/job_prefs = prefs.read_preference(/datum/preference/blob/job_priority)[m
+ 	var/index = 0[m

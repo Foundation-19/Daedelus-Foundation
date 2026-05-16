@@ -108,6 +108,7 @@
 
 // Vox tail
 /obj/item/organ/tail/vox
+	layers = list(BODY_FRONT_LAYER, BODY_BEHIND_LAYER)
 	feature_key = "tail_vox"
 	preference = null
 	render_key = "tail_vox"

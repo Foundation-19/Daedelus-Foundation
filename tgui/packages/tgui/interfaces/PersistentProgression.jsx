@@ -1,33 +1,240 @@
 import { useBackend, useLocalState } from '../backend';
-import {
-  Box,
-  Button,
-  LabeledList,
-  ProgressBar,
-  Section,
-  Stack,
-  Tabs,
-} from '../components';
+import { Box, Button, NoticeBox } from '../components';
 import { Window } from '../layouts';
+
+const C = {
+  bg: '#08080a',
+  panel: '#0c0c10',
+  border: '#1e1e24',
+  borderRed: '#6b0000',
+  accent: '#c2960e',
+  red: '#8b0000',
+  redBright: '#cc2222',
+  green: '#1a7a1a',
+  greenDim: '#0d4a0d',
+  text: '#b0b0b0',
+  textBright: '#e0e0e0',
+  textDim: '#555560',
+  amber: '#d4a017',
+  mono: '"Consolas", "Courier New", "Lucida Console", monospace',
+};
+
+const term = (overrides = {}) => ({
+  fontFamily: C.mono,
+  fontSize: '12px',
+  color: C.text,
+  ...overrides,
+});
+
+const TermHeader = (props) => (
+  <Box
+    style={term({
+      fontSize: '10px',
+      color: C.textDim,
+      letterSpacing: '0.18em',
+      textTransform: 'uppercase',
+      borderBottom: `1px solid ${C.border}`,
+      paddingBottom: '4px',
+      marginBottom: '8px',
+      ...props.style,
+    })}
+  >
+    {props.children}
+  </Box>
+);
+
+const TermLabel = (props) => (
+  <Box
+    as="span"
+    style={term({
+      color: C.textDim,
+      fontSize: '10px',
+      letterSpacing: '0.12em',
+      textTransform: 'uppercase',
+      marginRight: '8px',
+    })}
+  >
+    {props.children}
+  </Box>
+);
+
+const TermValue = (props) => (
+  <Box
+    as="span"
+    style={term({
+      color: props.color || C.textBright,
+      fontWeight: props.bold ? 'bold' : undefined,
+    })}
+  >
+    {props.children}
+  </Box>
+);
+
+const TermRow = (props) => (
+  <Box style={{ marginBottom: '6px', display: 'flex', alignItems: 'center' }}>
+    {props.children}
+  </Box>
+);
+
+const TermDivider = () => (
+  <Box
+    style={{
+      color: C.borderRed,
+      fontSize: '10px',
+      letterSpacing: '0.3em',
+      margin: '10px 0',
+      userSelect: 'none',
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
+    }}
+  >
+    {'─'.repeat(80)}
+  </Box>
+);
+
+const TermButton = (props) => {
+  const selected = props.selected;
+  const color = props.color;
+  const bg = selected
+    ? color === 'red'
+      ? 'rgba(139,0,0,0.35)'
+      : color === 'green'
+        ? 'rgba(26,122,26,0.35)'
+        : color === 'yellow'
+          ? 'rgba(180,160,20,0.25)'
+          : 'rgba(255,255,255,0.08)'
+    : 'transparent';
+  const borderColor = selected
+    ? color === 'red'
+      ? C.red
+      : color === 'green'
+        ? C.green
+        : color === 'yellow'
+          ? '#b0a020'
+          : C.border
+    : C.border;
+
+  return (
+    <Button
+      {...props}
+      style={{
+        fontFamily: C.mono,
+        fontSize: '10px',
+        letterSpacing: '0.1em',
+        textTransform: 'uppercase',
+        background: bg,
+        border: `1px solid ${borderColor}`,
+        borderRadius: 0,
+        color: selected ? C.textBright : C.textDim,
+        padding: '3px 8px',
+        boxShadow: selected ? `0 0 6px ${borderColor}44` : 'none',
+      }}
+    >
+      {props.children}
+    </Button>
+  );
+};
+
+const TermProgressBar = (props) => (
+  <Box style={{ marginBottom: '6px' }}>
+    <Box
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        marginBottom: '2px',
+      }}
+    >
+      <TermLabel>{props.label}</TermLabel>
+      <TermValue color={props.color || C.amber}>
+        {props.value}
+        {props.suffix || ''}
+      </TermValue>
+    </Box>
+    <Box
+      style={{
+        height: '6px',
+        background: C.panel,
+        border: `1px solid ${C.border}`,
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
+      <Box
+        style={{
+          height: '100%',
+          width: `${Math.min(100, Math.max(0, (props.value / props.maxValue) * 100))}%`,
+          background: props.color || C.amber,
+          transition: 'width 0.3s',
+        }}
+      />
+    </Box>
+  </Box>
+);
+
+const StatBox = (props) => (
+  <Box
+    style={{
+      flex: 1,
+      padding: '10px',
+      borderLeft: `2px solid ${props.color || C.borderRed}`,
+      background: C.panel,
+      textAlign: 'center',
+    }}
+  >
+    <Box
+      style={term({
+        color: props.color || C.amber,
+        fontSize: '18px',
+        fontWeight: 'bold',
+      })}
+    >
+      {props.value}
+    </Box>
+    <Box
+      style={term({
+        color: C.textDim,
+        fontSize: '9px',
+        letterSpacing: '0.12em',
+      })}
+    >
+      {props.label}
+    </Box>
+  </Box>
+);
 
 export const PersistentProgression = (props) => {
   const { act, data } = useBackend();
   const [tab, setTab] = useLocalState('tab', 1);
-  const [viewMode, setViewMode] = useLocalState('viewMode', 'current');
 
-  // Ensure data exists and has required properties
   const safeData = data || {};
   const hasData = safeData.has_data || false;
 
   if (!hasData) {
     return (
-      <Window title="Persistent Progression System" width={1000} height={700}>
-        <Window.Content>
-          <Section>
-            <Box textAlign="center" fontSize="1.2em" color="red">
-              No persistent data found. Please contact an administrator.
-            </Box>
-          </Section>
+      <Window
+        title="SCP FOUNDATION — PERSISTENT PROGRESSION TERMINAL"
+        width={1200}
+        height={800}
+        theme="scp_terminal"
+      >
+        <Window.Content scrollable>
+          <Box
+            style={{
+              background: C.bg,
+              border: `1px solid ${C.borderRed}`,
+              fontFamily: C.mono,
+              fontSize: '12px',
+              color: C.text,
+              minHeight: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <NoticeBox>
+              NO PERSISTENT DATA FOUND — CONTACT ADMINISTRATOR
+            </NoticeBox>
+          </Box>
         </Window.Content>
       </Window>
     );
@@ -51,1270 +258,582 @@ export const PersistentProgression = (props) => {
     class_description = 'No description available',
     class_exp_multiplier = 1.0,
     class_max_rank = 0,
-    ranks = [],
     faction_description = 'No description available',
     faction_exp_multiplier = 1.0,
-    available_classes = [],
-    available_factions = [],
-    all_classes = [],
-    all_factions = [],
     unlocked_items = [],
     unlocked_titles = [],
     achievements = [],
     recent_experience = [],
   } = safeData;
 
+  const TABS = [
+    { key: 1, label: 'OVERVIEW' },
+    { key: 2, label: 'ACHIEVEMENTS' },
+    { key: 3, label: 'UNLOCKED' },
+    { key: 4, label: 'ACTIVITY' },
+    { key: 5, label: 'CLASS' },
+    { key: 6, label: 'SCP' },
+  ];
+
   return (
-    <Window title="Persistent Progression System" width={1000} height={700}>
+    <Window
+      title="SCP FOUNDATION — PERSISTENT PROGRESSION TERMINAL"
+      width={1200}
+      height={800}
+      theme="scp_terminal"
+    >
       <Window.Content scrollable>
-        <Stack fill vertical>
-          <Stack.Item>
-            <Section title={`Player: ${player_name} (${player_key})`}>
-              <Stack>
-                <Stack.Item grow>
-                  <LabeledList>
-                    <LabeledList.Item label="Current Class">
-                      {current_class}
-                    </LabeledList.Item>
-                    <LabeledList.Item label="Current Faction">
-                      {current_faction}
-                    </LabeledList.Item>
-                    <LabeledList.Item label="Current Rank">
-                      {current_rank}
-                    </LabeledList.Item>
-                  </LabeledList>
-                </Stack.Item>
-                <Stack.Item>
-                  <Button
-                    content="Export Data"
-                    onClick={() => act('export_data')}
-                    color="blue"
-                  />
-                  <Button
-                    content="Reset Progress"
-                    onClick={() => act('reset_progress')}
-                    color="red"
-                  />
-                </Stack.Item>
-              </Stack>
-            </Section>
-          </Stack.Item>
+        <Box
+          style={{
+            background: C.bg,
+            border: `1px solid ${C.borderRed}`,
+            fontFamily: C.mono,
+            fontSize: '12px',
+            color: C.text,
+            minHeight: '100%',
+          }}
+        >
+          <Box
+            style={{
+              borderBottom: `2px solid ${C.borderRed}`,
+              padding: '10px 14px 8px',
+              background: 'linear-gradient(180deg, #0e0000 0%, #08080a 100%)',
+            }}
+          >
+            <Box
+              style={{
+                fontSize: '15px',
+                fontWeight: 'bold',
+                color: C.amber,
+                letterSpacing: '0.18em',
+              }}
+            >
+              SCP FOUNDATION — PERSISTENT PROGRESSION TERMINAL
+            </Box>
+            <Box
+              style={{
+                fontSize: '9px',
+                color: C.textDim,
+                letterSpacing: '0.12em',
+                marginTop: '2px',
+              }}
+            >
+              PERSONNEL DEVELOPMENT & ACHIEVEMENT TRACKING | CLEARANCE LEVEL 2 |
+              v3.2.1
+            </Box>
+          </Box>
 
-          <Stack.Item>
-            <Tabs>
-              <Tabs.Tab selected={tab === 1} onClick={() => setTab(1)}>
-                Overview & Stats
-              </Tabs.Tab>
-              <Tabs.Tab selected={tab === 2} onClick={() => setTab(2)}>
-                Classes & Factions
-              </Tabs.Tab>
-              <Tabs.Tab selected={tab === 3} onClick={() => setTab(3)}>
-                Progress & Rewards
-              </Tabs.Tab>
-              <Tabs.Tab selected={tab === 4} onClick={() => setTab(4)}>
-                Experience History
-              </Tabs.Tab>
-              <Tabs.Tab selected={tab === 5} onClick={() => setTab(5)}>
-                Achievements
-              </Tabs.Tab>
-              <Tabs.Tab selected={tab === 6} onClick={() => setTab(6)}>
-                Detailed Stats
-              </Tabs.Tab>
-              <Tabs.Tab selected={tab === 7} onClick={() => setTab(7)}>
-                Analytics
-              </Tabs.Tab>
-              <Tabs.Tab selected={tab === 8} onClick={() => setTab(8)}>
-                Faction Integration
-              </Tabs.Tab>
-              <Tabs.Tab selected={tab === 9} onClick={() => setTab(9)}>
-                Database Status
-              </Tabs.Tab>
-            </Tabs>
-          </Stack.Item>
+          <Box
+            style={{
+              display: 'flex',
+              borderBottom: `1px solid ${C.borderRed}`,
+              overflowX: 'auto',
+              background: C.panel,
+            }}
+          >
+            {TABS.map((t) => {
+              const isActive = tab === t.key;
+              return (
+                <Box
+                  key={t.key}
+                  style={{
+                    padding: '6px 12px',
+                    cursor: 'pointer',
+                    background: isActive ? 'rgba(139,0,0,0.25)' : 'transparent',
+                    borderRight: `1px solid ${C.border}`,
+                    borderBottom: isActive
+                      ? `2px solid ${C.amber}`
+                      : '2px solid transparent',
+                    color: isActive ? C.textBright : C.textDim,
+                    fontSize: '10px',
+                    letterSpacing: '0.12em',
+                    textTransform: 'uppercase',
+                    fontFamily: C.mono,
+                    whiteSpace: 'nowrap',
+                  }}
+                  onClick={() => setTab(t.key)}
+                >
+                  {isActive && '▸ '}
+                  {t.label}
+                </Box>
+              );
+            })}
+          </Box>
 
-          <Stack.Item grow>
-            {tab === 1 && <OverviewTab />}
-            {tab === 2 && (
-              <ClassesFactionsTab
-                viewMode={viewMode}
-                setViewMode={setViewMode}
-              />
-            )}
-            {tab === 3 && <ProgressRewardsTab />}
-            {tab === 4 && <ExperienceHistoryTab />}
-            {tab === 5 && <AchievementsTab />}
-            {tab === 6 && <DetailedStatsTab />}
-            {tab === 7 && <AnalyticsTab />}
-            {tab === 8 && <FactionIntegrationTab />}
-            {tab === 9 && <DatabaseStatusTab />}
-          </Stack.Item>
-        </Stack>
-      </Window.Content>
-    </Window>
-  );
-};
+          <Box style={{ padding: '16px' }}>
+            {tab === 1 && (
+              <Box>
+                <TermHeader>QUICK ACTIONS</TermHeader>
+                <Box
+                  style={{ display: 'flex', gap: '4px', marginBottom: '12px' }}
+                >
+                  <TermButton color="green" onClick={() => act('export_data')}>
+                    EXPORT
+                  </TermButton>
+                  <TermButton color="red" onClick={() => act('reset_progress')}>
+                    RESET
+                  </TermButton>
+                  <TermButton color="yellow" onClick={() => act('save_data')}>
+                    SAVE
+                  </TermButton>
+                  <TermButton onClick={() => act('load_data')}>LOAD</TermButton>
+                </Box>
 
-const OverviewTab = (props, context) => {
-  const { act, data } = useBackend(context);
-  const {
-    current_class = 'Unknown',
-    current_faction = 'Unknown',
-    current_rank = 'Unknown',
-    total_experience = 0,
-    rounds_played = 0,
-    progress_to_next = 0,
-    exp_needed = 0,
-    total_rounds_survived = 0,
-    total_rounds_died = 0,
-    survival_rate = 0,
-    average_exp_per_round = 0,
-    class_description = 'No description available',
-    class_exp_multiplier = 1.0,
-    faction_description = 'No description available',
-    faction_exp_multiplier = 1.0,
-    recent_experience = [],
-  } = data || {};
+                <TermDivider />
 
-  return (
-    <Stack fill vertical>
-      <Stack.Item>
-        <Section title="Player Statistics">
-          <Stack>
-            <Stack.Item grow>
-              <LabeledList>
-                <LabeledList.Item label="Total Experience">
-                  {total_experience.toLocaleString()}
-                </LabeledList.Item>
-                <LabeledList.Item label="Rounds Played">
-                  {rounds_played}
-                </LabeledList.Item>
-                <LabeledList.Item label="Rounds Survived">
-                  {total_rounds_survived}
-                </LabeledList.Item>
-                <LabeledList.Item label="Rounds Died">
-                  {total_rounds_died}
-                </LabeledList.Item>
-              </LabeledList>
-            </Stack.Item>
-            <Stack.Item>
-              <LabeledList>
-                <LabeledList.Item label="Survival Rate">
-                  {survival_rate}%
-                </LabeledList.Item>
-                <LabeledList.Item label="Avg Exp/Round">
-                  {average_exp_per_round}
-                </LabeledList.Item>
-                <LabeledList.Item label="Total Multiplier">
-                  {(class_exp_multiplier * faction_exp_multiplier).toFixed(2)}x
-                </LabeledList.Item>
-              </LabeledList>
-            </Stack.Item>
-          </Stack>
-        </Section>
-      </Stack.Item>
+                <TermHeader>PERSONNEL IDENTIFICATION</TermHeader>
+                <TermRow>
+                  <TermLabel>DESIGNATION</TermLabel>
+                  <TermValue color={C.amber} bold>
+                    {player_name}
+                  </TermValue>
+                </TermRow>
+                <TermRow>
+                  <TermLabel>ID KEY</TermLabel>
+                  <TermValue color={C.amber}>{player_key}</TermValue>
+                </TermRow>
+                <TermRow>
+                  <TermLabel>CLASS</TermLabel>
+                  <TermValue>{current_class}</TermValue>
+                </TermRow>
+                <TermRow>
+                  <TermLabel>FACTION</TermLabel>
+                  <TermValue>{current_faction}</TermValue>
+                </TermRow>
+                <TermRow>
+                  <TermLabel>RANK</TermLabel>
+                  <TermValue color={C.green}>
+                    {current_rank} (LEVEL {current_rank_level})
+                  </TermValue>
+                </TermRow>
+                <TermRow>
+                  <TermLabel>TOTAL XP</TermLabel>
+                  <TermValue color={C.amber}>
+                    {total_experience.toLocaleString()}
+                  </TermValue>
+                </TermRow>
 
-      <Stack.Item>
-        <Section title="Current Progress">
-          <Stack>
-            <Stack.Item grow>
-              <LabeledList>
-                <LabeledList.Item label="Class">
-                  {current_class}
-                </LabeledList.Item>
-                <LabeledList.Item label="Faction">
-                  {current_faction}
-                </LabeledList.Item>
-                <LabeledList.Item label="Rank">{current_rank}</LabeledList.Item>
-              </LabeledList>
-            </Stack.Item>
-            <Stack.Item>
-              <Box textAlign="center">
-                <ProgressBar
+                <TermDivider />
+
+                <TermHeader>PROGRESSION STATUS</TermHeader>
+                <TermProgressBar
+                  label="PROGRESS TO NEXT RANK"
                   value={progress_to_next}
                   maxValue={100}
-                  color="blue"
-                  width="200px"
+                  color={progress_to_next >= 100 ? C.green : C.amber}
+                  suffix="%"
                 />
-                <Box mt={1}>
-                  {exp_needed > 0
-                    ? `${exp_needed.toLocaleString()} exp needed`
-                    : 'Max rank reached!'}
-                </Box>
-              </Box>
-            </Stack.Item>
-          </Stack>
-        </Section>
-      </Stack.Item>
-
-      <Stack.Item>
-        <Section title="Class & Faction Details">
-          <Stack>
-            <Stack.Item grow>
-              <Box>
-                <strong>Class: {current_class}</strong>
-                <Box color="gray" mt={1}>
-                  {class_description}
-                </Box>
-                <Box mt={1}>Experience Multiplier: {class_exp_multiplier}x</Box>
-              </Box>
-            </Stack.Item>
-            <Stack.Item grow>
-              <Box>
-                <strong>Faction: {current_faction}</strong>
-                <Box color="gray" mt={1}>
-                  {faction_description}
-                </Box>
-                <Box mt={1}>
-                  Experience Multiplier: {faction_exp_multiplier}x
-                </Box>
-              </Box>
-            </Stack.Item>
-          </Stack>
-        </Section>
-      </Stack.Item>
-
-      <Stack.Item>
-        <Section title="Recent Experience Gains">
-          {recent_experience.length > 0 ? (
-            recent_experience.map((exp, index) => (
-              <Box
-                key={index}
-                mb={1}
-                p={1}
-                backgroundColor="rgba(0, 0, 0, 0.1)"
-              >
-                <strong>{exp.reason}:</strong> +{exp.amount} exp
-                <Box color="gray" fontSize="0.8em">
-                  {exp.timestamp}
-                </Box>
-              </Box>
-            ))
-          ) : (
-            <Box color="gray">No recent experience gained</Box>
-          )}
-        </Section>
-      </Stack.Item>
-    </Stack>
-  );
-};
-
-const ClassesFactionsTab = (props, context) => {
-  const { act, data } = useBackend(context);
-  const { viewMode, setViewMode } = props;
-  const {
-    available_classes = [],
-    available_factions = [],
-    all_classes = [],
-    all_factions = [],
-  } = data || {};
-
-  return (
-    <Stack fill vertical>
-      <Stack.Item>
-        <Section>
-          <Stack>
-            <Stack.Item>
-              <Button
-                content="Current Options"
-                selected={viewMode === 'current'}
-                onClick={() => setViewMode('current')}
-                color="blue"
-              />
-            </Stack.Item>
-            <Stack.Item>
-              <Button
-                content="All Classes"
-                selected={viewMode === 'classes'}
-                onClick={() => setViewMode('classes')}
-                color="green"
-              />
-            </Stack.Item>
-            <Stack.Item>
-              <Button
-                content="All Factions"
-                selected={viewMode === 'factions'}
-                onClick={() => setViewMode('factions')}
-                color="orange"
-              />
-            </Stack.Item>
-          </Stack>
-        </Section>
-      </Stack.Item>
-
-      {viewMode === 'current' && (
-        <>
-          <Stack.Item>
-            <Section title="Available Classes">
-              {available_classes.map((classData) => (
-                <Box
-                  key={classData.id}
-                  mb={2}
-                  p={2}
-                  backgroundColor={
-                    classData.current
-                      ? 'rgba(0, 255, 0, 0.1)'
-                      : 'rgba(0, 0, 0, 0.1)'
-                  }
-                >
-                  <Stack>
-                    <Stack.Item grow>
-                      <Box fontSize="1.1em" fontWeight="bold">
-                        {classData.name}
-                        {classData.current && ' (Current)'}
-                      </Box>
-                      <Box color="gray">{classData.description}</Box>
-                    </Stack.Item>
-                    {!classData.current && (
-                      <Stack.Item>
-                        <Button
-                          content="Change to this Class"
-                          onClick={() =>
-                            act('change_class', { class_id: classData.id })
-                          }
-                          color="blue"
-                        />
-                      </Stack.Item>
-                    )}
-                  </Stack>
-                </Box>
-              ))}
-            </Section>
-          </Stack.Item>
-
-          <Stack.Item>
-            <Section title="Available Factions">
-              {available_factions.map((factionData) => (
-                <Box
-                  key={factionData.id}
-                  mb={2}
-                  p={2}
-                  backgroundColor={
-                    factionData.current
-                      ? 'rgba(0, 255, 0, 0.1)'
-                      : 'rgba(0, 0, 0, 0.1)'
-                  }
-                >
-                  <Stack>
-                    <Stack.Item grow>
-                      <Box fontSize="1.1em" fontWeight="bold">
-                        {factionData.name}
-                        {factionData.current && ' (Current)'}
-                      </Box>
-                      <Box color="gray">{factionData.description}</Box>
-                    </Stack.Item>
-                    {!factionData.current && (
-                      <Stack.Item>
-                        <Button
-                          content="Change to this Faction"
-                          onClick={() =>
-                            act('change_faction', {
-                              faction_id: factionData.id,
-                            })
-                          }
-                          color="blue"
-                        />
-                      </Stack.Item>
-                    )}
-                  </Stack>
-                </Box>
-              ))}
-            </Section>
-          </Stack.Item>
-        </>
-      )}
-
-      {viewMode === 'classes' && (
-        <Stack.Item>
-          <Section title="All Classes">
-            {all_classes.map((classData) => (
-              <Box
-                key={classData.id}
-                mb={2}
-                p={2}
-                backgroundColor={
-                  classData.current
-                    ? 'rgba(0, 255, 0, 0.1)'
-                    : classData.available
-                      ? 'rgba(0, 255, 255, 0.1)'
-                      : 'rgba(255, 0, 0, 0.1)'
-                }
-              >
-                <Stack>
-                  <Stack.Item grow>
-                    <Box fontSize="1.1em" fontWeight="bold">
-                      {classData.name}
-                      {classData.current && ' (Current)'}
-                      {!classData.available && ' (Unavailable)'}
-                    </Box>
-                    <Box color="gray">{classData.description}</Box>
-                    <Box mt={1}>
-                      <strong>Exp Multiplier:</strong>{' '}
-                      {classData.exp_multiplier}x
-                      <br />
-                      <strong>Max Rank:</strong> {classData.max_rank}
-                      <br />
-                      <strong>Compatible Factions:</strong>{' '}
-                      {classData.compatible_factions.join(', ')}
-                    </Box>
-                  </Stack.Item>
-                  {classData.available && !classData.current && (
-                    <Stack.Item>
-                      <Button
-                        content="Change to this Class"
-                        onClick={() =>
-                          act('change_class', { class_id: classData.id })
-                        }
-                        color="blue"
-                      />
-                    </Stack.Item>
-                  )}
-                </Stack>
-              </Box>
-            ))}
-          </Section>
-        </Stack.Item>
-      )}
-
-      {viewMode === 'factions' && (
-        <Stack.Item>
-          <Section title="All Factions">
-            {all_factions.map((factionData) => (
-              <Box
-                key={factionData.id}
-                mb={2}
-                p={2}
-                backgroundColor={
-                  factionData.current
-                    ? 'rgba(0, 255, 0, 0.1)'
-                    : factionData.available
-                      ? 'rgba(0, 255, 255, 0.1)'
-                      : 'rgba(255, 0, 0, 0.1)'
-                }
-              >
-                <Stack>
-                  <Stack.Item grow>
-                    <Box fontSize="1.1em" fontWeight="bold">
-                      {factionData.name}
-                      {factionData.current && ' (Current)'}
-                      {!factionData.available && ' (Unavailable)'}
-                    </Box>
-                    <Box color="gray">{factionData.description}</Box>
-                    <Box mt={1}>
-                      <strong>Exp Multiplier:</strong>{' '}
-                      {factionData.exp_multiplier}x
-                      <br />
-                      <strong>Available Classes:</strong>{' '}
-                      {factionData.available_classes.join(', ')}
-                    </Box>
-                  </Stack.Item>
-                  {factionData.available && !factionData.current && (
-                    <Stack.Item>
-                      <Button
-                        content="Change to this Faction"
-                        onClick={() =>
-                          act('change_faction', { faction_id: factionData.id })
-                        }
-                        color="blue"
-                      />
-                    </Stack.Item>
-                  )}
-                </Stack>
-              </Box>
-            ))}
-          </Section>
-        </Stack.Item>
-      )}
-    </Stack>
-  );
-};
-
-const ProgressRewardsTab = (props, context) => {
-  const { act, data } = useBackend(context);
-  const {
-    ranks = [],
-    unlocked_items = [],
-    unlocked_titles = [],
-    achievements = [],
-  } = data || {};
-
-  return (
-    <Stack fill vertical>
-      <Stack.Item>
-        <Section title="Rank Progression">
-          {ranks.map((rank, index) => (
-            <Box
-              key={index}
-              mb={1}
-              p={1}
-              backgroundColor={
-                rank.unlocked ? 'rgba(0, 255, 0, 0.1)' : 'rgba(0, 0, 0, 0.1)'
-              }
-            >
-              <Stack>
-                <Stack.Item grow>
-                  <Box fontSize="1em" fontWeight="bold" color={rank.color}>
-                    {rank.unlocked ? '✓' : '✗'} {rank.name}
-                  </Box>
-                  <Box color="gray">
-                    {rank.requirement.toLocaleString()} experience required
-                  </Box>
-                </Stack.Item>
-              </Stack>
-            </Box>
-          ))}
-        </Section>
-      </Stack.Item>
-
-      <Stack.Item>
-        <Section title="Unlocked Items">
-          {unlocked_items.length > 0 ? (
-            unlocked_items.map((item, index) => (
-              <Box key={index} mb={1}>
-                • {item}
-              </Box>
-            ))
-          ) : (
-            <Box color="gray">No items unlocked yet</Box>
-          )}
-        </Section>
-      </Stack.Item>
-
-      <Stack.Item>
-        <Section title="Unlocked Titles">
-          {unlocked_titles.length > 0 ? (
-            unlocked_titles.map((title, index) => (
-              <Box key={index} mb={1}>
-                • {title}
-              </Box>
-            ))
-          ) : (
-            <Box color="gray">No titles unlocked yet</Box>
-          )}
-        </Section>
-      </Stack.Item>
-
-      <Stack.Item>
-        <Section title="Achievements">
-          {achievements.length > 0 ? (
-            achievements.map((achievement, index) => (
-              <Box key={index} mb={1}>
-                • {achievement}
-              </Box>
-            ))
-          ) : (
-            <Box color="gray">No achievements unlocked yet</Box>
-          )}
-        </Section>
-      </Stack.Item>
-    </Stack>
-  );
-};
-
-const ExperienceHistoryTab = (props, context) => {
-  const { act, data } = useBackend(context);
-  const { recent_experience = [] } = data || {};
-
-  return (
-    <Stack fill vertical>
-      <Stack.Item>
-        <Section title="Experience History">
-          {recent_experience.length > 0 ? (
-            recent_experience.map((exp, index) => (
-              <Box
-                key={index}
-                mb={2}
-                p={2}
-                backgroundColor="rgba(0, 0, 0, 0.1)"
-              >
-                <Stack>
-                  <Stack.Item grow>
-                    <Box fontSize="1.1em" fontWeight="bold">
-                      {exp.reason}
-                    </Box>
-                    <Box color="green" fontSize="1.2em">
-                      +{exp.amount} experience
-                    </Box>
-                    <Box color="gray" fontSize="0.9em">
-                      {exp.timestamp}
-                    </Box>
-                  </Stack.Item>
-                </Stack>
-              </Box>
-            ))
-          ) : (
-            <Box color="gray" textAlign="center" fontSize="1.2em">
-              No experience history available
-            </Box>
-          )}
-        </Section>
-      </Stack.Item>
-    </Stack>
-  );
-};
-
-const AchievementsTab = (props, context) => {
-  const { act, data } = useBackend(context);
-  const {
-    achievements = [],
-    achievement_points = 0,
-    total_achievements_unlocked = 0,
-  } = data || {};
-
-  const getRarityColor = (rarity) => {
-    switch (rarity) {
-      case 'common':
-        return 'white';
-      case 'uncommon':
-        return 'green';
-      case 'rare':
-        return 'blue';
-      case 'epic':
-        return 'purple';
-      case 'legendary':
-        return 'orange';
-      default:
-        return 'white';
-    }
-  };
-
-  const getCategoryColor = (category) => {
-    switch (category) {
-      case 'milestone':
-        return 'blue';
-      case 'class':
-        return 'green';
-      case 'faction':
-        return 'orange';
-      case 'hidden':
-        return 'purple';
-      case 'seasonal':
-        return 'yellow';
-      default:
-        return 'white';
-    }
-  };
-
-  return (
-    <Stack fill vertical>
-      <Stack.Item>
-        <Section title="Achievement Overview">
-          <Stack>
-            <Stack.Item grow>
-              <LabeledList>
-                <LabeledList.Item label="Total Achievements">
-                  {total_achievements_unlocked} / {achievements.length}
-                </LabeledList.Item>
-                <LabeledList.Item label="Achievement Points">
-                  {achievement_points.toLocaleString()}
-                </LabeledList.Item>
-                <LabeledList.Item label="Completion Rate">
-                  {achievements.length > 0
-                    ? Math.round(
-                        (total_achievements_unlocked / achievements.length) *
-                          100,
-                      )
-                    : 0}
-                  %
-                </LabeledList.Item>
-              </LabeledList>
-            </Stack.Item>
-          </Stack>
-        </Section>
-      </Stack.Item>
-
-      <Stack.Item>
-        <Section title="All Achievements">
-          {achievements.map((achievement, index) => (
-            <Box
-              key={index}
-              mb={2}
-              p={2}
-              backgroundColor={
-                achievement.unlocked
-                  ? 'rgba(0, 255, 0, 0.1)'
-                  : 'rgba(0, 0, 0, 0.1)'
-              }
-            >
-              <Stack>
-                <Stack.Item grow>
+                {exp_needed > 0 && (
                   <Box
-                    fontSize="1.1em"
-                    fontWeight="bold"
-                    color={getRarityColor(achievement.rarity)}
+                    style={term({
+                      color: C.textDim,
+                      fontSize: '10px',
+                      marginBottom: '8px',
+                    })}
                   >
-                    {achievement.unlocked ? '✓' : '✗'} {achievement.name}
-                    {achievement.secret && !achievement.unlocked && ' (Hidden)'}
+                    {exp_needed.toLocaleString()} XP REQUIRED
                   </Box>
-                  <Box color="gray" mt={1}>
-                    {achievement.description}
-                  </Box>
-                  <Box mt={1}>
+                )}
+
+                <Box style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
+                  <StatBox
+                    label="ROUNDS PLAYED"
+                    value={rounds_played}
+                    color={C.green}
+                  />
+                  <StatBox
+                    label="SURVIVAL RATE"
+                    value={`${survival_rate}%`}
+                    color={C.amber}
+                  />
+                  <StatBox
+                    label="AVG XP/ROUND"
+                    value={average_exp_per_round}
+                    color={C.textBright}
+                  />
+                </Box>
+              </Box>
+            )}
+
+            {tab === 2 && (
+              <Box>
+                <TermHeader>ACHIEVEMENTS & MILESTONES</TermHeader>
+                {achievements && achievements.length > 0 ? (
+                  achievements.map((achievement, index) => (
                     <Box
-                      color={getCategoryColor(achievement.category)}
-                      fontSize="0.9em"
+                      key={index}
+                      style={{
+                        marginBottom: '6px',
+                        padding: '8px',
+                        borderLeft: `2px solid ${C.borderRed}`,
+                        background: C.panel,
+                      }}
                     >
-                      Category: {achievement.category}
+                      <TermRow>
+                        <TermValue bold color={C.amber}>
+                          {achievement.name}
+                        </TermValue>
+                        <Box
+                          as="span"
+                          style={term({
+                            color: C.textDim,
+                            fontSize: '10px',
+                            marginLeft: '12px',
+                          })}
+                        >
+                          {achievement.date}
+                        </Box>
+                      </TermRow>
+                      <Box
+                        style={term({
+                          color: C.textDim,
+                          fontSize: '11px',
+                          fontStyle: 'italic',
+                          marginTop: '2px',
+                        })}
+                      >
+                        {achievement.description}
+                      </Box>
                     </Box>
-                    <Box color="yellow" fontSize="0.9em">
-                      Points: {achievement.points}
-                    </Box>
-                    {achievement.max_progress > 1 && (
-                      <Box color="cyan" fontSize="0.9em">
-                        Progress: {achievement.progress} /{' '}
-                        {achievement.max_progress}
+                  ))
+                ) : (
+                  <Box style={term({ color: C.textDim, fontStyle: 'italic' })}>
+                    NO ACHIEVEMENTS UNLOCKED
+                  </Box>
+                )}
+              </Box>
+            )}
+
+            {tab === 3 && (
+              <Box>
+                <TermHeader>UNLOCKED CONTENT</TermHeader>
+                <Box style={{ display: 'flex', gap: '16px' }}>
+                  <Box style={{ flex: 1 }}>
+                    <TermLabel>ITEMS ({unlocked_items.length})</TermLabel>
+                    {unlocked_items.length > 0 ? (
+                      unlocked_items.map((item, i) => (
+                        <Box
+                          key={i}
+                          style={{
+                            ...term({
+                              color: C.text,
+                              fontSize: '11px',
+                              paddingLeft: '8px',
+                              marginTop: '4px',
+                            }),
+                            borderLeft: `1px solid ${C.border}`,
+                          }}
+                        >
+                          {item}
+                        </Box>
+                      ))
+                    ) : (
+                      <Box
+                        style={term({
+                          color: C.textDim,
+                          fontStyle: 'italic',
+                          fontSize: '11px',
+                        })}
+                      >
+                        NONE
                       </Box>
                     )}
                   </Box>
-                </Stack.Item>
-              </Stack>
-            </Box>
-          ))}
-        </Section>
-      </Stack.Item>
-    </Stack>
-  );
-};
-
-const DetailedStatsTab = (props, context) => {
-  const { act, data } = useBackend(context);
-  const {
-    performance_metrics = {},
-    current_round_damage_dealt = 0,
-    current_round_damage_taken = 0,
-    current_round_healing_done = 0,
-    current_round_objectives_completed = 0,
-    current_round_team_contributions = 0,
-    current_round_map_exploration = 0,
-    current_round_pacifist = true,
-  } = data || {};
-
-  return (
-    <Stack fill vertical>
-      <Stack.Item>
-        <Section title="Current Round Statistics">
-          <Stack>
-            <Stack.Item grow>
-              <LabeledList>
-                <LabeledList.Item label="Damage Dealt">
-                  {current_round_damage_dealt.toLocaleString()}
-                </LabeledList.Item>
-                <LabeledList.Item label="Damage Taken">
-                  {current_round_damage_taken.toLocaleString()}
-                </LabeledList.Item>
-                <LabeledList.Item label="Healing Done">
-                  {current_round_healing_done.toLocaleString()}
-                </LabeledList.Item>
-              </LabeledList>
-            </Stack.Item>
-            <Stack.Item>
-              <LabeledList>
-                <LabeledList.Item label="Objectives Completed">
-                  {current_round_objectives_completed}
-                </LabeledList.Item>
-                <LabeledList.Item label="Team Contributions">
-                  {current_round_team_contributions}
-                </LabeledList.Item>
-                <LabeledList.Item label="Map Exploration">
-                  {current_round_map_exploration}%
-                </LabeledList.Item>
-                <LabeledList.Item label="Pacifist Mode">
-                  {current_round_pacifist ? 'Yes' : 'No'}
-                </LabeledList.Item>
-              </LabeledList>
-            </Stack.Item>
-          </Stack>
-        </Section>
-      </Stack.Item>
-
-      <Stack.Item>
-        <Section title="Performance Metrics">
-          {Object.keys(performance_metrics).length > 0 ? (
-            Object.entries(performance_metrics).map(([key, value]) => (
-              <Box key={key} mb={1} p={1} backgroundColor="rgba(0, 0, 0, 0.1)">
-                <strong>{key.replace(/_/g, ' ').toUpperCase()}:</strong> {value}
-              </Box>
-            ))
-          ) : (
-            <Box color="gray" textAlign="center">
-              No performance metrics available
-            </Box>
-          )}
-        </Section>
-      </Stack.Item>
-    </Stack>
-  );
-};
-
-const AnalyticsTab = (props, context) => {
-  const { act, data } = useBackend(context);
-  const {
-    total_experience = 0,
-    rounds_played = 0,
-    survival_rate = 0,
-    average_exp_per_round = 0,
-    achievement_points = 0,
-    total_achievements_unlocked = 0,
-    performance_metrics = {},
-    ss_achievements_enabled = false,
-    ss_achievements_count = 0,
-  } = data || {};
-
-  const getTrendColor = (trend) => {
-    switch (trend) {
-      case 'increasing':
-        return 'green';
-      case 'decreasing':
-        return 'red';
-      case 'stable':
-        return 'blue';
-      default:
-        return 'gray';
-    }
-  };
-
-  const getTrendIcon = (trend) => {
-    switch (trend) {
-      case 'increasing':
-        return '↗';
-      case 'decreasing':
-        return '↘';
-      case 'stable':
-        return '→';
-      default:
-        return '?';
-    }
-  };
-
-  return (
-    <Stack fill vertical>
-      <Stack.Item>
-        <Section title="Performance Analytics">
-          <Stack>
-            <Stack.Item grow>
-              <LabeledList>
-                <LabeledList.Item label="Total Experience">
-                  {total_experience.toLocaleString()}
-                </LabeledList.Item>
-                <LabeledList.Item label="Rounds Played">
-                  {rounds_played}
-                </LabeledList.Item>
-                <LabeledList.Item label="Survival Rate">
-                  {survival_rate}%
-                </LabeledList.Item>
-                <LabeledList.Item label="Avg Exp/Round">
-                  {average_exp_per_round}
-                </LabeledList.Item>
-              </LabeledList>
-            </Stack.Item>
-            <Stack.Item>
-              <LabeledList>
-                <LabeledList.Item label="Achievement Points">
-                  {achievement_points.toLocaleString()}
-                </LabeledList.Item>
-                <LabeledList.Item label="Achievements Unlocked">
-                  {total_achievements_unlocked}
-                </LabeledList.Item>
-                <LabeledList.Item label="Efficiency Rating">
-                  {rounds_played > 0
-                    ? Math.round(total_experience / rounds_played / 100)
-                    : 0}
-                  /10
-                </LabeledList.Item>
-                <LabeledList.Item label="Completion Rate">
-                  {total_achievements_unlocked > 0
-                    ? Math.round((total_achievements_unlocked / 15) * 100)
-                    : 0}
-                  %
-                </LabeledList.Item>
-                <LabeledList.Item label="SSachievements Status">
-                  <Box color={ss_achievements_enabled ? 'green' : 'red'}>
-                    {ss_achievements_enabled ? 'Connected' : 'Disconnected'}
+                  <Box style={{ flex: 1 }}>
+                    <TermLabel>TITLES ({unlocked_titles.length})</TermLabel>
+                    {unlocked_titles.length > 0 ? (
+                      unlocked_titles.map((title, i) => (
+                        <Box
+                          key={i}
+                          style={{
+                            ...term({
+                              color: C.text,
+                              fontSize: '11px',
+                              paddingLeft: '8px',
+                              marginTop: '4px',
+                            }),
+                            borderLeft: `1px solid ${C.border}`,
+                          }}
+                        >
+                          {title}
+                        </Box>
+                      ))
+                    ) : (
+                      <Box
+                        style={term({
+                          color: C.textDim,
+                          fontStyle: 'italic',
+                          fontSize: '11px',
+                        })}
+                      >
+                        NONE
+                      </Box>
+                    )}
                   </Box>
-                </LabeledList.Item>
-              </LabeledList>
-            </Stack.Item>
-          </Stack>
-        </Section>
-      </Stack.Item>
-
-      <Stack.Item>
-        <Section title="Performance Insights">
-          <Box mb={2}>
-            <strong>Experience Efficiency:</strong>
-            {average_exp_per_round > 500 ? (
-              <Box color="green">
-                {' '}
-                Excellent! You&apos;re gaining experience very efficiently.
+                </Box>
               </Box>
-            ) : average_exp_per_round > 250 ? (
-              <Box color="blue"> Good! You&apos;re performing well.</Box>
-            ) : (
-              <Box color="orange"> You could improve your experience gain.</Box>
+            )}
+
+            {tab === 4 && (
+              <Box>
+                <TermHeader>RECENT EXPERIENCE ACTIVITY</TermHeader>
+                {recent_experience && recent_experience.length > 0 ? (
+                  recent_experience.map((exp, index) => (
+                    <Box
+                      key={index}
+                      style={{
+                        marginBottom: '4px',
+                        padding: '8px',
+                        borderLeft: `2px solid ${C.borderRed}`,
+                        background: C.panel,
+                      }}
+                    >
+                      <TermRow>
+                        <TermValue color={C.green} bold>
+                          +{exp.amount} XP
+                        </TermValue>
+                        <TermLabel style={{ marginLeft: '8px' }}>
+                          {exp.reason}
+                        </TermLabel>
+                        <Box
+                          as="span"
+                          style={term({
+                            color: C.textDim,
+                            fontSize: '10px',
+                            marginLeft: 'auto',
+                          })}
+                        >
+                          {exp.timestamp}
+                        </Box>
+                      </TermRow>
+                    </Box>
+                  ))
+                ) : (
+                  <Box style={term({ color: C.textDim, fontStyle: 'italic' })}>
+                    NO RECENT ACTIVITY
+                  </Box>
+                )}
+              </Box>
+            )}
+
+            {tab === 5 && (
+              <Box>
+                <TermHeader>CLASS & FACTION DETAILS</TermHeader>
+                <Box style={{ display: 'flex', gap: '16px' }}>
+                  <Box style={{ flex: 1 }}>
+                    <TermHeader>
+                      CLASS — {current_class.toUpperCase()}
+                    </TermHeader>
+                    <Box
+                      style={term({
+                        color: C.textDim,
+                        fontSize: '11px',
+                        fontStyle: 'italic',
+                        marginBottom: '8px',
+                      })}
+                    >
+                      {class_description}
+                    </Box>
+                    <TermRow>
+                      <TermLabel>EXP MULTIPLIER</TermLabel>
+                      <TermValue color={C.amber}>
+                        {class_exp_multiplier}x
+                      </TermValue>
+                    </TermRow>
+                    <TermRow>
+                      <TermLabel>MAX RANK</TermLabel>
+                      <TermValue>{class_max_rank}</TermValue>
+                    </TermRow>
+                  </Box>
+                  <Box style={{ flex: 1 }}>
+                    <TermHeader>
+                      FACTION — {current_faction.toUpperCase()}
+                    </TermHeader>
+                    <Box
+                      style={term({
+                        color: C.textDim,
+                        fontSize: '11px',
+                        fontStyle: 'italic',
+                        marginBottom: '8px',
+                      })}
+                    >
+                      {faction_description}
+                    </Box>
+                    <TermRow>
+                      <TermLabel>EXP MULTIPLIER</TermLabel>
+                      <TermValue color={C.amber}>
+                        {faction_exp_multiplier}x
+                      </TermValue>
+                    </TermRow>
+                  </Box>
+                </Box>
+              </Box>
+            )}
+
+            {tab === 6 && (
+              <Box>
+                <TermHeader>SCP PROGRESSION</TermHeader>
+                <TermRow>
+                  <TermLabel>CURRENT SCP</TermLabel>
+                  <TermValue color={C.amber} bold>
+                    {safeData.current_scp || 'NONE'}
+                  </TermValue>
+                </TermRow>
+                <TermRow>
+                  <TermLabel>SCP TOTAL XP</TermLabel>
+                  <TermValue color={C.amber}>
+                    {safeData.scp_total_experience || 0}
+                  </TermValue>
+                </TermRow>
+                <TermRow>
+                  <TermLabel>SCP ROUNDS</TermLabel>
+                  <TermValue>{safeData.scp_rounds_played || 0}</TermValue>
+                </TermRow>
+                <TermRow>
+                  <TermLabel>SCP ACHIEVEMENTS</TermLabel>
+                  <TermValue color={C.green}>
+                    {safeData.scp_achievements_unlocked || 0}
+                  </TermValue>
+                </TermRow>
+                <TermRow>
+                  <TermLabel>PERFORMANCE SCORE</TermLabel>
+                  <TermValue>{safeData.scp_performance_score || 0}</TermValue>
+                </TermRow>
+                <TermRow>
+                  <TermLabel>SCP RANK</TermLabel>
+                  <TermValue color={C.green}>
+                    {safeData.scp_rank || 'Novice'}
+                  </TermValue>
+                </TermRow>
+
+                {safeData.scp_metrics &&
+                  Object.keys(safeData.scp_metrics).length > 0 && (
+                    <Box>
+                      <TermDivider />
+                      <TermHeader>SCP-SPECIFIC METRICS</TermHeader>
+                      {Object.entries(safeData.scp_metrics).map(
+                        ([scp_id, metrics]) => (
+                          <Box
+                            key={scp_id}
+                            style={{
+                              marginBottom: '8px',
+                              padding: '8px',
+                              borderLeft: `2px solid ${C.borderRed}`,
+                              background: C.panel,
+                            }}
+                          >
+                            <TermValue bold color={C.amber}>
+                              SCP-{scp_id}
+                            </TermValue>
+                            {Object.entries(metrics).map(([metric, value]) => (
+                              <TermRow key={metric}>
+                                <TermLabel>{metric.toUpperCase()}</TermLabel>
+                                <TermValue>{value}</TermValue>
+                              </TermRow>
+                            ))}
+                          </Box>
+                        ),
+                      )}
+                    </Box>
+                  )}
+
+                <TermDivider />
+
+                <TermHeader>SCP PERFORMANCE</TermHeader>
+                <TermRow>
+                  <TermLabel>TOTAL SCP ROUNDS</TermLabel>
+                  <TermValue>{safeData.total_scp_rounds || 0}</TermValue>
+                </TermRow>
+                <TermRow>
+                  <TermLabel>AVG SCP PERFORMANCE</TermLabel>
+                  <TermValue color={C.amber}>
+                    {safeData.average_scp_performance || 0}
+                  </TermValue>
+                </TermRow>
+                <TermRow>
+                  <TermLabel>CONTAINMENT BREACHES</TermLabel>
+                  <TermValue color={C.redBright}>
+                    {safeData.scp_containment_breaches || 0}
+                  </TermValue>
+                </TermRow>
+                <TermRow>
+                  <TermLabel>RESEARCH POINTS</TermLabel>
+                  <TermValue>{safeData.scp_research_points || 0}</TermValue>
+                </TermRow>
+                <TermRow>
+                  <TermLabel>RESEARCH BREAKTHROUGHS</TermLabel>
+                  <TermValue color={C.green}>
+                    {safeData.scp_research_breakthroughs || 0}
+                  </TermValue>
+                </TermRow>
+                <TermRow>
+                  <TermLabel>INTERACTION EVENTS</TermLabel>
+                  <TermValue>{safeData.scp_interaction_events || 0}</TermValue>
+                </TermRow>
+
+                {safeData.scp_achievements &&
+                  safeData.scp_achievements.length > 0 && (
+                    <Box>
+                      <TermDivider />
+                      <TermHeader>SCP ACHIEVEMENTS</TermHeader>
+                      {safeData.scp_achievements.map((achievement, index) => (
+                        <Box
+                          key={index}
+                          style={{
+                            marginBottom: '4px',
+                            padding: '6px 8px',
+                            borderLeft: `2px solid ${achievement.unlocked ? C.green : C.border}`,
+                            background: C.panel,
+                          }}
+                        >
+                          <TermRow>
+                            <TermValue
+                              bold
+                              color={achievement.unlocked ? C.green : C.textDim}
+                            >
+                              {achievement.name}
+                            </TermValue>
+                            <TermLabel style={{ marginLeft: '8px' }}>
+                              {achievement.unlocked ? 'UNLOCKED' : 'LOCKED'}
+                            </TermLabel>
+                          </TermRow>
+                          <Box
+                            style={term({
+                              color: C.textDim,
+                              fontSize: '11px',
+                              fontStyle: 'italic',
+                            })}
+                          >
+                            {achievement.description}
+                          </Box>
+                        </Box>
+                      ))}
+                    </Box>
+                  )}
+              </Box>
             )}
           </Box>
 
-          <Box mb={2}>
-            <strong>Survival Skills:</strong>
-            {survival_rate > 80 ? (
-              <Box color="green">
-                {' '}
-                Outstanding! You&apos;re very skilled at staying alive.
-              </Box>
-            ) : survival_rate > 60 ? (
-              <Box color="blue"> Good survival rate. Keep it up!</Box>
-            ) : (
-              <Box color="orange">
-                {' '}
-                Focus on improving your survival skills.
-              </Box>
-            )}
-          </Box>
-
-          <Box mb={2}>
-            <strong>Achievement Progress:</strong>
-            {total_achievements_unlocked > 10 ? (
-              <Box color="green">
-                {' '}
-                Impressive! You&apos;ve unlocked many achievements.
-              </Box>
-            ) : total_achievements_unlocked > 5 ? (
-              <Box color="blue"> Good progress on achievements.</Box>
-            ) : (
-              <Box color="orange"> Try to unlock more achievements.</Box>
-            )}
-          </Box>
-        </Section>
-      </Stack.Item>
-
-      <Stack.Item>
-        <Section title="Performance Trends">
-          <Box mb={2}>
-            <strong>Experience Trend:</strong>
-            <Box color="green">
-              ↗ Increasing - Your experience gain is improving!
+          <Box
+            style={{
+              borderTop: `1px solid ${C.border}`,
+              padding: '4px 14px',
+              background: C.panel,
+            }}
+          >
+            <Box
+              style={term({
+                color: C.textDim,
+                fontSize: '9px',
+                letterSpacing: '0.1em',
+              })}
+            >
+              SCP FOUNDATION | PERSISTENT PROGRESSION | ALL DATA CLASSIFIED |
+              UNAUTHORIZED ACCESS IS A CLASS-B INFRACTION
             </Box>
           </Box>
-
-          <Box mb={2}>
-            <strong>Survival Trend:</strong>
-            <Box color="blue">→ Stable - Your survival rate is consistent.</Box>
-          </Box>
-
-          <Box mb={2}>
-            <strong>Achievement Trend:</strong>
-            <Box color="green">
-              ↗ Increasing - You&apos;re unlocking achievements regularly!
-            </Box>
-          </Box>
-        </Section>
-      </Stack.Item>
-    </Stack>
-  );
-};
-
-const FactionIntegrationTab = (props, context) => {
-  const { act, data } = useBackend(context);
-  const { faction_integration = {}, current_faction = 'Unknown' } = data || {};
-
-  const {
-    enabled = false,
-    current_game_faction = 'Unknown',
-    relationships = {},
-    stats = [],
-  } = faction_integration;
-
-  if (!enabled) {
-    return (
-      <Stack fill vertical>
-        <Stack.Item>
-          <Section title="Faction Integration">
-            <Box textAlign="center" fontSize="1.2em" color="red">
-              Faction integration is not enabled.
-            </Box>
-          </Section>
-        </Stack.Item>
-      </Stack>
-    );
-  }
-
-  return (
-    <Stack fill vertical>
-      <Stack.Item>
-        <Section title="Faction Integration Status">
-          <LabeledList>
-            <LabeledList.Item label="Current Faction">
-              {current_faction}
-            </LabeledList.Item>
-            <LabeledList.Item label="Game Faction">
-              {current_game_faction}
-            </LabeledList.Item>
-            <LabeledList.Item label="Integration Status">
-              <Box color="green">Active</Box>
-            </LabeledList.Item>
-          </LabeledList>
-        </Section>
-      </Stack.Item>
-
-      <Stack.Item>
-        <Section title="Faction Relationships">
-          {Object.keys(relationships).length > 0 ? (
-            <LabeledList>
-              {Object.entries(relationships).map(([faction, status]) => (
-                <LabeledList.Item key={faction} label={faction}>
-                  <Box
-                    color={
-                      status === 'ally'
-                        ? 'green'
-                        : status === 'enemy'
-                          ? 'red'
-                          : 'blue'
-                    }
-                  >
-                    {status.charAt(0).toUpperCase() + status.slice(1)}
-                  </Box>
-                </LabeledList.Item>
-              ))}
-            </LabeledList>
-          ) : (
-            <Box textAlign="center" color="gray">
-              No faction relationships available.
-            </Box>
-          )}
-        </Section>
-      </Stack.Item>
-
-      <Stack.Item>
-        <Section title="Faction Statistics">
-          {stats.length > 0 ? (
-            <LabeledList>
-              {stats.map((faction) => (
-                <LabeledList.Item key={faction.id} label={faction.name}>
-                  <Box>
-                    Members: {faction.member_count} | Total Exp:{' '}
-                    {faction.total_experience?.toLocaleString() || 0}
-                  </Box>
-                </LabeledList.Item>
-              ))}
-            </LabeledList>
-          ) : (
-            <Box textAlign="center" color="gray">
-              No faction statistics available.
-            </Box>
-          )}
-        </Section>
-      </Stack.Item>
-
-      <Stack.Item>
-        <Section title="Integration Features">
-          <Box mb={2}>
-            <strong>Automatic Faction Assignment:</strong>
-            <Box color="green">
-              ✓ Enabled - Jobs automatically assign factions
-            </Box>
-          </Box>
-
-          <Box mb={2}>
-            <strong>Faction Relationships:</strong>
-            <Box color="green">
-              ✓ Enabled - Hostility based on faction relationships
-            </Box>
-          </Box>
-
-          <Box mb={2}>
-            <strong>Game Faction Mapping:</strong>
-            <Box color="green">
-              ✓ Enabled - Persistent factions map to game factions
-            </Box>
-          </Box>
-
-          <Box mb={2}>
-            <strong>Statistics Tracking:</strong>
-            <Box color="green">
-              ✓ Enabled - Faction member counts and experience tracked
-            </Box>
-          </Box>
-        </Section>
-      </Stack.Item>
-    </Stack>
-  );
-};
-
-const DatabaseStatusTab = (props, context) => {
-  const { act, data } = useBackend(context);
-  const {
-    database_status = {},
-    global_stats = {},
-    db_faction_stats = [],
-    recent_experience = [],
-    job_statistics = [],
-    analytics_data = [],
-  } = data || {};
-
-  const {
-    initialized = false,
-    healthy = false,
-    total_players = 0,
-    total_experience = 0,
-    total_rounds = 0,
-  } = database_status;
-
-  return (
-    <Stack fill vertical>
-      <Stack.Item>
-        <Section title="Database Status">
-          <LabeledList>
-            <LabeledList.Item label="Database Initialized">
-              <Box color={initialized ? 'green' : 'red'}>
-                {initialized ? '✓ Yes' : '✗ No'}
-              </Box>
-            </LabeledList.Item>
-            <LabeledList.Item label="Database Health">
-              <Box color={healthy ? 'green' : 'red'}>
-                {healthy ? '✓ Healthy' : '✗ Unhealthy'}
-              </Box>
-            </LabeledList.Item>
-            <LabeledList.Item label="Total Players">
-              {total_players.toLocaleString()}
-            </LabeledList.Item>
-            <LabeledList.Item label="Total Experience">
-              {total_experience.toLocaleString()}
-            </LabeledList.Item>
-            <LabeledList.Item label="Total Rounds">
-              {total_rounds.toLocaleString()}
-            </LabeledList.Item>
-          </LabeledList>
-        </Section>
-      </Stack.Item>
-
-      <Stack.Item>
-        <Section title="Global Statistics">
-          {Object.keys(global_stats).length > 0 ? (
-            <LabeledList>
-              <LabeledList.Item label="Average Experience">
-                {Math.round(global_stats.avg_experience || 0).toLocaleString()}
-              </LabeledList.Item>
-              <LabeledList.Item label="Average Rounds">
-                {Math.round(global_stats.avg_rounds || 0)}
-              </LabeledList.Item>
-            </LabeledList>
-          ) : (
-            <Box textAlign="center" color="gray">
-              No global statistics available.
-            </Box>
-          )}
-        </Section>
-      </Stack.Item>
-
-      <Stack.Item>
-        <Section title="Database Faction Statistics">
-          {db_faction_stats.length > 0 ? (
-            <LabeledList>
-              {db_faction_stats.map((faction) => (
-                <LabeledList.Item
-                  key={faction.faction_id}
-                  label={faction.faction_id}
-                >
-                  <Box>
-                    Members: {faction.member_count} | Total Exp:{' '}
-                    {faction.total_experience?.toLocaleString() || 0} | Avg Exp:{' '}
-                    {Math.round(faction.avg_experience || 0).toLocaleString()}
-                  </Box>
-                </LabeledList.Item>
-              ))}
-            </LabeledList>
-          ) : (
-            <Box textAlign="center" color="gray">
-              No faction statistics available.
-            </Box>
-          )}
-        </Section>
-      </Stack.Item>
-
-      <Stack.Item>
-        <Section title="Recent Experience (Database)">
-          {recent_experience.length > 0 ? (
-            <LabeledList>
-              {recent_experience.slice(0, 5).map((exp, index) => (
-                <LabeledList.Item key={index} label={exp.source}>
-                  <Box>
-                    +{exp.amount} - {exp.reason}
-                  </Box>
-                </LabeledList.Item>
-              ))}
-            </LabeledList>
-          ) : (
-            <Box textAlign="center" color="gray">
-              No recent experience data available.
-            </Box>
-          )}
-        </Section>
-      </Stack.Item>
-
-      <Stack.Item>
-        <Section title="Job Statistics (Database)">
-          {job_statistics.length > 0 ? (
-            <LabeledList>
-              {job_statistics.slice(0, 5).map((job) => (
-                <LabeledList.Item key={job.job_title} label={job.job_title}>
-                  <Box>
-                    Rounds: {job.rounds_played} | Survived:{' '}
-                    {job.rounds_survived} | Exp:{' '}
-                    {job.total_experience?.toLocaleString() || 0}
-                  </Box>
-                </LabeledList.Item>
-              ))}
-            </LabeledList>
-          ) : (
-            <Box textAlign="center" color="gray">
-              No job statistics available.
-            </Box>
-          )}
-        </Section>
-      </Stack.Item>
-
-      <Stack.Item>
-        <Section title="Database Features">
-          <Box mb={2}>
-            <strong>Data Persistence:</strong>
-            <Box color="green">✓ Enabled - All data stored in database</Box>
-          </Box>
-
-          <Box mb={2}>
-            <strong>Experience Tracking:</strong>
-            <Box color="green">✓ Enabled - Detailed experience history</Box>
-          </Box>
-
-          <Box mb={2}>
-            <strong>Achievement System:</strong>
-            <Box color="green">✓ Enabled - Achievement progress tracking</Box>
-          </Box>
-
-          <Box mb={2}>
-            <strong>Round Tracking:</strong>
-            <Box color="green">✓ Enabled - Round start/end tracking</Box>
-          </Box>
-
-          <Box mb={2}>
-            <strong>Job Statistics:</strong>
-            <Box color="green">✓ Enabled - Per-job performance tracking</Box>
-          </Box>
-
-          <Box mb={2}>
-            <strong>Analytics:</strong>
-            <Box color="green">✓ Enabled - Performance metrics and trends</Box>
-          </Box>
-
-          <Box mb={2}>
-            <strong>Data Export:</strong>
-            <Box color="green">✓ Enabled - Full data export capabilities</Box>
-          </Box>
-
-          <Box mb={2}>
-            <strong>Automatic Cleanup:</strong>
-            <Box color="green">✓ Enabled - Old data cleanup (30 days)</Box>
-          </Box>
-        </Section>
-      </Stack.Item>
-    </Stack>
+        </Box>
+      </Window.Content>
+    </Window>
   );
 };

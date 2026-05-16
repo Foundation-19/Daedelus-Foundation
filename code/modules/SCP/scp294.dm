@@ -4,7 +4,7 @@ GLOBAL_LIST_EMPTY(pending_clarity_prompts)
 /obj/machinery/scp294
 	name = "coffee machine"
 	desc = "A standard coffee vending machine. This one seems to have a QWERTY keyboard."
-	icon = 'icons/SCP/scp294.dmi'
+	icon = 'icons/obj/vending.dmi'
 
 	icon_state = "coffee_294"
 	anchored = TRUE
@@ -74,7 +74,7 @@ GLOBAL_LIST_EMPTY(pending_clarity_prompts)
 	SCP = new /datum/scp(
 		src, // Ref to actual SCP atom
 		"coffee machine", //Name (Should not be the scp desg, more like what it can be described as to viewers)
-		SCP_EUCLID, //Obj Class
+		SCP_SAFE,
 		"294", //Numerical Designation
 	)
 //Mechanics
@@ -375,7 +375,7 @@ GLOBAL_LIST_EMPTY(pending_clarity_prompts)
 			else
 				all_messages += span_info("A chilling clarity reveals the present: a shadow of [event_name] already unfolds.") // Fallback generic message
 
-	if(all_messages.len) // Ensure there are messages to display
+	if(length(all_messages)) // Ensure there are messages to display
 		var/chosen_message = pick(all_messages) // Pick one random message
 
 		if(admin_custom_response_enabled)

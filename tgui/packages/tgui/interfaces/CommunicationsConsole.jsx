@@ -742,7 +742,7 @@ export const CommunicationsConsole = (props) => {
   } = data;
 
   return (
-    <Window width={400} height={650} theme={emagged ? 'syndicate' : undefined}>
+    <Window width={400} height={650} theme={emagged ? 'syndicate' : 'scp_terminal'}>
       <Window.Content scrollable>
         {!hasConnection && <NoConnectionModal />}
 

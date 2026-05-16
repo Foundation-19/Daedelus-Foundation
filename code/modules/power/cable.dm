@@ -20,6 +20,9 @@
 	var/tmp/datum/powernet/powernet
 	/// If TRUE, auto_propogate_cut_cable() is sleeping
 	var/tmp/awaiting_rebuild = FALSE
+	/// Legacy Baystation12 cable direction vars, used by site53 map
+	var/d1 = 0
+	var/d2 = 0
 
 /obj/structure/cable/Initialize(mapload)
 	. = ..()

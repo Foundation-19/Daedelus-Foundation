@@ -90,7 +90,7 @@ GLOBAL_LIST_EMPTY(dead_players_during_shift)
 
 	var/list/ui_content = list()
 
-	var/datum/browser/popup = new(user, "timeofdeathinfo", "Time of Death Information", 600, 800)
+	var/datum/browser/popup = new(user, "timeofdeathinfo", "// TERMINAL — DEATH SCAN //", 600, 800)
 
 	ui_content += {"
 		<fieldset class='computerPaneSimple' style='margin: 0 auto'>

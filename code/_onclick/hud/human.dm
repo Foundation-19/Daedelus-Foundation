@@ -81,6 +81,10 @@
 	using.icon = ui_style
 	static_inventory += using
 
+	// Vision cone system screen objects
+	fov = new /atom/movable/screen/fov(null, src)
+	fov_blocker = new /atom/movable/screen/fov_blocker(null, src)
+
 	action_intent = new /atom/movable/screen/combattoggle/flashy(null, src)
 	action_intent.icon = ui_style
 	action_intent.screen_loc = ui_combat_toggle

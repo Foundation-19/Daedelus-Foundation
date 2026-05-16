@@ -104,8 +104,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 // Security Start Landmarks
 
 /obj/effect/landmark/start/security_director
-	name = JOB_SECURITY_DIRECTOR
-	icon_state = JOB_SECURITY_DIRECTOR
+	name = JOB_GUARD_COMMANDER
+	icon_state = JOB_GUARD_COMMANDER
 
 /obj/effect/landmark/start/raisa_agent
 	name = JOB_RAISA_AGENT
@@ -118,8 +118,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 // EZ Security Start Landmarks
 
 /obj/effect/landmark/start/ez_commander
-	name = JOB_EZ_COMMANDER
-	icon_state = JOB_EZ_COMMANDER
+	name = JOB_EZ_ZONE_SUPERVISOR
+	icon_state = JOB_EZ_ZONE_SUPERVISOR
 
 /obj/effect/landmark/start/senior_ez_guard
 	name = JOB_SENIOR_EZ_GUARD
@@ -136,8 +136,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 // LCZ Security Start Landmarks
 
 /obj/effect/landmark/start/lcz_commander
-	name = JOB_LCZ_COMMANDER
-	icon_state = JOB_LCZ_COMMANDER
+	name = JOB_LCZ_ZONE_JUNIOR_LIEUTENANT
+	icon_state = JOB_LCZ_ZONE_JUNIOR_LIEUTENANT
 
 /obj/effect/landmark/start/senior_lcz_guard
 	name = JOB_SENIOR_LCZ_GUARD
@@ -154,8 +154,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 // HCZ Security Start Landmarks
 
 /obj/effect/landmark/start/hcz_commander
-	name = JOB_HCZ_COMMANDER
-	icon_state = JOB_HCZ_COMMANDER
+	name = JOB_HCZ_ZONE_SENIOR_LIEUTENANT
+	icon_state = JOB_HCZ_ZONE_SENIOR_LIEUTENANT
 
 /obj/effect/landmark/start/senior_hcz_guard
 	name = JOB_SENIOR_HCZ_GUARD

@@ -1,5 +1,5 @@
 //Radiation storms occur when the station passes through an irradiated area, and irradiate anyone not standing in protected areas (maintenance, emergency storage, etc.)
-/datum/weather/weather_types/rad_storm
+/datum/weather/rad_storm
 	name = "radiation storm"
 	desc = "A cloud of intense radiation passes through the area dealing rad damage to those who are unprotected."
 
@@ -16,15 +16,20 @@
 	end_duration = 100
 	end_message = "<span class='notice'>The air seems to be cooling off again.</span>"
 
+	area_type = /area
+	protected_areas = list(/area/station/maintenance, /area/station/ai_monitored/turret_protected/ai_upload, /area/station/ai_monitored/turret_protected/ai_upload_foyer,
+							/area/station/ai_monitored/turret_protected/aisat/maint, /area/station/ai_monitored/command/storage/satellite,
+							/area/station/ai_monitored/turret_protected/ai, /area/station/commons/storage/emergency/starboard, /area/station/commons/storage/emergency/port,
+							/area/shuttle, /area/station/security/prison/safe, /area/station/security/prison/toilet)
 	target_trait = ZTRAIT_STATION
 	immunity_type = TRAIT_RADSTORM_IMMUNE
 
-/datum/weather/weather_types/rad_storm/telegraph()
+/datum/weather/rad_storm/telegraph()
 	..()
 	status_alarm(TRUE)
 
 
-/datum/weather/weather_types/rad_storm/weather_act(mob/living/L)
+/datum/weather/rad_storm/weather_act(mob/living/L)
 	if(!prob(40))
 		return
 
@@ -51,13 +56,13 @@
 			H.easy_random_mutate(POSITIVE)
 		H.domutcheck()
 
-/datum/weather/weather_types/rad_storm/end()
+/datum/weather/rad_storm/end()
 	if(..())
 		return
 	priority_announce("The radiation threat has passed. Please return to your workplaces.")
 	status_alarm(FALSE)
 
-/datum/weather/weather_types/rad_storm/proc/status_alarm(active) //Makes the status displays show the radiation warning for those who missed the announcement.
+/datum/weather/rad_storm/proc/status_alarm(active) //Makes the status displays show the radiation warning for those who missed the announcement.
 	var/datum/radio_frequency/frequency = SSpackets.return_frequency(FREQ_STATUS_DISPLAYS)
 	if(!frequency)
 		return

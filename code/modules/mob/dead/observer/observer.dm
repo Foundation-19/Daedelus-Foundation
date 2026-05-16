@@ -75,7 +75,8 @@ GLOBAL_VAR_INIT(fresh_ghost_adjectives, __fresh_ghost_adjectives())
 		/mob/dead/observer/proc/dead_tele,
 		/mob/dead/observer/proc/open_spawners_menu,
 		/mob/dead/observer/proc/tray_view,
-		/mob/dead/observer/proc/open_minigames_menu))
+		/mob/dead/observer/proc/open_minigames_menu,
+		/mob/dead/observer/proc/open_ghost_actions))
 
 	ghost_term = pick(GLOB.ghost_synonyms)
 	ghost_adjective = pick(GLOB.ghost_adjectives)
@@ -224,13 +225,15 @@ GLOBAL_VAR_INIT(fresh_ghost_adjectives, __fresh_ghost_adjectives())
 	set_ghost_appearance(null)
 
 	if(client)
-		// tgchat displays doc strings with formatting, so we do stupid shit instead
 		var/list/text = list(
-			"<div style='text-align:center'>[span_statsgood("<span style='font-size: 300%;font-style: normal'>You were laid to rest.</span>")]</div>",
-			"<hr>",
-			span_obviousnotice("Your soul has moved on from the mortal realm, and may no longer interact with it. You may now return to the lobby, and begin anew."),
+			"<div style='background: #0a0a0c; border: 2px solid #0a6e0a; padding: 12px; margin: 8px 0; font-family: Consolas, Courier New, monospace; text-align: center;'>",
+			"<div style='color: #0a6e0a; font-size: 24px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.2em; text-shadow: 0 0 0.5em #0a6e0a;'>// SOUL DEPARTED //</div>",
+			"<hr style='border: 1px solid #2a2a30; margin: 8px 0;'>",
+			"<div style='color: #6a6a70; font-size: 11px;'>Your soul has moved on from the mortal realm. You may no longer interact with it.</div>",
+			"<div style='color: #6a6a70; font-size: 11px;'>Return to the lobby and begin anew.</div>",
+			"</div>",
 		)
-		to_chat(src, examine_block(jointext(text, "")))
+		to_chat(src, jointext(text, ""))
 
 		playsound_local(src, 'goon/sounds/ghostrespawn.ogg', 50, FALSE, pressure_affected = FALSE)
 
@@ -458,7 +461,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				A.add_overlay(source)
 				source.layer = old_layer
 				source.plane = old_plane
-	to_chat(src, span_ghostalert("<a href=?src=[REF(src)];reenter=1>(Click to re-enter)</a>"))
+	to_chat(src, "<div style='background: #0a0a0c; border: 1px solid #d4a017; padding: 6px 10px; font-family: Consolas, Courier New, monospace; color: #d4a017; text-transform: uppercase; letter-spacing: 0.05em;'>// REVIVAL DETECTED — <a href=?src=[REF(src)];reenter=1 style='color: #d4a017; background: none; border: none; padding: 0; font-size: inherit; text-transform: uppercase;'>RE-ENTER BODY</a> //</div>")
 	if(sound)
 		SEND_SOUND(src, sound(sound))
 

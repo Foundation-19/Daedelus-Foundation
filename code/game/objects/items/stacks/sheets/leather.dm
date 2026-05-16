@@ -157,7 +157,7 @@ GLOBAL_LIST_INIT(xeno_recipes, list ( \
 /obj/item/stack/sheet/wethide/Initialize(mapload, new_amount, merge = TRUE, list/mat_override=null, mat_amt=1)
 	. = ..()
 	AddElement(/datum/element/dryable, /obj/item/stack/sheet/leather)
-	AddComponent(/datum/component/grillable, /obj/item/stack/sheet/leather, rand(1 SECONDS, 3 SECONDS), TRUE)
+	// grillable removed - use dryable element instead
 	become_atmos_sensitive()
 
 /obj/item/stack/sheet/wethide/Destroy(force)
@@ -290,7 +290,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 			wetness = initial(wetness)
 			use(1)
 
-/obj/item/stack/sheet/wethide/microwave_act(obj/machinery/microwave/MW)
+/obj/item/stack/sheet/wethide/microwave_act(obj/machinery/MW)
 	..()
 	new /obj/item/stack/sheet/leather(drop_location(), amount)
 	qdel(src)

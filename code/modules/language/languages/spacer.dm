@@ -6,4 +6,4 @@
 		"ada", "zir", "bian", "ach", "usk", "ado", "ich", "cuan", "iga", "qing", "le", "que", "ki", "qaf", "dei", "eta"
 	)
 	icon_state = "spacer"
-	flags = parent_type::flags | (LANGUAGE_SELECTABLE_SPEAK | LANGUAGE_SELECTABLE_UNDERSTAND)
+	flags = parent_type::flags  // Hidden from selection - sci-fi language

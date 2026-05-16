@@ -274,15 +274,17 @@
 	if(!catcher)
 		return
 
-	spawn(0) // There is no signal for AFTER you swap hands
-		if(!user)
-			return
+	addtimer(CALLBACK(src, PROC_REF(check_hand_swap)), 0) // There is no signal for AFTER you swap hands
 
-		if(user.get_active_held_item() == parent)
-			catcher.mouse_opacity = MOUSE_OPACITY_OPAQUE
-			START_PROCESSING(SSkinesis, src)
-		else
-			disable_catcher()
+/datum/cable_click_manager/proc/check_hand_swap()
+	if(!user)
+		return
+
+	if(user.get_active_held_item() == parent)
+		catcher.mouse_opacity = MOUSE_OPACITY_OPAQUE
+		START_PROCESSING(SSkinesis, src)
+	else
+		disable_catcher()
 
 /datum/cable_click_manager/proc/intercept_click(datum/source, atom/A, params)
 	SIGNAL_HANDLER

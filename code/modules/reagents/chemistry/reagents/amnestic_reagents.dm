@@ -278,9 +278,9 @@
 	name = "Syringe (Class-C Amnestics)"
 	desc = "A syringe filled with Class-C Amnestics. Used to erase the entire existence of the anomalous from someone's memory. Use only under supervision of medical staff."
 
-/obj/item/reagent_containers/syringe/amnesticsc/New()
-	..()
-	reagents.add_reagent(/datum/reagent/medicine/amnestics/classc, 15)
+/obj/item/reagent_containers/syringe/amnesticsc/Initialize()
+	. = ..()
+	reagents?.add_reagent(/datum/reagent/medicine/amnestics/classc, 15)
 	update_icon()
 
 //Class E Amnestics
@@ -289,9 +289,9 @@
 	name = "Syringe (Class-E Amnestics)"
 	desc = "A syringe filled with Class-E Amnestics. Used to psychologically normalize the anomalous. Use only under supervision of medical staff."
 
-/obj/item/reagent_containers/syringe/amnesticse/New()
-	..()
-	reagents.add_reagent(/datum/reagent/medicine/amnestics/classe, 15)
+/obj/item/reagent_containers/syringe/amnesticse/Initialize()
+	. = ..()
+	reagents?.add_reagent(/datum/reagent/medicine/amnestics/classe, 15)
 	update_icon()
 
 //Class F Amnestics
@@ -301,10 +301,10 @@
 	desc = "An IV bag filled with heavily diluted Class-F Amnestics. Used to erase the patient's entire identity, turning them into a blank slate. It has instructions on it that read : 'To avoid overdose, configure IV drip to tranfer speed of 1u. Only inject one bag, as overdose will cause severe brain damage."
 	volume = 50
 
-/obj/item/reagent_containers/ivbag/amnesticsf/New()
-	..()
-	reagents.add_reagent(/datum/reagent/medicine/amnestics/classf, 20)
-	reagents.add_reagent(/datum/reagent/water, 30)
+/obj/item/reagent_containers/ivbag/amnesticsf/Initialize()
+	. = ..()
+	reagents?.add_reagent(/datum/reagent/medicine/amnestics/classf, 20)
+	reagents?.add_reagent(/datum/reagent/water, 30)
 
 //Class G Amnestics
 
@@ -312,9 +312,9 @@
 	name = "Syringe (Class-G Amnestics)"
 	desc = "A syringe filled with Class-G Amnestics. Used to alter memories of the anomalous to a more dreamlike state. Use only under supervision of medical staff."
 
-/obj/item/reagent_containers/syringe/amnesticsg/New()
-	..()
-	reagents.add_reagent(/datum/reagent/medicine/amnestics/classg, 15)
+/obj/item/reagent_containers/syringe/amnesticsg/Initialize()
+	. = ..()
+	reagents?.add_reagent(/datum/reagent/medicine/amnestics/classg, 15)
 	update_icon()
 
 //Class H Amnestics

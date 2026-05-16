@@ -111,7 +111,7 @@
 
 /// A helper to see how much blood we're losing per tick
 /mob/living/carbon/proc/get_bleed_rate()
-	if((NOBLOOD in dna.species.species_traits) || HAS_TRAIT(src, TRAIT_NOBLEED) || (HAS_TRAIT(src, TRAIT_FAKEDEATH)))
+	if((dna && dna.species && (NOBLOOD in dna.species.species_traits)) || HAS_TRAIT(src, TRAIT_NOBLEED) || (HAS_TRAIT(src, TRAIT_FAKEDEATH)))
 		return 0
 
 	if(bodytemperature < TCRYO || (HAS_TRAIT(src, TRAIT_HUSK)))
@@ -188,7 +188,7 @@
 	COOLDOWN_START(src, bleeding_message_cd, next_cooldown)
 
 /mob/living/carbon/human/bleed_warn(bleed_amt = 0, forced = FALSE)
-	if(!(NOBLOOD in dna.species.species_traits))
+	if(!(dna && dna.species && (NOBLOOD in dna.species.species_traits)))
 		return ..()
 
 /mob/living/proc/restore_blood()
@@ -230,7 +230,7 @@
 						continue
 					C.try_contract_pathogen(D)
 
-				if(!C.dna.blood_type.is_compatible(blood_data["blood_type"]:type))
+				if(C.dna && !C.dna.blood_type.is_compatible(blood_data["blood_type"]:type))
 					C.reagents.add_reagent(/datum/reagent/toxin, amount * 0.5)
 					return TRUE
 
@@ -256,7 +256,14 @@
 		var/datum/pathogen/D = thing
 		blood_data["viruses"] += D.Copy()
 
-	blood_data["blood_DNA"] = dna.unique_enzymes
+	if(dna)
+		blood_data["blood_DNA"] = dna.unique_enzymes
+		blood_data["blood_type"] = dna.blood_type
+		blood_data["features"] = dna.features
+	else
+		blood_data["blood_DNA"] = "UNKNOWN"
+		blood_data["blood_type"] = random_blood_type()
+		blood_data["features"] = list()
 	if(LAZYLEN(disease_resistances))
 		blood_data["resistances"] = disease_resistances.Copy()
 	var/list/temp_chem = list()
@@ -274,10 +281,8 @@
 
 	if(!suiciding)
 		blood_data["cloneable"] = 1
-	blood_data["blood_type"] = dna.blood_type
 	blood_data["gender"] = gender
 	blood_data["real_name"] = real_name
-	blood_data["features"] = dna.features
 	blood_data["factions"] = faction
 	blood_data["quirks"] = list()
 	for(var/V in quirks)
@@ -298,9 +303,9 @@
 		return
 	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS] && is_clown_job(mind?.assigned_role))
 		return /datum/reagent/colorful_reagent
-	if(dna.species.exotic_blood)
+	if(dna && dna.species && dna.species.exotic_blood)
 		return dna.species.exotic_blood
-	else if((NOBLOOD in dna.species.species_traits))
+	else if(dna && dna.species && (NOBLOOD in dna.species.species_traits))
 		return
 	return /datum/reagent/blood
 
@@ -327,7 +332,7 @@
 	B.bloodiness = min((B.bloodiness + BLOOD_AMOUNT_PER_DECAL), BLOOD_POOL_MAX)
 
 /mob/living/carbon/human/add_splatter_floor(turf/T, small_drip)
-	if(!(NOBLOOD in dna.species.species_traits))
+	if(!(dna && dna.species && (NOBLOOD in dna.species.species_traits)))
 		..()
 
 /mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip)
@@ -384,7 +389,7 @@
 //Percentage of maximum blood volume, affected by the condition of circulation organs, affected by the oxygen loss. What ultimately matters for brain
 /mob/living/carbon/proc/get_blood_oxygenation()
 	var/blood_volume_percent = get_blood_circulation()
-	if(!(NOBLOOD in dna.species.species_traits))
+	if(dna && dna.species && !(NOBLOOD in dna.species.species_traits))
 		if(undergoing_cardiac_arrest()) // Heart is missing or isn't beating and we're not breathing (hardcrit)
 			return min(blood_volume_percent, BLOOD_CIRC_SURVIVE)
 

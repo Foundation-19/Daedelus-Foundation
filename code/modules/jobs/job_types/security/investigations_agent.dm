@@ -5,7 +5,7 @@
 	faction = FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the Security Director."
+	supervisors = "the Guard Commander."
 	selection_color = "#490A0D"
 	minimal_player_age = 7
 	exp_requirements = 300

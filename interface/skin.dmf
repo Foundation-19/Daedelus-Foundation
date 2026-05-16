@@ -123,8 +123,8 @@ window "mapwindow"
 		is-visible = true
 		text = ""
 		align = left
-		background-color = #222222
-		text-color = #ffffff
+		background-color = #111114
+		text-color = #d4a017
 		border = line
 	elem "credits"
 		type = BROWSER
@@ -132,8 +132,8 @@ window "mapwindow"
 		size = 640x480
 		anchor1 = 0,0
 		anchor2 = 100,100
-		text-color = #ffffff
-		background-color = #000000
+		text-color = #c8c8c8
+		background-color = #0a0a0c
 		is-visible = false
 		saved-params = ""
 		auto-format = false
@@ -256,9 +256,10 @@ window "outputwindow"
 		size = 517x20
 		anchor1 = 0,100
 		anchor2 = 100,100
-		background-color = #d3b5b5
+		background-color = #0d0d10
+		text-color = #d4a017
 		is-default = true
-		border = sunken
+		border = line
 		saved-params = "command"
 	elem "oocbutton"
 		type = BUTTON

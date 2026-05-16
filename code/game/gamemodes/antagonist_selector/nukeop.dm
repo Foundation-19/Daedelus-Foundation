@@ -1,7 +1,7 @@
 /datum/antagonist_selector/nukeop
 	restricted_jobs = list(
 		JOB_SITE_DIRECTOR,
-		JOB_SECURITY_DIRECTOR,
+		JOB_GUARD_COMMANDER,
 	)// Just to be sure that a nukie getting picked won't ever imply a Site or Security director not getting drafted
 
 	antag_datum = /datum/antagonist/nukeop

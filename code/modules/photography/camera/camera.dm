@@ -203,6 +203,9 @@
 		if(M.stat == DEAD)
 			dead_spotted += M
 		desc += M.get_photo_description(src)
+		if(istype(M, /mob/living/scp/scp096))
+			var/mob/living/scp/scp096/scp096 = M
+			scp096.on_photo_taken(user)
 
 	var/psize_x = (size_x * 2 + 1) * world.icon_size
 	var/psize_y = (size_y * 2 + 1) * world.icon_size

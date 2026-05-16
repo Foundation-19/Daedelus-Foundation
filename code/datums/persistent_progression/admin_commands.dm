@@ -168,31 +168,4 @@
     popup.set_content(dat)
     popup.open()
 
-/client/proc/persistent_progression_panel()
-    set name = "Persistent Progression Panel"
-    set category = "Admin.Persistent"
 
-    if(!check_rights(R_ADMIN))
-        return
-
-    var/dat = "<h2>Persistent Progression Management</h2>"
-    dat += "<h3>Player Experience Management</h3>"
-
-    for(var/mob/living/carbon/human/H in GLOB.player_list)
-        if(H.mind && H.ckey)
-            var/datum/persistent_player_data/data = SSpersistent_progression.get_player_data(H.ckey)
-            if(data)
-                dat += "<div class='player_entry'>"
-                dat += "<strong>[H.name] ([H.ckey])</strong><br>"
-                dat += "Class: [data.current_class_id]<br>"
-                dat += "Rank: [data.current_rank_name]<br>"
-                dat += "Experience: [data.total_experience]<br>"
-                dat += "<a href='?src=[REF(src)];award_exp=[H.ckey]'>Award Experience</a> | "
-                dat += "<a href='?src=[REF(src)];set_rank=[H.ckey]'>Set Rank</a> | "
-                dat += "<a href='?src=[REF(src)];reset_progress=[H.ckey]'>Reset Progress</a> | "
-                dat += "<a href='?src=[REF(src)];view_progress=[H.ckey]'>View Progress</a>"
-                dat += "</div><br>"
-
-    var/datum/browser/popup = new(usr, "persistent_progression_panel", "Persistent Progression Panel", 800, 600)
-    popup.set_content(dat)
-    popup.open()

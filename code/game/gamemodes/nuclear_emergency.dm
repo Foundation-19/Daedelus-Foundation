@@ -4,7 +4,7 @@
 /datum/game_mode/nuclear_emergency
 	name = "Nuclear Emergency"
 
-	weight = GAMEMODE_WEIGHT_EPIC
+	weight = GAMEMODE_WEIGHT_NEVER
 	required_enemies = 5
 	min_pop = 25
 

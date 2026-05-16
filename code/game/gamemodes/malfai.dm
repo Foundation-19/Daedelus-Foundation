@@ -1,7 +1,7 @@
 /datum/game_mode/one_antag/malf
 	name = "Malfunctioning AI"
 
-	weight = GAMEMODE_WEIGHT_EPIC
+	weight = GAMEMODE_WEIGHT_NEVER
 	antag_selector = /datum/antagonist_selector/malfai
 
 /datum/game_mode/one_antag/malf/check_for_errors()

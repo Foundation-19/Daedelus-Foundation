@@ -15,8 +15,9 @@
 	initialize_job_assignments()
 	initialize_faction_relationships()
 
-// Initialize mappings between persistent factions and game factions
-// Now that we've replaced the default factions, we can map directly
+// All persistent factions currently map to FACTION_STATION because no distinct faction defines exist
+// (FACTION_SYNDICATE, FACTION_NANOTRASEN, FACTION_FLOCK all alias to FACTION_STATION)
+// TODO: Add FACTION_GOC, FACTION_SERPENTS_HAND, FACTION_CHAOS_INSURGENCY, FACTION_MCD, FACTION_UIU defines
 /datum/faction_integration/proc/initialize_faction_mappings()
 	faction_mappings = list(
 		"foundation" = FACTION_STATION,
@@ -26,6 +27,8 @@
 		"mcd" = FACTION_STATION,
 		"uiu" = FACTION_STATION
 	)
+
+
 
 // Initialize job assignments to factions
 /datum/faction_integration/proc/initialize_job_assignments()
@@ -173,11 +176,15 @@
 
 // Get faction color for UI
 /datum/faction_integration/proc/get_faction_color(faction_id)
+	if(!SSpersistent_progression)
+		return "#666666"
 	var/datum/persistent_faction/faction = SSpersistent_progression.get_faction(faction_id)
 	return faction ? faction.faction_color : "#666666"
 
 // Get faction icon for UI
 /datum/faction_integration/proc/get_faction_icon(faction_id)
+	if(!SSpersistent_progression)
+		return "faction_default"
 	var/datum/persistent_faction/faction = SSpersistent_progression.get_faction(faction_id)
 	return faction ? faction.faction_icon : "faction_default"
 
@@ -191,9 +198,9 @@
 	var/faction2 = null
 
 	// Check if mobs have persistent faction data
-	if(M1.mind && M1.mind.persistent_data)
+	if(M1.mind && M1.mind.persistent_data && M1.mind.persistent_data.current_faction_id)
 		faction1 = M1.mind.persistent_data.current_faction_id
-	if(M2.mind && M2.mind.persistent_data)
+	if(M2.mind && M2.mind.persistent_data && M2.mind.persistent_data.current_faction_id)
 		faction2 = M2.mind.persistent_data.current_faction_id
 
 	// If both have persistent factions, check relationship
@@ -209,7 +216,7 @@
 		return
 
 	var/job_faction = get_job_faction(J.title)
-	if(job_faction && H.mind.persistent_data)
+	if(job_faction && H.mind && H.mind.persistent_data)
 		// Update player's faction to match job
 		H.mind.persistent_data.current_faction_id = job_faction
 
@@ -234,6 +241,9 @@
 /datum/faction_integration/proc/get_faction_stats()
 	var/list/stats = list()
 
+	if(!SSpersistent_progression)
+		return stats
+
 	for(var/faction_id in SSpersistent_progression.factions)
 		var/datum/persistent_faction/faction = SSpersistent_progression.get_faction(faction_id)
 		if(faction)
@@ -246,6 +256,8 @@
 			// Count members and experience
 			for(var/ckey in SSpersistent_progression.player_data)
 				var/datum/persistent_player_data/data = SSpersistent_progression.player_data[ckey]
+				if(!data)
+					continue
 				if(data.current_faction_id == faction_id)
 					faction_stat["member_count"]++
 					faction_stat["total_experience"] += data.total_experience
@@ -254,17 +266,16 @@
 
 	return stats
 
-// Initialize faction integration in the persistent progression subsystem
-/datum/controller/subsystem/persistent_progression/proc/initialize_faction_integration()
-	if(!faction_integration)
-		faction_integration = new /datum/faction_integration()
-		world.log << "Faction Integration: Initialized faction integration system"
-
 // Global faction integration instance
 GLOBAL_VAR_INIT(faction_integration, null)
 
 // Initialize global faction integration
 /proc/initialize_global_faction_integration()
-	if(!GLOB.faction_integration)
-		GLOB.faction_integration = new /datum/faction_integration()
-		world.log << "Faction Integration: Initialized global faction integration"
+	if(GLOB.faction_integration)
+		return
+	if(!SSpersistent_progression)
+		addtimer(CALLBACK(GLOBAL_PROC, /proc/initialize_global_faction_integration), 5 SECONDS)
+		return
+	GLOB.faction_integration = new /datum/faction_integration()
+	world.log << "Faction Integration: Initialized global faction integration"
+

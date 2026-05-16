@@ -41,7 +41,15 @@ export const NtosMessenger = (props) => {
     isSilicon,
     virus_attach,
     sending_virus,
+    PC_device_theme,
   } = data;
+  const isTerminal = PC_device_theme === 'scp_terminal';
+  const appTitle = isTerminal
+    ? 'SCiPNet Messenger v2.1'
+    : 'SpaceMessenger V6.4.7';
+  const appSubtitle = isTerminal
+    ? 'Secure Containment Communications Protocol'
+    : 'Bringing you spy-proof communications since 2467.';
   if (viewing_messages) {
     return (
       <NtosWindow width={600} height={800}>
@@ -63,11 +71,14 @@ export const NtosMessenger = (props) => {
               <Stack vertical key={message} mt={1}>
                 <Section fill textAlign="left">
                   <Box italic opacity={0.5}>
-                    {message.outgoing ? '(OUTGOING)' : '(INCOMING)'}
+                    {message.outgoing
+                      ? isTerminal
+                        ? '// TX //'
+                        : '(OUTGOING)'
+                      : isTerminal
+                        ? '// RX //'
+                        : '(INCOMING)'}
                   </Box>
-                  {/* Automated or outgoing, don't give a reply link, as
-                   * the reply address may not actually be valid.
-                   */}
                   {message.outgoing || message.automated ? (
                     <Box bold>{message.name + ' (' + message.job + ')'}</Box>
                   ) : (
@@ -101,10 +112,10 @@ export const NtosMessenger = (props) => {
           <Section fill textAlign="center">
             <Box bold>
               <Icon name="address-card" mr={1} />
-              SpaceMessenger V6.4.7
+              {appTitle}
             </Box>
             <Box italic opacity={0.3}>
-              Bringing you spy-proof communications since 2467.
+              {appSubtitle}
             </Box>
           </Section>
         </Stack>
@@ -159,7 +170,7 @@ export const NtosMessenger = (props) => {
         <Stack vertical mt={1}>
           <Section fill textAlign="center">
             <Icon name="address-card" mr={1} />
-            Detected Messengers
+            {isTerminal ? 'Active Personnel' : 'Detected Messengers'}
           </Section>
         </Stack>
         <Stack vertical mt={1}>

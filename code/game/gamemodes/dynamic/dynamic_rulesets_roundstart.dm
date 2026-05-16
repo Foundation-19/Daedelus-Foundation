@@ -6,24 +6,24 @@
 //////////////////////////////////////////////
 
 /datum/dynamic_ruleset/roundstart/traitor
-	name = "Traitors"
+	name = "CI Infiltrator"
 	persistent = TRUE
 	antag_flag = ROLE_TRAITOR
 	antag_datum = /datum/antagonist/traitor
 	minimum_required_age = 0
 	protected_roles = list(
 		JOB_SITE_DIRECTOR,
-		JOB_SECURITY_DIRECTOR,
-		JOB_EZ_COMMANDER,
+		JOB_GUARD_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
 		JOB_RAISA_AGENT,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD
@@ -34,7 +34,7 @@
 	)
 	required_candidates = 1
 	weight = 5
-	cost = 8 // Avoid raising traitor threat above this, as it is the default low cost ruleset.
+	cost = 8
 	scaling_cost = 9
 	requirements = list(8,8,8,8,8,8,8,8,8,8)
 	antag_cap = list("denominator" = 24)
@@ -74,9 +74,9 @@
 	minimum_required_age = 14
 	exclusive_roles = list(JOB_AI)
 	required_candidates = 1
-	weight = 3
+	weight = 0
 	cost = 18
-	requirements = list(101,101,101,80,60,50,30,20,10,10)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	antag_cap = 1
 	flags = HIGH_IMPACT_RULESET
 
@@ -118,18 +118,18 @@
 	antag_datum = /datum/antagonist/brother
 	protected_roles = list(
 		JOB_SITE_DIRECTOR,
-		JOB_INVESTIGATIONS_AGENT, // The detective works alone
-		JOB_SECURITY_DIRECTOR,
-		JOB_EZ_COMMANDER,
+		JOB_INVESTIGATIONS_AGENT,
+		JOB_GUARD_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
 		JOB_RAISA_AGENT,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD
@@ -139,10 +139,10 @@
 		JOB_CYBORG,
 	)
 	required_candidates = 2
-	weight = 2
+	weight = 0
 	cost = 12
 	scaling_cost = 15
-	requirements = list(40,30,30,20,20,15,15,15,10,10)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	antag_cap = 2 // Can pick 3 per team, but rare enough it doesn't matter.
 	var/list/datum/team/brother_team/pre_brother_teams = list()
 	var/const/min_team_size = 2
@@ -188,17 +188,17 @@
 	protected_roles = list(
 		JOB_SITE_DIRECTOR,
 		JOB_INVESTIGATIONS_AGENT,
-		JOB_SECURITY_DIRECTOR,
-		JOB_EZ_COMMANDER,
+		JOB_GUARD_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
 		JOB_RAISA_AGENT,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD
@@ -208,10 +208,10 @@
 		JOB_CYBORG,
 	)
 	required_candidates = 1
-	weight = 3
+	weight = 0
 	cost = 16
 	scaling_cost = 10
-	requirements = list(70,70,60,50,40,20,20,10,10,10)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	antag_cap = list("denominator" = 29)
 
 /datum/dynamic_ruleset/roundstart/changeling/pre_execute(population)
@@ -254,18 +254,18 @@
 	protected_roles = list(
 		JOB_SITE_DIRECTOR,
 		JOB_INVESTIGATIONS_AGENT, // It's up to him to investigate eldritch evil.
-		JOB_SECURITY_DIRECTOR,
+		JOB_GUARD_COMMANDER,
 		JOB_DCLASS,
-		JOB_EZ_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
 		JOB_RAISA_AGENT,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD
@@ -275,10 +275,10 @@
 		JOB_CYBORG,
 	)
 	required_candidates = 1
-	weight = 3
+	weight = 0
 	cost = 15
 	scaling_cost = 9
-	requirements = list(101,101,101,40,35,20,20,15,10,10)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	antag_cap = list("denominator" = 24)
 
 
@@ -322,12 +322,12 @@
 	minimum_required_age = 14
 	restricted_roles = list(
 		JOB_SITE_DIRECTOR,
-		JOB_SECURITY_DIRECTOR,
+		JOB_GUARD_COMMANDER,
 	) // Just to be sure that a wizard getting picked won't ever imply a Captain or HoS not getting drafted
 	required_candidates = 1
-	weight = 2
+	weight = 0
 	cost = 20
-	requirements = list(90,90,90,80,60,40,30,20,10,10)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	var/list/roundstart_wizards = list()
 
 /datum/dynamic_ruleset/roundstart/wizard/acceptable(population=0, threat=0)
@@ -373,25 +373,25 @@
 		JOB_CYBORG,
 		JOB_INVESTIGATIONS_AGENT,
 		JOB_HUMAN_RESOURCES_DIRECTOR,
-		JOB_SECURITY_DIRECTOR,
-		JOB_EZ_COMMANDER,
+		JOB_GUARD_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
 		JOB_RAISA_AGENT,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD
 	)
 	required_candidates = 2
-	weight = 3
+	weight = 0
 	cost = 20
-	requirements = list(100,90,80,60,40,30,10,10,10,10)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	flags = HIGH_IMPACT_RULESET
 	antag_cap = list("denominator" = 20, "offset" = 1)
 	var/datum/team/cult/main_cult
@@ -447,12 +447,12 @@
 	minimum_required_age = 14
 	restricted_roles = list(
 		JOB_SITE_DIRECTOR,
-		JOB_SECURITY_DIRECTOR,
+		JOB_GUARD_COMMANDER,
 	) // Just to be sure that a nukie getting picked won't ever imply a Captain or HoS not getting drafted
 	required_candidates = 5
-	weight = 3
+	weight = 0
 	cost = 20
-	requirements = list(90,90,90,80,60,40,30,20,10,10)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	flags = HIGH_IMPACT_RULESET
 	antag_cap = list("denominator" = 18, "offset" = 1)
 	var/datum/team/nuclear/nuke_team
@@ -541,26 +541,26 @@
 		JOB_CYBORG,
 		JOB_INVESTIGATIONS_AGENT,
 		JOB_HUMAN_RESOURCES_DIRECTOR,
-		JOB_SECURITY_DIRECTOR,
-		JOB_EZ_COMMANDER,
+		JOB_GUARD_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
 		JOB_RAISA_AGENT,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD
 	)
 	required_candidates = 3
-	weight = 3
+	weight = 0
 	delay = 7 MINUTES
 	cost = 20
-	requirements = list(101,101,70,40,30,20,10,10,10,10)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	antag_cap = 3
 	flags = HIGH_IMPACT_RULESET
 	blocking_rules = list(/datum/dynamic_ruleset/latejoin/provocateur)
@@ -649,25 +649,25 @@
 		JOB_SITE_DIRECTOR,
 		JOB_CYBORG,
 		JOB_INVESTIGATIONS_AGENT,
-		JOB_SECURITY_DIRECTOR,
-		JOB_EZ_COMMANDER,
+		JOB_GUARD_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
 		JOB_RAISA_AGENT,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD
 	)
 	required_candidates = 3
-	weight = 1
+	weight = 0
 	cost = 19
-	requirements = list(101,101,40,40,30,20,10,10,10,10)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	flags = HIGH_IMPACT_RULESET
 	/// A reference to the handler that is used to run pre_execute(), execute(), etc..
 	var/datum/gang_handler/handler

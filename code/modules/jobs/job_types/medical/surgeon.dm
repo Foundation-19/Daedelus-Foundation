@@ -48,8 +48,8 @@
 	jobtype = /datum/job/surgeon
 
 	id_trim = /datum/id_trim/job/surgeon
-	uniform = /obj/item/clothing/under/rank/medical/doctor
-	suit = /obj/item/clothing/suit/toggle/labcoat/md
+	uniform = /obj/item/clothing/under/rank/medical/scrubs/green
+	suit = /obj/item/clothing/suit/toggle/labcoat
 	suit_store = /obj/item/flashlight/pen
 	belt = /obj/item/modular_computer/tablet/pda/medical
 	ears = /obj/item/radio/headset/headset_med

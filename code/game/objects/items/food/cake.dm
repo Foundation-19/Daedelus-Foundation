@@ -24,7 +24,6 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 30, /datum/reagent/consumable/nutriment/vitamin = 7)
 	tastes = list("sweetness" = 2, "cake" = 5)
 	foodtypes = GRAIN | DAIRY | SUGAR
-	burns_in_oven = TRUE
 
 
 /obj/item/food/cake/plain/MakeProcessable()
@@ -185,7 +184,7 @@
 /obj/item/food/cake/birthday/MakeProcessable()
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/cakeslice/birthday, 5, 30, table_required = TRUE)
 
-/obj/item/food/cake/birthday/microwave_act(obj/machinery/microwave/microwave) //super sekrit club
+/obj/item/food/cake/birthday/microwave_act(obj/machinery/M) //super sekrit club
 	new /obj/item/clothing/head/hardhat/cakehat(get_turf(src))
 	qdel(src)
 
@@ -220,7 +219,7 @@
 		return
 	energy_bite(target_mob, user)
 
-/obj/item/food/cake/birthday/energy/microwave_act(obj/machinery/microwave/M) //super sekriter club
+/obj/item/food/cake/birthday/energy/microwave_act(obj/machinery/M) //super sekriter club
 	new /obj/item/clothing/head/hardhat/cakehat/energycake(get_turf(src))
 	qdel(src)
 

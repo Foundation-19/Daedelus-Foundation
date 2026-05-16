@@ -48,26 +48,26 @@
 //////////////////////////////////////////////
 
 /datum/dynamic_ruleset/latejoin/infiltrator
-	name = "Syndicate Infiltrator"
+	name = "CI Latejoin Infiltrator"
 	antag_datum = /datum/antagonist/traitor
 	antag_flag = ROLE_SYNDICATE_INFILTRATOR
 	antag_flag_override = ROLE_TRAITOR
 	restricted_roles = list(
 		JOB_SITE_DIRECTOR,
 		JOB_HUMAN_RESOURCES_DIRECTOR,
-		JOB_SECURITY_DIRECTOR,
+		JOB_GUARD_COMMANDER,
 		JOB_ENGINEERING_DIRECTOR,
 		JOB_MEDICAL_DIRECTOR,
-		JOB_EZ_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
 		JOB_RAISA_AGENT,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD,
@@ -77,7 +77,7 @@
 	required_candidates = 1
 	weight = 7
 	cost = 5
-	requirements = list(5,5,5,5,5,5,5,5,5,5)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	repeatable = TRUE
 
 //////////////////////////////////////////////
@@ -100,17 +100,17 @@
 		JOB_CYBORG,
 		JOB_INVESTIGATIONS_AGENT,
 		JOB_HUMAN_RESOURCES_DIRECTOR,
-		JOB_SECURITY_DIRECTOR,
-		JOB_EZ_COMMANDER,
+		JOB_GUARD_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
 		JOB_RAISA_AGENT,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD
@@ -120,27 +120,27 @@
 		JOB_CYBORG,
 		JOB_SITE_DIRECTOR,
 		JOB_INVESTIGATIONS_AGENT,
-		JOB_SECURITY_DIRECTOR,
-		JOB_EZ_COMMANDER,
+		JOB_GUARD_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
 		JOB_RAISA_AGENT,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD
 	)
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
-	weight = 2
+	weight = 0
 	delay = 1 MINUTES // Prevents rule start while head is offstation.
 	cost = 20
-	requirements = list(101,101,70,40,30,20,20,20,20,20)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	flags = HIGH_IMPACT_RULESET
 	blocking_rules = list(/datum/dynamic_ruleset/roundstart/revs)
 	var/required_heads_of_staff = 3
@@ -215,18 +215,18 @@
 	protected_roles = list(
 		JOB_SITE_DIRECTOR,
 		JOB_HUMAN_RESOURCES_DIRECTOR,
-		JOB_SECURITY_DIRECTOR,
+		JOB_GUARD_COMMANDER,
 		JOB_DCLASS,
-		JOB_EZ_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
 		JOB_RAISA_AGENT,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD
@@ -236,9 +236,9 @@
 		JOB_CYBORG,
 	)
 	required_candidates = 1
-	weight = 4
+	weight = 0
 	cost = 10
-	requirements = list(101,101,101,10,10,10,10,10,10,10)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	repeatable = TRUE
 
 /datum/dynamic_ruleset/latejoin/heretic_smuggler/execute()

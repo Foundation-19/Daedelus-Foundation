@@ -6,11 +6,27 @@
 @use 'sass:meta';
 @use 'sass:color';
 
+$scp-red: #8b0000;
+$scp-dark-red: #5c0000;
+$scp-amber: #d4a017;
+$scp-green: #0a6e0a;
+$scp-dark-bg: #0a0a0c;
+$scp-panel-bg: #111114;
+$scp-border: #2a2a30;
+$scp-text: #c8c8c8;
+$scp-dim-text: #6a6a70;
+$scp-highlight: #e8e8e8;
+
 @use '~tgui/styles/colors.scss';
 @use '~tgui/styles/base.scss' with (
-  $color-bg: #222020,
-  $color-bg-section: color.adjust(#222020),
-  $color-bg-grad-spread: 0%
+  $color-bg: $scp-dark-bg,
+  $color-bg-section: $scp-panel-bg,
+  $color-bg-grad-spread: 0%,
+  $font-family: (
+    'Consolas',
+    'Courier New',
+    monospace,
+  )
 );
 
 // Core styles
@@ -58,3 +74,165 @@
 
 // Goonchat styles
 @include meta.load-css('./goon/chat-dark.scss');
+
+// ============================================================
+// SCP TERMINAL OVERRIDES
+// ============================================================
+
+html,
+body {
+  background-color: $scp-dark-bg;
+  color: $scp-text;
+  font-family: 'Consolas', 'Courier New', monospace;
+}
+
+.Layout__content {
+  background-color: $scp-dark-bg;
+  background-image: none;
+}
+
+.Section {
+  border: 1px solid $scp-border;
+  border-radius: 0;
+  background-color: $scp-panel-bg;
+
+  .Section__title {
+    font-family: 'Consolas', 'Courier New', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: $scp-amber;
+    border-bottom: 1px solid $scp-border;
+  }
+}
+
+.Button {
+  font-family: 'Consolas', 'Courier New', monospace;
+  border: 1px solid $scp-border;
+  border-radius: 0;
+  text-transform: uppercase;
+  font-size: 0.85em;
+  letter-spacing: 0.05em;
+
+  &:hover {
+    border-color: $scp-red;
+    background-color: rgba($scp-red, 0.3);
+  }
+}
+
+.Button--selected {
+  background-color: $scp-dark-red;
+  border-color: $scp-red;
+  color: $scp-highlight;
+  box-shadow: 0 0 8px rgba($scp-red, 0.4);
+}
+
+.Tabs {
+  font-family: 'Consolas', 'Courier New', monospace;
+
+  .Tab {
+    font-family: 'Consolas', 'Courier New', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: $scp-dim-text;
+    border-radius: 0;
+
+    &--selected {
+      color: $scp-highlight;
+      background-color: $scp-dark-red;
+      border-bottom: 2px solid $scp-red;
+    }
+
+    &:hover {
+      color: $scp-amber;
+      background-color: rgba($scp-red, 0.2);
+    }
+  }
+}
+
+.Input {
+  font-family: 'Consolas', 'Courier New', monospace;
+  background-color: #0d0d10;
+  border: 1px solid $scp-border;
+  border-radius: 0;
+  color: $scp-amber;
+}
+
+.Tooltip {
+  font-family: 'Consolas', 'Courier New', monospace;
+  border: 1px solid $scp-border;
+}
+
+.Notifications {
+  font-family: 'Consolas', 'Courier New', monospace;
+}
+
+// Scanline overlay on chat area
+.ChatTerminal__scanlines {
+  content: ' ';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15) 0px,
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  z-index: 100;
+  pointer-events: none;
+}
+
+.ChatTerminal__vignette {
+  content: ' ';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    rgba(0, 0, 0, 0.35) 100%
+  );
+  z-index: 99;
+  pointer-events: none;
+}
+
+// CRT flicker animation (subtle)
+@keyframes terminalFlicker {
+  0% {
+    opacity: 1;
+  }
+  5% {
+    opacity: 0.98;
+  }
+  10% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 0.97;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.Chat {
+  color: $scp-text;
+  font-family: 'Consolas', 'Courier New', monospace;
+  animation: terminalFlicker 8s infinite;
+}
+
+.ChatMessage {
+  font-family: 'Consolas', 'Courier New', monospace;
+  word-wrap: break-word;
+  text-shadow: 0 0 0.05em rgba($scp-amber, 0.15);
+}

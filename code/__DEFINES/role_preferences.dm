@@ -99,6 +99,23 @@
 #define ROLE_BATTLECRUISER_CREW "Battlecruiser Crew"
 #define ROLE_BATTLECRUISER_CAPTAIN "Battlecruiser Captain"
 
+// SCP and Hostile Group roles
+#define ROLE_SCP173 "SCP-173"
+#define ROLE_SCP096 "SCP-096"
+#define ROLE_SCP008 "SCP-008 Infection"
+#define ROLE_SCP035 "SCP-035"
+#define ROLE_SCP049 "SCP-049"
+#define ROLE_SCP2427_3 "SCP-2427-3"
+#define ROLE_SCP079 "SCP-079"
+#define ROLE_SCP106 "SCP-106"
+#define ROLE_SCP457 "SCP-457"
+#define ROLE_SCP939 "SCP-939"
+#define ROLE_SCP682 "SCP-682"
+#define ROLE_SARKIC_CULT "Sarkic Cultist"
+#define ROLE_CHAOS_INSURGENCY "Chaos Insurgency Agent"
+#define ROLE_SERPENTS_HAND "Serpent's Hand Member"
+#define ROLE_MTF "Mobile Task Force"
+
 
 /// This defines the antagonists you can operate with in the settings.
 /// Keys are the antagonist, values are the number of days since the player's
@@ -145,6 +162,22 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_HERETIC_SMUGGLER = 0,
 	ROLE_PROVOCATEUR = 14,
 	ROLE_SYNDICATE_INFILTRATOR = 0,
+
+	// SCP and Hostile Groups
+	ROLE_SCP173 = 0,
+	ROLE_SCP096 = 0,
+	ROLE_SCP008 = 0,
+	ROLE_SCP035 = 0,
+	ROLE_SCP049 = 0,
+	ROLE_SCP2427_3 = 0,
+	ROLE_SCP079 = 0,
+	ROLE_SCP106 = 0,
+	ROLE_SCP457 = 0,
+	ROLE_SCP939 = 0,
+	ROLE_SCP682 = 0,
+	ROLE_SARKIC_CULT = 0,
+	ROLE_CHAOS_INSURGENCY = 0,
+	ROLE_SERPENTS_HAND = 0,
 
 	// I'm not too sure why these are here, but they're not moving.
 	ROLE_PAI = 0,

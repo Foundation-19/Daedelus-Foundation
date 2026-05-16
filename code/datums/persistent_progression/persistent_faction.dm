@@ -62,3 +62,16 @@
     faction_icon = "faction_uiu"
     experience_multiplier = 1.0
     faction_classes = list("security", "medical", "engineering", "administrative")
+
+/datum/persistent_faction/proc/export_to_json()
+    var/list/data = list()
+    data["faction_id"] = faction_id
+    data["faction_name"] = faction_name
+    data["faction_description"] = faction_description
+    data["faction_color"] = faction_color
+    data["faction_classes"] = faction_classes
+    data["faction_equipment"] = faction_equipment
+    data["faction_titles"] = faction_titles
+    data["faction_icon"] = faction_icon
+    data["experience_multiplier"] = experience_multiplier
+    return json_encode(data)

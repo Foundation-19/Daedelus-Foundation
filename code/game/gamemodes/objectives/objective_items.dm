@@ -69,7 +69,7 @@
 		JOB_ENGINEERING_DIRECTOR,
 		JOB_ASSISTANT_ENGINEERING_DIRECTOR,
 		JOB_MEDICAL_DIRECTOR,
-		JOB_SECURITY_DIRECTOR,
+		JOB_GUARD_COMMANDER,
 		JOB_CONTAINMENT_ENGINEER,
 		JOB_IT_TECHNICIAN,
 		JOB_SENIOR_ENGINEER,
@@ -158,7 +158,7 @@
 	name = "the security marshal's personal laser gun"
 	targetitem = /obj/item/gun/energy/e_gun/hos
 	difficulty = 10
-	excludefromjob = list(JOB_SECURITY_DIRECTOR)
+	excludefromjob = list(JOB_GUARD_COMMANDER)
 	exists_on_map = TRUE
 
 /obj/item/gun/energy/e_gun/hos/add_stealing_item_objective()
@@ -228,16 +228,16 @@
 	targetitem = /obj/item/clothing/suit/hooded/ablative
 	difficulty = 3
 	excludefromjob = list(
-		JOB_SECURITY_DIRECTOR,
-		JOB_EZ_COMMANDER,
+		JOB_GUARD_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD

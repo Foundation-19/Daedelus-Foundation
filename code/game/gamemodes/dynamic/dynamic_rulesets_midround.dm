@@ -181,25 +181,25 @@
 //////////////////////////////////////////////
 
 /datum/dynamic_ruleset/midround/autotraitor
-	name = "Syndicate Sleeper Agent"
+	name = "CI Sleeper Agent"
 	antag_datum = /datum/antagonist/traitor
 	antag_flag = ROLE_SLEEPER_AGENT
 	antag_flag_override = ROLE_TRAITOR
 	protected_roles = list(
 		JOB_SITE_DIRECTOR,
 		JOB_HUMAN_RESOURCES_DIRECTOR,
-		JOB_SECURITY_DIRECTOR,
+		JOB_GUARD_COMMANDER,
 		JOB_DCLASS,
-		JOB_EZ_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
 		JOB_RAISA_AGENT,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD
@@ -212,7 +212,7 @@
 	required_candidates = 1
 	weight = 7
 	cost = 10
-	requirements = list(10,10,10,10,10,10,10,10,10,10)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	repeatable = TRUE
 
 	/// Whether or not this instance of sleeper agent should be randomly acceptable.
@@ -282,25 +282,25 @@
 		JOB_CYBORG,
 		JOB_SITE_DIRECTOR,
 		JOB_INVESTIGATIONS_AGENT,
-		JOB_SECURITY_DIRECTOR,
-		JOB_EZ_COMMANDER,
+		JOB_GUARD_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
 		JOB_RAISA_AGENT,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD
 	)
 	required_candidates = 3
-	weight = 2
+	weight = 0
 	cost = 19
-	requirements = list(101,101,40,40,30,20,10,10,10,10)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	flags = HIGH_IMPACT_RULESET
 	blocking_rules = list(/datum/dynamic_ruleset/roundstart/families)
 	/// A reference to the handler that is used to run pre_execute(), execute(), etc..
@@ -362,17 +362,17 @@
 	enemy_roles = list(
 		JOB_CHEMIST,
 		JOB_ENGINEERING_DIRECTOR,
-		JOB_SECURITY_DIRECTOR,
-		JOB_EZ_COMMANDER,
+		JOB_GUARD_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
 		JOB_RAISA_AGENT,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD
@@ -380,9 +380,9 @@
 	exclusive_roles = list(JOB_AI)
 	required_enemies = list(4,4,4,4,4,4,2,2,2,0)
 	required_candidates = 1
-	weight = 3
+	weight = 0
 	cost = 22
-	requirements = list(101,101,101,80,60,50,30,20,10,10)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	required_type = /mob/living/silicon/ai
 	blocking_rules = list(/datum/dynamic_ruleset/roundstart/malf_ai)
 
@@ -431,26 +431,26 @@
 	enemy_roles = list(
 		JOB_SITE_DIRECTOR,
 		JOB_INVESTIGATIONS_AGENT,
-		JOB_SECURITY_DIRECTOR,
-		JOB_EZ_COMMANDER,
+		JOB_GUARD_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
 		JOB_RAISA_AGENT,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD
 	)
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
-	weight = 1
+	weight = 0
 	cost = 20
-	requirements = list(90,90,90,80,60,40,30,20,10,10)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	flags = HIGH_IMPACT_RULESET
 
 /datum/dynamic_ruleset/midround/from_ghosts/wizard/ready(forced = FALSE)
@@ -482,26 +482,26 @@
 		JOB_CYBORG,
 		JOB_SITE_DIRECTOR,
 		JOB_INVESTIGATIONS_AGENT,
-		JOB_SECURITY_DIRECTOR,
-		JOB_EZ_COMMANDER,
+		JOB_GUARD_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
 		JOB_RAISA_AGENT,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD
 	)
 	required_enemies = list(3,3,3,3,3,2,1,1,0,0)
 	required_candidates = 5
-	weight = 5
+	weight = 0
 	cost = 35
-	requirements = list(90,90,90,80,60,40,30,20,10,10)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	var/list/operative_cap = list(2,2,3,3,4,5,5,5,5,5)
 	var/datum/team/nuclear/nuke_team
 	flags = HIGH_IMPACT_RULESET
@@ -541,26 +541,26 @@
 	enemy_roles = list(
 		JOB_SITE_DIRECTOR,
 		JOB_INVESTIGATIONS_AGENT,
-		JOB_SECURITY_DIRECTOR,
-		JOB_EZ_COMMANDER,
+		JOB_GUARD_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
 		JOB_RAISA_AGENT,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD
 	)
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
-	weight = 2
+	weight = 0
 	cost = 10
-	requirements = list(101,101,101,80,60,50,30,20,10,10)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	repeatable = TRUE
 
 /datum/dynamic_ruleset/midround/from_ghosts/blob/generate_ruleset_body(mob/applicant)
@@ -576,17 +576,17 @@
 	protected_roles = list(
 		JOB_SITE_DIRECTOR,
 		JOB_INVESTIGATIONS_AGENT,
-		JOB_SECURITY_DIRECTOR,
-		JOB_EZ_COMMANDER,
+		JOB_GUARD_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
 		JOB_RAISA_AGENT,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD
@@ -599,26 +599,26 @@
 	enemy_roles = list(
 		JOB_SITE_DIRECTOR,
 		JOB_INVESTIGATIONS_AGENT,
-		JOB_SECURITY_DIRECTOR,
-		JOB_EZ_COMMANDER,
+		JOB_GUARD_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
 		JOB_RAISA_AGENT,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD
 	)
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
-	weight = 2
+	weight = 0
 	cost = 10
-	requirements = list(101,101,101,80,60,50,30,20,10,10)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	repeatable = TRUE
 
 /datum/dynamic_ruleset/midround/blob_infection/trim_candidates()
@@ -654,26 +654,26 @@
 	enemy_roles = list(
 		JOB_SITE_DIRECTOR,
 		JOB_INVESTIGATIONS_AGENT,
-		JOB_SECURITY_DIRECTOR,
-		JOB_EZ_COMMANDER,
+		JOB_GUARD_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
 		JOB_RAISA_AGENT,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD
 	)
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
-	weight = 3
+	weight = 0
 	cost = 10
-	requirements = list(101,101,101,70,50,40,20,15,10,10)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	repeatable = TRUE
 	var/list/vents = list()
 
@@ -718,26 +718,26 @@
 	enemy_roles = list(
 		JOB_SITE_DIRECTOR,
 		JOB_INVESTIGATIONS_AGENT,
-		JOB_SECURITY_DIRECTOR,
-		JOB_EZ_COMMANDER,
+		JOB_GUARD_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
 		JOB_RAISA_AGENT,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD
 	)
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
-	weight = 3
+	weight = 0
 	cost = 10
-	requirements = list(101,101,101,70,50,40,20,15,10,10)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	repeatable = TRUE
 	var/list/spawn_locs = list()
 
@@ -781,26 +781,26 @@
 	enemy_roles = list(
 		JOB_SITE_DIRECTOR,
 		JOB_INVESTIGATIONS_AGENT,
-		JOB_SECURITY_DIRECTOR,
-		JOB_EZ_COMMANDER,
+		JOB_GUARD_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
 		JOB_RAISA_AGENT,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD
 	)
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
-	weight = 4
+	weight = 0
 	cost = 10
-	requirements = list(101,101,101,80,60,50,30,20,10,10)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	repeatable = TRUE
 	var/list/spawn_locs = list()
 
@@ -842,17 +842,17 @@
 	enemy_roles = list(
 		JOB_SITE_DIRECTOR,
 		JOB_INVESTIGATIONS_AGENT,
-		JOB_SECURITY_DIRECTOR,
-		JOB_EZ_COMMANDER,
+		JOB_GUARD_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
 		JOB_RAISA_AGENT,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD
@@ -860,9 +860,9 @@
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 2
 	required_applicants = 2
-	weight = 4
+	weight = 0
 	cost = 10
-	requirements = list(101,101,101,80,60,50,30,20,10,10)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	repeatable = TRUE
 	var/datum/team/abductor_team/new_team
 
@@ -892,26 +892,26 @@
 	enemy_roles = list(
 		JOB_SITE_DIRECTOR,
 		JOB_INVESTIGATIONS_AGENT,
-		JOB_SECURITY_DIRECTOR,
-		JOB_EZ_COMMANDER,
+		JOB_GUARD_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
 		JOB_RAISA_AGENT,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD
 	)
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
-	weight = 4
+	weight = 0
 	cost = 10
-	requirements = list(101,101,101,70,50,40,20,15,10,10)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	repeatable = TRUE
 	var/dead_mobs_required = 20
 	var/need_extra_spawns_value = 15
@@ -960,26 +960,26 @@
 	enemy_roles = list(
 		JOB_SITE_DIRECTOR,
 		JOB_INVESTIGATIONS_AGENT,
-		JOB_SECURITY_DIRECTOR,
-		JOB_EZ_COMMANDER,
+		JOB_GUARD_COMMANDER,
+		JOB_EZ_ZONE_SUPERVISOR,
 		JOB_SENIOR_EZ_GUARD,
 		JOB_EZ_GUARD,
 		JOB_JUNIOR_EZ_GUARD,
 		JOB_RAISA_AGENT,
-		JOB_LCZ_COMMANDER,
+		JOB_LCZ_ZONE_JUNIOR_LIEUTENANT,
 		JOB_SENIOR_LCZ_GUARD,
 		JOB_LCZ_GUARD,
 		JOB_JUNIOR_LCZ_GUARD,
-		JOB_HCZ_COMMANDER,
+		JOB_HCZ_ZONE_SENIOR_LIEUTENANT,
 		JOB_SENIOR_HCZ_GUARD,
 		JOB_HCZ_GUARD,
 		JOB_JUNIOR_HCZ_GUARD
 	)
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
-	weight = 4
-	cost = 3 // Doesn't have the same impact on rounds as revenants, dragons, sentient disease (10) or syndicate infiltrators (5).
-	requirements = list(101,101,101,80,60,50,30,20,10,10)
+	weight = 0
+	cost = 3
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	repeatable = TRUE
 
 /datum/dynamic_ruleset/midround/obsessed/trim_candidates()

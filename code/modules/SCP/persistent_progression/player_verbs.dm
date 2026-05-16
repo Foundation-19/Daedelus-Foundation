@@ -29,7 +29,7 @@
 		if(class)
 			available_classes["[class.class_name] - [class.class_description]"] = class_id
 
-	if(available_classes.len == 0)
+	if(length(available_classes) == 0)
 		to_chat(src, span_warning("No classes available for your faction."))
 		return
 
@@ -63,7 +63,7 @@
 		if(faction && (mind.persistent_data.current_class_id in faction.faction_classes))
 			available_factions["[faction.faction_name] - [faction.faction_description]"] = faction_id
 
-	if(available_factions.len == 0)
+	if(length(available_factions) == 0)
 		to_chat(src, span_warning("No factions available for your class."))
 		return
 
@@ -111,7 +111,7 @@
 		to_chat(src, span_warning("Persistent Progression subsystem not found!"))
 		return
 
-	to_chat(src, span_notice("Subsystem found. Classes: [SSpersistent_progression.classes.len], Factions: [SSpersistent_progression.factions.len]"))
+	to_chat(src, span_notice("Subsystem found. Classes: [length(SSpersistent_progression.classes)], Factions: [length(SSpersistent_progression.factions)]"))
 
 	if(!mind.persistent_data)
 		to_chat(src, span_warning("No persistent data found. Initializing..."))

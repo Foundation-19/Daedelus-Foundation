@@ -480,7 +480,7 @@ GLOBAL_DATUM(everyone_a_traitor, /datum/everyone_is_a_traitor_controller)
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 60, 80)
 			message_admins("[key_name_admin(holder)] made everybody brain damaged")
 		if("floorlava")
-			SSweather.run_weather(/datum/weather/weather_types/floor_is_lava)
+			SSweather.run_weather(/datum/weather/floor_is_lava)
 		if("anime")
 			if(!is_funmin)
 				return

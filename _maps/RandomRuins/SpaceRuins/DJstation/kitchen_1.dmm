@@ -110,7 +110,7 @@
 	},
 /obj/effect/turf_decal/tile/bar,
 /obj/structure/table,
-/obj/machinery/microwave{
+/obj/machinery/appliance/cooker/microwave{
 	pixel_y = 8
 	},
 /turf/open/floor/iron,

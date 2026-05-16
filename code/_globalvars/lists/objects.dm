@@ -16,6 +16,7 @@ GLOBAL_LIST_EMPTY(pinpointer_list) //list of all pinpointers. Used to change stu
 GLOBAL_LIST_EMPTY(zombie_infection_list) // A list of all zombie_infection organs, for any mass "animation"
 GLOBAL_LIST_EMPTY(meteor_list) // List of all meteors.
 GLOBAL_LIST_EMPTY(active_jammers)  // List of active radio jammers
+GLOBAL_LIST_EMPTY(active_scp_jammers)  // List of active SCP radio jammers
 GLOBAL_LIST_EMPTY(janitor_devices)
 GLOBAL_LIST_EMPTY(trophy_cases)
 GLOBAL_LIST_EMPTY(experiment_handlers)

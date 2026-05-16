@@ -24,6 +24,8 @@ GLOBAL_PROTECT(admin_verbs_default)
 	/client/proc/requests
 	)
 GLOBAL_LIST_INIT(admin_verbs_admin, world.AVerbsAdmin())
+
+
 GLOBAL_PROTECT(admin_verbs_admin)
 /world/proc/AVerbsAdmin()
 	return list(
@@ -86,15 +88,10 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/set_player_rank,
 	/client/proc/reset_player_progress,
 	/client/proc/view_player_progress,
-	/client/proc/persistent_progression_panel,
 	/client/proc/master_persistence_panel,
-	/client/proc/facility_persistence_panel,
-	/client/proc/scp_persistence_panel,
-	/client/proc/technology_persistence_panel,
-	/client/proc/medical_persistence_panel,
-	/client/proc/security_persistence_panel,
-	/client/proc/research_persistence_panel,
-	/client/proc/personnel_persistence_panel,
+	/client/proc/open_error_monitor,
+	/client/proc/open_scp_documentation,
+	/client/proc/open_research_laboratory,
 	)
 GLOBAL_LIST_INIT(admin_verbs_ban, list(/client/proc/unban_panel, /client/proc/ban_panel, /client/proc/stickybanpanel))
 GLOBAL_PROTECT(admin_verbs_ban)
@@ -116,6 +113,7 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/forceEvent,
 	/client/proc/admin_change_sec_level,
 	/client/proc/toggle_nuke,
+	/client/proc/run_weather,
 	/client/proc/mass_zombie_infection,
 	/client/proc/mass_zombie_cure,
 	/client/proc/polymorph_all,
@@ -200,8 +198,6 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/validate_cards,
 	/client/proc/test_cardpack_distribution,
 	/client/proc/print_cards,
-	/client/proc/toggle_weather_debug_admin_verbs,
-	//Weather Debug Verbs - Hidden by default, shown by toggle_weather_debug_admin_verbs
 	#ifdef TESTING
 	/client/proc/check_missing_sprites,
 	/client/proc/run_dynamic_simulations,
@@ -227,24 +223,12 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/debug_health,
 )
 
-/world/proc/AVerbsDebugWeather()
-	return list(
-	/client/proc/run_weather,
-	/client/proc/force_weather_event,
-	/client/proc/lightning_strike_test,
-	/client/proc/toggle_weather_verbose_messages,
-	/client/proc/debug_all_weather_effects
-	)
-
 GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, GLOBAL_PROC_REF(release)))
 GLOBAL_PROTECT(admin_verbs_possess)
 GLOBAL_LIST_INIT(admin_verbs_permissions, list(/client/proc/edit_admin_permissions))
 GLOBAL_PROTECT(admin_verbs_permissions)
 GLOBAL_LIST_INIT(admin_verbs_poll, list(/client/proc/poll_panel))
 GLOBAL_PROTECT(admin_verbs_poll)
-
-GLOBAL_LIST_INIT(admin_verbs_debug_weather, world.AVerbsDebugWeather())
-GLOBAL_PROTECT(admin_verbs_debug_weather)
 
 //verbs which can be hidden - needs work
 GLOBAL_LIST_INIT(admin_verbs_hideable, list(
@@ -310,8 +294,7 @@ GLOBAL_LIST_INIT(admin_verbs_hideable, list(
 	/client/proc/toggle_nuke,
 	/client/proc/cmd_display_del_log,
 	/client/proc/toggle_combo_hud,
-	/client/proc/debug_huds,
-	/client/proc/toggle_weather_debug_admin_verbs
+	/client/proc/debug_huds
 	))
 GLOBAL_PROTECT(admin_verbs_hideable)
 
@@ -470,8 +453,9 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set name = "Game Panel"
 	set category = "Admin.Game"
 	if(holder)
-		holder.Game()
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Game Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		var/datum/admin_game_panel_ui/panel = new(holder)
+		panel.ui_interact(usr)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Game Panel")
 
 /client/proc/poll_panel()
 	set name = "Server Poll Management"

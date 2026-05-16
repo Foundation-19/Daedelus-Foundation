@@ -2,9 +2,10 @@
 
 #ifndef LOWMEMORYMODE
 	#ifdef ALL_MAPS
-		#include "map_files\debug\runtimestation.dmm"
-		#include "map_files\debug\multiz.dmm"
-		#include "map_files\Theseus\Theseus.dmm"
+		#include "site53.dmm"
+		#include "z1_admin.dmm"
+		#include "z2_transit.dmm"
+		#include "away_mission-1.dmm"
 
 		#ifdef CIBUILDING
 			#include "templates.dm"

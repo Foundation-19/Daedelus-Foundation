@@ -49,7 +49,7 @@
 
 	id_trim = /datum/id_trim/job/assistant_engineering_director
 	uniform = /obj/item/clothing/under/rank/engineering/engineer
-	belt = /obj/item/storage/belt/utility/full/engi
+	belt = /obj/item/storage/belt/utility/full
 	ears = /obj/item/radio/headset/headset_eng
 	head = /obj/item/clothing/head/hardhat
 	shoes = /obj/item/clothing/shoes/workboots

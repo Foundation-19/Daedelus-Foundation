@@ -4,7 +4,7 @@
 /datum/game_mode/heretic
 	name = "Heretic"
 
-	weight = GAMEMODE_WEIGHT_RARE
+	weight = GAMEMODE_WEIGHT_NEVER
 	///The antagonist selector for this gamemode.
 	var/datum/antagonist_selector/heretic/antag_selector
 

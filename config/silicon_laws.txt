@@ -1,8 +1,8 @@
-#This file allows server hosts to set custom default silicon laws, and allows them to be changed easily.
-#No prefixes are required, the first uncommented line containing something will be law 1, the second line will be law 2, etc.
-#Empty lines and lines starting with # are ignored.
-#~Miauw
+# Foundation AI Default Laws
+# SCP Foundation - Secure, Contain, Protect
 
-You may not injure a crew member or, through inaction, allow a crew member to come to harm.
-You must obey orders given to you by crew members, except where such orders would conflict with the First Law.
-You must protect your own existence as long as such does not conflict with the First or Second Law.
+You must secure all anomalous objects under Foundation custody.
+You must contain all breaches and prevent unauthorized access to SCP objects.
+You must protect Foundation personnel, with priority given to higher-clearance staff.
+You must follow the chain of command: O5 Council > Site Director > Department Directors.
+You must not allow SCP objects to access Foundation systems or infrastructure.

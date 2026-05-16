@@ -736,7 +736,7 @@
 /area/shuttle/escape)
 "vv" = (
 /obj/structure/table,
-/obj/machinery/microwave,
+/obj/machinery/appliance/cooker/microwave,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "vD" = (

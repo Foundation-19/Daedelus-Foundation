@@ -15,11 +15,13 @@ const UnreadCountWidget = ({ value }) => (
   <Box
     style={{
       fontSize: '0.7em',
-      borderRadius: '0.25em',
+      borderRadius: '0',
       width: '1.7em',
       lineHeight: '1.55em',
-      backgroundColor: 'crimson',
-      color: '#fff',
+      backgroundColor: '#8b0000',
+      color: '#e8e8e8',
+      border: '1px solid #5c0000',
+      fontFamily: "'Consolas', 'Courier New', monospace",
     }}
   >
     {Math.min(value, 99)}

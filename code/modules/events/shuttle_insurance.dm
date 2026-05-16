@@ -3,7 +3,7 @@
 /datum/round_event_control/shuttle_insurance
 	name = "Shuttle Insurance"
 	typepath = /datum/round_event/shuttle_insurance
-	max_occurrences = 1
+	max_occurrences = 0
 
 /datum/round_event_control/shuttle_insurance/canSpawnEvent(players)
 	if(!SSeconomy.department_accounts_by_id[ACCOUNT_CAR])

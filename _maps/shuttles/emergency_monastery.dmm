@@ -2205,7 +2205,7 @@
 /area/shuttle/escape)
 "Ew" = (
 /obj/structure/table,
-/obj/machinery/microwave,
+/obj/machinery/appliance/cooker/microwave,
 /obj/machinery/light/small/directional/north,
 /obj/effect/decal/cleanable/cobweb,
 /obj/item/radio/intercom/directional/north,

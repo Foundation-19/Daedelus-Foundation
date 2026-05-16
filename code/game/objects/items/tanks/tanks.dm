@@ -391,6 +391,6 @@
 		explosion_info += TANK_MERGE_OVERPRESSURE
 
 /obj/item/tank/proc/explosion_information()
-	return list(TANK_RESULTS_REACTION = reaction_info, TANK_RESULTS_MISC = explosion_info)
+	return alist(TANK_RESULTS_REACTION = reaction_info, TANK_RESULTS_MISC = explosion_info)
 
 #undef ASSUME_AIR_DT_FACTOR

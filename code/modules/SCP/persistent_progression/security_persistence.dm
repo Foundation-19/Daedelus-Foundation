@@ -185,7 +185,7 @@ SUBSYSTEM_DEF(security_persistence)
 // Old procedure removed - using updated version below
 
 /datum/security_persistence_manager/proc/update_security_statistics()
-	security_statistics["total_personnel"] = security_records.len
+	security_statistics["total_personnel"] = length(security_records)
 	security_statistics["total_incidents"] = total_security_incidents
 	security_statistics["active_threats"] = active_threats
 	security_statistics["containment_breaches"] = containment_breaches
@@ -211,9 +211,30 @@ SUBSYSTEM_DEF(security_persistence)
 	for(var/protocol_id in security_protocols)
 		var/datum/security_protocol/protocol = security_protocols[protocol_id]
 		if(protocol.status == "ACTIVE")
-			// Simulate protocol effectiveness changes
-			if(prob(10)) // 10% chance to change effectiveness
-				protocol.effectiveness_rating = max(0, min(100, protocol.effectiveness_rating + rand(-5, 5)))
+			// Calculate real protocol effectiveness based on actual game data
+			protocol.effectiveness_rating = calculate_real_protocol_effectiveness(protocol)
+
+// Calculate real protocol effectiveness based on actual game data
+/datum/security_persistence_manager/proc/calculate_real_protocol_effectiveness(protocol)
+	var/base_effectiveness = 75 // Default effectiveness
+
+	// Effectiveness based on containment breaches
+	if(containment_breaches > 0)
+		base_effectiveness -= containment_breaches * 10
+
+	// Effectiveness based on unauthorized access attempts
+	if(unauthorized_access_attempts > 0)
+		base_effectiveness -= unauthorized_access_attempts * 5
+
+	// Effectiveness based on security staff count
+	if(security_staff_count > 0)
+		base_effectiveness += min(20, security_staff_count * 2)
+
+	// Effectiveness based on security incidents
+	if(total_security_incidents > 0)
+		base_effectiveness -= min(30, total_security_incidents * 3)
+
+	return max(0, min(100, base_effectiveness))
 
 /datum/security_persistence_manager/proc/save_security_data()
 	var/list/data = list()
@@ -307,7 +328,153 @@ SUBSYSTEM_DEF(security_persistence)
 	var/savefile/S = new /savefile("data/security_persistence.json")
 	S["data"] << json_data
 
+	// Save to database
+	save_security_data_to_database()
+
+/datum/security_persistence_manager/proc/save_security_data_to_database()
+	if(!SSdbcore.Connect())
+		world.log << "Security Persistence: Database connection failed, skipping database save"
+		return
+
+	// Save security records to database
+	for(var/ckey in security_records)
+		var/datum/security_record/record = security_records[ckey]
+		var/datum/db_query/query_save_record = SSdbcore.NewQuery({"
+			INSERT INTO [format_table_name("security_records")]
+			(ckey, real_name, security_clearance, security_rating, security_status, clearance_history, disciplinary_actions, last_updated)
+			VALUES (:ckey, :real_name, :security_clearance, :security_rating, :security_status, :clearance_history, :disciplinary_actions, :last_updated)
+			ON DUPLICATE KEY UPDATE
+			real_name = VALUES(real_name), security_clearance = VALUES(security_clearance), security_rating = VALUES(security_rating),
+			security_status = VALUES(security_status), clearance_history = VALUES(clearance_history), disciplinary_actions = VALUES(disciplinary_actions),
+			last_updated = VALUES(last_updated)
+		"}, list(
+			"ckey" = ckey,
+			"real_name" = record.real_name,
+			"security_clearance" = record.security_clearance,
+			"security_rating" = record.security_rating,
+			"security_status" = record.security_status,
+			"clearance_history" = json_encode(record.clearance_history),
+			"disciplinary_actions" = json_encode(record.disciplinary_actions),
+			"last_updated" = record.last_updated
+		))
+
+		if(!query_save_record.warn_execute())
+			world.log << "Security Persistence: Failed to save security record for [ckey]"
+		qdel(query_save_record)
+
+	// Save security incidents to database
+	for(var/incident_id in security_incidents)
+		var/datum/security_incident/incident = security_incidents[incident_id]
+		var/datum/db_query/query_save_incident = SSdbcore.NewQuery({"
+			INSERT INTO [format_table_name("security_incidents")]
+			(incident_id, incident_type, incident_description, severity, location, involved_personnel, witnesses, timestamp, resolved, resolution_notes, security_rating_impact)
+			VALUES (:incident_id, :incident_type, :incident_description, :severity, :location, :involved_personnel, :witnesses, :timestamp, :resolved, :resolution_notes, :security_rating_impact)
+			ON DUPLICATE KEY UPDATE
+			incident_type = VALUES(incident_type), incident_description = VALUES(incident_description), severity = VALUES(severity),
+			location = VALUES(location), involved_personnel = VALUES(involved_personnel), witnesses = VALUES(witnesses),
+			timestamp = VALUES(timestamp), resolved = VALUES(resolved), resolution_notes = VALUES(resolution_notes),
+			security_rating_impact = VALUES(security_rating_impact)
+		"}, list(
+			"incident_id" = incident_id,
+			"incident_type" = incident.incident_type,
+			"incident_description" = incident.incident_description,
+			"severity" = incident.severity,
+			"location" = incident.location,
+			"involved_personnel" = json_encode(incident.involved_personnel),
+			"witnesses" = json_encode(incident.witnesses),
+			"timestamp" = incident.timestamp,
+			"resolved" = incident.resolved,
+			"resolution_notes" = incident.resolution_notes,
+			"security_rating_impact" = incident.security_rating_impact
+		))
+
+		if(!query_save_incident.warn_execute())
+			world.log << "Security Persistence: Failed to save security incident [incident_id]"
+		qdel(query_save_incident)
+
+	// Save clearance requests to database
+	for(var/request_id in clearance_requests)
+		var/datum/clearance_request/request = clearance_requests[request_id]
+		var/datum/db_query/query_save_request = SSdbcore.NewQuery({"
+			INSERT INTO [format_table_name("security_clearance_requests")]
+			(request_id, applicant_ckey, requested_clearance, reason, approver_ckey, status, timestamp, approval_notes)
+			VALUES (:request_id, :applicant_ckey, :requested_clearance, :reason, :approver_ckey, :status, :timestamp, :approval_notes)
+			ON DUPLICATE KEY UPDATE
+			applicant_ckey = VALUES(applicant_ckey), requested_clearance = VALUES(requested_clearance), reason = VALUES(reason),
+			approver_ckey = VALUES(approver_ckey), status = VALUES(status), timestamp = VALUES(timestamp), approval_notes = VALUES(approval_notes)
+		"}, list(
+			"request_id" = request_id,
+			"applicant_ckey" = request.applicant_ckey,
+			"requested_clearance" = request.requested_clearance,
+			"reason" = request.reason,
+			"approver_ckey" = request.approver_ckey,
+			"status" = request.status,
+			"timestamp" = request.timestamp,
+			"approval_notes" = request.approval_notes
+		))
+
+		if(!query_save_request.warn_execute())
+			world.log << "Security Persistence: Failed to save clearance request [request_id]"
+		qdel(query_save_request)
+
+	// Save security protocols to database
+	for(var/protocol_id in security_protocols)
+		var/datum/security_protocol/protocol = security_protocols[protocol_id]
+		var/datum/db_query/query_save_protocol = SSdbcore.NewQuery({"
+			INSERT INTO [format_table_name("security_protocols")]
+			(protocol_id, protocol_name, protocol_description, clearance_required, activation_conditions, protocol_steps, status, effectiveness_rating, last_updated)
+			VALUES (:protocol_id, :protocol_name, :protocol_description, :clearance_required, :activation_conditions, :protocol_steps, :status, :effectiveness_rating, :last_updated)
+			ON DUPLICATE KEY UPDATE
+			protocol_name = VALUES(protocol_name), protocol_description = VALUES(protocol_description), clearance_required = VALUES(clearance_required),
+			activation_conditions = VALUES(activation_conditions), protocol_steps = VALUES(protocol_steps), status = VALUES(status),
+			effectiveness_rating = VALUES(effectiveness_rating), last_updated = VALUES(last_updated)
+		"}, list(
+			"protocol_id" = protocol_id,
+			"protocol_name" = protocol.protocol_name,
+			"protocol_description" = protocol.protocol_description,
+			"clearance_required" = protocol.clearance_required,
+			"activation_conditions" = json_encode(protocol.activation_conditions),
+			"protocol_steps" = json_encode(protocol.protocol_steps),
+			"status" = protocol.status,
+			"effectiveness_rating" = protocol.effectiveness_rating,
+			"last_updated" = protocol.last_updated
+		))
+
+		if(!query_save_protocol.warn_execute())
+			world.log << "Security Persistence: Failed to save security protocol [protocol_id]"
+		qdel(query_save_protocol)
+
+	// Save access logs to database
+	for(var/log_id in access_logs)
+		var/datum/access_log/log = access_logs[log_id]
+		var/datum/db_query/query_save_log = SSdbcore.NewQuery({"
+			INSERT INTO [format_table_name("security_access_logs")]
+			(log_id, ckey, access_point, access_granted, timestamp, clearance_level, reason)
+			VALUES (:log_id, :ckey, :access_point, :access_granted, :timestamp, :clearance_level, :reason)
+			ON DUPLICATE KEY UPDATE
+			ckey = VALUES(ckey), access_point = VALUES(access_point), access_granted = VALUES(access_granted),
+			timestamp = VALUES(timestamp), clearance_level = VALUES(clearance_level), reason = VALUES(reason)
+		"}, list(
+			"log_id" = log_id,
+			"ckey" = log.ckey,
+			"access_point" = log.access_point,
+			"access_granted" = log.access_granted,
+			"timestamp" = log.timestamp,
+			"clearance_level" = log.clearance_level,
+			"reason" = log.reason
+		))
+
+		if(!query_save_log.warn_execute())
+			world.log << "Security Persistence: Failed to save access log [log_id]"
+		qdel(query_save_log)
+
+	world.log << "Security Persistence: Saved [length(security_records)] security records, [length(security_incidents)] incidents, [length(clearance_requests)] requests, [length(security_protocols)] protocols, and [length(access_logs)] access logs to database"
+
 /datum/security_persistence_manager/proc/load_security_data()
+	// Load from database first (takes precedence)
+	// load_security_data_from_database()
+
+	// Then load from persistent storage (JSON fallback)
 	var/savefile/S = new /savefile("data/security_persistence.json")
 	if(!S["data"])
 		return
@@ -376,8 +543,10 @@ SUBSYSTEM_DEF(security_persistence)
 	if(data["access_logs"])
 		for(var/log_id in data["access_logs"])
 			var/list/log_data = data["access_logs"][log_id]
-			var/datum/access_log/log = new /datum/access_log(log_id, log_data["ckey"], log_data["access_point"], log_data["access_granted"], log_data["clearance_level"])
+			var/datum/access_log/log = new /datum/access_log(log_id, log_data["ckey"], log_data["access_point"])
+			log.access_granted = log_data["access_granted"]
 			log.timestamp = log_data["timestamp"]
+			log.clearance_level = log_data["clearance_level"]
 			log.reason = log_data["reason"]
 			access_logs[log_id] = log
 
@@ -385,11 +554,168 @@ SUBSYSTEM_DEF(security_persistence)
 	if(data["global_stats"])
 		var/list/stats = data["global_stats"]
 		total_security_incidents = stats["total_security_incidents"]
+		active_threats = stats["active_threats"]
 		security_clearance_level = stats["security_clearance_level"]
 		security_budget = stats["security_budget"]
 		security_staff_count = stats["security_staff_count"]
 		containment_breaches = stats["containment_breaches"]
 		unauthorized_access_attempts = stats["unauthorized_access_attempts"]
+
+/*
+/datum/security_persistence_manager/proc/load_security_data_from_database()
+	if(!SSdbcore.Connect())
+		world.log << "Security Persistence: Database connection failed, skipping database load"
+		return
+
+	// Load security records from database
+	var/datum/db_query/query_load_records = SSdbcore.NewQuery(
+		"SELECT ckey, real_name, security_clearance, security_rating, security_status, clearance_history, disciplinary_actions, last_updated FROM [format_table_name('security_records')]"
+	)
+	if(!query_load_records.warn_execute())
+		world.log << "Security Persistence: Could not load security records from database (table may not exist)"
+		qdel(query_load_records)
+		return
+
+	while(query_load_records.NextRow())
+		var/ckey = query_load_records.item[1]
+		var/real_name = query_load_records.item[2]
+		var/security_clearance = text2num(query_load_records.item[3])
+		var/security_rating = text2num(query_load_records.item[4])
+		var/security_status = query_load_records.item[5]
+		var/clearance_history = json_decode(query_load_records.item[6] || "[]")
+		var/disciplinary_actions = json_decode(query_load_records.item[7] || "[]")
+		var/last_updated = query_load_records.item[8]
+
+		var/datum/security_record/record = new /datum/security_record(ckey, real_name)
+		record.security_clearance = security_clearance
+		record.security_rating = security_rating
+		record.security_status = security_status
+		record.clearance_history = clearance_history
+		record.disciplinary_actions = disciplinary_actions
+		record.last_updated = last_updated
+		security_records[ckey] = record
+	qdel(query_load_records)
+
+	// Load security incidents from database
+	var/datum/db_query/query_load_incidents = SSdbcore.NewQuery(
+		"SELECT incident_id, incident_type, incident_description, severity, location, involved_personnel, witnesses, timestamp, resolved, resolution_notes, security_rating_impact FROM [format_table_name('security_incidents')]"
+	)
+	if(!query_load_incidents.warn_execute())
+		world.log << "Security Persistence: Could not load security incidents from database (table may not exist)"
+		qdel(query_load_incidents)
+		return
+
+	while(query_load_incidents.NextRow())
+		var/incident_id = query_load_incidents.item[1]
+		var/incident_type = query_load_incidents.item[2]
+		var/incident_description = query_load_incidents.item[3]
+		var/severity = text2num(query_load_incidents.item[4])
+		var/location = query_load_incidents.item[5]
+		var/involved_personnel = json_decode(query_load_incidents.item[6] || "[]")
+		var/witnesses = json_decode(query_load_incidents.item[7] || "[]")
+		var/timestamp = query_load_incidents.item[8]
+		var/resolved = text2num(query_load_incidents.item[9])
+		var/resolution_notes = query_load_incidents.item[10]
+		var/security_rating_impact = text2num(query_load_incidents.item[11])
+
+		var/datum/security_incident/incident = new /datum/security_incident(incident_id, incident_type, incident_description, severity)
+		incident.location = location
+		incident.involved_personnel = involved_personnel
+		incident.witnesses = witnesses
+		incident.timestamp = timestamp
+		incident.resolved = resolved
+		incident.resolution_notes = resolution_notes
+		incident.security_rating_impact = security_rating_impact
+		security_incidents[incident_id] = incident
+		if(!incident.resolved && incident.incident_type == "CONTAINMENT_BREACH")
+			active_threats++
+	qdel(query_load_incidents)
+
+	// Load clearance requests from database
+	var/datum/db_query/query_load_requests = SSdbcore.NewQuery(
+		"SELECT request_id, applicant_ckey, requested_clearance, reason, approver_ckey, status, timestamp, approval_notes FROM [format_table_name('security_clearance_requests')]"
+	)
+	if(!query_load_requests.warn_execute())
+		world.log << "Security Persistence: Could not load clearance requests from database (table may not exist)"
+		qdel(query_load_requests)
+		return
+
+	while(query_load_requests.NextRow())
+		var/request_id = query_load_requests.item[1]
+		var/applicant_ckey = query_load_requests.item[2]
+		var/requested_clearance = text2num(query_load_requests.item[3])
+		var/reason = query_load_requests.item[4]
+		var/approver_ckey = query_load_requests.item[5]
+		var/status = query_load_requests.item[6]
+		var/timestamp = query_load_requests.item[7]
+		var/approval_notes = query_load_requests.item[8]
+
+		var/datum/clearance_request/request = new /datum/clearance_request(request_id, applicant_ckey, requested_clearance, reason)
+		request.approver_ckey = approver_ckey
+		request.status = status
+		request.timestamp = timestamp
+		request.approval_notes = approval_notes
+		clearance_requests[request_id] = request
+	qdel(query_load_requests)
+
+	// Load security protocols from database
+	var/datum/db_query/query_load_protocols = SSdbcore.NewQuery(
+		"SELECT protocol_id, protocol_name, protocol_description, clearance_required, activation_conditions, protocol_steps, status, effectiveness_rating, last_updated FROM [format_table_name('security_protocols')]"
+	)
+	if(!query_load_protocols.warn_execute())
+		world.log << "Security Persistence: Could not load security protocols from database (table may not exist)"
+		qdel(query_load_protocols)
+		return
+
+	while(query_load_protocols.NextRow())
+		var/protocol_id = query_load_protocols.item[1]
+		var/protocol_name = query_load_protocols.item[2]
+		var/protocol_description = query_load_protocols.item[3]
+		var/clearance_required = text2num(query_load_protocols.item[4])
+		var/activation_conditions = json_decode(query_load_protocols.item[5] || "[]")
+		var/protocol_steps = json_decode(query_load_protocols.item[6] || "[]")
+		var/status = query_load_protocols.item[7]
+		var/effectiveness_rating = text2num(query_load_protocols.item[8])
+		var/last_updated = query_load_protocols.item[9]
+
+		var/datum/security_protocol/protocol = new /datum/security_protocol(protocol_id, protocol_name, protocol_description)
+		protocol.clearance_required = clearance_required
+		protocol.activation_conditions = activation_conditions
+		protocol.protocol_steps = protocol_steps
+		protocol.status = status
+		protocol.effectiveness_rating = effectiveness_rating
+		protocol.last_updated = last_updated
+		security_protocols[protocol_id] = protocol
+	qdel(query_load_protocols)
+
+	// Load access logs from database
+	var/datum/db_query/query_load_logs = SSdbcore.NewQuery(
+		"SELECT log_id, ckey, access_point, access_granted, timestamp, clearance_level, reason FROM [format_table_name('security_access_logs')]"
+	)
+	if(!query_load_logs.warn_execute())
+		world.log << "Security Persistence: Could not load access logs from database (table may not exist)"
+		qdel(query_load_logs)
+		return
+
+	while(query_load_logs.NextRow())
+		var/log_id = query_load_logs.item[1]
+		var/ckey = query_load_logs.item[2]
+		var/access_point = query_load_logs.item[3]
+		var/access_granted = text2num(query_load_logs.item[4])
+		var/timestamp = query_load_logs.item[5]
+		var/clearance_level = text2num(query_load_logs.item[6])
+		var/reason = query_load_logs.item[7]
+
+		var/datum/access_log/log = new /datum/access_log(log_id, ckey, access_point)
+		log.access_granted = access_granted
+		log.timestamp = timestamp
+		log.clearance_level = clearance_level
+		log.reason = reason
+		access_logs[log_id] = log
+	qdel(query_load_logs)
+
+	world.log << "Security Persistence: Loaded [length(security_records)] security records, [length(security_incidents)] incidents, [length(clearance_requests)] requests, [length(security_protocols)] protocols, and [length(access_logs)] access logs from database"
+*/
 
 // Subsystem initialization
 /datum/controller/subsystem/security_persistence/Initialize()
@@ -401,7 +727,7 @@ SUBSYSTEM_DEF(security_persistence)
 	world.log << "Loading existing security records from datacore..."
 	manager.load_existing_security_records()
 
-	world.log << "Security records count at initialization: [manager.security_records.len]"
+	world.log << "Security records count at initialization: [length(manager.security_records)]"
 	return ..()
 
 /datum/controller/subsystem/security_persistence/fire()
@@ -477,7 +803,7 @@ SUBSYSTEM_DEF(security_persistence)
 
 				world.log << "Security: Created new security record for [security_record.fields[DATACORE_NAME]]"
 
-	world.log << "Security: Loaded [security_records.len] security records from datacore"
+	world.log << "Security: Loaded [length(security_records)] security records from datacore"
 
 // Add security personnel
 /datum/security_persistence_manager/proc/add_security_personnel(var/ckey, var/real_name, var/clearance_level = 1)
@@ -487,7 +813,7 @@ SUBSYSTEM_DEF(security_persistence)
 	personnel.security_status = "ACTIVE"
 	personnel.last_updated = world.time
 	security_records[ckey] = personnel
-	security_statistics["total_personnel"] = security_records.len
+	security_statistics["total_personnel"] = length(security_records)
 	return personnel
 
 // Add security protocol (updated)
@@ -565,8 +891,8 @@ SUBSYSTEM_DEF(security_persistence)
 	var/list/final_results = list(
 		"scan_type" = scan_type,
 		"timestamp" = world.time,
-		"total_threats" = threats_found.len,
-		"total_vulnerabilities" = vulnerabilities.len,
+		"total_threats" = length(threats_found),
+		"total_vulnerabilities" = length(vulnerabilities),
 		"overall_severity" = scan_severity,
 		"threats_found" = threats_found,
 		"vulnerabilities" = vulnerabilities,
@@ -574,7 +900,7 @@ SUBSYSTEM_DEF(security_persistence)
 		"detailed_results" = scan_results
 	)
 
-	world.log << "Security: Scan completed - [threats_found.len] threats, [vulnerabilities.len] vulnerabilities, severity: [scan_severity]"
+	world.log << "Security: Scan completed - [length(threats_found)] threats, [length(vulnerabilities)] vulnerabilities, severity: [scan_severity]"
 
 	return final_results
 
@@ -584,7 +910,7 @@ SUBSYSTEM_DEF(security_persistence)
 	var/threat_count = 0
 
 	// Check for breached airlocks
-	for(var/obj/machinery/door/airlock/airlock in world)
+	for(var/obj/machinery/door/airlock/airlock as anything in INSTANCES_OF(/obj/machinery/door/airlock))
 		if(airlock.z == 1)
 			if(airlock.obj_flags & EMAGGED)
 				threat_count++
@@ -592,16 +918,19 @@ SUBSYSTEM_DEF(security_persistence)
 				results["severity"] += 3
 
 	// Check for unauthorized access points
-	for(var/obj/machinery/door/firedoor/firedoor in world)
-		if(firedoor.z == 1 && firedoor.obj_flags & EMAGGED)
-			threat_count++
-			results["threats"] += "Compromised fire door at [firedoor.loc]"
-			results["severity"] += 2
+	for(var/area/A in GLOB.areas)
+		for(var/obj/machinery/door/firedoor/firedoor in A)
+			if(firedoor.z != 1)
+				continue
+			if(firedoor.obj_flags & EMAGGED)
+				threat_count++
+				results["threats"] += "Compromised fire door at [firedoor.loc]"
+				results["severity"] += 2
 
 	// Check for security breaches in maintenance
 	var/maintenance_breaches = 0
-	for(var/turf/open/floor/plating/floor in world)
-		if(floor.z == 1 && istype(floor.loc, /area/station/maintenance))
+	for(var/area/station/maintenance/M in GLOB.areas)
+		for(var/turf/open/floor/plating/floor in M)
 			maintenance_breaches++
 
 	if(maintenance_breaches > 10)
@@ -617,7 +946,7 @@ SUBSYSTEM_DEF(security_persistence)
 	var/threat_count = 0
 
 	// Check security records console
-	for(var/obj/machinery/computer/secure_data/sec_console in world)
+	for(var/obj/machinery/computer/secure_data/sec_console in INSTANCES_OF(/obj/machinery/computer/secure_data))
 		if(sec_console.z == 1)
 			if(sec_console.obj_flags & EMAGGED)
 				threat_count++
@@ -651,7 +980,7 @@ SUBSYSTEM_DEF(security_persistence)
 	var/compromised_cameras = 0
 
 	// Check camera systems
-	for(var/obj/machinery/camera/camera in world)
+	for(var/obj/machinery/camera/camera in INSTANCES_OF(/obj/machinery/camera))
 		if(camera.z == 1)
 			total_cameras++
 			if(camera.obj_flags & EMAGGED)
@@ -664,7 +993,7 @@ SUBSYSTEM_DEF(security_persistence)
 				results["severity"] += 1
 
 	// Check camera monitoring console
-	for(var/obj/machinery/computer/security/security_console in world)
+	for(var/obj/machinery/computer/security/security_console in INSTANCES_OF(/obj/machinery/computer/security))
 		if(security_console.z == 1)
 			if(security_console.obj_flags & EMAGGED)
 				threat_count++
@@ -687,7 +1016,7 @@ SUBSYSTEM_DEF(security_persistence)
 	var/threat_count = 0
 
 	// Check communications console
-	for(var/obj/machinery/computer/communications/comm in world)
+	for(var/obj/machinery/computer/communications/comm in INSTANCES_OF(/obj/machinery/computer/communications))
 		if(comm.z == 1)
 			if(comm.obj_flags & EMAGGED)
 				threat_count++
@@ -695,7 +1024,7 @@ SUBSYSTEM_DEF(security_persistence)
 				results["severity"] += 5
 
 	// Check radio systems
-	for(var/obj/item/radio/radio in world)
+	for(var/obj/item/radio/radio in GLOB.all_radios)
 		if(radio.z == 1 && radio.obj_flags & EMAGGED)
 			threat_count++
 			results["threats"] += "Compromised radio at [radio.loc]"
@@ -710,14 +1039,14 @@ SUBSYSTEM_DEF(security_persistence)
 	var/threat_count = 0
 
 	// Check medical records console
-	for(var/obj/machinery/computer/med_data/med_console in world)
+	for(var/obj/machinery/computer/med_data/med_console in INSTANCES_OF(/obj/machinery/computer/med_data))
 		if(med_console.z == 1 && med_console.obj_flags & EMAGGED)
 			threat_count++
 			results["threats"] += "Compromised medical records at [med_console.loc]"
 			results["severity"] += 3
 
 	// Check crew monitoring console
-	for(var/obj/machinery/computer/crew/crew_console in world)
+	for(var/obj/machinery/computer/crew/crew_console in INSTANCES_OF(/obj/machinery/computer/crew))
 		if(crew_console.z == 1 && crew_console.obj_flags & EMAGGED)
 			threat_count++
 			results["threats"] += "Compromised crew monitoring at [crew_console.loc]"
@@ -734,7 +1063,7 @@ SUBSYSTEM_DEF(security_persistence)
 	var/threat_count = 0
 
 	// Check telecommunications
-	for(var/obj/machinery/telecomms/telecomms in world)
+	for(var/obj/machinery/telecomms/telecomms in INSTANCES_OF(/obj/machinery/telecomms))
 		if(telecomms.z == 1 && telecomms.obj_flags & EMAGGED)
 			threat_count++
 			results["threats"] += "Compromised telecomms at [telecomms.loc]"
@@ -760,8 +1089,8 @@ SUBSYSTEM_DEF(security_persistence)
 	// Check for personnel with many incidents
 	for(var/ckey in security_records)
 		var/datum/security_record/record = security_records[ckey]
-		if(record.security_incidents.len > 3)
-			results["vulnerabilities"] += "Multiple incidents for [record.real_name]: [record.security_incidents.len]"
+		if(length(record.security_incidents) > 3)
+			results["vulnerabilities"] += "Multiple incidents for [record.real_name]: [length(record.security_incidents)]"
 			results["severity"] += 2
 
 	// Check for suspended personnel
@@ -837,10 +1166,10 @@ SUBSYSTEM_DEF(security_persistence)
 		recommendations += "MEDIUM: Conduct personnel security review"
 		recommendations += "MEDIUM: Update security protocols"
 
-	if(threats.len > 5)
+	if(length(threats) > 5)
 		recommendations += "Multiple threats detected - prioritize containment"
 
-	if(vulnerabilities.len > 3)
+	if(length(vulnerabilities) > 3)
 		recommendations += "Multiple vulnerabilities found - implement security patches"
 
 	if(containment_breaches > 0)

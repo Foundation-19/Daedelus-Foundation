@@ -48,7 +48,7 @@ SUBSYSTEM_DEF(job)
 		JOB_HUMAN_RESOURCES_DIRECTOR = 2,
 		JOB_ENGINEERING_DIRECTOR = 3,
 		JOB_MEDICAL_DIRECTOR = 4,
-		JOB_SECURITY_DIRECTOR = 5,
+		JOB_GUARD_COMMANDER = 5,
 		JOB_QUARTERMASTER = 6,
 	)
 
@@ -668,7 +668,7 @@ SUBSYSTEM_DEF(job)
 	if(equip_needed < 0) // -1: infinite available slots
 		equip_needed = 12
 
-	for(var/i=equip_needed-5, i>0, i--)
+	for(var/i=equip_needed-5; i>0; i--)
 		if(GLOB.secequipment.len)
 			var/spawnloc = GLOB.secequipment[1]
 			new /obj/structure/closet/secure_closet/security/sec(spawnloc)
@@ -801,6 +801,11 @@ SUBSYSTEM_DEF(job)
 		return pick(arrivals_turfs)
 
 	stack_trace("Unable to find last resort spawn point.")
+	var/area/fallback = GLOB.areas_by_type[/area/site53/uez/hallway]
+	if(fallback)
+		var/list/turf/fallback_turfs = get_area_turfs(fallback)
+		if(length(fallback_turfs))
+			return pick(fallback_turfs)
 	return GET_ERROR_ROOM
 
 

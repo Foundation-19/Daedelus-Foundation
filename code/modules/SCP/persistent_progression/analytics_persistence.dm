@@ -153,7 +153,7 @@ SUBSYSTEM_DEF(analytics_persistence)
 	world.log << "Loading existing analytics data..."
 	manager.load_existing_analytics_data()
 
-	world.log << "Performance metrics count at initialization: [manager.performance_metrics.len]"
+	world.log << "Performance metrics count at initialization: [length(manager.performance_metrics)]"
 	return ..()
 
 /datum/controller/subsystem/analytics_persistence/fire()
@@ -398,103 +398,250 @@ SUBSYSTEM_DEF(analytics_persistence)
 	if(world.time % 36000 == 0) // Every hour
 		save_analytics_data()
 
-// Update performance metrics
+// Update performance metrics with real data
 /datum/analytics_persistence_manager/proc/update_performance_metrics()
 	for(var/metric_id in performance_metrics)
 		var/datum/performance_metric/metric = performance_metrics[metric_id]
 
-		// Simulate metric changes
-		if(prob(15)) // 15% chance for change
-			var/change = rand(-10, 10)
-			metric.metric_value = max(0, metric.metric_value + change)
+		// Calculate real performance based on actual game data
+		metric.metric_value = calculate_real_performance(metric_id)
 
-			// Update performance rating based on target
-			var/performance_ratio = metric.metric_value / metric.target_value
-			if(performance_ratio >= 1.2)
-				metric.performance_rating = "EXCELLENT"
-			else if(performance_ratio >= 1.0)
-				metric.performance_rating = "GOOD"
-			else if(performance_ratio >= 0.8)
-				metric.performance_rating = "AVERAGE"
-			else if(performance_ratio >= 0.6)
-				metric.performance_rating = "POOR"
-			else
-				metric.performance_rating = "CRITICAL"
+		// Update performance rating based on target
+		var/performance_ratio = metric.metric_value / metric.target_value
+		if(performance_ratio >= 1.2)
+			metric.performance_rating = "EXCELLENT"
+		else if(performance_ratio >= 1.0)
+			metric.performance_rating = "GOOD"
+		else if(performance_ratio >= 0.8)
+			metric.performance_rating = "AVERAGE"
+		else if(performance_ratio >= 0.6)
+			metric.performance_rating = "POOR"
+		else
+			metric.performance_rating = "CRITICAL"
 
 		// Store historical data
 		metric.historical_data += list(list("date" = world.time, "value" = metric.metric_value))
 
-// Update efficiency data
+// Calculate real performance based on actual game data
+/datum/analytics_persistence_manager/proc/calculate_real_performance(metric_id)
+	switch(metric_id)
+		if("security_effectiveness")
+			if(SSsecurity_persistence?.manager)
+				var/datum/security_persistence_manager/security = SSsecurity_persistence.manager
+				return security.containment_breaches > 0 ? max(0, 100 - (security.containment_breaches * 10)) : 100
+		if("medical_efficiency")
+			if(SSmedical_persistence?.manager)
+				var/datum/medical_persistence_manager/medical = SSmedical_persistence.manager
+				return medical.active_outbreaks > 0 ? max(0, 100 - (medical.active_outbreaks * 15)) : 100
+		if("research_progress")
+			if(SSresearch_persistence?.manager)
+				var/datum/research_persistence_manager/research = SSresearch_persistence.manager
+				return length(research.research_projects) > 0 ? (research.completed_projects / length(research.research_projects)) * 100 : 0
+		if("personnel_satisfaction")
+			if(SSpersonnel_persistence?.manager)
+				var/datum/personnel_persistence_manager/personnel = SSpersonnel_persistence.manager
+				return personnel.staff_satisfaction
+		if("facility_health")
+			if(SSfacility_persistence?.manager)
+				var/datum/facility_persistence_manager/facility = SSfacility_persistence.manager
+				return facility.facility_health
+		if("budget_efficiency")
+			if(SSbudget_system?.manager)
+				var/datum/budget_manager/budget = SSbudget_system.manager
+				return budget.current_balance > 0 ? (budget.current_balance / budget.total_budget) * 100 : 0
+		else
+			return 75 // Default value for unknown metrics
+
+// Update efficiency data with real data
 /datum/analytics_persistence_manager/proc/update_efficiency_data()
 	for(var/efficiency_id in efficiency_data)
 		var/datum/efficiency_data/efficiency = efficiency_data[efficiency_id]
 
-		// Simulate efficiency changes
-		if(prob(10)) // 10% chance for change
-			var/change = (rand(-5, 5) / 100.0)
-			efficiency.efficiency_value = max(0.1, min(1.0, efficiency.efficiency_value + change))
+		// Calculate real efficiency based on actual game data
+		efficiency.efficiency_value = calculate_real_efficiency(efficiency_id)
 
-			// Update status based on efficiency
-			if(efficiency.efficiency_value >= 0.9)
-				efficiency.status = "OPTIMIZED"
-			else if(efficiency.efficiency_value >= 0.7)
-				efficiency.status = "NORMAL"
-			else if(efficiency.efficiency_value >= 0.5)
-				efficiency.status = "DEGRADED"
-			else
-				efficiency.status = "CRITICAL"
+		// Update status based on efficiency
+		if(efficiency.efficiency_value >= 0.9)
+			efficiency.status = "OPTIMIZED"
+		else if(efficiency.efficiency_value >= 0.7)
+			efficiency.status = "NORMAL"
+		else if(efficiency.efficiency_value >= 0.5)
+			efficiency.status = "DEGRADED"
+		else
+			efficiency.status = "CRITICAL"
 
-// Update statistical analysis
+// Calculate real efficiency based on actual game data
+/datum/analytics_persistence_manager/proc/calculate_real_efficiency(efficiency_id)
+	switch(efficiency_id)
+		if("power_efficiency")
+			if(SSfacility_persistence?.manager)
+				var/datum/facility_persistence_manager/facility = SSfacility_persistence.manager
+				return facility.power_efficiency
+		if("containment_efficiency")
+			if(SSscp_persistence?.manager)
+				var/datum/scp_persistence_manager/scp = SSscp_persistence.manager
+				return scp.containment_effectiveness
+		if("research_efficiency")
+			if(SSresearch_persistence?.manager)
+				var/datum/research_persistence_manager/research = SSresearch_persistence.manager
+				return research.research_efficiency
+		if("medical_efficiency")
+			if(SSmedical_persistence?.manager)
+				var/datum/medical_persistence_manager/medical = SSmedical_persistence.manager
+				return medical.containment_effectiveness
+		if("security_efficiency")
+			if(SSsecurity_persistence?.manager)
+				var/datum/security_persistence_manager/security = SSsecurity_persistence.manager
+				return security.containment_breaches > 0 ? max(0.1, 1.0 - (security.containment_breaches * 0.1)) : 1.0
+		else
+			return 0.8 // Default efficiency for unknown systems
+
+// Update statistical analysis with real data
 /datum/analytics_persistence_manager/proc/update_statistical_analysis()
 	for(var/analysis_id in statistical_analysis)
 		var/datum/statistical_analysis/analysis = statistical_analysis[analysis_id]
 
-		// Simulate analysis updates
-		if(prob(5)) // 5% chance for update
-			analysis.sample_size += rand(1, 10)
-			analysis.analysis_quality = pick("HIGH", "MEDIUM", "LOW")
+		// Calculate real analysis data based on actual game data
+		analysis.sample_size = calculate_real_sample_size(analysis_id)
+		analysis.analysis_quality = calculate_real_analysis_quality(analysis_id)
 
-// Update trend data
+// Calculate real sample size based on actual game data
+/datum/analytics_persistence_manager/proc/calculate_real_sample_size(analysis_id)
+	switch(analysis_id)
+		if("security_analysis")
+			if(SSsecurity_persistence?.manager)
+				var/datum/security_persistence_manager/security = SSsecurity_persistence.manager
+				return length(security.security_incidents)
+		if("medical_analysis")
+			if(SSmedical_persistence?.manager)
+				var/datum/medical_persistence_manager/medical = SSmedical_persistence.manager
+				return length(medical.medical_records)
+		if("research_analysis")
+			if(SSresearch_persistence?.manager)
+				var/datum/research_persistence_manager/research = SSresearch_persistence.manager
+				return length(research.research_projects)
+		if("personnel_analysis")
+			if(SSpersonnel_persistence?.manager)
+				var/datum/personnel_persistence_manager/personnel = SSpersonnel_persistence.manager
+				return length(personnel.personnel_records)
+		else
+			return 10 // Default sample size
+
+// Calculate real analysis quality based on actual game data
+/datum/analytics_persistence_manager/proc/calculate_real_analysis_quality(analysis_id)
+	switch(analysis_id)
+		if("security_analysis")
+			if(SSsecurity_persistence?.manager)
+				var/datum/security_persistence_manager/security = SSsecurity_persistence.manager
+				return security.containment_breaches > 0 ? "MEDIUM" : "HIGH"
+		if("medical_analysis")
+			if(SSmedical_persistence?.manager)
+				var/datum/medical_persistence_manager/medical = SSmedical_persistence.manager
+				return medical.active_outbreaks > 0 ? "MEDIUM" : "HIGH"
+		if("research_analysis")
+			if(SSresearch_persistence?.manager)
+				var/datum/research_persistence_manager/research = SSresearch_persistence.manager
+				return research.completed_projects > 0 ? "HIGH" : "MEDIUM"
+		if("personnel_analysis")
+			if(SSpersonnel_persistence?.manager)
+				var/datum/personnel_persistence_manager/personnel = SSpersonnel_persistence.manager
+				return personnel.staff_satisfaction > 70 ? "HIGH" : "MEDIUM"
+		else
+			return "MEDIUM" // Default quality
+
+// Update trend data with real data
 /datum/analytics_persistence_manager/proc/update_trend_data()
 	for(var/trend_id in trend_data)
 		var/datum/trend_data/trend = trend_data[trend_id]
 
-		// Simulate trend changes
-		if(prob(8)) // 8% chance for change
-			trend.trend_strength = max(0.0, min(1.0, trend.trend_strength + (rand(-10, 10) / 100.0)))
+		// Calculate real trend based on actual game data
+		trend.trend_strength = calculate_real_trend_strength(trend_id)
+		trend.trend_direction = calculate_real_trend_direction(trend_id)
 
-			// Update trend direction based on strength
-			if(trend.trend_strength > 0.3)
-				trend.trend_direction = "IMPROVING"
-			else if(trend.trend_strength < -0.3)
-				trend.trend_direction = "DECLINING"
-			else
-				trend.trend_direction = "STABLE"
+// Calculate real trend strength based on actual game data
+/datum/analytics_persistence_manager/proc/calculate_real_trend_strength(trend_id)
+	switch(trend_id)
+		if("security_trend")
+			if(SSsecurity_persistence?.manager)
+				var/datum/security_persistence_manager/security = SSsecurity_persistence.manager
+				return security.containment_breaches > 0 ? -0.5 : 0.3
+		if("medical_trend")
+			if(SSmedical_persistence?.manager)
+				var/datum/medical_persistence_manager/medical = SSmedical_persistence.manager
+				return medical.active_outbreaks > 0 ? -0.4 : 0.2
+		if("research_trend")
+			if(SSresearch_persistence?.manager)
+				var/datum/research_persistence_manager/research = SSresearch_persistence.manager
+				return research.completed_projects > 0 ? 0.6 : 0.1
+		if("personnel_trend")
+			if(SSpersonnel_persistence?.manager)
+				var/datum/personnel_persistence_manager/personnel = SSpersonnel_persistence.manager
+				return personnel.staff_satisfaction > 80 ? 0.4 : (personnel.staff_satisfaction > 60 ? 0.1 : -0.2)
+		else
+			return 0.0 // Neutral trend for unknown systems
 
-// Update KPI records
+// Calculate real trend direction based on actual game data
+/datum/analytics_persistence_manager/proc/calculate_real_trend_direction(trend_id)
+	var/strength = calculate_real_trend_strength(trend_id)
+	if(strength > 0.3)
+		return "IMPROVING"
+	else if(strength < -0.3)
+		return "DECLINING"
+	else
+		return "STABLE"
+
+// Update KPI records with real data
 /datum/analytics_persistence_manager/proc/update_kpi_records()
 	for(var/kpi_id in kpi_records)
 		var/datum/kpi_record/kpi = kpi_records[kpi_id]
 
-		// Simulate KPI changes
-		if(prob(12)) // 12% chance for change
-			var/change = rand(-5, 5)
-			kpi.previous_value = kpi.current_value
-			kpi.current_value = max(0, kpi.current_value + change)
+		// Calculate real KPI values based on actual game data
+		kpi.previous_value = kpi.current_value
+		kpi.current_value = calculate_real_kpi_value(kpi_id)
 
-			// Update performance status based on target
-			var/performance_ratio = kpi.current_value / kpi.target_value
-			if(performance_ratio >= 1.0)
-				kpi.performance_status = "ACHIEVED"
-			else if(performance_ratio >= 0.8)
-				kpi.performance_status = "ON_TRACK"
-			else if(performance_ratio >= 0.6)
-				kpi.performance_status = "AT_RISK"
-			else
-				kpi.performance_status = "OFF_TRACK"
+		// Update performance status based on target
+		var/performance_ratio = kpi.current_value / kpi.target_value
+		if(performance_ratio >= 1.0)
+			kpi.performance_status = "ACHIEVED"
+		else if(performance_ratio >= 0.8)
+			kpi.performance_status = "ON_TRACK"
+		else if(performance_ratio >= 0.6)
+			kpi.performance_status = "AT_RISK"
+		else
+			kpi.performance_status = "OFF_TRACK"
 
 		// Store KPI history
 		kpi.kpi_history += list(list("date" = world.time, "value" = kpi.current_value))
+
+// Calculate real KPI values based on actual game data
+/datum/analytics_persistence_manager/proc/calculate_real_kpi_value(kpi_id)
+	switch(kpi_id)
+		if("containment_breaches")
+			if(SSsecurity_persistence?.manager)
+				var/datum/security_persistence_manager/security = SSsecurity_persistence.manager
+				return security.containment_breaches
+		if("research_completion")
+			if(SSresearch_persistence?.manager)
+				var/datum/research_persistence_manager/research = SSresearch_persistence.manager
+				return research.completed_projects
+		if("medical_outbreaks")
+			if(SSmedical_persistence?.manager)
+				var/datum/medical_persistence_manager/medical = SSmedical_persistence.manager
+				return medical.active_outbreaks
+		if("personnel_satisfaction")
+			if(SSpersonnel_persistence?.manager)
+				var/datum/personnel_persistence_manager/personnel = SSpersonnel_persistence.manager
+				return personnel.staff_satisfaction
+		if("facility_health")
+			if(SSfacility_persistence?.manager)
+				var/datum/facility_persistence_manager/facility = SSfacility_persistence.manager
+				return facility.facility_health
+		if("budget_utilization")
+			if(SSbudget_system?.manager)
+				var/datum/budget_manager/budget = SSbudget_system.manager
+				return budget.total_budget > 0 ? ((budget.total_budget - budget.current_balance) / budget.total_budget) * 100 : 0
+		else
+			return 75 // Default KPI value for unknown metrics
 
 // Update benchmark data
 /datum/analytics_persistence_manager/proc/update_benchmark_data()

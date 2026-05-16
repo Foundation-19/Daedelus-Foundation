@@ -84,10 +84,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	/// WARNING: Currently to use a density shortcircuiting this does not support dense turfs with special allow through function
 	var/pathing_pass_method = TURF_PATHING_PASS_DENSITY
 
-	var/cover_cache = null // null, COVERED, or UNCOVERED.
-	var/blocks_weather = TRUE //We assume a turf blocks weather, unless we're told otherwise.
-	var/needs_weather_update = FALSE // Flag to indicate if the turf needs a weather update.
-
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list(
 		NAMEOF_STATIC(src, x),
@@ -131,7 +127,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	ASSERT_SORTED_SMOOTHING_GROUPS(smoothing_groups)
 	ASSERT_SORTED_SMOOTHING_GROUPS(canSmoothWith)
 	#endif
-	SEND_SIGNAL(src, COMSIG_TURF_CREATED)
 
 	SETUP_SMOOTHING()
 
@@ -165,7 +160,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	return INITIALIZE_HINT_NORMAL
 
 /turf/Destroy(force)
-	SEND_SIGNAL(src, COMSIG_TURF_DESTROYED)
 	. = QDEL_HINT_IWILLGC
 	if(!changing_turf)
 		stack_trace("Incorrect turf deletion")
@@ -423,10 +417,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if (!arrived.bound_overlay && !(arrived.zmm_flags & ZMM_IGNORE) && arrived.invisibility != INVISIBILITY_ABSTRACT && TURF_IS_MIMICKING(above))
 		above.update_mimic()
 
-	// Weather system: Check if the arrived atom entered an exposed turf
-	if(src.cover_cache == UNCOVERED)
-		SEND_GLOBAL_SIGNAL(COMSIG_OUTDOOR_ATOM_ADDED, arrived, src)
-
 
 /turf/Exited(atom/movable/gone, direction)
 	if(gone.flags_2 & ATMOS_SENSITIVE_2)
@@ -439,10 +429,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 	// Spatial grid tracking needs to happen before the signal is sent
 	. = ..()
-
-	// Weather system: Check if the exited atom left an exposed turf
-	if(cover_cache == UNCOVERED)
-		SEND_GLOBAL_SIGNAL(COMSIG_OUTDOOR_ATOM_REMOVED, gone, src)
 
 // A proc in case it needs to be recreated or badmins want to change the baseturfs
 /turf/proc/assemble_baseturfs(turf/fake_baseturf_type)

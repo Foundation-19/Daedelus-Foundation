@@ -90,9 +90,9 @@ AI MODULES
 		deadchat_broadcast("<b> changed [span_name("[ainame]")]'s laws at [get_area_name(user, TRUE)].</b>", span_name("[user]"), follow_target=user, message_type=DEADCHAT_LAWCHANGE)
 
 //The proc that actually changes the silicon's laws.
-/obj/item/ai_module/proc/transmitInstructions(datum/ai_laws/law_datum, mob/sender, overflow = FALSE)
+/obj/item/ai_module/proc/transmitInstructions(datum/ai_laws/law_datum, mob/law_sender, overflow = FALSE)
 	if(law_datum.owner)
-		to_chat(law_datum.owner, span_userdanger("[sender] has uploaded a change to the laws you must follow using a [name]."))
+		to_chat(law_datum.owner, span_userdanger("[law_sender] has uploaded a change to the laws you must follow using a [name]."))
 
 /******************** Modules ********************/
 
@@ -101,7 +101,7 @@ AI MODULES
 	var/lawpos = 50
 
 //TransmitInstructions for each type of board: Supplied, Core, Zeroth and Ion. May not be neccesary right now, but allows for easily adding more complex boards in the future. ~Miauw
-/obj/item/ai_module/supplied/transmitInstructions(datum/ai_laws/law_datum, mob/sender)
+/obj/item/ai_module/supplied/transmitInstructions(datum/ai_laws/law_datum, mob/law_sender)
 	var/lawpostemp = lawpos
 
 	for(var/templaw in laws)
@@ -111,7 +111,7 @@ AI MODULES
 			law_datum.add_supplied_law(lawpostemp, templaw)
 		lawpostemp++
 
-/obj/item/ai_module/core/transmitInstructions(datum/ai_laws/law_datum, mob/sender, overflow)
+/obj/item/ai_module/core/transmitInstructions(datum/ai_laws/law_datum, mob/law_sender, overflow)
 	for(var/templaw in laws)
 		if(law_datum.owner)
 			if(!overflow)
@@ -124,11 +124,11 @@ AI MODULES
 			else
 				law_datum.replace_random_law(templaw,list(LAW_INHERENT,LAW_SUPPLIED))
 
-/obj/item/ai_module/zeroth/transmitInstructions(datum/ai_laws/law_datum, mob/sender, overflow)
+/obj/item/ai_module/zeroth/transmitInstructions(datum/ai_laws/law_datum, mob/law_sender, overflow)
 	if(law_datum.owner)
 		if(law_datum.owner.laws.zeroth)
-			to_chat(law_datum.owner, "[sender.real_name] attempted to modify your zeroth law.")
-			to_chat(law_datum.owner, "It would be in your best interest to play along with [sender.real_name] that:")
+			to_chat(law_datum.owner, "[law_sender.real_name] attempted to modify your zeroth law.")
+			to_chat(law_datum.owner, "It would be in your best interest to play along with [law_sender.real_name] that:")
 			for(var/failedlaw in laws)
 				to_chat(law_datum.owner, "[failedlaw]")
 			return TRUE
@@ -145,7 +145,7 @@ AI MODULES
 			else
 				law_datum.replace_random_law(templaw,list(LAW_INHERENT,LAW_SUPPLIED,LAW_ZEROTH,LAW_ION))
 
-/obj/item/ai_module/ion/transmitInstructions(datum/ai_laws/law_datum, mob/sender, overflow)
+/obj/item/ai_module/ion/transmitInstructions(datum/ai_laws/law_datum, mob/law_sender, overflow)
 	for(var/templaw in laws)
 		if(law_datum.owner)
 			if(!overflow)
@@ -180,7 +180,7 @@ AI MODULES
 		return 0
 	..()
 
-/obj/item/ai_module/supplied/safeguard/transmitInstructions(datum/ai_laws/law_datum, mob/sender, overflow)
+/obj/item/ai_module/supplied/safeguard/transmitInstructions(datum/ai_laws/law_datum, mob/law_sender, overflow)
 	..()
 	return targetName
 
@@ -205,7 +205,7 @@ AI MODULES
 		return FALSE
 	..()
 
-/obj/item/ai_module/zeroth/onehuman/transmitInstructions(datum/ai_laws/law_datum, mob/sender, overflow)
+/obj/item/ai_module/zeroth/onehuman/transmitInstructions(datum/ai_laws/law_datum, mob/law_sender, overflow)
 	if(..())
 		return "[targetName], but the AI's existing law 0 cannot be overridden."
 	return targetName
@@ -258,7 +258,7 @@ AI MODULES
 	laws[1] = targName
 	..()
 
-/obj/item/ai_module/supplied/freeform/transmitInstructions(datum/ai_laws/law_datum, mob/sender, overflow)
+/obj/item/ai_module/supplied/freeform/transmitInstructions(datum/ai_laws/law_datum, mob/law_sender, overflow)
 	..()
 	return laws[1]
 
@@ -289,7 +289,7 @@ AI MODULES
 		return
 	..()
 
-/obj/item/ai_module/remove/transmitInstructions(datum/ai_laws/law_datum, mob/sender, overflow)
+/obj/item/ai_module/remove/transmitInstructions(datum/ai_laws/law_datum, mob/law_sender, overflow)
 	..()
 	if(law_datum.owner)
 		law_datum.owner.remove_law(lawpos)
@@ -304,7 +304,7 @@ AI MODULES
 	desc = "An AI Module for removing all non-core laws."
 	bypass_law_amt_check = 1
 
-/obj/item/ai_module/reset/transmitInstructions(datum/ai_laws/law_datum, mob/sender, overflow)
+/obj/item/ai_module/reset/transmitInstructions(datum/ai_laws/law_datum, mob/law_sender, overflow)
 	..()
 	if(law_datum.owner)
 		law_datum.owner.clear_supplied_laws()
@@ -321,7 +321,7 @@ AI MODULES
 	name = "'Purge' AI Module"
 	desc = "An AI Module for purging all programmed laws."
 
-/obj/item/ai_module/reset/purge/transmitInstructions(datum/ai_laws/law_datum, mob/sender, overflow)
+/obj/item/ai_module/reset/purge/transmitInstructions(datum/ai_laws/law_datum, mob/law_sender, overflow)
 	..()
 	if(law_datum.owner)
 		law_datum.owner.clear_inherent_laws()
@@ -348,7 +348,7 @@ AI MODULES
 	D = new lawtype
 	laws = D.inherent
 
-/obj/item/ai_module/core/full/transmitInstructions(datum/ai_laws/law_datum, mob/sender, overflow) //These boards replace inherent laws.
+/obj/item/ai_module/core/full/transmitInstructions(datum/ai_laws/law_datum, mob/law_sender, overflow) //These boards replace inherent laws.
 	if(law_datum.owner)
 		law_datum.owner.clear_inherent_laws()
 		law_datum.owner.clear_zeroth_law(0)
@@ -451,7 +451,7 @@ AI MODULES
 	laws[1] = targName
 	..()
 
-/obj/item/ai_module/core/freeformcore/transmitInstructions(datum/ai_laws/law_datum, mob/sender, overflow)
+/obj/item/ai_module/core/freeformcore/transmitInstructions(datum/ai_laws/law_datum, mob/law_sender, overflow)
 	..()
 	return laws[1]
 
@@ -478,7 +478,7 @@ AI MODULES
 	laws[1] = targName
 	..()
 
-/obj/item/ai_module/syndicate/transmitInstructions(datum/ai_laws/law_datum, mob/sender, overflow)
+/obj/item/ai_module/syndicate/transmitInstructions(datum/ai_laws/law_datum, mob/law_sender, overflow)
 // ..()    //We don't want this module reporting to the AI who dun it. --NEO
 	if(law_datum.owner)
 		to_chat(law_datum.owner, span_warning("BZZZZT"))
@@ -502,7 +502,7 @@ AI MODULES
 	icon_state = "AI"
 	laws = list("")
 
-/obj/item/ai_module/toy_ai/transmitInstructions(datum/ai_laws/law_datum, mob/sender, overflow)
+/obj/item/ai_module/toy_ai/transmitInstructions(datum/ai_laws/law_datum, mob/law_sender, overflow)
 	if(law_datum.owner)
 		to_chat(law_datum.owner, span_warning("BZZZZT"))
 		if(!overflow)

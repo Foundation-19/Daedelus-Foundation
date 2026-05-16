@@ -850,6 +850,9 @@
 		if(UNLINT(length(AM.atom_storage.is_using)))
 			AM.atom_storage.update_viewability()
 
+	// Update vision cone when direction changes
+	update_vision_cone()
+
 /mob/living/carbon/alien/humanoid/lying_angle_on_movement(direct)
 	return
 
@@ -1621,6 +1624,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	update_sight()
 	update_fullscreen()
 	update_pipe_vision()
+	update_cone_show()
 
 /// Proc used to handle the fullscreen overlay updates, realistically meant for the reset_perspective() proc.
 /mob/living/proc/update_fullscreen()
@@ -1995,6 +1999,8 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 		on_lying_down()
 	else // From lying down to standing up.
 		on_standing_up()
+
+	update_cone_show()
 
 	UPDATE_OO_IF_PRESENT
 

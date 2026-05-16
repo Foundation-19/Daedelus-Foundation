@@ -1,5 +1,5 @@
 //Causes fire damage to anyone not standing on a dense object.
-/datum/weather/weather_types/floor_is_lava
+/datum/weather/floor_is_lava
 	name = "the floor is lava"
 	desc = "The ground turns into surprisingly cool lava, lightly damaging anything on the floor."
 
@@ -14,6 +14,8 @@
 	end_message = "<span class='danger'>The ground cools and returns to its usual form.</span>"
 	end_duration = 0
 
+	area_type = /area
+	protected_areas = list(/area/space)
 	target_trait = ZTRAIT_STATION
 
 	overlay_layer = ABOVE_OPEN_TURF_LAYER //Covers floors only
@@ -21,7 +23,7 @@
 	immunity_type = TRAIT_LAVA_IMMUNE
 
 
-/datum/weather/weather_types/floor_is_lava/can_weather_act(mob/living/mob_to_check)
+/datum/weather/floor_is_lava/can_weather_act(mob/living/mob_to_check)
 	if(!mob_to_check.client) //Only sentient people are going along with it!
 		return FALSE
 	. = ..()
@@ -36,5 +38,5 @@
 	if(mob_to_check.movement_type & FLYING)
 		return FALSE
 
-/datum/weather/weather_types/floor_is_lava/weather_act(mob/living/victim)
+/datum/weather/floor_is_lava/weather_act(mob/living/victim)
 	victim.adjustFireLoss(3)

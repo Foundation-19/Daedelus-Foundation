@@ -226,3 +226,8 @@
 	name = "above HUD plane"
 	plane = ABOVE_HUD_PLANE
 	render_relay_plane = RENDER_PLANE_NON_GAME
+
+/atom/movable/screen/plane_master/game_world_fov_hidden
+	name = "game world FOV hidden plane master"
+	plane = FIELD_OF_VISION_BLOCKER_PLANE
+	blend_mode = BLEND_OVERLAY

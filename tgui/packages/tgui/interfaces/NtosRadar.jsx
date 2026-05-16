@@ -7,7 +7,7 @@ import { NtosWindow } from '../layouts';
 
 export const NtosRadar = (props) => {
   return (
-    <NtosWindow width={800} height={600} theme="ntos">
+    <NtosWindow width={800} height={600} theme="scp_terminal">
       <NtosRadarContent sig_err={'Signal Lost'} />
     </NtosWindow>
   );

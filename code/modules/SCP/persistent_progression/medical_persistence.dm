@@ -92,6 +92,15 @@ SUBSYSTEM_DEF(medical_persistence)
 	var/status = "ACTIVE" // ACTIVE, COMPLETED, CANCELLED, ON_HOLD
 	var/list/discoveries = list()
 	var/list/publications = list()
+	// Additional properties for real data tracking
+	var/experiments_conducted = 0
+	var/data_samples_collected = 0
+	var/lab_hours_invested = 0
+	var/equipment_usage_hours = 0
+	var/collaboration_count = 0
+	var/publication_drafts = 0
+	var/peer_reviews_received = 0
+	var/research_milestones_completed = 0
 
 /datum/medical_research_project/New(var/project_id, var/project_name, var/project_description, var/research_field, var/lead_researcher)
 		src.project_id = project_id
@@ -181,10 +190,10 @@ SUBSYSTEM_DEF(medical_persistence)
 	return project
 
 /datum/medical_persistence_manager/proc/update_medical_statistics()
-	medical_statistics["total_patients"] = medical_records.len
-	medical_statistics["total_treatments"] = treatment_logs.len
+	medical_statistics["total_patients"] = length(medical_records)
+	medical_statistics["total_treatments"] = length(treatment_logs)
 	medical_statistics["active_outbreaks"] = active_outbreaks
-	medical_statistics["research_projects"] = research_projects.len
+	medical_statistics["research_projects"] = length(research_projects)
 	medical_statistics["medical_budget"] = medical_budget
 	medical_statistics["containment_effectiveness"] = containment_effectiveness
 
@@ -205,14 +214,51 @@ SUBSYSTEM_DEF(medical_persistence)
 	for(var/project_id in research_projects)
 		var/datum/medical_research_project/project = research_projects[project_id]
 		if(project.status == "ACTIVE")
-			// Simulate research progress
-			if(prob(5)) // 5% chance to make progress
-				project.progress = min(100, project.progress + rand(1, 5))
+			// Calculate real research progress based on actual game data
+			project.progress = calculate_real_medical_research_progress(project)
 
 			// Check for completion
 			if(project.progress >= 100)
 				project.status = "COMPLETED"
 				medical_research_progress += 10
+
+// Calculate real medical research progress based on actual game data
+/datum/medical_persistence_manager/proc/calculate_real_medical_research_progress(var/datum/medical_research_project/project)
+	var/base_progress = project.progress
+
+	// Progress based on number of researchers
+	if(length(project.researchers) > 0)
+		base_progress += length(project.researchers) * 2
+
+	// Progress based on budget utilization
+	if(project.budget_allocated > 0)
+		var/budget_utilization = (project.budget_used / project.budget_allocated) * 100
+		base_progress += budget_utilization * 0.5
+
+	// Progress based on experiments conducted
+	base_progress += project.experiments_conducted * 3
+
+	// Progress based on data samples collected
+	base_progress += project.data_samples_collected * 1.5
+
+	// Progress based on lab hours invested
+	base_progress += project.lab_hours_invested * 0.1
+
+	// Progress based on equipment usage
+	base_progress += project.equipment_usage_hours * 0.2
+
+	// Progress based on collaborations
+	base_progress += project.collaboration_count * 2
+
+	// Progress based on research milestones
+	base_progress += project.research_milestones_completed * 5
+
+	// Progress based on time elapsed
+	var/time_elapsed = world.time - project.start_date
+	var/time_factor = min(20, time_elapsed / 6000) // Max 20% from time, 6000 ticks = 10 minutes
+	base_progress += time_factor
+
+	return min(100, base_progress)
 
 /datum/medical_persistence_manager/proc/save_medical_data()
 	var/list/data = list()
@@ -297,6 +343,130 @@ SUBSYSTEM_DEF(medical_persistence)
 	var/json_data = json_encode(data)
 	var/savefile/S = new /savefile("data/medical_persistence.json")
 	S["data"] << json_data
+
+	// Save to database
+	save_medical_data_to_database()
+
+/datum/medical_persistence_manager/proc/save_medical_data_to_database()
+	if(!SSdbcore.Connect())
+		world.log << "Medical Persistence: Database connection failed, skipping database save"
+		return
+
+	// Save medical records to database
+	for(var/ckey in medical_records)
+		var/datum/medical_record/record = medical_records[ckey]
+		var/datum/db_query/query_save_record = SSdbcore.NewQuery({"
+			INSERT INTO [format_table_name("medical_records")]
+			(ckey, real_name, blood_type, dna_hash, medical_history, allergies, current_conditions, health_rating, last_updated)
+			VALUES (:ckey, :real_name, :blood_type, :dna_hash, :medical_history, :allergies, :current_conditions, :health_rating, :last_updated)
+			ON DUPLICATE KEY UPDATE
+			real_name = VALUES(real_name), blood_type = VALUES(blood_type), dna_hash = VALUES(dna_hash),
+			medical_history = VALUES(medical_history), allergies = VALUES(allergies), current_conditions = VALUES(current_conditions),
+			health_rating = VALUES(health_rating), last_updated = VALUES(last_updated)
+		"}, list(
+			"ckey" = ckey,
+			"real_name" = record.real_name,
+			"blood_type" = record.blood_type,
+			"dna_hash" = record.dna_hash,
+			"medical_history" = json_encode(record.medical_history),
+			"allergies" = json_encode(record.allergies),
+			"current_conditions" = json_encode(record.current_conditions),
+			"health_rating" = record.health_rating,
+			"last_updated" = record.last_updated
+		))
+
+		if(!query_save_record.warn_execute())
+			world.log << "Medical Persistence: Failed to save medical record for [ckey]"
+		qdel(query_save_record)
+
+	// Save treatment logs to database
+	for(var/treatment_id in treatment_logs)
+		var/datum/treatment_log/treatment = treatment_logs[treatment_id]
+		var/datum/db_query/query_save_treatment = SSdbcore.NewQuery({"
+			INSERT INTO [format_table_name("medical_treatment_logs")]
+			(treatment_id, patient_ckey, treatment_type, treatment_description, doctor_ckey, timestamp, success, notes)
+			VALUES (:treatment_id, :patient_ckey, :treatment_type, :treatment_description, :doctor_ckey, :timestamp, :success, :notes)
+			ON DUPLICATE KEY UPDATE
+			patient_ckey = VALUES(patient_ckey), treatment_type = VALUES(treatment_type), treatment_description = VALUES(treatment_description),
+			doctor_ckey = VALUES(doctor_ckey), timestamp = VALUES(timestamp), success = VALUES(success), notes = VALUES(notes)
+		"}, list(
+			"treatment_id" = treatment_id,
+			"patient_ckey" = treatment.patient_ckey,
+			"treatment_type" = treatment.treatment_type,
+			"treatment_description" = treatment.treatment_description,
+			"doctor_ckey" = treatment.doctor_ckey,
+			"timestamp" = treatment.timestamp,
+			"success" = treatment.success,
+			"notes" = treatment.notes
+		))
+
+		if(!query_save_treatment.warn_execute())
+			world.log << "Medical Persistence: Failed to save treatment log [treatment_id]"
+		qdel(query_save_treatment)
+
+	// Save outbreak records to database
+	for(var/outbreak_id in outbreak_records)
+		var/datum/outbreak_record/outbreak = outbreak_records[outbreak_id]
+		var/datum/db_query/query_save_outbreak = SSdbcore.NewQuery({"
+			INSERT INTO [format_table_name("medical_outbreak_records")]
+			(outbreak_id, disease_name, disease_type, severity, affected_count, contained_count, start_time, end_time, status, affected_patients, containment_protocols)
+			VALUES (:outbreak_id, :disease_name, :disease_type, :severity, :affected_count, :contained_count, :start_time, :end_time, :status, :affected_patients, :containment_protocols)
+			ON DUPLICATE KEY UPDATE
+			disease_name = VALUES(disease_name), disease_type = VALUES(disease_type), severity = VALUES(severity),
+			affected_count = VALUES(affected_count), contained_count = VALUES(contained_count), start_time = VALUES(start_time),
+			end_time = VALUES(end_time), status = VALUES(status), affected_patients = VALUES(affected_patients), containment_protocols = VALUES(containment_protocols)
+		"}, list(
+					"outbreak_id" = outbreak_id,
+		"disease_name" = outbreak.disease_name,
+		"disease_type" = outbreak.disease_type,
+		"severity" = outbreak.severity,
+		"affected_count" = outbreak.affected_count,
+		"contained_count" = outbreak.contained_count,
+		"start_time" = outbreak.start_time,
+		"end_time" = outbreak.end_time,
+		"status" = outbreak.status,
+			"affected_patients" = json_encode(outbreak.affected_patients),
+			"containment_protocols" = json_encode(outbreak.containment_protocols)
+		))
+
+		if(!query_save_outbreak.warn_execute())
+			world.log << "Medical Persistence: Failed to save outbreak record [outbreak_id]"
+		qdel(query_save_outbreak)
+
+	// Save research projects to database
+	for(var/project_id in research_projects)
+		var/datum/medical_research_project/project = research_projects[project_id]
+		var/datum/db_query/query_save_project = SSdbcore.NewQuery({"
+			INSERT INTO [format_table_name("medical_research_projects")]
+			(project_id, project_name, project_description, research_field, progress, budget_allocated, budget_used, lead_researcher, researchers, start_date, estimated_completion, status, discoveries, publications)
+			VALUES (:project_id, :project_name, :project_description, :research_field, :progress, :budget_allocated, :budget_used, :lead_researcher, :researchers, :start_date, :estimated_completion, :status, :discoveries, :publications)
+			ON DUPLICATE KEY UPDATE
+			project_name = VALUES(project_name), project_description = VALUES(project_description), research_field = VALUES(research_field),
+			progress = VALUES(progress), budget_allocated = VALUES(budget_allocated), budget_used = VALUES(budget_used),
+			lead_researcher = VALUES(lead_researcher), researchers = VALUES(researchers), start_date = VALUES(start_date),
+			estimated_completion = VALUES(estimated_completion), status = VALUES(status), discoveries = VALUES(discoveries), publications = VALUES(publications)
+		"}, list(
+			"project_id" = project_id,
+			"project_name" = project.project_name,
+			"project_description" = project.project_description,
+			"research_field" = project.research_field,
+			"progress" = project.progress,
+			"budget_allocated" = project.budget_allocated,
+			"budget_used" = project.budget_used,
+			"lead_researcher" = project.lead_researcher,
+			"researchers" = json_encode(project.researchers),
+			"start_date" = project.start_date,
+			"estimated_completion" = project.estimated_completion,
+			"status" = project.status,
+			"discoveries" = json_encode(project.discoveries),
+			"publications" = json_encode(project.publications)
+		))
+
+		if(!query_save_project.warn_execute())
+			world.log << "Medical Persistence: Failed to save research project [project_id]"
+		qdel(query_save_project)
+
+	world.log << "Medical Persistence: Saved [length(medical_records)] medical records, [length(treatment_logs)] treatment logs, [length(outbreak_records)] outbreak records, and [length(research_projects)] research projects to database"
 
 /datum/medical_persistence_manager/proc/load_medical_data()
 	var/savefile/S = new /savefile("data/medical_persistence.json")
@@ -387,7 +557,7 @@ SUBSYSTEM_DEF(medical_persistence)
 	world.log << "Loading existing medical records from datacore..."
 	manager.load_existing_medical_records()
 
-	world.log << "Medical records count at initialization: [manager.medical_records.len]"
+	world.log << "Medical records count at initialization: [length(manager.medical_records)]"
 	return ..()
 
 /datum/controller/subsystem/medical_persistence/fire()
@@ -488,7 +658,7 @@ SUBSYSTEM_DEF(medical_persistence)
 
 				world.log << "Medical: Created new medical record for [medical_record.fields[DATACORE_NAME]]"
 
-	world.log << "Medical: Loaded [medical_records.len] medical records from datacore"
+	world.log << "Medical: Loaded [length(medical_records)] medical records from datacore"
 
 // Add treatment log
 /datum/medical_persistence_manager/proc/add_treatment_log(var/patient_ckey, var/treatment_type, var/doctor_ckey)

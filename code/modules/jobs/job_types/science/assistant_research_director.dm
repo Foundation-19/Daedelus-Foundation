@@ -41,8 +41,8 @@
 
 	id = /obj/item/card/id/advanced/black_blank
 	id_trim = /datum/id_trim/job/assistant_research_director
-	uniform = /obj/item/clothing/under/rank/medical/paramedic
-	suit = /obj/item/clothing/suit/toggle/labcoat/paramedic
+	uniform = /obj/item/clothing/under/rank/rnd/scientist
+	suit = /obj/item/clothing/suit/toggle/labcoat
 	suit_store = /obj/item/flashlight/pen
 	backpack_contents = list(
 		/obj/item/roller = 1,
@@ -51,8 +51,8 @@
 	belt = /obj/item/storage/belt/medical/paramedic
 	ears = /obj/item/radio/headset/headset_med
 	head = /obj/item/clothing/head/soft/paramedic
-	gloves = /obj/item/clothing/gloves/color/latex/nitrile
-	shoes = /obj/item/clothing/shoes/sneakers/blue
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/laceup
 	l_pocket = /obj/item/modular_computer/tablet/pda/science
 
 	backpack = /obj/item/storage/backpack/medic

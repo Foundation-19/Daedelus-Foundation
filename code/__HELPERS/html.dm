@@ -1,4 +1,6 @@
-/proc/button_element(trg, text, action, class, style)
+/proc/button_element(trg, text, action, class, style, disabled = FALSE)
+	if(disabled)
+		return "<span class='[class]' style='[style]; opacity: 0.5; cursor: not-allowed;'>[text]</span>"
 	return "<a href='byond://?src=\ref[trg];[action]' onClick='event.stopPropagation();' class='[class] cursorPointer' style='[style]'>[text]</a>"
 
 /proc/color_button_element(trg, color, action)

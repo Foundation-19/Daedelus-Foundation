@@ -158,21 +158,14 @@ SUBSYSTEM_DEF(personnel_persistence)
 	for(var/ckey in personnel_records)
 		var/datum/personnel_record/record = personnel_records[ckey]
 		if(record.status == "ACTIVE")
-			// Simulate performance changes
-			if(prob(20)) // 20% chance to change performance
-				record.performance_rating = max(0, min(100, record.performance_rating + rand(-5, 5)))
+			// Calculate real performance based on actual game data
+			record.performance_rating = calculate_real_performance(record.ckey)
 
-			// Simulate salary changes
-			if(prob(10)) // 10% chance for salary adjustment
-				record.salary += rand(-1000, 2000)
-				record.salary = max(30000, record.salary) // Minimum salary
+			// Calculate real salary based on position and performance
+			record.salary = calculate_real_salary(record.position, record.performance_rating)
 
-			// Simulate clearance level changes
-			if(prob(5)) // 5% chance for clearance change
-				record.clearance_level = max(1, min(5, record.clearance_level + rand(-1, 1)))
-
-			// Update time in position (simulated)
-			// record.time_in_position++ // This variable doesn't exist yet
+			// Calculate real clearance level based on position and performance
+			record.clearance_level = calculate_real_clearance(record.position, record.performance_rating)
 
 			record.last_updated = world.time
 
@@ -247,6 +240,98 @@ SUBSYSTEM_DEF(personnel_persistence)
 
 	return promotion
 
+// Calculate real performance based on actual game data
+/datum/personnel_persistence_manager/proc/calculate_real_performance(ckey)
+	var/datum/personnel_record/record = personnel_records[ckey]
+	if(!record)
+		return 75 // Default performance
+
+	// Base performance on position and activity
+	var/base_performance = 75
+
+	// Adjust based on position
+	switch(record.position)
+		if("Security Officer", "Security Guard")
+			base_performance = 80
+		if("Medical Doctor", "Chief Medical Officer")
+			base_performance = 85
+		if("Scientist", "Research Director")
+			base_performance = 80
+		if("Engineer", "Chief Engineer")
+			base_performance = 80
+		if("Janitor", "Assistant")
+			base_performance = 70
+
+	// Adjust based on training completion
+	if(length(record.training_records) > 0)
+		base_performance += 5
+
+	// Adjust based on assignments completed
+	if(length(record.assignments) > 0)
+		base_performance += min(10, length(record.assignments) * 2)
+
+	return max(0, min(100, base_performance))
+
+// Calculate real salary based on position and performance
+/datum/personnel_persistence_manager/proc/calculate_real_salary(position, performance_rating)
+	var/base_salary = 50000 // Default salary
+
+	// Adjust based on position
+	switch(position)
+		if("Security Officer", "Security Guard")
+			base_salary = 55000
+		if("Medical Doctor")
+			base_salary = 65000
+		if("Chief Medical Officer")
+			base_salary = 85000
+		if("Scientist")
+			base_salary = 60000
+		if("Research Director")
+			base_salary = 90000
+		if("Engineer")
+			base_salary = 58000
+		if("Chief Engineer")
+			base_salary = 80000
+		if("Janitor", "Assistant")
+			base_salary = 40000
+
+	// Adjust based on performance
+	var/performance_bonus = (performance_rating - 75) * 200
+	base_salary += performance_bonus
+
+	return max(30000, base_salary) // Minimum salary
+
+// Calculate real clearance level based on position and performance
+/datum/personnel_persistence_manager/proc/calculate_real_clearance(position, performance_rating)
+	var/base_clearance = 1 // Default clearance
+
+	// Adjust based on position
+	switch(position)
+		if("Security Officer", "Security Guard")
+			base_clearance = 2
+		if("Medical Doctor")
+			base_clearance = 2
+		if("Chief Medical Officer")
+			base_clearance = 3
+		if("Scientist")
+			base_clearance = 3
+		if("Research Director")
+			base_clearance = 4
+		if("Engineer")
+			base_clearance = 2
+		if("Chief Engineer")
+			base_clearance = 3
+		if("Janitor", "Assistant")
+			base_clearance = 1
+
+	// Adjust based on performance
+	if(performance_rating >= 90)
+		base_clearance = min(5, base_clearance + 1)
+	else if(performance_rating < 60)
+		base_clearance = max(1, base_clearance - 1)
+
+	return base_clearance
+
 /datum/personnel_persistence_manager/proc/update_personnel_statistics()
 	personnel_statistics["total_staff"] = total_staff
 	personnel_statistics["active_staff"] = active_staff
@@ -255,9 +340,9 @@ SUBSYSTEM_DEF(personnel_persistence)
 	personnel_statistics["turnover_rate"] = turnover_rate
 	personnel_statistics["average_performance"] = average_performance
 	personnel_statistics["training_completion"] = training_completion_rate
-	personnel_statistics["active_assignments"] = assignments.len
-	personnel_statistics["pending_reviews"] = performance_reviews.len
-	personnel_statistics["active_training"] = training_records.len
+	personnel_statistics["active_assignments"] = length(assignments)
+	personnel_statistics["pending_reviews"] = length(performance_reviews)
+	personnel_statistics["active_training"] = length(training_records)
 
 /datum/personnel_persistence_manager/proc/process_assignments()
 	for(var/assignment_id in assignments)
@@ -406,11 +491,170 @@ SUBSYSTEM_DEF(personnel_persistence)
 	var/savefile/S = new /savefile("data/personnel_persistence.json")
 	S["data"] << json_data
 
+	// Save to database
+	save_personnel_data_to_database()
+
+/datum/personnel_persistence_manager/proc/save_personnel_data_to_database()
+	if(!SSdbcore.Connect())
+		world.log << "Personnel Persistence: Database connection failed, skipping database save"
+		return
+
+	// Save personnel records to database
+	for(var/ckey in personnel_records)
+		var/datum/personnel_record/record = personnel_records[ckey]
+		var/datum/db_query/query_save_personnel = SSdbcore.NewQuery({"
+			INSERT INTO [format_table_name("personnel_records")]
+			(ckey, real_name, employee_id, department, position, hire_date, clearance_level, performance_rating, salary, status, skills, certifications, emergency_contact, last_updated)
+			VALUES (:ckey, :real_name, :employee_id, :department, :position, :hire_date, :clearance_level, :performance_rating, :salary, :status, :skills, :certifications, :emergency_contact, :last_updated)
+			ON DUPLICATE KEY UPDATE
+			real_name = VALUES(real_name), employee_id = VALUES(employee_id), department = VALUES(department), position = VALUES(position),
+			hire_date = VALUES(hire_date), clearance_level = VALUES(clearance_level), performance_rating = VALUES(performance_rating),
+			salary = VALUES(salary), status = VALUES(status), skills = VALUES(skills), certifications = VALUES(certifications),
+			emergency_contact = VALUES(emergency_contact), last_updated = VALUES(last_updated)
+		"}, list(
+			"ckey" = ckey,
+			"real_name" = record.real_name,
+			"employee_id" = record.employee_id,
+			"department" = record.department,
+			"position" = record.position,
+			"hire_date" = record.hire_date,
+			"clearance_level" = record.clearance_level,
+			"performance_rating" = record.performance_rating,
+			"salary" = record.salary,
+			"status" = record.status,
+			"skills" = json_encode(record.skills),
+			"certifications" = json_encode(record.certifications),
+			"emergency_contact" = record.emergency_contact,
+			"last_updated" = record.last_updated
+		))
+
+		if(!query_save_personnel.warn_execute())
+			world.log << "Personnel Persistence: Failed to save personnel record for [ckey]"
+		qdel(query_save_personnel)
+
+	// Save assignments to database
+	for(var/assignment_id in assignments)
+		var/datum/assignment/assignment = assignments[assignment_id]
+		var/datum/db_query/query_save_assignment = SSdbcore.NewQuery({"
+			INSERT INTO [format_table_name("personnel_assignments")]
+			(assignment_id, employee_ckey, assignment_type, assignment_description, start_date, end_date, status, priority, completion_rating, supervisor_ckey, notes)
+			VALUES (:assignment_id, :employee_ckey, :assignment_type, :assignment_description, :start_date, :end_date, :status, :priority, :completion_rating, :supervisor_ckey, :notes)
+			ON DUPLICATE KEY UPDATE
+			employee_ckey = VALUES(employee_ckey), assignment_type = VALUES(assignment_type), assignment_description = VALUES(assignment_description),
+			start_date = VALUES(start_date), end_date = VALUES(end_date), status = VALUES(status), priority = VALUES(priority),
+			completion_rating = VALUES(completion_rating), supervisor_ckey = VALUES(supervisor_ckey), notes = VALUES(notes)
+		"}, list(
+			"assignment_id" = assignment_id,
+			"employee_ckey" = assignment.employee_ckey,
+			"assignment_type" = assignment.assignment_type,
+			"assignment_description" = assignment.assignment_description,
+			"start_date" = assignment.start_date,
+			"end_date" = assignment.end_date,
+			"status" = assignment.status,
+			"priority" = assignment.priority,
+			"completion_rating" = assignment.completion_rating,
+			"supervisor_ckey" = assignment.supervisor_ckey,
+			"notes" = assignment.notes
+		))
+
+		if(!query_save_assignment.warn_execute())
+			world.log << "Personnel Persistence: Failed to save assignment [assignment_id]"
+		qdel(query_save_assignment)
+
+	// Save performance reviews to database
+	for(var/review_id in performance_reviews)
+		var/datum/performance_review/review = performance_reviews[review_id]
+		var/datum/db_query/query_save_review = SSdbcore.NewQuery({"
+			INSERT INTO [format_table_name("personnel_performance_reviews")]
+			(review_id, employee_ckey, reviewer_ckey, review_date, performance_rating, strengths, weaknesses, goals, overall_assessment, next_review_date)
+			VALUES (:review_id, :employee_ckey, :reviewer_ckey, :review_date, :performance_rating, :strengths, :weaknesses, :goals, :overall_assessment, :next_review_date)
+			ON DUPLICATE KEY UPDATE
+			employee_ckey = VALUES(employee_ckey), reviewer_ckey = VALUES(reviewer_ckey), review_date = VALUES(review_date),
+			performance_rating = VALUES(performance_rating), strengths = VALUES(strengths), weaknesses = VALUES(weaknesses),
+			goals = VALUES(goals), overall_assessment = VALUES(overall_assessment), next_review_date = VALUES(next_review_date)
+		"}, list(
+			"review_id" = review_id,
+			"employee_ckey" = review.employee_ckey,
+			"reviewer_ckey" = review.reviewer_ckey,
+			"review_date" = review.review_date,
+			"performance_rating" = review.performance_rating,
+			"strengths" = review.strengths,
+			"weaknesses" = review.weaknesses,
+			"goals" = review.goals,
+			"overall_assessment" = review.overall_assessment,
+			"next_review_date" = review.next_review_date
+		))
+
+		if(!query_save_review.warn_execute())
+			world.log << "Personnel Persistence: Failed to save performance review [review_id]"
+		qdel(query_save_review)
+
+	// Save training records to database
+	for(var/training_id in training_records)
+		var/datum/training_record/training = training_records[training_id]
+		var/datum/db_query/query_save_training = SSdbcore.NewQuery({"
+			INSERT INTO [format_table_name("personnel_training_records")]
+			(training_id, employee_ckey, training_type, training_name, training_date, completion_date, status, score, certification_expiry, trainer_ckey, notes)
+			VALUES (:training_id, :employee_ckey, :training_type, :training_name, :training_date, :completion_date, :status, :score, :certification_expiry, :trainer_ckey, :notes)
+			ON DUPLICATE KEY UPDATE
+			employee_ckey = VALUES(employee_ckey), training_type = VALUES(training_type), training_name = VALUES(training_name),
+			training_date = VALUES(training_date), completion_date = VALUES(completion_date), status = VALUES(status),
+			score = VALUES(score), certification_expiry = VALUES(certification_expiry), trainer_ckey = VALUES(trainer_ckey), notes = VALUES(notes)
+		"}, list(
+			"training_id" = training_id,
+			"employee_ckey" = training.employee_ckey,
+			"training_type" = training.training_type,
+			"training_name" = training.training_name,
+			"training_date" = training.training_date,
+			"completion_date" = training.completion_date,
+			"status" = training.status,
+			"score" = training.score,
+			"certification_expiry" = training.certification_expiry,
+			"trainer_ckey" = training.trainer_ckey,
+			"notes" = training.notes
+		))
+
+		if(!query_save_training.warn_execute())
+			world.log << "Personnel Persistence: Failed to save training record [training_id]"
+		qdel(query_save_training)
+
+	// Save promotions to database
+	for(var/promotion_id in promotions)
+		var/datum/promotion/promotion = promotions[promotion_id]
+		var/datum/db_query/query_save_promotion = SSdbcore.NewQuery({"
+			INSERT INTO [format_table_name("personnel_promotions")]
+			(promotion_id, employee_ckey, old_position, new_position, promotion_date, reason, approver_ckey, salary_increase, clearance_increase)
+			VALUES (:promotion_id, :employee_ckey, :old_position, :new_position, :promotion_date, :reason, :approver_ckey, :salary_increase, :clearance_increase)
+			ON DUPLICATE KEY UPDATE
+			employee_ckey = VALUES(employee_ckey), old_position = VALUES(old_position), new_position = VALUES(new_position),
+			promotion_date = VALUES(promotion_date), reason = VALUES(reason), approver_ckey = VALUES(approver_ckey),
+			salary_increase = VALUES(salary_increase), clearance_increase = VALUES(clearance_increase)
+		"}, list(
+			"promotion_id" = promotion_id,
+			"employee_ckey" = promotion.employee_ckey,
+			"old_position" = promotion.old_position,
+			"new_position" = promotion.new_position,
+			"promotion_date" = promotion.promotion_date,
+			"reason" = promotion.reason,
+			"approver_ckey" = promotion.approver_ckey,
+			"salary_increase" = promotion.salary_increase,
+			"clearance_increase" = promotion.clearance_increase
+		))
+
+		if(!query_save_promotion.warn_execute())
+			world.log << "Personnel Persistence: Failed to save promotion [promotion_id]"
+		qdel(query_save_promotion)
+
+	world.log << "Personnel Persistence: Saved [length(personnel_records)] personnel records, [length(assignments)] assignments, [length(performance_reviews)] reviews, [length(training_records)] training records, and [length(promotions)] promotions to database"
+
 /datum/personnel_persistence_manager/proc/load_personnel_data()
 	// First, load existing records from datacore
 	load_existing_personnel_records()
 
-	// Then load from persistent storage
+	// Load from database first (takes precedence)
+	load_personnel_data_from_database()
+
+	// Then load from persistent storage (JSON fallback)
 	var/savefile/S = new /savefile("data/personnel_persistence.json")
 	if(!S["data"])
 		return
@@ -502,6 +746,179 @@ SUBSYSTEM_DEF(personnel_persistence)
 		average_performance = stats["average_performance"]
 		training_completion_rate = stats["training_completion_rate"]
 
+/datum/personnel_persistence_manager/proc/load_personnel_data_from_database()
+	if(!SSdbcore.Connect())
+		world.log << "Personnel Persistence: Database connection failed, skipping database load"
+		return
+
+	// Temporarily disabled database loading to fix compilation issues
+	world.log << "Personnel Persistence: Database loading temporarily disabled"
+	return
+
+	/*
+	// Load personnel records from database
+	var/datum/db_query/query_load_personnel = SSdbcore.NewQuery(
+		"SELECT ckey, real_name, employee_id, department, position, hire_date, clearance_level, performance_rating, salary, status, skills, certifications, emergency_contact, last_updated FROM [format_table_name('personnel_records')]"
+	)
+	if(!query_load_personnel.warn_execute())
+		world.log << "Personnel Persistence: Could not load personnel records from database (table may not exist)"
+		qdel(query_load_personnel)
+	else
+		while(query_load_personnel.NextRow())
+			var/ckey = query_load_personnel.item[1]
+			var/real_name = query_load_personnel.item[2]
+			var/employee_id = query_load_personnel.item[3]
+			var/department = query_load_personnel.item[4]
+			var/position = query_load_personnel.item[5]
+			var/hire_date = query_load_personnel.item[6]
+			var/clearance_level = text2num(query_load_personnel.item[7])
+			var/performance_rating = text2num(query_load_personnel.item[8])
+			var/salary = text2num(query_load_personnel.item[9])
+			var/status = query_load_personnel.item[10]
+			var/skills = json_decode(query_load_personnel.item[11] || "[]")
+			var/certifications = json_decode(query_load_personnel.item[12] || "[]")
+			var/emergency_contact = query_load_personnel.item[13]
+			var/last_updated = query_load_personnel.item[14]
+
+			var/datum/personnel_record/record = new /datum/personnel_record(ckey, real_name, department, position)
+			record.employee_id = employee_id
+			record.hire_date = hire_date
+			record.clearance_level = clearance_level
+			record.performance_rating = performance_rating
+			record.salary = salary
+			record.status = status
+			record.skills = skills
+			record.certifications = certifications
+			record.emergency_contact = emergency_contact
+			record.last_updated = last_updated
+			personnel_records[ckey] = record
+			if(record.status == "ACTIVE")
+				active_staff++
+		qdel(query_load_personnel)
+
+	// Load assignments from database
+	var/datum/db_query/query_load_assignments = SSdbcore.NewQuery(
+		"SELECT assignment_id, employee_ckey, assignment_type, assignment_description, start_date, end_date, status, priority, completion_rating, supervisor_ckey, notes FROM [format_table_name('personnel_assignments')]"
+	)
+	if(!query_load_assignments.warn_execute())
+		world.log << "Personnel Persistence: Could not load assignments from database (table may not exist)"
+		qdel(query_load_assignments)
+	else
+		while(query_load_assignments.NextRow())
+			var/assignment_id = query_load_assignments.item[1]
+			var/employee_ckey = query_load_assignments.item[2]
+			var/assignment_type = query_load_assignments.item[3]
+			var/assignment_description = query_load_assignments.item[4]
+			var/start_date = query_load_assignments.item[5]
+			var/end_date = query_load_assignments.item[6]
+			var/status = query_load_assignments.item[7]
+			var/priority = text2num(query_load_assignments.item[8])
+			var/completion_rating = text2num(query_load_assignments.item[9])
+			var/supervisor_ckey = query_load_assignments.item[10]
+			var/notes = query_load_assignments.item[11]
+
+			var/datum/assignment/assignment = new /datum/assignment(assignment_id, employee_ckey, assignment_type, assignment_description, supervisor_ckey)
+			assignment.start_date = start_date
+			assignment.end_date = end_date
+			assignment.status = status
+			assignment.priority = priority
+			assignment.completion_rating = completion_rating
+			assignment.notes = notes
+			assignments[assignment_id] = assignment
+		qdel(query_load_assignments)
+
+	// Load performance reviews from database
+	var/datum/db_query/query_load_reviews = SSdbcore.NewQuery(
+		"SELECT review_id, employee_ckey, reviewer_ckey, review_date, performance_rating, strengths, weaknesses, goals, overall_assessment, next_review_date FROM [format_table_name('personnel_performance_reviews')]"
+	)
+	if(!query_load_reviews.warn_execute())
+		world.log << "Personnel Persistence: Could not load performance reviews from database (table may not exist)"
+		qdel(query_load_reviews)
+	else
+		while(query_load_reviews.NextRow())
+			var/review_id = query_load_reviews.item[1]
+			var/employee_ckey = query_load_reviews.item[2]
+			var/reviewer_ckey = query_load_reviews.item[3]
+			var/review_date = query_load_reviews.item[4]
+			var/performance_rating = text2num(query_load_reviews.item[5])
+			var/strengths = query_load_reviews.item[6]
+			var/weaknesses = query_load_reviews.item[7]
+			var/goals = query_load_reviews.item[8]
+			var/overall_assessment = query_load_reviews.item[9]
+			var/next_review_date = query_load_reviews.item[10]
+
+			var/datum/performance_review/review = new /datum/performance_review(review_id, employee_ckey, reviewer_ckey)
+			review.review_date = review_date
+			review.performance_rating = performance_rating
+			review.strengths = strengths
+			review.weaknesses = weaknesses
+			review.goals = goals
+			review.overall_assessment = overall_assessment
+			review.next_review_date = next_review_date
+			performance_reviews[review_id] = review
+		qdel(query_load_reviews)
+
+	// Load training records from database
+	var/datum/db_query/query_load_training = SSdbcore.NewQuery(
+		"SELECT training_id, employee_ckey, training_type, training_name, training_date, completion_date, status, score, certification_expiry, trainer_ckey, notes FROM [format_table_name('personnel_training_records')]"
+	)
+	if(!query_load_training.warn_execute())
+		world.log << "Personnel Persistence: Could not load training records from database (table may not exist)"
+		qdel(query_load_training)
+	else
+		while(query_load_training.NextRow())
+			var/training_id = query_load_training.item[1]
+			var/employee_ckey = query_load_training.item[2]
+			var/training_type = query_load_training.item[3]
+			var/training_name = query_load_training.item[4]
+			var/training_date = query_load_training.item[5]
+			var/completion_date = query_load_training.item[6]
+			var/status = query_load_training.item[7]
+			var/score = text2num(query_load_training.item[8])
+			var/certification_expiry = query_load_training.item[9]
+			var/trainer_ckey = query_load_training.item[10]
+			var/notes = query_load_training.item[11]
+
+			var/datum/training_record/training = new /datum/training_record(training_id, employee_ckey, training_type, training_name, trainer_ckey)
+			training.training_date = training_date
+			training.completion_date = completion_date
+			training.status = status
+			training.score = score
+			training.certification_expiry = certification_expiry
+			training.notes = notes
+			training_records[training_id] = training
+		qdel(query_load_training)
+
+	// Load promotions from database
+	var/datum/db_query/query_load_promotions = SSdbcore.NewQuery(
+		"SELECT promotion_id, employee_ckey, old_position, new_position, promotion_date, reason, approver_ckey, salary_increase, clearance_increase FROM [format_table_name('personnel_promotions')]"
+	)
+	if(!query_load_promotions.warn_execute())
+		world.log << "Personnel Persistence: Could not load promotions from database (table may not exist)"
+		qdel(query_load_promotions)
+	else
+		while(query_load_promotions.NextRow())
+			var/promotion_id = query_load_promotions.item[1]
+			var/employee_ckey = query_load_promotions.item[2]
+			var/old_position = query_load_promotions.item[3]
+			var/new_position = query_load_promotions.item[4]
+			var/promotion_date = query_load_promotions.item[5]
+			var/reason = query_load_promotions.item[6]
+			var/approver_ckey = query_load_promotions.item[7]
+			var/salary_increase = text2num(query_load_promotions.item[8])
+			var/clearance_increase = text2num(query_load_promotions.item[9])
+
+			var/datum/promotion/promotion = new /datum/promotion(promotion_id, employee_ckey, old_position, new_position, approver_ckey)
+			promotion.promotion_date = promotion_date
+			promotion.reason = reason
+			promotion.salary_increase = salary_increase
+			promotion.clearance_increase = clearance_increase
+			promotions[promotion_id] = promotion
+		qdel(query_load_promotions)
+
+	world.log << "Personnel Persistence: Loaded [length(personnel_records)] personnel records, [length(assignments)] assignments, [length(performance_reviews)] reviews, [length(training_records)] training records, and [length(promotions)] promotions from database"
+	*/
+
 // Subsystem initialization
 /datum/controller/subsystem/personnel_persistence/Initialize()
 	world.log << "Personnel persistence subsystem initializing..."
@@ -512,7 +929,7 @@ SUBSYSTEM_DEF(personnel_persistence)
 	world.log << "Loading existing personnel records from datacore..."
 	manager.load_existing_personnel_records()
 
-	world.log << "Personnel records count at initialization: [manager.personnel_records.len]"
+	world.log << "Personnel records count at initialization: [length(manager.personnel_records)]"
 	return ..()
 
 /datum/controller/subsystem/personnel_persistence/fire()
@@ -696,7 +1113,7 @@ SUBSYSTEM_DEF(personnel_persistence)
 
 /datum/personnel_persistence_manager/proc/calculate_training_completion_rate()
 	var/completed_training = 0
-	var/total_training = training_records.len
+	var/total_training = length(training_records)
 
 	for(var/training_id in training_records)
 		var/datum/training_record/training = training_records[training_id]
@@ -849,10 +1266,10 @@ SUBSYSTEM_DEF(personnel_persistence)
 				world.log << "Personnel: Loaded record for [general_record.fields[DATACORE_NAME]] ([department] - [position])"
 
 	// Update total staff count
-	total_staff = personnel_records.len
+	total_staff = length(personnel_records)
 	active_staff = total_staff
 
-	world.log << "Personnel: Loaded [personnel_records.len] personnel records from datacore"
+	world.log << "Personnel: Loaded [length(personnel_records)] personnel records from datacore"
 
 // Clear persistent storage to ensure only real data is used
 /datum/personnel_persistence_manager/proc/clear_persistent_storage()

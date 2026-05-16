@@ -1,7 +1,7 @@
 /datum/round_event_control/aurora_caelus
 	name = "Aurora Caelus"
 	typepath = /datum/round_event/aurora_caelus
-	max_occurrences = 1
+	max_occurrences = 0
 	weight = 3
 	earliest_start = 20 MINUTES
 

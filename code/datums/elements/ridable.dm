@@ -75,7 +75,7 @@
 /datum/element/ridable/proc/equip_buckle_inhands(mob/living/carbon/human/user, amount_required = 1, atom/movable/target_movable, riding_target_override = null)
 	var/atom/movable/AM = target_movable
 	var/amount_equipped = 0
-	for(var/amount_needed = amount_required, amount_needed > 0, amount_needed--)
+	for(var/amount_needed = amount_required; amount_needed > 0; amount_needed--)
 		var/obj/item/riding_offhand/inhand = new /obj/item/riding_offhand(user)
 		if(!riding_target_override)
 			inhand.rider = user

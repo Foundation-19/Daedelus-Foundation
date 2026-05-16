@@ -68,7 +68,6 @@ Behavior that's still missing from this component that original food items had t
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_ANIMAL, PROC_REF(UseByAnimal))
 	RegisterSignal(parent, COMSIG_ATOM_CHECKPARTS, PROC_REF(OnCraft))
 	RegisterSignal(parent, COMSIG_ATOM_CREATEDBY_PROCESSING, PROC_REF(OnProcessed))
-	RegisterSignal(parent, COMSIG_ITEM_MICROWAVE_COOKED, PROC_REF(OnMicrowaveCooked))
 	RegisterSignal(parent, COMSIG_EDIBLE_INGREDIENT_ADDED, PROC_REF(edible_ingredient_added))
 	RegisterSignal(parent, COMSIG_OOZE_EAT_ATOM, PROC_REF(on_ooze_eat))
 
@@ -83,7 +82,6 @@ Behavior that's still missing from this component that original food items had t
 	if(isitem(parent))
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(UseFromHand))
 		RegisterSignal(parent, COMSIG_ITEM_FRIED, PROC_REF(OnFried))
-		RegisterSignal(parent, COMSIG_GRILL_FOOD, PROC_REF(GrillFood))
 		RegisterSignal(parent, COMSIG_ITEM_MICROWAVE_ACT, PROC_REF(OnMicrowaved))
 		RegisterSignal(parent, COMSIG_ITEM_USED_AS_INGREDIENT, PROC_REF(used_to_customize))
 
@@ -153,9 +151,6 @@ Behavior that's still missing from this component that original food items had t
 /datum/component/edible/proc/examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
-	if(microwaved_type)
-		examine_list += "[parent] could be <b>microwaved</b> into [initial(microwaved_type.name)]!"
-
 	if(!(food_flags & FOOD_IN_CONTAINER))
 		switch (bitecount)
 			if (0)
@@ -184,29 +179,6 @@ Behavior that's still missing from this component that original food items had t
 	our_atom.reagents.trans_to(fry_object, our_atom.reagents.total_volume)
 	qdel(our_atom)
 	return COMSIG_FRYING_HANDLED
-
-/datum/component/edible/proc/GrillFood(datum/source, atom/fry_object, grill_time)
-	SIGNAL_HANDLER
-
-	var/atom/this_food = parent
-
-	switch(grill_time) //no 0-20 to prevent spam
-		if(20 to 30)
-			this_food.name = "lightly-grilled [this_food.name]"
-			this_food.desc = "[this_food.desc] It's been lightly grilled."
-		if(30 to 80)
-			this_food.name = "grilled [this_food.name]"
-			this_food.desc = "[this_food.desc] It's been grilled."
-			foodtypes |= FRIED
-		if(80 to 100)
-			this_food.name = "heavily grilled [this_food.name]"
-			this_food.desc = "[this_food.desc] It's been heavily grilled."
-			foodtypes |= FRIED
-		if(100 to INFINITY) //grill marks reach max alpha
-			this_food.name = "Powerfully Grilled [this_food.name]"
-			this_food.desc = "A [this_food.name]. Reminds you of your wife, wait, no, it's prettier!"
-			foodtypes |= FRIED
-
 
 ///Called when food is created through processing (Usually this means it was sliced). We use this to pass the OG items reagents.
 /datum/component/edible/proc/OnProcessed(datum/source, atom/original_atom, list/chosen_processing_option)
@@ -248,37 +220,9 @@ Behavior that's still missing from this component that original food items had t
 
 	SSblackbox.record_feedback("tally", "food_made", 1, type)
 
-/datum/component/edible/proc/OnMicrowaved(datum/source, obj/machinery/microwave/used_microwave)
+/datum/component/edible/proc/OnMicrowaved(datum/source, obj/machinery/used_microwave)
 	SIGNAL_HANDLER
-
-	var/turf/parent_turf = get_turf(parent)
-
-	if(!microwaved_type)
-		new /obj/item/food/badrecipe(parent_turf)
-		qdel(parent)
-		return
-
-	var/obj/item/result
-
-	result = new microwaved_type(parent_turf)
-
-	var/efficiency = istype(used_microwave) ? used_microwave.efficiency : 1
-
-	SEND_SIGNAL(result, COMSIG_ITEM_MICROWAVE_COOKED, parent, efficiency)
-
-	SSblackbox.record_feedback("tally", "food_made", 1, result.type)
-	qdel(parent)
 	return COMPONENT_SUCCESFUL_MICROWAVE
-
-///Corrects the reagents on the newly cooked food
-/datum/component/edible/proc/OnMicrowaveCooked(datum/source, obj/item/source_item, cooking_efficiency = 1)
-	SIGNAL_HANDLER
-
-	var/atom/this_food = parent
-
-	this_food.reagents.multiply_reagents(cooking_efficiency * CRAFTED_FOOD_BASE_REAGENT_MODIFIER)
-
-	source_item.reagents?.trans_to(this_food, source_item.reagents.total_volume)
 
 ///Makes sure the thing hasn't been destroyed or fully eaten to prevent eating phantom edibles
 /datum/component/edible/proc/IsFoodGone(atom/owner, mob/living/feeder)

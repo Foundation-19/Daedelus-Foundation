@@ -7,6 +7,7 @@
 	user_mind = user.mind
 
 /datum/persistent_progression_ui/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	if(!user.client)
 		return
 
@@ -56,7 +57,23 @@
 
 	// SSachievements integration data
 	data["ss_achievements_enabled"] = SSachievements.achievements_enabled || FALSE
-	data["ss_achievements_count"] = SSachievements.achievements.len || 0
+	data["ss_achievements_count"] = length(SSachievements.achievements) || 0
+
+	// SCP Progression Data
+	data["current_scp"] = user.SCP ? user.SCP.designation : "None"
+	data["scp_total_experience"] = get_scp_total_experience(user.key)
+	data["scp_rounds_played"] = get_scp_rounds_played(user.key)
+	data["scp_achievements_unlocked"] = get_scp_achievements_unlocked(user.key)
+	data["scp_performance_score"] = get_scp_performance_score(user.key)
+	data["scp_rank"] = get_scp_rank(user.key)
+	data["scp_metrics"] = get_scp_metrics(user.key)
+	data["scp_achievements"] = get_scp_achievements(user.key)
+	data["total_scp_rounds"] = get_total_scp_rounds()
+	data["average_scp_performance"] = get_average_scp_performance()
+	data["scp_containment_breaches"] = get_scp_containment_breaches()
+	data["scp_research_points"] = get_scp_research_points()
+	data["scp_research_breakthroughs"] = get_scp_research_breakthroughs()
+	data["scp_interaction_events"] = get_scp_interaction_events()
 
 	// Performance metrics
 	data["performance_metrics"] = player_data.performance_metrics || list()
@@ -342,6 +359,23 @@
 			user << browse(data_json, "window=progression_data;size=600x400;can_close=1;can_resize=1")
 			. = TRUE
 
+		if("save_data")
+			if(user_mind && user_mind.key)
+				SSpersistent_progression.save_player_data(usr.ckey)
+				to_chat(usr, span_notice("Progression data saved."))
+				. = TRUE
+
+		if("load_data")
+			if(user_mind && user_mind.key)
+				var/datum/persistent_player_data/loaded = SSpersistent_progression.load_player_data(usr.ckey)
+				if(loaded)
+					SSpersistent_progression.player_data[usr.ckey] = loaded
+					user_mind.persistent_data = loaded
+					to_chat(usr, span_notice("Progression data reloaded."))
+				else
+					to_chat(usr, span_warning("No saved data found."))
+				. = TRUE
+
 		if("test_action")
 			to_chat(user, span_notice("Test action received!"))
 			. = TRUE
@@ -356,6 +390,7 @@
 
 // Classes overview UI
 /datum/persistent_progression_classes_ui/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "PersistentProgressionClasses", "Available Classes", 800, 600)
@@ -403,6 +438,7 @@
 
 // Factions overview UI
 /datum/persistent_progression_factions_ui/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "PersistentProgressionFactions", "Available Factions", 800, 600)
@@ -449,6 +485,7 @@
 	ui_interact(admin.mob, null)
 
 /datum/persistent_progression_admin_ui/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "PersistentProgressionAdmin", "Persistent Progression Admin", 1000, 700)
@@ -464,6 +501,8 @@
 	var/list/players = list()
 
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
+		if(QDELETED(H))
+			continue
 		if(H.mind && H.ckey)
 			var/datum/persistent_player_data/player_data = SSpersistent_progression.get_player_data(H.ckey)
 			if(player_data)
@@ -551,6 +590,7 @@
 	ckey = target_ckey
 
 /datum/persistent_progression_player_view_ui/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "PersistentProgressionPlayerView", "Player Progress - [ckey]", 800, 600)
@@ -558,6 +598,32 @@
 
 /datum/persistent_progression_player_view_ui/ui_state(mob/user)
 	return GLOB.always_state
+
+/datum/persistent_progression_player_view_ui/ui_act(action, params)
+	. = ..()
+	if(.)
+		return
+
+	switch(action)
+		if("export_data")
+			var/datum/persistent_player_data/player_data = SSpersistent_progression.get_player_data(ckey)
+			if(player_data)
+				var/data_json = player_data.export_to_json()
+				usr << browse(data_json, "window=progression_data;size=600x400;can_close=1;can_resize=1")
+				. = TRUE
+
+		if("reset_progress")
+			if(alert(usr, "Reset all progress for [ckey]?", "Reset Progress", "Yes", "No") == "Yes")
+				var/datum/persistent_player_data/player_data = SSpersistent_progression.get_player_data(ckey)
+				if(player_data)
+					player_data.initialize_default_data()
+					SSpersistent_progression.save_player_data(ckey)
+					to_chat(usr, span_notice("Reset [ckey]'s progress."))
+					. = TRUE
+
+		if("close_viewer")
+			SStgui.close_uis(src)
+			. = TRUE
 
 /datum/persistent_progression_player_view_ui/ui_data(mob/user)
 	var/list/data = list()
@@ -603,3 +669,174 @@
 	data["recent_experience"] = recent_exp
 
 	return data
+
+// SCP Progression Data Helper Functions
+/datum/persistent_progression_ui/proc/get_scp_total_experience(ckey)
+	if(!SSscp_progression_integration || !SSscp_progression_integration.manager)
+		return 0
+
+	var/total_exp = 0
+	for(var/scp_id in list("049", "096", "173", "457", "939", "2020"))
+		var/datum/scp_progression_data/prog_data = SSscp_progression_integration.manager.get_scp_progression_data(scp_id, ckey)
+		if(prog_data)
+			total_exp += prog_data.total_experience
+	return total_exp
+
+/datum/persistent_progression_ui/proc/get_scp_rounds_played(ckey)
+	if(!SSscp_progression_integration || !SSscp_progression_integration.manager)
+		return 0
+
+	var/total_rounds = 0
+	for(var/scp_id in list("049", "096", "173", "457", "939", "2020"))
+		var/datum/scp_progression_data/prog_data = SSscp_progression_integration.manager.get_scp_progression_data(scp_id, ckey)
+		if(prog_data)
+			total_rounds += prog_data.rounds_played
+	return total_rounds
+
+/datum/persistent_progression_ui/proc/get_scp_achievements_unlocked(ckey)
+	if(!SSscp_progression_integration || !SSscp_progression_integration.manager)
+		return 0
+
+	var/total_achievements = 0
+	for(var/scp_id in list("049", "096", "173", "457", "939", "2020"))
+		var/datum/scp_progression_data/prog_data = SSscp_progression_integration.manager.get_scp_progression_data(scp_id, ckey)
+		if(prog_data)
+			total_achievements += length(prog_data.achievements)
+	return total_achievements
+
+/datum/persistent_progression_ui/proc/get_scp_performance_score(ckey)
+	if(!SSscp_progression_integration || !SSscp_progression_integration.manager)
+		return 0
+
+	var/total_score = 0
+	for(var/scp_id in list("049", "096", "173", "457", "939", "2020"))
+		var/datum/scp_progression_data/prog_data = SSscp_progression_integration.manager.get_scp_progression_data(scp_id, ckey)
+		if(prog_data)
+			// Calculate performance score based on metrics
+			total_score += calculate_scp_performance_score(prog_data)
+	return total_score
+
+/datum/persistent_progression_ui/proc/calculate_scp_performance_score(datum/scp_progression_data/prog_data)
+	var/score = 0
+
+	// Add base score from metrics
+	score += prog_data.metrics["victims_hunted"] * 10
+	score += prog_data.metrics["containment_breaches"] * 50
+	score += prog_data.metrics["research_progress"] * 5
+	score += prog_data.metrics["voices_learned"] * 2
+	score += prog_data.metrics["fires_created"] * 1
+	score += prog_data.metrics["teleportations"] * 3
+	score += prog_data.metrics["stealth_actions"] * 2
+	score += prog_data.metrics["cures_performed"] * 25
+	score += prog_data.metrics["rage_activations"] * 15
+	score += prog_data.metrics["successful_movements"] * 2
+	score += prog_data.metrics["victims_killed"] * 20
+	score += prog_data.metrics["damage_dealt"] * 0.1
+	score += prog_data.metrics["victims_consumed"] * 15
+	score += prog_data.metrics["psychological_manipulations"] * 5
+	score += prog_data.metrics["victims_eliminated"] * 15
+
+	return score
+
+/datum/persistent_progression_ui/proc/get_scp_rank(ckey)
+	if(!SSscp_progression_integration || !SSscp_progression_integration.manager)
+		return "Novice"
+
+	var/total_exp = get_scp_total_experience(ckey)
+
+	if(total_exp >= 10000)
+		return "Master"
+	else if(total_exp >= 5000)
+		return "Expert"
+	else if(total_exp >= 2000)
+		return "Veteran"
+	else if(total_exp >= 500)
+		return "Experienced"
+	else if(total_exp >= 100)
+		return "Intermediate"
+	else
+		return "Novice"
+
+/datum/persistent_progression_ui/proc/get_scp_metrics(ckey)
+	if(!SSscp_progression_integration || !SSscp_progression_integration.manager)
+		return list()
+
+	var/list/all_metrics = list()
+	for(var/scp_id in list("049", "096", "173", "457", "939", "2020"))
+		var/datum/scp_progression_data/prog_data = SSscp_progression_integration.manager.get_scp_progression_data(scp_id, ckey)
+		if(prog_data && length(prog_data.metrics) > 0)
+			all_metrics[scp_id] = prog_data.metrics
+	return all_metrics
+
+/datum/persistent_progression_ui/proc/get_scp_achievements(ckey)
+	if(!SSscp_progression_integration || !SSscp_progression_integration.manager)
+		return list()
+
+	var/list/all_achievements = list()
+
+	// Define all SCP achievements
+	var/list/achievement_definitions = list(
+		"scp049_first_cure" = list("name" = "First Cure", "description" = "Perform your first cure as SCP-049"),
+		"scp049_master_healer" = list("name" = "Master Healer", "description" = "Perform 10 cures as SCP-049"),
+		"scp096_first_rage" = list("name" = "First Rage", "description" = "Activate your first rage as SCP-096"),
+		"scp096_efficient_hunter" = list("name" = "Efficient Hunter", "description" = "Hunt 15 victims as SCP-096"),
+		"scp173_first_movement" = list("name" = "First Movement", "description" = "Make your first successful movement as SCP-173"),
+		"scp173_silent_killer" = list("name" = "Silent Killer", "description" = "Kill 20 victims as SCP-173"),
+		"scp457_first_fire" = list("name" = "First Fire", "description" = "Create your first fire as SCP-457"),
+		"scp457_consuming_flame" = list("name" = "Consuming Flame", "description" = "Consume 10 victims as SCP-457"),
+		"scp939_first_voice" = list("name" = "First Voice", "description" = "Learn your first voice as SCP-939"),
+		"scp939_voice_master" = list("name" = "Voice Master", "description" = "Learn 20 voices as SCP-939"),
+		"scp2020_first_teleport" = list("name" = "First Teleport", "description" = "Perform your first teleport as SCP-2020"),
+		"scp2020_stealth_operative" = list("name" = "Stealth Operative", "description" = "Perform 30 stealth actions as SCP-2020")
+	)
+
+	// Check which achievements the player has unlocked
+	for(var/achievement_id in achievement_definitions)
+		var/list/achievement_data = achievement_definitions[achievement_id]
+		var/unlocked = FALSE
+
+		// Check if player has this achievement in any SCP progression data
+		for(var/scp_id in list("049", "096", "173", "457", "939", "2020"))
+			var/datum/scp_progression_data/prog_data = SSscp_progression_integration.manager.get_scp_progression_data(scp_id, ckey)
+			if(prog_data && (achievement_id in prog_data.achievements))
+				unlocked = TRUE
+				break
+
+		all_achievements += list(list(
+			"id" = achievement_id,
+			"name" = achievement_data["name"],
+			"description" = achievement_data["description"],
+			"unlocked" = unlocked
+		))
+
+	return all_achievements
+
+/datum/persistent_progression_ui/proc/get_total_scp_rounds()
+	if(!SSscp_progression_integration || !SSscp_progression_integration.manager)
+		return 0
+	return SSscp_progression_integration.manager.total_scp_rounds_played
+
+/datum/persistent_progression_ui/proc/get_average_scp_performance()
+	if(!SSscp_progression_integration || !SSscp_progression_integration.manager)
+		return 0
+	return SSscp_progression_integration.manager.average_scp_performance
+
+/datum/persistent_progression_ui/proc/get_scp_containment_breaches()
+	if(!SSscp_progression_integration || !SSscp_progression_integration.manager)
+		return 0
+	return SSscp_progression_integration.manager.scp_containment_breaches
+
+/datum/persistent_progression_ui/proc/get_scp_research_points()
+	if(!SSscp_progression_integration || !SSscp_progression_integration.manager)
+		return 0
+	return SSscp_progression_integration.manager.total_scp_research_points
+
+/datum/persistent_progression_ui/proc/get_scp_research_breakthroughs()
+	if(!SSscp_progression_integration || !SSscp_progression_integration.manager)
+		return 0
+	return SSscp_progression_integration.manager.scp_research_breakthroughs
+
+/datum/persistent_progression_ui/proc/get_scp_interaction_events()
+	if(!SSscp_progression_integration || !SSscp_progression_integration.manager)
+		return 0
+	return length(SSscp_progression_integration.manager.scp_interaction_logs)

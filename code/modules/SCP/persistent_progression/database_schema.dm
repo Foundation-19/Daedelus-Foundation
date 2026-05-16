@@ -136,10 +136,33 @@
 		"current_faction_id" = "foundation",
 		"current_rank" = 0,
 		"current_rank_name" = "Recruit",
+		"preferred_class" = "security",
+		"preferred_faction" = "foundation",
 		"total_experience" = 0,
 		"rounds_played" = 0,
 		"rounds_survived" = 0,
 		"rounds_died" = 0,
+		"total_kills" = 0,
+		"total_deaths" = 0,
+		"total_healing" = 0,
+		"total_damage_dealt" = 0,
+		"total_objectives" = 0,
+		"total_scp_interactions" = 0,
+		"total_containment_breaches" = 0,
+		"total_research_completed" = 0,
+		"total_treatments" = 0,
+		"total_constructions" = 0,
+		"total_repairs" = 0,
+		"total_arrests" = 0,
+		"reputation_score" = 0,
+		"total_playtime" = 0,
+		"current_streak" = 0,
+		"longest_streak" = 0,
+		"current_job" = "",
+		"skill_boost_multiplier" = 1.0,
+		"achievement_points" = 0,
+		"total_achievements_unlocked" = 0,
+		"data_version" = 1,
 		"last_login" = world.time,
 		"created_at" = world.time,
 		"updated_at" = world.time
@@ -157,14 +180,16 @@
 	if(!players[ckey])
 		return FALSE
 
-	players[ckey]["current_class_id"] = data["current_class_id"] || "security"
-	players[ckey]["current_faction_id"] = data["current_faction_id"] || "foundation"
-	players[ckey]["current_rank"] = data["current_rank"] || 0
-	players[ckey]["current_rank_name"] = data["current_rank_name"] || "Recruit"
-	players[ckey]["total_experience"] = data["total_experience"] || 0
-	players[ckey]["rounds_played"] = data["rounds_played"] || 0
-	players[ckey]["rounds_survived"] = data["rounds_survived"] || 0
-	players[ckey]["rounds_died"] = data["rounds_died"] || 0
+	var/list/safe_keys = list("current_class_id", "current_faction_id", "current_rank", "current_rank_name", "total_experience", "rounds_played", "rounds_survived", "rounds_died", "preferred_class", "preferred_faction", "total_kills", "total_deaths", "total_healing", "total_damage_dealt", "total_objectives", "total_scp_interactions", "total_containment_breaches", "total_research_completed", "total_treatments", "total_constructions", "total_repairs", "total_arrests", "reputation_score", "total_playtime", "current_streak", "longest_streak", "current_job", "skill_boost_multiplier", "achievement_points", "total_achievements_unlocked", "data_version")
+	for(var/key in safe_keys)
+		if(!isnull(data[key]))
+			players[ckey][key] = data[key]
+
+	var/list/list_keys = list("class_data", "rank_data", "faction_data", "unlocked_items", "unlocked_titles", "unlocked_cosmetics", "achievements", "achievement_progress", "experience_sources", "performance_metrics", "currency", "settings", "job_rounds_played", "job_experience", "job_achievements", "job_performance", "job_specializations", "job_promotions", "job_incidents", "job_commendations", "job_disciplinary_actions", "job_training_completed", "job_certifications", "job_mentoring_sessions", "job_research_papers", "job_containment_breaches", "job_scp_interactions", "job_medical_procedures", "job_engineering_projects", "job_security_operations", "job_supply_management", "job_service_contributions", "job_dclass_testing")
+	for(var/key in list_keys)
+		if(!isnull(data[key]))
+			players[ckey][key] = data[key]
+
 	players[ckey]["last_login"] = world.time
 	players[ckey]["updated_at"] = world.time
 
@@ -192,8 +217,8 @@
 
 	// Keep only last 100 entries
 	var/list/exp_entries2 = experience[ckey]
-	if(exp_entries2.len > 100)
-		experience[ckey] = exp_entries2.Copy(exp_entries2.len - 99, exp_entries2.len)
+	if(length(exp_entries2) > 100)
+		experience[ckey] = exp_entries2.Copy(length(exp_entries2) - 99, length(exp_entries2))
 
 	var/success = write_json_file(file_path, experience)
 
@@ -224,7 +249,7 @@
 	recent = sort_list(recent, /proc/cmp_experience_timestamp)
 
 	var/list/recent_copy = recent.Copy()
-	return recent_copy.Copy(1, min(limit + 1, recent_copy.len + 1))
+	return recent_copy.Copy(1, min(limit + 1, length(recent_copy) + 1))
 
 // Achievement operations
 /datum/persistent_progression_database/proc/unlock_achievement(ckey, achievement_id, progress = 0)
@@ -458,8 +483,8 @@
 
 	// Keep only last 100 entries per metric
 	var/list/metric_entries = analytics[ckey][metric_name]
-	if(metric_entries.len > 100)
-		analytics[ckey][metric_name] = metric_entries.Copy(metric_entries.len - 99, metric_entries.len)
+	if(length(metric_entries) > 100)
+		analytics[ckey][metric_name] = metric_entries.Copy(length(metric_entries) - 99, length(metric_entries))
 
 	return write_json_file(file_path, analytics)
 
@@ -479,14 +504,14 @@
 	metric_data = sort_list(metric_data, /proc/cmp_analytics_timestamp)
 
 	var/list/metric_copy = metric_data.Copy()
-	return metric_copy.Copy(1, min(limit + 1, metric_copy.len + 1))
+	return metric_copy.Copy(1, min(limit + 1, length(metric_copy) + 1))
 
 // Global statistics
 /datum/persistent_progression_database/proc/get_global_stats()
 	var/file_path = "[db_path][TABLE_PLAYERS]"
 	var/list/players = read_json_file(file_path)
 
-	var/total_players = players.len
+	var/total_players = length(players)
 	var/total_experience = 0
 	var/total_rounds = 0
 

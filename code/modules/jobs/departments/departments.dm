@@ -54,7 +54,7 @@
 	department_experience_type = EXP_TYPE_COMMAND
 	display_order = 1
 	label_class = "command"
-	latejoin_color = "#ccccff"
+	latejoin_color = "#d4a017"
 
 /datum/job_department/security
 	department_name = DEPARTMENT_SECURITY
@@ -63,7 +63,7 @@
 	department_experience_type = EXP_TYPE_SECURITY
 	display_order = 2
 	label_class = "security"
-	latejoin_color = "#ffdddd"
+	latejoin_color = "#cc4444"
 	manifest_key = DATACORE_RECORDS_MARS
 	nation_prefixes = list("Securi", "Beepski", "Shitcuri", "Red", "Stunba", "Flashbango", "Flasha", "Stanfordi")
 	budget_id = ACCOUNT_SEC
@@ -73,9 +73,9 @@
 	department_bitflags = DEPARTMENT_BITFLAG_ENGINEERING
 	department_head = /datum/job/engineering_director
 	department_experience_type = EXP_TYPE_ENGINEERING
-	display_order = 3
+	display_order = 5
 	label_class = "engineering"
-	latejoin_color = "#ffeeaa"
+	latejoin_color = "#aa6a3a"
 	nation_prefixes = list("Atomo", "Engino", "Power", "Teleco")
 	manifest_key = DATACORE_RECORDS_DAEDALUS
 	budget_id = ACCOUNT_ENG
@@ -87,7 +87,7 @@
 	department_experience_type = EXP_TYPE_MEDICAL
 	display_order = 4
 	label_class = "medical"
-	latejoin_color = "#ffddf0"
+	latejoin_color = "#5a8aaa"
 	nation_prefixes = list("Mede", "Healtha", "Recova", "Chemi", "Viro", "Psych")
 	manifest_key = DATACORE_RECORDS_AETHER
 	budget_id = ACCOUNT_MED
@@ -97,9 +97,9 @@
 	department_bitflags = DEPARTMENT_BITFLAG_SCIENCE
 	department_head = /datum/job/research_director
 	department_experience_type = EXP_TYPE_SCIENCE
-	display_order = 5
+	display_order = 3
 	label_class = "medical"
-	latejoin_color = "#ffddf0"
+	latejoin_color = "#8a6aaa"
 	nation_prefixes = list("Sci", "Researcha")
 	manifest_key = DATACORE_RECORDS_AETHER
 	budget_id = ACCOUNT_SCI
@@ -111,7 +111,7 @@
 	department_experience_type = EXP_TYPE_SUPPLY
 	display_order = 6
 	label_class = "supply"
-	latejoin_color = "#ddddff"
+	latejoin_color = "#8a6a2a"
 	nation_prefixes = list("Cargo", "Guna", "Suppli", "Mule", "Crate", "Ore", "Mini", "Shaf")
 	manifest_key = DATACORE_RECORDS_HERMES
 	budget_id = ACCOUNT_CAR
@@ -121,9 +121,9 @@
 	department_bitflags = DEPARTMENT_BITFLAG_SILICON
 	department_head = /datum/job/ai
 	department_experience_type = EXP_TYPE_SILICON
-	display_order = 7
+	display_order = 8
 	label_class = "silicon"
-	latejoin_color = "#ccffcc"
+	latejoin_color = "#4aaa4a"
 
 /datum/job_department/silicon/generate_nation_name()
 	return "United Nations" //For nations ruleset specifically, because all other sources of nation creation cannot choose silicons
@@ -133,9 +133,9 @@
 	department_bitflags = DEPARTMENT_BITFLAG_SERVICE
 	department_head = /datum/job/head_of_personnel
 	department_experience_type = EXP_TYPE_SERVICE
-	display_order = 8
+	display_order = 7
 	label_class = "service"
-	latejoin_color = "#bbe291"
+	latejoin_color = "#5a8a3a"
 	nation_prefixes = list("Honka", "Boozo", "Fatu", "Danka", "Mimi", "Libra", "Jani", "Religi")
 
 /// A special assistant only department, primarily for use by the preferences menu

@@ -44,7 +44,8 @@
 	jobtype = /datum/job/junior_researcher
 
 	id_trim = /datum/id_trim/job/junior_researcher
-	uniform = /obj/item/clothing/under/suit/black
+	uniform = /obj/item/clothing/under/rank/rnd/scientist
+	suit = /obj/item/clothing/suit/toggle/labcoat/science
 	backpack_contents = list()
 	belt = /obj/item/modular_computer/tablet/pda/science
 	ears = /obj/item/radio/headset/headset_med
@@ -106,7 +107,8 @@
 	jobtype = /datum/job/researcher
 
 	id_trim = /datum/id_trim/job/researcher
-	uniform = /obj/item/clothing/under/suit/black
+	uniform = /obj/item/clothing/under/rank/rnd/scientist
+	suit = /obj/item/clothing/suit/toggle/labcoat/science
 	backpack_contents = list()
 	belt = /obj/item/modular_computer/tablet/pda/science
 	ears = /obj/item/radio/headset/headset_med
@@ -139,7 +141,7 @@
 
 	outfits = list(
 		"Default" = list(
-			SPECIES_HUMAN = /datum/outfit/job/senior_researcher,,
+			SPECIES_HUMAN = /datum/outfit/job/senior_researcher,
 		),
 	)
 
@@ -168,11 +170,14 @@
 	jobtype = /datum/job/senior_researcher
 
 	id_trim = /datum/id_trim/job/senior_researcher
-	uniform = /obj/item/clothing/under/suit/black
+	uniform = /obj/item/clothing/under/rank/rnd/scientist
+	suit = /obj/item/clothing/suit/toggle/labcoat/science
 	backpack_contents = list()
 	belt = /obj/item/modular_computer/tablet/pda/science
 	ears = /obj/item/radio/headset/headset_med
 	shoes = /obj/item/clothing/shoes/laceup
+	gloves = /obj/item/clothing/gloves/color/latex
+	glasses = /obj/item/clothing/glasses/science
 	l_hand = /obj/item/clipboard
 
 	backpack = /obj/item/storage/backpack/science

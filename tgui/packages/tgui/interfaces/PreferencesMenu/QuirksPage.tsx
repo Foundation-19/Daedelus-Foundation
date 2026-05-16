@@ -227,7 +227,7 @@ export const QuirksPage = (props) => {
             <Stack.Item basis="50%">
               <Stack vertical fill align="center">
                 <Stack.Item>
-                  <Box fontSize="1.3em">Positive Quirks</Box>
+                  <Box fontSize="1.3em">Positive Traits</Box>
                 </Stack.Item>
 
                 <Stack.Item>
@@ -238,7 +238,7 @@ export const QuirksPage = (props) => {
 
                 <Stack.Item>
                   <Box as="b" fontSize="1.6em">
-                    Available Quirks
+                    Evaluable Traits
                   </Box>
                 </Stack.Item>
 
@@ -278,7 +278,7 @@ export const QuirksPage = (props) => {
             <Stack.Item basis="50%">
               <Stack vertical fill align="center">
                 <Stack.Item>
-                  <Box fontSize="1.3em">Quirk Balance</Box>
+                  <Box fontSize="1.3em">Trait Balance</Box>
                 </Stack.Item>
 
                 <Stack.Item>
@@ -287,7 +287,7 @@ export const QuirksPage = (props) => {
 
                 <Stack.Item>
                   <Box as="b" fontSize="1.6em">
-                    Current Quirks
+                    Active Traits
                   </Box>
                 </Stack.Item>
 

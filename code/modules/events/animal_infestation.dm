@@ -2,16 +2,19 @@
 	name = "Animal Infestation: Vermin"
 	typepath = /datum/round_event/animal_infestation/vermin
 	weight = 10
+	max_occurrences = 0
 
 /datum/round_event_control/animal_infestation/passive
 	name = "Animal Infestation: Passive"
 	typepath = /datum/round_event/animal_infestation/passive
 	weight = 5
+	max_occurrences = 0
 
 /datum/round_event_control/animal_infestation/dangerous
 	name = "Animal Infestation: Dangerous"
 	typepath = /datum/round_event/animal_infestation/dangerous
 	weight = 4
+	max_occurrences = 0
 	earliest_start = 20 MINUTES
 	min_players = 10 //let's not dump hostile mobs on a lowpop round.
 

@@ -139,8 +139,7 @@
 #define INIT_ORDER_AI_CONTROLLERS 62 //So the controller can get the ref
 #define INIT_ORDER_TICKER 61
 #define INIT_ORDER_TCG 55
-#define INIT_ORDER_MAPPING 54
-#define INIT_ORDER_WEATHER 53 // Ensure weather initializes after mapping
+#define INIT_ORDER_MAPPING 50
 #define INIT_ORDER_EARLY_ASSETS 49
 #define INIT_ORDER_RESEARCH 47
 #define INIT_ORDER_TIMETRACK 46
@@ -156,6 +155,7 @@
 #define INIT_ORDER_LANGUAGE 25
 #define INIT_ORDER_MACHINES 20
 #define INIT_ORDER_AIRMACHINES 17
+#define INIT_ORDER_DCLASS 16
 #define INIT_ORDER_SKILLS 15
 #define INIT_ORDER_TIMER 1
 #define INIT_ORDER_DEFAULT 0
@@ -241,7 +241,10 @@
 #define FIRE_PRIORITY_AMBIENCE 5
 #define FIRE_PRIORITY_CODEX 5
 #define FIRE_PRIORITY_TITLE 5
+#define FIRE_PRIORITY_INCONE 5
 
+// D-Class Management Subsystem
+#define FIRE_PRIORITY_DCLASS 15
 
 
 // SS runlevels

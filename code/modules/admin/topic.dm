@@ -1139,7 +1139,8 @@
 	else if(href_list["create_object"])
 		if(!check_rights(R_SPAWN))
 			return
-		return create_object(usr)
+		var/datum/admin_create_panel_ui/panel = new(src, "object")
+		return panel.ui_interact(usr)
 
 	else if(href_list["quick_create_object"])
 		if(!check_rights(R_SPAWN))
@@ -1149,12 +1150,14 @@
 	else if(href_list["create_turf"])
 		if(!check_rights(R_SPAWN))
 			return
-		return create_turf(usr)
+		var/datum/admin_create_panel_ui/panel = new(src, "turf")
+		return panel.ui_interact(usr)
 
 	else if(href_list["create_mob"])
 		if(!check_rights(R_SPAWN))
 			return
-		return create_mob(usr)
+		var/datum/admin_create_panel_ui/panel = new(src, "mob")
+		return panel.ui_interact(usr)
 
 	else if(href_list["dupe_marked_datum"])
 		if(!check_rights(R_SPAWN))

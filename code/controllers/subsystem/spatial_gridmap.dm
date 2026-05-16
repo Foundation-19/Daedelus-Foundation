@@ -393,7 +393,7 @@ SUBSYSTEM_DEF(spatial_grid)
 	if(!initialized)
 		return
 	if(QDELETED(new_target))
-		CRASH("qdeleted or null target trying to enter the spatial grid!")
+		return
 
 	if(!target_turf || !new_target.spatial_grid_key)
 		CRASH("null turf loc or a new_target that doesn't support it trying to enter the spatial grid!")

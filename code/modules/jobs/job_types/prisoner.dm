@@ -33,10 +33,11 @@
 
 	id = /obj/item/card/id/advanced/prisoner
 	id_trim = /datum/id_trim/job/prisoner
-	uniform = /obj/item/clothing/under/rank/prisoner
+	uniform = /obj/item/clothing/under/scp/dclass
 	belt = null
 	ears = null
-	shoes = /obj/item/clothing/shoes/sneakers/orange
+	shoes = /obj/item/clothing/shoes/workboots
+	l_pocket = /obj/item/modular_computer/tablet/pda/dclass
 
 /datum/outfit/job/prisoner/pre_equip(mob/living/carbon/human/H)
 	..()

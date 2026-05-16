@@ -139,8 +139,8 @@
 	if(!H || !H.mind || !H.job)
 		return
 
-	var/datum/job/J = H.job
-	if(J && istype(J, /datum/job))
+	var/datum/job/J = SSjob.GetJob(H.job)
+	if(J)
 		J.track_job_performance(H, action_type, details)
 
 // Hook for containment breach responses

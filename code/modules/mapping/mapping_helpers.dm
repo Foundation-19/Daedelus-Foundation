@@ -87,14 +87,6 @@
 	name = "lava baseturf editor"
 	baseturf = /turf/open/lava/smooth
 
-/obj/effect/baseturf_helper/dirt
-	name = "dirt baseturf editor"
-	baseturf = /turf/open/misc/dirt
-
-/obj/effect/baseturf_helper/openspace
-	name = "open space baseturf editor"
-	baseturf = /turf/open/openspace
-
 /obj/effect/baseturf_helper/reinforced_plating
 	name = "reinforced plating baseturf editor"
 	baseturf = /turf/open/floor/plating/reinforced
@@ -107,7 +99,7 @@
 /obj/effect/baseturf_helper/reinforced_plating/ceiling/replace_baseturf(turf/thing)
 	var/turf/ceiling = GetAbove(thing)
 	if(isnull(ceiling))
-		CRASH("baseturf helper is attempting to modify the Z level above but there is no Z level above it.")
+		CRASH("baseturf helper is attempting to modify the Z level above but there is no Z level above above it.")
 	if(isspaceturf(ceiling) || istype(ceiling, /turf/open/openspace))
 		return
 	return ..(ceiling)

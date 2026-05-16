@@ -50,8 +50,9 @@
 		return TRUE
 
 	if(href_list["character_setup"])
-		var/datum/preferences/preferences = parent.client.prefs
-		preferences.html_show(usr)
+		// Open new TGUI Character Setup
+		var/datum/character_setup_ui/CS = new(usr)
+		CS.ui_interact(usr)
 		return TRUE
 
 	if(href_list["ready"])
@@ -118,6 +119,30 @@
 				return
 
 		parent.AttemptLateSpawn(href_list["SelectedJob"])
+		return
+
+	if(href_list["SelectedSCP"])
+		if(!SSticker?.IsRoundInProgress())
+			to_chat(usr, span_danger("The round is either not ready, or has already finished..."))
+			return
+
+		var/scp_type = href_list["SelectedSCP"]
+		var/datum/scp_role_controller/controller = GLOB.scp_role_controller
+		if(!controller)
+			return
+
+		var/role_flag = controller.get_role_flag(scp_type)
+		if(role_flag && parent.client?.prefs)
+			var/list/client_antags = parent.client.prefs.read_preference(/datum/preference/blob/antagonists)
+			if(!(client_antags?[role_flag]))
+				to_chat(usr, span_warning("You do not have this role enabled in your preferences."))
+				return
+
+		if(check_scp_blacklist(parent.ckey, scp_type))
+			to_chat(usr, span_warning("You are blacklisted from this SCP role."))
+			return
+
+		INVOKE_ASYNC(controller, TYPE_PROC_REF(/datum/scp_role_controller, offer_scp_role_from_lobby), parent, scp_type)
 		return
 
 	else if(!href_list["late_join"])
@@ -205,10 +230,10 @@
 	output += {"
 		<fieldset class='computerPane' style='height:260px'>
 			<legend class='computerLegend' style='margin: 0 auto'>
-				<b>SCipNet Terminal</b>
+				<b>SCiPNet Terminal</b>
 			</legend>
-			<div class='computerLegend flexColumn' style='font-size: 14px; height: 80%; text-align:left'>
-				<div style='font-size: 16px'>
+			<div class='computerLegend flexColumn' style='font-size: 14px; height: 80%; text-align:left; color: #c8c8c8'>
+				<div style='font-size: 16px; color: #d4a017'>
 					C:\\Users\\[parent.ckey]\\SCP-Link>[last_cmd]
 				</div>
 				<div>
@@ -226,7 +251,7 @@
 				[poll]
 				<br>
 				<div>
-					<span>C:\\Users\\[parent.ckey]\\SCP-Link&gt</span>
+					<span style='color: #d4a017'>C:\\Users\\[parent.ckey]\\SCP-Link&gt</span>
 					<span id='input' class='consoleInput'>&#8203;</span>
 				</div>
 			</div>
@@ -245,25 +270,25 @@
 	if(SSticker.current_state <= GAME_STATE_PREGAME)
 		switch(parent.ready)
 			if(PLAYER_NOT_READY)
-				status = "<div>>Status: Not Ready</div>"
+				status = "<div>>Status: <span style='color: #cc4444'>Not Ready</span></div>"
 			if(PLAYER_READY_TO_PLAY)
-				status = "<div>>Status: Ready</div>"
+				status = "<div>>Status: <span style='color: #3a8a3a'>Ready</span></div>"
 			if(PLAYER_READY_TO_OBSERVE)
-				status = "<div>>Status: Ready (Observe)</div>"
+				status = "<div>>Status: <span style='color: #5a8aaa'>Ready (Observe)</span></div>"
 			else
-				status = "<div>>Status: Not Ready</div>"
+				status = "<div>>Status: <span style='color: #cc4444'>Not Ready</span></div>"
 
 	output += {"
 		<fieldset class='computerPane' style='height:260px'>
 			<legend class='computerLegend' style='margin: 0 auto'>
 				<b>ThinkDOS Terminal</b>
 			</legend>
-			<div class='computerLegend flexColumn' style='font-size: 14px; height: 80%; text-align:left'>
-				<div style='font-size: 16px'>
+			<div class='computerLegend flexColumn' style='font-size: 14px; height: 80%; text-align:left; color: #c8c8c8'>
+				<div style='font-size: 16px; color: #d4a017'>
 					C:\\Users\\[parent.ckey]\\ss13&gt;[last_cmd]
 				</div>
 				<div>
-					>Loaded File: <b>[name]</b>
+					>Loaded File: <b style='color: #d4a017'>[name]</b>
 				</div>
 				[status]
 				<br>
@@ -275,7 +300,7 @@
 				</div>
 				<br>
 				<div>
-					<span>C:\\Users\\[parent.ckey]\\ss13&gt</span>
+					<span style='color: #d4a017'>C:\\Users\\[parent.ckey]\\ss13&gt</span>
 					<span id='input' class='consoleInput'>&#8203;</span>
 				</div>
 			</div>
@@ -295,8 +320,8 @@
 	if(SSticker.current_state > GAME_STATE_PREGAME)
 		output += {"
 			<div class='flexRow' style='justify-content: center;align-items: center;width:100%;margin-top: 4px;'>
-				<div class='flexItem'>[button_element(src, "Join Game", "late_join=1")]</div>
-				<div class='flexItem'>[LINKIFY_READY("Observe", PLAYER_READY_TO_OBSERVE)]</div>
+				<div class='flexItem'>[button_element(src, "// JOIN GAME //", "late_join=1")]</div>
+				<div class='flexItem'>[LINKIFY_READY("// OBSERVE //", PLAYER_READY_TO_OBSERVE)]</div>
 			</div>
 		"}
 		output += "<div class='flexItem' style='margin-top: 8px'>[button_element(src, "View Station Manifests", "manifest=1")]</div>"
@@ -429,64 +454,206 @@
 	return .
 
 /datum/new_player_panel/proc/LateChoices()
-	world.log << "LateChoices function called"
 	var/list/dat = list()
 
-	// Simple, compact layout with inline styles only
-	dat += "<div style='background: #000; color: #fff; font-family: monospace; padding: 10px; width: 100%; max-width: 100%; overflow-x: hidden;'>"
-	dat += "<div style='font-size: 18px; font-weight: bold; margin-bottom: 10px; text-align: center;'>LATE JOIN SELECTION</div>"
-	dat += "<div style='font-size: 12px; margin-bottom: 10px; text-align: center;'>Round Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]</div>"
+	dat += {"
+	<style>
+		@keyframes cursorBlink {
+			0% { opacity: 1.0; }
+			50% { opacity: 0.0; }
+			100% { opacity: 1.0; }
+		}
+		.scp-latejoin {
+			background: #0a0a0c;
+			color: #c8c8c8;
+			font-family: 'Consolas', 'Courier New', monospace;
+			padding: 0;
+			width: 100%;
+			max-width: 100%;
+			overflow-x: hidden;
+			position: relative;
+		}
+		.scp-latejoin::before {
+			content: ' ';
+			display: block;
+			position: fixed;
+			top: 0; left: 0; bottom: 0; right: 0;
+			background: repeating-linear-gradient(
+				0deg,
+				rgba(0, 0, 0, 0.15) 0px,
+				rgba(0, 0, 0, 0.15) 1px,
+				transparent 1px,
+				transparent 2px
+			);
+			z-index: 100;
+			pointer-events: none;
+		}
+		.scp-latejoin::after {
+			content: ' ';
+			display: block;
+			position: fixed;
+			top: 0; left: 0; bottom: 0; right: 0;
+			background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.35) 100%);
+			z-index: 99;
+			pointer-events: none;
+		}
+		.scp-header {
+			border-bottom: 2px solid #8b0000;
+			padding: 8px 12px;
+			background: #5c0000;
+			color: #e8e8e8;
+			font-size: 14px;
+			text-transform: uppercase;
+			letter-spacing: 0.15em;
+			text-align: center;
+			text-shadow: 0 0 0.3em #8b0000;
+		}
+		.scp-subheader {
+			font-size: 11px;
+			color: #6a6a70;
+			padding: 4px 12px;
+			text-align: center;
+			border-bottom: 1px solid #2a2a30;
+		}
+		.scp-alert {
+			background: rgba(139, 0, 0, 0.25);
+			border: 1px solid #8b0000;
+			border-left: 3px solid #8b0000;
+			padding: 6px 10px;
+			text-align: center;
+			margin: 6px 8px;
+			color: #cc4444;
+			font-size: 12px;
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
+		}
+		.scp-dept {
+			background: #111114;
+			color: #d4a017;
+			font-weight: bold;
+			padding: 5px 10px;
+			text-align: center;
+			border-bottom: 1px solid #2a2a30;
+			border-top: 1px solid #2a2a30;
+			text-transform: uppercase;
+			letter-spacing: 0.1em;
+			font-size: 11px;
+		}
+		.scp-job-row {
+			display: flex;
+			align-items: center;
+			padding: 3px 10px;
+			border-bottom: 1px solid rgba(42, 42, 48, 0.5);
+			transition: background 0.1s;
+		}
+		.scp-job-row:hover {
+			background: rgba(139, 0, 0, 0.2);
+		}
+		.scp-job-row a {
+			flex: 1;
+			color: #c8c8c8;
+			text-decoration: none;
+			font-size: 12px;
+			display: block;
+			padding: 2px 0;
+		}
+		.scp-job-row a:hover {
+			color: #d4a017;
+		}
+		.scp-job-count {
+			color: #6a6a70;
+			font-size: 11px;
+			min-width: 30px;
+			text-align: right;
+		}
+		.scp-job-priority a {
+			color: #3a8a3a;
+			text-shadow: 0 0 0.1em #3a8a3a;
+		}
+		.scp-job-command a {
+			color: #d4a017;
+			text-shadow: 0 0 0.1em #d4a017;
+		}
+		.scp-empty {
+			padding: 8px 10px;
+			text-align: center;
+			font-style: italic;
+			color: #6a6a70;
+			font-size: 11px;
+		}
+		.scp-footer {
+			border-top: 1px solid #2a2a30;
+			padding: 6px 12px;
+			text-align: center;
+			font-size: 10px;
+			color: #6a6a70;
+		}
+		.scp-cursor {
+			display: inline-block;
+			width: 8px;
+			height: 14px;
+			background: #d4a017;
+			animation: cursorBlink 1s step-end infinite;
+			vertical-align: middle;
+			margin-left: 4px;
+		}
+	</style>
+	"}
 
-	// Status Notices
+	dat += "<div class='scp-latejoin'>"
+	dat += "<div class='scp-header'>// SITE-53 PERSONNEL ASSIGNMENT TERMINAL //</div>"
+	dat += "<div class='scp-subheader'>ROUND DURATION: [DisplayTimeText(world.time - SSticker.round_start_time)] &nbsp;|&nbsp; CLEARANCE: PENDING</div>"
+
 	if(SSlag_switch.measures[DISABLE_NON_OBSJOBS])
-		dat += "<div style='background: #600; border: 1px solid #f00; padding: 5px; text-align: center; margin-bottom: 10px;'>Only Observers may join at this time.</div>"
+		dat += "<div class='scp-alert'>// WARNING: PERSONNEL LOCKOUT IN EFFECT — OBSERVERS ONLY //</div>"
 
-	// Emergency Status Notices
 	if(SSshuttle.emergency)
 		switch(SSshuttle.emergency.mode)
 			if(SHUTTLE_ESCAPE)
-				dat += "<div style='background: #600; border: 1px solid #f00; padding: 5px; text-align: center; margin-bottom: 10px;'>The station has been evacuated.</div>"
+				dat += "<div class='scp-alert'>// ALERT: SITE EVACUATION COMPLETE //</div>"
 			if(SHUTTLE_CALL)
 				if(!SSshuttle.canRecall())
-					dat += "<div style='background: #600; border: 1px solid #f00; padding: 5px; text-align: center; margin-bottom: 10px;'>The station is currently undergoing evacuation procedures.</div>"
+					dat += "<div class='scp-alert'>// ALERT: EVACUATION IN PROGRESS //</div>"
 
-	// Clean up prioritized jobs
 	for(var/datum/job/prioritized_job in SSjob.prioritized_jobs)
 		if(prioritized_job.current_positions >= prioritized_job.total_positions)
 			SSjob.prioritized_jobs -= prioritized_job
-
-	// Simple table layout
-	dat += "<table style='width: 100%; border-collapse: collapse;'>"
 
 	for(var/datum/job_department/department as anything in SSjob.departments)
 		if(department.exclude_from_latejoin)
 			continue
 
-		dat += "<tr><td colspan='2' style='background: #333; color: [department.latejoin_color]; font-weight: bold; padding: 5px; text-align: center; border: 1px solid #555;'>[department.department_name]</td></tr>"
+		dat += "<div class='scp-dept'>[department.department_name]</div>"
 
 		var/list/dept_data = list()
 		for(var/datum/job/job_datum as anything in department.department_jobs)
 			if(parent.IsJobUnavailable(job_datum.title, TRUE) != JOB_AVAILABLE)
 				continue
 
-			var/job_color = "#fff"
+			var/row_class = "scp-job-row"
 			if(job_datum in SSjob.prioritized_jobs)
-				job_color = "#0f0"
+				row_class = "scp-job-row scp-job-priority"
 			else if(job_datum.departments_bitflags & DEPARTMENT_BITFLAG_COMPANY_LEADER)
-				job_color = "#ff0"
+				row_class = "scp-job-row scp-job-command"
 
-			dept_data += "<tr><td style='padding: 2px 5px; border: 1px solid #555;'><a href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]' style='color: [job_color]; text-decoration: none; font-size: 11px;'>[job_datum.title]</a></td><td style='padding: 2px 5px; border: 1px solid #555; text-align: center; font-size: 11px;'>([job_datum.current_positions])</td></tr>"
+			dept_data += "<div class='[row_class]'><a href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'>[job_datum.title]</a><span class='scp-job-count'>([job_datum.current_positions])</span></div>"
 
 		if(!length(dept_data))
-			dept_data += "<tr><td colspan='2' style='padding: 5px; text-align: center; font-style: italic; color: #888;'>No positions open.</td></tr>"
+			dept_data += "<div class='scp-empty'>// NO POSITIONS AVAILABLE //</div>"
 
 		dat += dept_data.Join()
 
-	dat += "</table>"
+	var/list/scp_info = GLOB.scp_role_controller?.get_scp_info_list() || list()
+	if(length(scp_info))
+		dat += "<div class='scp-dept' style='border-bottom-color: #8b0000; border-top-color: #8b0000;'>ANOMALOUS ENTITIES</div>"
+		for(var/list/scp as anything in scp_info)
+			dat += "<div class='scp-job-row'><a href='byond://?src=[REF(src)];SelectedSCP=[scp["scp_type"]]' style='color: #8b0000;'>[scp["name"]]</a></div>"
+
+	dat += "<div class='scp-footer'>SECURE. CONTAIN. PROTECT.<span class='scp-cursor'></span></div>"
 	dat += "</div>"
 
-	world.log << "Simple browser interface prepared"
-	var/datum/browser/popup = new(parent, "latechoices", "Choose Profession", 500, 400)
+	var/datum/browser/popup = new(parent, "latechoices", "Personnel Assignment Terminal", 520, 520)
+	popup.set_window_options("can_close=1;can_resize=0")
 	popup.set_content(jointext(dat, ""))
 	popup.open(FALSE)
 

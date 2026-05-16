@@ -101,7 +101,15 @@ GLOBAL_DATUM_INIT(sortInstance, /datum/sort_instance, new())
 	if(start <= lo)
 		start = lo + 1
 
-	for(,start < hi, ++start)
+	// Add bounds checking
+	if(!L || L.len == 0 || hi > L.len || lo < 1 || start < 1)
+		return
+
+	for(start; start < hi; ++start)
+		// Bounds check before accessing
+		if(start > L.len)
+			break
+
 		var/pivot = fetchElement(L,start)
 
 		//set left and right to the index where pivot belongs
@@ -109,10 +117,15 @@ GLOBAL_DATUM_INIT(sortInstance, /datum/sort_instance, new())
 		var/right = start
 		//ASSERT(left <= right)
 
-		//[lo, left) elements <= pivot < [right, start) elements
+		//[lo, left) elements less than or equal to pivot, less than [right, start) elements
 		//in other words, find where the pivot element should go using bisection search
 		while(left < right)
 			var/mid = (left + right) >> 1 //round((left+right)/2)
+
+			// Bounds check before accessing
+			if(mid > L.len)
+				break
+
 			if(call(cmp)(fetchElement(L,mid), pivot) > 0)
 				right = mid
 			else
@@ -136,8 +149,16 @@ GLOBAL_DATUM_INIT(sortInstance, /datum/sort_instance, new())
 /datum/sort_instance/proc/countRunAndMakeAscending(lo, hi)
 	//ASSERT(lo < hi)
 
+	// Add bounds checking
+	if(!L || L.len == 0 || hi > L.len || lo < 1)
+		return 1
+
 	var/runHi = lo + 1
 	if(runHi >= hi)
+		return 1
+
+	// Bounds check before accessing
+	if(lo > L.len || runHi > L.len)
 		return 1
 
 	var/last = fetchElement(L,lo)
@@ -146,6 +167,11 @@ GLOBAL_DATUM_INIT(sortInstance, /datum/sort_instance, new())
 	if(call(cmp)(current, last) < 0)
 		while(runHi < hi)
 			last = current
+
+			// Bounds check before accessing
+			if(runHi > L.len)
+				break
+
 			current = fetchElement(L,runHi)
 			if(call(cmp)(current, last) >= 0)
 				break
@@ -154,6 +180,11 @@ GLOBAL_DATUM_INIT(sortInstance, /datum/sort_instance, new())
 	else
 		while(runHi < hi)
 			last = current
+
+			// Bounds check before accessing
+			if(runHi > L.len)
+				break
+
 			current = fetchElement(L,runHi)
 			if(call(cmp)(current, last) < 0)
 				break
@@ -179,11 +210,13 @@ GLOBAL_DATUM_INIT(sortInstance, /datum/sort_instance, new())
 /datum/sort_instance/proc/mergeCollapse()
 	while(runBases.len >= 2)
 		var/n = runBases.len - 1
-		if(n > 1 && runLens[n-1] <= runLens[n] + runLens[n+1])
+
+		// Bounds checking for runLens access
+		if(n > 1 && n-1 < runLens.len && n < runLens.len && n+1 < runLens.len && runLens[n-1] <= runLens[n] + runLens[n+1])
 			if(runLens[n-1] < runLens[n+1])
 				--n
 			mergeAt(n)
-		else if(runLens[n] <= runLens[n+1])
+		else if(n < runLens.len && n+1 < runLens.len && runLens[n] <= runLens[n+1])
 			mergeAt(n)
 		else
 			break //Invariant is established
@@ -194,7 +227,9 @@ GLOBAL_DATUM_INIT(sortInstance, /datum/sort_instance, new())
 /datum/sort_instance/proc/mergeForceCollapse()
 	while(runBases.len >= 2)
 		var/n = runBases.len - 1
-		if(n > 1 && runLens[n-1] < runLens[n+1])
+
+		// Bounds checking for runLens access
+		if(n > 1 && n-1 < runLens.len && n+1 < runLens.len && runLens[n-1] < runLens[n+1])
 			--n
 		mergeAt(n)
 

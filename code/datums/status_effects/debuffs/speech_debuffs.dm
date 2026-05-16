@@ -39,7 +39,7 @@
 	var/final_phrase = ""
 	var/original_char = ""
 
-	for(var/i = 1, i <= length(phrase), i += length(original_char))
+	for(var/i = 1; i <= length(phrase); i += length(original_char))
 		original_char = phrase[i]
 
 		final_phrase += apply_speech(original_char, original_char)

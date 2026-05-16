@@ -1,5 +1,5 @@
 /datum/job/psychologist
-	title = JOB_PSYCHOLOGIST
+	title = "Psychiatrist"
 	description = "Advocate sanity, self-esteem, and teamwork in a station \
 		staffed with headcases."
 	department_head = list(JOB_HUMAN_RESOURCES_DIRECTOR)
@@ -41,7 +41,7 @@
 
 
 /datum/outfit/job/psychologist
-	name = "Psychologist"
+	name = "Psychiatrist"
 	jobtype = /datum/job/psychologist
 
 	id_trim = /datum/id_trim/job/psychologist
@@ -55,6 +55,7 @@
 	belt = /obj/item/modular_computer/tablet/pda/medical
 	ears = /obj/item/radio/headset/headset_med
 	shoes = /obj/item/clothing/shoes/laceup
+	suit = /obj/item/clothing/suit/toggle/labcoat
 	l_hand = /obj/item/clipboard
 
 	backpack = /obj/item/storage/backpack/medic

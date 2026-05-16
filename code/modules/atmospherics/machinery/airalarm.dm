@@ -92,6 +92,7 @@ DEFINE_INTERACTABLE(/obj/machinery/airalarm)
 
 	var/danger_level = 0
 	var/mode = AALARM_MODE_SCRUBBING
+	var/alarm_id = ""
 
 	///Cooldown on UI actions, Prevents packet spam
 	COOLDOWN_DECLARE(ui_cooldown)

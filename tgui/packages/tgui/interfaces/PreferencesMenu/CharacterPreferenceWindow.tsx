@@ -34,7 +34,7 @@ const CharacterProfiles = (props: {
           displayText={profiles[activeSlot]}
           options={profiles.map((profile, slot) => ({
             value: slot,
-            displayText: profile ?? 'New Character',
+            displayText: profile ?? 'UNASSIGNED',
           }))}
           onSelected={(slot) => {
             onClick(slot);
@@ -80,8 +80,8 @@ export const CharacterPreferenceWindow = (props) => {
 
   return (
     <Window
-      title="Character Preferences"
-      theme="rounded_base"
+      title="SCP PERSONNEL CONFIGURATION TERMINAL v4.7.2"
+      theme="scp_terminal"
       width={920}
       height={770}
     >
@@ -101,7 +101,7 @@ export const CharacterPreferenceWindow = (props) => {
 
           {!data.content_unlocked && (
             <Stack.Item align="center">
-              Buy BYOND premium for more slots!
+              [ CLEARANCE UPGRADE REQUIRED FOR ADDITIONAL PERSONNEL SLOTS ]
             </Stack.Item>
           )}
 
@@ -116,7 +116,7 @@ export const CharacterPreferenceWindow = (props) => {
                   setPage={setCurrentPage}
                   otherActivePages={[Page.Species]}
                 >
-                  Character
+                  Personnel File
                 </PageButton>
               </Stack.Item>
 
@@ -126,11 +126,7 @@ export const CharacterPreferenceWindow = (props) => {
                   page={Page.Jobs}
                   setPage={setCurrentPage}
                 >
-                  {/*
-                    Fun fact: This isn't "Jobs" so that it intentionally
-                    catches your eyes, because it's really important!
-                  */}
-                  Occupations
+                  Assignment
                 </PageButton>
               </Stack.Item>
 
@@ -140,7 +136,7 @@ export const CharacterPreferenceWindow = (props) => {
                   page={Page.Antags}
                   setPage={setCurrentPage}
                 >
-                  Antagonists
+                  Classification
                 </PageButton>
               </Stack.Item>
 
@@ -150,7 +146,7 @@ export const CharacterPreferenceWindow = (props) => {
                   page={Page.Quirks}
                   setPage={setCurrentPage}
                 >
-                  Quirks
+                  Psych Eval
                 </PageButton>
               </Stack.Item>
             </Stack>

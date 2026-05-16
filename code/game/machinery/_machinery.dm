@@ -1176,8 +1176,7 @@ GLOBAL_REAL_VAR(machinery_default_armor) = list()
 
 		if(!internal_disk.remove(index, data))
 			log_game("[key_name(user)] copied [data] from [src] to an external disk ([get_area_name(src)])")
-			spawn(0)
-				alert(user, "Failed to delete file, resorting to copy","ERROR", "OK")
+			addtimer(CALLBACK(src, PROC_REF(delayed_alert), user, "Failed to delete file, resorting to copy","ERROR", "OK"), 0)
 			return TRUE
 
 		log_game("[key_name(user)] moved [data] from [src] to an external disk ([get_area_name(src)])")
@@ -1189,9 +1188,11 @@ GLOBAL_REAL_VAR(machinery_default_armor) = list()
 			return
 		if(!inserted_disk.remove(index, data))
 			log_game("[key_name(user)] copied [data] from an external disk to [src] ([get_area_name(src)])")
-			spawn(0)
-				alert(user, "Failed to delete file, resorting to copy","ERROR", "OK")
+			addtimer(CALLBACK(src, PROC_REF(delayed_alert), user, "Failed to delete file, resorting to copy","ERROR", "OK"), 0)
 			return TRUE
 
 		log_game("[key_name(user)] moved [data] from an external disk to [src] ([get_area_name(src)])")
 		return TRUE
+
+/obj/machinery/proc/delayed_alert(mob/user, message, title, button_text)
+	alert(user, message, title, button_text)

@@ -219,3 +219,10 @@
 	greyscale_config = null
 	greyscale_colors = null
 
+/obj/item/modular_computer/tablet/pda/dclass
+	name = "D-Class PDA"
+	default_disk = /obj/item/computer_hardware/hard_drive/role/dclass
+	greyscale_colors = "#bd630a#FF6600"
+	saved_identification = "D-Class"
+	saved_job = "D-Class"
+

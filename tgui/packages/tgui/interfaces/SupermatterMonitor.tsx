@@ -45,7 +45,7 @@ function logScale(value) {
 
 export function SupermatterMonitor() {
   return (
-    <Window width={600} height={350} theme="ntos" title="Supermatter Monitor">
+    <Window width={600} height={350} theme="scp_terminal" title="Supermatter Monitor">
       <Window.Content scrollable>
         <SupermatterMonitorContent />
       </Window.Content>

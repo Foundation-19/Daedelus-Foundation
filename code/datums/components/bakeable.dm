@@ -56,8 +56,7 @@
 /datum/component/bakeable/proc/FinishBaking(atom/used_oven)
 
 	var/atom/original_object = parent
-	var/obj/item/plate/oven_tray/used_tray = original_object.loc
-	var/atom/baked_result = new bake_result(used_tray)
+	var/atom/baked_result = new bake_result(original_object.loc)
 
 
 	if(original_object.custom_materials)
@@ -65,7 +64,6 @@
 
 	baked_result.pixel_x = original_object.pixel_x
 	baked_result.pixel_y = original_object.pixel_y
-	used_tray.AddToPlate(baked_result)
 
 	if(positive_result)
 		used_oven.visible_message(span_notice("You smell something great coming from [used_oven]."), blind_message = span_notice("You smell something great..."))

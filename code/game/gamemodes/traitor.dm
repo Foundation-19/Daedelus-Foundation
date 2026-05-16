@@ -4,7 +4,7 @@
 /datum/game_mode/traitor
 	name = "Traitor"
 
-	weight = GAMEMODE_WEIGHT_COMMON
+	weight = GAMEMODE_WEIGHT_NEVER
 	///The antagonist selector for this gamemode.
 	var/datum/antagonist_selector/traitor/antag_selector
 

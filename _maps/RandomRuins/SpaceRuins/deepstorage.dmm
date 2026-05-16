@@ -394,7 +394,7 @@
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "bd" = (
 /obj/structure/table,
-/obj/machinery/microwave,
+/obj/machinery/appliance/cooker/microwave,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "be" = (
@@ -536,7 +536,7 @@
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "bx" = (
 /obj/structure/table,
-/obj/machinery/microwave,
+/obj/machinery/appliance/cooker/microwave,
 /obj/structure/extinguisher_cabinet/directional/east,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/deepstorage/kitchen)

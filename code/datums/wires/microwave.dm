@@ -1,5 +1,5 @@
 /datum/wires/microwave
-	holder_type = /obj/machinery/microwave
+	holder_type = /obj/machinery/appliance/cooker/microwave
 	proper_name = "Microwave"
 
 /datum/wires/microwave/New(atom/holder)
@@ -12,18 +12,18 @@
 	if(!..())
 		return FALSE
 	. = FALSE
-	var/obj/machinery/microwave/M = holder
+	var/obj/machinery/appliance/cooker/microwave/M = holder
 	if(M.panel_open)
 		. = TRUE
 
 /datum/wires/microwave/on_pulse(wire)
-	var/obj/machinery/microwave/M = holder
+	var/obj/machinery/appliance/cooker/microwave/M = holder
 	switch(wire)
 		if(WIRE_ACTIVATE)
-			M.cook()
+			M.active = !M.active
 
 /datum/wires/microwave/on_cut(wire, mend)
-	var/obj/machinery/microwave/M = holder
+	var/obj/machinery/appliance/cooker/microwave/M = holder
 	switch(wire)
 		if(WIRE_ACTIVATE)
-			M.wire_disabled = !mend
+			M.broken = !mend

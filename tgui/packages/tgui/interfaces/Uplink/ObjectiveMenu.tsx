@@ -457,7 +457,7 @@ const ObjectiveElement = (props: ObjectiveElementProps) => {
                     border: '2px solid rgba(0, 0, 0, 0.5)',
                     borderLeft: 'none',
                     borderRight: 'none',
-                    borderBottom: objectiveFinished ? 'none' : undefined,
+                    borderBottom: objectiveFinished ? 'none' : '',
                   }}
                   className={reputation.gradient}
                   py={0.5}

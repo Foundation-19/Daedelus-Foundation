@@ -1,5 +1,9 @@
 #define TRANSFORMATION_DURATION 22
 
+#ifndef FOV_DEFAULT
+#define FOV_DEFAULT 1
+#endif
+
 /mob/living/carbon/proc/monkeyize()
 	if (notransform || transformation_timer)
 		return
@@ -57,6 +61,14 @@
 	icon = initial(icon)
 	invisibility = 0
 	set_species(species)
+
+	// Enable vision cone for newly humanized mobs
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if(!H.fovangle)
+			H.fovangle = FOV_DEFAULT
+			H.update_cone_show()
+
 	SEND_SIGNAL(src, COMSIG_MONKEY_HUMANIZE)
 	return src
 

@@ -46,3 +46,43 @@
 #define PATHOGEN_SEVERITY_DANGEROUS "Dangerous"
 /// Diseases that can quickly kill an unprepared victim (fungal tb, gbs)
 #define PATHOGEN_SEVERITY_BIOHAZARD "BIOHAZARD"
+/// Anomalous existential threat - Keter-class pathogens
+#define PATHOGEN_SEVERITY_ANOMALOUS "ANOMALOUS"
+
+//Biosafety Level Defines
+/// BSL-1: Non-anomalous, routine handling. No special containment.
+#define BSL_1 "BSL-1"
+/// BSL-2: Anomalous but containable. Standard lab practices.
+#define BSL_2 "BSL-2"
+/// BSL-3: Dangerous anomalous. Requires containment suits, negative pressure.
+#define BSL_3 "BSL-3"
+/// BSL-4: Existential threat. Full suit, double-door decon, isolated systems.
+#define BSL_4 "BSL-4"
+
+//Transmission Type Defines
+/// Spreads through HVAC and air systems
+#define PATHOGEN_TRANSMISSION_AIRBORNE "airborne"
+/// Spreads through blood and bodily fluids
+#define PATHOGEN_TRANSMISSION_BLOOD "bloodborne"
+/// Spreads through surface contact
+#define PATHOGEN_TRANSMISSION_CONTACT "contact"
+/// Spreads through animal/insect vectors
+#define PATHOGEN_TRANSMISSION_VECTOR "vector"
+/// Spreads through water/plumbing systems
+#define PATHOGEN_TRANSMISSION_WATER "waterborne"
+/// Spreads through food/kitchen
+#define PATHOGEN_TRANSMISSION_FOOD "foodborne"
+/// Anomalous transmission - memetic, dimensional, or reality-based
+#define PATHOGEN_TRANSMISSION_ANOMALOUS "anomalous"
+
+//Pathogen Research Stage Defines
+/// Initial identification only
+#define RESEARCH_STAGE_IDENTIFIED 1
+/// Basic properties catalogued
+#define RESEARCH_STAGE_CATALOGUED 2
+/// Transmission vectors mapped
+#define RESEARCH_STAGE_MAPPED 3
+/// Countermeasures in development
+#define RESEARCH_STAGE_COUNTERMEASURE 4
+/// Cure/treatment developed
+#define RESEARCH_STAGE_CURED 5

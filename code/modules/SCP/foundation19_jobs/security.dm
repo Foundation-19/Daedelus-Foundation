@@ -54,8 +54,8 @@
 
 	id = /obj/item/card/id/advanced
 	id_trim = /datum/id_trim/job/head_of_security
-	uniform = /obj/item/clothing/under/rank/security/head_of_security
-	suit = /obj/item/clothing/suit/armor/vest/sec
+	uniform = /obj/item/clothing/under/scp/hos/lcz
+	suit = /obj/item/clothing/suit/armor/vest/scp/lczcomm
 	suit_store = /obj/item/gun/energy/e_gun/advtaser
 	backpack_contents = list(
 		/obj/item/storage/evidencebag = 1,
@@ -63,7 +63,9 @@
 	belt = /obj/item/modular_computer/tablet/pda/security
 	ears = /obj/item/radio/headset/heads/hos
 	gloves = /obj/item/clothing/gloves/color/black
-	head = /obj/item/clothing/head/helmet/sec
+	head = /obj/item/clothing/head/helmet/scp/security/lczcom
+	mask = /obj/item/clothing/mask/balaclava
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	shoes = /obj/item/clothing/shoes/jackboots
 	l_pocket = /obj/item/restraints/handcuffs
 	r_pocket = /obj/item/assembly/flash/handheld
@@ -133,8 +135,8 @@
 
 	id = /obj/item/card/id/advanced
 	id_trim = /datum/id_trim/job/head_of_security
-	uniform = /obj/item/clothing/under/rank/security/head_of_security
-	suit = /obj/item/clothing/suit/armor/vest/sec
+	uniform = /obj/item/clothing/under/scp/hos/hcz
+	suit = /obj/item/clothing/suit/armor/vest/scp/medarmor
 	suit_store = /obj/item/gun/energy/e_gun/advtaser
 	backpack_contents = list(
 		/obj/item/storage/evidencebag = 1,
@@ -142,7 +144,9 @@
 	belt = /obj/item/modular_computer/tablet/pda/security
 	ears = /obj/item/radio/headset/heads/hos
 	gloves = /obj/item/clothing/gloves/color/black
-	head = /obj/item/clothing/head/helmet/sec
+	head = /obj/item/clothing/head/helmet/scp/hczsecurityguard
+	mask = /obj/item/clothing/mask/balaclava
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	shoes = /obj/item/clothing/shoes/jackboots
 	l_pocket = /obj/item/restraints/handcuffs
 	r_pocket = /obj/item/assembly/flash/handheld
@@ -212,8 +216,8 @@
 
 	id = /obj/item/card/id/advanced
 	id_trim = /datum/id_trim/job/head_of_security
-	uniform = /obj/item/clothing/under/rank/security/head_of_security
-	suit = /obj/item/clothing/suit/armor/vest/sec
+	uniform = /obj/item/clothing/under/scp/hos/ez
+	suit = /obj/item/clothing/suit/armor/vest/scp/medarmor
 	suit_store = /obj/item/gun/energy/e_gun/advtaser
 	backpack_contents = list(
 		/obj/item/storage/evidencebag = 1,
@@ -221,7 +225,9 @@
 	belt = /obj/item/modular_computer/tablet/pda/security
 	ears = /obj/item/radio/headset/heads/hos
 	gloves = /obj/item/clothing/gloves/color/black
-	head = /obj/item/clothing/head/helmet/sec
+	head = /obj/item/clothing/head/helmet/scp/hczsecurityguard
+	mask = /obj/item/clothing/mask/balaclava
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	shoes = /obj/item/clothing/shoes/jackboots
 	l_pocket = /obj/item/restraints/handcuffs
 	r_pocket = /obj/item/assembly/flash/handheld
@@ -290,8 +296,8 @@
 	jobtype = /datum/job/lcz_guard
 
 	id_trim = /datum/id_trim/job/security_officer
-	uniform = /obj/item/clothing/under/rank/security/officer
-	suit = /obj/item/clothing/suit/armor/vest/sec
+	uniform = /obj/item/clothing/under/scp/security/lcz
+	suit = /obj/item/clothing/suit/armor/vest/scp/medarmor
 	suit_store = /obj/item/gun/energy/disabler
 	backpack_contents = list(
 		/obj/item/storage/evidencebag = 1,
@@ -299,7 +305,9 @@
 	belt = /obj/item/modular_computer/tablet/pda/security
 	ears = /obj/item/radio/headset/headset_sec/alt
 	gloves = /obj/item/clothing/gloves/color/black
-	head = /obj/item/clothing/head/helmet/sec
+	head = /obj/item/clothing/head/helmet/scp/security
+	mask = /obj/item/clothing/mask/balaclava
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	shoes = /obj/item/clothing/shoes/jackboots
 	l_pocket = /obj/item/restraints/handcuffs
 	r_pocket = /obj/item/assembly/flash/handheld
@@ -368,8 +376,8 @@
 	jobtype = /datum/job/hcz_guard
 
 	id_trim = /datum/id_trim/job/security_officer
-	uniform = /obj/item/clothing/under/rank/security/officer
-	suit = /obj/item/clothing/suit/armor/vest/sec
+	uniform = /obj/item/clothing/under/scp/security/hcz
+	suit = /obj/item/clothing/suit/armor/vest/scp/medarmor
 	suit_store = /obj/item/gun/energy/disabler
 	backpack_contents = list(
 		/obj/item/storage/evidencebag = 1,
@@ -377,7 +385,9 @@
 	belt = /obj/item/modular_computer/tablet/pda/security
 	ears = /obj/item/radio/headset/headset_sec/alt
 	gloves = /obj/item/clothing/gloves/color/black
-	head = /obj/item/clothing/head/helmet/sec
+	head = /obj/item/clothing/head/helmet/scp/hczsecurityguard
+	mask = /obj/item/clothing/mask/balaclava
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	shoes = /obj/item/clothing/shoes/jackboots
 	l_pocket = /obj/item/restraints/handcuffs
 	r_pocket = /obj/item/assembly/flash/handheld
@@ -446,8 +456,8 @@
 	jobtype = /datum/job/ez_guard
 
 	id_trim = /datum/id_trim/job/security_officer
-	uniform = /obj/item/clothing/under/rank/security/officer
-	suit = /obj/item/clothing/suit/armor/vest/sec
+	uniform = /obj/item/clothing/under/scp/security/ez
+	suit = /obj/item/clothing/suit/armor/vest/scp/medarmor
 	suit_store = /obj/item/gun/energy/disabler
 	backpack_contents = list(
 		/obj/item/storage/evidencebag = 1,
@@ -455,7 +465,9 @@
 	belt = /obj/item/modular_computer/tablet/pda/security
 	ears = /obj/item/radio/headset/headset_sec/alt
 	gloves = /obj/item/clothing/gloves/color/black
-	head = /obj/item/clothing/head/helmet/sec
+	head = /obj/item/clothing/head/helmet/scp/hczsecurityguard
+	mask = /obj/item/clothing/mask/balaclava
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	shoes = /obj/item/clothing/shoes/jackboots
 	l_pocket = /obj/item/restraints/handcuffs
 	r_pocket = /obj/item/assembly/flash/handheld
@@ -525,8 +537,8 @@
 
 	id = /obj/item/card/id/advanced
 	id_trim = /datum/id_trim/job/head_of_security
-	uniform = /obj/item/clothing/under/rank/security/head_of_security
-	suit = /obj/item/clothing/suit/armor/vest/sec
+	uniform = /obj/item/clothing/under/scp/alpha
+	suit = /obj/item/clothing/suit/armor/vest/scp/medarmor
 	suit_store = /obj/item/gun/energy/e_gun/advtaser
 	backpack_contents = list(
 		/obj/item/storage/evidencebag = 1,
@@ -534,7 +546,9 @@
 	belt = /obj/item/modular_computer/tablet/pda/security
 	ears = /obj/item/radio/headset/heads/hos
 	gloves = /obj/item/clothing/gloves/color/black
-	head = /obj/item/clothing/head/helmet/sec
+	head = /obj/item/clothing/head/helmet/scp/hczsecurityguard
+	mask = /obj/item/clothing/mask/gas/sechailer
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	shoes = /obj/item/clothing/shoes/jackboots
 	l_pocket = /obj/item/restraints/handcuffs
 	r_pocket = /obj/item/assembly/flash/handheld
@@ -603,8 +617,8 @@
 	jobtype = /datum/job/mtf_operative
 
 	id_trim = /datum/id_trim/job/security_officer
-	uniform = /obj/item/clothing/under/rank/security/officer
-	suit = /obj/item/clothing/suit/armor/vest/sec
+	uniform = /obj/item/clothing/under/scp/alpha
+	suit = /obj/item/clothing/suit/armor/vest/scp/medarmor
 	suit_store = /obj/item/gun/energy/disabler
 	backpack_contents = list(
 		/obj/item/storage/evidencebag = 1,
@@ -612,7 +626,9 @@
 	belt = /obj/item/modular_computer/tablet/pda/security
 	ears = /obj/item/radio/headset/headset_sec/alt
 	gloves = /obj/item/clothing/gloves/color/black
-	head = /obj/item/clothing/head/helmet/sec
+	head = /obj/item/clothing/head/helmet/scp/hczsecurityguard
+	mask = /obj/item/clothing/mask/gas/sechailer
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	shoes = /obj/item/clothing/shoes/jackboots
 	l_pocket = /obj/item/restraints/handcuffs
 	r_pocket = /obj/item/assembly/flash/handheld

@@ -58,7 +58,8 @@
 
 	id = /obj/item/card/id/advanced/gold
 	id_trim = /datum/id_trim/job/captain
-	uniform = /obj/item/clothing/under/suit/charcoal
+	uniform = /obj/item/clothing/under/scp/suittie
+	suit = /obj/item/clothing/suit/armor/director_coat
 	backpack_contents = list(
 		/obj/item/assembly/flash/handheld = 1
 	)
@@ -213,8 +214,8 @@
 
 	id = /obj/item/card/id/advanced/gold
 	id_trim = /datum/id_trim/job/head_of_security
-	uniform = /obj/item/clothing/under/rank/security/head_of_security
-	suit = /obj/item/clothing/suit/armor/vest/sec
+	uniform = /obj/item/clothing/under/scp/hos/guardcom
+	suit = /obj/item/clothing/suit/scp/hos/coat
 	suit_store = /obj/item/gun/energy/e_gun/advtaser
 	backpack_contents = list(
 		/obj/item/storage/evidencebag = 1,
@@ -222,8 +223,9 @@
 	belt = /obj/item/modular_computer/tablet/pda/security
 	ears = /obj/item/radio/headset/heads/hos
 	gloves = /obj/item/clothing/gloves/color/black
-	head = /obj/item/clothing/head/helmet/sec
+	head = /obj/item/clothing/head/beret/sec/guardcom
 	shoes = /obj/item/clothing/shoes/jackboots
+	mask = /obj/item/clothing/mask/balaclava
 	l_pocket = /obj/item/restraints/handcuffs
 	r_pocket = /obj/item/assembly/flash/handheld
 
@@ -295,7 +297,7 @@
 	id = /obj/item/card/id/advanced/gold
 	id_trim = /datum/id_trim/job/research_director
 	uniform = /obj/item/clothing/under/rank/rnd/research_director
-	suit = /obj/item/clothing/suit/toggle/labcoat
+	suit = /obj/item/clothing/suit/toggle/labcoat/science
 	belt = /obj/item/modular_computer/tablet/pda/heads/rd
 	ears = /obj/item/radio/headset/headset_eng
 	glasses = /obj/item/clothing/glasses/hud/diagnostic
@@ -447,10 +449,12 @@
 	id_trim = /datum/id_trim/job/chief_engineer
 	uniform = /obj/item/clothing/under/rank/engineering/chief_engineer
 	suit = /obj/item/clothing/suit/hazardvest
+	head = /obj/item/clothing/head/hardhat/white
 	belt = /obj/item/modular_computer/tablet/pda/heads/ce
 	ears = /obj/item/radio/headset/heads/ce
 	glasses = /obj/item/clothing/glasses/meson/engine
-	shoes = /obj/item/clothing/shoes/laceup
+	shoes = /obj/item/clothing/shoes/workboots
+	gloves = /obj/item/clothing/gloves/color/yellow
 
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel/eng

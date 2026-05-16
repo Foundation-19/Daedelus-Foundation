@@ -125,7 +125,7 @@
 	return list(
 		/obj/item/mop,
 		/obj/item/reagent_containers/glass/bucket,
-		/obj/item/clothing/gloves/thick,
+		/obj/item/clothing/gloves/color/black,
 		/obj/item/clothing/head/soft/purple,
 		/obj/item/clothing/head/beret/purple,
 		/obj/item/caution = 4,

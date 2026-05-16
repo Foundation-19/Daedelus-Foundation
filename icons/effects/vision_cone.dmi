@@ -1,0 +1,6 @@
+# Vision Cone Icons
+# This is a placeholder DMI file for vision cone effects
+# The actual DMI file should contain:
+# - overlay: A full-screen overlay for the vision cone effect (32x32)
+# - mask: A mask that reveals the vision cone area (32x32)
+# These should be 32x32 pixel icons with appropriate transparency

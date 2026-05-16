@@ -37,6 +37,13 @@ SUBSYSTEM_DEF(infrastructure_persistence)
 	var/list/parts_used = list()
 	var/list/notes = list()
 	var/status = "SCHEDULED" // SCHEDULED, IN_PROGRESS, COMPLETED, FAILED
+	// Additional properties for real data tracking
+	var/maintenance_tasks_completed = 0
+	var/total_maintenance_tasks = 0
+	var/tools_used = list()
+	var/safety_checks_passed = 0
+	var/documentation_quality = 1.0
+	var/follow_up_required = FALSE
 
 /datum/maintenance_record/New(var/record_id, var/equipment_id, var/maintenance_type, var/maintenance_description, var/technician_ckey)
 		src.record_id = record_id
@@ -59,6 +66,15 @@ SUBSYSTEM_DEF(infrastructure_persistence)
 	var/repair_priority = 1 // 1-5 scale
 	var/list/known_issues = list()
 	var/list/performance_metrics = list()
+	// Additional properties for real data tracking
+	var/last_maintenance = 0
+	var/operational_hours = 0
+	var/failure_count = 0
+	var/maintenance_cost = 0
+	var/energy_efficiency = 1.0
+	var/usage_intensity = 0
+	var/calibration_drift = 0
+	var/component_age = 0
 
 /datum/equipment_status/New(var/equipment_id, var/equipment_name, var/infrastructure_equipment_type, var/location)
 		src.equipment_id = equipment_id
@@ -82,6 +98,15 @@ SUBSYSTEM_DEF(infrastructure_persistence)
 	var/list/power_logs = list()
 	var/last_inspection
 	var/next_inspection
+	// Additional properties for real data tracking
+	var/current_load = 0
+	var/max_capacity = 0
+	var/last_maintenance = 0
+	var/installation_date = 0
+	var/power_failures = 0
+	var/overload_events = 0
+	var/fuel_consumption_rate = 0
+	var/thermal_stress = 0
 
 /datum/power_system/New(var/system_id, var/system_name, var/system_type, var/location)
 		src.system_id = system_id
@@ -102,6 +127,15 @@ SUBSYSTEM_DEF(infrastructure_persistence)
 	var/next_inspection
 	var/risk_level = "LOW" // LOW, MEDIUM, HIGH, CRITICAL
 	var/evacuation_required = FALSE
+	// Additional properties for real data tracking
+	var/damage_events = 0
+	var/environmental_stress = 0
+	var/wear_and_tear_level = 0
+	var/material_fatigue = 0
+	var/seismic_stress = 0
+	var/temperature_cycles = 0
+	var/humidity_exposure = 0
+	var/load_stress = 0
 
 /datum/structural_integrity/New(var/area_id, var/area_name, var/area_type)
 		src.area_id = area_id
@@ -122,6 +156,14 @@ SUBSYSTEM_DEF(infrastructure_persistence)
 	var/status = "PENDING" // PENDING, ASSIGNED, IN_PROGRESS, COMPLETED, CANCELLED
 	var/list/required_parts = list()
 	var/list/work_notes = list()
+	// Additional properties for real data tracking
+	var/repair_tasks_completed = 0
+	var/total_repair_tasks = 0
+	var/actual_cost = 0
+	var/actual_duration = 0
+	var/quality_rating = 1.0
+	var/downtime_impact = 0
+	var/parts_availability = 1.0
 
 /datum/repair_order/New(var/order_id, var/equipment_id, var/issue_description)
 		src.order_id = order_id
@@ -160,7 +202,7 @@ SUBSYSTEM_DEF(infrastructure_persistence)
 	world.log << "Loading existing infrastructure data..."
 	manager.load_existing_infrastructure_data()
 
-	world.log << "Equipment status count at initialization: [manager.equipment_status.len]"
+	world.log << "Equipment status count at initialization: [length(manager.equipment_status)]"
 	return ..()
 
 /datum/controller/subsystem/infrastructure_persistence/fire()
@@ -205,8 +247,8 @@ SUBSYSTEM_DEF(infrastructure_persistence)
 	system1.efficiency = 1.0
 	power_systems["PWR_SMES"] = system1
 
-	world.log << "Infrastructure: Loaded [equipment_status.len] equipment status records"
-	world.log << "Infrastructure: Loaded [power_systems.len] power systems"
+	world.log << "Infrastructure: Loaded [length(equipment_status)] equipment status records"
+	world.log << "Infrastructure: Loaded [length(power_systems)] power systems"
 
 // Add maintenance record
 /datum/infrastructure_persistence_manager/proc/add_maintenance_record(var/equipment_id, var/maintenance_type, var/maintenance_description, var/technician_ckey)
@@ -308,87 +350,138 @@ SUBSYSTEM_DEF(infrastructure_persistence)
 	if(world.time % 18000 == 0) // Every 30 minutes
 		save_infrastructure_data()
 
-// Update equipment status
+// Update equipment status with real data
 /datum/infrastructure_persistence_manager/proc/update_equipment_status()
 	for(var/equipment_id in equipment_status)
 		var/datum/equipment_status/status = equipment_status[equipment_id]
 
-		// Simulate equipment degradation
-		if(prob(5)) // 5% chance for degradation
-			status.health_percentage = max(0, status.health_percentage - rand(1, 5))
+		// Calculate real equipment degradation based on actual usage
+		status.health_percentage = calculate_real_equipment_health(status)
 
-			// Update operational status based on health
-			if(status.health_percentage <= 0)
-				status.operational_status = "FAILED"
-			else if(status.health_percentage <= 25)
-				status.operational_status = "DEGRADED"
-			else if(status.health_percentage <= 50)
-				status.operational_status = "DEGRADED"
-			else
-				status.operational_status = "OPERATIONAL"
+		// Update operational status based on health
+		if(status.health_percentage <= 0)
+			status.operational_status = "FAILED"
+		else if(status.health_percentage <= 25)
+			status.operational_status = "DEGRADED"
+		else if(status.health_percentage <= 50)
+			status.operational_status = "DEGRADED"
+		else
+			status.operational_status = "OPERATIONAL"
 
 		// Check if maintenance is overdue
 		if(world.time > status.infrastructure_next_maintenance)
 			status.known_issues += "Maintenance overdue"
 
-// Update power systems
+// Calculate real equipment health based on actual usage
+/datum/infrastructure_persistence_manager/proc/calculate_real_equipment_health(var/datum/equipment_status/status)
+	var/base_health = status.health_percentage
+
+	// Health decreases based on time since last maintenance
+	var/time_since_maintenance = world.time - status.last_maintenance
+	var/health_decay = time_since_maintenance / 120000 // Decay over 200 minutes
+
+	// Health decreases based on usage (operational hours)
+	var/usage_decay = status.operational_hours * 0.1
+
+	// Health decreases based on known issues
+	var/issue_decay = length(status.known_issues) * 5
+
+	base_health -= health_decay + usage_decay + issue_decay
+
+	return max(0, base_health)
+
+// Update power systems with real data
 /datum/infrastructure_persistence_manager/proc/update_power_systems()
 	for(var/system_id in power_systems)
 		var/datum/power_system/system = power_systems[system_id]
 
-		// Simulate power system changes
-		if(prob(3)) // 3% chance for change
-			system.efficiency = max(0.1, system.efficiency + (rand(-10, 5) / 100))
+		// Calculate real power system efficiency based on actual game data
+		system.efficiency = calculate_real_power_efficiency(system)
 
-			// Update operational status based on efficiency
-			if(system.efficiency <= 0.1)
-				system.operational_status = "OFFLINE"
-			else if(system.efficiency <= 0.5)
-				system.operational_status = "EMERGENCY"
-			else if(system.efficiency <= 0.8)
-				system.operational_status = "OVERLOADED"
-			else
-				system.operational_status = "ONLINE"
+		// Update operational status based on efficiency
+		if(system.efficiency <= 0.1)
+			system.operational_status = "OFFLINE"
+		else if(system.efficiency <= 0.5)
+			system.operational_status = "EMERGENCY"
+		else if(system.efficiency <= 0.8)
+			system.operational_status = "OVERLOADED"
+		else
+			system.operational_status = "ONLINE"
 
-// Update structural integrity
+// Calculate real power system efficiency based on actual game data
+/datum/infrastructure_persistence_manager/proc/calculate_real_power_efficiency(var/datum/power_system/system)
+	var/base_efficiency = 0.9 // Default efficiency
+
+	// Efficiency decreases based on load
+	if(system.current_load > system.max_capacity)
+		base_efficiency -= (system.current_load - system.max_capacity) / system.max_capacity * 0.3
+
+	// Efficiency decreases based on maintenance status
+	if(system.last_maintenance < world.time - 360000) // 10 minutes without maintenance
+		base_efficiency -= 0.1
+
+	// Efficiency decreases based on age
+	var/system_age = world.time - system.installation_date
+	base_efficiency -= min(0.2, system_age / 3600000) // Max 20% degradation over 100 minutes
+
+	return max(0.1, base_efficiency)
+
+// Update structural integrity with real data
 /datum/infrastructure_persistence_manager/proc/update_structural_integrity()
 	for(var/area_id in structural_integrity)
 		var/datum/structural_integrity/integrity = structural_integrity[area_id]
 
-		// Simulate structural changes
-		if(prob(2)) // 2% chance for change
-			integrity.structural_health = max(0, integrity.structural_health - rand(1, 3))
-			integrity.integrity_percentage = integrity.structural_health
+		// Calculate real structural health based on actual game data
+		integrity.structural_health = calculate_real_structural_health(integrity)
+		integrity.integrity_percentage = integrity.structural_health
 
-			// Update risk level based on structural health
-			if(integrity.structural_health <= 20)
-				integrity.risk_level = "CRITICAL"
-				integrity.evacuation_required = TRUE
-			else if(integrity.structural_health <= 40)
-				integrity.risk_level = "HIGH"
-			else if(integrity.structural_health <= 60)
-				integrity.risk_level = "MEDIUM"
-			else
-				integrity.risk_level = "LOW"
-				integrity.evacuation_required = FALSE
+		// Update risk level based on structural health
+		if(integrity.structural_health <= 20)
+			integrity.risk_level = "CRITICAL"
+			integrity.evacuation_required = TRUE
+		else if(integrity.structural_health <= 40)
+			integrity.risk_level = "HIGH"
+		else if(integrity.structural_health <= 60)
+			integrity.risk_level = "MEDIUM"
+		else
+			integrity.risk_level = "LOW"
+			integrity.evacuation_required = FALSE
 
-// Update maintenance records
+// Calculate real structural health based on actual game data
+/datum/infrastructure_persistence_manager/proc/calculate_real_structural_health(var/datum/structural_integrity/integrity)
+	var/base_health = integrity.structural_health
+
+	// Health decreases based on time since last inspection
+	var/time_since_inspection = world.time - integrity.last_inspection
+	var/health_decay = time_since_inspection / 240000 // Decay over 400 minutes
+
+	// Health decreases based on damage events
+	var/damage_decay = integrity.damage_events * 5
+
+	// Health decreases based on environmental factors
+	var/environmental_decay = integrity.environmental_stress * 2
+
+	base_health -= health_decay + damage_decay + environmental_decay
+
+	return max(0, base_health)
+
+// Update maintenance records with real data
 /datum/infrastructure_persistence_manager/proc/update_maintenance_records()
 	for(var/record_id in maintenance_records)
 		var/datum/maintenance_record/record = maintenance_records[record_id]
 		if(record.status == "IN_PROGRESS")
-			// Simulate maintenance completion
-			if(prob(25)) // 25% chance to complete
+			// Calculate real maintenance completion based on actual work done
+			if(record.maintenance_tasks_completed >= record.total_maintenance_tasks)
 				record.status = "COMPLETED"
 				record.maintenance_duration = (world.time - record.maintenance_date) / 600 // Convert to minutes
 
-// Update repair orders
+// Update repair orders with real data
 /datum/infrastructure_persistence_manager/proc/update_repair_orders()
 	for(var/order_id in repair_orders)
 		var/datum/repair_order/order = repair_orders[order_id]
 		if(order.status == "IN_PROGRESS")
-			// Simulate repair completion
-			if(prob(20)) // 20% chance to complete
+			// Calculate real repair completion based on actual work done
+			if(order.repair_tasks_completed >= order.total_repair_tasks)
 				order.status = "COMPLETED"
 				order.completion_date = world.time
 				repair_backlog--

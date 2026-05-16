@@ -87,6 +87,8 @@
 
 /datum/preference/blob/job_priority/user_edit(mob/user, datum/preferences/prefs, list/params)
 	var/datum/job/job = SSjob.GetJob(params["job"])
+	if(!job && params["set_job_high"])
+		job = SSjob.GetJob(params["set_job_high"])
 	if(!job)
 		return
 
@@ -95,6 +97,19 @@
 
 	if(!can_play_job(prefs, job.title))
 		return FALSE
+
+	if(params["set_job_high"])
+		var/list/job_prefs = prefs.read_preference(type)
+		var/datum/job/overflow_role = SSjob.overflow_role
+		var/overflow_role_title = initial(overflow_role.title)
+		for(var/other_job in job_prefs)
+			if(job_prefs[other_job] == JP_HIGH)
+				if(other_job == overflow_role_title)
+					job_prefs[other_job] = null
+				else
+					job_prefs[other_job] = JP_MEDIUM
+		job_prefs[job.title] = JP_HIGH
+		return prefs.update_preference(src, job_prefs)
 
 	var/list/job_prefs = prefs.read_preference(type)
 	var/list/choices = list("Never", "Low", "Medium", "High")
