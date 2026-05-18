@@ -855,6 +855,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	name = "broken floor"
 	icon = 'icons/turf/damage.dmi'
 	icon_state = "damaged1"
+	layer = ABOVE_NORMAL_TURF_LAYER
 	late = TRUE
 
 /obj/effect/mapping_helpers/broken_floor/LateInitialize()
@@ -866,6 +867,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	name = "burnt floor"
 	icon = 'icons/turf/damage.dmi'
 	icon_state = "floorscorched1"
+	layer = ABOVE_NORMAL_TURF_LAYER
 	late = TRUE
 
 /obj/effect/mapping_helpers/burnt_floor/LateInitialize()

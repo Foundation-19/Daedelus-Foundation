@@ -58,6 +58,10 @@
 	name = "\improper LCZ Hallway"
 	icon_state = "primaryhall"
 
+/area/station/commons/lcz/offices
+	name = "\improper LCZ Offices"
+	icon_state = "vacant_office"
+
 /area/station/security/lcz
 	name = "\improper LCZ Security Post"
 	icon_state = "security"

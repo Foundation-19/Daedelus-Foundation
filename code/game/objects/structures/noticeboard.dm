@@ -1,4 +1,4 @@
-#define MAX_NOTICES 5
+#define MAX_NOTICES 8
 
 /obj/structure/noticeboard
 	name = "notice board"
