@@ -786,7 +786,7 @@
 	icon = 'icons/scp/ikea.dmi'
 	icon_state = "staff"
 	icon_living = "staff"
-	icon_dead = "staff_dead"
+	icon_dead = "staff"
 	health = 100
 	maxHealth = 100
 	melee_damage_lower = 15
@@ -815,9 +815,9 @@
 	name = "IKEA Security"
 	desc = "A hostile IKEA security guard. They're armed and dangerous."
 	icon = 'icons/scp/ikea.dmi'
-	icon_state = "security"
-	icon_living = "security"
-	icon_dead = "security_dead"
+	icon_state = "staff_heavy"
+	icon_living = "staff_heavy"
+	icon_dead = "staff"
 	health = 150
 	maxHealth = 150
 	melee_damage_lower = 20
@@ -832,15 +832,15 @@
 
 /mob/living/simple_animal/hostile/ikea_security/Initialize()
 	. = ..()
-	icon_state = pick("security", "security2", "security_armed")
+	icon_state = pick("staff", "staff_heavy")
 
 /mob/living/simple_animal/hostile/ikea_manager
 	name = "IKEA Manager"
 	desc = "A hostile IKEA manager. They seem to be in charge and very aggressive."
 	icon = 'icons/scp/ikea.dmi'
-	icon_state = "manager"
-	icon_living = "manager"
-	icon_dead = "manager_dead"
+	icon_state = "staff_heavy"
+	icon_living = "staff_heavy"
+	icon_dead = "staff_heavy"
 	health = 200
 	maxHealth = 200
 	melee_damage_lower = 25
@@ -855,7 +855,7 @@
 
 /mob/living/simple_animal/hostile/ikea_manager/Initialize()
 	. = ..()
-	icon_state = "manager"
+	icon_state = "staff_heavy"
 
 /obj/effect/landmark/ikea_entrance
 	name = "IKEA Entrance"
@@ -866,14 +866,14 @@
 /obj/structure/bed/ikea
 	name = "IKEA Bed"
 	desc = "A comfortable IKEA bed. It looks well-made."
-	icon = 'icons/obj/structures.dmi'
+	icon = 'icons/obj/objects.dmi'
 	icon_state = "bed"
 
 /obj/structure/closet/wardrobe/ikea
 	name = "IKEA Wardrobe"
 	desc = "A stylish IKEA wardrobe."
 	icon = 'icons/obj/closet.dmi'
-	icon_state = "wardrobe"
+	icon_state = "generic"
 
 /obj/structure/table/wood/ikea
 	name = "Wooden Table"
@@ -885,7 +885,7 @@
 	name = "IKEA Section Sign"
 	desc = "A sign indicating the IKEA section."
 	icon = 'icons/obj/decals.dmi'
-	icon_state = "sign"
+	icon_state = "nanotrasen_sign1"
 	var/section_name = "IKEA Section"
 
 /obj/structure/sign/ikea/New(loc, new_section_name)
@@ -899,13 +899,13 @@
 	name = "Display Case"
 	desc = "A glass display case for showcasing products."
 	icon = 'icons/obj/structures.dmi'
-	icon_state = "display_case"
+	icon_state = "safe"
 
 /obj/structure/plant_pot
 	name = "Plant Pot"
 	desc = "A decorative plant pot with artificial plants."
 	icon = 'icons/obj/structures.dmi'
-	icon_state = "plant_pot"
+	icon_state = "safe"
 
 /mob/living/carbon/human/proc/escape_ikea()
 	set name = "Try to Escape IKEA"
@@ -1094,13 +1094,13 @@
 	name = "Survivor Shelter Sign"
 	desc = "A makeshift sign indicating a survivor shelter. Safe from staff during the day."
 	icon = 'icons/obj/decals.dmi'
-	icon_state = "sign"
+	icon_state = "nanotrasen_sign1"
 
 /obj/structure/ikea_clock
 	name = "IKEA Wall Clock"
 	desc = "A large wall clock. The hands seem to move at their own pace..."
-	icon = 'icons/obj/structures.dmi'
-	icon_state = "clock"
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "servicebell"
 	anchored = TRUE
 	density = FALSE
 	var/datum/ikea_interior/linked_interior

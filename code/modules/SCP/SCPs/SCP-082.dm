@@ -16,7 +16,7 @@
 	name = "SCP-082"
 	desc = "A large, well-mannered humanoid standing nearly two and a half meters tall. He carries himself with an air of quiet dignity."
 	icon = 'icons/scp/scp-082.dmi'
-	icon_state = "humanoid"
+	icon_state = "082_fullbody"
 	real_name = "SCP-082"
 	status_flags = 0
 
@@ -45,6 +45,10 @@
 	health = maxHealth
 
 	grant_language(/datum/language/common, TRUE, TRUE)
+
+/mob/living/scp/scp082/scp_death()
+	icon_state = "082-dead"
+	..()
 
 	START_PROCESSING(SSobj, src)
 

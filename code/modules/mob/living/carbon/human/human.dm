@@ -837,6 +837,19 @@
 			dna.remove_mutation(HM.name)
 	set_coretemperature(get_body_temp_normal(apply_change=FALSE))
 
+	if(sanity)
+		sanity.sanity_level = sanity.max_sanity
+		sanity.hallucination_level = 0
+		sanity.insanity_level = 0
+		sanity.scp_exposures.Cut()
+		sanity.social_isolation = 0
+		sanity.traumas.Cut()
+		sanity.insanity_effects.Cut()
+		sanity.current_sanity_state = SANITY_NEUTRAL
+		sanity.previous_sanity_state = SANITY_NEUTRAL
+		sanity.clear_all_visual_effects()
+		sanity.update_sanity()
+
 	. = ..()
 	for(var/obj/item/bodypart/BP as anything in bodyparts)
 		for(var/datum/wound/W as anything in BP.wounds)

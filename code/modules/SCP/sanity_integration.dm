@@ -407,3 +407,73 @@
 			effectiveness += 0.05
 
 	return max(0.1, effectiveness)
+
+// SCP-073 Sanity Integration
+/mob/living/scp/scp073/proc/affect_proximity_sanity()
+	for(var/mob/living/carbon/human/H in range(5, src))
+		if(H.stat == DEAD || !H.sanity)
+			continue
+		if(H.sanity)
+			H.sanity.add_trauma(TRAUMA_PSYCHOLOGICAL, 3)
+		if(prob(10))
+			to_chat(H, "<span class='warning'>An unnatural decay clings to the air around you...</span>")
+
+// SCP-076 Sanity Integration
+/mob/living/scp/scp076/proc/affect_combat_sanity(mob/living/carbon/human/victim)
+	if(!victim || !victim.sanity)
+		return
+	if(victim.sanity)
+		victim.sanity.add_trauma(TRAUMA_VIOLENCE, 20)
+		victim.sanity.add_trauma(TRAUMA_PSYCHOLOGICAL, 10)
+	victim.sanity.hallucination_level = min(victim.sanity.hallucination_level + 15, victim.sanity.max_hallucination)
+
+/mob/living/scp/scp076/proc/affect_rage_aura()
+	if(current_state != "active")
+		return
+	for(var/mob/living/carbon/human/H in range(7, src))
+		if(H.stat == DEAD || !H.sanity)
+			continue
+		if(H.sanity)
+			H.sanity.add_trauma(TRAUMA_VIOLENCE, 2)
+		if(prob(5))
+			to_chat(H, "<span class='warning'>An overwhelming bloodlust fills your mind!</span>")
+
+// SCP-105 Sanity Integration
+/mob/living/scp/scp105/proc/affect_nearby_sanity()
+	for(var/mob/living/carbon/human/H in range(3, src))
+		if(H.stat == DEAD || !H.sanity)
+			continue
+		if(prob(8))
+			H.sanity.hallucination_level = min(H.sanity.hallucination_level + 2, H.sanity.max_hallucination)
+
+// SCP-408 Sanity Integration
+/mob/living/scp/scp408/proc/affect_perception_sanity()
+	if(swarm_state == "dormant")
+		return
+	for(var/mob/living/carbon/human/H in range(disruption_range, src))
+		if(H.stat == DEAD || !H.sanity)
+			continue
+		var/intensity = 1
+		if(swarm_state == "active")
+			intensity = 3
+		else if(swarm_state == "swarm")
+			intensity = 5
+		if(H.sanity)
+			H.sanity.hallucination_level = min(H.sanity.hallucination_level + intensity, H.sanity.max_hallucination)
+		if(prob(intensity * 2))
+			H.sanity.add_trauma(TRAUMA_PSYCHOLOGICAL, 1)
+
+// SCP-1128 Sanity Integration
+/mob/living/scp/scp1128/proc/affect_water_sanity()
+	for(var/ckey in aware_victims)
+		var/mob/living/carbon/human/H = GLOB.directory[ckey]
+		if(!H || H.stat == DEAD || !H.sanity)
+			continue
+		var/turf/T = get_turf(H)
+		if(!T || !istype(T, /turf/open/water))
+			continue
+		if(H.sanity)
+			H.sanity.add_trauma(TRAUMA_SCP_EXPOSURE, 5)
+		H.sanity.hallucination_level = min(H.sanity.hallucination_level + 8, H.sanity.max_hallucination)
+		if(prob(10))
+			to_chat(H, "<span class='danger'>You feel something watching you from beneath the water!</span>")

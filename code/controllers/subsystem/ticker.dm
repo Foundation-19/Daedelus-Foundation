@@ -268,6 +268,9 @@ SUBSYSTEM_DEF(ticker)
 
 	CHECK_TICK
 
+	if(SSmapping.config?.map_name == "Site 53")
+		fix_site53_spawns()
+
 	//Shuffle the order of spawn points so they dont always predictably spawn bottom-up and right-to-left
 	GLOB.start_landmarks_list = shuffle(GLOB.start_landmarks_list)
 	for(var/name in GLOB.start_landmarks_by_name)

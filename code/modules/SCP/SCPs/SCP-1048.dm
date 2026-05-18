@@ -5,9 +5,9 @@
 	name = "SCP-1048"
 	desc = "A small, soft teddy bear with button eyes. It looks adorable and harmless."
 	icon = 'icons/scp/scp-1048.dmi'
-	icon_state = "bear"
-	icon_living = "bear"
-	icon_dead = "bear_dead"
+	icon_state = "scp-1048-A"
+	icon_living = "scp-1048-A"
+	icon_dead = "scp-1048-A"
 	maxHealth = 50
 	health = 50
 	density = FALSE

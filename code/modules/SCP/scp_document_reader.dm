@@ -6,7 +6,7 @@
 	name = "SCP Foundation Terminal"
 	desc = "A secure handheld terminal for accessing SCP Foundation documentation. Clearance level required."
 	icon = 'icons/obj/pda.dmi'
-	icon_state = "pda"
+	icon_state = "pda_base"
 	w_class = WEIGHT_CLASS_SMALL
 	var/list/unlocked_documents = list()
 	var/reader_clearance = 1
@@ -194,6 +194,31 @@
 			data["special_containment_procedures"] = "SCP-1981 is to be stored in a secure media locker at Site-45. Viewing is restricted to Level 3 personnel and above, and must be conducted in a monitored observation room. All copies of SCP-1981 are to be catalogued. No recording equipment is to be used during viewing without explicit authorization."
 			data["description"] = "SCP-1981 is a standard Betamax tape labeled 'RONALD REAGAN CUT UP WHILE TALKING.' When played, it displays a recording of a presidential address by Ronald Reagan. Over the course of the recording, Reagan's body begins to spontaneously suffer severe lacerations, dismemberment, and mutilation while he continues to speak calmly. The content of the speech varies between viewings and frequently references events that have not yet occurred."
 			data["addenda"] = list("Addendum 1981-1: Several statements made by the Reagan figure in SCP-1981 have since been verified as accurate predictions of future events, including ████████████ and the ███████ incident of 20██.", "Addendum 1981-2: Viewing SCP-1981 for extended periods causes subjects to experience vivid nightmares of self-mutilation. Two subjects have attempted to recreate the injuries depicted in the tape.")
+		if("SCP-073")
+			data["object_class"] = "Euclid"
+			data["special_containment_procedures"] = "SCP-073 is to be kept in a standard humanoid containment chamber. No physical contact is permitted without Level 3 authorization. A 5-meter flora exclusion zone must be maintained around the containment area. Under no circumstances should personnel attack SCP-073, as all damage is reflected upon the attacker."
+			data["description"] = "SCP-073 is a male humanoid of dark complexion wearing a business suit. Any physical harm inflicted upon SCP-073 is reflected back onto the attacker with equal force. Plant life within a 3-meter radius of SCP-073 withers and dies. Direct skin contact causes temporary memory disruption in the touched individual."
+			data["addenda"] = list("Addendum 073-1: During a containment breach, a security officer attempted to subdue SCP-073 with a baton. The officer's arm was fractured in the exact location he struck SCP-073. This effect has been consistently replicated.", "Addendum 073-2: SCP-073 has expressed willingness to assist Foundation personnel with manual labor, provided it is treated with respect. This arrangement is under review by the Ethics Committee.")
+		if("SCP-076")
+			data["object_class"] = "Keter"
+			data["special_containment_procedures"] = "SCP-076-1 (a stone sarcophagus) is to be kept in a reinforced containment chamber with 2m thick walls and a heavy blast door. Six armed security personnel must be stationed at the containment area at all times. When SCP-076-2 emerges, all personnel must evacuate and seal the chamber."
+			data["description"] = "SCP-076 consists of two components: SCP-076-1, a large stone sarcophagus, and SCP-076-2, a muscular humanoid entity that emerges from within. SCP-076-2 possesses superhuman speed, strength, and resilience. It is extremely hostile and will attack any human on sight. Upon death, SCP-076-2's body dissolves and it eventually reconstitutes within SCP-076-1. It can summon weapons from thin air and enters enhanced rage states when wounded."
+			data["addenda"] = list("Addendum 076-1: SCP-076-2 has been killed and recontained 5 times in a single quarter. Each time, it adapted its combat style. Mobile Task Force Omega-7 ('Pandora's Box') has been proposed for controlled engagement.", "Addendum 076-2: After 5 respawns per shift, SCP-076-2 does not re-emerge. The sarcophagus goes dormant for an extended period. Research into the mechanism is ongoing.")
+		if("SCP-105")
+			data["object_class"] = "Safe"
+			data["special_containment_procedures"] = "SCP-105 is to be kept in a standard humanoid containment chamber. Access to security cameras must be restricted when SCP-105 is outside containment. Supervised recreational time may be authorized by Level 2 personnel."
+			data["description"] = "SCP-105 is a young woman with blonde hair who possesses the ability to perceive through and create portals via camera feeds. By looking through a security camera, SCP-105 can open a two-way portal between her location and the camera's location. Portals persist for a limited duration and can be closed at will."
+			data["addenda"] = list("Addendum 105-1: SCP-105 has demonstrated consistent cooperation with Foundation personnel and has expressed a desire to assist with containment operations. A proposal for SCP-105 integration into MTF operations is under review.", "Addendum 105-2: During testing, SCP-105 successfully retrieved an object from a sealed chamber through a portal opened via a camera feed. The potential for rescue operations is being evaluated.")
+		if("SCP-408")
+			data["object_class"] = "Euclid"
+			data["special_containment_procedures"] = "SCP-408 is to be kept in a climate-controlled containment chamber with mesh screens. Personnel must wear protective eyewear in the containment area. Visual disruption effects can cause disorientation and hallucinations proportional to the swarm's size."
+			data["description"] = "SCP-408 is a swarm of iridescent butterflies numbering between 100 and 500 individuals. The swarm exhibits collective intelligence and can become invisible at will. At larger swarm sizes, SCP-408 can disrupt the visual perception of nearby humans, causing hallucinations and disorientation. Paradoxically, the swarm also possesses a healing aura when at full strength."
+			data["addenda"] = list("Addendum 408-1: When SCP-408 enters 'swarm' state (350+ individuals), it has been observed to settle on injured personnel, apparently healing minor wounds. Whether this is intentional or incidental behavior is under investigation.", "Addendum 408-2: Attempts to separate individual butterflies from the swarm result in the separated individuals becoming inert. They reanimate when returned to proximity with the swarm.")
+		if("SCP-1128")
+			data["object_class"] = "Euclid"
+			data["special_containment_procedures"] = "SCP-1128 is an infohazard. Knowledge of SCP-1128's nature makes individuals vulnerable. Personnel must NOT be informed about SCP-1128 without O5 approval. Personnel who are aware of SCP-1128 must avoid submersion in water at all times. No water sources are permitted in containment areas."
+			data["description"] = "SCP-1128 is an aquatic predator that manifests when individuals who know of its existence are submerged in water. The entity appears as a massive, tentacled horror beneath the water's surface. It will grab, drown, and maul aware victims. SCP-1128 demanifests after approximately 30-60 seconds. Examining SCP-1128 directly causes the observer to become a potential victim."
+			data["addenda"] = list("Addendum 1128-1: During a breach, SCP-1128 manifested in the facility's water treatment area after a researcher accidentally viewed classified documentation. Three personnel were killed before the water was drained.", "Addendum 1128-2: Class-A amnestics administered to personnel who learned of SCP-1128 during breaches have proven effective in removing their vulnerability. This is now standard post-breach protocol.")
 
 	return data
 
@@ -314,4 +339,14 @@
 			return "ITEM #: SCP-3008<br><br>OBJECT CLASS: Euclid<br><br>SPECIAL CONTAINMENT PROCEDURES: Monitored at its location in Sweden. Perimeter established. No entry without Level 3 approval and tethered kit.<br><br>DESCRIPTION: An IKEA retail unit. The entrance leads to an infinite extradimensional space resembling an IKEA interior. Hostile entities (SCP-3008-2) emerge during 'lights out' periods."
 		if("SCP-1981")
 			return "ITEM #: SCP-1981<br><br>OBJECT CLASS: Euclid<br><br>SPECIAL CONTAINMENT PROCEDURES: Stored in a secure media locker at Site-45. Viewing restricted to Level 3+. No unauthorized recording equipment.<br><br>DESCRIPTION: A Betamax tape showing Ronald Reagan suffering spontaneous lacerations and dismemberment while continuing to speak calmly. Speech content varies between viewings and frequently references events that have not yet occurred."
+		if("SCP-073")
+			return "ITEM #: SCP-073<br><br>OBJECT CLASS: Euclid<br><br>SPECIAL CONTAINMENT PROCEDURES: Standard humanoid containment. No physical contact without Level 3 authorization. 5-meter flora exclusion zone. Do NOT attack — all damage is reflected.<br><br>DESCRIPTION: A male humanoid. Any harm inflicted is reflected upon the attacker. Plant life withers in proximity. Skin contact causes memory disruption."
+		if("SCP-076")
+			return "ITEM #: SCP-076<br><br>OBJECT CLASS: Keter<br><br>SPECIAL CONTAINMENT PROCEDURES: Sarcophagus in reinforced chamber with 2m walls. Six armed guards at all times. Evacuate when SCP-076-2 emerges.<br><br>DESCRIPTION: A stone sarcophagus (SCP-076-1) and a hostile humanoid warrior (SCP-076-2) that emerges from it. Superhuman speed, strength, and resilience. Respawns after death. Summons weapons from thin air."
+		if("SCP-105")
+			return "ITEM #: SCP-105<br><br>OBJECT CLASS: Safe<br><br>SPECIAL CONTAINMENT PROCEDURES: Standard humanoid containment. Restrict camera access when outside containment. Supervised recreation with Level 2 approval.<br><br>DESCRIPTION: A young woman who can perceive through and create portals via camera feeds. Two-way portals persist for a limited duration."
+		if("SCP-408")
+			return "ITEM #: SCP-408<br><br>OBJECT CLASS: Euclid<br><br>SPECIAL CONTAINMENT PROCEDURES: Climate-controlled chamber with mesh screens. Protective eyewear mandatory. Visual disruption causes hallucinations.<br><br>DESCRIPTION: A swarm of iridescent butterflies (100-500 individuals) with collective intelligence. Can become invisible. Disrupts visual perception. Possesses a healing aura at full swarm strength."
+		if("SCP-1128")
+			return "ITEM #: SCP-1128<br><br>OBJECT CLASS: Euclid<br><br>SPECIAL CONTAINMENT PROCEDURES: INFOHAZARD — Knowledge of SCP-1128 makes you vulnerable. Avoid water submersion if aware. No water sources in containment areas.<br><br>DESCRIPTION: An aquatic predator that manifests when aware individuals are submerged in water. Appears as a massive tentacled horror. Grabs, drowns, and mauls victims. Demanifests after 30-60 seconds."
 	return "DOCUMENT PARTIALLY REDACTED<br><br>The remainder of this document has been classified or damaged beyond readability."

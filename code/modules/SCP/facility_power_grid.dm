@@ -54,7 +54,7 @@
 
 SUBSYSTEM_DEF(facility_power)
 	name = "Facility Power"
-	wait = 20
+	wait = 200
 	var/list/power_zones = list()
 	var/total_grid_integrity = 100
 	var/cascade_failure_active = FALSE

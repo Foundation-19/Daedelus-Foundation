@@ -22,7 +22,7 @@
 /obj/vehicle/ridden/foundation_transport/bike
 	name = "Foundation Scout Bike"
 	desc = "A lightweight motorcycle used for rapid surface patrol."
-	icon_state = "bike"
+	icon_state = "pussywagon"
 	max_integrity = 150
 
 /obj/vehicle/ridden/foundation_transport/bike/Initialize(mapload)

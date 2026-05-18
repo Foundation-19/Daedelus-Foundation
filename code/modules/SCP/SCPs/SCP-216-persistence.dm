@@ -17,11 +17,7 @@
 			var/original_code = item_data["original_code"]
 
 			if(prob(50)) // 50% chance for random physical appearance
-				var/turf/reappearance_turf = pick(get_area_turfs(/area/station)) // Random station turf
-				if(!reappearance_turf && length(GLOB.all_scp216s)) // Fallback if no station turf, try a safe's turf
-					reappearance_turf = get_turf(pick(GLOB.all_scp216s))
-				if(!reappearance_turf) // Final fallback if still no turf
-					reappearance_turf = get_safe_random_station_turf() // Fallback to world turf
+				var/turf/reappearance_turf = get_safe_random_station_turf()
 
 				if(reappearance_turf && ispath(item_path, /atom/movable))
 					var/atom/movable/reappeared_item = new item_path(reappearance_turf)

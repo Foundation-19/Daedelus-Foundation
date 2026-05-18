@@ -5,6 +5,18 @@
 	status_flags = 0
 	hud_possible = list()
 	hud_type = /datum/hud
+	var/obj_damage = 50
+	melee_damage_lower = 15
+	melee_damage_upper = 25
+	var/melee_damage_type = BRUTE
+	var/environment_smash = ENVIRONMENT_SMASH_WALLS
+	var/friendly_verb_continuous = "nudges"
+	var/friendly_verb_simple = "nudge"
+	var/attack_verb_continuous = "attacks"
+	var/attack_verb_simple = "attack"
+	var/attack_sound = 'sound/weapons/punch1.ogg'
+	var/sharpness = NONE
+	var/armor_penetration = 10
 
 	var/containment_status = "contained"
 	var/breach_count = 0

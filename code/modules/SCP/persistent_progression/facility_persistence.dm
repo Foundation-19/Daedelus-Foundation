@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(facility_persistence)
 	name = "Facility Persistence"
-	wait = 600 // Check every 10 seconds
+	wait = 3000
 	priority = FIRE_PRIORITY_PERSISTENT_PROGRESSION
 	var/datum/facility_persistence_manager/manager
 
@@ -33,22 +33,24 @@ SUBSYSTEM_DEF(facility_persistence)
 	var/containment_stability = 100
 
 /datum/facility_persistence_manager/proc/process_facility()
-	// Update facility states
-	update_room_states()
-	update_equipment_status()
-	update_security_systems()
-	update_power_grid()
-	update_environmental_conditions()
-	update_containment_chambers()
-	update_research_labs()
-	update_medical_facilities()
-	update_engineering_systems()
-
-	// Calculate overall facility health
-	calculate_facility_health()
-
-	// Save data periodically
-	if(world.time % 3000 == 0) // Every 5 minutes
+	facility_age++
+	var/operational_apcs = 0
+	var/total_apcs = 0
+	for(var/obj/machinery/power/apc/A as anything in INSTANCES_OF(/obj/machinery/power/apc))
+		total_apcs++
+		if(A.operating)
+			operational_apcs++
+	power_efficiency = total_apcs > 0 ? operational_apcs / total_apcs : 0
+	var/breached_scp = 0
+	var/total_scp = 0
+	for(var/mob/living/scp/S in GLOB.mob_list)
+		total_scp++
+		if(S.containment_status == "breached")
+			breached_scp++
+	containment_stability = total_scp > 0 ? (1 - breached_scp / total_scp) * 100 : 100
+	facility_health = (power_efficiency * 40) + (containment_stability * 0.6)
+	maintenance_level = facility_health
+	if(world.time % 3000 == 0)
 		save_facility_data()
 
 /datum/facility_persistence_manager/proc/update_room_states()

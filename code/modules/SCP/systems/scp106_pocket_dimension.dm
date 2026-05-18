@@ -43,7 +43,7 @@
 	name = "impossible wall"
 	desc = "A wall that shouldn't exist. It shifts and writhes."
 	icon = 'icons/turf/walls.dmi'
-	icon_state = "rock"
+	icon_state = "icerock"
 
 /datum/pocket_dimension_generator
 	var/dimension_size = 15
@@ -319,7 +319,7 @@
 	name = "tear in reality"
 	desc = "A shimmering tear in the fabric of this pocket dimension. Freedom, or a trap?"
 	icon = 'icons/effects/effects.dmi'
-	icon_state = "blue_electricity_constant"
+	icon_state = "electricity"
 	anchored = TRUE
 	layer = OBJ_LAYER
 	var/escape_chance = 10
@@ -373,7 +373,7 @@
 	name = "pool of corrosive liquid"
 	desc = "A bubbling pool of dark, corrosive liquid."
 	icon = 'icons/effects/effects.dmi'
-	icon_state = "greyscale_smoke"
+	icon_state = "smoke"
 
 /obj/effect/pocket_dimension_hazard/acid_pool/Initialize()
 	. = ..()

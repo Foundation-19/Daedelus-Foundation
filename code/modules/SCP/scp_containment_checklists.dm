@@ -5,7 +5,7 @@
 	name = "Containment Procedures Console"
 	desc = "A terminal displaying standardized containment and recontainment procedures for Site-53 SCPs."
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "rdserver"
+	icon_state = "server"
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
@@ -188,6 +188,93 @@
 				"4. Transport SCP-895 back to its containment chamber.",
 				"5. Verify all nearby camera feeds are disabled or re-routed.",
 				"6. Administer medical screening to any personnel who viewed SCP-895 through cameras.",
+			),
+		),
+		"SCP-073" = list(
+			"classification" = "Euclid",
+			"containment" = list(
+				"SCP-073 is to be kept in a standard humanoid containment chamber.",
+				"No physical contact with SCP-073 is permitted without Level 3 authorization.",
+				"Personnel must NOT attack SCP-073 under any circumstances. All damage is reflected.",
+				"A 5-meter flora exclusion zone must be maintained around the containment chamber.",
+			),
+			"recontainment" = list(
+				"1. DO NOT engage SCP-073 with force. Any damage will be reflected upon the attacker.",
+				"2. Approach SCP-073 calmly. Speak in a non-threatening manner.",
+				"3. Request SCP-073 to return to its containment chamber voluntarily.",
+				"4. If SCP-073 refuses, offer amenities (reading material, conversation).",
+				"5. Escort SCP-073 back to containment. Maintain respectful distance.",
+				"6. Administer Class-B amnestics to any personnel who experienced memory disruption.",
+			),
+		),
+		"SCP-076" = list(
+			"classification" = "Keter",
+			"containment" = list(
+				"SCP-076-1 (sarcophagus) is to be kept in a reinforced containment chamber with 2m thick walls.",
+				"Inner chamber must be equipped with a heavy blast door.",
+				"A minimum of six (6) security personnel must be stationed at the containment area.",
+				"When SCP-076-2 emerges, all personnel must evacuate and seal the chamber.",
+			),
+			"recontainment" = list(
+				"1. EVACUATE. SCP-076-2 is an extremely hostile combatant.",
+				"2. Deploy MTF or heavy security teams with lethal authorization.",
+				"3. SCP-076-2 will respawn from its sarcophagus after death. Killing it buys time only.",
+				"4. Maximum of 5 respawns per shift. After that, SCP-076-2 remains deceased.",
+				"5. Use coordinated fire. SCP-076-2 becomes faster and stronger with rage.",
+				"6. Once neutralized, immediately seal the sarcophagus chamber.",
+				"7. Monitor for re-emergence. Each respawn takes approximately 5 minutes.",
+				"8. EXPECT HEAVY CASUALTIES. This is one of the most dangerous recontainment scenarios.",
+			),
+		),
+		"SCP-105" = list(
+			"classification" = "Safe",
+			"containment" = list(
+				"SCP-105 is to be kept in a standard humanoid containment chamber.",
+				"Access to security cameras must be restricted when SCP-105 is outside containment.",
+				"SCP-105 may be allowed supervised recreational time with Level 2 authorization.",
+				"Personnel should be aware SCP-105 can create portals through camera feeds.",
+			),
+			"recontainment" = list(
+				"1. SCP-105 is generally cooperative. Verbal request is usually sufficient.",
+				"2. If SCP-105 has created portals, request that they close them.",
+				"3. Disable nearby camera feeds to prevent portal creation.",
+				"4. Escort SCP-105 back to containment.",
+				"5. Review camera logs for any unauthorized portal usage.",
+			),
+		),
+		"SCP-408" = list(
+			"classification" = "Euclid",
+			"containment" = list(
+				"SCP-408 is to be kept in a climate-controlled containment chamber with mesh screens.",
+				"Containment chamber must be sealed to prevent butterflies from escaping.",
+				"Personnel must wear protective eyewear when in the containment area.",
+				"Visual disruption effects can cause disorientation and hallucinations.",
+			),
+			"recontainment" = list(
+				"1. Locate the swarm. SCP-408 may be invisible — use thermal or motion sensors.",
+				"2. Deploy personnel with protective eyewear and containment nets.",
+				"3. Use bright flashing lights to disrupt the swarm's coordination.",
+				"4. Guide the swarm toward the containment chamber using light barriers.",
+				"5. Seal the chamber once the swarm has entered.",
+				"6. Monitor personnel for lingering hallucination effects.",
+			),
+		),
+		"SCP-1128" = list(
+			"classification" = "Euclid",
+			"containment" = list(
+				"SCP-1128 is contained as information. Knowledge of SCP-1128 makes personnel vulnerable.",
+				"No water sources are permitted within the containment area.",
+				"Personnel must NOT be informed about SCP-1128's nature without O5 approval.",
+				"Personnel who know of SCP-1128 must avoid submersion in water at all times.",
+			),
+			"recontainment" = list(
+				"1. Evacuate all aware personnel from water sources IMMEDIATELY.",
+				"2. Drain any water in the breach zone. SCP-1128 can only manifest in water.",
+				"3. If SCP-1128 has manifested, it will demanifest after 30-60 seconds.",
+				"4. Do NOT enter the water while SCP-1128 is manifested.",
+				"5. After demanifestation, ensure all aware personnel are away from water.",
+				"6. Administer Class-A amnestics to any personnel who learned of SCP-1128 during the breach.",
+				"7. Remove or seal all water sources in the breach area.",
 			),
 		),
 	)

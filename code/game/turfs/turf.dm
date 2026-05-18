@@ -153,10 +153,8 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if (length(custom_materials))
 		set_custom_materials(custom_materials)
 
-	#ifdef SPATIAL_GRID_ZLEVEL_STATS
-	if((istype(src, /turf/open/floor) || istype(src, /turf/closed/wall)) && isstationlevel(z))
+	if((istype(src, /turf/open/floor) || istype(src, /turf/closed/wall)) && is_station_level(z))
 		GLOB.station_turfs |= src
-	#endif
 	return INITIALIZE_HINT_NORMAL
 
 /turf/Destroy(force)
@@ -189,10 +187,8 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	///NO MORE ZAS THINGS
 
 	..()
-	#ifdef SPATIAL_GRID_ZLEVEL_STATS
-	if(isstationlevel(z))
+	if(is_station_level(z))
 		GLOB.station_turfs += src
-	#endif
 
 	if(length(vis_contents))
 		cut_viscontents()

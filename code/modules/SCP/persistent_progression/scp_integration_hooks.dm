@@ -21,6 +21,11 @@
 	if(!scp_id)
 		return FALSE
 
+	if(SSscp_persistence && SSscp_persistence.manager)
+		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[scp_id]
+		if(instance && instance.containment_status == "breached")
+			return FALSE
+
 	var/breach_zone = "unknown"
 	if(scp_atom)
 		var/area/A = get_area(scp_atom)

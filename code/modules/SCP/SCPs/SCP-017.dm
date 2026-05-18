@@ -5,7 +5,7 @@
 	name = "shadow person"
 	desc = "A 1.8-metre-tall shadowy humanoid figure. It seems to absorb the light around it."
 	icon = 'icons/scp/scp-017.dmi'
-	icon_state = "shadow"
+	icon_state = "scp-017"
 	real_name = "SCP-017"
 	use_custom_sprite = TRUE
 	status_flags = 0

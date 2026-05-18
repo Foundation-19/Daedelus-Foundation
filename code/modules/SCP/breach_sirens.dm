@@ -117,10 +117,10 @@
 /obj/machinery/breach_siren/update_icon()
 	. = ..()
 	if(active && powered())
-		icon_state = "flasher_on"
+		icon_state = "hub_o"
 		set_light(3, 2, LIGHT_COLOR_INTENSE_RED)
 	else
-		icon_state = "flasher"
+		icon_state = "hub"
 		set_light(0)
 
 /obj/machinery/breach_siren/attack_hand(mob/user)

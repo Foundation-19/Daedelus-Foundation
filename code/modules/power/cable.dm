@@ -37,7 +37,10 @@
 	update_layer()
 
 /obj/structure/cable/proc/mapping_init()
-	linked_dirs = text2num(icon_state)
+	if(d1 || d2)
+		linked_dirs = d1 | d2
+	else
+		linked_dirs = text2num(icon_state)
 	merge_new_connections()
 
 /obj/structure/cable/proc/is_knotted()

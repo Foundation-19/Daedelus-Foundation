@@ -2,7 +2,7 @@
 	name = "Facility Gate"
 	desc = "A heavy reinforced gate controlling surface access to the facility."
 	icon = 'icons/obj/doors/airlocks/station2/overlays.dmi'
-	icon_state = "closed"
+	icon_state = "panel_closed"
 	density = TRUE
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE
@@ -21,11 +21,11 @@
 	if(open)
 		density = FALSE
 		opacity = FALSE
-		icon_state = "open"
+		icon_state = "panel_open"
 	else
 		density = TRUE
 		opacity = TRUE
-		icon_state = "closed"
+		icon_state = "panel_closed"
 
 /obj/structure/foundation_gate/gate_a
 	name = "Gate A"
@@ -125,7 +125,7 @@
 	name = "Helipad"
 	desc = "A marked helipad for VTOL aircraft operations."
 	icon = 'icons/turf/decals.dmi'
-	icon_state = "helipad"
+	icon_state = "delivery"
 	anchored = TRUE
 	layer = TURF_DECAL_LAYER
 	var/helipad_id = "main"

@@ -6,7 +6,6 @@
 #define FOV_RIGHT 4
 #define FOV_BEHIND 8
 #define FIELD_OF_VISION_BLOCKER_PLANE 102
-#define GAME_PLANE_UPPER -5
 
 // Missing subsystem - moved to proper location
 
@@ -148,86 +147,74 @@
 		client.images -= old_hud
 	client.hidden_images.Cut()
 
-	if(hud_used?.fov)
-		if(hud_used.fov.alpha == 0)
-			return
+	if(!hud_used || !hud_used.fov || hud_used.fov.alpha == 0)
+		return
 
-	var/image/self_img = image(src, src)
-	self_img.plane = GAME_PLANE_UPPER
-	self_img.layer = layer
-	self_img.override = TRUE
-	self_img.pixel_x = 0
-	self_img.pixel_y = 0
-	self_img.appearance_flags = KEEP_TOGETHER
-	client.images += self_img
-	client.hidden_images += self_img
+	hud_used.fov.dir = src.dir
 
-	if(hud_used && hud_used.fov && hud_used.fov.alpha != 0)
-		hud_used.fov.dir = src.dir
+	var/list/dirlist = get_fov_dirlist()
+	var/list/mobs2hide = list()
+	var/list/objs2hide = list()
 
-		var/list/dirlist = get_fov_dirlist()
-		var/list/mobs2hide = list()
-		var/list/objs2hide = list()
-
-		if(fovangle & FOV_RIGHT)
-			if(fovangle & FOV_LEFT)
+	if(fovangle & FOV_RIGHT)
+		if(fovangle & FOV_LEFT)
+			mobs2hide |= cone(src, dirlist, GLOB.mob_living_list.Copy())
+			objs2hide |= cone(src, dirlist, get_visible_objs())
+		else
+			if(fovangle & FOV_BEHIND)
+				mobs2hide |= behind(src, list(turn(src.dir, 180)), GLOB.mob_living_list.Copy())
 				mobs2hide |= cone(src, dirlist, GLOB.mob_living_list.Copy())
+				objs2hide |= behind(src, list(turn(src.dir, 180)), get_visible_objs())
 				objs2hide |= cone(src, dirlist, get_visible_objs())
 			else
-				if(fovangle & FOV_BEHIND)
-					mobs2hide |= behind(src, list(turn(src.dir, 180)), GLOB.mob_living_list.Copy())
-					mobs2hide |= cone(src, dirlist, GLOB.mob_living_list.Copy())
-					objs2hide |= behind(src, list(turn(src.dir, 180)), get_visible_objs())
-					objs2hide |= cone(src, dirlist, get_visible_objs())
-				else
-					mobs2hide |= cone(src, dirlist, GLOB.mob_living_list.Copy())
-					objs2hide |= cone(src, dirlist, get_visible_objs())
-		else
-			if(fovangle & FOV_LEFT)
-				if(fovangle & FOV_BEHIND)
-					mobs2hide |= behind(src, list(turn(src.dir, 180)), GLOB.mob_living_list.Copy())
-					mobs2hide |= cone(src, dirlist, GLOB.mob_living_list.Copy())
-					objs2hide |= behind(src, list(turn(src.dir, 180)), get_visible_objs())
-					objs2hide |= cone(src, dirlist, get_visible_objs())
-				else
-					mobs2hide |= cone(src, dirlist, GLOB.mob_living_list.Copy())
-					objs2hide |= cone(src, dirlist, get_visible_objs())
+				mobs2hide |= cone(src, dirlist, GLOB.mob_living_list.Copy())
+				objs2hide |= cone(src, dirlist, get_visible_objs())
+	else
+		if(fovangle & FOV_LEFT)
+			if(fovangle & FOV_BEHIND)
+				mobs2hide |= behind(src, list(turn(src.dir, 180)), GLOB.mob_living_list.Copy())
+				mobs2hide |= cone(src, dirlist, GLOB.mob_living_list.Copy())
+				objs2hide |= behind(src, list(turn(src.dir, 180)), get_visible_objs())
+				objs2hide |= cone(src, dirlist, get_visible_objs())
 			else
-				if(fovangle & FOV_BEHIND)
-					mobs2hide |= behind(src, list(turn(src.dir, 180)), GLOB.mob_living_list.Copy())
-					objs2hide |= behind(src, list(turn(src.dir, 180)), get_visible_objs())
-				else
-					mobs2hide |= cone(src, dirlist, GLOB.mob_living_list.Copy())
-					objs2hide |= cone(src, dirlist, get_visible_objs())
+				mobs2hide |= cone(src, dirlist, GLOB.mob_living_list.Copy())
+				objs2hide |= cone(src, dirlist, get_visible_objs())
+		else
+			if(fovangle & FOV_BEHIND)
+				mobs2hide |= behind(src, list(turn(src.dir, 180)), GLOB.mob_living_list.Copy())
+				objs2hide |= behind(src, list(turn(src.dir, 180)), get_visible_objs())
+			else
+				mobs2hide |= cone(src, dirlist, GLOB.mob_living_list.Copy())
+				objs2hide |= cone(src, dirlist, get_visible_objs())
 
-		for(var/mob/living/M in mobs2hide)
-			var/image/MI = image(loc = M)
-			MI.override = TRUE
-			MI.appearance = null
-			client.images += MI
-			client.hidden_atoms += MI
-			client.hidden_mobs += M
+	for(var/mob/living/M in mobs2hide)
+		var/image/MI = image(loc = M)
+		MI.override = TRUE
+		MI.appearance = null
+		client.images += MI
+		client.hidden_atoms += MI
+		client.hidden_mobs += M
 
-		for(var/obj/O in objs2hide)
-			if(O.invisibility >= INVISIBILITY_ABSTRACT)
-				continue
-			if(O == src)
-				continue
-			var/image/OI = image(loc = O)
-			OI.override = TRUE
-			OI.appearance = null
-			client.images += OI
-			client.hidden_atoms += OI
-			client.hidden_objs += O
+	for(var/obj/O in objs2hide)
+		if(O.invisibility >= INVISIBILITY_ABSTRACT)
+			continue
+		if(O == src)
+			continue
+		var/image/OI = image(loc = O)
+		OI.override = TRUE
+		OI.appearance = null
+		client.images += OI
+		client.hidden_atoms += OI
+		client.hidden_objs += O
 
-		for(var/image/HUD_img in client.images)
-			if(HUD_img.icon != 'icons/mob/hud.dmi')
-				continue
-			for(var/mob/living/M in client.hidden_mobs)
-				if(HUD_img.loc == M)
-					client.hidden_images += HUD_img
-					client.images -= HUD_img
-					break
+	for(var/image/HUD_img in client.images)
+		if(HUD_img.icon != 'icons/mob/hud.dmi')
+			continue
+		for(var/mob/living/M in client.hidden_mobs)
+			if(HUD_img.loc == M)
+				client.hidden_images += HUD_img
+				client.images -= HUD_img
+				break
 
 /mob/proc/can_see_cone(atom/L)
 	if(!isliving(src))

@@ -131,6 +131,29 @@
 /obj/machinery/power/reactor_core/proc/check_core_status()
 	if(machine_stat & BROKEN)
 		return FALSE
-	/*if(idle_power_usage > avail())
-		return FALSE*/
 	return TRUE
+
+/obj/machinery/power/fusion_core
+	name = "\improper R-UST Mk. 10 Tokamak Reactor"
+	desc = "An enormous solenoid for generating extremely high power electromagnetic fields."
+	icon = 'icons/obj/machines/rust/fusion_core.dmi'
+	icon_state = "core0"
+	layer = ABOVE_ALL_MOB_LAYER
+	density = TRUE
+	anchored = FALSE
+	use_power = IDLE_POWER_USE
+	idle_power_usage = IDLE_POWER_USE
+	active_power_usage = 1000
+
+/obj/machinery/power/fusion_core/mapped
+	anchored = TRUE
+
+/obj/machinery/power/fusion_core/Initialize(mapload)
+	. = ..()
+	var/obj/machinery/power/reactor_core/real_core = new(loc)
+	real_core.anchored = anchored
+	real_core.dir = dir
+	real_core.name = name
+	if(anchored)
+		real_core.connect_to_network()
+	return INITIALIZE_HINT_QDEL

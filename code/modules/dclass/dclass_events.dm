@@ -28,7 +28,7 @@
 /datum/dclass_event/scp_breach/start_event()
 	. = ..()
 	// Find nearby SCPs and create chaos
-	for(var/mob/living/scp/S in world)
+	for(var/mob/living/scp/S in GLOB.mob_list)
 		if(S.stat != DEAD)
 			// Make SCPs more aggressive during breach
 			S.containment_status = "breached"
@@ -49,7 +49,7 @@
 /datum/dclass_event/scp_research/start_event()
 	. = ..()
 	// Spawn research materials in research areas
-	for(var/area/A in world)
+	for(var/area/A in GLOB.areas)
 		if(findtext(A.name, "research") || findtext(A.name, "lab"))
 			affected_areas += A
 			// Add research materials to contraband locations
@@ -70,7 +70,7 @@
 /datum/dclass_event/scp_containment_failure/start_event()
 	. = ..()
 	// Disable some security systems temporarily
-	for(var/obj/machinery/door/airlock/security/A in world)
+	for(var/obj/machinery/door/airlock/security/A as anything in INSTANCES_OF(/obj/machinery/door/airlock/security))
 		if(prob(30)) // 30% chance to disable each security door
 			A.emergency = TRUE
 			A.update_icon()
@@ -86,12 +86,12 @@
 /datum/dclass_event/scp_escape_attempt/start_event()
 	. = ..()
 	// Create a distraction by making an SCP more active
-	for(var/mob/living/scp/S in world)
+	for(var/mob/living/scp/S in GLOB.mob_list)
 		if(S.stat != DEAD && prob(50))
 			// Make the SCP more visible and active
 			S.containment_status = "active"
 			// Notify guards of the SCP activity
-			for(var/mob/living/carbon/human/H in world)
+			for(var/mob/living/carbon/human/H in GLOB.player_list)
 				if(H.job && findtext(H.job, "Guard"))
 					to_chat(H, "<span class='warning'>SCP activity detected! Respond immediately!</span>")
 
@@ -142,7 +142,7 @@
 /datum/dclass_event/power_outage/start_event()
 	. = ..()
 	// Disable some electronic systems
-	for(var/obj/machinery/door/airlock/A in world)
+	for(var/obj/machinery/door/airlock/A as anything in INSTANCES_OF(/obj/machinery/door/airlock))
 		if(prob(20)) // 20% chance to disable each door
 			A.emergency = TRUE
 			A.update_icon()
@@ -157,7 +157,7 @@
 /datum/dclass_event/medical_emergency/start_event()
 	. = ..()
 	// Add medical supplies to contraband locations
-	for(var/area/A in world)
+	for(var/area/A in GLOB.areas)
 		if(findtext(A.name, "medical") || findtext(A.name, "clinic"))
 			affected_areas += A
 			if(!SSdclass.manager.contraband_locations[A.name])
@@ -202,7 +202,7 @@
 
 	// Check for SCPs in the world to determine available events
 	var/has_scps = FALSE
-	for(var/mob/living/scp/S in world)
+	for(var/mob/living/scp/S in GLOB.mob_list)
 		if(S.stat != DEAD)
 			has_scps = TRUE
 			break

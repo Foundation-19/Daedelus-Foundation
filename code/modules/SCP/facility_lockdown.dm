@@ -5,7 +5,7 @@
 	name = "Facility Lockdown Console"
 	desc = "A secure console for initiating facility-wide lockdown protocols."
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "rdserver"
+	icon_state = "server"
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE

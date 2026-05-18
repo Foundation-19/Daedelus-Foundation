@@ -2,7 +2,7 @@
 	name = "Femur Breaker"
 	desc = "A containment device used to lure SCP-106 back to its cell. Requires a human subject."
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "centrifuge"
+	icon_state = "protolathe"
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
@@ -173,7 +173,7 @@
 	name = "SCP-457 Fire Suppression Unit"
 	desc = "A specialized fire suppression system designed for recontaining SCP-457."
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "mass_driver"
+	icon_state = "bluespace-prison"
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
@@ -217,7 +217,7 @@
 	name = "SCP-049 Containment Lure"
 	desc = "A device that broadcasts a signal designed to lure SCP-049 back to containment."
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "cellcharger"
+	icon_state = "server"
 	density = TRUE
 	anchored = TRUE
 	var/lure_active = FALSE
@@ -295,7 +295,7 @@
 	name = "SCP-008 Biohazard Incinerator"
 	desc = "A specialized incinerator for neutralizing SCP-008 infected material and zombies."
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "incinerator"
+	icon_state = "explosive_compressor"
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
@@ -334,7 +334,7 @@
 	name = "SCP-1507 Pacification Speaker"
 	desc = "A speaker system that broadcasts calming sounds to pacify SCP-1507 flocks."
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "speaker"
+	icon_state = "server"
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
@@ -375,7 +375,7 @@
 	name = "SCP-263 Remote Shutoff"
 	desc = "A device that can remotely disable SCP-263's anomalous broadcast."
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "flasher"
+	icon_state = "server"
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
@@ -405,7 +405,7 @@
 	name = "SCP-3199 Cryogenic Storage"
 	desc = "A cryogenic unit capable of freezing SCP-3199 eggs to prevent hatching."
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "sleeper"
+	icon_state = "bluespace-prison"
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
@@ -429,7 +429,7 @@
 	name = "SCP-682 Containment Chamber Controls"
 	desc = "Controls for the specialized containment chamber holding SCP-682. Includes hydrochloric acid dispensers."
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "mass_driver"
+	icon_state = "bluespace-prison"
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
@@ -462,7 +462,7 @@
 	name = "SCP-939 Sonic Dampener"
 	desc = "A device that emits a counter-frequency to disorient SCP-939, preventing its voice mimicry and pack coordination."
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "emitter"
+	icon_state = "ecto_sniffer"
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
@@ -495,7 +495,7 @@
 	name = "SCP-1471 Memetic Cleanser"
 	desc = "A device that performs targeted memory alteration to remove SCP-1471's influence from affected subjects."
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "mindshelf"
+	icon_state = "d_analyzer"
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
@@ -536,7 +536,7 @@
 	name = "SCP-427 Cellular Stabilizer"
 	desc = "A medical device that can reverse early-stage SCP-427 transformation if applied before full conversion."
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "medscan"
+	icon_state = "d_analyzer"
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
@@ -571,3 +571,129 @@
 	to_chat(patient, span_notice("A soothing wave washes over you. Your cells feel stable again."))
 	visible_message(span_notice("[src] stabilizes [patient]'s cellular structure."))
 	hook_scp_recontainment("SCP-427", list(user, patient))
+
+// SCP-073 Recontainment - Pacification Field
+/obj/machinery/scp073_pacification_field
+	name = "Pacification Field Emitter"
+	desc = "A device that suppresses SCP-073's damage reflection, allowing safe physical contact."
+	icon = 'icons/obj/machines/research.dmi'
+	icon_state = "bluespace-prison"
+	density = TRUE
+	anchored = TRUE
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 200
+	var/active = FALSE
+	var/duration = 600
+	var/cooldown = 0
+	var/cooldown_time = 1200
+
+/obj/machinery/scp073_pacification_field/attack_hand(mob/user)
+	if(cooldown > world.time)
+		to_chat(user, span_warning("Emitter is recharging."))
+		return
+	if(!active)
+		active = TRUE
+		cooldown = world.time + cooldown_time
+		visible_message(span_notice("[src] hums to life, projecting a pacification field!"))
+		addtimer(CALLBACK(src, .proc/deactivate), duration)
+	else
+		to_chat(user, span_warning("Already active."))
+	return
+
+/obj/machinery/scp073_pacification_field/proc/deactivate()
+	active = FALSE
+	visible_message(span_notice("[src] powers down, the pacification field fades."))
+
+/obj/machinery/scp073_pacification_field/proc/is_active()
+	return active
+
+// SCP-076 Recontainment - Sarcophagus Sealing Terminal
+/obj/machinery/scp076_sealing_terminal
+	name = "SCP-076 Sealing Terminal"
+	desc = "A terminal for remotely sealing SCP-076-1's sarcophagus and monitoring SCP-076-2's status."
+	icon = 'icons/obj/computer.dmi'
+	icon_state = "generic"
+	density = TRUE
+	anchored = TRUE
+	circuit = /obj/item/circuitboard/computer/scp076_sealing_terminal
+
+/obj/machinery/scp076_sealing_terminal/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Scp076Sealing", "SCP-076 Sealing Control")
+		ui.open()
+
+/obj/machinery/scp076_sealing_terminal/ui_data(mob/user)
+	var/list/data = list()
+	var/obj/structure/scp076_sarcophagus/sarc = locate() in range(20, src)
+	data["sarcophagus_found"] = !!sarc
+	data["scp_state"] = "unknown"
+	data["respawn_count"] = 0
+	data["max_respawns"] = 5
+	if(sarc && sarc.contained_scp)
+		data["scp_state"] = sarc.contained_scp.current_state
+		data["respawn_count"] = sarc.contained_scp.respawn_count
+		data["max_respawns"] = sarc.contained_scp.max_respawns
+	return data
+
+/obj/machinery/scp076_sealing_terminal/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
+		return
+	switch(action)
+		if("force_seal")
+			var/obj/structure/scp076_sarcophagus/sarc = locate() in range(20, src)
+			if(sarc && sarc.contained_scp)
+				if(sarc.contained_scp.current_state == "dormant" || sarc.contained_scp.current_state == "deceased")
+					sarc.contained_scp.forceMove(sarc)
+					sarc.contained_scp.stat = UNCONSCIOUS
+					sarc.contained_scp.current_state = "dormant"
+					sarc.contained_scp.dormant_timer = world.time + sarc.contained_scp.dormant_duration
+					hook_scp_recontainment("SCP-076", list(usr))
+					priority_announce("SCP-076-1 sarcophagus has been sealed remotely. SCP-076-2 forced into dormant state.", null, null, ANNOUNCER_DEFAULT)
+				else
+					to_chat(usr, span_warning("Cannot seal while SCP-076-2 is active!"))
+			. = TRUE
+
+/obj/item/circuitboard/computer/scp076_sealing_terminal
+	name = "SCP-076 Sealing Terminal (Computer Board)"
+	build_path = /obj/machinery/scp076_sealing_terminal
+
+// SCP-1128 Recontainment - Water Drainage Valve
+/obj/machinery/scp1128_drain_valve
+	name = "Emergency Water Drainage Valve"
+	desc = "An emergency valve that drains water from the area, preventing SCP-1128 manifestation."
+	icon = 'icons/obj/machines/nuke_terminal.dmi'
+	icon_state = "nuclearbomb_base"
+	density = TRUE
+	anchored = TRUE
+	var/active = FALSE
+	var/drain_radius = 7
+	var/cooldown = 0
+	var/cooldown_time = 1800
+
+/obj/machinery/scp1128_drain_valve/attack_hand(mob/user)
+	if(cooldown > world.time)
+		to_chat(user, span_warning("Drain valve is on cooldown."))
+		return
+	if(!active)
+		active = TRUE
+		cooldown = world.time + cooldown_time
+		visible_message(span_notice("[src] opens, draining water from the area!"))
+		playsound(src, 'sound/effects/slosh.ogg', 50, TRUE, extrarange = 10)
+		drain_water()
+		addtimer(CALLBACK(src, .proc/close_valve), 300)
+	else
+		to_chat(user, span_warning("Already draining."))
+
+/obj/machinery/scp1128_drain_valve/proc/drain_water()
+	for(var/turf/open/water/W in range(drain_radius, src))
+		var/turf/open/floor/F = W.ChangeTurf(/turf/open/floor/iron)
+		if(F)
+			F.name = "damp floor"
+			F.desc = "The floor is wet from recently drained water."
+	hook_scp_recontainment("SCP-1128", list())
+
+/obj/machinery/scp1128_drain_valve/proc/close_valve()
+	active = FALSE
+	visible_message(span_notice("[src] closes as the drainage completes."))

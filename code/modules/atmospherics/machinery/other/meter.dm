@@ -55,6 +55,9 @@
 		SSairmachines.stop_processing_machine(src)
 
 /obj/machinery/meter/process_atmos()
+	if(QDELETED(target))
+		icon_state = "meter0"
+		return FALSE
 	var/datum/gas_mixture/pipe_air = target.return_air()
 	if(!pipe_air)
 		icon_state = "meter0"

@@ -187,7 +187,7 @@
 	name = "amnestic injector"
 	desc = "A pre-loaded syringe containing Foundation amnestic compounds."
 	icon = 'icons/obj/syringe.dmi'
-	icon_state = "syringe_amphetamines"
+	icon_state = "syringe_0"
 	volume = 15
 	list_reagents = list(/datum/reagent/medicine/morphine = 5)
 	var/amnestic_class = AMNESTIC_CLASS_A
@@ -208,7 +208,7 @@
 	name = "Amnestic Gas Vent"
 	desc = "A ventilation system that can release Class-A amnestic gas into the surrounding area for mass memory suppression."
 	icon = 'icons/obj/atmospherics/pipes/pipe_item.dmi'
-	icon_state = "pipe"
+	icon_state = "simple"
 	density = FALSE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE

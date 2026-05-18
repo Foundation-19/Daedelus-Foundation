@@ -6,7 +6,7 @@
 	name = "MTF Deployment Console"
 	desc = "A secure console for authorizing Mobile Task Force deployment during containment emergencies."
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "rdserver"
+	icon_state = "server"
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
@@ -155,7 +155,14 @@
 				spawn_turfs += T
 
 	if(!length(spawn_turfs))
-		spawn_turfs += list(pick(GLOB.station_turfs))
+		for(var/turf/T in get_area_turfs(/area/site53/surface))
+			if(!T.density)
+				spawn_turfs += T
+
+	if(!length(spawn_turfs))
+		var/turf/fallback = get_safe_random_station_turf()
+		if(fallback)
+			spawn_turfs += fallback
 
 	var/team_size = team_data["size"]
 	var/list/objectives = generate_mtf_objectives(team_key)

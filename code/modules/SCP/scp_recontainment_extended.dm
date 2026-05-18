@@ -6,7 +6,7 @@
 	name = "SCP-682 Acid Containment Bath"
 	desc = "A massive reinforced tank filled with hydrochloric acid, used to contain SCP-682 when all else fails."
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "centrifuge"
+	icon_state = "protolathe"
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
@@ -178,7 +178,7 @@
 	name = "SCP-017 Light Containment Chamber"
 	desc = "A reinforced containment unit with adjustable light levels, designed to contain SCP-017 by maintaining absolute darkness."
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "mass_driver"
+	icon_state = "bluespace-prison"
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
@@ -268,7 +268,7 @@
 	name = "Portable Light Suppressor"
 	desc = "A device that absorbs photons in a small radius, creating a zone of absolute darkness. Used for SCP-017 recontainment."
 	icon = 'icons/obj/device.dmi'
-	icon_state = "flashlight"
+	icon_state = "locator"
 	var/active = FALSE
 	var/range = 3
 	var/battery = 100

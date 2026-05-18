@@ -345,7 +345,7 @@
 	name = "alien entity"
 	desc = "A tall, thin humanoid with no visible facial features. Its skin is pale and leathery."
 	icon = 'icons/mob/cult.dmi'
-	icon_state = "shade"
+	icon_state = "shade_cult"
 	density = TRUE
 	anchored = FALSE
 

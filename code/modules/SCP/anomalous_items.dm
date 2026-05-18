@@ -44,7 +44,7 @@
 /obj/item/scp_anomalous
 	name = "anomalous object"
 	desc = "An object with strange, unexplained properties."
-	icon = 'icons/obj/assemblies/new_assemblies.dmi'
+	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "shock_kit"
 	var/anomaly_id = "unknown"
 	var/contained = FALSE
@@ -78,8 +78,8 @@
 /obj/item/scp_anomalous/strange_mirror
 	name = "strange mirror"
 	desc = "A small hand mirror that doesn't reflect your face properly."
-	icon = 'icons/obj/tools.dmi'
-	icon_state = "mirror"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "scanner"
 	anomaly_id = "mirror"
 
 /obj/item/scp_anomalous/strange_mirror/trigger_anomaly(mob/user)
@@ -161,7 +161,7 @@
 	name = "warm stone"
 	desc = "A smooth river stone that is always pleasantly warm."
 	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "paper_scrap"
+	icon_state = "scrap"
 	anomaly_id = "stone"
 
 /obj/item/scp_anomalous/warm_stone/trigger_anomaly(mob/user)
