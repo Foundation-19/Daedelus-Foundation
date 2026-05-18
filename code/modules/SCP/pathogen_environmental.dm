@@ -2,7 +2,7 @@
 	name = "Decontamination Shower"
 	desc = "An emergency decontamination shower. Activates automatically when BSL-2+ pathogens are detected."
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "rdserver"
+	icon_state = "server"
 	density = FALSE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
@@ -48,7 +48,7 @@
 		return
 
 	active = TRUE
-	icon_state = "rdserver_on"
+	icon_state = "RD-server-on"
 	cooldown = world.time + cooldown_time
 
 	visible_message(span_warning("[src] activates! Decontamination in progress!"))
@@ -72,7 +72,7 @@
 
 /obj/machinery/decon_shower/proc/deactivate_decon()
 	active = FALSE
-	icon_state = "rdserver"
+	icon_state = "server"
 
 /obj/machinery/decon_shower/attack_hand(mob/user)
 	. = ..()
@@ -119,7 +119,7 @@
 		return
 
 	processing = TRUE
-	icon_state = "autoclave_active"
+	icon_state = "lights-red"
 	visible_message(span_notice("[src] begins sterilization cycle."))
 
 	addtimer(CALLBACK(src, PROC_REF(finish_sterilization)), process_time)

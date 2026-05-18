@@ -60,7 +60,7 @@
 	name = "Blood Healing"
 	desc = "Use your own blood to rapidly heal over time."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "blooddrain"
+	button_icon_state = "sacredflame"
 	cooldown_time = 45 SECONDS
 
 /datum/action/innate/scp_ability/sarkic_blood_heal/Activate()
@@ -127,7 +127,7 @@
 	name = "flesh wall"
 	desc = "A wall of hardened, pulsating flesh. Revolting."
 	icon = 'icons/obj/structures.dmi'
-	icon_state = "woodwall"
+	icon_state = "woodtable"
 	max_integrity = 150
 	opacity = TRUE
 	density = TRUE
@@ -173,7 +173,7 @@
 	name = "Request Equipment"
 	desc = "Request a supply drop from the Insurgency."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "default"
+	button_icon_state = "spell_default"
 	cooldown_time = 120 SECONDS
 
 /datum/action/innate/scp_ability/insurgency_equipment/Activate()
@@ -210,7 +210,7 @@
 	name = "Forge Disguise"
 	desc = "Disguise your ID card as Foundation personnel."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "mask"
+	button_icon_state = "mindswap"
 	cooldown_time = 60 SECONDS
 
 /datum/action/innate/scp_ability/ci_disguise/Activate()
@@ -234,7 +234,7 @@
 	name = "Deploy Safehouse Beacon"
 	desc = "Deploy a beacon that creates a hidden compartment for stashing items."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "fultext"
+	button_icon_state = "teleport"
 	cooldown_time = 180 SECONDS
 
 /datum/action/innate/scp_ability/ci_safehouse/Activate()
@@ -280,7 +280,7 @@
 	name = "Wanderers' Library"
 	desc = "Consult the Library for knowledge of nearby SCPs and anomalies."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "scan"
+	button_icon_state = "mindread"
 	cooldown_time = 20 SECONDS
 
 /datum/action/innate/scp_ability/serpents_knowledge/Activate()
@@ -307,7 +307,7 @@
 	name = "Liberate Anomaly"
 	desc = "Disrupt containment fields around an SCP to cause a breach."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "smite"
+	button_icon_state = "bonechill"
 	cooldown_time = 60 SECONDS
 
 /datum/action/innate/scp_ability/serpents_liberate/Activate()
@@ -334,7 +334,7 @@
 	name = "Anomalous Veil"
 	desc = "Cloak yourself in anomalous energy, becoming harder to detect."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "invisible"
+	button_icon_state = "jaunt"
 	cooldown_time = 45 SECONDS
 
 /datum/action/innate/scp_ability/serpents_veil/Activate()
@@ -349,7 +349,7 @@
 	name = "Anomalous Empathy"
 	desc = "Sense the health and status of nearby SCP entities."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "heal"
+	button_icon_state = "sacredflame"
 	cooldown_time = 15 SECONDS
 
 /datum/action/innate/scp_ability/serpents_empathy/Activate()

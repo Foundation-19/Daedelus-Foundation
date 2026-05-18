@@ -112,7 +112,7 @@
 	if(!cached_scp_areas || world.time >= area_cache_time + area_cache_interval)
 		cached_scp_areas = list()
 		for(var/area_type in scp_area_types)
-			for(var/area/A in world)
+			for(var/area/A in GLOB.areas)
 				if(istype(A, area_type))
 					cached_scp_areas += A
 		area_cache_time = world.time

@@ -99,6 +99,47 @@
 		"stable_ticks" = S.longest_stable_period,
 	)
 
+	data["environmental_factors"] = list()
+	for(var/factor in S.environmental_factors)
+		data["environmental_factors"] += list(list(
+			"name" = factor,
+			"value" = S.environmental_factors[factor],
+		))
+
+	data["effectiveness_modifiers"] = list(
+		"containment" = S.get_containment_effectiveness(),
+		"research" = S.get_research_effectiveness(),
+		"communication" = S.get_communication_effectiveness(),
+		"combat" = S.get_combat_effectiveness(),
+		"medical" = S.get_medical_effectiveness(),
+		"engineering" = S.get_engineering_effectiveness(),
+		"security" = S.get_security_effectiveness(),
+		"administrative" = S.get_administrative_effectiveness(),
+		"scientific" = S.get_scientific_effectiveness(),
+		"psychological" = S.get_psychological_effectiveness(),
+	)
+
+	data["active_hallucinations"] = list()
+	for(var/hallucination in S.active_hallucinations)
+		data["active_hallucinations"] += hallucination
+
+	data["trauma_resistances"] = list()
+	for(var/trauma_type in S.trauma_resistances)
+		data["trauma_resistances"] += list(list(
+			"type" = trauma_type,
+			"resistance" = S.trauma_resistances[trauma_type],
+		))
+
+	data["scp_resistance"] = S.check_scp_resistance("")
+	data["scp_vulnerability"] = S.check_scp_vulnerability("")
+	data["scp_interaction_modifier"] = S.get_scp_interaction_modifier("")
+
+	data["episode_time_remaining"] = S.episode_active ? max(0, S.episode_end_time - world.time) : 0
+
+	data["conditioned_change_rate"] = S.get_conditioned_sanity_change(-1)
+
+	data["previous_state"] = S.previous_sanity_state
+
 	return data
 
 /obj/machinery/computer/sanity_panel/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)

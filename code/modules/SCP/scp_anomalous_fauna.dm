@@ -2,9 +2,9 @@
 	name = "anomalous entity"
 	desc = "A strange creature of unknown origin."
 	icon = 'icons/mob/carp.dmi'
-	icon_state = "base"
-	icon_living = "base"
-	icon_dead = "base_dead"
+	icon_state = "carp"
+	icon_living = "carp"
+	icon_dead = "carp_dead"
 	icon_gib = "carp_gib"
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	speak_chance = 0
@@ -27,15 +27,16 @@
 /obj/item/food/meat/slab/anomalous
 	name = "anomalous meat"
 	desc = "Meat from an anomalous creature. Consuming it is not recommended."
-	icon_state = "xenomeat"
+	icon_state = "meat"
+	slab_color = "#8020C0"
 	food_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/medicine/tricordrazine = 2)
 
 /mob/living/simple_animal/hostile/anomalous_fauna/void_crawler
 	name = "void crawler"
 	desc = "A pale, eyeless creature that seems to phase in and out of visibility. Its mandibles drip with an unknown substance."
-	icon_state = "base"
-	icon_living = "base"
-	icon_dead = "base_dead"
+	icon_state = "carp"
+	icon_living = "carp"
+	icon_dead = "carp_dead"
 	maxHealth = 40
 	health = 40
 	melee_damage_lower = 15
@@ -59,9 +60,9 @@
 /mob/living/simple_animal/hostile/anomalous_fauna/thermal_wraith
 	name = "thermal wraith"
 	desc = "A shimmering humanoid figure wreathed in heat distortion. The air around it warps and burns."
-	icon_state = "base"
-	icon_living = "base"
-	icon_dead = "base_dead"
+	icon_state = "carp"
+	icon_living = "carp"
+	icon_dead = "carp_dead"
 	maxHealth = 80
 	health = 80
 	melee_damage_lower = 20
@@ -87,9 +88,9 @@
 /mob/living/simple_animal/hostile/anomalous_fauna/shadow_stalker
 	name = "shadow stalker"
 	desc = "A mass of darkness with too many limbs. It seems to absorb the light around it."
-	icon_state = "base"
-	icon_living = "base"
-	icon_dead = "base_dead"
+	icon_state = "carp"
+	icon_living = "carp"
+	icon_dead = "carp_dead"
 	maxHealth = 60
 	health = 60
 	melee_damage_lower = 18
@@ -123,9 +124,9 @@
 /mob/living/simple_animal/hostile/anomalous_fauna/crystal_geode
 	name = "crystal geode"
 	desc = "A living formation of anomalous crystals. It pulses with an inner light and its edges are razor-sharp."
-	icon_state = "base"
-	icon_living = "base"
-	icon_dead = "base_dead"
+	icon_state = "carp"
+	icon_living = "carp"
+	icon_dead = "carp_dead"
 	maxHealth = 100
 	health = 100
 	melee_damage_lower = 25
@@ -145,9 +146,9 @@
 /mob/living/simple_animal/hostile/anomalous_fauna/aberrant_hound
 	name = "aberrant hound"
 	desc = "A quadrupedal creature with too many eyes and a jaw that splits in three. It drools a glowing viscous fluid."
-	icon_state = "base"
-	icon_living = "base"
-	icon_dead = "base_dead"
+	icon_state = "carp"
+	icon_living = "carp"
+	icon_dead = "carp_dead"
 	maxHealth = 50
 	health = 50
 	melee_damage_lower = 15
@@ -169,9 +170,9 @@
 /mob/living/simple_animal/hostile/anomalous_fauna/mass_aberrant_hound
 	name = "massive aberrant hound"
 	desc = "An enormous version of the aberrant hound. Its three jaws snap independently and its many eyes track multiple targets."
-	icon_state = "base"
-	icon_living = "base"
-	icon_dead = "base_dead"
+	icon_state = "carp"
+	icon_living = "carp"
+	icon_dead = "carp_dead"
 	maxHealth = 150
 	health = 150
 	melee_damage_lower = 30

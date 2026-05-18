@@ -33,7 +33,7 @@
 	name = "Quarantine Control Console"
 	desc = "Controls the medical quarantine zone airlocks, decontamination, and containment protocols."
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "rdserver"
+	icon_state = "server"
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
@@ -155,7 +155,7 @@
 	name = "Quarantine Bio-Scanner"
 	desc = "Scans for biological anomalies and SCP-related infections."
 	icon = 'icons/obj/machines/bodyscanner.dmi'
-	icon_state = "body_scanner"
+	icon_state = "body_scanner_closed"
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
@@ -332,7 +332,8 @@
 /atom/movable/screen/alert/status_effect/bsl4_contagion
 	name = "BSL-4 Contagion"
 	desc = "You are infected with a biohazardous contagion. Seek medical attention immediately."
-	icon_state = "disease"
+	icon = 'icons/hud/screen_alert.dmi'
+	icon_state = "blood"
 
 /obj/item/biohazard_scanner
 	name = "biohazard scanner"
@@ -363,7 +364,7 @@
 	name = "biohazard sample"
 	desc = "A sealed container holding a BSL-4 pathogen sample. Handle with extreme caution."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "vial"
+	icon_state = "vial0"
 	w_class = WEIGHT_CLASS_TINY
 	var/contagion_name = "Unknown Pathogen"
 	var/virulence = 3

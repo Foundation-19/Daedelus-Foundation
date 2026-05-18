@@ -2,7 +2,7 @@
 	name = "Foundation Intranet Terminal"
 	desc = "A secure terminal connected to the Foundation's internal network."
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "rdserver"
+	icon_state = "server"
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE

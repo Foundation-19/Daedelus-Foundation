@@ -143,7 +143,6 @@
 		H.sanity.adjust_sanity(-5)
 		H.sanity.add_trauma(TRAUMA_PHYSICAL, 10)
 
-// Sanity medical machines
 /obj/machinery/sanity_monitor
 	name = "sanity monitor"
 	desc = "A device that monitors and displays mental health information."
@@ -154,65 +153,150 @@
 	var/mob/living/carbon/human/patient = null
 	var/scanning = FALSE
 
-/obj/machinery/sanity_monitor/attack_hand(mob/user)
-	if(!ishuman(user))
+/obj/machinery/sanity_monitor/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "SanityPanel", "Sanity Monitor")
+		ui.open()
+
+/obj/machinery/sanity_monitor/ui_data(mob/user)
+	var/list/data = list()
+
+	if(!patient || !patient.sanity)
+		data["has_patient"] = FALSE
+		return data
+
+	data["has_patient"] = TRUE
+	var/datum/sanity/S = patient.sanity
+
+	data["sanity_level"] = S.sanity_level
+	data["max_sanity"] = S.max_sanity
+	data["sanity_state"] = S.current_sanity_state
+	data["previous_state"] = S.previous_sanity_state
+	data["sanity_percentage"] = round((S.sanity_level / S.max_sanity) * 100, 0.1)
+	data["hallucination_level"] = S.hallucination_level
+	data["max_hallucination"] = S.max_hallucination
+	data["insanity_level"] = S.insanity_level
+	data["max_insanity"] = S.max_insanity
+	data["social_isolation"] = S.social_isolation
+	data["max_social_isolation"] = S.max_social_isolation
+	data["environmental_drain"] = S.environmental_sanity_drain
+	data["recovery_rate"] = S.sanity_recovery_rate
+	data["treatment_effectiveness"] = S.treatment_effectiveness
+	data["episode_active"] = S.episode_active
+	data["episode_type"] = S.episode_type
+	data["episode_time_remaining"] = S.episode_active ? max(0, S.episode_end_time - world.time) : 0
+	data["is_admin"] = check_rights_for(user?.client, R_ADMIN)
+	data["patient_name"] = patient.name
+
+	data["traumas"] = list()
+	for(var/datum/trauma/T as anything in S.traumas)
+		data["traumas"] += list(list(
+			"type" = T.trauma_type,
+			"severity" = T.severity,
+			"drain" = T.sanity_drain,
+			"age" = world.time - T.time_created,
+		))
+
+	data["scp_exposures"] = list()
+	for(var/scp_id in S.scp_exposures)
+		data["scp_exposures"] += list(list(
+			"scp_id" = scp_id,
+			"last_exposure" = S.scp_exposures[scp_id],
+			"time_since" = world.time - S.scp_exposures[scp_id],
+		))
+
+	data["medications"] = list()
+	for(var/datum/medication/M as anything in S.active_medications)
+		data["medications"] += list(list(
+			"name" = M.name,
+			"effectiveness" = M.effectiveness,
+			"time_remaining" = M.duration > 0 ? max(0, (M.time_applied + M.duration) - world.time) : -1,
+		))
+
+	data["insanity_effects"] = S.insanity_effects.Copy()
+	data["active_vfx"] = list()
+	for(var/vfx_type in S.active_vfx)
+		data["active_vfx"] += vfx_type
+	data["profile"] = S.get_profile_data()
+	data["recommendations"] = S.get_medical_recommendations()
+	data["prognosis"] = S.get_medical_prognosis()
+	data["statistics"] = list(
+		"total_lost" = S.total_sanity_lost,
+		"total_gained" = S.total_sanity_gained,
+		"breakdowns" = S.sanity_breakdowns,
+		"stable_ticks" = S.longest_stable_period,
+	)
+
+	data["environmental_factors"] = list()
+	for(var/factor in S.environmental_factors)
+		data["environmental_factors"] += list(list(
+			"name" = factor,
+			"value" = S.environmental_factors[factor],
+		))
+
+	data["effectiveness_modifiers"] = list(
+		"containment" = S.get_containment_effectiveness(),
+		"research" = S.get_research_effectiveness(),
+		"communication" = S.get_communication_effectiveness(),
+		"combat" = S.get_combat_effectiveness(),
+		"medical" = S.get_medical_effectiveness(),
+		"engineering" = S.get_engineering_effectiveness(),
+		"security" = S.get_security_effectiveness(),
+		"administrative" = S.get_administrative_effectiveness(),
+		"scientific" = S.get_scientific_effectiveness(),
+		"psychological" = S.get_psychological_effectiveness(),
+	)
+
+	data["active_hallucinations"] = list()
+	for(var/hallucination in S.active_hallucinations)
+		data["active_hallucinations"] += hallucination
+
+	data["trauma_resistances"] = list()
+	for(var/trauma_type in S.trauma_resistances)
+		data["trauma_resistances"] += list(list(
+			"type" = trauma_type,
+			"resistance" = S.trauma_resistances[trauma_type],
+		))
+
+	data["scp_resistance"] = S.check_scp_resistance("")
+	data["scp_vulnerability"] = S.check_scp_vulnerability("")
+	data["scp_interaction_modifier"] = S.get_scp_interaction_modifier("")
+
+	return data
+
+/obj/machinery/sanity_monitor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
 		return
 
-	var/mob/living/carbon/human/H = user
+	switch(action)
+		if("scan")
+			var/mob/user = usr
+			if(!ishuman(user))
+				return
+			var/mob/living/carbon/human/H = user
+			if(patient == H)
+				patient = null
+				scanning = FALSE
+			else
+				patient = H
+				scanning = TRUE
+			. = TRUE
 
-	if(patient == H)
-		patient = null
-		scanning = FALSE
-		to_chat(user, "<span class='notice'>You stop the sanity monitoring.</span>")
-	else
-		patient = H
-		scanning = TRUE
-		to_chat(user, "<span class='notice'>You begin sanity monitoring.</span>")
-		update_icon()
+		if("clear_patient")
+			patient = null
+			scanning = FALSE
+			. = TRUE
 
 /obj/machinery/sanity_monitor/process()
 	if(!patient || !scanning)
 		return
-
-	if(!patient.sanity)
+	if(!patient.sanity || QDELETED(patient))
 		patient = null
 		scanning = FALSE
 		return
-
-	// Update display
-	update_display()
-
-/obj/machinery/sanity_monitor/proc/update_display()
-	if(!patient || !patient.sanity)
-		return
-
-	var/message = "<h2>Sanity Monitor - [patient.name]</h2>"
-	message += "<b>Sanity Level:</b> [patient.sanity.sanity_level]/[patient.sanity.max_sanity]<br>"
-	message += "<b>Mental State:</b> [patient.sanity.current_sanity_state]<br>"
-	message += "<b>Hallucination Level:</b> [patient.sanity.hallucination_level]/[patient.sanity.max_hallucination]<br>"
-	message += "<b>Insanity Level:</b> [patient.sanity.insanity_level]/[patient.sanity.max_insanity]<br>"
-	message += "<b>Social Isolation:</b> [patient.sanity.social_isolation]/[patient.sanity.max_social_isolation]<br>"
-	message += "<b>Environmental Drain:</b> [patient.sanity.environmental_sanity_drain]<br><br>"
-
-	if(patient.sanity.traumas.len)
-		message += "<h3>Active Traumas:</h3>"
-		for(var/trauma in patient.sanity.traumas)
-			var/datum/trauma/T = trauma
-			message += "- [T.trauma_type] (Severity: [T.severity])<br>"
-
-	if(patient.sanity.active_medications.len)
-		message += "<h3>Active Medications:</h3>"
-		for(var/medication in patient.sanity.active_medications)
-			var/datum/medication/M = medication
-			message += "- [M.name]<br>"
-
-	if(patient.sanity.insanity_effects.len)
-		message += "<h3>Insanity Effects:</h3>"
-		for(var/effect in patient.sanity.insanity_effects)
-			message += "- [effect]<br>"
-
-	// Display on the machine
-	visible_message("<span class='notice'>[message]</span>")
+	SStgui.update_uis(src)
 
 /obj/machinery/sanity_monitor/update_icon()
 	. = ..()
@@ -283,54 +367,149 @@
 	icon_keyboard = "sanity_key"
 	density = TRUE
 	anchored = TRUE
+	circuit = /obj/item/circuitboard/computer/sanity_console
 	var/list/patient_records = list()
+	var/mob/living/carbon/human/selected_patient = null
 
-/obj/machinery/computer/sanity_console/attack_hand(mob/user)
-	if(!ishuman(user))
+/obj/machinery/computer/sanity_console/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "SanityPanel", "Sanity Records")
+		ui.open()
+
+/obj/machinery/computer/sanity_console/ui_data(mob/user)
+	var/list/data = list()
+
+	var/mob/living/carbon/human/H = selected_patient
+	if(!H || !H.sanity)
+		data["has_patient"] = FALSE
+		data["record_count"] = length(patient_records)
+		return data
+
+	data["has_patient"] = TRUE
+	data["patient_name"] = H.name
+
+	var/datum/sanity/S = H.sanity
+	data["sanity_level"] = S.sanity_level
+	data["max_sanity"] = S.max_sanity
+	data["sanity_state"] = S.current_sanity_state
+	data["previous_state"] = S.previous_sanity_state
+	data["sanity_percentage"] = round((S.sanity_level / S.max_sanity) * 100, 0.1)
+	data["hallucination_level"] = S.hallucination_level
+	data["max_hallucination"] = S.max_hallucination
+	data["insanity_level"] = S.insanity_level
+	data["max_insanity"] = S.max_insanity
+	data["social_isolation"] = S.social_isolation
+	data["max_social_isolation"] = S.max_social_isolation
+	data["environmental_drain"] = S.environmental_sanity_drain
+	data["recovery_rate"] = S.sanity_recovery_rate
+	data["treatment_effectiveness"] = S.treatment_effectiveness
+	data["episode_active"] = S.episode_active
+	data["episode_type"] = S.episode_type
+	data["episode_time_remaining"] = S.episode_active ? max(0, S.episode_end_time - world.time) : 0
+	data["is_admin"] = check_rights_for(user?.client, R_ADMIN)
+
+	data["traumas"] = list()
+	for(var/datum/trauma/T as anything in S.traumas)
+		data["traumas"] += list(list(
+			"type" = T.trauma_type,
+			"severity" = T.severity,
+			"drain" = T.sanity_drain,
+			"age" = world.time - T.time_created,
+		))
+
+	data["scp_exposures"] = list()
+	for(var/scp_id in S.scp_exposures)
+		data["scp_exposures"] += list(list(
+			"scp_id" = scp_id,
+			"last_exposure" = S.scp_exposures[scp_id],
+			"time_since" = world.time - S.scp_exposures[scp_id],
+		))
+
+	data["medications"] = list()
+	for(var/datum/medication/M as anything in S.active_medications)
+		data["medications"] += list(list(
+			"name" = M.name,
+			"effectiveness" = M.effectiveness,
+			"time_remaining" = M.duration > 0 ? max(0, (M.time_applied + M.duration) - world.time) : -1,
+		))
+
+	data["insanity_effects"] = S.insanity_effects.Copy()
+	data["active_vfx"] = list()
+	for(var/vfx_type in S.active_vfx)
+		data["active_vfx"] += vfx_type
+	data["profile"] = S.get_profile_data()
+	data["recommendations"] = S.get_medical_recommendations()
+	data["prognosis"] = S.get_medical_prognosis()
+	data["statistics"] = list(
+		"total_lost" = S.total_sanity_lost,
+		"total_gained" = S.total_sanity_gained,
+		"breakdowns" = S.sanity_breakdowns,
+		"stable_ticks" = S.longest_stable_period,
+	)
+
+	data["environmental_factors"] = list()
+	for(var/factor in S.environmental_factors)
+		data["environmental_factors"] += list(list(
+			"name" = factor,
+			"value" = S.environmental_factors[factor],
+		))
+
+	data["effectiveness_modifiers"] = list(
+		"containment" = S.get_containment_effectiveness(),
+		"research" = S.get_research_effectiveness(),
+		"communication" = S.get_communication_effectiveness(),
+		"combat" = S.get_combat_effectiveness(),
+		"medical" = S.get_medical_effectiveness(),
+		"engineering" = S.get_engineering_effectiveness(),
+		"security" = S.get_security_effectiveness(),
+		"administrative" = S.get_administrative_effectiveness(),
+		"scientific" = S.get_scientific_effectiveness(),
+		"psychological" = S.get_psychological_effectiveness(),
+	)
+
+	data["active_hallucinations"] = list()
+	for(var/hallucination in S.active_hallucinations)
+		data["active_hallucinations"] += hallucination
+
+	data["trauma_resistances"] = list()
+	for(var/trauma_type in S.trauma_resistances)
+		data["trauma_resistances"] += list(list(
+			"type" = trauma_type,
+			"resistance" = S.trauma_resistances[trauma_type],
+		))
+
+	data["scp_resistance"] = S.check_scp_resistance("")
+	data["scp_vulnerability"] = S.check_scp_vulnerability("")
+	data["scp_interaction_modifier"] = S.get_scp_interaction_modifier("")
+
+	return data
+
+/obj/machinery/computer/sanity_console/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
 		return
 
-	var/mob/living/carbon/human/H = user
+	var/mob/user = usr
 
-	// Create or update patient record
-	var/datum/computer_file/data/sanity_record/record = new()
-	record.update_record(H)
-	patient_records[H.name] = record
+	switch(action)
+		if("scan_self")
+			if(!ishuman(user))
+				return
+			var/mob/living/carbon/human/H = user
+			selected_patient = H
+			var/datum/computer_file/data/sanity_record/record = new()
+			record.update_record(H)
+			patient_records[H.name] = record
+			. = TRUE
 
-	// Display record
-	var/message = "<h2>Sanity Record - [H.name]</h2>"
-	message += "<b>Sanity Level:</b> [H.sanity.sanity_level]/[H.sanity.max_sanity]<br>"
-	message += "<b>Mental State:</b> [H.sanity.current_sanity_state]<br>"
-	message += "<b>Hallucination Level:</b> [H.sanity.hallucination_level]/[H.sanity.max_hallucination]<br>"
-	message += "<b>Insanity Level:</b> [H.sanity.insanity_level]/[H.sanity.max_insanity]<br>"
-	message += "<b>Social Isolation:</b> [H.sanity.social_isolation]/[H.sanity.max_social_isolation]<br>"
-	message += "<b>Total Sanity Lost:</b> [H.sanity.total_sanity_lost]<br>"
-	message += "<b>Total Sanity Gained:</b> [H.sanity.total_sanity_gained]<br>"
-	message += "<b>Sanity Breakdowns:</b> [H.sanity.sanity_breakdowns]<br>"
-	message += "<b>Longest Stable Period:</b> [H.sanity.longest_stable_period]<br><br>"
+		if("clear_patient")
+			selected_patient = null
+			. = TRUE
 
-	if(H.sanity.scp_exposures.len)
-		message += "<h3>SCP Exposures:</h3>"
-		for(var/scp_id in H.sanity.scp_exposures)
-			message += "- SCP-[scp_id]<br>"
-
-	if(H.sanity.traumas.len)
-		message += "<h3>Active Traumas:</h3>"
-		for(var/trauma in H.sanity.traumas)
-			var/datum/trauma/T = trauma
-			message += "- [T.trauma_type] (Severity: [T.severity])<br>"
-
-	if(H.sanity.active_medications.len)
-		message += "<h3>Active Medications:</h3>"
-		for(var/medication in H.sanity.active_medications)
-			var/datum/medication/M = medication
-			message += "- [M.name]<br>"
-
-	if(H.sanity.insanity_effects.len)
-		message += "<h3>Insanity Effects:</h3>"
-		for(var/effect in H.sanity.insanity_effects)
-			message += "- [effect]<br>"
-
-	to_chat(user, "<span class='notice'>[message]</span>")
+/obj/item/circuitboard/computer/sanity_console
+	name = "Sanity Console (Computer Board)"
+	build_path = /obj/machinery/computer/sanity_console
 
 // Sanity medical recommendations
 /datum/sanity/proc/get_medical_recommendations()

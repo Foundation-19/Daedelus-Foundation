@@ -91,7 +91,7 @@
 /obj/machinery/decontamination_chamber/update_icon()
 	. = ..()
 	if(active)
-		icon_state = "stasis_closed"
+		icon_state = "stasis"
 	else
 		icon_state = "stasis"
 
@@ -127,4 +127,4 @@
 		to_chat(L, span_notice("Decontaminant washes over you."))
 
 	if(uses <= 0)
-		icon_state = "medipen_refiller_empty"
+		icon_state = "medipen_refiller"

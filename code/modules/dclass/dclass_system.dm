@@ -3,7 +3,7 @@
 
 SUBSYSTEM_DEF(dclass)
 	name = "D-Class Management"
-	wait = 60 // Check every 6 seconds
+	wait = 200
 	priority = FIRE_PRIORITY_DCLASS
 	var/datum/dclass_manager/manager
 
@@ -62,7 +62,7 @@ SUBSYSTEM_DEF(dclass)
 	// Process factions
 	if(faction_manager)
 		faction_manager.process_factions()
-	process_work_assignments()
+
 
 	// Process dynamic events
 	process_events()

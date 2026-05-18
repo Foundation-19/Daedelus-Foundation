@@ -237,15 +237,15 @@
 	plane = FULLSCREEN_PLANE
 
 /atom/movable/screen/fullscreen/sanity_vignette/light
-	icon_state = "vignette_light"
+	icon_state = "passage3"
 	alpha = 120
 
 /atom/movable/screen/fullscreen/sanity_vignette/medium
-	icon_state = "vignette_medium"
+	icon_state = "passage5"
 	alpha = 160
 
 /atom/movable/screen/fullscreen/sanity_vignette/heavy
-	icon_state = "vignette_heavy"
+	icon_state = "passage8"
 	alpha = 200
 
 // ── Shadow Hallucination Mob ──
@@ -573,15 +573,15 @@
 	plane = FULLSCREEN_PLANE
 
 /atom/movable/screen/fullscreen/sanity_vignette/light
-	icon_state = "passage"
+	icon_state = "passage3"
 	alpha = 80
 
 /atom/movable/screen/fullscreen/sanity_vignette/medium
-	icon_state = "passage"
+	icon_state = "passage5"
 	alpha = 130
 
 /atom/movable/screen/fullscreen/sanity_vignette/heavy
-	icon_state = "passage"
+	icon_state = "passage8"
 	alpha = 200
 
 // ── Movespeed Modifiers for Episodes ──

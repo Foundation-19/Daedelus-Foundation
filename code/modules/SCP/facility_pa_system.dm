@@ -5,7 +5,7 @@
 	name = "Facility PA System"
 	desc = "A facility-wide public address system for broadcasting messages to specific zones or the entire facility."
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "research"
+	icon_state = "server"
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
@@ -96,6 +96,7 @@
 /obj/item/radio/intercom/scp_facility
 	name = "facility intercom"
 	desc = "A facility intercom tuned to SCP Foundation channels."
+	icon = 'icons/obj/radio.dmi'
 	icon_state = "intercom"
 	freqlock = TRUE
 

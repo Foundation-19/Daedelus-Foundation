@@ -3,7 +3,7 @@
 
 SUBSYSTEM_DEF(security_persistence)
 	name = "Security Persistence"
-	wait = 600 // 1 minute
+	wait = 3000
 	priority = FIRE_PRIORITY_INPUT
 
 	var/datum/security_persistence_manager/manager

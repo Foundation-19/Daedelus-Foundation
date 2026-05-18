@@ -37,7 +37,7 @@
 
 SUBSYSTEM_DEF(scp_cross_interactions)
 	name = "SCP Cross-Interactions"
-	wait = 50
+	wait = 300
 	priority = FIRE_PRIORITY_INPUT
 	var/list/interactions = list()
 	var/list/discovered_interactions = list()

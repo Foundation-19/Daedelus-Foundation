@@ -61,6 +61,13 @@ const EPISODE_LABELS = {
   catatonic_state: 'CATATONIC STATE',
 };
 
+const EPISODE_COLORS = {
+  panic_attack: 'orange',
+  dissociative_episode: 'purple',
+  flashback: 'bad',
+  catatonic_state: 'bad',
+};
+
 const PROFILE_LABELS = {
   default: 'Standard',
   dclass: 'D-Class (Conditioned)',
@@ -72,12 +79,43 @@ const PROFILE_LABELS = {
   command: 'Command',
 };
 
+const EFFECTIVENESS_LABELS = {
+  containment: 'Containment',
+  research: 'Research',
+  communication: 'Communication',
+  combat: 'Combat',
+  medical: 'Medical',
+  engineering: 'Engineering',
+  security: 'Security',
+  administrative: 'Administrative',
+  scientific: 'Scientific',
+  psychological: 'Psychological',
+};
+
+const ENV_FACTOR_ICONS = {
+  lighting: 'lightbulb',
+  noise: 'volume-up',
+  crowding: 'users',
+  isolation: 'user-slash',
+  danger: 'exclamation-triangle',
+  unfamiliarity: 'question-circle',
+};
+
 const formatTime = (deciseconds) => {
-  if (deciseconds <= 0) return '--:--';
+  if (!deciseconds || deciseconds <= 0) return '--:--';
   const seconds = Math.ceil(deciseconds / 10);
   const m = Math.floor(seconds / 60);
   const s = seconds % 60;
   return `${m}:${s.toString().padStart(2, '0')}`;
+};
+
+const formatDuration = (deciseconds) => {
+  if (!deciseconds || deciseconds <= 0) return '0s';
+  const seconds = Math.floor(deciseconds / 10);
+  if (seconds < 60) return `${seconds}s`;
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  return `${m}m ${s}s`;
 };
 
 export const SanityPanel = (props) => {
@@ -98,8 +136,8 @@ export const SanityPanel = (props) => {
   return (
     <Window
       title="SCiPNet Sanity Monitor"
-      width={750}
-      height={750}
+      width={800}
+      height={900}
       theme="scp_terminal"
     >
       <Window.Content scrollable>
@@ -143,6 +181,29 @@ export const SanityPanel = (props) => {
             </Flex>
           </Stack.Item>
           <Stack.Item>
+            <Flex wrap="wrap" gap={1}>
+              <Flex.Item width="48%">
+                <EnvironmentalFactors data={data} />
+              </Flex.Item>
+              <Flex.Item width="48%">
+                <EffectivenessModifiers data={data} />
+              </Flex.Item>
+            </Flex>
+          </Stack.Item>
+          <Stack.Item>
+            <Flex wrap="wrap" gap={1}>
+              <Flex.Item width="48%">
+                <TraumaResistances data={data} />
+              </Flex.Item>
+              <Flex.Item width="48%">
+                <SCPResistance data={data} />
+              </Flex.Item>
+            </Flex>
+          </Stack.Item>
+          <Stack.Item>
+            <HallucinationLog data={data} />
+          </Stack.Item>
+          <Stack.Item>
             <MedicalRecommendations data={data} />
           </Stack.Item>
           {!!is_admin && (
@@ -158,9 +219,10 @@ export const SanityPanel = (props) => {
 
 const SanityHeader = (props) => {
   const { data } = props;
-  const { sanity_level, max_sanity, sanity_state, sanity_percentage } = data;
+  const { sanity_level, max_sanity, sanity_state, sanity_percentage, previous_state } = data;
   const stateColor = STATE_COLORS[sanity_state] || 'label';
   const stateLabel = STATE_LABELS[sanity_state] || sanity_state?.toUpperCase();
+  const prevLabel = STATE_LABELS[previous_state] || previous_state;
 
   return (
     <Section title="Mental Health Status">
@@ -179,6 +241,12 @@ const SanityHeader = (props) => {
           </ProgressBar>
         </Flex.Item>
       </Flex>
+      {previous_state && previous_state !== sanity_state && (
+        <Box mt={0.5} fontSize="11px" color="label">
+          <Icon name="arrow-right" mr={1} />
+          Previous state: {prevLabel}
+        </Box>
+      )}
       {sanity_state === 'catastrophic' && (
         <Box color="red" bold textAlign="center" mt={1} fontSize="13px">
           <Icon name="exclamation-triangle" mr={1} />
@@ -192,16 +260,21 @@ const SanityHeader = (props) => {
 
 const EpisodeAlert = (props) => {
   const { data, act } = props;
-  const { episode_type } = data;
+  const { episode_type, episode_time_remaining } = data;
   const label = EPISODE_LABELS[episode_type] || episode_type;
+  const color = EPISODE_COLORS[episode_type] || 'bad';
 
   return (
     <Section backgroundColor="rgba(139, 0, 0, 0.3)" title="ACTIVE PSYCHIATRIC EPISODE">
       <Flex align="center" justify="space-between">
         <Flex.Item>
-          <Box color="red" bold fontSize="16px">
+          <Box color={color} bold fontSize="16px">
             <Icon name="exclamation-circle" mr={1} />
             {label}
+          </Box>
+          <Box mt={0.5} color="label" fontSize="12px">
+            <Icon name="clock" mr={1} />
+            Time remaining: {formatDuration(episode_time_remaining)}
           </Box>
         </Flex.Item>
         <Flex.Item>
@@ -322,6 +395,11 @@ const ProfileCard = (props) => {
             {((profile?.medical_horror_resistance || 0) * 100).toFixed(0)}%
           </Box>
         </LabeledList.Item>
+        <LabeledList.Item label="Isolation Tolerance">
+          <Box color={(profile?.isolation_tolerance || 1) > 1.0 ? 'good' : 'label'}>
+            {((profile?.isolation_tolerance || 1) * 100).toFixed(0)}%
+          </Box>
+        </LabeledList.Item>
         <LabeledList.Item label="Prognosis">
           <Box bold color={prognosis === 'Critical' || prognosis === 'Poor' ? 'bad' : prognosis === 'Fair' ? 'average' : 'good'}>
             {prognosis}
@@ -329,7 +407,7 @@ const ProfileCard = (props) => {
         </LabeledList.Item>
       </LabeledList>
       <Box mt={1} fontSize="11px" color="label">
-        Breakdowns: {statistics?.breakdowns || 0} | Lost: {statistics?.total_lost?.toFixed(1) || 0} | Gained: {statistics?.total_gained?.toFixed(1) || 0}
+        Breakdowns: {statistics?.breakdowns || 0} | Lost: {statistics?.total_lost?.toFixed(1) || 0} | Gained: {statistics?.total_gained?.toFixed(1) || 0} | Stable: {formatDuration((statistics?.stable_ticks || 0) * 20)}
       </Box>
     </Section>
   );
@@ -353,6 +431,7 @@ const TraumaList = (props) => {
             <Table.Cell>Type</Table.Cell>
             <Table.Cell>Severity</Table.Cell>
             <Table.Cell>Drain</Table.Cell>
+            <Table.Cell>Age</Table.Cell>
           </Table.Row>
           {traumas.map((trauma, i) => (
             <Table.Row key={i}>
@@ -373,6 +452,9 @@ const TraumaList = (props) => {
               </Table.Cell>
               <Table.Cell color="bad">
                 -{trauma.drain?.toFixed(2)}/tick
+              </Table.Cell>
+              <Table.Cell color="label" fontSize="10px">
+                {formatDuration(trauma.age)}
               </Table.Cell>
             </Table.Row>
           ))}
@@ -495,6 +577,204 @@ const ActiveEffects = (props) => {
       {(!insanity_effects || insanity_effects.length === 0) && (!active_vfx || active_vfx.length === 0) && (
         <Box color="good" textAlign="center" p={1}>
           <Icon name="check-circle" mr={1} />No active effects
+        </Box>
+      )}
+    </Section>
+  );
+};
+
+const EnvironmentalFactors = (props) => {
+  const { data } = props;
+  const { environmental_factors } = data;
+
+  return (
+    <Section title="Environmental Factors" level={2}>
+      {environmental_factors && environmental_factors.length > 0 ? (
+        <Table>
+          <Table.Row header>
+            <Table.Cell>Factor</Table.Cell>
+            <Table.Cell>Impact</Table.Cell>
+            <Table.Cell>Level</Table.Cell>
+          </Table.Row>
+          {environmental_factors.map((factor, i) => {
+            const val = factor.value || 0;
+            const level = val > 15 ? 'Severe' : val > 5 ? 'Moderate' : val > 0 ? 'Mild' : 'None';
+            return (
+              <Table.Row key={i}>
+                <Table.Cell>
+                  <Icon name={ENV_FACTOR_ICONS[factor.name] || 'circle'} mr={1} />
+                  {factor.name?.replace(/_/g, ' ')}
+                </Table.Cell>
+                <Table.Cell>
+                  <ProgressBar
+                    value={val}
+                    minValue={0}
+                    maxValue={30}
+                    color={val > 15 ? 'bad' : val > 5 ? 'average' : 'good'}
+                    fontSize="10px"
+                  >
+                    {val.toFixed(1)}
+                  </ProgressBar>
+                </Table.Cell>
+                <Table.Cell
+                  color={val > 15 ? 'bad' : val > 5 ? 'average' : 'good'}
+                  fontSize="10px"
+                >
+                  {level}
+                </Table.Cell>
+              </Table.Row>
+            );
+          })}
+        </Table>
+      ) : (
+        <Box color="good" textAlign="center" p={1}>
+          <Icon name="check-circle" mr={1} />No environmental stressors
+        </Box>
+      )}
+    </Section>
+  );
+};
+
+const EffectivenessModifiers = (props) => {
+  const { data } = props;
+  const { effectiveness_modifiers } = data;
+
+  return (
+    <Section title="Effectiveness Modifiers" level={2}>
+      {effectiveness_modifiers ? (
+        <Table>
+          <Table.Row header>
+            <Table.Cell>Category</Table.Cell>
+            <Table.Cell>Eff.</Table.Cell>
+          </Table.Row>
+          {Object.entries(effectiveness_modifiers).map(([key, val]) => {
+            const numVal = typeof val === 'number' ? val : 1;
+            return (
+              <Table.Row key={key}>
+                <Table.Cell fontSize="11px">
+                  {EFFECTIVENESS_LABELS[key] || key}
+                </Table.Cell>
+                <Table.Cell>
+                  <ProgressBar
+                    value={numVal}
+                    minValue={0}
+                    maxValue={2}
+                    color={numVal < 0.5 ? 'bad' : numVal < 0.8 ? 'average' : 'good'}
+                    fontSize="10px"
+                  >
+                    {(numVal * 100).toFixed(0)}%
+                  </ProgressBar>
+                </Table.Cell>
+              </Table.Row>
+            );
+          })}
+        </Table>
+      ) : (
+        <Box color="label" textAlign="center" p={1}>
+          No effectiveness data
+        </Box>
+      )}
+    </Section>
+  );
+};
+
+const TraumaResistances = (props) => {
+  const { data } = props;
+  const { trauma_resistances } = data;
+
+  return (
+    <Section title="Trauma Resistances" level={2}>
+      {trauma_resistances && trauma_resistances.length > 0 ? (
+        <Table>
+          <Table.Row header>
+            <Table.Cell>Trauma Type</Table.Cell>
+            <Table.Cell>Resistance</Table.Cell>
+          </Table.Row>
+          {trauma_resistances.map((tr, i) => {
+            const val = tr.resistance || 1;
+            return (
+              <Table.Row key={i}>
+                <Table.Cell>
+                  <Icon name={TRAUMA_ICONS[tr.type] || 'shield-alt'} mr={1} />
+                  {tr.type?.replace(/_/g, ' ')}
+                </Table.Cell>
+                <Table.Cell>
+                  <ProgressBar
+                    value={val}
+                    minValue={0}
+                    maxValue={2}
+                    color={val > 1.3 ? 'good' : val > 0.8 ? 'average' : 'bad'}
+                    fontSize="10px"
+                  >
+                    {(val * 100).toFixed(0)}%
+                  </ProgressBar>
+                </Table.Cell>
+              </Table.Row>
+            );
+          })}
+        </Table>
+      ) : (
+        <Box color="label" textAlign="center" p={1}>
+          No resistance data
+        </Box>
+      )}
+    </Section>
+  );
+};
+
+const SCPResistance = (props) => {
+  const { data } = props;
+  const { scp_resistance, scp_vulnerability, scp_interaction_modifier } = data;
+
+  return (
+    <Section title="SCP Interaction Profile" level={2}>
+      <LabeledList>
+        <LabeledList.Item label="SCP Resistance">
+          <ProgressBar
+            value={scp_resistance || 1}
+            minValue={0}
+            maxValue={2}
+            color={(scp_resistance || 1) > 1.3 ? 'good' : (scp_resistance || 1) < 0.8 ? 'bad' : 'average'}
+          >
+            {((scp_resistance || 1) * 100).toFixed(0)}%
+          </ProgressBar>
+        </LabeledList.Item>
+        <LabeledList.Item label="SCP Vulnerability">
+          <ProgressBar
+            value={scp_vulnerability || 1}
+            minValue={0}
+            maxValue={3}
+            color={(scp_vulnerability || 1) > 1.5 ? 'bad' : (scp_vulnerability || 1) > 1.0 ? 'average' : 'good'}
+          >
+            {((scp_vulnerability || 1) * 100).toFixed(0)}%
+          </ProgressBar>
+        </LabeledList.Item>
+        <LabeledList.Item label="Interaction Mod.">
+          <Box color={(scp_interaction_modifier || 1) > 1.0 ? 'good' : (scp_interaction_modifier || 1) < 0.8 ? 'bad' : 'label'}>
+            {((scp_interaction_modifier || 1) * 100).toFixed(0)}%
+          </Box>
+        </LabeledList.Item>
+      </LabeledList>
+    </Section>
+  );
+};
+
+const HallucinationLog = (props) => {
+  const { data } = props;
+  const { active_hallucinations } = data;
+
+  return (
+    <Section title="Hallucination Log" level={2}>
+      {active_hallucinations && active_hallucinations.length > 0 ? (
+        active_hallucinations.map((hallucination, i) => (
+          <Box key={i} mb={0.5} p={0.5} backgroundColor="rgba(128, 0, 128, 0.1)" fontSize="11px" color="purple">
+            <Icon name="eye-slash" mr={1} />
+            {hallucination}
+          </Box>
+        ))
+      ) : (
+        <Box color="good" textAlign="center" p={1}>
+          <Icon name="check-circle" mr={1} />No active hallucinations
         </Box>
       )}
     </Section>

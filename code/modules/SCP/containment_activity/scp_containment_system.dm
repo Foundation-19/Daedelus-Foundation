@@ -697,7 +697,7 @@
 	name = "SCP Containment Terminal"
 	desc = "A terminal inside an SCP containment cell for entity interaction and monitoring."
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "computer"
+	icon_state = "generic"
 	req_access = list()
 	density = FALSE
 	anchored = TRUE
@@ -784,7 +784,7 @@
 	name = "reinforced observation window"
 	desc = "A thick reinforced glass window for observing contained entities."
 	icon = 'icons/obj/structures.dmi'
-	icon_state = "window"
+	icon_state = "rwindow"
 	density = TRUE
 	opacity = 0
 	anchored = TRUE
@@ -813,7 +813,7 @@
 	name = "containment vent"
 	desc = "A ventilation grate in the containment cell. Too small for most entities to fit through."
 	icon = 'icons/obj/structures.dmi'
-	icon_state = "vent"
+	icon_state = "grille"
 	density = FALSE
 	anchored = TRUE
 
@@ -844,7 +844,7 @@
 	name = "containment cell bed"
 	desc = "A reinforced bed bolted to the floor."
 	icon = 'icons/obj/structures.dmi'
-	icon_state = "bed"
+	icon_state = "table"
 	density = FALSE
 	anchored = TRUE
 
@@ -861,7 +861,7 @@
 	name = "scratch marks"
 	desc = "Deep scratch marks gouged into the wall. Someone has been here a long time."
 	icon = 'icons/obj/structures.dmi'
-	icon_state = "scratch"
+	icon_state = "catwalkfull"
 	density = FALSE
 	anchored = TRUE
 

@@ -771,7 +771,8 @@
 	icon_state = "spline_fancy_full"
 
 /obj/effect/turf_decal/corner
-	icon_state = "corner_white"
+	icon = 'icons/turf/decals-ported.dmi'
+	icon_state = "bordercolor"
 	alpha = 229
 
 // Corner Decals

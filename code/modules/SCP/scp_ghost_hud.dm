@@ -66,7 +66,7 @@
 
 /atom/movable/screen/ghost_scp/track
 	name = "Track SCPs"
-	icon_state = "track"
+	icon_state = "hudhealthy"
 
 /atom/movable/screen/ghost_scp/track/Click()
 	..()
@@ -94,7 +94,7 @@
 
 /atom/movable/screen/ghost_scp/orbit
 	name = "Orbit Breached SCPs"
-	icon_state = "orbit"
+	icon_state = "hudill1"
 
 /atom/movable/screen/ghost_scp/orbit/Click()
 	..()
@@ -113,7 +113,7 @@
 
 /atom/movable/screen/ghost_scp/breach_status
 	name = "Breach Status"
-	icon_state = "breach_status"
+	icon_state = "huddead"
 
 /atom/movable/screen/ghost_scp/breach_status/Click()
 	..()

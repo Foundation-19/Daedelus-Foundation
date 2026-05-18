@@ -204,9 +204,10 @@
 	return .
 
 /proc/find_scp_mob(scp_id)
-	for(var/mob/living/scp/S in GLOB.mob_list)
-		if(!QDELETED(S) && S.persistence_id == scp_id)
-			return S
+	for(var/atom/A in GLOB.SCP_list)
+		var/datum/scp/scp_datum = A.SCP
+		if(scp_datum && scp_datum.get_scp_id() == scp_id)
+			return A
 	return null
 
 /datum/outfit/mtf_operative

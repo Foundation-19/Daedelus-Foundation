@@ -2,8 +2,8 @@
 	name = "mechanical spider"
 	desc = "An amalgamation of exposed wires and robotic parts. It has 4 spider-like legs and a metal mask in place of the 'head'."
 	icon = 'icons/scp/scp-2427-3.dmi'
-	icon_state = "spider"
-	icon_living = "spider"
+	icon_state = "sleep"
+	icon_living = "sleep"
 	icon_dead = "dead"
 	maxHealth = 150
 	health = 150

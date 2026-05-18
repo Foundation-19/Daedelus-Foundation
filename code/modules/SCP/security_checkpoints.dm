@@ -5,7 +5,7 @@
 	name = "SCP Checkpoint Scanner"
 	desc = "A security scanner that detects contraband, unauthorized items, and anomalous objects at zone transitions."
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "mass_driver"
+	icon_state = "bluespace-prison"
 	density = FALSE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
@@ -175,7 +175,7 @@
 	name = "Checkpoint Search Terminal"
 	desc = "A terminal for initiating formal search procedures on personnel passing through checkpoints."
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "research"
+	icon_state = "server"
 	density = TRUE
 	anchored = TRUE
 

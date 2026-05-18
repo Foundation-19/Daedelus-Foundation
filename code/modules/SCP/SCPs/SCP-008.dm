@@ -5,7 +5,7 @@
 	name = "SCP-008"
 	desc = "A sealed container containing a highly contagious zombie plague. Extremely dangerous."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle-4"
+	icon_state = "bottle"
 	var/containment_breached = FALSE
 	var/infection_strength = 50
 	var/list/infected_targets = list()
@@ -90,13 +90,13 @@
 
 	switch(infection_type)
 		if("airborne")
-			icon_state = "bottle-4"
+			icon_state = "bottle"
 		if("contact")
-			icon_state = "bottle-4"
+			icon_state = "bottle"
 		if("fluid")
-			icon_state = "bottle-4"
+			icon_state = "bottle"
 		if("aerosol")
-			icon_state = "bottle-4"
+			icon_state = "bottle"
 
 /obj/item/reagent_containers/glass/bottle/scp008/proc/process_infection_spread()
 	// Only spread if containment is breached

@@ -156,7 +156,7 @@
 	name = "Elevator Call Button"
 	desc = "Press to call the elevator to this level."
 	icon = 'icons/obj/objects.dmi'
-	icon_state = "doorctrl0"
+	icon_state = "navbeacon0"
 	anchored = TRUE
 	var/elevator_id = ""
 	var/target_dock_id = ""
@@ -250,7 +250,7 @@
 	name = "Elevator Door"
 	desc = "A heavy elevator door."
 	icon = 'icons/obj/doors/airlocks/station/airlock.dmi'
-	icon_state = "door_closed"
+	icon_state = "closed"
 	density = TRUE
 	anchored = TRUE
 	opacity = TRUE
@@ -263,7 +263,7 @@
 		return
 	density = FALSE
 	opacity = FALSE
-	icon_state = "door_open"
+	icon_state = "open"
 	playsound(src, 'sound/machines/door_open.ogg', 50, TRUE)
 
 /obj/machinery/elevator_door/proc/close_door()
@@ -271,5 +271,5 @@
 		return
 	density = TRUE
 	opacity = TRUE
-	icon_state = "door_closed"
+	icon_state = "closed"
 	playsound(src, 'sound/machines/door_close.ogg', 50, TRUE)

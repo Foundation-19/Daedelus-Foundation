@@ -1,22 +1,10 @@
-// Site53 map stubs batch 2 - more Bay/VORE items and machinery
-
-/obj/machinery/door/airlock/hatch/maintenance
-	name = "maintenance hatch"
-
-/obj/machinery/door/airlock/civilian
-	name = "civilian airlock"
-
-/obj/machinery/door/airlock/glass/civilian
-	name = "glass civilian airlock"
-
-/obj/machinery/door/airlock/glass/research
-	name = "research airlock"
-
-/obj/machinery/door/airlock/glass/security
-	name = "security airlock"
+// Site53 Bay stubs batch 2 - ONLY types with functional logic
+// Name-only stubs removed; BYOND creates parent-type instances from map data
 
 /obj/machinery/button/blast_door
 	name = "blast door button"
+	skin = "doorctrl"
+	device_type = /obj/item/assembly/control
 
 /obj/machinery/camera/network
 	name = "security camera"
@@ -68,6 +56,8 @@
 
 /obj/item/card/id/dassignment
 	name = "D-Class Assignment ID"
+	desc = "A D-Class personnel identification card with specific work assignment access."
+	icon_state = "card_orange"
 	trim = /datum/id_trim/job/prisoner
 
 /obj/item/card/id/dassignment/dkitchen
@@ -92,58 +82,20 @@
 
 /obj/item/card/id/classd
 	name = "D-Class ID"
+	desc = "A standard D-Class personnel identification card."
+	icon_state = "card_orange"
 	trim = /datum/id_trim/job/prisoner
-
-/obj/item/clothing/head/helmet/facecover
-	name = "face cover"
 
 /obj/item/storage/mre
 	name = "MRE"
+	desc = "A Meal Ready to Eat. Foundation-issue field ration."
+	icon_state = "mre"
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/storage/mre/PopulateContents()
+	new /obj/item/food/breadslice/plain(src)
+	new /obj/item/reagent_containers/food/drinks/waterbottle(src)
 
 /obj/item/storage/mre/random
 	name = "random MRE"
-
-/obj/item/boombox
-	name = "boombox"
-
-/obj/item/modular_computer/laptop/preset/custom_loadout
-	name = "custom laptop"
-
-/obj/item/modular_computer/laptop/preset/custom_loadout/advanced
-	name = "advanced laptop"
-
-/obj/item/modular_computer/laptop/preset/custom_loadout/standard
-	name = "standard laptop"
-
-/obj/item/modular_computer/console/preset/security
-	name = "security console"
-
-/obj/item/ammo_magazine/scp
-	name = "SCP ammo"
-
-/obj/item/ammo_magazine/scp/p90_mag
-	name = "P90 magazine"
-
-/obj/item/ammo_magazine/scp/p90_mag/rubber
-	name = "P90 rubber magazine"
-
-/obj/item/device/camera_film
-	name = "camera film"
-
-/obj/item/device/tape
-	name = "tape"
-
-/obj/item/device/tape/random
-	name = "random tape"
-
-/obj/item/device/taperecorder
-	name = "tape recorder"
-
-/obj/item/crowbar/emergency_forcing_tool
-	name = "emergency forcing tool"
-
-/obj/item/device/radio/intercom
-	name = "station intercom"
-
-/obj/item/gun/projectile/shotgun/pump/combat
-	name = "combat shotgun"
+	desc = "A Meal Ready to Eat. Contents may vary."

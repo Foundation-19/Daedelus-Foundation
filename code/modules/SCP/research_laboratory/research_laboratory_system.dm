@@ -484,7 +484,7 @@ SUBSYSTEM_DEF(research_laboratory)
 	name = "Research Laboratory Console"
 	desc = "An advanced terminal for managing SCP experiments, research teams, and technology."
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "research"
+	icon_state = "generic"
 	circuit = /obj/item/circuitboard/computer/research_laboratory_console
 	req_access = list(ACCESS_SCIENCE)
 	var/admin_virtual = FALSE

@@ -146,7 +146,7 @@
 
 /obj/effect/temp_visual/divine_presence
 	icon = 'icons/effects/effects.dmi'
-	icon_state = "sparkles"
+	icon_state = "purplesparkles"
 	duration = 20
 	color = "#FFD700"
 

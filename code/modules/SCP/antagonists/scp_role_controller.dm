@@ -292,14 +292,25 @@ GLOBAL_LIST_EMPTY(scp_spawn_turfs)
 	for(var/obj/effect/landmark/scp_spawn/L in GLOB.landmarks_list)
 		GLOB.scp_spawn_turfs += get_turf(L)
 	if(!length(GLOB.scp_spawn_turfs))
-		for(var/turf/T in GLOB.station_turfs)
-			if(istype(T.loc, /area/scp))
+		for(var/area/A in GLOB.areas)
+			if(!istype(A, /area/scp) && !istype(A, /area/site53))
+				continue
+			if(!is_station_level(A.z))
+				continue
+			for(var/turf/T in A)
 				GLOB.scp_spawn_turfs += T
 				if(length(GLOB.scp_spawn_turfs) >= 20)
 					break
+			if(length(GLOB.scp_spawn_turfs) >= 20)
+				break
 	if(!length(GLOB.scp_spawn_turfs))
-		for(var/turf/T in GLOB.station_turfs)
-			GLOB.scp_spawn_turfs += T
+		for(var/area/A in GLOB.areas)
+			if(!is_station_level(A.z))
+				continue
+			for(var/turf/T in A)
+				GLOB.scp_spawn_turfs += T
+				if(length(GLOB.scp_spawn_turfs) >= 10)
+					break
 			if(length(GLOB.scp_spawn_turfs) >= 10)
 				break
 	log_world("SCP spawn turfs: found [length(GLOB.scp_spawn_turfs)] turfs")
@@ -323,17 +334,13 @@ GLOBAL_LIST_EMPTY(scp_spawn_turfs)
 	)
 	var/list/spawn_turfs = GLOB.scp_spawn_turfs
 	if(!length(spawn_turfs))
-		if(length(GLOB.station_turfs))
-			spawn_turfs = GLOB.station_turfs
-		else
-			for(var/area/A in GLOB.the_station_areas)
-				for(var/turf/T in A)
-					if(is_station_level(T.z))
-						spawn_turfs += T
-					if(length(spawn_turfs) >= 50)
-						break
-				if(length(spawn_turfs) >= 50)
-					break
+		for(var/area/A in GLOB.areas)
+			if(!is_station_level(A.z))
+				continue
+			for(var/turf/T in A)
+				spawn_turfs += T
+			if(length(spawn_turfs) >= 50)
+				break
 	if(!length(spawn_turfs))
 		log_world("SCP ghost spawners: FAILED - no spawn turfs found")
 		return

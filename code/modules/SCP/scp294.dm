@@ -6,7 +6,7 @@ GLOBAL_LIST_EMPTY(pending_clarity_prompts)
 	desc = "A standard coffee vending machine. This one seems to have a QWERTY keyboard."
 	icon = 'icons/obj/vending.dmi'
 
-	icon_state = "coffee_294"
+	icon_state = "coffee"
 	anchored = TRUE
 	density = TRUE
 
@@ -209,7 +209,7 @@ GLOBAL_LIST_EMPTY(pending_clarity_prompts)
 /datum/scp294_custom_effect
 	var/name = "Abstract Liquid"
 	var/description = "A strange, unidentifiable liquid."
-	var/icon_state = "sillycup" // Default icon state for the cup
+	var/icon_state = "coffee" // Default icon state for the cup
 	var/reagent_to_add = /datum/reagent/water // Default reagent to add to the cup
 
 /datum/scp294_custom_effect/proc/apply_effect(mob/living/user)
@@ -274,7 +274,7 @@ GLOBAL_LIST_EMPTY(pending_clarity_prompts)
 /datum/scp294_custom_effect/clarity
 	name = "Clarity"
 	description = "A liquid that grants unsettling insights."
-	icon_state = "sillycup"
+	icon_state = "coffee"
 	reagent_to_add = /datum/reagent/water
 	var/admin_custom_response_enabled = TRUE // New variable to enable/disable admin custom responses
 	var/list/event_prophecies = list(
@@ -426,7 +426,7 @@ GLOBAL_LIST_EMPTY(pending_clarity_prompts)
 /datum/scp294_custom_effect/purity
 	name = "Purity"
 	description = "A cleansing liquid that purges all chemicals."
-	icon_state = "sillycup"
+	icon_state = "coffee"
 	reagent_to_add = /datum/reagent/water // We'll make it add water, and then apply the effect
 
 /datum/scp294_custom_effect/purity/apply_effect(mob/living/user)

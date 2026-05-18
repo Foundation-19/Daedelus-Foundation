@@ -388,10 +388,12 @@ Used by the AI doomsday and the self-destruct nuke.
 GLOBAL_LIST_EMPTY(the_station_areas)
 
 /datum/controller/subsystem/mapping/proc/generate_station_area_list()
-	for(var/area/station/A in GLOB.areas)
+	for(var/area/A in GLOB.areas)
 		if (!(A.area_flags & UNIQUE_AREA))
 			continue
-		if (is_station_level(A.z))
+		if (!is_station_level(A.z))
+			continue
+		if (istype(A, /area/station) || istype(A, /area/site53))
 			GLOB.the_station_areas += A.type
 
 	if(!GLOB.the_station_areas.len)

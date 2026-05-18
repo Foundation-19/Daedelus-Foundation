@@ -31,6 +31,12 @@
 /area/site53/engineering/engine_smes
 	name = "Engineering Engine_smes"
 
+/area/site53/engineering/engine_sub
+	name = "Engineering Engine Sublevel"
+
+/area/site53/engineering/engine_control
+	name = "Engineering Engine Control"
+
 /area/site53/engineering/janitorial
 	name = "Engineering Janitorial"
 
@@ -84,6 +90,9 @@
 
 /area/site53/entrancezone/substation
 	name = "Entrancezone Substation"
+
+/area/site53/ez/chapel
+	name = "EZ Chapel"
 
 /area/site53/lhcz/hallway
 	name = "Lhcz Hallway"
@@ -265,6 +274,9 @@
 
 /area/site53/logistics/understorage
 	name = "Logistics Understorage"
+
+/area/site53/logistics/hangar
+	name = "Logistics Hangar"
 
 /area/site53/lowertrams/brownline
 	name = "Lowertrams Brownline"

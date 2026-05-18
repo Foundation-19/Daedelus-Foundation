@@ -5,7 +5,7 @@
 	name = "Eyes in the Dark"
 	desc = "A shadowy humanoid figure. Its eyes glow faintly in the darkness."
 	icon = 'icons/scp/scp-280.dmi'
-	icon_state = "scp280"
+	icon_state = "scp_280"
 	icon_living = "scp280"
 	icon_dead = "scp280_dead"
 	health = 200

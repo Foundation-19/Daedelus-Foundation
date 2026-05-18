@@ -30,7 +30,7 @@
 	you_are_text = "You are a visiting researcher from another Site."
 	flavour_text = "You've been transferred to Site-53 to conduct research on specific SCP objects. Follow testing protocols and avoid unauthorized experiments."
 	important_text = "You have Level 2 clearance. Submit testing requests before experimenting. Do not enter containment cells alone."
-	outfit = /datum/outfit/mtf/security
+	outfit = /datum/outfit/job/researcher
 	spawner_job_path = /datum/job/researcher
 
 /obj/effect/mob_spawn/ghost_role/chaos_insurgency
@@ -48,7 +48,7 @@
 	you_are_text = "You are a civilian who stumbled onto something you shouldn't have."
 	flavour_text = "You don't know what's going on, but strange things are happening. Foundation personnel are everywhere. Try to survive and maybe learn the truth."
 	important_text = "You are not Foundation personnel. You have no access, no radio, and no training. Good luck."
-	outfit = /datum/outfit/mtf/security
+	outfit = /datum/outfit/job/prisoner
 	spawner_job_path = /datum/job/dclass_general
 
 /obj/effect/mob_spawn/ghost_role/dclass_latejoin
@@ -57,5 +57,10 @@
 	you_are_text = "You are a D-Class personnel recently transferred to Site-53."
 	flavour_text = "Follow orders from Foundation staff. You are expendable. Do your assigned work and you might survive the day."
 	important_text = "Follow instructions. Do not enter restricted areas without authorization. Report any anomalous events to security."
-	outfit = /datum/outfit/mtf/security
+	outfit = /datum/outfit/dclass_latejoin
 	spawner_job_path = /datum/job/dclass_general
+
+/datum/outfit/dclass_latejoin
+	name = "D-Class Latejoin"
+	uniform = /obj/item/clothing/under/scp/dclass
+	shoes = /obj/item/clothing/shoes/sneakers/orange

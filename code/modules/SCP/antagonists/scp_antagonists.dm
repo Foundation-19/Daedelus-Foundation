@@ -303,7 +303,7 @@
 	name = "Snap Neck"
 	desc = "Snap the neck of an adjacent target. Only works when unobserved."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "smite"
+	button_icon_state = "bonechill"
 	cooldown_time = 10 SECONDS
 
 /datum/action/innate/scp_ability/scp173_snap_neck/Activate()
@@ -340,7 +340,7 @@
 	name = "Check Observation"
 	desc = "Check if anyone is observing you."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "scan"
+	button_icon_state = "mindread"
 	cooldown_time = 3 SECONDS
 
 /datum/action/innate/scp_ability/scp173_move_check/Activate()
@@ -358,7 +358,7 @@
 	name = "Breach Door"
 	desc = "Force open a nearby door. Only works when unobserved."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "door_breach"
+	button_icon_state = "bolt_action"
 	cooldown_time = 15 SECONDS
 
 /datum/action/innate/scp_ability/scp173_breach_door/Activate()
@@ -453,7 +453,7 @@
 	name = "Check State"
 	desc = "Check your current emotional state and valid targets."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "scan"
+	button_icon_state = "mindread"
 	cooldown_time = 3 SECONDS
 
 /datum/action/innate/scp_ability/scp096_check_state/Activate()
@@ -470,7 +470,7 @@
 	name = "Cover Face"
 	desc = "Manually cover your face to reduce accidental triggers."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "blank"
+	button_icon_state = "blind"
 	cooldown_time = 5 SECONDS
 
 /datum/action/innate/scp_ability/scp096_cover_face/Activate()
@@ -537,7 +537,7 @@
 	name = "Infect Target"
 	desc = "Bite a nearby human to infect them with SCP-008."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "neckbite"
+	button_icon_state = "bonechill"
 	cooldown_time = 20 SECONDS
 
 /datum/action/innate/scp_ability/scp008_infect/Activate()
@@ -568,7 +568,7 @@
 	name = "Zombie Groan"
 	desc = "Let out a terrifying groan that attracts nearby zombies and frightens humans."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "screech"
+	button_icon_state = "the_traps"
 	cooldown_time = 10 SECONDS
 
 /datum/action/innate/scp_ability/scp008_groan/Activate()
@@ -647,7 +647,7 @@
 	name = "Telepathic Whisper"
 	desc = "Send a telepathic whisper to a nearby human, drawing them toward you."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "whisper"
+	button_icon_state = "telepathy"
 	cooldown_time = 15 SECONDS
 
 /datum/action/innate/scp_ability/scp035_whisper/Activate()
@@ -682,7 +682,7 @@
 	name = "Secrete Corrosion"
 	desc = "Secrete corrosive liquid, damaging nearby objects and beings."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "acid"
+	button_icon_state = "emp"
 
 /datum/action/innate/scp_ability/scp035_corrode/Activate()
 	var/mob/living/user = usr
@@ -715,7 +715,7 @@
 	name = "Manipulate Host"
 	desc = "Force your current host to perform an action against their will."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "dominate"
+	button_icon_state = "mindswap"
 
 /datum/action/innate/scp_ability/scp035_manipulate/Activate()
 	var/mob/living/user = usr
@@ -799,7 +799,7 @@
 	name = "Detect Pestilence"
 	desc = "Sense the Pestilence in nearby humans."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "scan"
+	button_icon_state = "mindread"
 	cooldown_time = 5 SECONDS
 
 /datum/action/innate/scp_ability/scp049_detect_pestilence/Activate()
@@ -813,7 +813,7 @@
 	name = "Administer The Cure"
 	desc = "Touch a nearby human to cure the Pestilence. They will become SCP-049-1."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "touch"
+	button_icon_state = "sacredflame"
 	cooldown_time = 60 SECONDS
 
 /datum/action/innate/scp_ability/scp049_cure/Activate()
@@ -837,7 +837,7 @@
 	name = "Plague Doctor Speech"
 	desc = "Deliver a characteristic monologue about the Pestilence."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "speak"
+	button_icon_state = "telepathy"
 
 /datum/action/innate/scp_ability/scp049_speak/Activate()
 	var/mob/living/scp/scp049/scp_mob = usr
@@ -850,7 +850,7 @@
 	name = "Breach Doors"
 	desc = "Force open nearby doors with unnatural strength."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "door_breach"
+	button_icon_state = "bolt_action"
 	cooldown_time = 45 SECONDS
 
 /datum/action/innate/scp_ability/scp049_breach/Activate()
@@ -913,7 +913,7 @@
 	name = "Camera Hop"
 	desc = "Jump to another camera in the facility."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "camera_hop"
+	button_icon_state = "projectile"
 
 /datum/action/innate/scp_ability/scp079_camera_hop/Activate()
 	var/mob/living/scp079/scp_mob = usr
@@ -926,7 +926,7 @@
 	name = "Toggle Door"
 	desc = "Open or close a door visible from your current camera."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "door_breach"
+	button_icon_state = "bolt_action"
 	cooldown_time = 8 SECONDS
 
 /datum/action/innate/scp_ability/scp079_toggle_door/Activate()
@@ -940,7 +940,7 @@
 	name = "Flicker Lights"
 	desc = "Flicker lights near your current camera position."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "lightbless"
+	button_icon_state = "charge"
 	cooldown_time = 15 SECONDS
 
 /datum/action/innate/scp_ability/scp079_flicker_lights/Activate()
@@ -954,7 +954,7 @@
 	name = "Broadcast Message"
 	desc = "Send a message through facility screens."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "broadcast"
+	button_icon_state = "declaration"
 	cooldown_time = 30 SECONDS
 
 /datum/action/innate/scp_ability/scp079_broadcast/Activate()
@@ -1028,7 +1028,7 @@
 	name = "Phase Through"
 	desc = "Sink through solid matter and resurface at a target location. Costs dimensional energy."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "phase"
+	button_icon_state = "jaunt"
 	cooldown_time = 30 SECONDS
 
 /datum/action/innate/scp_ability/scp106_phase_through/Activate()
@@ -1061,7 +1061,7 @@
 	name = "Drag to Pocket Dimension"
 	desc = "Drag an adjacent victim into your pocket dimension. They will suffer and decay within."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "neckbite"
+	button_icon_state = "bonechill"
 	cooldown_time = 60 SECONDS
 
 /datum/action/innate/scp_ability/scp106_drag_victim/Activate()
@@ -1091,7 +1091,7 @@
 	name = "Corrode"
 	desc = "Release a burst of corrosive substance, damaging structures and beings nearby."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "acid"
+	button_icon_state = "emp"
 	cooldown_time = 45 SECONDS
 
 /datum/action/innate/scp_ability/scp106_corrode/Activate()
@@ -1127,7 +1127,7 @@
 	name = "Enter/Exit Pocket Dimension"
 	desc = "Sink into your pocket dimension to heal, or emerge back into the facility."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "void"
+	button_icon_state = "spacetime"
 	cooldown_time = 45 SECONDS
 
 /datum/action/innate/scp_ability/scp106_pocket_dimension/Activate()
@@ -1144,7 +1144,7 @@
 	name = "Stalk Prey"
 	desc = "Instill a sense of creeping dread in a nearby human, damaging their sanity."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "eye"
+	button_icon_state = "mindread"
 	cooldown_time = 30 SECONDS
 
 /datum/action/innate/scp_ability/scp106_stalk/Activate()
@@ -1259,7 +1259,7 @@
 	name = "Hurl Fireball"
 	desc = "Launch a fireball at a distant target. Requires evolution stage 2+."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "fireball2"
+	button_icon_state = "fireball"
 	cooldown_time = 20 SECONDS
 
 /datum/action/innate/scp_ability/scp457_fireball/IsAvailable(feedback = FALSE)
@@ -1292,7 +1292,7 @@
 	name = "Absorb Nearby Flames"
 	desc = "Absorb nearby fires to restore heat and health."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "absorb"
+	button_icon_state = "sacredflame"
 
 /datum/action/innate/scp_ability/scp457_absorb_flame/Activate()
 	var/mob/living/scp/scp457/scp_mob = usr
@@ -1374,7 +1374,7 @@
 	name = "Mimic Voice"
 	desc = "Mimic the voice of a learned victim to deceive others into approaching."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "mimic_voice"
+	button_icon_state = "telepathy"
 	cooldown_time = 15 SECONDS
 
 /datum/action/innate/scp_ability/scp939_mimic_voice/Activate()
@@ -1401,7 +1401,7 @@
 	name = "Begin Hunt"
 	desc = "Enter hunting mode. You move faster and detect prey more accurately by sound."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "hunt"
+	button_icon_state = "projectile"
 	cooldown_time = 30 SECONDS
 
 /datum/action/innate/scp_ability/scp939_hunt/Activate()
@@ -1422,7 +1422,7 @@
 	name = "Lure Prey"
 	desc = "Emit a convincing distress sound that draws nearby humans toward your position."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "lure"
+	button_icon_state = "telepathy"
 	cooldown_time = 30 SECONDS
 
 /datum/action/innate/scp_ability/scp939_lure/Activate()
@@ -1443,7 +1443,7 @@
 	name = "Detect Prey"
 	desc = "Focus your hearing to detect all nearby humans. Shows their direction and distance."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "sonar"
+	button_icon_state = "mindread"
 	cooldown_time = 10 SECONDS
 
 /datum/action/innate/scp_ability/scp939_detect_prey/Activate()
@@ -1529,7 +1529,7 @@
 	name = "Rampage"
 	desc = "Lash out at everything nearby with devastating force."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "smite"
+	button_icon_state = "bonechill"
 	cooldown_time = 30 SECONDS
 
 /datum/action/innate/scp_ability/scp682_rampage/Activate()
@@ -1556,7 +1556,7 @@
 	name = "Adaptive Evolution"
 	desc = "Force an adaptation to the last damage type you received."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "evolve"
+	button_icon_state = "mutate"
 	cooldown_time = 60 SECONDS
 
 /datum/action/innate/scp_ability/scp682_adapt/Activate()
@@ -1573,7 +1573,7 @@
 	name = "Berserk Frenzy"
 	desc = "Enter a berserk state, gaining speed and damage but losing control temporarily."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "berserk"
+	button_icon_state = "charge"
 	cooldown_time = 90 SECONDS
 
 /datum/action/innate/scp_ability/scp682_berserk/Activate()
@@ -1790,7 +1790,7 @@
 	name = "Request Equipment"
 	desc = "Request Chaos Insurgency equipment."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "default"
+	button_icon_state = "spell_default"
 
 /datum/action/innate/insurgency_equipment/Trigger(trigger_flags)
 	to_chat(owner, span_notice("You request equipment from the Insurgency."))
@@ -1799,7 +1799,7 @@
 	name = "Share Knowledge"
 	desc = "Share anomalous knowledge with others."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "default"
+	button_icon_state = "mindread"
 
 /datum/action/innate/serpents_knowledge/Trigger(trigger_flags)
 	to_chat(owner, span_notice("You share knowledge of the anomalous."))
@@ -1870,7 +1870,7 @@
 	name = "Pickpocket"
 	desc = "Attempt to steal from someone nearby."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "steal"
+	button_icon_state = "duffelbag_curse"
 	cooldown_time = 15 SECONDS
 
 /datum/action/innate/scp_ability/scp347_pickpocket/Activate()
@@ -1884,7 +1884,7 @@
 	name = "Stealth Sprint"
 	desc = "Dash through the shadows at increased speed."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "dash"
+	button_icon_state = "charge"
 	cooldown_time = 20 SECONDS
 
 /datum/action/innate/scp_ability/scp347_sprint/Activate()
@@ -1898,7 +1898,7 @@
 	name = "Toggle Visibility"
 	desc = "Toggle your invisibility on or off."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "invisible"
+	button_icon_state = "jaunt"
 	cooldown_time = 10 SECONDS
 
 /datum/action/innate/scp_ability/scp347_toggle_visibility/Activate()
@@ -1964,7 +1964,7 @@
 	name = "Greet Nearby"
 	desc = "Greet nearby people in French."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "speak"
+	button_icon_state = "telepathy"
 	cooldown_time = 10 SECONDS
 
 /datum/action/innate/scp_ability/scp082_greet_nearby/Activate()
@@ -1978,7 +1978,7 @@
 	name = "Offer Hospitality"
 	desc = "Offer food and hospitality to someone nearby."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "gift"
+	button_icon_state = "soultap"
 	cooldown_time = 15 SECONDS
 
 /datum/action/innate/scp_ability/scp082_offer_food/Activate()
@@ -1992,7 +1992,7 @@
 	name = "Speak French"
 	desc = "Say something in French."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "speak"
+	button_icon_state = "telepathy"
 	cooldown_time = 5 SECONDS
 
 /datum/action/innate/scp_ability/scp082_speak_french/Activate()
@@ -2006,7 +2006,7 @@
 	name = "Check Hunger"
 	desc = "Check your current hunger level."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "scan"
+	button_icon_state = "mindread"
 	cooldown_time = 3 SECONDS
 
 /datum/action/innate/scp_ability/scp082_check_hunger/Activate()
@@ -2076,7 +2076,7 @@
 	name = "Toggle Invisibility"
 	desc = "Toggle your invisibility on or off."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "invisible"
+	button_icon_state = "jaunt"
 	cooldown_time = 15 SECONDS
 
 /datum/action/innate/scp_ability/scp966_toggle_invisibility/Activate()
@@ -2089,7 +2089,7 @@
 	name = "Induce Insomnia"
 	desc = "Induce insomnia in a nearby target, preventing them from sleeping."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "nightmare"
+	button_icon_state = "blind"
 	cooldown_time = 30 SECONDS
 
 /datum/action/innate/scp_ability/scp966_induce_insomnia/Activate()
@@ -2103,7 +2103,7 @@
 	name = "Stalk Target"
 	desc = "Begin stalking a target, tracking their movements."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "hunt"
+	button_icon_state = "projectile"
 	cooldown_time = 20 SECONDS
 
 /datum/action/innate/scp_ability/scp966_stalk_target/Activate()
@@ -2157,7 +2157,7 @@
 	name = "Heal Nearby"
 	desc = "Heal all nearby targets with your soothing presence."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "heal"
+	button_icon_state = "sacredflame"
 	cooldown_time = 20 SECONDS
 
 /datum/action/innate/scp_ability/scp999_heal_nearby/Activate()
@@ -2184,7 +2184,7 @@
 	name = "Healing Stats"
 	desc = "Check your healing statistics and current power."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "scan"
+	button_icon_state = "mindread"
 	cooldown_time = 0
 
 /datum/action/innate/scp_ability/scp999_view_healing_stats/Activate()
@@ -2236,7 +2236,7 @@
 	name = "Build Status"
 	desc = "Check your current material count and copy status."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "scan"
+	button_icon_state = "mindread"
 	cooldown_time = 0
 
 /datum/action/innate/scp_ability/scp1048_view_build_status/Activate()
@@ -2290,7 +2290,7 @@
 	name = "Call Flock"
 	desc = "Call nearby flamingos to your location."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "call"
+	button_icon_state = "summons"
 
 /datum/action/innate/scp_ability/scp1507_call_flock/Activate()
 	var/mob/living/simple_animal/hostile/retaliate/scp1507/scp_mob = usr
@@ -2303,7 +2303,7 @@
 	name = "Coordinate Attack"
 	desc = "Coordinate a flock attack against your current target."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "smite"
+	button_icon_state = "bonechill"
 	cooldown_time = 25 SECONDS
 
 /datum/action/innate/scp_ability/scp1507_coordinate_attack/Activate()
@@ -2369,7 +2369,7 @@
 	name = "Dramatic Speech"
 	desc = "Give a dramatic speech about the narrative."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "speak"
+	button_icon_state = "telepathy"
 	cooldown_time = 10 SECONDS
 
 /datum/action/innate/scp_ability/scp2020_dramatic_speech/Activate()
@@ -2383,7 +2383,7 @@
 	name = "Narrate Events"
 	desc = "Narrate the current events as story beats."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "scan"
+	button_icon_state = "mindread"
 	cooldown_time = 10 SECONDS
 
 /datum/action/innate/scp_ability/scp2020_narrate_events/Activate()
@@ -2397,7 +2397,7 @@
 	name = "Identify Cliche"
 	desc = "Identify a cliche in the current situation."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "scan"
+	button_icon_state = "mindread"
 	cooldown_time = 15 SECONDS
 
 /datum/action/innate/scp_ability/scp2020_identify_cliche/Activate()
@@ -2411,7 +2411,7 @@
 	name = "Narrative Status"
 	desc = "Check your current narrative phase and statistics."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "scan"
+	button_icon_state = "mindread"
 	cooldown_time = 5 SECONDS
 
 /datum/action/innate/scp_ability/scp2020_check_narrative/Activate()
@@ -2473,7 +2473,7 @@
 	name = "Divine Heal"
 	desc = "Heal a nearby target with divine energy."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "heal"
+	button_icon_state = "sacredflame"
 	cooldown_time = 30 SECONDS
 
 /datum/action/innate/scp_ability/scp343_divine_heal/Activate()
@@ -2548,7 +2548,7 @@
 	name = "Dive"
 	desc = "Dive into nearby water."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "phase"
+	button_icon_state = "jaunt"
 	cooldown_time = 15 SECONDS
 
 /datum/action/innate/scp_ability/scp527_dive/Activate()
@@ -2562,7 +2562,7 @@
 	name = "Breathe Underwater"
 	desc = "Toggle underwater breathing mode."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "aquatic"
+	button_icon_state = "shapeshift"
 	cooldown_time = 0
 
 /datum/action/innate/scp_ability/scp527_breathe_underwater/Activate()

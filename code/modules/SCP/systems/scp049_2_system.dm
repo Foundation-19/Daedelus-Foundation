@@ -173,7 +173,7 @@
 	name = "Command Servants"
 	desc = "Issue a command to your SCP-049-1 servants."
 	button_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "command"
+	button_icon_state = "declaration"
 	background_icon_state = "bg_default"
 	cooldown_time = 30 SECONDS
 

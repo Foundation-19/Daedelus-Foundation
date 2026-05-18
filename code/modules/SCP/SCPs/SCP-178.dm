@@ -5,7 +5,7 @@
 	name = "3D glasses"
 	desc = "A pair of cardboard 3D glasses with red and cyan lenses. They seem ordinary enough."
 	icon = 'icons/scp/scp-178.dmi'
-	icon_state = "scp178"
+	icon_state = "scp-glasses_obj"
 	w_class = WEIGHT_CLASS_SMALL
 
 	var/active = FALSE
@@ -127,7 +127,7 @@
 	name = "interdimensional entity"
 	desc = "A shadowy, vaguely humanoid figure visible only through SCP-178."
 	icon = 'icons/turf/shadows.dmi'
-	icon_state = "shadow"
+	icon_state = "ao-0"
 	density = FALSE
 	anchored = TRUE
 	alpha = 100

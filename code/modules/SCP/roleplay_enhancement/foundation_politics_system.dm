@@ -21,7 +21,7 @@
 
 SUBSYSTEM_DEF(foundation_politics)
 	name = "Foundation Politics"
-	wait = 900
+	wait = 3000
 	priority = FIRE_PRIORITY_ROLEPLAY
 	init_order = INIT_ORDER_ROLEPLAY
 	var/datum/foundation_politics_manager/manager

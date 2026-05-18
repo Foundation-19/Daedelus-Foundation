@@ -135,11 +135,14 @@
 	max_occurrences = 1
 
 /datum/round_event/sarkic_outbreak/start()
-	var/list/candidates = poll_candidates_for_mob("Do you want to play as a Sarkic Cultist?", ROLE_CULTIST, null, 10 SECONDS, pick(GLOB.station_turfs))
+	var/turf/spawn_turf = get_safe_random_station_turf()
+	if(!spawn_turf)
+		return
+	var/list/candidates = poll_candidates_for_mob("Do you want to play as a Sarkic Cultist?", ROLE_CULTIST, null, 10 SECONDS, spawn_turf)
 	if(!length(candidates))
 		return
 	var/mob/dead/observer/candidate = pick(candidates)
-	var/mob/living/carbon/human/H = new(pick(GLOB.station_turfs))
+	var/mob/living/carbon/human/H = new(spawn_turf)
 	H.key = candidate.key
 	var/datum/antagonist/sarkic/A = new()
 	H.mind.add_antag_datum(A)
@@ -158,8 +161,15 @@
 	for(var/turf/T in get_area_turfs(/area/scp/surface/helipad))
 		if(!T.density)
 			spawn_turfs += T
+	for(var/turf/T in get_area_turfs(/area/site53/surface))
+		if(!T.density)
+			spawn_turfs += T
 	if(!length(spawn_turfs))
-		spawn_turfs += list(pick(GLOB.station_turfs))
+		var/turf/fallback = get_safe_random_station_turf()
+		if(fallback)
+			spawn_turfs += fallback
+	if(!length(spawn_turfs))
+		return
 	var/mob/living/carbon/human/temp_mob = new(pick(spawn_turfs))
 	var/list/candidates = poll_candidates_for_mob("Do you want to play as a GOC Operative?", ROLE_OPERATIVE, null, 10 SECONDS, temp_mob)
 	qdel(temp_mob)
@@ -184,13 +194,16 @@
 	max_occurrences = 1
 
 /datum/round_event/serpents_hand_infiltration/start()
-	var/mob/living/carbon/human/temp_mob = new(pick(GLOB.station_turfs))
+	var/turf/spawn_turf = get_safe_random_station_turf()
+	if(!spawn_turf)
+		return
+	var/mob/living/carbon/human/temp_mob = new(spawn_turf)
 	var/list/candidates = poll_candidates_for_mob("Do you want to play as a Serpent's Hand Agent?", ROLE_WIZARD, null, 10 SECONDS, temp_mob)
 	qdel(temp_mob)
 	if(!length(candidates))
 		return
 	var/mob/dead/observer/candidate = pick(candidates)
-	var/mob/living/carbon/human/H = new(pick(GLOB.station_turfs))
+	var/mob/living/carbon/human/H = new(spawn_turf)
 	H.key = candidate.key
 	var/datum/antagonist/serpents_hand/A = new()
 	H.mind.add_antag_datum(A)

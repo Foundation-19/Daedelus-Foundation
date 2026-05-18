@@ -42,9 +42,25 @@
 
 
 	addtimer(CALLBACK(fire_system, TYPE_PROC_REF(/datum/scp457_fire_system, create_initial_fires)), 1)
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_move_absorb_fires))
 
 /mob/living/scp/scp457/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE)
 	return
+
+/mob/living/scp/scp457/adjust_fire_stacks(stacks, fire_type)
+	return
+
+/mob/living/scp/scp457/set_fire_stacks(stacks, fire_type, remove_wet_stacks = TRUE)
+	return
+
+/mob/living/scp/scp457/ignite_mob()
+	return
+
+/mob/living/scp/scp457/on_fire_stack(delta_time, times_fired, datum/status_effect/fire_handler/fire_stacks/fire_handler)
+	return
+
+/mob/living/scp/scp457/fire_act(exposed_temperature, exposed_volume)
+	heat_system?.add_heat(exposed_temperature * 0.01)
 
 /mob/living/scp/scp457/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE)
 	if(amount > 0 && !forced)
@@ -70,6 +86,9 @@
 	environmental_system?.process()
 	research_integration?.process()
 	process_scp457_effects()
+
+	if(prob(15))
+		absorb_fires_in_range(0)
 
 /mob/living/scp/scp457/proc/process_scp457_effects()
 	update_scp457_appearance()
@@ -225,5 +244,42 @@
 		return
 	hook_scp_combat(victim, "SCP-457", 100, 0)
 	hook_player_death_near_scp(victim, "SCP-457")
+
+/mob/living/scp/scp457/proc/on_move_absorb_fires()
+	SIGNAL_HANDLER
+	absorb_fires_in_range(1)
+
+/mob/living/scp/scp457/proc/absorb_fires_in_range(range_val = 1)
+	var/absorbed = 0
+	var/turf/T = get_turf(src)
+	if(!T)
+		return
+
+	for(var/obj/effect/hotspot/HS in range(range_val, T))
+		var/heat_gain = max(1, HS.temperature ? HS.temperature * 0.005 : 2)
+		heat_system?.add_heat(heat_gain)
+		qdel(HS)
+		absorbed++
+
+	for(var/obj/structure/bonfire/B in range(range_val, T))
+		if(B.burning)
+			heat_system?.add_heat(8)
+			B.extinguish()
+			absorbed++
+
+	for(var/mob/living/L in range(range_val, T))
+		if(L == src)
+			continue
+		if(L.on_fire)
+			var/stolen = L.fire_stacks
+			heat_system?.add_heat(max(1, stolen * 2))
+			L.extinguish_mob()
+			L.adjust_fire_stacks(-stolen)
+			absorbed++
+
+	if(absorbed > 0)
+		heat_system?.add_heat(absorbed * 2)
+		visible_message(span_danger("[src] absorbs the nearby flames into itself!"))
+		playsound(src, 'sound/items/modsuit/flamethrower.ogg', 40, TRUE)
 
 

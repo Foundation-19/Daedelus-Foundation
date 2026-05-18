@@ -42,7 +42,7 @@
 /obj/item/reagent_containers/cooking_container/baking_sheet
 	name = "baking sheet"
 	desc = "A metal baking sheet for oven use."
-	icon_state = "baking_sheet"
+	icon_state = "oven_tray"
 	appliancetype = APPLIANCE_OVEN
 	container_type = "sheet"
 	max_items = 6
@@ -50,7 +50,7 @@
 /obj/item/reagent_containers/cooking_container/pot
 	name = "cooking pot"
 	desc = "A large cooking pot."
-	icon_state = "pot"
+	icon_state = "serving"
 	volume = 200
 	appliancetype = APPLIANCE_POT | APPLIANCE_SAUCEPAN
 	container_type = "pot"
@@ -59,7 +59,7 @@
 /obj/item/reagent_containers/cooking_container/skillet
 	name = "cast iron skillet"
 	desc = "A heavy cast iron skillet."
-	icon_state = "skillet"
+	icon_state = "spatula"
 	volume = 80
 	appliancetype = APPLIANCE_SKILLET
 	container_type = "skillet"
@@ -68,7 +68,7 @@
 /obj/item/reagent_containers/cooking_container/saucepan
 	name = "saucepan"
 	desc = "A saucepan for simmering sauces."
-	icon_state = "saucepan"
+	icon_state = "oven_tray"
 	volume = 100
 	appliancetype = APPLIANCE_SAUCEPAN
 	container_type = "saucepan"

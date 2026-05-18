@@ -2,7 +2,7 @@
 	name = "SCP-079"
 	desc = "An old Exidy Sorcerer microcomputer. Its screen displays shifting text. Something is watching."
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "rdserver"
+	icon_state = "server"
 	real_name = "SCP-079"
 	status_flags = GODMODE|CANPUSH
 	maxHealth = 200
@@ -592,7 +592,7 @@
 	name = "SCP-079 Recontainment Terminal"
 	desc = "A specialized terminal designed to force SCP-079 back into its containment shell through a series of network countermeasures."
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "rdserver"
+	icon_state = "server"
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE

@@ -1,497 +1,487 @@
-// Site53 map stubs batch 4 - high-impact child type stubs
-// These have parent definitions but need proper names for map-placed instances
+// Site53 Bay stubs batch 4 - ONLY types with functional logic
+// Name-only stubs removed; BYOND creates parent-type instances from map data
 
 // ================================================================
-// CLOSET STUBS
+// CLOSET STUBS - only those with req_access or special logic
 // ================================================================
-
-/obj/structure/closet/coffin
-	name = "coffin"
 
 /obj/structure/closet/coffin/scp895
 	name = "SCP-895 coffin"
 	desc = "An ornate coffin with a camera feed warning label."
 
-/obj/structure/closet/coffin/wooden
-	name = "wooden coffin"
-
-/obj/structure/closet/crate/cargo/trolley
-	name = "cargo trolley crate"
-
-/obj/structure/closet/crate/hydroponics/beekeeping
-	name = "beekeeping crate"
-
-/obj/structure/closet/crate/hydroponics/prespawned
-	name = "hydroponics crate"
-
-/obj/structure/closet/crate/large/hydroponics
-	name = "large hydroponics crate"
-
-/obj/structure/closet/crate/med_crate
-	name = "medical crate"
-
-/obj/structure/closet/crate/radiation_gear
-	name = "radiation gear crate"
-
-/obj/structure/closet/crate/secure/biohazard
-	name = "biohazard crate"
-
-/obj/structure/closet/crate/secure/large
-	name = "large secure crate"
-
-/obj/structure/closet/crate/secure/large/phoron
-	name = "large secure phoron crate"
-
-/obj/structure/closet/jcloset_torch
-	name = "janitor closet"
-
-/obj/structure/closet/locker3closet
-	name = "locker"
-
-/obj/structure/closet/locker3closet/dclass
-	name = "D-Class locker"
-
-/obj/structure/closet/locker3closet/janitor
-	name = "janitor locker"
-
-/obj/structure/closet/locker3closet/scientist
-	name = "scientist locker"
-
-/obj/structure/closet/locker3closet/scientist/multi
-	name = "scientist locker"
-
-/obj/structure/closet/locker3closet/security
-	name = "security locker"
-
-/obj/structure/closet/locker3closet/virology
-	name = "virology locker"
-
-/obj/structure/closet/secure
-	name = "secure locker"
-
-/obj/structure/closet/secure/administration/commsofficer
-	name = "comms officer's locker"
-
-/obj/structure/closet/secure/administration/commstech
-	name = "comms technician's locker"
-
-/obj/structure/closet/secure/administration/ethicscommittee
-	name = "ethics committee locker"
-
-/obj/structure/closet/secure/administration/facilityadmin
-	name = "facility administrator's locker"
-
-/obj/structure/closet/secure/administration/internaltribunal
-	name = "internal tribunal locker"
-
-/obj/structure/closet/secure/atmos_personal
-	name = "atmospherics locker"
-
-/obj/structure/closet/secure/bar
-	name = "bar locker"
-
-/obj/structure/closet/secure/bar_torch
-	name = "bar locker"
-
-/obj/structure/closet/secure/cadet/ez
-	name = "EZ cadet locker"
-
-/obj/structure/closet/secure/cadet/hcz
-	name = "HCZ cadet locker"
-
-/obj/structure/closet/secure/cadet/lcz
-	name = "LCZ cadet locker"
-
-/obj/structure/closet/secure/chemical
-	name = "chemical locker"
-
-/obj/structure/closet/secure/engineering_chief
-	name = "chief engineer's locker"
-
-/obj/structure/closet/secure/engineering_electrical
-	name = "electrical locker"
-
-/obj/structure/closet/secure/engineering_personal
-	name = "engineering locker"
-
-/obj/structure/closet/secure/engineering_welding
-	name = "welding locker"
-
-/obj/structure/closet/secure/freezer
-	name = "freezer"
-
-/obj/structure/closet/secure/freezer/fridge
-	name = "refrigerator"
-
-/obj/structure/closet/secure/freezer/kitchen
-	name = "kitchen freezer"
-
-/obj/structure/closet/secure/freezer/meat
-	name = "meat freezer"
-
-/obj/structure/closet/secure/guard/breachautomatics
-	name = "breach automatics locker"
-
-/obj/structure/closet/secure/guard/breachshotguns
-	name = "breach shotguns locker"
-
-/obj/structure/closet/secure/guard/epsilon11agent
-	name = "Epsilon-11 agent locker"
-
-/obj/structure/closet/secure/guard/epsilon11leader
-	name = "Epsilon-11 leader locker"
-
-/obj/structure/closet/secure/guard/ez
-	name = "EZ guard locker"
-
-/obj/structure/closet/secure/guard/ez/sergeant
-	name = "EZ sergeant locker"
-
-/obj/structure/closet/secure/guard/guard_commander
-	name = "guard commander's locker"
-
-/obj/structure/closet/secure/guard/hcz
-	name = "HCZ guard locker"
-
-/obj/structure/closet/secure/guard/hcz/sergeant
-	name = "HCZ sergeant locker"
-
-/obj/structure/closet/secure/guard/lcz
-	name = "LCZ guard locker"
-
-/obj/structure/closet/secure/guard/lcz/sergeant
-	name = "LCZ sergeant locker"
-
-/obj/structure/closet/secure/guard/ntf
-	name = "MTF guard locker"
-
-/obj/structure/closet/secure/guard/zone_commander
-	name = "zone commander's locker"
-
-/obj/structure/closet/secure/guard/zone_commander/ez
-	name = "EZ zone commander's locker"
-
-/obj/structure/closet/secure/guard/zone_commander/hcz
-	name = "HCZ zone commander's locker"
-
-/obj/structure/closet/secure/hop
-	name = "head of personnel's locker"
-
-/obj/structure/closet/secure/hydroponics_dclass
-	name = "D-Class hydroponics locker"
-
-/obj/structure/closet/secure/hydroponics_torch
-	name = "hydroponics locker"
-
-/obj/structure/closet/secure/logistics/officer
-	name = "logistics officer locker"
-
-/obj/structure/closet/secure/logistics/specialist
-	name = "logistics specialist locker"
-
-/obj/structure/closet/secure/medical1
-	name = "medical locker"
-
-/obj/structure/closet/secure/medical2
-	name = "medical locker"
-
-/obj/structure/closet/secure/medical3
-	name = "medical locker"
-
-/obj/structure/closet/secure/paramedic
-	name = "paramedic locker"
-
-/obj/structure/closet/secure/personal
-	name = "personal locker"
-
-/obj/structure/closet/secure/personal/cabinet
-	name = "personal cabinet"
-
-/obj/structure/closet/secure/personal/empty
-	name = "personal locker"
-
-/obj/structure/closet/secure/psychiatry
-	name = "psychiatrist's locker"
-
-/obj/structure/closet/secure/scientist
-	name = "scientist's locker"
-
-/obj/structure/closet/secure/scpscience/directorofscience
-	name = "director of science's locker"
-
-/obj/structure/closet/secure/site53/acmo
-	name = "assistant CMO's locker"
-
-/obj/structure/closet/secure/site53/cmo
-	name = "CMO's locker"
-
-/obj/structure/closet/secure/site53/dmining
-	name = "mining director's locker"
-
-/obj/structure/closet/secure/virology
-	name = "virology locker"
-
-/obj/structure/closet/toolcloset/excavation/awaysite
-	name = "excavation closet"
-
-/obj/structure/closet/wardrobe/suit
-	name = "suit wardrobe"
-
 // ================================================================
-// CHAIR STUBS
+// AIRLOCK DOOR STUBS - only those with req_access or glass/bound
 // ================================================================
-
-/obj/structure/chair/armchair
-	name = "armchair"
-	icon_state = "comfychair"
-
-/obj/structure/chair/armchair/beige
-	name = "beige armchair"
-	color = "#C8A882"
-
-/obj/structure/chair/armchair/black
-	name = "black armchair"
-	color = "#333333"
-
-/obj/structure/chair/armchair/blue
-	name = "blue armchair"
-	color = "#66B2FF"
-
-/obj/structure/chair/armchair/brown
-	name = "brown armchair"
-	color = "#865C2A"
-
-/obj/structure/chair/armchair/green
-	name = "green armchair"
-	color = "#00CC00"
-
-/obj/structure/chair/armchair/red
-	name = "red armchair"
-	color = "#CC0000"
-
-/obj/structure/chair/bar/padded
-	name = "padded bar stool"
-
-/obj/structure/chair/comfy/blue
-	name = "blue comfy chair"
-	color = "#66B2FF"
-
-/obj/structure/chair/comfy/captain
-	name = "captain's chair"
-
-/obj/structure/chair/comfy/green
-	name = "green comfy chair"
-	color = "#00CC00"
-
-/obj/structure/chair/comfy/purple
-	name = "purple comfy chair"
-	color = "#CC00FF"
-
-/obj/structure/chair/comfy/yellow
-	name = "yellow comfy chair"
-	color = "#FFCC00"
-
-/obj/structure/chair/padded
-	name = "padded chair"
-
-/obj/structure/chair/padded/black
-	name = "black padded chair"
-	color = "#333333"
-
-/obj/structure/chair/padded/blue
-	name = "blue padded chair"
-	color = "#66B2FF"
-
-/obj/structure/chair/padded/brown
-	name = "brown padded chair"
-	color = "#865C2A"
-
-/obj/structure/chair/padded/red
-	name = "red padded chair"
-	color = "#CC0000"
-
-/obj/structure/chair/pew/left/mahogany
-	name = "mahogany pew (left)"
-
-/obj/structure/chair/pew/mahogany
-	name = "mahogany pew"
-
-/obj/structure/chair/shuttle
-	name = "shuttle chair"
-
-/obj/structure/chair/shuttle/black
-	name = "black shuttle chair"
-
-/obj/structure/chair/wheelchair
-	name = "wheelchair"
-
-/obj/structure/chair/wood/ebony
-	name = "ebony chair"
-
-/obj/structure/chair/wood/mahogany
-	name = "mahogany chair"
-
-/obj/structure/chair/wood/walnut
-	name = "walnut chair"
-
-/obj/structure/chair/wood/wings/walnut
-	name = "walnut wingback chair"
-
-// ================================================================
-// AIRLOCK DOOR STUBS
-// ================================================================
-
-/obj/machinery/door/airlock/chaplain
-	name = "chaplain airlock"
-
-/obj/machinery/door/airlock/external/glass/bolted/cycling
-	name = "cycling airlock"
-
-/obj/machinery/door/airlock/glass/command
-	name = "command airlock"
-
-/obj/machinery/door/airlock/glass/engineering
-	name = "engineering airlock"
-
-/obj/machinery/door/airlock/glass/medical
-	name = "medical airlock"
-
-/obj/machinery/door/airlock/glass/mining
-	name = "mining airlock"
-
-/obj/machinery/door/airlock/glass/science
-	name = "science airlock"
-
-/obj/machinery/door/airlock/glass/virology
-	name = "virology airlock"
-
-/obj/machinery/door/airlock/highsecurity/bolted
-	name = "bolted high-security airlock"
 
 /obj/machinery/door/airlock/multi_tile
-	name = "multi-tile airlock"
+	name = "wide airlock"
+	desc = "A large airlock spanning multiple tiles."
+	normal_integrity = 450
+	bound_width = 64
 
 /obj/machinery/door/airlock/multi_tile/command
 	name = "command airlock"
+	normal_integrity = 450
+	req_access = list(ACCESS_ADMIN)
 
-/obj/machinery/door/airlock/multi_tile/glass/civilian
-	name = "glass civilian airlock"
+/obj/machinery/door/airlock/multi_tile/glass
+	name = "wide glass airlock"
+	opacity = FALSE
+	glass = TRUE
+	normal_integrity = 300
 
 /obj/machinery/door/airlock/multi_tile/glass/command
 	name = "glass command airlock"
+	req_access = list(ACCESS_ADMIN)
 
 /obj/machinery/door/airlock/multi_tile/glass/medical
 	name = "glass medical airlock"
+	req_access = list(ACCESS_MEDICAL)
 
 /obj/machinery/door/airlock/multi_tile/glass/mining
 	name = "glass mining airlock"
+	req_access = list(ACCESS_LOGISTICS)
 
 /obj/machinery/door/airlock/multi_tile/glass/research
 	name = "glass research airlock"
+	req_access = list(ACCESS_SCIENCE)
 
 /obj/machinery/door/airlock/multi_tile/glass/science
 	name = "glass science airlock"
+	req_access = list(ACCESS_SCIENCE)
 
 /obj/machinery/door/airlock/multi_tile/glass/security
 	name = "glass security airlock"
-
-/obj/machinery/door/airlock/multi_tile/maintenance
-	name = "maintenance airlock"
+	req_access = list(ACCESS_SECURITY)
 
 /obj/machinery/door/airlock/multi_tile/research
 	name = "research airlock"
+	req_access = list(ACCESS_SCIENCE)
 
 /obj/machinery/door/airlock/multi_tile/security
 	name = "security airlock"
+	req_access = list(ACCESS_SECURITY)
+
+/obj/machinery/door/airlock/highsecurity/bolted
+	name = "bolted high-security airlock"
 
 /obj/machinery/door/airlock/vault/bolted
 	name = "bolted vault door"
 
 // ================================================================
-// SIGN STUBS
+// VENDING MACHINE STUBS - with product lists
 // ================================================================
 
-/obj/structure/sign/amnesiac
-	name = "amnestics sign"
-	desc = "Warning: Amnestic dispensing area."
+/obj/machinery/vending/wallmed1
+	name = "\improper NanoMed Mini"
+	desc = "Wall-mounted Medical Equipment dispenser."
+	icon_state = "wallmed"
+	icon_deny = "wallmed-deny"
+	panel_type = "panel-wall"
+	density = FALSE
+	products = list(
+		/obj/item/reagent_containers/syringe = 2,
+		/obj/item/reagent_containers/pill/bicaridine = 4,
+		/obj/item/reagent_containers/pill/kelotane = 4,
+		/obj/item/stack/medical/bone_gel/twelve = 1,
+	)
+	contraband = list(
+		/obj/item/reagent_containers/pill/tox = 1,
+	)
+	refill_canister = /obj/item/vending_refill/wallmed
+	default_price = PAYCHECK_ASSISTANT * 4
+	extra_price = PAYCHECK_ASSISTANT * 6
+	payment_department = ACCOUNT_MED
+	tiltable = FALSE
+	light_mask = "wallmed-light-mask"
+	discount_access = ACCESS_MEDICAL
 
-/obj/structure/sign/biohazardous
-	name = "biohazard sign"
-	desc = "Warning: Biohazardous materials."
+/obj/machinery/vending/wallmed2
+	name = "\improper NanoMed Plus"
+	desc = "Wall-mounted Medical Equipment dispenser."
+	icon_state = "wallmed"
+	icon_deny = "wallmed-deny"
+	panel_type = "panel-wall"
+	density = FALSE
+	products = list(
+		/obj/item/reagent_containers/syringe = 5,
+		/obj/item/reagent_containers/pill/bicaridine = 7,
+		/obj/item/reagent_containers/pill/kelotane = 7,
+		/obj/item/reagent_containers/pill/dylovene = 4,
+		/obj/item/stack/medical/bone_gel/twelve = 3,
+		/obj/item/healthanalyzer = 2,
+	)
+	contraband = list(
+		/obj/item/reagent_containers/pill/tox = 3,
+		/obj/item/reagent_containers/pill/morphine = 3,
+	)
+	refill_canister = /obj/item/vending_refill/wallmed
+	default_price = PAYCHECK_ASSISTANT * 4
+	extra_price = PAYCHECK_ASSISTANT * 6
+	payment_department = ACCOUNT_MED
+	tiltable = FALSE
+	light_mask = "wallmed-light-mask"
+	discount_access = ACCESS_MEDICAL
 
-/obj/structure/sign/bluecross_1
-	name = "medical sign"
-	desc = "A blue cross indicating medical facilities."
+/obj/machinery/vending/weaponry
+	name = "\improper Foundation Armory Vendor"
+	desc = "A secure vending machine containing Foundation-issued weaponry and ammunition."
+	icon_state = "sec"
+	icon_deny = "sec-deny"
+	product_slogans = "Foundation equipment at your fingertips.;Only the best for containment personnel."
+	products = list(
+		/obj/item/gun/ballistic/automatic/scp/p90 = 4,
+		/obj/item/ammo_box/magazine/scp/p90_mag = 8,
+		/obj/item/ammo_box/magazine/scp/p90_mag/rubber = 4,
+		/obj/item/gun/ballistic/shotgun/lethal = 2,
+		/obj/item/storage/box/lethalshot = 4,
+		/obj/item/melee/baton/security/loaded = 4,
+		/obj/item/shield/riot = 2,
+		/obj/item/grenade/flashbang = 2,
+	)
+	contraband = list(
+		/obj/item/gun/ballistic/automatic/scp/ak74 = 1,
+		/obj/item/ammo_box/magazine/scp/ak = 2,
+	)
+	default_price = PAYCHECK_COMMAND * 2
+	extra_price = PAYCHECK_COMMAND * 4
+	payment_department = ACCOUNT_SEC
 
-/obj/structure/sign/botany
-	name = "botany sign"
-	desc = "Botany department sign."
+/obj/machinery/vending/weaponry/chaos
+	name = "\improper Insurgency Armory Vendor"
+	desc = "A rugged vending machine stocked with Chaos Insurgency weaponry."
+	icon_state = "syndicate"
+	product_slogans = "For the Insurgency!;Overthrow the Foundation today."
+	products = list(
+		/obj/item/gun/ballistic/automatic/scp/ak74 = 4,
+		/obj/item/ammo_box/magazine/scp/ak = 8,
+		/obj/item/gun/ballistic/automatic/scp/ak742 = 2,
+		/obj/item/gun/ballistic/automatic/pistol = 4,
+		/obj/item/ammo_box/magazine/m9mm = 8,
+		/obj/item/grenade/frag = 3,
+		/obj/item/clothing/under/scp/syndicate/chaos = 4,
+		/obj/item/clothing/suit/armor/vest = 4,
+	)
+	contraband = list(
+		/obj/item/gun/ballistic/automatic/scp/rpk = 1,
+		/obj/item/grenade/syndieminibomb = 2,
+	)
+	default_price = 0
+	payment_department = ACCOUNT_SEC
 
-/obj/structure/sign/chemistry
-	name = "chemistry sign"
-	desc = "Chemistry department sign."
+/obj/machinery/vending/weaponry/chaos/specialized
+	name = "\improper Insurgency Specialist Vendor"
+	desc = "Specialized equipment for Chaos Insurgency operatives."
+	products = list(
+		/obj/item/gun/ballistic/automatic/scp/svd = 2,
+		/obj/item/ammo_box/magazine/scp/svd = 4,
+		/obj/item/gun/ballistic/automatic/scp/rpk = 2,
+		/obj/item/ammo_box/magazine/scp/ak/big = 4,
+		/obj/item/implanter/explosive = 2,
+		/obj/item/clothing/glasses/thermal = 2,
+	)
+	default_price = 0
+	payment_department = ACCOUNT_SEC
 
-/obj/structure/sign/corrosive
-	name = "corrosive materials sign"
-	desc = "Warning: Corrosive materials."
+/obj/machinery/vending/weaponry/goc
+	name = "\improper GOC Armory Vendor"
+	desc = "A high-tech vending machine stocked with GOC-issue weaponry."
+	icon_state = "syndicate"
+	product_slogans = "Protecting humanity from the anomalous."
+	products = list(
+		/obj/item/gun/ballistic/automatic/scp/p90 = 4,
+		/obj/item/ammo_box/magazine/scp/p90_mag = 10,
+		/obj/item/gun/ballistic/shotgun/lethal = 2,
+		/obj/item/storage/box/lethalshot = 4,
+		/obj/item/melee/baton/security/loaded = 4,
+		/obj/item/shield/riot = 2,
+		/obj/item/clothing/suit/armor/vest = 4,
+		/obj/item/clothing/head/helmet = 4,
+	)
+	contraband = list(
+		/obj/item/gun/energy/laser = 1,
+	)
+	default_price = 0
+	payment_department = ACCOUNT_SEC
 
-/obj/structure/sign/directions/janitor
-	name = "janitor sign"
-	desc = "Directions to janitorial supplies."
+/obj/machinery/vending/security/nonlethal
+	name = "non-lethal equipment vendor"
+	products = list(
+		/obj/item/melee/baton/security/loaded = 4,
+		/obj/item/reagent_containers/spray/pepper = 4,
+		/obj/item/grenade/flashbang = 4,
+		/obj/item/restraints/legcuffs/bola = 6,
+	)
+	default_price = PAYCHECK_COMMAND
+	payment_department = ACCOUNT_SEC
 
-/obj/structure/sign/dontlook
-	name = "cognitohazard sign"
-	desc = "WARNING: DO NOT LOOK DIRECTLY AT ITEM."
+/obj/machinery/vending/security/sergeant
+	name = "sergeant equipment vendor"
+	products = list(
+		/obj/item/gun/ballistic/automatic/scp/p90 = 2,
+		/obj/item/ammo_box/magazine/scp/p90_mag = 4,
+		/obj/item/melee/baton/security/loaded = 2,
+		/obj/item/storage/belt/security = 2,
+	)
+	default_price = PAYCHECK_COMMAND
+	payment_department = ACCOUNT_SEC
 
-/obj/structure/sign/double/barsign
-	name = "bar sign"
-	desc = "A bar sign."
+// ================================================================
+// COMPUTERS - with circuit and TGUI
+// ================================================================
 
-/obj/structure/sign/double/map/left
-	name = "facility map (left)"
+/obj/machinery/computer/atmoscontrol
+	name = "atmosphere control console"
+	desc = "A console used to monitor and control the facility's atmospheric systems."
+	icon_screen = "atmos"
+	icon_keyboard = "atmos_key"
+	circuit = /obj/item/circuitboard/computer/atmoscontrol
 
-/obj/structure/sign/double/map/right
-	name = "facility map (right)"
+/obj/machinery/computer/atmoscontrol/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "AtmosControl", name)
+		ui.open()
 
-/obj/structure/sign/emergonly
-	name = "emergency only sign"
-	desc = "Emergency use only."
+/obj/machinery/computer/atmoscontrol/ui_data(mob/user)
+	var/list/data = list()
+	data["area"] = get_area_name(src, TRUE)
+	var/datum/gas_mixture/environment = loc?.return_air()
+	if(environment)
+		data["pressure"] = environment.returnPressure()
+		data["temperature"] = environment.temperature
+		data["temperature_c"] = environment.temperature - T0C
+	return data
 
-/obj/structure/sign/flamable
-	name = "flammable sign"
-	desc = "Warning: Flammable materials."
+/obj/machinery/computer/cryopod
+	name = "cryogenic storage console"
+	desc = "A console used to monitor and manage cryogenic storage."
+	icon_screen = "cryo"
+	icon_keyboard = "med_key"
+	circuit = /obj/item/circuitboard/computer/cryopodcontrol
 
-/obj/structure/sign/goldenplaque
-	name = "golden plaque"
+/obj/machinery/computer/drone_control
+	name = "drone control console"
+	desc = "A console used to control maintenance drones."
+	icon_screen = "ai-fixer"
+	icon_keyboard = "tech_key"
+	circuit = /obj/item/circuitboard/computer/drone_control
 
-/obj/structure/sign/goldenplaque/medical
-	name = "medical director plaque"
+/obj/machinery/computer/mining
+	name = "mining shuttle console"
+	desc = "A console used to call and control the mining shuttle."
+	icon_screen = "shuttle"
+	icon_keyboard = "tech_key"
+	circuit = /obj/item/circuitboard/computer/mining_shuttle
 
-/obj/structure/sign/goldenplaque/security
-	name = "security chief plaque"
+/obj/machinery/computer/operating
+	name = "operating computer"
+	desc = "A console used to monitor surgical operations."
+	icon_screen = "med"
+	icon_keyboard = "med_key"
+	circuit = /obj/item/circuitboard/computer/operating
 
-/obj/structure/sign/greencross
-	name = "green cross sign"
-	desc = "Medical facilities indicator."
+/obj/machinery/computer/rdconsole
+	name = "Foundation R&D Console"
+	desc = "A research terminal connected to the Foundation's SCP research database."
+	icon_screen = "rdcomp"
+	icon_keyboard = "rd_key"
+	circuit = /obj/item/circuitboard/computer/rdconsole
+	var/selected_tab = "overview"
+	var/selected_project = null
 
-/obj/structure/sign/memnetic
-	name = "memetic hazard sign"
-	desc = "WARNING: Memetic hazard. Wear appropriate protection."
+/obj/machinery/computer/rdconsole/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "FoundationRDConsole", name)
+		ui.open()
 
-/obj/structure/sign/monkey_painting
-	name = "monkey painting"
+/obj/machinery/computer/rdconsole/ui_data(mob/user)
+	var/list/data = list()
+	data["selected_tab"] = selected_tab
+	data["selected_project"] = selected_project
+	if(!SSscp_research || !SSscp_research.manager)
+		data["system_online"] = FALSE
+		return data
+	data["system_online"] = TRUE
+	var/datum/scp_research_manager/M = SSscp_research.manager
+	data["total_points"] = M.total_research_points
+	data["breakthroughs"] = M.research_breakthroughs
+	data["containment_improvements"] = M.containment_improvements
+	data["classification_updates"] = M.classification_updates
+	var/list/projects = list()
+	for(var/project_id in M.research_projects)
+		var/datum/research_data/project = M.research_projects[project_id]
+		projects += list(list(
+			"id" = project.project_id,
+			"scp" = project.scp_designation,
+			"type" = project.research_type,
+			"level" = project.research_level,
+			"max_level" = project.max_research_level,
+			"points" = project.research_points,
+			"cost" = project.research_cost,
+			"status" = project.status,
+		))
+	data["projects"] = projects
+	if(user?.ckey)
+		var/datum/researcher_data/researcher = M.get_researcher_profile(user.ckey)
+		if(researcher)
+			data["researcher_rank"] = researcher.research_rank
+			data["researcher_points"] = researcher.research_points
+			data["researcher_projects"] = researcher.total_projects
+	return data
 
-/obj/structure/sign/noidle
-	name = "no idling sign"
-	desc = "No idling in this area."
+/obj/machinery/computer/rdconsole/ui_act(action, params)
+	. = ..()
+	if(.)
+		return
+	switch(action)
+		if("switch_tab")
+			selected_tab = params["tab"]
+			. = TRUE
+		if("select_project")
+			selected_project = params["project_id"]
+			. = TRUE
+		if("start_project")
+			if(SSscp_research?.manager && params["scp_id"])
+				SSscp_research.manager.start_research_project(params["scp_id"], params["type"] || "behavioral", usr?.ckey)
+				. = TRUE
 
-/obj/structure/sign/radiation
-	name = "radiation sign"
-	desc = "Warning: Radiation area."
+/obj/machinery/computer/rdconsole/core
+	name = "Core R&D Console"
+	desc = "The primary Foundation research terminal with full database access."
 
-/obj/structure/sign/redcross
-	name = "red cross sign"
-	desc = "Medical facilities indicator."
+/obj/machinery/computer/rdconsole/robotics
+	name = "Robotics R&D Console"
+	desc = "A research terminal specialized for robotic and prosthetic research."
+
+/obj/machinery/computer/rdservercontrol
+	name = "R&D Server Control"
+	desc = "A console used to manage the R&D server network."
+	icon_screen = "comm_log"
+	icon_keyboard = "tech_key"
+	circuit = /obj/item/circuitboard/computer/rdservercontrol
+
+/obj/machinery/computer/shuttle_control
+	name = "shuttle control console"
+	desc = "A console used to control shuttle movement."
+	icon_screen = "shuttle"
+	icon_keyboard = "tech_key"
+	circuit = /obj/item/circuitboard/computer/shuttle
+
+/obj/machinery/computer/shuttle_control/emergency
+	name = "emergency shuttle console"
+	circuit = /obj/item/circuitboard/computer/emergency_shuttle
+
+/obj/machinery/computer/shuttle_control/mining
+	name = "mining shuttle console"
+	circuit = /obj/item/circuitboard/computer/mining_shuttle
+
+/obj/machinery/computer/station_alert
+	name = "facility alert console"
+	desc = "A console showing facility-wide alerts and alarms."
+	icon_screen = "alert"
+	icon_keyboard = "tech_key"
+	circuit = /obj/item/circuitboard/computer/stationalert
+
+/obj/machinery/computer/station_alert/all
+	name = "facility alert console"
+
+/obj/machinery/computer/upload
+	name = "AI upload console"
+	desc = "A console used to upload new laws to the facility AI."
+	icon_screen = "command"
+	icon_keyboard = "syndie_key"
+	circuit = /obj/item/circuitboard/computer/aifixer
+
+/obj/machinery/computer/upload/robot
+	name = "robot upload console"
+	desc = "A console used to upload new laws to cyborgs."
+
+// ================================================================
+// CIRCUITBOARDS
+// ================================================================
+
+/obj/item/circuitboard/computer/atmoscontrol
+	name = "Atmosphere Control (Computer Board)"
+	build_path = /obj/machinery/computer/atmoscontrol
+
+/obj/item/circuitboard/computer/cryopodcontrol
+	name = "Cryogenic Storage (Computer Board)"
+	build_path = /obj/machinery/computer/cryopod
+
+/obj/item/circuitboard/computer/drone_control
+	name = "Drone Control (Computer Board)"
+	build_path = /obj/machinery/computer/drone_control
+
+/obj/item/circuitboard/computer/mining_shuttle
+	name = "Mining Shuttle (Computer Board)"
+	build_path = /obj/machinery/computer/mining
+
+/obj/item/circuitboard/computer/operating
+	name = "Operating Computer (Computer Board)"
+	build_path = /obj/machinery/computer/operating
+
+/obj/item/circuitboard/computer/rdconsole
+	name = "R&D Console (Computer Board)"
+	build_path = /obj/machinery/computer/rdconsole
+
+/obj/item/circuitboard/computer/rdservercontrol
+	name = "R&D Server Control (Computer Board)"
+	build_path = /obj/machinery/computer/rdservercontrol
+
+/obj/item/circuitboard/computer/shuttle
+	name = "Shuttle Control (Computer Board)"
+	build_path = /obj/machinery/computer/shuttle_control
+
+/obj/item/circuitboard/computer/emergency_shuttle
+	name = "Emergency Shuttle (Computer Board)"
+	build_path = /obj/machinery/computer/shuttle_control/emergency
+
+/obj/item/circuitboard/computer/stationalert
+	name = "Station Alert (Computer Board)"
+	build_path = /obj/machinery/computer/station_alert
+
+/obj/item/circuitboard/computer/aifixer
+	name = "AI Upload (Computer Board)"
+	build_path = /obj/machinery/computer/upload
+
+// ================================================================
+// SMES PRESETS - with charge/capacity values
+// ================================================================
+
+/obj/machinery/power/smes/buildable
+	name = "Buildable SMES"
+
+/obj/machinery/power/smes/buildable/max_cap_in_out
+	charge = 5e6
+	capacity = 5e6
+	input_level = 200000
+	output_level = 200000
+	input_attempt = TRUE
+	output_attempt = TRUE
+
+/obj/machinery/power/smes/buildable/preset/ds90/substation_full
+	name = "Substation SMES"
+	charge = 90e6
+	capacity = 90e6
+	input_level = 200000
+	output_level = 200000
+	input_attempt = TRUE
+	output_attempt = TRUE
+
+/obj/machinery/power/smes/buildable/preset/on_full
+	name = "Full Output SMES"
+	charge = 200e6
+	capacity = 200e6
+	input_level = 200000
+	output_level = 200000
+	input_attempt = TRUE
+	output_attempt = TRUE
+
+// ================================================================
+// SIGN STUBS - only those with unique desc (containment/safety)
+// ================================================================
 
 /obj/structure/sign/scp
 	name = "SCP sign"
@@ -508,6 +498,14 @@
 	name = "Safe containment sign"
 	desc = "SCP Containment - Safe class."
 
+/obj/structure/sign/dontlook
+	name = "cognitohazard sign"
+	desc = "WARNING: DO NOT LOOK DIRECTLY AT ITEM."
+
+/obj/structure/sign/memnetic
+	name = "memetic hazard sign"
+	desc = "WARNING: Memetic hazard. Wear appropriate protection."
+
 /obj/structure/sign/SecureArealv4mtf
 	name = "MTF secure area sign"
 	desc = "Secure Area - Level 4 MTF Clearance Required."
@@ -516,161 +514,14 @@
 	name = "MTF secure area sign"
 	desc = "Secure Area - Level 5 MTF Clearance Required."
 
-/obj/structure/sign/warning/detailed
-	name = "detailed warning sign"
-
-/obj/structure/sign/warning/engineering_access
-	name = "engineering access sign"
-	desc = "Authorized engineering personnel only."
-
-/obj/structure/sign/warning/high_voltage
-	name = "high voltage sign"
-	desc = "Warning: High voltage equipment."
-
-/obj/structure/sign/warning/internals_required
-	name = "internals required sign"
-	desc = "Warning: Internals required beyond this point."
-
 /obj/structure/sign/warning/lethal_turrets
 	name = "lethal turrets sign"
 	desc = "WARNING: Lethal automated defenses active."
-
-/obj/structure/sign/warning/moving_parts
-	name = "moving parts sign"
-	desc = "Warning: Moving machinery."
-
-/obj/structure/sign/warning/nosmoking_2
-	name = "no smoking sign"
-	desc = "No smoking in this area."
-
-/obj/structure/sign/warning/nosmoking_burned
-	name = "burned no smoking sign"
-	desc = "A charred no smoking sign."
-
-/obj/structure/sign/warning/radioactive
-	name = "radioactive sign"
-	desc = "Warning: Radioactive materials."
-
-/obj/structure/sign/warning/science/anomalous_materials
-	name = "anomalous materials sign"
-	desc = "Warning: Anomalous materials storage."
-
-/obj/structure/sign/warning/secure_area
-	name = "secure area sign"
-	desc = "Secure area - authorized personnel only."
-
-/obj/structure/sign/warning/secure_area/armory
-	name = "armory sign"
-	desc = "Armory - authorized personnel only."
-
-/obj/structure/sign/warning/server_room
-	name = "server room sign"
-	desc = "Server room - authorized personnel only."
 
 /obj/structure/sign/warning/termination
 	name = "termination sign"
 	desc = "WARNING: Termination authorization in effect."
 
-// ================================================================
-// VENDING MACHINE STUBS
-// ================================================================
-
-/obj/machinery/vending/hydronutrients/generic
-	name = "nutrient dispenser"
-
-/obj/machinery/vending/hydroseeds/generic
-	name = "seed dispenser"
-
-/obj/machinery/vending/hydroseeds/priced
-	name = "seed dispenser"
-
-/obj/machinery/vending/security/nonlethal
-	name = "non-lethal equipment vendor"
-
-/obj/machinery/vending/security/sergeant
-	name = "sergeant equipment vendor"
-
-/obj/machinery/vending/wallmed1
-	name = "wall medical vendor"
-
-/obj/machinery/vending/wallmed2
-	name = "wall medical vendor"
-
-/obj/machinery/vending/weaponry
-	name = "weaponry vendor"
-
-/obj/machinery/vending/weaponry/chaos
-	name = "Insurgency weapon vendor"
-
-/obj/machinery/vending/weaponry/chaos/specialized
-	name = "Insurgency specialist vendor"
-
-/obj/machinery/vending/weaponry/goc
-	name = "GOC weapon vendor"
-
-/obj/machinery/vending/weeb
-	name = "import vendor"
-
-// ================================================================
-// COMPUTER STUBS
-// ================================================================
-
-/obj/machinery/computer/atmoscontrol
-	name = "atmosphere control console"
-
-/obj/machinery/computer/cryopod
-	name = "cryogenic storage console"
-
-/obj/machinery/computer/drone_control
-	name = "drone control console"
-
-/obj/machinery/computer/fusion
-	name = "fusion control console"
-
-/obj/machinery/computer/fusion/core_control
-	name = "fusion core control"
-
-/obj/machinery/computer/fusion/fuel_control
-	name = "fusion fuel control"
-
-/obj/machinery/computer/fusion/gyrotron
-	name = "gyrotron control"
-
-/obj/machinery/computer/mining
-	name = "mining shuttle console"
-
-/obj/machinery/computer/operating
-	name = "operating computer"
-
-/obj/machinery/computer/rdconsole
-	name = "R&D console"
-
-/obj/machinery/computer/rdconsole/core
-	name = "core R&D console"
-
-/obj/machinery/computer/rdconsole/robotics
-	name = "robotics R&D console"
-
-/obj/machinery/computer/rdservercontrol
-	name = "R&D server control"
-
-/obj/machinery/computer/shuttle_control
-	name = "shuttle control console"
-
-/obj/machinery/computer/shuttle_control/emergency
-	name = "emergency shuttle console"
-
-/obj/machinery/computer/shuttle_control/mining
-	name = "mining shuttle console"
-
-/obj/machinery/computer/station_alert
-	name = "station alert console"
-
-/obj/machinery/computer/station_alert/all
-	name = "station alert console"
-
-/obj/machinery/computer/upload
-	name = "AI upload console"
-
-/obj/machinery/computer/upload/robot
-	name = "robot upload console"
+/obj/structure/sign/amnesiac
+	name = "amnestics sign"
+	desc = "Warning: Amnestic dispensing area."

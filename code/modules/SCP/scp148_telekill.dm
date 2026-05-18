@@ -95,7 +95,7 @@
 	name = "Telekill barrier"
 	desc = "A floor-mounted Telekill alloy barrier that blocks memetic effects from passing through."
 	icon = 'icons/obj/structures.dmi'
-	icon_state = "telekill_barrier"
+	icon_state = "grille"
 	density = FALSE
 	anchored = TRUE
 	max_integrity = 200

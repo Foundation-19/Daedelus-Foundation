@@ -202,8 +202,15 @@ SUBSYSTEM_DEF(foundation_round)
 	for(var/turf/T in get_area_turfs(/area/scp/surface))
 		if(!T.density)
 			delivery_turfs += T
+	for(var/turf/T in get_area_turfs(/area/site53/surface))
+		if(!T.density)
+			delivery_turfs += T
 	if(!length(delivery_turfs))
-		delivery_turfs += list(pick(GLOB.station_turfs))
+		var/turf/fallback = get_safe_random_station_turf()
+		if(fallback)
+			delivery_turfs += fallback
+	if(!length(delivery_turfs))
+		return
 	new crate_type(pick(delivery_turfs))
 	priority_announce("Anomalous cargo delivery received at surface level. Contents flagged for Foundation research personnel.", "Supply Department", null, ANNOUNCER_ALERT)
 
@@ -309,7 +316,7 @@ SUBSYSTEM_DEF(foundation_round)
 	name = "Foundation chapel altar"
 	desc = "A simple altar for spiritual reflection and meditation."
 	icon = 'icons/obj/structures.dmi'
-	icon_state = "chapel_altar"
+	icon_state = "girder"
 	anchored = TRUE
 	density = TRUE
 	var/ritual_cooldown = 0
@@ -350,13 +357,13 @@ SUBSYSTEM_DEF(foundation_round)
 /obj/item/seeds/anomalous
 	name = "anomalous seed pack"
 	desc = "Seeds of unknown origin. They seem to pulse with faint energy."
-	icon_state = "seed-replicapod"
+	icon_state = "girder"
 
 /obj/structure/flora/grown/anomalous_flora
 	name = "anomalous flora"
 	desc = "A strange plant that shimmers with faint light."
 	icon = 'icons/obj/hydroponics/growing_fruits.dmi'
-	icon_state = "apple_grow"
+	icon_state = "apple-harvest"
 	anchored = TRUE
 	density = FALSE
 	var/harvest_count = 3

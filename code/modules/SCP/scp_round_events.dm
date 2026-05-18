@@ -314,7 +314,7 @@
 	var/list/entry_points = list()
 	for(var/turf/T in GLOB.station_turfs)
 		var/area/A = get_area(T)
-		if(istype(A, /area/scp/surface) || istype(A, /area/scp/lcz))
+		if(istype(A, /area/scp/surface) || istype(A, /area/scp/lcz) || istype(A, /area/site53/surface) || istype(A, /area/site53/llcz))
 			entry_points += T
 	if(!length(entry_points))
 		entry_points = GLOB.station_turfs.Copy()

@@ -6,7 +6,7 @@
 	name = "Tesla Gate"
 	desc = "A high-voltage containment gate. When activated, it generates a lethal electrical arc between its coils."
 	icon = 'icons/obj/machines/scangate.dmi'
-	icon_state = "scangate0"
+	icon_state = "scangate"
 	density = FALSE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE

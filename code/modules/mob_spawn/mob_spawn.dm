@@ -92,7 +92,7 @@
 	spawned_mob.fully_replace_character_name(null, chosen_name)
 
 /obj/effect/mob_spawn/proc/equip(mob/living/spawned_mob)
-	if(outfit)
+	if(outfit && ishuman(spawned_mob))
 		var/mob/living/carbon/human/spawned_human = spawned_mob
 		if(outfit_override)
 			outfit = new outfit //create it now to apply vars

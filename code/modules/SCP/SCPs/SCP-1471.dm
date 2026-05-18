@@ -5,7 +5,7 @@
 	name = "smartphone"
 	desc = "A smartphone with an app called 'MalO ver1.0.0' pre-installed."
 	icon = 'icons/obj/device.dmi'
-	icon_state = "phone"
+	icon_state = "export_scanner"
 	w_class = WEIGHT_CLASS_SMALL
 
 	var/installed = TRUE
@@ -110,7 +110,7 @@
 	name = "shadowy entity"
 	desc = "A tall, shadowy canine-like creature with a skull-like face."
 	icon = 'icons/mob/cult.dmi'
-	icon_state = "shade"
+	icon_state = "shade_cult"
 	density = FALSE
 	anchored = TRUE
 	alpha = 80

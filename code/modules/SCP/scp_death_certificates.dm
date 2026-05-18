@@ -33,7 +33,7 @@
 	name = "body bag rack"
 	desc = "A rack for storing body bags."
 	icon = 'icons/obj/storage.dmi'
-	icon_state = "rack"
+	icon_state = "safe"
 	anchored = TRUE
 	density = FALSE
 	var/max_bags = 5
