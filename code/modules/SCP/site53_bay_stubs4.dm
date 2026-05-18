@@ -555,14 +555,6 @@
 	name = "anomalous materials sign"
 	desc = "Warning: Anomalous materials storage."
 
-/obj/structure/sign/warning/secure_area
-	name = "secure area sign"
-	desc = "Secure area - authorized personnel only."
-
-/obj/structure/sign/warning/secure_area/armory
-	name = "armory sign"
-	desc = "Armory - authorized personnel only."
-
 /obj/structure/sign/warning/server_room
 	name = "server room sign"
 	desc = "Server room - authorized personnel only."

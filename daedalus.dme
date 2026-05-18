@@ -5248,7 +5248,6 @@
 #include "modular_pariah\modules\aesthetics\firedoor\code\firedoor.dm"
 #include "modular_pariah\modules\aesthetics\janitor\janitor.dm"
 #include "modular_pariah\modules\aesthetics\lights\code\lighting.dm"
-#include "modular_pariah\modules\aesthetics\newscaster\code\newscaster.dm"
 #include "modular_pariah\modules\aesthetics\rack\code\rack.dm"
 #include "modular_pariah\modules\aesthetics\stacks\stacks.dm"
 #include "modular_pariah\modules\aesthetics\status_display\code\status_display.dm"

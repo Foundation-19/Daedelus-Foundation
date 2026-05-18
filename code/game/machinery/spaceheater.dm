@@ -10,8 +10,8 @@
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "sheater-off"
 	base_icon_state = "sheater"
-	name = "space heater"
-	desc = "Made by Space Amish using traditional space techniques, this heater/cooler is guaranteed not to set the station on fire. Warranty void if used in engines."
+	name = "radiator heater"
+	desc = "It's a standard, old-style heater. It's in the shape of a radiator heater, this time it's mobile! Warranty void if used in engines."
 	max_integrity = 250
 	armor = list(BLUNT = 0, PUNCTURE = 0, SLASH = 90, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 80, ACID = 10)
 	circuit = /obj/item/circuitboard/machine/space_heater

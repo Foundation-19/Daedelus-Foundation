@@ -16,6 +16,12 @@
 	desc = "A warning sign which reads 'SECURE AREA'."
 	is_editable = TRUE
 
+/obj/structure/sign/warning/securearea/armory
+	name = "\improper ARMORY sign"
+	sign_change_name = "Warning - Armory"
+	desc = "A warning sign which reads 'ARMORY - AUTHORIZED PERSONNEL ONLY'."
+	is_editable = TRUE
+
 /obj/structure/sign/warning/docking
 	name = "\improper KEEP CLEAR: DOCKING AREA sign"
 	sign_change_name = "Warning - Docking Area"

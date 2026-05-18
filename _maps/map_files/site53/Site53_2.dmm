@@ -33,6 +33,10 @@
 "aA" = (
 /obj/machinery/door/airlock/highsecurity,
 /obj/effect/mapping_helpers/airlock/access/all/security/level4,
+/obj/machinery/door/poddoor{
+	id_tag = "lcz_securearmory";
+	name = "LCZ Secure Armory Access Blast Door"
+	},
 /turf/open/floor/iron/dark/textured_large,
 /area/station/ai_monitored/security/lcz_secure_armory)
 "aB" = (
@@ -310,6 +314,18 @@
 	},
 /turf/open/floor/wood/parquet,
 /area/station/service/ez/bar/backroom)
+"eh" = (
+/obj/effect/turf_decal/tile/lcz/half/contrasted,
+/obj/effect/turf_decal/siding/thinplating_new/light{
+	dir = 1
+	},
+/obj/structure/sign/departments/security{
+	pixel_y = -32
+	},
+/turf/open/floor/iron/white/smooth_edge{
+	dir = 1
+	},
+/area/station/hallway/lcz)
 "en" = (
 /turf/open/floor/carpet/grey,
 /area/station/security/lcz/lieutenant)
@@ -330,6 +346,10 @@
 	name = "mysterious old book of cloud-chasing";
 	pixel_y = -3;
 	pixel_x = 6
+	},
+/obj/item/nullrod{
+	pixel_x = -5;
+	pixel_y = -6
 	},
 /turf/open/floor/iron/dark/small,
 /area/station/service/ez/chapel/office)
@@ -360,6 +380,7 @@
 /obj/machinery/flasher{
 	id_tag = "lcz_flasher"
 	},
+/obj/machinery/status_display/evac/directional/south,
 /turf/open/floor/iron/dark/small,
 /area/station/security/lcz/checkpoint)
 "eJ" = (
@@ -420,6 +441,11 @@
 /area/station/security/lcz/checkpoint)
 "fv" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters{
+	name = "LCZ Security Lieutenant's Office Shutters";
+	id_tag = "lcz_lieutenantoffice";
+	dir = 4
+	},
 /turf/open/floor/iron/plating,
 /area/station/security/lcz/lieutenant)
 "fw" = (
@@ -555,7 +581,8 @@
 /area/station/service/ez/chapel/office)
 "hl" = (
 /obj/machinery/door/airlock/security{
-	dir = 4
+	dir = 4;
+	name = "Security Lieutenant's Office"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/level4,
 /turf/open/floor/iron/dark/textured_large,
@@ -575,6 +602,9 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /turf/open/floor/iron/dark/small,
 /area/station/service/ez/chapel/office)
+"hz" = (
+/turf/closed/wall/r_wall,
+/area/station/maintenance/lcz/entrance)
 "hA" = (
 /obj/effect/turf_decal/siding/thinplating_new/light,
 /obj/effect/turf_decal/tile/green/opposingcorners,
@@ -611,7 +641,6 @@
 	dir = 1
 	},
 /obj/machinery/airalarm/directional/south,
-/obj/machinery/light/directional/east,
 /obj/structure/rack/shelf,
 /turf/open/floor/iron/dark/small,
 /area/station/ai_monitored/security/lcz_secure_armory)
@@ -700,7 +729,7 @@
 /obj/effect/spawner/random/trash/janitor_supplies,
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/lcz/entrance)
 "jV" = (
 /obj/machinery/door/airlock/glass/security{
 	dir = 4
@@ -764,7 +793,7 @@
 /obj/effect/spawner/random/structure/table,
 /obj/machinery/light/small/maintenance/directional/north,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/lcz/entrance)
 "kH" = (
 /obj/structure/table/wood,
 /obj/item/storage/dice,
@@ -786,6 +815,16 @@
 /obj/structure/extinguisher_cabinet/directional/east,
 /turf/open/floor/iron/dark,
 /area/station/security/lcz)
+"kP" = (
+/obj/effect/turf_decal/siding/thinplating_new/light/corner,
+/obj/effect/turf_decal/tile/lcz/anticorner/contrasted{
+	dir = 1
+	},
+/obj/structure/sign/departments/security{
+	pixel_y = 32
+	},
+/turf/open/floor/iron/white,
+/area/station/hallway/lcz/entrance)
 "kR" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -820,6 +859,20 @@
 	},
 /turf/open/floor/iron/edge,
 /area/station/hallway/ez/hub)
+"lx" = (
+/obj/effect/turf_decal/tile/lcz/half/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/thinplating_new/light{
+	dir = 4
+	},
+/obj/structure/sign/departments/security{
+	pixel_x = -32
+	},
+/turf/open/floor/iron/white/smooth_edge{
+	dir = 4
+	},
+/area/station/hallway/lcz/entrance)
 "lB" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron/edge{
@@ -899,7 +952,7 @@
 	dir = 9
 	},
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/lcz/entrance)
 "mW" = (
 /obj/structure/table/wood,
 /obj/item/candle{
@@ -969,7 +1022,7 @@
 /obj/effect/spawner/random/maintenance/five,
 /obj/structure/rack,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/lcz/entrance)
 "ot" = (
 /obj/structure/bookcase/random/reference,
 /obj/effect/turf_decal/siding/wood/end{
@@ -1093,12 +1146,27 @@
 /obj/machinery/light/directional/north,
 /turf/open/floor/iron/dark/small,
 /area/station/service/ez/chapel/office)
+"pP" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 4
+	},
+/obj/machinery/flasher/portable,
+/obj/machinery/light/directional/west,
+/turf/open/floor/iron/dark/small,
+/area/station/ai_monitored/security/lcz_secure_armory)
+"pQ" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters{
+	name = "LCZ Security Post Shutters";
+	id_tag = "lcz_secpost_windows"
+	},
+/turf/open/floor/iron/plating,
+/area/station/security/lcz)
 "pX" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
 	},
 /obj/machinery/power/apc/auto_name/directional/south,
-/obj/machinery/light/directional/west,
 /obj/structure/rack/shelf,
 /turf/open/floor/iron/dark/small,
 /area/station/ai_monitored/security/lcz_secure_armory)
@@ -1125,7 +1193,7 @@
 /obj/effect/spawner/random/structure/crate,
 /obj/machinery/light/small/maintenance/directional/north,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/lcz/entrance)
 "qA" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -1151,6 +1219,7 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
 	},
+/obj/item/radio/intercom/directional/south,
 /turf/open/floor/iron/dark/small,
 /area/station/security/lcz/checkpoint)
 "qX" = (
@@ -1191,7 +1260,13 @@
 	},
 /obj/machinery/button/door/directional/south{
 	id_tag = "lcz_lieutenantoffice";
-	name = "Privacy Shutters Control"
+	name = "Privacy Shutters Control";
+	pixel_x = -6
+	},
+/obj/machinery/button/door/directional/south{
+	id_tag = "lcz_securearmory";
+	name = "Secure Armory Access Control";
+	pixel_x = 6
 	},
 /turf/open/floor/carpet/grey,
 /area/station/security/lcz/lieutenant)
@@ -1233,6 +1308,14 @@
 /obj/item/storage/book/bible,
 /turf/open/floor/carpet/green,
 /area/station/service/ez/chapel)
+"sa" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 8
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/light/directional/east,
+/turf/open/floor/iron/dark/small,
+/area/station/ai_monitored/security/lcz_secure_armory)
 "se" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/iron/plating,
@@ -1398,7 +1481,7 @@
 	},
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/lcz/entrance)
 "uf" = (
 /obj/effect/turf_decal/siding/wood/end{
 	dir = 8
@@ -1502,6 +1585,14 @@
 /obj/machinery/light/directional/south,
 /turf/open/floor/wood,
 /area/station/service/ez/chapel)
+"wj" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters{
+	name = "LCZ Security Lieutenant's Office Shutters";
+	id_tag = "lcz_lieutenantoffice"
+	},
+/turf/open/floor/iron/plating,
+/area/station/security/lcz/lieutenant)
 "wo" = (
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 1
@@ -1522,11 +1613,19 @@
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood/parquet,
 /area/station/service/ez/chapel/office)
+"wC" = (
+/obj/structure/hedge,
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 8
+	},
+/obj/machinery/newscaster/directional/north,
+/turf/open/floor/iron/dark/small,
+/area/station/security/lcz/checkpoint)
 "wG" = (
 /obj/structure/railing,
 /obj/structure/closet/firecloset,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/lcz/entrance)
 "wH" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -1629,14 +1728,14 @@
 /obj/structure/closet/firecloset,
 /obj/machinery/light/small/maintenance/directional/north,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/lcz/entrance)
 "xO" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "LCZ Maintenance"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/level1,
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/maintenance/lcz/entrance)
 "xS" = (
 /turf/closed/wall,
 /area/station/service/ez/bar/backroom)
@@ -1722,7 +1821,7 @@
 /obj/effect/spawner/random/maintenance/two,
 /obj/machinery/light/small/maintenance/directional/north,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/lcz/entrance)
 "zE" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/evidence{
@@ -1892,7 +1991,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/lcz/entrance)
 "BB" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
@@ -1958,7 +2057,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/maintenance/lcz/entrance)
 "Ch" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
@@ -2113,6 +2212,14 @@
 	dir = 1
 	},
 /area/station/hallway/lcz/entrance)
+"Dy" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 8
+	},
+/obj/structure/hedge,
+/obj/item/radio/intercom/directional/east,
+/turf/open/floor/iron/dark/small,
+/area/station/security/lcz/armory)
 "Dz" = (
 /obj/effect/turf_decal/siding/thinplating_new/light{
 	dir = 1
@@ -2303,10 +2410,14 @@
 	},
 /turf/open/floor/iron/large,
 /area/station/hallway/ez/hub)
+"FM" = (
+/obj/structure/overfloor_catwalk/iron_dark,
+/turf/open/floor/iron/plating,
+/area/station/maintenance/lcz/entrance)
 "FO" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/lcz/entrance)
 "FY" = (
 /obj/effect/turf_decal/tile/lcz/half/contrasted{
 	dir = 4
@@ -2514,6 +2625,14 @@
 	},
 /turf/open/floor/wood,
 /area/station/service/ez/chapel)
+"IH" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 4
+	},
+/obj/structure/hedge,
+/obj/structure/extinguisher_cabinet/directional/west,
+/turf/open/floor/iron/dark/small,
+/area/station/security/lcz/armory)
 "IX" = (
 /obj/structure/table/wood/fancy,
 /obj/effect/turf_decal/siding/wideplating_new/dark,
@@ -2821,7 +2940,7 @@
 /obj/structure/railing,
 /obj/effect/spawner/random/structure/grille,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/lcz/entrance)
 "Nm" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -2919,7 +3038,7 @@
 /obj/machinery/space_heater,
 /obj/machinery/light/small/maintenance/directional/north,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/lcz/entrance)
 "Pa" = (
 /obj/machinery/door/airlock{
 	name = "Chapel Office"
@@ -2969,6 +3088,9 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/ez/hub)
+"Pz" = (
+/turf/open/floor/iron/plating,
+/area/station/maintenance/lcz/entrance)
 "PA" = (
 /obj/effect/turf_decal/siding/thinplating_new/corner{
 	dir = 4
@@ -2994,7 +3116,7 @@
 	spawn_scatter_radius = 1
 	},
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/lcz/entrance)
 "PJ" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -3053,6 +3175,15 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/ez/hub)
+"Qx" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters{
+	name = "LCZ Checkpoint Hallway Shutters";
+	id_tag = "lcz_check_hall_windows";
+	dir = 4
+	},
+/turf/open/floor/iron/plating,
+/area/station/security/lcz/checkpoint)
 "QB" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
@@ -3076,7 +3207,7 @@
 	},
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/lcz/entrance)
 "QZ" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
@@ -3114,6 +3245,7 @@
 /obj/machinery/flasher{
 	id_tag = "lcz_flasher"
 	},
+/obj/machinery/status_display/ai/directional/north,
 /turf/open/floor/iron/dark/small,
 /area/station/security/lcz/checkpoint)
 "Ro" = (
@@ -3141,15 +3273,27 @@
 /area/station/commons/ez/lounge)
 "RG" = (
 /obj/machinery/button/door{
-	pixel_y = 2;
+	pixel_y = 7;
 	id_tag = "lcz_ent_lockdown";
-	name = "Emergency LCZ Entrance Lockdown Control"
+	name = "Area Lockdown Control";
+	pixel_x = -6
 	},
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/white/half/contrasted{
 	dir = 1
 	},
 /obj/machinery/light/directional/north,
+/obj/machinery/button/door{
+	pixel_y = 7;
+	id_tag = "lcz_maints";
+	name = "Maintenance Bypass Control";
+	pixel_x = 6
+	},
+/obj/machinery/button/door{
+	pixel_y = -3;
+	id_tag = "lcz_secpost_windows";
+	name = "Shutters Control"
+	},
 /turf/open/floor/iron/dark,
 /area/station/security/lcz)
 "RL" = (
@@ -3234,6 +3378,7 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 10
 	},
+/obj/item/radio/intercom/directional/north,
 /turf/open/floor/iron/dark/small,
 /area/station/ai_monitored/security/lcz_secure_armory)
 "Ss" = (
@@ -3595,6 +3740,13 @@
 /obj/item/flashlight/lamp,
 /turf/open/floor/carpet/green,
 /area/station/service/ez/chapel/office)
+"WD" = (
+/obj/effect/turf_decal/tile/white/half/contrasted,
+/obj/structure/sign/warning/secure_area/armory{
+	pixel_y = -32
+	},
+/turf/open/floor/iron/dark,
+/area/station/security/lcz)
 "WI" = (
 /obj/effect/turf_decal/siding/thinplating_new/light/corner{
 	dir = 8
@@ -3689,6 +3841,11 @@
 /area/station/commons/ez/cryo)
 "Yh" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters{
+	name = "LCZ Security Post Shutters";
+	id_tag = "lcz_secpost_windows";
+	dir = 4
+	},
 /turf/open/floor/iron/plating,
 /area/station/security/lcz)
 "Yr" = (
@@ -3732,7 +3889,7 @@
 /obj/structure/railing,
 /obj/effect/spawner/random/structure/crate,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/lcz/entrance)
 "YN" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -3804,11 +3961,10 @@
 	id_tag = "lcz_flasher";
 	name = "Checkpoint Booth Flash Control"
 	},
-/obj/machinery/button/door/directional/north{
+/obj/machinery/button/door/directional/south{
 	id_tag = "lcz_check_windows";
 	name = "Checkpoint Desk Windows Control";
-	pixel_x = 35;
-	pixel_y = -24
+	pixel_x = 35
 	},
 /turf/open/floor/iron/dark,
 /area/station/security/lcz/checkpoint)
@@ -95940,12 +96096,12 @@ my
 fn
 Cu
 Cf
-Yh
+pQ
 dE
 dh
 dh
 Ez
-fv
+wj
 PR
 Mq
 UI
@@ -96197,12 +96353,12 @@ my
 VG
 Cu
 Cf
-Yh
+pQ
 QK
 BR
 dh
 VL
-fv
+wj
 tD
 Bm
 iN
@@ -96454,12 +96610,12 @@ my
 fn
 Cu
 Cf
-Yh
+pQ
 Rb
 dh
 dh
 Po
-fv
+wj
 KO
 xM
 iG
@@ -97218,10 +97374,10 @@ XW
 XW
 XW
 XW
-oB
-oB
-oB
-oB
+hz
+hz
+hz
+hz
 dG
 oA
 TU
@@ -97239,11 +97395,11 @@ NM
 YJ
 Pm
 uy
-NM
+IH
 cj
 cj
 KV
-KV
+pP
 cj
 cj
 XW
@@ -97475,14 +97631,14 @@ XW
 XW
 XW
 XW
-oB
+hz
 By
-lS
-oB
+Pz
+hz
 fn
 Cu
 Cf
-Yh
+pQ
 Mp
 dh
 dh
@@ -97732,14 +97888,14 @@ XW
 XW
 XW
 XW
-oB
+hz
 kF
-ks
+FM
 xO
 fn
 Cu
 Cf
-Yh
+pQ
 XL
 BR
 UN
@@ -97988,15 +98144,15 @@ XW
 XW
 XW
 XW
-oB
-oB
+hz
+hz
 QQ
 PH
-oB
+hz
 fn
 Cu
 Cf
-Yh
+pQ
 Av
 dh
 dh
@@ -98004,7 +98160,7 @@ dh
 AG
 AG
 AG
-Re
+WD
 Tb
 xU
 xU
@@ -98245,11 +98401,11 @@ XW
 XW
 XW
 XW
-oB
+hz
 os
-ks
-ks
-oB
+FM
+FM
+hz
 GI
 nD
 Fm
@@ -98263,7 +98419,7 @@ fP
 HU
 rG
 Tb
-oX
+Dy
 sL
 Jw
 BB
@@ -98271,7 +98427,7 @@ oX
 cj
 cj
 zV
-zV
+sa
 cj
 cj
 XW
@@ -98502,11 +98658,11 @@ XW
 XW
 XW
 XW
-oB
+hz
 qw
 PH
 mQ
-oB
+hz
 DY
 DY
 DY
@@ -98759,11 +98915,11 @@ XW
 XW
 XW
 XW
-oB
+hz
 MW
-ks
-oB
-oB
+FM
+hz
+hz
 aK
 oA
 TU
@@ -99016,20 +99172,20 @@ XW
 XW
 XW
 XW
-oB
-oB
+hz
+hz
 Cg
-oB
+hz
 Tj
 fn
 Cu
-Cf
+eh
 ev
 VY
 yg
 SS
 ev
-Gv
+kP
 Xo
 MJ
 JW
@@ -99273,10 +99429,10 @@ XW
 XW
 XW
 XW
-oB
+hz
 FO
-ks
-oB
+FM
+hz
 Ci
 fn
 Cu
@@ -99530,10 +99686,10 @@ XW
 XW
 XW
 XW
-oB
+hz
 xN
 ub
-oB
+hz
 cY
 fn
 Cu
@@ -99787,10 +99943,10 @@ XW
 XW
 XW
 XW
-oB
+hz
 jS
-ks
-oB
+FM
+hz
 lm
 fn
 Cu
@@ -100044,10 +100200,10 @@ XW
 XW
 XW
 XW
-oB
-oB
+hz
+hz
 Cg
-oB
+hz
 Tj
 fn
 Cu
@@ -100301,10 +100457,10 @@ XW
 XW
 XW
 XW
-oB
+hz
 MW
-ks
-oB
+FM
+hz
 DA
 fn
 Cu
@@ -100558,10 +100714,10 @@ XW
 XW
 XW
 XW
-oB
+hz
 zB
-ks
-oB
+FM
+hz
 VR
 fn
 Cu
@@ -100815,10 +100971,10 @@ XW
 XW
 XW
 XW
-oB
+hz
 YM
 PH
-oB
+hz
 Tj
 fn
 Cu
@@ -101072,16 +101228,16 @@ XW
 XW
 XW
 XW
-oB
-oB
+hz
+hz
 Cg
-oB
+hz
 my
 sR
 FY
 Fm
 ev
-qN
+wC
 sk
 qN
 ev
@@ -101329,18 +101485,18 @@ XW
 XW
 XW
 XW
-oB
+hz
 OT
-ks
-oB
-JW
-JW
-JW
-JW
+FM
+hz
+my
+my
+my
+my
 ev
-UG
-UG
-UG
+ev
+Qx
+ev
 ev
 DE
 Up
@@ -101586,19 +101742,19 @@ XW
 XW
 XW
 XW
-oB
+hz
 wG
-ks
+FM
 xO
 eJ
 Eo
 cQ
 cQ
+lx
 cQ
 cQ
 cQ
-cQ
-cQ
+lx
 Dw
 Up
 xK

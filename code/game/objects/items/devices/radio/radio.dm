@@ -2,11 +2,11 @@
 
 /obj/item/radio
 	icon = 'icons/obj/radio.dmi'
-	name = "station bounced radio"
+	name = "walkie talkie"
 	icon_state = "walkietalkie"
 	inhand_icon_state = "walkietalkie"
 	worn_icon_state = "radio"
-	desc = "A basic handheld radio that communicates with local telecommunication networks."
+	desc = "A basic handheld radio, always an emergency-requirement."
 	dog_fashion = /datum/dog_fashion/back
 
 	flags_1 = CONDUCT_1
