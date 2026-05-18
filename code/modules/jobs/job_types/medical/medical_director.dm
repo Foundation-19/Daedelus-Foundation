@@ -86,7 +86,7 @@
 
 	chameleon_extras = list(
 		/obj/item/gun/syringe,
-		/obj/item/stamp/cmo,
+		/obj/item/stamp/md,
 	)
 
 /datum/outfit/job/medical_director/mod

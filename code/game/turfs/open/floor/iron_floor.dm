@@ -27,22 +27,22 @@
 /turf/open/floor/iron/airless
 	initial_gas = AIRLESS_ATMOS
 
-/turf/open/floor/iron/smooth_edge
+/turf/open/floor/iron/edge
 	icon_state = "floor_edge"
 	base_icon_state = "floor_edge"
 	floor_tile = /obj/item/stack/tile/iron/edge
 
-/turf/open/floor/iron/smooth_half
+/turf/open/floor/iron/half
 	icon_state = "floor_half"
 	base_icon_state = "floor_half"
 	floor_tile = /obj/item/stack/tile/iron/half
 
-/turf/open/floor/iron/smooth_corner
+/turf/open/floor/iron/corner
 	icon_state = "floor_corner"
 	base_icon_state = "floor_corner"
 	floor_tile = /obj/item/stack/tile/iron/corner
 
-/turf/open/floor/iron/smooth_large
+/turf/open/floor/iron/large
 	icon_state = "floor_large"
 	base_icon_state = "floor_large"
 	floor_tile = /obj/item/stack/tile/iron/large

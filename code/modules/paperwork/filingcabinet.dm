@@ -122,7 +122,7 @@
  */
 /obj/structure/filingcabinet/security
 	name = "security records filing cabinet"
-	desc = "A cabinet containing a paper copy of all of the station security records."
+	desc = "A cabinet containing a paper copy of all of the site security records."
 
 /obj/structure/filingcabinet/security/Initialize(mapload)
 	. = ..()
@@ -185,6 +185,8 @@
  * Medical Record Cabinets
  */
 /obj/structure/filingcabinet/medical
+	name = "medical records filing cabinet"
+	desc = "A cabinet containing a paper copy of all of the site medical records."
 	///This var is so that its filled on crew interaction to be as accurate (including latejoins) as possible, true until first interact
 	var/virgin = TRUE
 
@@ -223,6 +225,8 @@
 GLOBAL_LIST_EMPTY(employmentCabinets)
 
 /obj/structure/filingcabinet/employment
+	name = "employment records filing cabinet"
+	desc = "A cabinet containing a paper copy of all of the site employee records."
 	icon_state = "employmentcabinet"
 	///This var is so that its filled on crew interaction to be as accurate (including latejoins) as possible, true until first interact
 	var/virgin = TRUE

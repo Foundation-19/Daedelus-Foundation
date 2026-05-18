@@ -144,6 +144,26 @@
 		/obj/item/stack/tile/wood/parquet,
 	)
 
+/obj/item/stack/tile/wood/large
+	name = "wood large floor tile"
+	singular_name = "wood large floor tile"
+	icon_state = "tile-wood_large"
+	turf_type = /turf/open/floor/wood/large
+	merge_type = /obj/item/stack/tile/wood/large
+
+/obj/item/stack/tile/wood/tile
+	name = "wood tiled floor tile"
+	singular_name = "wood tiled floor tile"
+	icon_state = "tile-wood_tile"
+	turf_type = /turf/open/floor/wood/tile
+	merge_type = /obj/item/stack/tile/wood/tile
+
+/obj/item/stack/tile/wood/parquet
+	name = "wood parquet floor tile"
+	singular_name = "wood parquet floor tile"
+	icon_state = "tile-wood_parquet"
+	turf_type = /turf/open/floor/wood/parquet
+	merge_type = /obj/item/stack/tile/wood/parquet
 
 //Bamboo
 /obj/item/stack/tile/bamboo
@@ -207,6 +227,14 @@
 	turf_type = /turf/open/floor/carpet/black
 	tableVariant = /obj/structure/table/wood/fancy/black
 	merge_type = /obj/item/stack/tile/carpet/black
+
+/obj/item/stack/tile/carpet/grey
+	name = "grey carpet"
+	icon_state = "tile-carpet-grey"
+	inhand_icon_state = "tile-carpet-grey"
+	turf_type = /turf/open/floor/carpet/grey
+	tableVariant = /obj/structure/table/wood/fancy/grey
+	merge_type = /obj/item/stack/tile/carpet/grey
 
 /obj/item/stack/tile/carpet/blue
 	name = "blue carpet"
@@ -297,6 +325,9 @@
 	amount = 50
 
 /obj/item/stack/tile/carpet/black/fifty
+	amount = 50
+
+/obj/item/stack/tile/carpet/grey/fifty
 	amount = 50
 
 /obj/item/stack/tile/carpet/blue/fifty

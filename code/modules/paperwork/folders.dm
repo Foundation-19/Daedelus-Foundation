@@ -86,7 +86,7 @@
 
 /obj/item/folder/ui_data(mob/user)
 	var/list/data = list()
-	if(istype(src, /obj/item/folder/syndicate))
+	if(istype(src, /obj/item/folder/chaos))
 		data["theme"] = "syndicate"
 	data["bg_color"] = "[bg_color]"
 	data["folder_name"] = "[name]"

@@ -4429,7 +4429,7 @@
 /area/site53/engineering/server_room)
 "aWg" = (
 /obj/structure/table,
-/obj/item/folder/nt/rd,
+/obj/item/folder,
 /turf/open/floor/iron/smooth,
 /area/site53/reswing/lowres/researchoffices)
 "aWj" = (
@@ -7401,7 +7401,7 @@
 /obj/item/instrument/piano_synth,
 /obj/item/folder/blue,
 /obj/item/folder/yellow,
-/obj/item/folder/nt,
+/obj/item/folder,
 /obj/item/wrapping_paper,
 /obj/item/hand_labeler,
 /turf/open/floor/wood,
@@ -8063,7 +8063,7 @@
 	pixel_y = 8;
 	pixel_x = 8
 	},
-/obj/item/stamp/ce{
+/obj/item/stamp/ed{
 	pixel_y = 2;
 	pixel_x = 8
 	},
@@ -13181,7 +13181,7 @@
 	pixel_y = 8;
 	pixel_x = 8
 	},
-/obj/item/stamp/rd{
+/obj/item/stamp/sd{
 	pixel_x = 8;
 	pixel_y = 2
 	},
@@ -15744,7 +15744,7 @@
 	pixel_y = 8;
 	pixel_x = 8
 	},
-/obj/item/stamp/rd{
+/obj/item/stamp/sd{
 	pixel_x = 8;
 	pixel_y = 2;
 	name = "Internal Tribunal Departmet Officer's rubber stamp"
@@ -16261,7 +16261,7 @@
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/item/stamp/ce{
+/obj/item/stamp/ed{
 	name = "LCZ Security Stamp"
 	},
 /obj/item/paper/sec_ctp,
@@ -38482,7 +38482,7 @@
 /area/site53/surface/surface/east)
 "hWf" = (
 /obj/structure/table,
-/obj/item/folder/nt/rd,
+/obj/item/folder,
 /obj/structure/cable/green{
 	d1 = 2;
 	d2 = 4;
@@ -40136,11 +40136,11 @@
 /area/site53/uhcz/scp1507containment)
 "isH" = (
 /obj/structure/closet/secure/scpscience/directorofscience,
-/obj/item/folder/nt/rd,
-/obj/item/folder/nt/rd,
-/obj/item/folder/nt/rd,
-/obj/item/folder/nt/rd,
-/obj/item/folder/nt/rd,
+/obj/item/folder,
+/obj/item/folder,
+/obj/item/folder,
+/obj/item/folder,
+/obj/item/folder,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -43297,7 +43297,7 @@
 	pixel_x = -5;
 	pixel_y = -2
 	},
-/obj/item/stamp/cmo{
+/obj/item/stamp/md{
 	name = "Medical Desk rubber stamp";
 	pixel_x = 8;
 	pixel_y = 1
@@ -44610,7 +44610,7 @@
 /area/site53/uez/commandpanicbunker)
 "jol" = (
 /obj/structure/table,
-/obj/item/folder/nt/rd,
+/obj/item/folder,
 /turf/open/floor/iron/white/smooth,
 /area/site53/science/seniorresearchera)
 "jow" = (
@@ -61071,7 +61071,7 @@
 /obj/item/instrument/piano_synth,
 /obj/item/folder/blue,
 /obj/item/folder/yellow,
-/obj/item/folder/nt,
+/obj/item/folder,
 /obj/item/wrapping_paper,
 /obj/item/hand_labeler,
 /obj/machinery/camera/autoname{
@@ -78070,7 +78070,7 @@
 	},
 /area/site53/uhcz/scp106observ)
 "qpc" = (
-/obj/item/storage/secure/briefcase/nukedisk,
+/obj/item/storage/briefcase/secure/nukedisk,
 /obj/structure/table/wood,
 /turf/open/floor/wood,
 /area/site53/uez/hallway)
@@ -82810,7 +82810,7 @@
 /area/site53/uez/equipmentroom)
 "rlz" = (
 /obj/structure/table,
-/obj/item/folder/nt/rd,
+/obj/item/folder,
 /turf/open/floor/iron/white/smooth,
 /area/site53/science/seniorresearcherb)
 "rlB" = (
@@ -92361,7 +92361,7 @@
 /area/site53/ulcz/scp082/bedroom)
 "tgt" = (
 /obj/structure/table,
-/obj/item/folder/nt/rd,
+/obj/item/folder,
 /obj/effect/turf_decal/corner/research{
 	dir = 5
 	},

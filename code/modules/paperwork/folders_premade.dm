@@ -20,36 +20,31 @@
 
 /obj/item/folder/documents
 	name = "folder- 'TOP SECRET'"
-	desc = "A folder stamped \"Top Secret - Property of Nanotrasen Corporation. Unauthorized distribution is punishable by death.\""
+	desc = "A folder stamped \"Top Secret - Property of The SCP Foundation. Unauthorized distribution is punishable by death.\""
 
 /obj/item/folder/documents/Initialize(mapload)
 	. = ..()
-	new /obj/item/documents/nanotrasen(src)
+	new /obj/item/documents/scp(src)
 	update_appearance()
 
-/obj/item/folder/syndicate
+/obj/item/folder/chaos
 	icon_state = "folder_syndie"
 	bg_color = "#3f3f3f"
 	name = "folder- 'TOP SECRET'"
-	desc = "A folder stamped \"Top Secret - Property of The Syndicate.\""
+	desc = "A folder stamped \"Top Secret - Property of The Chaos Insurgency.\""
 
-/obj/item/folder/syndicate/red
+/obj/item/folder/chaos/red
 	icon_state = "folder_sred"
 
-/obj/item/folder/syndicate/red/Initialize(mapload)
+/obj/item/folder/chaos/red/Initialize(mapload)
 	. = ..()
 	new /obj/item/documents/syndicate/red(src)
 	update_appearance()
 
-/obj/item/folder/syndicate/blue
+/obj/item/folder/chaos/blue
 	icon_state = "folder_sblue"
 
-/obj/item/folder/syndicate/blue/Initialize(mapload)
+/obj/item/folder/chaos/blue/Initialize(mapload)
 	. = ..()
 	new /obj/item/documents/syndicate/blue(src)
-	update_appearance()
-
-/obj/item/folder/syndicate/mining/Initialize(mapload)
-	. = ..()
-	new /obj/item/documents/syndicate/mining(src)
 	update_appearance()

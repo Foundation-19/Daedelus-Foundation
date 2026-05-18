@@ -403,6 +403,12 @@
 ///from base of /obj/item/mmi/set_brainmob(): (mob/living/brain/new_brainmob)
 #define COMSIG_MMI_SET_BRAINMOB "mmi_set_brainmob"
 
+/// Sent when an assembly is added to a button : (obj/machinery/button/button, mob/user)
+#define COMSIG_ASSEMBLY_ADDED_TO_BUTTON "assembly_added_to_button"
+
+/// Sent when an assembly is removed from a button : (obj/machinery/button/button, mob/user)
+#define COMSIG_ASSEMBLY_REMOVED_FROM_BUTTON "assembly_removed_from_button"
+
 /// from base of /obj/item/slimepotion/speed/afterattack(): (obj/target, /obj/src, mob/user)
 #define COMSIG_SPEED_POTION_APPLIED "speed_potion"
 	#define SPEED_POTION_STOP (1<<0)

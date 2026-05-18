@@ -1528,7 +1528,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/item/stamp/cmo,
+/obj/item/stamp/md,
 /turf/open/floor/iron/white,
 /area/command/heads_quarters/cmo)
 "asr" = (
@@ -2847,7 +2847,7 @@
 	pixel_y = 3
 	},
 /obj/item/folder/red,
-/obj/item/stamp/law,
+/obj/item/stamp/ecl,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron/grimy,
 /area/service/lawoffice)
@@ -5899,7 +5899,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
@@ -9350,7 +9350,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /turf/open/floor/iron,
 /area/security/courtroom)
@@ -10445,7 +10445,7 @@
 /area/medical/virology)
 "cwv" = (
 /obj/structure/table,
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
@@ -15190,7 +15190,7 @@
 "diZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /obj/item/grenade/smokebomb,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
@@ -18811,7 +18811,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/security/detectives_office/private_investigators_office)
@@ -25777,7 +25777,7 @@
 /obj/structure/table/wood,
 /obj/item/folder/blue,
 /obj/item/pen/fourcolor,
-/obj/item/stamp/captain,
+/obj/item/stamp/sid,
 /obj/machinery/door/window/brigdoor/left/directional/north{
 	name = "Captain's Desk";
 	req_access_txt = "20"
@@ -25836,7 +25836,7 @@
 	},
 /obj/structure/closet/secure_closet/personal,
 /obj/effect/spawner/random/food_or_drink/cups,
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -27797,7 +27797,7 @@
 "fVM" = (
 /obj/structure/table/wood,
 /obj/item/wrench,
-/obj/item/storage/secure/briefcase{
+/obj/item/storage/briefcase/secure{
 	pixel_x = 3;
 	pixel_y = 3
 	},
@@ -30277,7 +30277,7 @@
 /obj/item/computer_hardware/hard_drive/role/engineering,
 /obj/structure/rack,
 /obj/item/reagent_containers/pill/patch/aiuri,
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /turf/open/floor/iron/dark,
 /area/command/heads_quarters/ce)
 "gGd" = (
@@ -31776,7 +31776,7 @@
 /area/engineering/atmos)
 "hcv" = (
 /obj/structure/table/wood,
-/obj/item/storage/secure/briefcase{
+/obj/item/storage/briefcase/secure{
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -32414,7 +32414,7 @@
 "hll" = (
 /obj/structure/table/wood,
 /obj/item/folder/red,
-/obj/item/stamp/hos,
+/obj/item/stamp/sc,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -36614,7 +36614,7 @@
 "iuy" = (
 /obj/structure/table/glass,
 /obj/item/folder/white,
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /obj/structure/sign/nanotrasen{
 	pixel_x = -32;
 	pixel_y = -32
@@ -37282,7 +37282,7 @@
 /area/maintenance/starboard/aft)
 "iFn" = (
 /obj/structure/table/wood,
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /obj/item/book/manual/wiki/security_space_law,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /obj/item/folder/red,
@@ -39353,7 +39353,7 @@
 "jkO" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin/carbon,
-/obj/item/stamp/hop,
+/obj/item/stamp/sm,
 /obj/machinery/requests_console/directional/north{
 	announcementConsole = 1;
 	department = "Head of Personnel's Desk";
@@ -42200,7 +42200,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /turf/open/floor/wood,
 /area/command/meeting_room/council)
 "kcJ" = (
@@ -48002,7 +48002,7 @@
 /area/hallway/secondary/entry)
 "lNS" = (
 /obj/structure/table/wood,
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /obj/structure/cable/smart_cable/color/yellow,
 /turf/open/floor/iron/grimy,
 /area/command/corporate_showroom)
@@ -54255,7 +54255,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/table/reinforced,
 /obj/item/folder/yellow,
-/obj/item/stamp/qm,
+/obj/item/stamp/lo,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron,
 /area/cargo/qm)
@@ -55331,7 +55331,7 @@
 /area/engineering/atmos)
 "nWy" = (
 /obj/structure/closet/secure_closet/contraband/heads,
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
 /turf/open/floor/iron,
 /area/security/checkpoint/customs/aft)
@@ -65077,7 +65077,7 @@
 "qQo" = (
 /obj/structure/cable/smart_cable/color/yellow,
 /obj/structure/closet/secure_closet/contraband/heads,
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 1
@@ -66795,7 +66795,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/dark,
 /area/service/library)
@@ -67576,7 +67576,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /turf/open/floor/wood,
 /area/service/lawoffice)
 "rCk" = (
@@ -71466,7 +71466,7 @@
 "sGK" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light/directional/south,
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /obj/item/taperecorder,
 /obj/effect/turf_decal/bot,
 /obj/item/radio/intercom{
@@ -74088,7 +74088,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/dark,
 /area/security/detectives_office)
@@ -75430,7 +75430,7 @@
 "tMZ" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/red,
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -80414,7 +80414,7 @@
 /obj/structure/rack,
 /obj/machinery/light/small/directional/south,
 /obj/item/aicard,
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /obj/machinery/status_display/evac/directional/south,
 /turf/open/floor/iron/dark,
@@ -86293,7 +86293,7 @@
 "xih" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/white,
-/obj/item/stamp/rd,
+/obj/item/stamp/sd,
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
@@ -86725,7 +86725,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/stamp/ce,
+/obj/item/stamp/ed,
 /turf/open/floor/iron,
 /area/command/heads_quarters/ce)
 "xqo" = (

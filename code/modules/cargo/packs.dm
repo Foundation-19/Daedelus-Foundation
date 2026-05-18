@@ -1713,7 +1713,9 @@
 					/obj/item/stack/tile/carpet/royalblue/fifty,
 					/obj/item/stack/tile/carpet/royalblue/fifty,
 					/obj/item/stack/tile/carpet/royalblack/fifty,
-					/obj/item/stack/tile/carpet/royalblack/fifty)
+					/obj/item/stack/tile/carpet/royalblack/fifty,
+					/obj/item/stack/tile/carpet/grey/fifty,
+					/obj/item/stack/tile/carpet/grey/fifty)
 	crate_name = "exotic carpet crate"
 
 /datum/supply_pack/service/carpet_neon

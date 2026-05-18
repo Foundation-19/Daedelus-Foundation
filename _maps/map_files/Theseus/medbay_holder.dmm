@@ -873,7 +873,7 @@
 /area/station/command/teleporter)
 "dc" = (
 /obj/structure/table/wood,
-/obj/item/storage/secure/briefcase{
+/obj/item/storage/briefcase/secure{
 	desc = "A large briefcase with a digital locking system, and the Nanotrasen logo emblazoned on the sides.";
 	name = "\improper Nanotrasen-brand secure briefcase exhibit";
 	pixel_y = 2
@@ -5116,7 +5116,7 @@
 	},
 /obj/item/folder/white,
 /obj/item/pen,
-/obj/item/stamp/cmo,
+/obj/item/stamp/md,
 /turf/open/floor/iron/white,
 /area/station/command/heads_quarters/cmo)
 "qq" = (
@@ -12656,7 +12656,7 @@
 /area/station/medical/medbay/central)
 "Qp" = (
 /obj/structure/table/glass,
-/obj/item/storage/secure/briefcase{
+/obj/item/storage/briefcase/secure{
 	pixel_x = 3;
 	pixel_y = 5
 	},

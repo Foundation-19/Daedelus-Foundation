@@ -52,13 +52,17 @@ DEFINE_INTERACTABLE(/obj/structure/closet)
 	var/cutting_tool = /obj/item/weldingtool
 	var/open_sound = 'sound/structures/locker_open.ogg'
 	var/close_sound = 'sound/structures/locker_close.ogg'
-	var/open_sound_volume = 50
+	var/lock_sound = 'sound/machines/closet_lock.ogg'
+	var/unlock_sound = 'sound/machines/closet_unlock.ogg'
+	var/open_sound_volume = 35
 	var/close_sound_volume = 50
 	var/material_drop = /obj/item/stack/sheet/iron
 	var/material_drop_amount = 2
 	var/delivery_icon = "deliverycloset" //which icon to use when packagewrapped. null to be unwrappable.
 	var/anchorable = TRUE
 	var/icon_welded = "welded"
+	/// is this closet locked by an exclusive id, i.e. your own personal locker
+	var/datum/weakref/id_card = null
 	/// How close being inside of the thing provides complete pressure safety. Must be between 0 and 1!
 	contents_pressure_protection = 0
 	/// How insulated the thing is, for the purposes of calculating body temperature. Must be between 0 and 1!
@@ -643,20 +647,65 @@ DEFINE_INTERACTABLE(/obj/structure/closet)
 		togglelock(user)
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
+/obj/structure/closet/proc/can_unlock(mob/living/user, obj/item/card/id/player_id, obj/item/card/id/registered_id)
+	if(isnull(registered_id))
+		return allowed(user)
+	return player_id == registered_id
+
 /obj/structure/closet/proc/togglelock(mob/living/user, silent)
-	if(secure && !broken)
-		if(allowed(user))
-			if(iscarbon(user))
-				add_fingerprint(user)
-			locked = !locked
-			user.visible_message(span_notice("[user] [locked ? null : "un"]locks [src]."),
-							span_notice("You [locked ? null : "un"]lock [src]."))
-			playsound(src, 'sound/machines/click.ogg', 15, 1, -3)
-			update_appearance()
-		else if(!silent)
-			to_chat(user, span_alert("Access Denied."))
-	else if(secure && broken)
-		to_chat(user, span_warning("\The [src] is broken!"))
+	if(!secure || broken)
+		return FALSE
+
+	if(locked) //only apply checks while unlocking else allow anyone to lock it
+		var/error_msg = ""
+		if(!isnull(id_card))
+			var/obj/item/card/id/registered_id = id_card.resolve()
+			if(!registered_id) //id was deleted at some point. make this closet public access again
+				name = initial(name)
+				desc = initial(desc)
+				id_card = null
+				req_access = list()
+				req_one_access = null
+				return togglelock(user, silent)
+			if(!can_unlock(user, user.get_idcard(), registered_id))
+				error_msg = "not your locker!"
+		else if(!can_unlock(user, user.get_idcard()))
+			error_msg = "access denied!"
+		if(error_msg)
+			if(!silent)
+				balloon_alert(user, error_msg)
+			return TRUE
+
+	if(iscarbon(user))
+		add_fingerprint(user)
+	locked = !locked
+	play_closet_lock_sound()
+	user.visible_message(
+		span_notice("[user] [locked ? "locks" : "unlocks"] [src]."),
+		span_notice("You [locked ? "locked" : "unlocked"] [src]."),
+	)
+	update_appearance()
+	return TRUE
+
+/// toggles the lock state of a closet
+/obj/structure/closet/proc/lock()
+	if(locked)
+		return
+	locked = TRUE
+	play_closet_lock_sound()
+	update_appearance()
+
+/// unlocks the closet
+/obj/structure/closet/proc/unlock()
+	if(!locked)
+		return
+	locked = FALSE
+	play_closet_lock_sound()
+	update_appearance()
+
+/// plays the closet's lock/unlock sound, this should be placed AFTER you've changed the lock state
+/obj/structure/closet/proc/play_closet_lock_sound()
+	playsound(src, locked ? lock_sound : unlock_sound, 50, TRUE)
 
 /obj/structure/closet/emag_act(mob/user)
 	if(secure && !broken)

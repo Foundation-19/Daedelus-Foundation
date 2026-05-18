@@ -14652,7 +14652,7 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
-/obj/item/folder/nt/rd,
+/obj/item/folder,
 /turf/open/floor/iron/white,
 /area/centcom/goc)
 "KY" = (

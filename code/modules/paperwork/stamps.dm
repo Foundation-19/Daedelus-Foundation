@@ -17,45 +17,70 @@
 	user.visible_message(span_suicide("[user] stamps 'VOID' on [user.p_their()] forehead, then promptly falls over, dead."))
 	return (OXYLOSS)
 
-/obj/item/stamp/qm
-	name = "quartermaster's rubber stamp"
-	icon_state = "stamp-qm"
-	dye_color = DYE_QM
-
-/obj/item/stamp/law
-	name = "law office's rubber stamp"
-	icon_state = "stamp-law"
-	dye_color = DYE_LAW
-
-/obj/item/stamp/captain
-	name = "captain's rubber stamp"
-	icon_state = "stamp-cap"
+/obj/item/stamp/sid
+	name = "site director's rubber stamp"
+	icon_state = "stamp-sid"
 	dye_color = DYE_CAPTAIN
 
-/obj/item/stamp/hop
-	name = "head of personnel's rubber stamp"
-	icon_state = "stamp-hop"
+/obj/item/stamp/sm
+	name = "human resources officer's rubber stamp"
+	icon_state = "stamp-sm"
 	dye_color = DYE_HOP
 
-/obj/item/stamp/hos
-	name = "security marshal's rubber stamp"
-	icon_state = "stamp-hos"
+/obj/item/stamp/sc
+	name = "security captain's rubber stamp"
+	icon_state = "stamp-sc"
 	dye_color = DYE_HOS
 
-/obj/item/stamp/ce
-	name = "chief engineer's rubber stamp"
-	icon_state = "stamp-ce"
+/obj/item/stamp/ed
+	name = "engineering director's rubber stamp"
+	icon_state = "stamp-ed"
 	dye_color = DYE_CE
 
-/obj/item/stamp/rd
-	name = "research director's rubber stamp"
-	icon_state = "stamp-rd"
+/obj/item/stamp/sd
+	name = "science director's rubber stamp"
+	icon_state = "stamp-sd"
 	dye_color = DYE_RD
 
-/obj/item/stamp/cmo
+/obj/item/stamp/md
 	name = "medical director's rubber stamp"
-	icon_state = "stamp-cmo"
+	icon_state = "stamp-md"
 	dye_color = DYE_CMO
+
+/obj/item/stamp/lo
+	name = "logistics officer's rubber stamp"
+	icon_state = "stamp-lo"
+	dye_color = DYE_QM
+
+/obj/item/stamp/goc
+	name = "Global Occult Coalition rubber stamp"
+	icon_state = "stamp-goc"
+	dye_color = DYE_BLUE
+
+/obj/item/stamp/uiu
+	name = "Unusual Incidents Unit rubber stamp"
+	icon_state = "stamp-uiu"
+	dye_color = DYE_GREEN
+
+/obj/item/stamp/ecl
+	name = "ethics committee liaison's rubber stamp"
+	icon_state = "stamp-ec"
+	dye_color = DYE_LAW
+
+/obj/item/stamp/itdo
+	name = "internal tribunal department officer's rubber stamp"
+	icon_state = "stamp-itd"
+	dye_color = DYE_PURPLE
+
+/obj/item/stamp/lcz_security
+	name = "LCZ security rubber stamp"
+	icon_state = "stamp-lcz"
+	dye_color = DYE_YELLOW
+
+/obj/item/stamp/admin_security
+	name = "Administrative security rubber stamp"
+	icon_state = "stamp-az"
+	dye_color = DYE_BLUE
 
 /obj/item/stamp/denied
 	name = "\improper DENIED rubber stamp"
@@ -63,7 +88,7 @@
 	dye_color = DYE_REDCOAT
 
 /obj/item/stamp/clown
-	name = "clown's rubber stamp"
+	name = "morale officer's rubber stamp"
 	icon_state = "stamp-clown"
 	dye_color = DYE_CLOWN
 
@@ -77,60 +102,15 @@
 	icon_state = "stamp-chap"
 	dye_color = DYE_CHAP
 
-/obj/item/stamp/centcom
+/obj/item/stamp/o5_council
 	name = "O5 Council rubber stamp"
 	icon_state = "stamp-centcom"
 	dye_color = DYE_CENTCOM
 
-/obj/item/stamp/syndicate
+/obj/item/stamp/chaos
 	name = "Chaos Insurgency rubber stamp"
 	icon_state = "stamp-syndicate"
 	dye_color = DYE_SYNDICATE
-
-/obj/item/stamp/sitedirector
-	name = "Site Director's rubber stamp"
-	icon_state = "stamp-cap"
-	dye_color = DYE_CAPTAIN
-
-/obj/item/stamp/ethics
-	name = "Ethics Committee rubber stamp"
-	icon_state = "stamp-law"
-	dye_color = DYE_LAW
-
-/obj/item/stamp/mtf_commander
-	name = "MTF Commander's rubber stamp"
-	icon_state = "stamp-hos"
-	dye_color = DYE_HOS
-
-/obj/item/stamp/lcz_supervisor
-	name = "LCZ Supervisor's rubber stamp"
-	icon_state = "stamp-rd"
-	dye_color = DYE_RD
-
-/obj/item/stamp/hcz_supervisor
-	name = "HCZ Supervisor's rubber stamp"
-	icon_state = "stamp-ce"
-	dye_color = DYE_CE
-
-/obj/item/stamp/ez_supervisor
-	name = "EZ Supervisor's rubber stamp"
-	icon_state = "stamp-hop"
-	dye_color = DYE_HOP
-
-/obj/item/stamp/dclass_overseer
-	name = "D-Class Overseer's rubber stamp"
-	icon_state = "stamp-qm"
-	dye_color = DYE_QM
-
-/obj/item/stamp/amnestic_auth
-	name = "Amnestic Authorization rubber stamp"
-	icon_state = "stamp-cmo"
-	dye_color = DYE_CMO
-
-/obj/item/stamp/classified
-	name = "\improper CLASSIFIED rubber stamp"
-	icon_state = "stamp-deny"
-	dye_color = DYE_REDCOAT
 
 /obj/item/stamp/attack_paw(mob/user, list/modifiers)
 	return attack_hand(user, modifiers)

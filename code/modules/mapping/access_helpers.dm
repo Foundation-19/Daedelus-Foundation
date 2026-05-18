@@ -187,7 +187,27 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/service/level1/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_SERVICE
+	access_list += ACCESS_SERVICE_LVL1
+	return access_list
+
+/obj/effect/mapping_helpers/airlock/access/any/service/level2/get_access()
+	var/list/access_list = ..()
+	access_list += ACCESS_SERVICE_LVL2
+	return access_list
+
+/obj/effect/mapping_helpers/airlock/access/any/service/level3/get_access()
+	var/list/access_list = ..()
+	access_list += ACCESS_SERVICE_LVL3
+	return access_list
+
+/obj/effect/mapping_helpers/airlock/access/any/service/level4/get_access()
+	var/list/access_list = ..()
+	access_list += ACCESS_SERVICE_LVL4
+	return access_list
+
+/obj/effect/mapping_helpers/airlock/access/any/service/level5/get_access()
+	var/list/access_list = ..()
+	access_list += ACCESS_SERVICE_LVL5
 	return access_list
 
 // -------------------- Logistics Access Helpers
@@ -502,7 +522,27 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/service/level1/get_access()
 	var/list/access_list = ..()
-	access_list += ACCESS_SERVICE
+	access_list += ACCESS_SERVICE_LVL1
+	return access_list
+
+/obj/effect/mapping_helpers/airlock/access/all/service/level2/get_access()
+	var/list/access_list = ..()
+	access_list += ACCESS_SERVICE_LVL2
+	return access_list
+
+/obj/effect/mapping_helpers/airlock/access/all/service/level3/get_access()
+	var/list/access_list = ..()
+	access_list += ACCESS_SERVICE_LVL3
+	return access_list
+
+/obj/effect/mapping_helpers/airlock/access/all/service/level4/get_access()
+	var/list/access_list = ..()
+	access_list += ACCESS_SERVICE_LVL4
+	return access_list
+
+/obj/effect/mapping_helpers/airlock/access/all/service/level5/get_access()
+	var/list/access_list = ..()
+	access_list += ACCESS_SERVICE_LVL5
 	return access_list
 
 // -------------------- Logistics Access Helpers

@@ -1812,7 +1812,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
@@ -19891,7 +19891,7 @@
 /area/station/maintenance/starboard/fore)
 "cCR" = (
 /obj/structure/table,
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /obj/item/taperecorder,
 /obj/structure/sign/warning/electricshock{
 	pixel_y = -32
@@ -25101,7 +25101,7 @@
 	pixel_y = 4
 	},
 /obj/item/pen,
-/obj/item/stamp/cmo{
+/obj/item/stamp/md{
 	pixel_x = 8;
 	pixel_y = 20
 	},
@@ -26764,7 +26764,7 @@
 	pixel_y = 6
 	},
 /obj/item/pen/fourcolor,
-/obj/item/stamp/hop{
+/obj/item/stamp/sm{
 	pixel_x = 8;
 	pixel_y = 6
 	},
@@ -34771,7 +34771,7 @@
 	dir = 8
 	},
 /obj/structure/table/wood,
-/obj/item/storage/secure/briefcase{
+/obj/item/storage/briefcase/secure{
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -34904,7 +34904,7 @@
 /area/station/science/robotics/mechbay)
 "hwQ" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/secure/briefcase{
+/obj/item/storage/briefcase/secure{
 	pixel_y = 6
 	},
 /obj/item/radio{
@@ -39092,7 +39092,7 @@
 	pixel_x = 8;
 	pixel_y = 8
 	},
-/obj/item/stamp/rd{
+/obj/item/stamp/sd{
 	pixel_x = 8
 	},
 /obj/machinery/power/apc/auto_name/directional/north,
@@ -42458,7 +42458,7 @@
 "jSW" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/cobweb,
-/obj/item/storage/secure/briefcase{
+/obj/item/storage/briefcase/secure{
 	pixel_y = 4
 	},
 /obj/item/radio{
@@ -44454,7 +44454,7 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/stamp/hos,
+/obj/item/stamp/sc,
 /turf/open/floor/carpet/red,
 /area/station/command/heads_quarters/hos)
 "kyE" = (
@@ -53223,7 +53223,7 @@
 	pixel_y = 7
 	},
 /obj/item/pen,
-/obj/item/stamp/law{
+/obj/item/stamp/ecl{
 	pixel_x = 8;
 	pixel_y = 6
 	},
@@ -63939,7 +63939,7 @@
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/newscaster/directional/south,
 /obj/item/stack/package_wrap,
-/obj/item/storage/secure/briefcase{
+/obj/item/storage/briefcase/secure{
 	pixel_y = 4
 	},
 /obj/item/hand_labeler,
@@ -69567,7 +69567,7 @@
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/stamp/qm{
+/obj/item/stamp/lo{
 	pixel_x = 8;
 	pixel_y = 10
 	},
@@ -72974,7 +72974,7 @@
 	pixel_y = 7
 	},
 /obj/item/pen,
-/obj/item/stamp/captain{
+/obj/item/stamp/sid{
 	pixel_x = 8;
 	pixel_y = 6
 	},
@@ -81235,7 +81235,7 @@
 	dir = 8
 	},
 /obj/item/stack/package_wrap,
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /obj/item/hand_labeler,
 /obj/item/reagent_containers/spray/cleaner,
 /obj/structure/cable/smart_cable/color/yellow,
@@ -82073,7 +82073,7 @@
 /obj/item/computer_hardware/hard_drive/role/engineering,
 /obj/item/computer_hardware/hard_drive/role/atmos,
 /obj/item/folder,
-/obj/item/stamp/ce,
+/obj/item/stamp/ed,
 /obj/item/pen,
 /obj/item/paper_bin{
 	pixel_x = -4;

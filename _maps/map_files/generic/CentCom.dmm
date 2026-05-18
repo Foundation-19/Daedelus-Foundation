@@ -685,7 +685,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /obj/structure/table/wood,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -1660,7 +1660,7 @@
 /obj/item/clipboard,
 /obj/item/folder/blue,
 /obj/item/melee/chainofcommand,
-/obj/item/stamp/captain,
+/obj/item/stamp/sid,
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
@@ -2263,7 +2263,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /obj/structure/table/wood,
 /obj/structure/noticeboard/directional/east,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
@@ -3737,7 +3737,7 @@
 	},
 /obj/item/clipboard,
 /obj/item/folder/blue,
-/obj/item/stamp/law,
+/obj/item/stamp/ecl,
 /turf/open/floor/iron/grimy,
 /area/centcom/central_command_areas/courtroom)
 "kI" = (
@@ -3846,7 +3846,7 @@
 /obj/structure/table/wood,
 /obj/item/clipboard,
 /obj/item/folder/blue,
-/obj/item/stamp/law,
+/obj/item/stamp/ecl,
 /turf/open/floor/iron/grimy,
 /area/centcom/central_command_areas/courtroom)
 "kZ" = (
@@ -5275,7 +5275,7 @@
 /area/centcom/central_command_areas/ferry)
 "oV" = (
 /obj/structure/table/wood,
-/obj/item/storage/secure/briefcase{
+/obj/item/storage/briefcase/secure{
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -5379,7 +5379,7 @@
 "pi" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/yellow,
-/obj/item/stamp/qm,
+/obj/item/stamp/lo,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -12358,7 +12358,7 @@
 /area/centcom/tdome/observation)
 "JW" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/briefing)
@@ -15077,7 +15077,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /obj/structure/table/wood,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/dark,
@@ -15448,7 +15448,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /obj/structure/table/wood,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/dark,
@@ -16669,7 +16669,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /obj/structure/table/wood,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/dark,

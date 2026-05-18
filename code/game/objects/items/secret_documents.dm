@@ -22,29 +22,25 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 ///Daedalus documents
-/obj/item/documents/nanotrasen
-	desc = "\"Top Secret\" Daedalus Industries documents, filled with complex diagrams and lists of names, dates and coordinates."
+/obj/item/documents/scp
+	desc = "\"Top Secret\" SCP Foundation documents, filled with complex diagrams and lists of names, dates and coordinates."
 	icon_state = "docs_verified"
 
 ///Syndicate documents
 /obj/item/documents/syndicate
-	desc = "\"Top Secret\" documents detailing sensitive Syndicate operational intelligence."
+	desc = "\"Top Secret\" documents detailing sensitive Chaos Insurgency operational intelligence."
 
 ///Syndicate documents with a red seal
 /obj/item/documents/syndicate/red
 	name = "red secret documents"
-	desc = "\"Top Secret\" documents detailing sensitive Syndicate operational intelligence. These documents are verified with a red wax seal."
+	desc = "\"Top Secret\" documents detailing sensitive Chaos Insurgency operational intelligence. These documents are verified with a red wax seal."
 	icon_state = "docs_red"
 
 ///Syndicate documents with a blue seal
 /obj/item/documents/syndicate/blue
 	name = "blue secret documents"
-	desc = "\"Top Secret\" documents detailing sensitive Syndicate operational intelligence. These documents are verified with a blue wax seal."
+	desc = "\"Top Secret\" documents detailing sensitive Chaos Insurgency operational intelligence. These documents are verified with a blue wax seal."
 	icon_state = "docs_blue"
-
-///Syndicate mining documents
-/obj/item/documents/syndicate/mining
-	desc = "\"Top Secret\" documents detailing Syndicate plasma mining operations."
 
 /**
  * # secret documents (photocopy)

@@ -3857,7 +3857,7 @@
 	pixel_x = -3;
 	pixel_y = 2
 	},
-/obj/item/storage/secure/briefcase{
+/obj/item/storage/briefcase/secure{
 	pixel_x = 2;
 	pixel_y = -2
 	},
@@ -5051,7 +5051,7 @@
 /area/space)
 "xb" = (
 /obj/structure/table/wood,
-/obj/item/stamp/hos,
+/obj/item/stamp/sc,
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
@@ -10438,7 +10438,7 @@
 	pixel_x = -3;
 	pixel_y = 2
 	},
-/obj/item/storage/secure/briefcase{
+/obj/item/storage/briefcase/secure{
 	pixel_x = 2;
 	pixel_y = -2
 	},
@@ -10504,7 +10504,7 @@
 /area/space)
 "UJ" = (
 /obj/structure/table,
-/obj/item/storage/secure/briefcase{
+/obj/item/storage/briefcase/secure{
 	pixel_x = -7;
 	pixel_y = 12
 	},
@@ -10900,7 +10900,7 @@
 /obj/item/folder/blue,
 /obj/item/folder/blue,
 /obj/item/folder/blue,
-/obj/item/stamp/law,
+/obj/item/stamp/ecl,
 /turf/open/floor/wood,
 /area/space)
 "Wv" = (
@@ -11340,7 +11340,7 @@
 /area/space)
 "YK" = (
 /obj/structure/safe,
-/obj/item/storage/secure/briefcase{
+/obj/item/storage/briefcase/secure{
 	contents = newlist(/obj/item/clothing/suit/armor/vest,/obj/item/gun/ballistic/automatic/pistol,/obj/item/suppressor,/obj/item/melee/baton/telescopic,/obj/item/clothing/mask/balaclava,/obj/item/bodybag,/obj/item/soap/nanotrasen)
 	},
 /obj/item/storage/backpack/duffelbag/syndie/hitman,
