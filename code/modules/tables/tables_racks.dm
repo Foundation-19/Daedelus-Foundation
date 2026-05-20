@@ -719,6 +719,12 @@
 	buildstack = /obj/item/stack/tile/carpet/black
 	icon = 'icons/obj/smooth_structures/fancy_table_black.dmi'
 
+/obj/structure/table/wood/fancy/grey
+	icon_state = "fancy_table_grey-0"
+	base_icon_state = "fancy_table_grey"
+	buildstack = /obj/item/stack/tile/carpet/grey
+	icon = 'icons/obj/smooth_structures/fancy_table_grey.dmi'
+
 /obj/structure/table/wood/fancy/blue
 	icon_state = "fancy_table_blue-0"
 	base_icon_state = "fancy_table_blue"

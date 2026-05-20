@@ -137,12 +137,6 @@
 	base_icon_state = "darkiron"
 	tile_type = /obj/item/stack/overfloor_catwalk/iron_dark
 
-/obj/structure/overfloor_catwalk/flat_white
-	name = "white large plated catwalk floor cover"
-	icon_state = "flatwhite"
-	base_icon_state = "flatwhite"
-	tile_type = /obj/item/stack/overfloor_catwalk/flat_white
-
 /obj/structure/overfloor_catwalk/iron_smooth //the original green type
 	name = "smooth plated catwalk floor cover"
 	icon_state = "smoothiron"

@@ -16,8 +16,8 @@
 /datum/outfit/mafia/detective
 	name = "Mafia Detective"
 
-	uniform = /obj/item/clothing/under/rank/security/detective
-	neck = /obj/item/clothing/neck/tie/detective
+	uniform = /obj/item/clothing/under/rank/security/guard
+	neck = /obj/item/clothing/neck/tie/black
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	suit = /obj/item/clothing/suit/det_suit
 	gloves = /obj/item/clothing/gloves/color/black
@@ -45,7 +45,7 @@
 /datum/outfit/mafia/security
 	name = "Mafia Security Officer"
 
-	uniform = /obj/item/clothing/under/rank/security/officer
+	uniform = /obj/item/clothing/under/rank/security/guard
 	gloves = /obj/item/clothing/gloves/color/black
 	head = /obj/item/clothing/head/helmet/sec
 	suit = /obj/item/clothing/suit/armor/vest
@@ -70,7 +70,7 @@
 /datum/outfit/mafia/hos
 	name = "Mafia Head of Security"
 
-	uniform = /obj/item/clothing/under/rank/security/head_of_security
+	uniform = /obj/item/clothing/under/rank/security/captain
 	shoes = /obj/item/clothing/shoes/jackboots
 	suit = /obj/item/clothing/suit/armor/hos/trenchcoat
 	gloves = /obj/item/clothing/gloves/color/black
@@ -80,7 +80,7 @@
 /datum/outfit/mafia/warden
 	name = "Mafia Warden"
 
-	uniform = /obj/item/clothing/under/rank/security/warden
+	uniform = /obj/item/clothing/under/rank/security/lieutenant
 	shoes = /obj/item/clothing/shoes/jackboots
 	suit = /obj/item/clothing/suit/armor/vest/warden/alt
 	gloves = /obj/item/clothing/gloves/color/black
@@ -100,7 +100,7 @@
 /datum/outfit/mafia/fugitive
 	name = "Mafia Fugitive"
 
-	uniform = /obj/item/clothing/under/rank/prisoner
+	uniform = /obj/item/clothing/under/rank/classd
 	shoes = /obj/item/clothing/shoes/sneakers/orange
 
 /datum/outfit/mafia/obsessed

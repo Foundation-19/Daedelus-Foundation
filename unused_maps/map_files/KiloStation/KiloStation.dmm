@@ -14882,7 +14882,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/item/clothing/under/rank/security/officer,
+/obj/item/clothing/under/rank/security/guard,
 /turf/open/floor/plating,
 /area/station/maintenance/port/lesser)
 "bZY" = (
@@ -26478,10 +26478,10 @@
 	},
 /obj/structure/closet/crate/trashcart/laundry,
 /obj/effect/spawner/random/contraband/prison,
-/obj/item/clothing/under/rank/prisoner,
-/obj/item/clothing/under/rank/prisoner,
-/obj/item/clothing/under/rank/prisoner/skirt,
-/obj/item/clothing/under/rank/prisoner/skirt,
+/obj/item/clothing/under/rank/classd,
+/obj/item/clothing/under/rank/classd,
+/obj/item/clothing/under/rank/classd/skirt,
+/obj/item/clothing/under/rank/classd/skirt,
 /turf/open/floor/iron/cafeteria,
 /area/station/security/prison)
 "eys" = (
@@ -29440,7 +29440,7 @@
 "fyu" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/remains/human,
-/obj/item/clothing/neck/tie/detective,
+/obj/item/clothing/neck/tie/black,
 /turf/open/floor/carpet/green,
 /area/station/maintenance/port/greater)
 "fyC" = (
@@ -39809,7 +39809,7 @@
 	pixel_x = -6;
 	pixel_y = -8
 	},
-/obj/item/clothing/under/rank/prisoner{
+/obj/item/clothing/under/rank/classd{
 	pixel_x = 8;
 	pixel_y = 5
 	},
@@ -86045,15 +86045,15 @@
 /area/station/hallway/primary/central/fore)
 "yiY" = (
 /obj/structure/table,
-/obj/item/clothing/under/rank/prisoner/skirt{
+/obj/item/clothing/under/rank/classd/skirt{
 	pixel_x = -13;
 	pixel_y = 5
 	},
-/obj/item/clothing/under/rank/prisoner/skirt{
+/obj/item/clothing/under/rank/classd/skirt{
 	pixel_x = 9;
 	pixel_y = 5
 	},
-/obj/item/clothing/under/rank/prisoner{
+/obj/item/clothing/under/rank/classd{
 	pixel_x = -2;
 	pixel_y = 5
 	},

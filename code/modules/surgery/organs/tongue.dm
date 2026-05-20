@@ -472,7 +472,7 @@
 
 //Thank you Jwapplephobia for helping me with the literal hellcode below
 
-/obj/item/organ/tongue/tied/modify_speech(datum/source, list/speech_args)
+/obj/item/organ/tongue/modify_speech(datum/source, list/speech_args)
 	var/new_message
 	var/message = speech_args[SPEECH_MESSAGE]
 	var/exclamation_found = findtext(message, "!")

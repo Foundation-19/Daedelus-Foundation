@@ -594,3 +594,5 @@
 	desc = "A display case with an ID-card swiper. Use your ID to purchase the contents. Meant for the bartender and chef."
 	req_one_access = list(ACCESS_SERVICE, ACCESS_SERVICE)
 
+/obj/structure/displaycase/scp_512
+	start_showpiece_type = /obj/item/scp513

@@ -44,7 +44,6 @@
 	wall_paint = PAINT_WALL_MEDICAL
 	stripe_paint = PAINT_STRIPE_MEDICAL
 
-
 /turf/closed/wall/r_wall/prepainted/medical
 	color = PAINT_WALL_MEDICAL
 	wall_paint = PAINT_WALL_MEDICAL
@@ -69,3 +68,35 @@
 	color = PAINT_WALL_MARS
 	wall_paint = PAINT_WALL_MARS
 	stripe_paint = PAINT_STRIPE_MARS
+
+/turf/closed/wall/r_wall/prepainted/maints
+	stripe_paint = "#635c20"
+
+/turf/closed/wall/prepainted/maints
+	stripe_paint = "#635c20"
+
+/turf/closed/wall/r_wall/prepainted/lcz
+	color = "#FFFFFF"
+	wall_paint = "#FFFFFF"
+	stripe_paint = "#E0C276"
+
+/turf/closed/wall/prepainted/lcz
+	color = "#FFFFFF"
+	wall_paint = "#FFFFFF"
+	stripe_paint = "#E0C276"
+
+/turf/closed/wall/r_wall/prepainted/ez
+	stripe_paint = "#ce8245"
+
+/turf/closed/wall/prepainted/ez
+	stripe_paint = "#ce8245"
+
+/turf/closed/wall/r_wall/prepainted/cdcz
+	color = "#838383"
+	wall_paint = "#838383"
+	stripe_paint = "#ce620a"
+
+/turf/closed/wall/prepainted/cdcz
+	color = "#838383"
+	wall_paint = "#838383"
+	stripe_paint = "#ce620a"

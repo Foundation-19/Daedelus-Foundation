@@ -253,7 +253,7 @@
 
 /datum/outfit/mtf_default
 	name = "MTF Default"
-	uniform = /obj/item/clothing/under/rank/security/officer
+	uniform = /obj/item/clothing/under/rank/security/guard
 	suit = /obj/item/clothing/suit/armor/vest/sec
 	head = /obj/item/clothing/head/helmet/sec
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -265,7 +265,7 @@
 
 /datum/outfit/mtf_nu7
 	name = "MTF Nu-7 Hammer Down"
-	uniform = /obj/item/clothing/under/rank/security/head_of_security
+	uniform = /obj/item/clothing/under/rank/security/captain
 	suit = /obj/item/clothing/suit/armor/vest/sec
 	head = /obj/item/clothing/head/helmet/sec
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -277,7 +277,7 @@
 
 /datum/outfit/mtf_epsilon11
 	name = "MTF Epsilon-11 Nine-Tailed Fox"
-	uniform = /obj/item/clothing/under/rank/security/officer
+	uniform = /obj/item/clothing/under/rank/security/guard
 	suit = /obj/item/clothing/suit/armor/vest/sec
 	head = /obj/item/clothing/head/helmet/sec
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -289,7 +289,7 @@
 
 /datum/outfit/mtf_epsilon9
 	name = "MTF Epsilon-9 Fire Eaters"
-	uniform = /obj/item/clothing/under/rank/security/officer
+	uniform = /obj/item/clothing/under/rank/security/guard
 	suit = /obj/item/clothing/suit/fire/atmos
 	head = /obj/item/clothing/head/hardhat/red
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -301,7 +301,7 @@
 
 /datum/outfit/mtf_beta7
 	name = "MTF Beta-7 Maz Hatters"
-	uniform = /obj/item/clothing/under/rank/security/officer
+	uniform = /obj/item/clothing/under/rank/security/guard
 	suit = /obj/item/clothing/suit/bio_suit/general
 	head = /obj/item/clothing/head/bio_hood/general
 	shoes = /obj/item/clothing/shoes/jackboots

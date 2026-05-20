@@ -52,13 +52,13 @@
 	path = /obj/item/clothing/neck/scarf/cyan
 
 /datum/loadout_item/neck/scarf/stripedredscarf
-	path = /obj/item/clothing/neck/stripedredscarf
+	path = /obj/item/clothing/neck/large_scarf/red
 
 /datum/loadout_item/neck/scarf/stripedbluescarf
-	path = /obj/item/clothing/neck/stripedbluescarf
+	path = /obj/item/clothing/neck/large_scarf/blue
 
 /datum/loadout_item/neck/scarf/stripedgreenscarf
-	path = /obj/item/clothing/neck/stripedgreenscarf
+	path = /obj/item/clothing/neck/large_scarf/green
 
 /datum/loadout_item/neck/scarf/zebra
 	path = /obj/item/clothing/neck/scarf/zebra

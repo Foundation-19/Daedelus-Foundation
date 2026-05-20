@@ -521,19 +521,6 @@
 /obj/item/clothing/under/rank/medical/scrubs/black
 	name = "Black"
 
-/obj/item/clothing/under/rank/security/comms
-	name = "Comms"
-
-
-/obj/item/clothing/under/rank/security/lcz
-	name = "LCZ"
-
-/obj/item/clothing/under/rank/security/lcz/recontain
-	name = "LCZ Recontain"
-
-/obj/item/clothing/under/rank/warden/lcz
-	name = "Warden LCZ"
-
 /obj/item/clothing/under/solgov/utility/fleet/engineering
 	name = "Solgov Utility Fleet Engineering"
 

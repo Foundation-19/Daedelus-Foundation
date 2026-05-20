@@ -21,14 +21,6 @@
 		JOB_MCD_REP
 	)
 
-// Security
-
-/datum/job/investigations_agent
-	alt_titles = list(
-		JOB_INVESTIGATIONS_AGENT,
-		"Forensics Specialist"
-	)
-
 // Research
 
 /datum/job/junior_researcher

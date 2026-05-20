@@ -292,7 +292,7 @@
 	role = "Undercover Cop"
 	outfit = /datum/outfit/families_police/beatcop
 	var/free_clothes = list(/obj/item/clothing/glasses/hud/spacecop/hidden,
-						/obj/item/clothing/under/rank/security/officer/beatcop,
+						/obj/item/clothing/under/rank/security/guard,
 						/obj/item/clothing/head/spacepolice)
 	forge_objectives_for_ert = FALSE
 	equip_ert = FALSE

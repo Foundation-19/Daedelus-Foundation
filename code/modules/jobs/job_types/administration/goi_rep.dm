@@ -113,12 +113,12 @@
 	allow_jumpskirt = FALSE
 
 	id_trim = /datum/id_trim/job/uiu_rep
-	uniform = /obj/item/clothing/under/rank/security/detective
+	uniform = /obj/item/clothing/under/rank/security/guard
 	suit = /obj/item/clothing/suit/irs
 	belt = /obj/item/modular_computer/tablet/pda/detective
 	ears = /obj/item/radio/headset/heads/hos
 	gloves = /obj/item/clothing/gloves/forensic
-	neck = /obj/item/clothing/neck/tie/detective
+	neck = /obj/item/clothing/neck/tie/black
 	shoes = /obj/item/clothing/shoes/laceup
 	l_pocket = /obj/item/toy/crayon/white
 	r_pocket = /obj/item/storage/fancy/cigarettes/dromedaryco

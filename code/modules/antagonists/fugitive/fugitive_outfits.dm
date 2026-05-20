@@ -1,6 +1,6 @@
 /datum/outfit/prisoner
 	name = "Prison Escapee"
-	uniform = /obj/item/clothing/under/rank/prisoner
+	uniform = /obj/item/clothing/under/rank/classd
 	shoes = /obj/item/clothing/shoes/sneakers/orange
 	r_pocket = /obj/item/knife/shiv
 
@@ -70,7 +70,7 @@
 
 /datum/outfit/spacepol
 	name = "Spacepol Officer"
-	uniform = /obj/item/clothing/under/rank/security/officer/spacepol
+	uniform = /obj/item/clothing/under/rank/security/guard
 	suit = /obj/item/clothing/suit/armor/vest/blueshirt
 	belt = /obj/item/gun/ballistic/automatic/pistol/m1911
 	head = /obj/item/clothing/head/helmet/police
@@ -159,7 +159,7 @@
 
 /datum/outfit/bountyarmor
 	name = "Bounty Hunter - Armored"
-	uniform = /obj/item/clothing/under/rank/prisoner
+	uniform = /obj/item/clothing/under/rank/classd
 	back = /obj/item/storage/backpack
 	head = /obj/item/clothing/head/hunter
 	suit = /obj/item/clothing/suit/space/hunter
@@ -183,7 +183,7 @@
 
 /datum/outfit/bountyhook
 	name = "Bounty Hunter - Hook"
-	uniform = /obj/item/clothing/under/rank/prisoner
+	uniform = /obj/item/clothing/under/rank/classd
 	back = /obj/item/storage/backpack
 	head = /obj/item/clothing/head/scarecrow_hat
 	gloves = /obj/item/clothing/gloves/botanic_leather
@@ -208,7 +208,7 @@
 
 /datum/outfit/bountysynth
 	name = "Bounty Hunter - Synth"
-	uniform = /obj/item/clothing/under/rank/prisoner
+	uniform = /obj/item/clothing/under/rank/classd
 	back = /obj/item/storage/backpack
 	suit = /obj/item/clothing/suit/armor/riot
 	shoes = /obj/item/clothing/shoes/jackboots

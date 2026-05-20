@@ -8,7 +8,6 @@ GLOBAL_LIST_INIT(job_display_order, list(
 	/datum/job/goi_rep,
 	// Security
 	/datum/job/security_director,
-	/datum/job/investigations_agent,
 	/datum/job/raisa_agent,
 	/datum/job/ez_commander,
 	/datum/job/senior_ez_guard,

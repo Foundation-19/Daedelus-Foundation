@@ -65,6 +65,21 @@
 	hard_drive.store_file(new/datum/computer_file/program/chatclient())
 	hard_drive.store_file(new/datum/computer_file/program/card_mod())
 
+// ===== SECURITY CONSOLE =====
+/obj/machinery/modular_computer/console/preset/security
+	console_department = "Security"
+	name = "company console"
+	desc = "A stationary computer. This one comes preloaded with facility record programs."
+	_has_second_id_slot = TRUE
+	_has_printer = TRUE
+
+/obj/machinery/modular_computer/console/preset/security/install_programs()
+	var/obj/item/computer_hardware/hard_drive/hard_drive = cpu.all_components[MC_HDD]
+	hard_drive.store_file(new/datum/computer_file/program/records/security())
+	hard_drive.store_file(new/datum/computer_file/program/records/medical())
+	hard_drive.store_file(new/datum/computer_file/program/secureye())
+	hard_drive.store_file(new/datum/computer_file/program/alarm_monitor())
+
 
 // ===== IDENTIFICATION CONSOLE =====
 /obj/machinery/modular_computer/console/preset/id

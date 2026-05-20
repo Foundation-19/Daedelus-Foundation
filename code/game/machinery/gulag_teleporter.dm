@@ -20,8 +20,8 @@ The console is located at computer/gulag_teleporter.dm
 	var/locked = FALSE
 	var/message_cooldown
 	var/breakout_time = 600
-	var/jumpsuit_type = /obj/item/clothing/under/rank/prisoner
-	var/jumpskirt_type = /obj/item/clothing/under/rank/prisoner/skirt
+	var/jumpsuit_type = /obj/item/clothing/under/rank/classd
+	var/jumpskirt_type = /obj/item/clothing/under/rank/classd
 	var/shoes_type = /obj/item/clothing/shoes/sneakers/orange
 	var/obj/machinery/gulag_item_reclaimer/linked_reclaimer
 	var/static/list/telegulag_required_items = typecacheof(list(

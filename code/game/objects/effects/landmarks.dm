@@ -111,10 +111,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = JOB_RAISA_AGENT
 	icon_state = JOB_RAISA_AGENT
 
-/obj/effect/landmark/start/investigations_agent
-	name = JOB_INVESTIGATIONS_AGENT
-	icon_state = JOB_INVESTIGATIONS_AGENT
-
 // EZ Security Start Landmarks
 
 /obj/effect/landmark/start/ez_commander

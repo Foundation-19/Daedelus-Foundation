@@ -29,7 +29,7 @@
 	jobtype = /datum/job/dclass_general
 	id = /obj/item/card/id/advanced
 	id_trim = /datum/id_trim/job/prisoner
-	uniform = /obj/item/clothing/under/rank/prisoner
+	uniform = /obj/item/clothing/under/rank/classd
 	belt = /obj/item/modular_computer/tablet/pda
 	ears = /obj/item/radio/headset/scp_dclass
 	shoes = /obj/item/clothing/shoes/sneakers/orange
@@ -66,7 +66,7 @@
 	jobtype = /datum/job/dclass_medical
 	id = /obj/item/card/id/advanced
 	id_trim = /datum/id_trim/job/prisoner/medic
-	uniform = /obj/item/clothing/under/rank/prisoner
+	uniform = /obj/item/clothing/under/rank/classd
 	suit = /obj/item/clothing/suit/toggle/labcoat
 	belt = /obj/item/modular_computer/tablet/pda
 	ears = /obj/item/radio/headset/scp_dclass
@@ -105,7 +105,7 @@
 	jobtype = /datum/job/dclass_kitchen
 	id = /obj/item/card/id/advanced
 	id_trim = /datum/id_trim/job/prisoner/cook
-	uniform = /obj/item/clothing/under/rank/prisoner
+	uniform = /obj/item/clothing/under/rank/classd
 	suit = /obj/item/clothing/suit/apron
 	belt = /obj/item/modular_computer/tablet/pda
 	ears = /obj/item/radio/headset/scp_dclass
@@ -143,7 +143,7 @@
 	jobtype = /datum/job/dclass_janitorial
 	id = /obj/item/card/id/advanced
 	id_trim = /datum/id_trim/job/prisoner/janitor
-	uniform = /obj/item/clothing/under/rank/prisoner
+	uniform = /obj/item/clothing/under/rank/classd
 	belt = /obj/item/modular_computer/tablet/pda
 	ears = /obj/item/radio/headset/scp_dclass
 	shoes = /obj/item/clothing/shoes/galoshes
@@ -180,7 +180,7 @@
 	jobtype = /datum/job/dclass_mining
 	id = /obj/item/card/id/advanced
 	id_trim = /datum/id_trim/job/prisoner/miner
-	uniform = /obj/item/clothing/under/rank/prisoner
+	uniform = /obj/item/clothing/under/rank/classd
 	suit = /obj/item/clothing/suit/hooded/wintercoat/miner
 	belt = /obj/item/modular_computer/tablet/pda
 	ears = /obj/item/radio/headset/scp_dclass
@@ -219,7 +219,7 @@
 	jobtype = /datum/job/dclass_research
 	id = /obj/item/card/id/advanced
 	id_trim = /datum/id_trim/job/prisoner
-	uniform = /obj/item/clothing/under/rank/prisoner
+	uniform = /obj/item/clothing/under/rank/classd
 	belt = /obj/item/modular_computer/tablet/pda
 	ears = /obj/item/radio/headset/scp_dclass
 	shoes = /obj/item/clothing/shoes/sneakers/orange

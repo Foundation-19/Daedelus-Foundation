@@ -670,39 +670,41 @@
 
 // Mob Overlays Indexes
 /// Total number of layers for mob overlays
-#define TOTAL_LAYERS 34 //KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
+#define TOTAL_LAYERS 36 //KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
 /// Mutations layer - Tk headglows, cold resistance glow, etc
-#define MUTATIONS_LAYER 34
+#define MUTATIONS_LAYER 35
 /// Mutantrace features (tail when looking south) that must appear behind the body parts
-#define BODY_BEHIND_LAYER 33
+#define BODY_BEHIND_LAYER 34
 /// Layer for bodyparts that should appear behind every other bodypart - Mostly, legs when facing WEST or EAST
-#define BODYPARTS_LOW_LAYER 32
+#define BODYPARTS_LOW_LAYER 33
 /// Layer for most bodyparts, appears above BODYPARTS_LOW_LAYER and below BODYPARTS_HIGH_LAYER
-#define BODYPARTS_LAYER 31
+#define BODYPARTS_LAYER 32
 /// Mutantrace features (snout, body markings) that must appear above the body parts
-#define BODY_ADJ_LAYER 30
+#define BODY_ADJ_LAYER 31
 /// Eyes!
-#define EYE_LAYER 29
+#define EYE_LAYER 30
 /// Underwear, undershirts, socks, eyes, lips(makeup)
-#define BODY_LAYER 28
+#define BODY_LAYER 29
 /// Mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
-#define FRONT_MUTATIONS_LAYER 27
+#define FRONT_MUTATIONS_LAYER 28
 /// Damage indicators (cuts and burns)
-#define DAMAGE_LAYER 26
+#define DAMAGE_LAYER 27
 /// Jumpsuit clothing layer
-#define UNIFORM_LAYER 25
+#define UNIFORM_LAYER 26
 /// ID card layer (might be deprecated)
-#define ID_LAYER 24
+#define ID_LAYER 25
 /// ID card layer
-#define ID_CARD_LAYER 23
+#define ID_CARD_LAYER 24
 /// Layer for bodyparts that should appear above every other bodypart - Currently only used for hands
-#define BODYPARTS_HIGH_LAYER 22
+#define BODYPARTS_HIGH_LAYER 23
 /// Gloves layer
-#define GLOVES_LAYER 21
+#define GLOVES_LAYER 22
 /// Shoes layer
-#define SHOES_LAYER 20
+#define SHOES_LAYER 21
 /// Ears layer (Spessmen have ears? Wow)
-#define EARS_LAYER 19
+#define EARS_LAYER 20
+/// Layer for neck apperal that should appear below the suit slot (like neckties)
+#define LOW_NECK_LAYER 19
 /// Suit layer (armor, hardsuits, etc.)
 #define SUIT_LAYER 18
 /// Glasses layer

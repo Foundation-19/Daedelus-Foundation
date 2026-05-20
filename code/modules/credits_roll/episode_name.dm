@@ -234,17 +234,6 @@
 							chance += 250
 						episode_names += new /datum/episode_name/rare("[pick("COME HELL OR HIGH HONKER", "THE LAST LAUGH")]", "The Clown was the only survivor in the shuttle.", chance)
 						theme = "clown"
-				if(JOB_INVESTIGATIONS_AGENT)
-					var/chance = 250
-					if(H.is_wearing_item_of_type(/obj/item/storage/belt/holster/shoulder))
-						chance += 1000
-					if(H.is_wearing_item_of_type(/obj/item/clothing/head/fedora/det_hat))
-						chance += 500
-					if(H.is_wearing_item_of_type(/obj/item/clothing/suit/det_suit))
-						chance += 500
-					if(H.is_wearing_item_of_type(/obj/item/clothing/under/rank/security/detective))
-						chance += 250
-					episode_names += new /datum/episode_name/rare("[uppertext(H.real_name)]: LOOSE CANNON", "The Detective was the only survivor in the shuttle.", chance)
 				if(JOB_LOGISTICS_TECHNICIAN)
 					var/chance = 250
 					if(H.is_wearing_item_of_type(/obj/item/pickaxe))

@@ -71,13 +71,6 @@
 	merge_type = /obj/item/stack/overfloor_catwalk/iron_dark
 	catwalk_type = /obj/structure/overfloor_catwalk/iron_dark
 
-/obj/item/stack/overfloor_catwalk/flat_white
-	name = "flat white catwalk floor covers"
-	singular_name = "flat white catwalk floor cover"
-	icon_state = "flatwhite_catwalk"
-	merge_type = /obj/item/stack/overfloor_catwalk/flat_white
-	catwalk_type = /obj/structure/overfloor_catwalk/flat_white
-
 /obj/item/stack/overfloor_catwalk/titanium
 	name = "titanium catwalk floor covers"
 	singular_name = "titanium catwalk floor cover"

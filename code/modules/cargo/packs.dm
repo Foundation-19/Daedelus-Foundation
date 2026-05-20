@@ -349,16 +349,16 @@
 	desc = "Contains appropriate outfits for the station's private security force. Contains outfits for the Warden, Security Marshal, and two Security Officers. Each outfit comes with a rank-appropriate jumpsuit, suit, and beret. Requires Security access to open."
 	cost = CARGO_CRATE_VALUE * 3
 	access_view = ACCESS_SECURITY
-	contains = list(/obj/item/clothing/under/rank/security/officer/formal,
-					/obj/item/clothing/under/rank/security/officer/formal,
+	contains = list(/obj/item/clothing/under/rank/security/formal,
+					/obj/item/clothing/under/rank/security/formal,
 					/obj/item/clothing/suit/security/officer,
 					/obj/item/clothing/suit/security/officer,
 					/obj/item/clothing/head/beret/sec/navyofficer,
 					/obj/item/clothing/head/beret/sec/navyofficer,
-					/obj/item/clothing/under/rank/security/warden/formal,
+					/obj/item/clothing/under/rank/security/formal/lieutenant,
 					/obj/item/clothing/suit/security/warden,
 					/obj/item/clothing/head/beret/sec/navywarden,
-					/obj/item/clothing/under/rank/security/head_of_security/formal,
+					/obj/item/clothing/under/rank/security/formal/captain,
 					/obj/item/clothing/suit/security/hos,
 					/obj/item/clothing/head/hos/beret/navyhos)
 	crate_name = "security clothing crate"
@@ -437,10 +437,7 @@
 	desc = "Spare equipment found in a warehouse."
 	cost = CARGO_CRATE_VALUE * 2.2
 	supply_flags = SUPPLY_PACK_CONTRABAND
-	contains = list(/obj/item/clothing/under/rank/security/constable,
-					/obj/item/clothing/head/helmet/constable,
-					/obj/item/clothing/gloves/color/white,
-					/obj/item/clothing/mask/whistle,
+	contains = list(/obj/item/clothing/mask/whistle,
 					/obj/item/conversion_kit)
 
 //////////////////////////////////////////////////////////////////////////////
@@ -3070,7 +3067,6 @@
 	desc = "This crate contains refills for the SecDrobe, DetDrobe and LawDrobe."
 	cost = CARGO_CRATE_VALUE * 4
 	contains = list(/obj/item/vending_refill/wardrobe/sec_wardrobe,
-					/obj/item/vending_refill/wardrobe/det_wardrobe,
 					/obj/item/vending_refill/wardrobe/law_wardrobe)
 	crate_name = "security department supply crate"
 

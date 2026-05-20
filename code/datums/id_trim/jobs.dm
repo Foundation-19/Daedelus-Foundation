@@ -373,27 +373,6 @@
 	template_access = list(ACCESS_ADMIN_LVL4, ACCESS_ADMIN_LVL5, ACCESS_SECURITY_LVL5)
 	job = /datum/job/raisa_agent
 
-/datum/id_trim/job/investigations_agent
-	assignment = "Investigations Agent"
-	trim_state = "securitylvl3"
-	sechud_icon_state = SECHUD_DETECTIVE
-	extra_access = list()
-	minimal_access = list(
-		ACCESS_ADMIN_LVL1,
-		ACCESS_MEDICAL,
-		ACCESS_MEDICAL_LVL1,
-		ACCESS_MEDICAL_LVL2,
-		ACCESS_MEDICAL_LVL3,
-		ACCESS_SCIENCE_LVL1,
-		ACCESS_SECURITY,
-		ACCESS_SECURITY_LVL1,
-		ACCESS_SECURITY_LVL2,
-		ACCESS_SECURITY_LVL3
-		)
-	config_job = "investigations_agent"
-	template_access = list(ACCESS_ADMIN_LVL4, ACCESS_ADMIN_LVL5, ACCESS_SECURITY_LVL5)
-	job = /datum/job/investigations_agent
-
 //EZ
 /datum/id_trim/job/junior_ez_guard
 	assignment = JOB_JUNIOR_EZ_GUARD

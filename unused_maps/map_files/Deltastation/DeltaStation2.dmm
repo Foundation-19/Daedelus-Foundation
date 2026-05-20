@@ -8572,7 +8572,7 @@
 /area/security/warden)
 "cbF" = (
 /obj/structure/closet/secure_closet/warden,
-/obj/item/clothing/under/rank/security/warden/grey,
+/obj/item/clothing/under/rank/security/lieutenant/grey,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /turf/open/floor/iron,
 /area/security/warden)
@@ -10286,7 +10286,7 @@
 /area/maintenance/starboard)
 "cuG" = (
 /obj/structure/table,
-/obj/item/clothing/under/rank/security/officer,
+/obj/item/clothing/under/rank/security/guard,
 /obj/item/restraints/handcuffs,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/smart_cable/color/yellow,
@@ -35221,7 +35221,7 @@
 /obj/item/clothing/suit/det_suit{
 	icon_state = "curator"
 	},
-/obj/item/clothing/under/rank/security/detective,
+/obj/item/clothing/under/rank/security/guard,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/dark,
 /area/security/detectives_office)
@@ -65611,8 +65611,8 @@
 "qXs" = (
 /obj/structure/closet/crate/trashcart/laundry,
 /obj/effect/spawner/random/contraband/prison,
-/obj/item/clothing/under/rank/prisoner/skirt,
-/obj/item/clothing/under/rank/prisoner/skirt,
+/obj/item/clothing/under/rank/classd/skirt,
+/obj/item/clothing/under/rank/classd/skirt,
 /obj/structure/cable/smart_cable/color/yellow,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 8

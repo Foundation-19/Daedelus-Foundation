@@ -421,3 +421,35 @@ again.
 /obj/effect/spawner/structure/window/reinforced/tinted/prepainted/marsexec
 	name = "tinted reinforced window spawner (mars executive paint)"
 	spawn_list = list(/obj/structure/low_wall/prepainted/marsexec, /obj/structure/window/reinforced/tinted/fulltile)
+
+/obj/effect/spawner/structure/window/prepainted/lcz
+	name = "window spawner (lcz paint)"
+	spawn_list = list(/obj/structure/low_wall/prepainted/lcz, /obj/structure/window/fulltile)
+
+/obj/effect/spawner/structure/window/reinforced/prepainted/lcz
+	name = "window spawner (lcz paint)"
+	spawn_list = list(/obj/structure/low_wall/prepainted/lcz, /obj/structure/window/reinforced/fulltile)
+
+/obj/effect/spawner/structure/window/prepainted/ez
+	name = "window spawner (ez paint)"
+	spawn_list = list(/obj/structure/low_wall/prepainted/ez, /obj/structure/window/fulltile)
+
+/obj/effect/spawner/structure/window/reinforced/prepainted/ez
+	name = "window spawner (ez paint)"
+	spawn_list = list(/obj/structure/low_wall/prepainted/ez, /obj/structure/window/reinforced/fulltile)
+
+/obj/effect/spawner/structure/window/prepainted/cdcz
+	name = "window spawner (cdcz paint)"
+	spawn_list = list(/obj/structure/low_wall/prepainted/cdcz, /obj/structure/window/fulltile)
+
+/obj/effect/spawner/structure/window/reinforced/prepainted/cdcz
+	name = "window spawner (cdcz paint)"
+	spawn_list = list(/obj/structure/low_wall/prepainted/cdcz, /obj/structure/window/reinforced/fulltile)
+
+/obj/effect/spawner/structure/window/prepainted/maints
+	name = "window spawner (maints paint)"
+	spawn_list = list(/obj/structure/low_wall/prepainted/maints, /obj/structure/window/fulltile)
+
+/obj/effect/spawner/structure/window/reinforced/prepainted/maints
+	name = "window spawner (maints paint)"
+	spawn_list = list(/obj/structure/low_wall/prepainted/maints, /obj/structure/window/reinforced/fulltile)

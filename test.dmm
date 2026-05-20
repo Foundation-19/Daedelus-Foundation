@@ -2119,7 +2119,7 @@
 	pixel_x = -6;
 	pixel_y = -8
 	},
-/obj/item/clothing/under/rank/prisoner{
+/obj/item/clothing/under/rank/classd{
 	pixel_x = 8;
 	pixel_y = 5
 	},
@@ -3713,21 +3713,21 @@
 	name = "formal uniform crate";
 	req_access_txt = "3"
 	},
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/officer/formal,
+/obj/item/clothing/under/rank/security/formal,
+/obj/item/clothing/under/rank/security/formal,
+/obj/item/clothing/under/rank/security/formal,
+/obj/item/clothing/under/rank/security/formal,
+/obj/item/clothing/under/rank/security/formal,
+/obj/item/clothing/under/rank/security/formal,
 /obj/item/clothing/suit/security/officer,
 /obj/item/clothing/suit/security/officer,
 /obj/item/clothing/suit/security/officer,
 /obj/item/clothing/suit/security/officer,
 /obj/item/clothing/suit/security/officer,
 /obj/item/clothing/suit/security/officer,
-/obj/item/clothing/under/rank/security/warden/formal,
+/obj/item/clothing/under/rank/security/formal/lieutenant,
 /obj/item/clothing/suit/security/warden,
-/obj/item/clothing/under/rank/security/head_of_security/formal,
+/obj/item/clothing/under/rank/security/formal/captain,
 /obj/item/clothing/suit/security/hos,
 /obj/item/clothing/head/beret/sec/navyofficer,
 /obj/item/clothing/head/beret/sec/navyofficer,
@@ -6424,10 +6424,10 @@
 	},
 /obj/structure/closet/crate/trashcart/laundry,
 /obj/effect/spawner/random/contraband/prison,
-/obj/item/clothing/under/rank/prisoner,
-/obj/item/clothing/under/rank/prisoner,
-/obj/item/clothing/under/rank/prisoner/skirt,
-/obj/item/clothing/under/rank/prisoner/skirt,
+/obj/item/clothing/under/rank/classd,
+/obj/item/clothing/under/rank/classd,
+/obj/item/clothing/under/rank/classd/skirt,
+/obj/item/clothing/under/rank/classd/skirt,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -8310,11 +8310,11 @@
 /area/space)
 "Ls" = (
 /obj/structure/rack,
-/obj/item/clothing/under/rank/prisoner,
-/obj/item/clothing/under/rank/prisoner,
-/obj/item/clothing/under/rank/prisoner,
-/obj/item/clothing/under/rank/prisoner,
-/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/under/rank/classd,
+/obj/item/clothing/under/rank/classd,
+/obj/item/clothing/under/rank/classd,
+/obj/item/clothing/under/rank/classd,
+/obj/item/clothing/under/rank/classd,
 /obj/item/clothing/shoes/sneakers/orange,
 /obj/item/clothing/shoes/sneakers/orange,
 /obj/item/clothing/shoes/sneakers/orange,
@@ -10547,15 +10547,15 @@
 /area/space)
 "UV" = (
 /obj/structure/table,
-/obj/item/clothing/under/rank/prisoner/skirt{
+/obj/item/clothing/under/rank/classd/skirt{
 	pixel_x = -13;
 	pixel_y = 5
 	},
-/obj/item/clothing/under/rank/prisoner/skirt{
+/obj/item/clothing/under/rank/classd/skirt{
 	pixel_x = 9;
 	pixel_y = 5
 	},
-/obj/item/clothing/under/rank/prisoner{
+/obj/item/clothing/under/rank/classd{
 	pixel_x = -2;
 	pixel_y = 5
 	},

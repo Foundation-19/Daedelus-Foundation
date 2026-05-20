@@ -2,7 +2,6 @@
 /turf/open/floor/catwalk_floor/iron : /obj/structure/overfloor_catwalk/iron , /turf/open/floor/plating
 /turf/open/floor/catwalk_floor/iron_white : /obj/structure/overfloor_catwalk/iron_white , /turf/open/floor/plating
 /turf/open/floor/catwalk_floor/iron_dark : /obj/structure/overfloor_catwalk/iron_dark , /turf/open/floor/plating
-/turf/open/floor/catwalk_floor/flat_white : /obj/structure/overfloor_catwalk/flat_white , /turf/open/floor/plating
 /turf/open/floor/catwalk_floor/iron_smooth : /obj/structure/overfloor_catwalk/iron_smooth , /turf/open/floor/plating
 /turf/open/floor/catwalk_floor/titanium : /obj/structure/overfloor_catwalk/titanium , /turf/open/floor/plating
 /obj/item/stack/tile/catwalk_tile : /obj/item/stack/overfloor_catwalk
