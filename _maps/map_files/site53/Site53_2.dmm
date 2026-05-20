@@ -403,7 +403,7 @@
 	},
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /turf/open/floor/iron/dark,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "by" = (
 /obj/structure/hedge,
 /obj/effect/turf_decal/siding/wood{
@@ -784,7 +784,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/red/line,
 /turf/open/floor/iron/dark,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "dk" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/smooth,
@@ -1744,7 +1744,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "hg" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -1965,7 +1965,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "hV" = (
 /obj/structure/hedge,
 /obj/effect/turf_decal/siding/wood/end{
@@ -2207,17 +2207,17 @@
 /obj/structure/table/reinforced,
 /obj/item/folder/blue,
 /obj/machinery/button/door/directional/east{
-	name = "SCP-512 Observation Shutters Control";
-	id_tag = "scp512_containment_window";
+	name = "SCP-513 Observation Shutters Control";
+	id_tag = "scp513_containment_window";
 	pixel_y = -5
 	},
 /obj/machinery/button/door/directional/east{
-	name = "SCP-512 Containment Access Control";
-	id_tag = "scp512_containment";
+	name = "SCP-513 Containment Access Control";
+	id_tag = "scp513_containment";
 	pixel_y = 5
 	},
 /turf/open/floor/iron/white,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "ja" = (
 /turf/closed/wall/r_wall/prepainted/ez,
 /area/station/commons/ez/cryo)
@@ -2952,7 +2952,7 @@
 /obj/effect/turf_decal/tile/science_blue/opposingcorners,
 /obj/machinery/light/directional/north,
 /turf/open/floor/iron/white,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "mc" = (
 /turf/closed/wall/prepainted/ez,
 /area/station/service/ez/kitchen)
@@ -2997,7 +2997,7 @@
 	pixel_y = 4
 	},
 /turf/open/floor/iron/white,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "mo" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
@@ -3499,7 +3499,7 @@
 /obj/machinery/holopad,
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/iron/white,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "ok" = (
 /obj/effect/turf_decal/tile/white/half/contrasted{
 	dir = 8
@@ -3717,7 +3717,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "oW" = (
 /obj/machinery/door/airlock/cdcz/glass{
 	name = "Class-D Containment Zone"
@@ -4258,7 +4258,7 @@
 	},
 /obj/machinery/newscaster/directional/east,
 /turf/open/floor/iron/white,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "rn" = (
 /turf/closed/wall/prepainted/ez,
 /area/station/service/ez/chapel/office)
@@ -4378,7 +4378,7 @@
 	pixel_x = 32
 	},
 /turf/open/floor/iron/dark,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "rG" = (
 /obj/effect/turf_decal/tile/white/anticorner/contrasted,
 /obj/item/radio/intercom/directional/east,
@@ -5005,7 +5005,7 @@
 	pixel_x = -2
 	},
 /turf/open/floor/iron/white,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "ut" = (
 /obj/machinery/door/airlock{
 	name = "Custodial Closet";
@@ -5102,7 +5102,7 @@
 "uM" = (
 /obj/effect/turf_decal/tile/science_blue/opposingcorners,
 /turf/open/floor/iron/white,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "uS" = (
 /obj/structure/overfloor_catwalk/iron_dark,
 /obj/effect/spawner/random/trash/moisture_trap,
@@ -5735,7 +5735,7 @@
 /obj/effect/turf_decal/tile/science_blue/opposingcorners,
 /obj/structure/chair/office/light,
 /turf/open/floor/iron/white,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "xB" = (
 /obj/effect/turf_decal/tile/science_blue/half/contrasted{
 	dir = 8
@@ -5962,7 +5962,7 @@
 /obj/structure/table/reinforced,
 /obj/item/paper/fluff/scp/scp_512,
 /turf/open/floor/iron/white,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "yo" = (
 /turf/closed/wall/r_wall/prepainted/lcz,
 /area/station/security/lcz)
@@ -6117,7 +6117,7 @@
 /obj/structure/hedge,
 /obj/structure/extinguisher_cabinet/directional/west,
 /turf/open/floor/iron/white,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "yM" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/level1,
 /obj/effect/mapping_helpers/airlock/unres{
@@ -6185,7 +6185,7 @@
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/status_display/ai/directional/north,
 /turf/open/floor/iron/dark/small,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "zf" = (
 /turf/open/floor/iron/dark/textured_large,
 /area/space)
@@ -6361,7 +6361,7 @@
 /area/station/safe_scp/scp_storage)
 "zR" = (
 /turf/closed/wall/r_wall/prepainted/lcz,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "zT" = (
 /obj/effect/turf_decal/tile/white/anticorner/contrasted{
 	dir = 8
@@ -6407,7 +6407,7 @@
 	pixel_y = 4
 	},
 /turf/open/floor/iron/white,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "Ae" = (
 /obj/effect/turf_decal/tile/science_blue/opposingcorners,
 /obj/structure/filingcabinet/chestdrawer,
@@ -7283,7 +7283,7 @@
 	pixel_y = 4
 	},
 /turf/open/floor/iron/white,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "DO" = (
 /obj/structure/table/reinforced,
 /obj/item/taperecorder{
@@ -8127,7 +8127,7 @@
 	},
 /obj/item/radio/intercom/directional/west,
 /turf/open/floor/iron/dark,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "Hf" = (
 /obj/effect/turf_decal/trimline/euclid/line,
 /obj/effect/turf_decal/trimline/euclid/filled/warning{
@@ -8354,17 +8354,17 @@
 /area/station/security/lcz/scp_914)
 "Ih" = (
 /obj/machinery/door/airlock/lcz/euclid{
-	name = "SCP-512 Containment Chamber";
+	name = "SCP-513 Containment Chamber";
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/science/level3,
 /obj/machinery/door/poddoor/shutters{
-	name = "SCP-151 Containment Access Shutters";
-	id_tag = "scp151_containment";
+	name = "SCP-513 Containment Access Shutters";
+	id_tag = "scp513_containment";
 	dir = 4
 	},
 /turf/open/floor/iron/dark/textured_large,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "Im" = (
 /obj/effect/turf_decal/tile/euclid/fourcorners,
 /obj/effect/turf_decal/stripes/corner{
@@ -8374,7 +8374,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "Io" = (
 /obj/structure/table,
 /obj/effect/spawner/random/maintenance,
@@ -8415,7 +8415,7 @@
 	},
 /obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/iron/dark/small,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "Iu" = (
 /obj/structure/chair/pew/right{
 	dir = 8
@@ -8570,11 +8570,11 @@
 /area/station/maintenance/lcz)
 "Jn" = (
 /obj/machinery/door/airlock/lcz/science{
-	name = "SCP-512 Observation Room"
+	name = "SCP-513 Observation Room"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/science/level3,
 /turf/open/floor/iron/dark/textured_large,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "Jo" = (
 /obj/machinery/smartfridge/drinks,
 /turf/closed/wall/prepainted/ez,
@@ -8904,7 +8904,7 @@
 /obj/effect/turf_decal/stripes/red/full,
 /obj/structure/displaycase/scp_512,
 /turf/open/floor/iron/dark,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "KD" = (
 /turf/closed/wall/prepainted/ez,
 /area/station/service/ez/library)
@@ -8941,7 +8941,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "KN" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
@@ -9073,7 +9073,7 @@
 "Lj" = (
 /obj/effect/turf_decal/tile/euclid/fourcorners,
 /turf/open/floor/iron/dark,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "Lk" = (
 /obj/structure/closet/crate/bin,
 /obj/effect/turf_decal/siding/wideplating_new/dark,
@@ -9154,7 +9154,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "LI" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner{
@@ -9222,7 +9222,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "LX" = (
 /obj/effect/turf_decal/tile/science_blue/opposingcorners,
 /obj/structure/rack/shelf,
@@ -9244,7 +9244,7 @@
 	},
 /obj/item/radio/intercom/directional/west,
 /turf/open/floor/iron/white,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "LY" = (
 /obj/effect/turf_decal/tile/lcz_tan,
 /turf/open/floor/iron/white/side,
@@ -9532,7 +9532,7 @@
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/stripes/red/corner,
 /turf/open/floor/iron/dark,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "Nj" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "LCZ Medical Post"
@@ -9578,7 +9578,7 @@
 "Nr" = (
 /obj/effect/turf_decal/tile/euclid/diagonal_centre,
 /turf/open/floor/iron/dark/diagonal,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "Nt" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Restaraunt"
@@ -9757,7 +9757,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "Oi" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 10
@@ -9850,7 +9850,7 @@
 	},
 /obj/structure/closet/crate/bin,
 /turf/open/floor/iron/dark,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "OD" = (
 /obj/structure/bed/dogbed,
 /turf/open/floor/carpet/orange,
@@ -9987,7 +9987,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "Pi" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
@@ -10338,7 +10338,7 @@
 	},
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner,
 /turf/open/floor/iron/dark,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "Qw" = (
 /obj/effect/turf_decal/tile/lcz_tan{
 	dir = 1
@@ -10386,7 +10386,7 @@
 /obj/structure/hedge,
 /obj/machinery/requests_console/departmental/directional/east,
 /turf/open/floor/iron/white,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "QD" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 5
@@ -10484,10 +10484,10 @@
 /obj/effect/turf_decal/tile/science_blue/opposingcorners,
 /obj/structure/table/reinforced,
 /obj/machinery/telephone{
-	friendly_name = "SCP-512 Observation Room"
+	friendly_name = "SCP-513 Observation Room"
 	},
 /turf/open/floor/iron/white,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "QZ" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
@@ -11157,11 +11157,11 @@
 "TI" = (
 /obj/effect/spawner/structure/window/reinforced/prepainted/lcz,
 /obj/machinery/door/poddoor/shutters{
-	name = "SCP-512 Containment Observation Shutters";
-	id_tag = "scp512_containment_window"
+	name = "SCP-513 Containment Observation Shutters";
+	id_tag = "scp513_containment_window"
 	},
 /turf/open/floor/iron/plating,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "TL" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
@@ -11565,7 +11565,7 @@
 	},
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /turf/open/floor/iron/dark,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "Vo" = (
 /obj/effect/turf_decal/siding/thinplating_new/light{
 	dir = 1
@@ -11680,11 +11680,11 @@
 /area/station/medical/lcz/med_post)
 "VK" = (
 /obj/machinery/door/airlock/lcz/euclid{
-	name = "SCP-512 Containment"
+	name = "SCP-513 Containment"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/science/level3,
 /turf/open/floor/iron/dark/textured_large,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "VL" = (
 /obj/effect/turf_decal/tile/white/half/contrasted,
 /obj/structure/table/reinforced,
@@ -11790,7 +11790,7 @@
 	},
 /obj/machinery/light_switch/directional/south,
 /turf/open/floor/iron/dark,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "We" = (
 /obj/effect/turf_decal/siding/thinplating_new/light{
 	dir = 4
@@ -11859,7 +11859,7 @@
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/stripes/red/corner,
 /turf/open/floor/iron/dark,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "Wp" = (
 /obj/effect/turf_decal/tile/green/diagonal_centre,
 /turf/open/floor/iron/white/diagonal,
@@ -12031,7 +12031,7 @@
 /obj/machinery/papershredder,
 /obj/machinery/status_display/evac/directional/north,
 /turf/open/floor/iron/dark/small,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "WX" = (
 /obj/effect/turf_decal/tile/euclid/anticorner/contrasted,
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner{
@@ -12408,7 +12408,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "YA" = (
 /obj/structure/fluff/broken_flooring/singular/directional/north,
 /turf/open/floor/iron/plating,
@@ -12514,7 +12514,7 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /obj/machinery/light/directional/north,
 /turf/open/floor/iron/dark,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "YW" = (
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
@@ -12650,7 +12650,7 @@
 /obj/effect/turf_decal/tile/science_blue/opposingcorners,
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/iron/white,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 "ZA" = (
 /obj/effect/turf_decal/tile/euclid/fourcorners,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
@@ -12755,7 +12755,7 @@
 /obj/machinery/photocopier/faxmachine,
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron/dark/small,
-/area/station/euclid_scp/scp_512)
+/area/station/euclid_scp/scp_513)
 
 (1,1,1) = {"
 XW

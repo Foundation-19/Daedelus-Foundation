@@ -159,8 +159,8 @@
 /area/station/euclid_scp/scp_151
 	name = "SCP-151 Containment"
 
-/area/station/euclid_scp/scp_512
-	name = "SCP-512 Containment"
+/area/station/euclid_scp/scp_513
+	name = "SCP-513 Containment"
 
 /area/station/euclid_scp/scp_173
 	name = "SCP-173 Containment"
