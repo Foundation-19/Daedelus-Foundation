@@ -12,17 +12,15 @@ GLOBAL_VAR(nuke_time_left)
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
-	var/timer_set = 90
-	var/minimum_timer_set = 90
+	var/timer_set = 300
+	var/minimum_timer_set = 300
 	var/maximum_timer_set = 3600
 
 	var/numeric_input = ""
 	var/ui_mode = NUKEUI_AWAIT_DISK
 
-	var/timing = FALSE
 	var/exploding = FALSE
 	var/exploded = FALSE
-	var/detonation_timer = null
 	var/r_code = "ADMIN"
 	var/yes_code = FALSE
 	var/safety = TRUE
@@ -34,12 +32,20 @@ GLOBAL_VAR(nuke_time_left)
 	var/lights = ""
 	var/interior = ""
 	var/proper_bomb = TRUE //Please
-	var/obj/effect/countdown/nuclearbomb/countdown
+
+	var/datum/self_destruct_controller/controller
 
 /obj/machinery/nuclearbomb/Initialize(mapload)
 	. = ..()
 	SET_TRACKING(__TYPE__)
-	countdown = new(src)
+	controller = new /datum/self_destruct_controller(null, src)
+	/*
+	// Example of how to use a custom self-destruct controller with specific config:
+	// var/datum/self_destruct_config/my_nuke_config = new /datum/self_destruct_config/my_nuke_preset()
+	// controller = new /datum/self_destruct_controller(my_nuke_config, src)
+	// This allows the nuclear bomb to use a self-destruct sequence with custom milestones and effects.
+	*/
+
 	core = new /obj/item/nuke_core(src)
 	STOP_PROCESSING(SSobj, core)
 	update_appearance()
@@ -53,7 +59,7 @@ GLOBAL_VAR(nuke_time_left)
 	if(!exploding)
 		// If we're not exploding, set the alert level back to normal
 		set_safety()
-	QDEL_NULL(countdown)
+	QDEL_NULL(controller)
 	QDEL_NULL(core)
 	. = ..()
 
@@ -61,8 +67,8 @@ GLOBAL_VAR(nuke_time_left)
 	. = ..()
 	if(exploding)
 		to_chat(user, "It is in the process of exploding. Perhaps reviewing your affairs is in order.")
-	if(timing)
-		to_chat(user, "There are [get_time_left()] seconds until detonation.")
+	if(controller.timing)
+		to_chat(user, "There are [controller.get_time_left()] seconds until detonation.")
 
 /obj/machinery/nuclearbomb/selfdestruct
 	name = "station self-destruct terminal"
@@ -184,7 +190,7 @@ GLOBAL_VAR(nuke_time_left)
 /obj/machinery/nuclearbomb/proc/get_nuke_state()
 	if(exploding)
 		return NUKE_ON_EXPLODING
-	if(timing)
+	if(controller.timing)
 		return NUKE_ON_TIMING
 	if(safety)
 		return NUKE_OFF_LOCKED
@@ -241,14 +247,6 @@ GLOBAL_VAR(nuke_time_left)
 			lights = "lights-exploding"
 	add_overlay(lights)
 
-/obj/machinery/nuclearbomb/process()
-	if(timing && !exploding)
-		if(detonation_timer < world.time)
-			explode()
-		else
-			var/volume = (get_time_left() <= 20 ? 30 : 5)
-			playsound(loc, 'sound/items/timer.ogg', volume, FALSE)
-
 /obj/machinery/nuclearbomb/proc/update_ui_mode()
 	if(exploded)
 		ui_mode = NUKEUI_EXPLODED
@@ -258,7 +256,7 @@ GLOBAL_VAR(nuke_time_left)
 		ui_mode = NUKEUI_AWAIT_DISK
 		return
 
-	if(timing)
+	if(controller.timing)
 		ui_mode = NUKEUI_TIMING
 		return
 
@@ -298,8 +296,8 @@ GLOBAL_VAR(nuke_time_left)
 	switch(ui_mode)
 		if(NUKEUI_AWAIT_DISK)
 			first_status = "DEVICE LOCKED"
-			if(timing)
-				second_status = "TIME: [get_time_left()]"
+			if(controller.timing)
+				second_status = "TIME: [controller.get_time_left()]"
 			else
 				second_status = "AWAIT DISK"
 		if(NUKEUI_AWAIT_CODE)
@@ -310,10 +308,10 @@ GLOBAL_VAR(nuke_time_left)
 			second_status = "TIME: [current_code]"
 		if(NUKEUI_AWAIT_ARM)
 			first_status = "DEVICE READY"
-			second_status = "TIME: [get_time_left()]"
+			second_status = "TIME: [controller.get_time_left()]"
 		if(NUKEUI_TIMING)
 			first_status = "DEVICE ARMED"
-			second_status = "TIME: [get_time_left()]"
+			second_status = "TIME: [controller.get_time_left()]"
 		if(NUKEUI_EXPLODED)
 			first_status = "DEVICE DEPLOYED"
 			second_status = "THANK YOU"
@@ -414,54 +412,43 @@ GLOBAL_VAR(nuke_time_left)
 /obj/machinery/nuclearbomb/proc/set_safety()
 	safety = !safety
 	if(safety)
-		if(timing)
+		if(controller.timing)
 			set_security_level(previous_level)
 			for(var/obj/item/pinpointer/nuke/syndicate/S in GLOB.pinpointer_list)
 				S.switch_mode_to(initial(S.mode))
 				S.alert = FALSE
-		timing = FALSE
-		detonation_timer = null
-		countdown.stop()
+		controller.cancel_countdown()
+		GLOB.nuke_time_left = 0 // Update global time on cancel
 	update_appearance()
 
 /obj/machinery/nuclearbomb/proc/set_active()
-	var/turf/our_turf = get_turf(src)
 	if(safety)
 		to_chat(usr, span_danger("The safety is still on."))
 		return
-	timing = !timing
-	if(timing)
-		message_admins("\The [src] was armed at [ADMIN_VERBOSEJMP(our_turf)] by [ADMIN_LOOKUPFLW(usr)].")
-		log_game("\The [src] was armed at [loc_name(our_turf)] by [key_name(usr)].")
+	if(!controller.timing) // If not timing, start countdown
 		previous_level = get_security_level()
-		detonation_timer = world.time + (timer_set * 10)
 		for(var/obj/item/pinpointer/nuke/syndicate/S in GLOB.pinpointer_list)
 			S.switch_mode_to(TRACK_INFILTRATOR)
 
 		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NUKE_DEVICE_ARMED, src)
 
-		countdown.start()
+		controller.start_countdown(timer_set)
 		set_security_level("delta")
-	else
-		message_admins("\The [src] at [ADMIN_VERBOSEJMP(our_turf)] was disarmed by [ADMIN_LOOKUPFLW(usr)].")
-		log_game("\The [src] at [loc_name(our_turf)] was disarmed by [key_name(usr)].")
-		detonation_timer = null
+		GLOB.nuke_time_left = controller.get_time_left() // Update global time on start
+	else // If timing, cancel countdown
 		set_security_level(previous_level)
 		for(var/obj/item/pinpointer/nuke/syndicate/S in GLOB.pinpointer_list)
 			S.switch_mode_to(initial(S.mode))
 			S.alert = FALSE
-		countdown.stop()
-		GLOB.nuke_time_left = get_time_left()
+		controller.cancel_countdown()
+		GLOB.nuke_time_left = 0 // Update global time on cancel
 
 		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NUKE_DEVICE_DISARMED, src)
 
 	update_appearance()
 
 /obj/machinery/nuclearbomb/proc/get_time_left()
-	if(timing)
-		. = round(max(0, detonation_timer - world.time) / 10, 1)
-	else
-		. = timer_set
+	return controller.get_time_left() // This proc is now just a passthrough to the controller
 
 /obj/machinery/nuclearbomb/blob_act(obj/structure/blob/B)
 	if(exploding)
@@ -473,64 +460,11 @@ GLOBAL_VAR(nuke_time_left)
 	if(zap_flags & ZAP_MACHINE_EXPLOSIVE)
 		qdel(src)//like the singulo, tesla deletes it. stops it from exploding over and over
 
-#define NUKERANGE 127
 /obj/machinery/nuclearbomb/proc/explode()
-	if(safety)
-		timing = FALSE
-		return
-
-	exploding = TRUE
-	yes_code = FALSE
-	safety = TRUE
-	update_appearance()
-	sound_to_playing_players('sound/machines/alarm.ogg')
-	if(SSticker?.mode)
-		SSticker.roundend_check_paused = TRUE
-	addtimer(CALLBACK(src, PROC_REF(actually_explode)), 100)
-
-/obj/machinery/nuclearbomb/proc/actually_explode()
-	if(!core)
-		Cinematic(CINEMATIC_NUKE_NO_CORE,world)
-		SSticker.roundend_check_paused = FALSE
-		return
-
-	SSlag_switch.set_measure(DISABLE_NON_OBSJOBS, TRUE)
-
-	var/off_station = 0
-	var/turf/bomb_location = get_turf(src)
-	var/area/A = get_area(bomb_location)
-
-	if(bomb_location && is_station_level(bomb_location.z))
-		if(istype(A, /area/space))
-			off_station = NUKE_NEAR_MISS
-		else if((bomb_location.x < (128-NUKERANGE)) || (bomb_location.x > (128+NUKERANGE)) || (bomb_location.y < (128-NUKERANGE)) || (bomb_location.y > (128+NUKERANGE)))
-			off_station = NUKE_NEAR_MISS
-		else // station actually nuked
-			off_station = STATION_DESTROYED_NUKE
-			GLOB.station_was_nuked = TRUE
-	else if(bomb_location.onSyndieBase())
-		off_station = NUKE_SYNDICATE_BASE
-	else
-		off_station = NUKE_MISS_STATION
-
-	if(off_station < NUKE_MISS_STATION)
-		SSshuttle.registerHostileEnvironment(src)
-		SSshuttle.lockdown = TRUE
-	//Cinematic
-	GLOB.station_nuke_source = off_station
-	really_actually_explode(off_station)
-	SSticker.roundend_check_paused = FALSE
-
-/obj/machinery/nuclearbomb/proc/really_actually_explode(off_station)
-	var/turf/bomb_location = get_turf(src)
-	Cinematic(get_cinematic_type(off_station),world,CALLBACK(SSticker,TYPE_PROC_REF(/datum/controller/subsystem/ticker, station_explosion_detonation),src))
-	if(off_station == STATION_DESTROYED_NUKE)
-		INVOKE_ASYNC(GLOBAL_PROC,GLOBAL_PROC_REF(KillEveryoneOnStation))
-		return
-	if(off_station != NUKE_NEAR_MISS) // Don't kill people in the station if the nuke missed, even if we are technically on the same z-level
-		INVOKE_ASYNC(GLOBAL_PROC,GLOBAL_PROC_REF(KillEveryoneOnZLevel), bomb_location.z)
+	SEND_SIGNAL(controller, SD_SIGNAL_FINAL, src)
 
 /obj/machinery/nuclearbomb/proc/get_cinematic_type(off_station)
+	// This proc is still needed by the explosion profile, so it remains here.
 	if(off_station < NUKE_NEAR_MISS)
 		return CINEMATIC_SELFDESTRUCT
 	else
@@ -563,28 +497,15 @@ GLOBAL_VAR(nuke_time_left)
 		return TRUE
 	return ..()
 
-/obj/machinery/nuclearbomb/beer/actually_explode()
-	//Unblock roundend, we're not actually exploding.
-	SSticker.roundend_check_paused = FALSE
-	var/turf/bomb_location = get_turf(src)
-	if(!bomb_location)
-		disarm()
-		return
-	if(is_station_level(bomb_location.z))
-		addtimer(CALLBACK(src, PROC_REF(really_actually_explode)), 110)
-	else
-		visible_message(span_notice("[src] fizzes ominously."))
-		addtimer(CALLBACK(src, PROC_REF(local_foam)), 110)
-
 /obj/machinery/nuclearbomb/beer/proc/disarm()
-	detonation_timer = null
 	exploding = FALSE
 	exploded = TRUE
 	set_security_level(previous_level)
 	for(var/obj/item/pinpointer/nuke/syndicate/S in GLOB.pinpointer_list)
 		S.switch_mode_to(initial(S.mode))
 		S.alert = FALSE
-	countdown.stop()
+	controller.cancel_countdown()
+	GLOB.nuke_time_left = 0 // Update global time on disarm
 	update_appearance()
 
 /obj/machinery/nuclearbomb/beer/proc/local_foam()
@@ -612,11 +533,11 @@ GLOBAL_VAR(nuke_time_left)
 
 		CHECK_TICK
 
-/obj/machinery/nuclearbomb/beer/really_actually_explode()
+/obj/machinery/nuclearbomb/beer/proc/really_actually_explode()
 	disarm()
 	stationwide_foam()
 
-/proc/KillEveryoneOnStation()
+/proc/KillEveryoneOnStation(detonation_z)
 	for(var/mob/living/victim as anything in GLOB.mob_living_list)
 		var/turf/target_turf = get_turf(victim)
 		if(istype(victim.loc, /obj/structure/closet/secure_closet/freezer))
@@ -625,7 +546,7 @@ GLOBAL_VAR(nuke_time_left)
 				to_chat(victim, span_boldannounce("You hold onto \the [victim.loc] as the nuclear bomb goes off. Luckily as \the [victim.loc] is lead-lined, you survive."))
 				freezer.jones = TRUE
 				continue
-		if(victim.stat != DEAD && target_turf && is_station_level(target_turf.z))
+		if(victim.stat != DEAD && target_turf && (target_turf.z == detonation_z || is_station_level(target_turf.z)))
 			to_chat(victim, span_userdanger("You are shredded to atoms!"))
 			victim.gib()
 
@@ -654,14 +575,14 @@ This is here to make the tiles around the station mininuke change when it's arme
 
 /obj/machinery/nuclearbomb/selfdestruct/set_active()
 	..()
-	if(timing)
+	if(controller.timing)
 		SSmapping.add_nuke_threat(src)
 	else
 		SSmapping.remove_nuke_threat(src)
 
 /obj/machinery/nuclearbomb/selfdestruct/set_safety()
 	..()
-	if(timing)
+	if(controller.timing)
 		SSmapping.add_nuke_threat(src)
 	else
 		SSmapping.remove_nuke_threat(src)

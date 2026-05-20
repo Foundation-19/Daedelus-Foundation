@@ -10,10 +10,17 @@
 #define CHANNEL_BREATHING 1016
 #define CHANNEL_294_MUSIC 1015 // Unique channel ID for SCP-294 music
 #define CHANNEL_SAFE_DIAL 1014 // Unique channel for the safe dial sound
+#define CHANNEL_SELF_DESTRUCT_AMBIENCE 1013 //channel for self-destruct ambient sounds (deprecated, replaced by A/B)
+#define CHANNEL_SELF_DESTRUCT_ALARM 1012 // Unique channel for intense alarm sounds
+#define CHANNEL_SELF_DESTRUCT_DETONATION 1011
+#define CHANNEL_BUZZ 1010
+#define CHANNEL_TRAITOR 1009
+#define CHANNEL_BREATHING 1008
+#define CHANNEL_SAFE_DIAL 1007 // Unique channel for the safe dial sound
 
 //THIS SHOULD ALWAYS BE THE LOWEST ONE!
 //KEEP IT UPDATED
-#define CHANNEL_HIGHEST_AVAILABLE 1015
+#define CHANNEL_HIGHEST_AVAILABLE 1011
 
 #define MAX_INSTRUMENT_CHANNELS (128 * 6)
 

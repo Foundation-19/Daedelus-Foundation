@@ -69,6 +69,8 @@ DEFINE_INTERACTABLE(/obj/machinery/light)
 
 	///The area this thing is in.
 	var/area/my_area = null
+	///Reference to the self-destruct spinning light effect, if any.
+	var/obj/effect/spinning_light/self_destruct_spinning_light = null
 
 /obj/machinery/light/Move()
 	if(status != LIGHT_BROKEN)
@@ -111,6 +113,7 @@ DEFINE_INTERACTABLE(/obj/machinery/light)
 		LAZYREMOVE(my_area.lights, src)
 	my_area = null
 	QDEL_NULL(cell)
+	QDEL_NULL(self_destruct_spinning_light) // Delete the associated spinning light (if it exists)
 	lose_atmos_sensitivity()
 	return ..()
 
@@ -602,6 +605,7 @@ DEFINE_INTERACTABLE(/obj/machinery/light)
 		if(on)
 			do_sparks(3, TRUE, src)
 	status = LIGHT_BROKEN
+	QDEL_NULL(self_destruct_spinning_light) // Delete the associated spinning light if the light breaks
 	update()
 
 /obj/machinery/light/proc/fix()

@@ -1,0 +1,7 @@
+#define SD_SIGNAL_START "sd_start"
+#define SD_SIGNAL_PAUSE "sd_pause"
+#define SD_SIGNAL_RESUME "sd_resume"
+#define SD_SIGNAL_CANCEL "sd_cancel"
+#define SD_SIGNAL_FINAL "sd_final"
+#define SD_SIGNAL_TICK "sd_tick"
+#define SD_SIGNAL_MILESTONE "sd_milestone"

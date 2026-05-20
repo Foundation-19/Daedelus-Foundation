@@ -371,7 +371,7 @@
 	SIGNAL_HANDLER
 
 	for(var/obj/machinery/nuclearbomb/bomb as anything in INSTANCES_OF(/obj/machinery/nuclearbomb))
-		if(bomb.timing)
+		if(bomb.controller.timing)
 			examine_list += span_danger("Extreme danger. Arming signal detected. Time remaining: [bomb.get_time_left()].")
 
 /*

@@ -84,7 +84,7 @@
 	var/obj/machinery/nuclearbomb/N = attached_to
 	if(!istype(N))
 		return
-	else if(N.timing)
+	else if(N.controller.timing)
 		return round(N.get_time_left(), 1)
 
 /obj/effect/countdown/supermatter

@@ -54,6 +54,7 @@
 
 /obj/machinery/rotating_alarm/Initialize()
 	. = ..()
+	SET_TRACKING(__TYPE__)
 
 	//Setup colour
 	var/list/color_matrix = color_rotation(angle)
@@ -78,8 +79,9 @@
 
 
 /obj/machinery/rotating_alarm/proc/set_color(color)
-	if (on)
-		remove_viscontents(spin_effect)
+	if (spin_effect && spin_effect != spinning_lights_cache["[color]"]) // If there's an existing spin_effect and it's not the one we're about to use from cache
+		remove_viscontents(spin_effect) // Remove the old effect from visibility
+
 	if (isnull(spinning_lights_cache["[color]"]))
 		spinning_lights_cache["[color]"] = new /obj/effect/spinning_light()
 	spin_effect = spinning_lights_cache["[color]"]
@@ -89,8 +91,6 @@
 
 	alarm_light_color = RGB
 	spin_effect.set_color(color)
-	if (on)
-		add_viscontents(spin_effect)
 
 
 /obj/machinery/rotating_alarm/proc/set_on()
@@ -101,7 +101,14 @@
 
 
 /obj/machinery/rotating_alarm/proc/set_off()
-	remove_viscontents(spin_effect)
+	if (spin_effect) // Ensure spin_effect exists before attempting to stop animations
+		animate(spin_effect, transform = null, 0) // Stop all ongoing animations
+	vis_contents.Cut() // Explicitly clear all visual contents
+	spin_effect = null // Clear the reference
 	set_light(0)
 	on = FALSE
 	low_alarm = FALSE
+
+/obj/machinery/rotating_alarm/Del()
+	set_off() // Ensure animations are stopped and visibility cleared on deletion
+	. = ..()

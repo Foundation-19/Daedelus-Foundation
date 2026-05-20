@@ -19,8 +19,7 @@
 	qdel(playing)
 
 /atom/movable/screen/cinematic
-	icon = 'icons/effects/station_explosion.dmi'
-	icon_state = "station_intact"
+	icon = 'config/title_screens/images/title3.dmi'
 	plane = SPLASHSCREEN_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	screen_loc = "BOTTOM,LEFT+50%"
@@ -155,22 +154,15 @@
 	id = CINEMATIC_SELFDESTRUCT
 
 /datum/cinematic/nuke_selfdestruct/content()
-	flick("intro_nuke",screen)
-	sleep(35)
-	flick("station_explode_fade_red", screen)
 	cinematic_sound(sound('sound/effects/explosion_distant.ogg'))
 	special()
-	screen.icon_state = "summary_selfdes"
 
 /datum/cinematic/nuke_selfdestruct_miss
 	id = CINEMATIC_SELFDESTRUCT_MISS
 
 /datum/cinematic/nuke_selfdestruct_miss/content()
-	flick("intro_nuke",screen)
-	sleep(35)
 	cinematic_sound(sound('sound/effects/explosion_distant.ogg'))
 	special()
-	screen.icon_state = "station_intact"
 
 /datum/cinematic/malf
 	id = CINEMATIC_MALF

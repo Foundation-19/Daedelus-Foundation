@@ -253,7 +253,7 @@
 	if(!check_rights(R_DEBUG))
 		return
 
-	if(!N.timing)
+	if(!N.controller.timing)
 		var/newtime = input(usr, "Set activation timer.", "Activate Nuke", "[N.timer_set]") as num|null
 		if(!newtime)
 			return
@@ -261,9 +261,9 @@
 	N.set_safety()
 	N.set_active()
 
-	log_admin("[key_name(usr)] [N.timing ? "activated" : "deactivated"] a nuke at [AREACOORD(N)].")
-	message_admins("[ADMIN_LOOKUPFLW(usr)] [N.timing ? "activated" : "deactivated"] a nuke at [ADMIN_VERBOSEJMP(N)].")
-	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Nuke", "[N.timing]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	log_admin("[key_name(usr)] [N.controller.timing ? "activated" : "deactivated"] a nuke at [AREACOORD(N)].")
+	message_admins("[ADMIN_LOOKUPFLW(usr)] [N.controller.timing ? "activated" : "deactivated"] a nuke at [ADMIN_VERBOSEJMP(N)].")
+	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Nuke", "[N.controller.timing]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/admin_change_sec_level()
 	set category = "Admin.Events"
@@ -328,4 +328,3 @@
 	message_admins("[key_name_admin(usr)] added mob ability [ability_type] to mob [marked_mob].")
 	log_admin("[key_name(usr)] added mob ability [ability_type] to mob [marked_mob].")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Add Mob Ability") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-

@@ -29,8 +29,7 @@
 			return CINEMATIC_NUKE_FAKE //it is farther away, so just a bikehorn instead of an airhorn
 	return CINEMATIC_NUKE_FAKE
 
-/obj/machinery/nuclearbomb/syndicate/bananium/really_actually_explode(off_station)
-	Cinematic(get_cinematic_type(off_station), world)
+/obj/machinery/nuclearbomb/syndicate/bananium/proc/really_actually_explode(off_station)
 	for(var/i in GLOB.human_list)
 		var/mob/living/carbon/human/H = i
 		var/turf/T = get_turf(H)

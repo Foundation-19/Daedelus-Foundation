@@ -16,15 +16,15 @@
 			msg = "Its tracking indicator is blank."
 	. += msg
 	for(var/obj/machinery/nuclearbomb/bomb as anything in INSTANCES_OF(/obj/machinery/nuclearbomb))
-		if(bomb.timing)
-			. += "Extreme danger. Arming signal detected. Time remaining: [bomb.get_time_left()]."
+		if(bomb.controller.timing)
+			. += "Extreme danger. Arming signal detected. Time remaining: [bomb.controller.get_time_left()]."
 
 /obj/item/pinpointer/nuke/process(delta_time)
 	..()
 	if(!active || alert)
 		return
 	for(var/obj/machinery/nuclearbomb/bomb as anything in INSTANCES_OF(/obj/machinery/nuclearbomb))
-		if(!bomb.timing)
+		if(!bomb.controller.timing)
 			continue
 		alert = TRUE
 		playsound(src, 'sound/items/nuke_toy_lowpower.ogg', 50, FALSE)

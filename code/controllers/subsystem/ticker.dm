@@ -377,6 +377,8 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/station_explosion_detonation(atom/bomb)
 	if(bomb) //BOOM
+		// Trigger the actual explosion effects
+		explosion(bomb, devastation_range = round(NUKERANGE / 8), heavy_impact_range = round(NUKERANGE / 4), light_impact_range = NUKERANGE, flame_range = NUKERANGE, flash_range = NUKERANGE * 2, explosion_cause = bomb)
 		qdel(bomb)
 
 /datum/controller/subsystem/ticker/proc/create_characters()
