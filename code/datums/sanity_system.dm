@@ -192,6 +192,12 @@
 		total_sanity_lost += abs(sanity_change)
 
 /datum/sanity/proc/adjust_sanity(amount, reason = "")
+	if(amount < 0 && findtext(reason, "scp"))
+		var/cognitive_resist = 0
+		if(SSscp_research?.manager)
+			cognitive_resist = SSscp_research.manager.cognitive_bonus
+		if(cognitive_resist > 0)
+			amount = round(amount * (1 - cognitive_resist))
 	amount = get_conditioned_sanity_change(amount)
 	var/old_sanity = sanity_level
 	sanity_level = clamp(sanity_level + amount, min_sanity, max_sanity)

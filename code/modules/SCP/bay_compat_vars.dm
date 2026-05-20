@@ -56,11 +56,5 @@
 /obj/machinery/door/airlock/multi_tile/glass/research
 	var/secured_wires
 
-/obj/machinery/fusion_fuel_injector/mapped
-	var/initial_id_tag
-
-/obj/machinery/power/fusion_core/mapped
-	var/initial_id_tag
-
 /obj/machinery/airlock_controller
 	var/tag_exterior_door

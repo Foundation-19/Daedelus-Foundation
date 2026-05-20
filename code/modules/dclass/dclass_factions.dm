@@ -8,6 +8,8 @@
 	var/list/objectives = list()
 	var/list/perks = list()
 	var/alignment = DCLASS_FACTION_NONE
+	var/faction_score = 0
+	var/territory_count = 0
 
 /datum/dclass_faction/proc/add_member(datum/dclass_player/player)
 	if(!player)
@@ -177,6 +179,119 @@
 
 	do_announce("Intel report: [english_list(collected_intel)]")
 
+/datum/dclass_faction/rebels/proc/smuggle_contraband()
+	if(!length(members))
+		return
+	var/datum/dclass_player/smuggler = null
+	for(var/ckey in members)
+		var/datum/dclass_player/player = SSdclass.manager.dclass_players[ckey]
+		if(player && player.mob && player.mob.stat != DEAD)
+			smuggler = player
+			break
+	if(!smuggler)
+		return
+	var/mob/living/carbon/human/H = smuggler.mob
+	var/list/contraband_types = list("wire", "screwdriver", "lockpick", "knife", "medicine")
+	var/smuggled_type = pick(contraband_types)
+	smuggler.add_physical_contraband(smuggled_type, 1)
+	var/obj/item/dclass_contraband/item_type = smuggler.get_contraband_item_type(smuggled_type)
+	if(item_type)
+		var/obj/item/dclass_contraband/item = new item_type(get_turf(H))
+		H.put_in_hands(item)
+		to_chat(H, span_notice("A contact slips you some contraband: [item.name]."))
+	else
+		to_chat(H, span_notice("Your contact couldn't get anything through this time."))
+	faction_score += 2
+
+/datum/dclass_faction/rebels/proc/violent_escape_bonus()
+	for(var/ckey in members)
+		var/datum/dclass_player/player = SSdclass.manager.dclass_players[ckey]
+		if(!player || !player.mob || player.mob.stat == DEAD)
+			continue
+		var/mob/living/carbon/human/H = player.mob
+		for(var/obj/machinery/dclass_escape_point/E in range(5, H))
+			E.difficulty = max(1, E.difficulty - 1)
+			to_chat(H, span_notice("Your rebel training makes this escape route easier!"))
+			break
+	faction_score += 3
+
+/datum/dclass_faction/collaborators/proc/medical_privileges()
+	for(var/ckey in members)
+		var/datum/dclass_player/player = SSdclass.manager.dclass_players[ckey]
+		if(!player || !player.mob || player.mob.stat == DEAD)
+			continue
+		var/mob/living/carbon/human/H = player.mob
+		if(H.health < H.maxHealth * 0.5)
+			H.adjustBruteLoss(-10)
+			H.adjustFireLoss(-10)
+			H.adjustToxLoss(-5)
+			to_chat(H, span_notice("Medical staff treat your injuries as a Collaborator privilege."))
+	faction_score += 2
+
+/datum/dclass_faction/collaborators/proc/early_release_check()
+	for(var/ckey in members)
+		var/datum/dclass_player/player = SSdclass.manager.dclass_players[ckey]
+		if(!player || !player.mob || player.mob.stat == DEAD)
+			continue
+		if(player.trust_level >= DCLASS_TRUST_TRUSTED && player.good_behavior_points >= 20 && player.strikes == 0)
+			player.adjust_credits(200, "early_release_bonus")
+			to_chat(player.mob, span_greenannounce("Your early release review is positive! Bonus compensation granted. Your cooperation is appreciated."))
+			faction_score += 10
+
+/datum/dclass_faction/survivors/proc/establish_safe_zone()
+	if(!length(members))
+		return
+	var/list/zone_data = list()
+	for(var/ckey in members)
+		var/datum/dclass_player/player = SSdclass.manager.dclass_players[ckey]
+		if(!player || !player.mob || player.mob.stat == DEAD)
+			continue
+		var/mob/living/carbon/human/H = player.mob
+		var/area/A = get_area(H)
+		if(A)
+			zone_data[A.name] = (zone_data[A.name] || 0) + 1
+	if(!length(zone_data))
+		return
+	var/safest_zone = ""
+	var/safest_count = 0
+	for(var/zone in zone_data)
+		if(zone_data[zone] > safest_count)
+			safest_count = zone_data[zone]
+			safest_zone = zone
+	if(safest_count >= 2)
+		do_announce("Safe zone established in [safest_zone]! Stay close to each other for safety.")
+		territory_count++
+		for(var/ckey in members)
+			var/datum/dclass_player/player = SSdclass.manager.dclass_players[ckey]
+			if(player && player.mob)
+				var/mob/living/carbon/human/H = player.mob
+				var/area/A = get_area(H)
+				if(A && A.name == safest_zone)
+					H.adjustBruteLoss(-5)
+					if(H.sanity)
+						H.sanity.adjust_sanity(5, "safe_zone")
+		faction_score += 3
+
+/datum/dclass_faction/survivors/proc/trade_network()
+	if(length(members) < 2)
+		return
+	var/list/traders = list()
+	for(var/ckey in members)
+		var/datum/dclass_player/player = SSdclass.manager.dclass_players[ckey]
+		if(player && player.mob && player.mob.stat != DEAD)
+			traders += player
+	if(length(traders) < 2)
+		return
+	var/datum/dclass_player/trader1 = traders[1]
+	var/datum/dclass_player/trader2 = traders[2]
+	trader1.adjust_credits(25, "trade_network")
+	trader2.adjust_credits(25, "trade_network")
+	if(trader1.mob)
+		to_chat(trader1.mob, span_notice("Survivor trade network: +25 credits from shared resources."))
+	if(trader2.mob)
+		to_chat(trader2.mob, span_notice("Survivor trade network: +25 credits from shared resources."))
+	faction_score += 2
+
 // Faction Manager - Handles all D-Class factions
 /datum/dclass_faction_manager
 	var/list/datum/dclass_faction/factions = list()
@@ -298,3 +413,101 @@
 	factions["rebels"].process_faction()
 	factions["collaborators"].process_faction()
 	factions["survivors"].process_faction()
+	if(world.time % 600 == 0)
+		process_faction_perks()
+		process_faction_conflict()
+		process_faction_objectives()
+
+/datum/dclass_faction_manager/proc/process_faction_perks()
+	var/datum/dclass_faction/rebels/R = factions["rebels"]
+	if(length(R.members) > 0)
+		if(prob(25))
+			R.smuggle_contraband()
+		if(prob(15))
+			R.sabotage_facility()
+		if(prob(10))
+			R.plan_rebel_escape()
+		if(prob(8))
+			R.violent_escape_bonus()
+
+	var/datum/dclass_faction/collaborators/C = factions["collaborators"]
+	if(length(C.members) > 0)
+		if(prob(30))
+			C.reward_loyalty()
+		if(prob(20))
+			C.medical_privileges()
+		if(prob(10))
+			C.report_rebel_activity()
+		if(prob(5))
+			C.early_release_check()
+
+	var/datum/dclass_faction/survivors/S = factions["survivors"]
+	if(length(S.members) > 0)
+		if(prob(25))
+			S.share_intel()
+		if(prob(20))
+			S.establish_safe_zone()
+		if(prob(15))
+			S.trade_network()
+
+/datum/dclass_faction_manager/proc/process_faction_conflict()
+	var/datum/dclass_faction/rebels/R = factions["rebels"]
+	var/datum/dclass_faction/collaborators/C = factions["collaborators"]
+	var/datum/dclass_faction/survivors/S = factions["survivors"]
+	if(!length(R.members) || !length(C.members))
+		return
+	var/rebel_strength = 0
+	var/collab_strength = 0
+	for(var/ckey in R.members)
+		var/datum/dclass_player/player = SSdclass.manager.dclass_players[ckey]
+		if(player && player.mob && player.mob.stat != DEAD)
+			rebel_strength++
+	for(var/ckey in C.members)
+		var/datum/dclass_player/player = SSdclass.manager.dclass_players[ckey]
+		if(player && player.mob && player.mob.stat != DEAD)
+			collab_strength++
+	if(rebel_strength > collab_strength + 1 && prob(20))
+		R.do_announce("We outnumber the collaborators. It's time to make our move!")
+		C.do_announce("WARNING: The rebels are becoming aggressive. Report any suspicious activity to guards!")
+		R.faction_score += 5
+		C.faction_score -= 2
+	else if(collab_strength > rebel_strength + 1 && prob(20))
+		C.do_announce("Our cooperation is paying off. The guards trust us more each day.")
+		R.do_announce("The collaborators are gaining favor. We need to act fast.")
+		C.faction_score += 5
+		R.faction_score -= 2
+	if(length(S.members) >= 3 && prob(15))
+		S.do_announce("Stay neutral. Both sides are getting desperate — don't get caught in the crossfire.")
+		S.faction_score += 3
+
+/datum/dclass_faction_manager/proc/process_faction_objectives()
+	var/datum/dclass_faction/rebels/R = factions["rebels"]
+	var/datum/dclass_faction/collaborators/C = factions["collaborators"]
+	var/datum/dclass_faction/survivors/S = factions["survivors"]
+	if(length(R.members) > 0 && length(R.objectives) < 2)
+		var/list/rebel_objs = list(
+			"Acquire contraband for escape",
+			"Sabotage facility systems",
+			"Locate escape routes",
+			"Eliminate collaborator influence",
+		)
+		R.objectives |= pick(rebel_objs)
+		R.do_announce("New objective: [R.objectives[length(R.objectives)]]")
+	if(length(C.members) > 0 && length(C.objectives) < 2)
+		var/list/collab_objs = list(
+			"Maintain trust above cooperative",
+			"Report rebel activity to guards",
+			"Complete all work assignments",
+			"Volunteer for SCP testing",
+		)
+		C.objectives |= pick(collab_objs)
+		C.do_announce("New objective: [C.objectives[length(C.objectives)]]")
+	if(length(S.members) > 0 && length(S.objectives) < 2)
+		var/list/surv_objs = list(
+			"Keep at least 3 members alive",
+			"Establish a safe zone",
+			"Avoid confrontation with guards",
+			"Share intel with all members",
+		)
+		S.objectives |= pick(surv_objs)
+		S.do_announce("New objective: [S.objectives[length(S.objectives)]]")

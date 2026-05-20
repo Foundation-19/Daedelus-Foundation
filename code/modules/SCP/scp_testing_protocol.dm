@@ -98,7 +98,25 @@
 				if(GLOB.scp_admin_log)
 					GLOB.scp_admin_log.log_event("test_start", S.name, usr?.ckey || "N/A", H.real_name, "Test type: [test_type], Risk: [risk_level]", risk_level)
 
-				priority_announce("SCP Testing Protocol initiated. SCP: [S.name], Subject: [H.real_name]. Test Type: [test_type]. Risk Level: [risk_level].", "Testing Protocol", "Research Department", ANNOUNCER_ALERT)
+				if(SSscp_gameplay && ishuman(usr))
+					var/mob/living/carbon/human/R = usr
+					create_escort_task(H, R, current_scp)
+
+				priority_announce("SCP Testing Protocol initiated. SCP: [S.name], Subject: [H.real_name]. Test Type: [test_type]. Risk Level: [risk_level]. Guard escort required.", "Testing Protocol", "Research Department", ANNOUNCER_ALERT)
+
+				var/scp_id = S.SCP?.designation || S.name
+				if(SSdclass_experiments)
+					SSdclass_experiments.assign_subject_to_experiment(H, "manual_[world.time]", scp_id, test_type, risk_level)
+
+				if(usr && ishuman(usr))
+					hook_scp_experiment(usr, scp_id, test_type)
+
+				var/true_scp_id = S.SCP?.designation ? "scp-[S.SCP.designation]" : "unknown"
+				var/list/initial_result = execute_test_outcome(H, true_scp_id, test_type, risk_level)
+				if(initial_result && initial_result["danger_triggered"])
+					test_active = FALSE
+					if(observations)
+						observations += "[gameTimestamp("hh:mm")] - AUTOMATED: DANGER DETECTED - [initial_result["message"]]<br>"
 
 			return TRUE
 
@@ -119,8 +137,37 @@
 			var/mob/living/scp/S = locate(current_scp)
 			var/mob/living/carbon/human/H = locate(current_subject)
 
+			if(S && H)
+				var/scp_id = S.SCP?.designation ? "scp-[S.SCP.designation]" : "unknown"
+				var/list/mechanical_result = execute_test_outcome(H, scp_id, test_type, risk_level)
+				if(mechanical_result && mechanical_result["danger_triggered"])
+					outcome = "partial_success"
+					if(observations)
+						observations += "[gameTimestamp("hh:mm")] - AUTOMATED: [mechanical_result["message"]]<br>"
+
 			if(GLOB.scp_admin_log)
 				GLOB.scp_admin_log.log_event("test_complete", S ? S.name : "N/A", usr?.ckey || "N/A", H ? H.real_name : "N/A", "Outcome: [outcome]", risk_level)
+
+			priority_announce("SCP Testing Protocol complete. SCP: [S ? S.name : "N/A"], Outcome: [outcome].", "Testing Complete", "Research Department", ANNOUNCER_ALERT)
+
+			if(S && H)
+				var/scp_id = S.SCP?.designation || S.name
+				var/dclass_outcome = outcome
+				switch(lowertext(outcome))
+					if("success", "successful", "positive")
+						dclass_outcome = "success"
+					if("partial", "partial success", "partial_success")
+						dclass_outcome = "partial_success"
+					if("failure", "failed", "negative")
+						dclass_outcome = "failure"
+					if("refused", "subject refused")
+						dclass_outcome = "refused"
+					else
+						dclass_outcome = "partial_success"
+				if(SSdclass_experiments)
+					SSdclass_experiments.complete_subject_participation(H, dclass_outcome, scp_id, risk_level)
+
+				hook_scp_interaction(H, scp_id, INTERACTION_TYPE_EXPERIMENT)
 
 			priority_announce("SCP Testing Protocol complete. SCP: [S ? S.name : "N/A"], Outcome: [outcome].", "Testing Complete", "Research Department", ANNOUNCER_ALERT)
 

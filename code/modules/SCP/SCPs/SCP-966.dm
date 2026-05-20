@@ -1,4 +1,5 @@
 /mob/living/scp/scp966
+	ai_enabled = TRUE
 	name = "SCP-966"
 	desc = "An invisible creature that causes sleep deprivation. You can barely make out its shimmering outline."
 	icon = 'icons/scp/scp-966.dmi'

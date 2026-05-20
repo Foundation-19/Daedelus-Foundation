@@ -4,6 +4,7 @@
 #define SCP076_STATE_DECEASED "deceased"
 
 /mob/living/scp/scp076
+	ai_enabled = TRUE
 	name = "SCP-076"
 	desc = "A muscular humanoid figure emerging from a stone sarcophagus. He carries an insatiable desire for combat."
 	icon = 'icons/mob/human.dmi'

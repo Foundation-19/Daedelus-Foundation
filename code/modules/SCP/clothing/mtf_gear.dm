@@ -170,7 +170,15 @@
 // ================================================================
 
 /obj/item/clothing/glasses/hud/scramble
-	name = "SCRAMBLE goggles"
-	desc = "Specialized goggles that filter memetic hazards from vision."
+	name = "SCRAMBLE Goggles"
+	desc = "Specialized goggles that filter memetic hazards and anomalous visual cognitohazards from the wearer's vision. Standard issue for MTF Eta-10."
 	icon_state = "scramble"
 	glass_colour_type = /datum/client_colour/glass_colour/lightblue
+
+/obj/item/clothing/glasses/hud/scramble/proc/protects_against(scp_id)
+	return TRUE
+
+/obj/item/clothing/glasses/hud/scramble/experimental
+	name = "Experimental SCRAMBLE Goggles"
+	desc = "An advanced prototype of SCRAMBLE goggles with enhanced memetic filtering. Still prone to occasional visual glitches."
+	icon_state = "scramble"

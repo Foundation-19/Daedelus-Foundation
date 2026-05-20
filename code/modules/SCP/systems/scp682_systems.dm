@@ -317,8 +317,12 @@
 
 /datum/scp682_containment_system/proc/process_containment()
 	if(world.time >= last_containment_check + containment_check_interval)
-		check_containment_status()
 		last_containment_check = world.time
+		check_containment_status()
+		if(owner && owner.containment_status == "contained")
+			if(prob(2))
+				reduce_containment_integrity(5)
+	acid_bath?.process_acid()
 
 /datum/scp682_containment_system/proc/check_containment_status()
 	// Simplified containment check - always assume contained for now

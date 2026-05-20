@@ -1,4 +1,5 @@
 /mob/living/scp/scp999
+	ai_enabled = TRUE
 	name = "SCP-999"
 	desc = "A large, amorphous, gelatinous mass of translucent orange slime. It appears to be friendly and seeks physical contact."
 	icon = 'icons/scp/scp-999.dmi'
@@ -457,3 +458,29 @@
 		to_chat(C, "<span class='warning'>The happiness is almost overwhelming... your thoughts feel hazy.</span>")
 		C.adjust_confusion(2 SECONDS)
 	C.adjust_drowsyness(1 SECONDS)
+
+/mob/living/scp/scp999/process_ai()
+	if(stat == DEAD)
+		return
+	if(containment_status == "breached" && prob(15))
+		calm_enraged_096()
+	apply_mood_aura()
+	var/mob/living/carbon/human/closest_hurt
+	var/closest_dist = INFINITY
+	for(var/mob/living/carbon/human/H in view(7, src))
+		if(H.stat == DEAD)
+			continue
+		if(H.health >= H.maxHealth * 0.9)
+			continue
+		var/dist = get_dist(src, H)
+		if(dist < closest_dist)
+			closest_dist = dist
+			closest_hurt = H
+	if(closest_hurt)
+		if(get_dist(src, closest_hurt) > 1)
+			step_to(src, get_step_towards(src, closest_hurt))
+		else
+			heal_target(closest_hurt)
+	else if(prob(30))
+		step_rand(src)
+	try_calm_nearby_scps()

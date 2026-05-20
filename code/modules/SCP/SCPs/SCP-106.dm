@@ -4,6 +4,7 @@
 // Abilities have substantial cooldowns and energy costs to prevent spam.
 
 /mob/living/scp/scp106
+	ai_enabled = TRUE
 	name = "SCP-106"
 	desc = "An elderly humanoid figure composed of a dark, viscous substance. Where it walks, reality rots."
 	icon = 'icons/scp/scp-106.dmi'
@@ -72,6 +73,8 @@
 
 	process_passive_corrosion()
 	process_weakness_damage()
+	if(containment_status == "breached" && prob(40))
+		leave_corrosion_trail()
 
 	if(prob(5))
 		playsound(src, 'sound/scp/106/breathing.ogg', 25, TRUE, extrarange = 5)
@@ -359,3 +362,24 @@
 			H.sanity.adjust_sanity(-2, "scp106_residue")
 		if(prob(10))
 			to_chat(H, span_warning("The black ooze burns your feet!"))
+
+/mob/living/scp/scp106/process_ai()
+	if(stat == DEAD)
+		return
+	if(containment_status != "breached")
+		return
+	if(in_pocket_dimension)
+		if(prob(15))
+			exit_pocket_dimension()
+		return
+	ai_target = find_ai_target()
+	if(ai_target)
+		if(get_dist(src, ai_target) > 1)
+			step_to(src, get_step_towards(src, ai_target))
+		else if(prob(40))
+			if(pocket_dimension_system)
+				var/dim_id = pocket_dimension_system.create_pocket_dimension()
+				if(dim_id)
+					pocket_dimension_system.drag_victim_to_dimension(ai_target, dim_id)
+	else if(prob(20))
+		step_rand(src)

@@ -144,6 +144,8 @@ SUBSYSTEM_DEF(scp_research)
 	research_milestones[milestone_id] = milestone
 
 /datum/scp_research_manager/proc/adjust_research_points(amount, reason)
+	if(amount > 0)
+		amount = round(amount * research_point_multiplier)
 	var/old = total_research_points
 	total_research_points = max(0, total_research_points + amount)
 	log_game("SCP Research: Points adjusted by [amount] ([reason]). [old] -> [total_research_points]")

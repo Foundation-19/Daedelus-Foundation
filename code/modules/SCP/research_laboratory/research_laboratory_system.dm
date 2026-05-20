@@ -457,28 +457,97 @@ SUBSYSTEM_DEF(research_laboratory)
 		return
 	log_game("Tech unlocked: [node.name] by [key_name(user)]")
 	message_admins("Research tech unlocked: [node.name] by [key_name(user)]")
+	switch(node_id)
+		if("improved_containment")
+			apply_containment_bonus(0.1)
+		if("containment_reinforcement")
+			apply_containment_bonus(0.15)
+		if("keter_protocols")
+			apply_containment_bonus(0.2)
+		if("apollyon_protocols")
+			apply_containment_bonus(0.3)
+		if("basic_medical")
+			restock_foundation_medical(list(/obj/item/reagent_containers/pill/amnestics/classa = 4))
+		if("anomalous_surgery")
+			apply_medical_bonus(0.1)
+		if("pathogen_identification")
+			restock_foundation_medical(list(/obj/item/reagent_containers/syringe/amnesticsc = 2))
+		if("amnestics_production")
+			restock_foundation_medical(list(/obj/item/reagent_containers/pill/amnestics/classb = 6, /obj/item/reagent_containers/syringe/amnesticsg = 4, /obj/item/reagent_containers/ivbag/amnesticsf = 2))
+		if("cognitive_shielding")
+			apply_sanity_resistance(0.15)
+		if("memetic_countermeasures")
+			apply_sanity_resistance(0.2)
+			restock_foundation_armory(list(/obj/item/clothing/glasses/scp178 = 4))
+		if("telekill_alloy")
+			restock_foundation_armory(list(/obj/item/clothing/head/helmet/scp/telekill = 2, /obj/item/clothing/suit/armor/vest/scp/telekill = 2))
+		if("basic_analysis")
+			apply_research_multiplier(0.1)
+		if("advanced_analysis")
+			apply_research_multiplier(0.15)
+		if("pattern_recognition")
+			apply_research_multiplier(0.2)
+		if("containment_engineering")
+			restock_foundation_armory(list(/obj/item/weldingtool/hugetank = 2, /obj/item/stack/sheet/telekill = 10))
+		if("reality_anchor_theory")
+			restock_foundation_armory(list(/obj/item/assembly/signaler/anomaly = 2))
+		if("scp_weaponization")
+			restock_foundation_armory(list(/obj/item/gun/ballistic/automatic/scp/m16 = 2, /obj/item/ammo_box/magazine/scp/m16_mag = 6))
+		if("bsl3_protocols")
+			restock_foundation_medical(list(/obj/item/clothing/head/bio_hood/general = 2, /obj/item/clothing/suit/bio_suit/general = 2))
+		if("bsl4_containment")
+			apply_containment_bonus(0.1)
+			restock_foundation_medical(list(/obj/item/clothing/head/bio_hood/virology = 2, /obj/item/clothing/suit/bio_suit/virology = 2))
+		if("anomalous_cure_development")
+			apply_medical_bonus(0.15)
+		if("bioweapon_countermeasures")
+			apply_medical_bonus(0.2)
+			restock_foundation_medical(list(/obj/item/reagent_containers/glass/bottle/bicaridine = 3))
+		if("project_overwatch")
+			apply_containment_bonus(0.15)
+			apply_research_multiplier(0.1)
 	for(var/mob/living/carbon/human/H in GLOB.human_list)
 		if(QDELETED(H))
 			continue
 		if(H.job && (H.job in list("Research Director", "Scientist", "Senior Researcher", "Site Director")))
 			to_chat(H, "<span class='boldnotice'>RESEARCH BREAKTHROUGH: [node.name] unlocked!</span>")
-	if(SSscp_research?.manager)
-		SSscp_research.manager.apply_tech_bonuses(node_id)
-	else
-		switch(node_id)
-			if("improved_containment")
-				apply_containment_bonus(0.1)
-			if("containment_reinforcement")
-				apply_containment_bonus(0.15)
-			if("keter_protocols")
-				apply_containment_bonus(0.2)
 
 /datum/research_laboratory_manager/proc/apply_containment_bonus(bonus)
 	for(var/scp_id in SSscp_persistence?.manager?.scp_instances)
 		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[scp_id]
 		if(instance)
-			instance.containment_effectiveness = min(1.0, instance.containment_effectiveness + bonus)
+			instance.containment_effectiveness = min(1.5, instance.containment_effectiveness + bonus)
 			instance.containment_difficulty = max(1, instance.containment_difficulty - 1)
+
+/datum/research_laboratory_manager/proc/apply_medical_bonus(bonus)
+	if(SSscp_research?.manager)
+		SSscp_research.manager.medical_bonus += bonus
+
+/datum/research_laboratory_manager/proc/apply_sanity_resistance(bonus)
+	if(SSscp_research?.manager)
+		SSscp_research.manager.cognitive_bonus += bonus
+
+/datum/research_laboratory_manager/proc/apply_research_multiplier(bonus)
+	if(SSscp_research?.manager)
+		SSscp_research.manager.research_point_multiplier += bonus
+
+/datum/research_laboratory_manager/proc/restock_foundation_medical(list/items)
+	for(var/obj/machinery/vending/foundation_medical/V in INSTANCES_OF(/obj/machinery/vending/foundation_medical))
+		for(var/item_type in items)
+			var/count = items[item_type]
+			if(item_type in V.products)
+				V.products[item_type] += count
+			else
+				V.products[item_type] = count
+
+/datum/research_laboratory_manager/proc/restock_foundation_armory(list/items)
+	for(var/obj/machinery/vending/foundation_armory/V in INSTANCES_OF(/obj/machinery/vending/foundation_armory))
+		for(var/item_type in items)
+			var/count = items[item_type]
+			if(item_type in V.products)
+				V.products[item_type] += count
+			else
+				V.products[item_type] = count
 
 /obj/machinery/computer/research_laboratory_console
 	name = "Research Laboratory Console"

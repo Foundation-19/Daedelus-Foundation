@@ -96,6 +96,8 @@
 	node.unlock_time = world.time
 	unlocked_nodes[node_id] = node
 	total_spent += node.research_cost
+	if(SSround_objectives)
+		SSround_objectives.report_objective_progress("research_unlock", 1)
 	return TRUE
 
 /datum/tech_tree/proc/get_unlocked_by_category(category)

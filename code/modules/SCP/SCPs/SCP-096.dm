@@ -18,6 +18,7 @@
 	slowdown = SCP096_PURSUIT_SPEED_MOD
 
 /mob/living/scp/scp096
+	ai_enabled = TRUE
 	name = "SCP-096"
 	desc = "A tall, thin humanoid figure with pale skin and disproportionately long arms. It covers its face with its hands."
 	icon = 'icons/scp/scp-096.dmi'
@@ -170,7 +171,7 @@
 		face_viewers += AI
 		new_viewers += AI
 
-	for(var/mob/M in GLOB.mob_list)
+	for(var/mob/M in GLOB.player_list)
 		if(QDELETED(M) || M.stat == DEAD || M == src)
 			continue
 		if(!M.client || (M in new_viewers))
@@ -254,6 +255,12 @@
 
 	var/obj/item/clothing/head/hood_scp096/hood = get_item_by_slot(ITEM_SLOT_HEAD)
 	if(istype(hood))
+		return FALSE
+
+	var/obj/item/clothing/glasses/hud/scramble/scramble = viewer.get_item_by_slot(ITEM_SLOT_EYES)
+	if(istype(scramble) && scramble.protects_against("SCP-096"))
+		if(prob(5))
+			to_chat(viewer, span_warning("Your SCRAMBLE goggles flicker briefly..."))
 		return FALSE
 
 	return TRUE
@@ -432,6 +439,25 @@
 	to_chat(src, "<span class='notice'>Targets Remaining: [length(target_queue)]</span>")
 	to_chat(src, "<span class='notice'>Total Kills: [kills_count]</span>")
 	to_chat(src, "<span class='notice'>Rage Activations: [rage_activations]</span>")
+
+/mob/living/scp/scp096/process_ai()
+	if(stat == DEAD)
+		return
+	if(containment_status != "breached")
+		return
+	if(state == "pursuing" && length(target_queue))
+		var/mob/living/first_target = target_queue[1]
+		if(first_target && get_dist(src, first_target) > 1)
+			step_to(src, get_step_towards(src, first_target))
+		return
+	if(state != "docile")
+		return
+	for(var/mob/living/carbon/human/H in view(7, src))
+		if(H.stat == DEAD || H == src)
+			continue
+		if(can_viewer_see_face(H))
+			trigger_face_view(H)
+			return
 
 #undef SCP096_DOCILE
 #undef SCP096_SCREAMING

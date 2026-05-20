@@ -117,11 +117,7 @@
 	last_breach_time = world.time
 	if(mask)
 		mask.containment_status = "breached"
-	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[persistence_id]
-		if(instance)
-			instance.containment_status = "breached"
-			instance.add_breach_record()
+	hook_scp_breach("SCP-035", src)
 
 /mob/living/scp035/proc/return_to_containment()
 	if(containment_status == "contained")
@@ -129,10 +125,7 @@
 	containment_status = "contained"
 	if(mask)
 		mask.containment_status = "contained"
-	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[persistence_id]
-		if(instance)
-			instance.containment_status = "contained"
+	hook_scp_recontainment("SCP-035", list(src))
 
 /mob/living/scp035/proc/add_interaction_record(target, interaction_type)
 	var/record = "[time2text(world.time, "YYYY-MM-DD hh:mm:ss")]: [interaction_type] with [target ? "[target]" : "unknown"]"
@@ -258,6 +251,54 @@
 	var/list/learned_abilities = list()
 	var/consciousness_level = 100
 	var/max_consciousness = 100
+	var/host_degradation_timer = 0
+
+/datum/scp035_possession/proc/process_host_degradation()
+	if(!current_host || current_host.stat == DEAD)
+		return
+	switch(host_degradation_timer)
+		if(50 to 100)
+			if(prob(10))
+				to_chat(current_host, span_warning("Your body aches. The mask's influence is taking a toll."))
+		if(100 to 200)
+			current_host.adjustBruteLoss(1)
+			if(prob(15))
+				to_chat(current_host, span_warning("Your skin feels like it's decaying..."))
+		if(200 to 400)
+			current_host.adjustBruteLoss(3)
+			current_host.adjustToxLoss(2)
+			if(prob(10))
+				current_host.vomit(0, FALSE, FALSE, 3, FALSE, VOMIT_TOXIC)
+		if(400 to INFINITY)
+			current_host.adjustBruteLoss(5)
+			current_host.adjustToxLoss(3)
+			if(prob(30))
+				to_chat(current_host, span_userdanger("Your body is failing! The mask needs a new host!"))
+			if(current_host.health <= 0)
+				abandon_host()
+				attempt_new_host()
+
+/datum/scp035_possession/proc/abandon_host()
+	if(!current_host)
+		return
+	to_chat(current_host, span_danger("The mask releases its grip on you! Your body gives out..."))
+	current_host.adjustBruteLoss(50)
+	remove_from_current_host()
+	host_degradation_timer = 0
+
+/datum/scp035_possession/proc/attempt_new_host()
+	var/list/candidates = list()
+	for(var/mob/living/carbon/human/H in view(7, mask))
+		if(H.stat == DEAD || H == current_host)
+			continue
+		if(H.SCP)
+			continue
+		candidates += H
+	if(length(candidates))
+		var/mob/living/carbon/human/new_host = pick(candidates)
+		transfer_host(new_host)
+		mask.visible_message(span_danger("The mask tears itself free and latches onto [new_host]!"))
+		to_chat(new_host, span_userdanger("The mask leaps onto your face! You feel its consciousness merge with yours!"))
 
 /datum/scp035_possession/New(obj/item/clothing/mask/scp035/mask_ref)
 	. = ..()
@@ -279,7 +320,8 @@
 	if(!current_host)
 		return
 
-	consciousness_level = max(0, consciousness_level - 0.5)
+	host_degradation_timer++
+	process_host_degradation()
 
 	if(current_host.sanity)
 		current_host.sanity.adjust_sanity(-0.1)
@@ -1080,10 +1122,10 @@
 			to_chat(user, "<span class='danger'>A white porcelain mask with a sad expression. It seems to be weeping a black substance...</span>")
 			to_chat(user, "<span class='warning'>You feel an overwhelming urge to wear this mask...</span>")
 
-			// Apply initial telepathic influence
-			if(!(H in telepathy_system.affected_targets))
+			// Apply initial telepathic influence (only if close)
+			if(get_dist(H, src) <= 3 && !(H in telepathy_system.affected_targets))
 				telepathy_system.affected_targets += H
-				telepathy_system.influence_levels[H] = 15
+				telepathy_system.influence_levels[H] = 5
 				to_chat(user, "<span class='danger'>The mask's telepathic influence begins to affect you!</span>")
 
 // Enhanced status display

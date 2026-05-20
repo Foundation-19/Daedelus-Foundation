@@ -372,6 +372,7 @@
 	var/mob/living/carbon/human/selected_patient = null
 
 /obj/machinery/computer/sanity_console/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "SanityPanel", "Sanity Records")

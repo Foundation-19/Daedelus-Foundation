@@ -6,6 +6,7 @@
 // as temporary blips rather than actual visual contact.
 
 /mob/living/scp/scp939
+	ai_enabled = TRUE
 	name = "SCP-939"
 	desc = "A large, eyeless predator. Its mouth is filled with needle-like teeth. It has no eyes — it hunts by sound."
 	icon = 'icons/scp/scp_939.dmi'
@@ -71,6 +72,8 @@
 	research_integration?.process_research()
 
 	process_sound_detection()
+	if(ai_target && ishuman(ai_target) && prob(20))
+		share_target_with_pack(ai_target)
 
 /mob/living/scp/scp939/Destroy()
 	QDEL_NULL(voice_system)

@@ -1,4 +1,5 @@
 /mob/living/scp/scp457
+	ai_enabled = TRUE
 	name = "SCP-457"
 	desc = "A living flame that moves with purpose and spreads with intent."
 	icon = 'icons/scp/scp-457.dmi'

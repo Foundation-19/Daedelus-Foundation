@@ -82,6 +82,14 @@
 	report_breach_to_round_log(scp_id, breach_zone)
 	track_containment_breach_response(scp_id, list())
 
+	if(SSscp_gameplay)
+		SSscp_gameplay.seal_zone_doors(breach_zone)
+		log_round_event("scp_breach", "[scp_id] breached in [breach_zone]", scp_id)
+
+	if(istype(scp_atom, /mob/living/scp))
+		var/mob/living/scp/S = scp_atom
+		S.evolve_from_interaction()
+
 	if(GLOB.scp_role_controller)
 		var/scp_type = get_scp_type_from_id(scp_id)
 		if(scp_type)
@@ -136,6 +144,12 @@
 
 	report_recontainment_to_round_log(scp_id, participants)
 
+	if(SSscp_gameplay)
+		log_round_event("scp_recontainment", "[scp_id] recontained", scp_id)
+
+	if(SSround_objectives)
+		SSround_objectives.report_objective_progress("guard_recontain", 1)
+
 	if(SSpersistent_progression)
 		if(participants)
 			for(var/mob/living/carbon/human/H in participants)
@@ -172,6 +186,9 @@
 				SSpersistent_progression.award_experience(player.ckey, "scp_research_contribution", 0, "SCP-[scp_id] Research")
 			else if(interaction_type == INTERACTION_TYPE_CARE)
 				SSpersistent_progression.award_experience(player.ckey, "scp_care_provided", 0, "SCP-[scp_id] Care")
+
+	if(interaction_type == INTERACTION_TYPE_MEDICAL && SSround_objectives)
+		SSround_objectives.report_objective_progress("medical_treat", 1)
 
 	return TRUE
 

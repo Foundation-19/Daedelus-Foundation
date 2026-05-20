@@ -3,6 +3,7 @@
 // Ported from: https://github.com/Foundation-19/Daedelus-Foundation/pull/13/files
 
 /mob/living/scp/scp049
+	ai_enabled = TRUE
 	name = "SCP-049"
 	desc = "A tall humanoid figure wearing the black robes and bird-like mask of a medieval plague doctor."
 	icon = 'icons/scp/scp-049.dmi'
@@ -299,7 +300,7 @@
 			to_chat(src, "<span class='notice'>Your influence grows stronger. Barriers mean nothing.</span>")
 		if(5)
 			to_chat(src, "<span class='notice'>You have achieved perfect understanding of the Great Work.</span>")
-			// Grant special end-game abilities
+			apply_stage_5_abilities()
 
 	research_breakthroughs++
 	on_evolution()

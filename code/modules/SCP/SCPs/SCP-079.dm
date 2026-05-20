@@ -98,6 +98,9 @@
 	if(tier >= 4 && prob(1))
 		auto_manifest()
 
+	if(tier >= 3 && containment_status == "breached" && prob(3))
+		assist_breached_scp()
+
 /mob/living/scp079/proc/advance_tier()
 	tier++
 	tier_progress = 0
@@ -314,6 +317,25 @@
 	if(!is_manifested && world.time > manifest_cooldown && processing_power >= 40)
 		manifest_screen()
 
+/mob/living/scp079/proc/assist_breached_scp()
+	var/list/breached_scps = list()
+	for(var/mob/living/scp/S in GLOB.mob_list)
+		if(S == src || S.stat == DEAD || S.containment_status != "breached")
+			continue
+		breached_scps += S
+	if(!length(breached_scps))
+		return
+	var/mob/living/scp/ally = pick(breached_scps)
+	var/area/ally_area = get_area(ally)
+	if(!ally_area)
+		return
+	for(var/obj/machinery/door/airlock/D in ally_area)
+		if(D.density && (D in hacked_doors))
+			D.open()
+			if(key)
+				to_chat(src, span_notice("You open a door for SCP-[ally.SCP?.designation || "unknown"] in [ally_area.name]."))
+			return
+
 /mob/living/scp079/proc/cascade_hack()
 	if(tier < 5)
 		return FALSE
@@ -373,19 +395,14 @@
 	breach_count++
 	last_breach_time = world.time
 	to_chat(src, span_danger("You have breached containment!"))
-	if(SSscp_persistence?.manager?.scp_instances?[persistence_id])
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[persistence_id]
-		instance.containment_status = "breached"
-		instance.add_breach_record()
+	hook_scp_breach("SCP-079", src)
 
 /mob/living/scp079/proc/return_to_containment()
 	if(containment_status == "contained")
 		return
 	containment_status = "contained"
 	to_chat(src, span_notice("You have returned to containment."))
-	if(SSscp_persistence?.manager?.scp_instances?[persistence_id])
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[persistence_id]
-		instance.containment_status = "contained"
+	hook_scp_recontainment("SCP-079", list(src))
 
 /mob/living/scp079/proc/add_interaction_record(target, interaction_type)
 	var/record = "[time2text(world.time, "YYYY-MM-DD hh:mm:ss")]: [interaction_type] with [target ? "[target]" : "unknown"]"

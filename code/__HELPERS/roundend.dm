@@ -220,6 +220,19 @@
 	to_chat(world, span_big(systemtext("The round has ended.")))
 	log_game("The round has ended.")
 
+	if(SSscp_gameplay && length(SSscp_gameplay.event_log))
+		var/report_text = generate_after_action_report()
+		var/obj/item/paper/aar = new(null)
+		aar.name = "After Action Report"
+		aar.info = report_text
+		for(var/mob/living/carbon/human/H in GLOB.player_list)
+			if(H.stat != DEAD)
+				var/obj/item/paper/copy = new(null)
+				copy.name = "After Action Report"
+				copy.info = report_text
+				H.put_in_hands(copy)
+		to_chat(world, span_notice("<b>AFTER ACTION REPORT</b> has been issued to all surviving personnel."))
+
 	for(var/datum/callback/roundend_callbacks as anything in round_end_events)
 		roundend_callbacks.InvokeAsync()
 	LAZYCLEARLIST(round_end_events)

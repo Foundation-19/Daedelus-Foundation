@@ -1,13 +1,14 @@
 /datum/job/dclass
 	title = JOB_DCLASS
-	description = "Keep yourself occupied in permabrig."
-	department_head = list("The Security Team")
+	description = "Perform testing procedures for SCPs under supervision. Follow containment protocols and safety procedures."
+	department_head = list()
 	faction = FACTION_STATION
-	total_positions = 0
-	spawn_positions = 2
+	total_positions = 8
+	spawn_positions = 8
 	selection_color = "#bd630a"
-	exp_granted_type = EXP_TYPE_CREW
-	paycheck = PAYCHECK_ZERO //This doesnt actually do anything since prisoners have no department
+	exp_granted_type = "D-Class"
+	paycheck = PAYCHECK_EASY
+	paycheck_department = ACCOUNT_SRV
 
 	outfits = list(
 		"Default" = list(
@@ -23,19 +24,17 @@
 	)
 
 	family_heirlooms = list(/obj/item/pen/blue)
-	rpg_title = "Defeated Miniboss"
-	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_ASSIGN_QUIRKS | JOB_CAN_BE_INTERN
+	rpg_title = "D-Boy"
+	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE | JOB_ASSIGN_QUIRKS
 
 
 /datum/outfit/job/prisoner
-	name = "Prisoner"
+	name = "D-Class Personnel"
 	jobtype = /datum/job/dclass
 
-	id = /obj/item/card/id/advanced/prisoner
+	id = /obj/item/card/id/advanced
 	id_trim = /datum/id_trim/job/prisoner
 	uniform = /obj/item/clothing/under/scp/dclass
-	belt = null
-	ears = null
 	shoes = /obj/item/clothing/shoes/workboots
 	l_pocket = /obj/item/modular_computer/tablet/pda/dclass
 

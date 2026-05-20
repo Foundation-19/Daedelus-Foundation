@@ -128,31 +128,19 @@
 	owner = creator
 	destination = dest
 	duration_left = duration
-	START_PROCESSING(SSobj, src)
+	RegisterSignal(src, COMSIG_ATOM_ENTERED, .proc/on_entered)
 
-/obj/effect/portal/scp105_portal/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	if(owner)
-		owner.active_portals -= src
-	return ..()
-
-/obj/effect/portal/scp105_portal/process()
-	duration_left -= 20
-	if(duration_left <= 0)
-		visible_message("<span class='notice'>The Iris Portal fades away.</span>")
-		qdel(src)
-		return
-
-/obj/effect/portal/scp105_portal/Crossed(atom/movable/AM)
+/obj/effect/portal/scp105_portal/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
 	if(!destination)
 		return
 
 	if(ismob(AM))
 		var/mob/M = AM
 		if(M == owner)
-			to_chat(M, "<span class='notice'>You step through your own portal.</span>")
+			to_chat(M, span_notice("You step through your own portal."))
 		else
-			to_chat(M, "<span class='notice'>You step through the shimmering portal.</span>")
+			to_chat(M, span_notice("You step through the shimmering portal."))
 
 	AM.forceMove(destination)
 	playsound(destination, 'sound/effects/sparks1.ogg', 30, TRUE)

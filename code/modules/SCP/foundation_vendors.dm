@@ -36,9 +36,22 @@
 		/obj/item/healthanalyzer = 2,
 		/obj/item/clothing/gloves/color/latex = 3,
 		/obj/item/clothing/mask/surgical = 3,
+		/obj/item/reagent_containers/pill/amnestics/classa = 6,
+		/obj/item/reagent_containers/syringe/amnesticsc = 3,
+		/obj/item/reagent_containers/syringe/amnesticse = 2,
+		/obj/item/stack/medical/bone_gel = 3,
+		/obj/item/retractor = 2,
+		/obj/item/hemostat = 2,
+		/obj/item/cautery = 2,
 	)
 	contraband = list(
 		/obj/item/reagent_containers/glass/bottle/morphine = 2,
+		/obj/item/reagent_containers/pill/amnestics/classb = 3,
+		/obj/item/reagent_containers/syringe/amnesticsg = 2,
+	)
+	premium = list(
+		/obj/item/reagent_containers/ivbag/amnesticsf = 1,
+		/obj/item/reagent_containers/pill/amnestics/classh = 3,
 	)
 	refill_canister = /obj/item/vending_refill/foundation_medical
 
@@ -80,14 +93,21 @@
 	icon_deny = "sec-deny"
 	req_access = list(ACCESS_SECURITY)
 	products = list(
-		/obj/item/restraints/handcuffs = 5,
-		/obj/item/restraints/legcuffs = 3,
-		/obj/item/food/donut/plain = 5,
-		/obj/item/storage/belt/security = 2,
-		/obj/item/clothing/gloves/color/black = 3,
+		/obj/item/restraints/handcuffs = 8,
+		/obj/item/restraints/legcuffs = 4,
+		/obj/item/food/donut/plain = 12,
+		/obj/item/storage/belt/security = 4,
+		/obj/item/clothing/gloves/color/black = 4,
+		/obj/item/flashlight/seclite = 4,
+		/obj/item/melee/baton/loaded = 4,
+		/obj/item/grenade/flashbang = 4,
+		/obj/item/grenade/chem_grenade/teargas = 4,
+		/obj/item/ammo_box/magazine/scp/ierichon = 6,
+		/obj/item/ammo_box/magazine/scp/ierichon/rubber = 6,
 	)
 	contraband = list(
-		/obj/item/gun/ballistic/automatic/pistol = 1,
+		/obj/item/gun/ballistic/automatic/scp/ierichon = 2,
+		/obj/item/ammo_box/magazine/scp/mk9/ap = 4,
 	)
 	refill_canister = /obj/item/vending_refill/foundation_security
 
@@ -116,3 +136,37 @@
 /obj/item/vending_refill/foundation_science
 	machine_name = "Foundation Research Vendor"
 	icon_state = "refill_robotics"
+
+/obj/machinery/vending/foundation_armory
+	name = "Foundation Armory Vendor"
+	desc = "A Foundation-branded armory supply vendor. Requires Security Level 3 access."
+	icon_state = "sec"
+	icon_deny = "sec-deny"
+	req_access = list(ACCESS_SECURITY_LVL3)
+	products = list(
+		/obj/item/gun/ballistic/automatic/scp/p90 = 4,
+		/obj/item/gun/ballistic/automatic/scp/ierichon = 6,
+		/obj/item/ammo_box/magazine/scp/p90_mag = 10,
+		/obj/item/ammo_box/magazine/scp/ierichon = 10,
+		/obj/item/ammo_box/magazine/scp/mk9 = 10,
+		/obj/item/ammo_box/magazine/scp/mk9/rubber = 10,
+		/obj/item/ammo_box/a9mm = 4,
+		/obj/item/storage/belt/military = 4,
+		/obj/item/clothing/gloves/combat = 4,
+		/obj/item/flashlight/seclite = 4,
+	)
+	contraband = list(
+		/obj/item/gun/ballistic/automatic/scp/m16 = 2,
+		/obj/item/ammo_box/magazine/scp/m16_mag = 4,
+		/obj/item/ammo_box/magazine/scp/p90_mag/ap = 4,
+	)
+	premium = list(
+		/obj/item/gun/ballistic/shotgun/combat = 1,
+		/obj/item/ammo_box/buckshot = 2,
+		/obj/item/ammo_box/slug = 2,
+	)
+	refill_canister = /obj/item/vending_refill/foundation_armory
+
+/obj/item/vending_refill/foundation_armory
+	machine_name = "Foundation Armory Vendor"
+	icon_state = "refill_sec"

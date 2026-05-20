@@ -6,6 +6,7 @@
 // ============================================================================
 
 /mob/living/scp/scp682
+	ai_enabled = TRUE
 	name = "SCP-682"
 	desc = "A massive, hostile reptilian creature with extreme regenerative abilities and adaptive evolution."
 	icon = 'icons/scp/scp-682.dmi'

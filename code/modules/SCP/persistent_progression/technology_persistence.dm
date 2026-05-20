@@ -261,8 +261,24 @@ SUBSYSTEM_DEF(technology_persistence)
 			unlock_time = world.time
 
 /datum/technology/proc/is_technology_unlocked(var/tech_id)
-	// Check if a technology is unlocked (simplified)
-	return TRUE // Placeholder
+	if(!tech_id)
+		return FALSE
+	var/datum/research_laboratory_manager/mgr = SSresearch_laboratory?.manager
+	if(!mgr)
+		return FALSE
+	var/datum/tech_tree/tree = mgr.tech_tree
+	if(!tree)
+		return FALSE
+	var/datum/tech_node/node = tree.nodes[tech_id]
+	if(!node)
+		for(var/nid in tree.nodes)
+			var/datum/tech_node/n = tree.nodes[nid]
+			if(n.node_id == tech_id)
+				node = n
+				break
+	if(!node)
+		return FALSE
+	return node.unlocked
 
 // Equipment Blueprint Datum
 /datum/equipment_blueprint

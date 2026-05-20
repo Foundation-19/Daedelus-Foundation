@@ -133,6 +133,43 @@
 	density = TRUE
 	color = "#8B0000"
 
+/datum/action/innate/scp_ability/sarkic_corrupt_containment
+	name = "Corrupt Containment"
+	desc = "Use Sarkic rituals to weaken containment fields around a nearby SCP."
+	button_icon = 'icons/mob/actions/actions_spells.dmi'
+	button_icon_state = "necro_touch"
+	cooldown_time = 90 SECONDS
+
+/datum/action/innate/scp_ability/sarkic_corrupt_containment/Activate()
+	var/mob/living/carbon/human/H = usr
+	if(!istype(H))
+		return
+	var/list/nearby_scps = list()
+	for(var/mob/living/scp/S in view(7, H))
+		if(S.stat == DEAD || S.containment_status == "breached")
+			continue
+		nearby_scps += S
+	if(!length(nearby_scps))
+		to_chat(H, span_warning("No contained anomalies in range to corrupt."))
+		return
+	var/mob/living/scp/target = input(H, "Choose an anomaly to corrupt:", "Sarkic Ritual") as null|anything in nearby_scps
+	if(!target || QDELETED(target))
+		return
+	start_cooldown()
+	H.visible_message(span_warning("[H] mutters forbidden words and gestures toward [target]!"), span_notice("You channel the Old Blood toward [target]!"))
+	var/area/A = get_area(target)
+	if(A)
+		for(var/obj/machinery/power/apc/APC in A)
+			APC.energy_fail(rand(30, 60))
+			break
+	if(prob(60))
+		var/scp_id = target.SCP?.designation ? "SCP-[target.SCP.designation]" : "Unknown"
+		hook_scp_breach(scp_id, target)
+		to_chat(H, span_notice("The containment of [scp_id] has been corrupted!"))
+	else
+		to_chat(H, span_warning("The ritual was not strong enough. The containment holds."))
+	hook_scp_interaction(H, "SARKIC", INTERACTION_TYPE_COMBAT)
+
 // Update Sarkic Cultist to grant all abilities
 /datum/antagonist/sarkic_cult/on_gain()
 	. = ..()
@@ -143,6 +180,8 @@
 		blood.Grant(owner.current)
 		var/datum/action/innate/scp_ability/sarkic_flesh_mold/mold = new()
 		mold.Grant(owner.current)
+		var/datum/action/innate/scp_ability/sarkic_corrupt_containment/corrupt = new()
+		corrupt.Grant(owner.current)
 		var/mob/living/carbon/human/H = owner.current
 		if(istype(H))
 			H.faction |= "sarkic"

@@ -2,6 +2,7 @@
 // Complete Production-Ready Redesign Implementation
 
 /mob/living/scp/scp173
+	ai_enabled = TRUE
 	name = "SCP-173"
 	desc = "A tall, thin humanoid figure made of concrete and rebar. It appears to be a sculpture."
 	icon = 'icons/scp/scp-173.dmi'
@@ -175,3 +176,20 @@
 /mob/living/scp/scp173/proc/on_observation_end(mob/living/carbon/human/observer)
 	if(observer && observer.ckey)
 		stop_scp_survival_tracking(observer, "SCP-173")
+
+/mob/living/scp/scp173/process_ai()
+	if(stat == DEAD)
+		return
+	if(containment_status != "breached")
+		return
+	if(observation_system?.is_being_observed)
+		return
+	attempt_pry_door()
+	ai_target = find_ai_target()
+	if(ai_target)
+		step_to(src, get_step_towards(src, ai_target))
+		if(ai_target in view(1, src))
+			if(combat_system)
+				combat_system.perform_kill(ai_target)
+	else if(prob(40))
+		step_rand(src)

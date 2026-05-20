@@ -1,11 +1,21 @@
 // Vision Cone System - Complete Vanderlin-main implementation
 
 // Missing defines that need to be added
+#ifndef FOV_DEFAULT
 #define FOV_DEFAULT 1
+#endif
+#ifndef FOV_LEFT
 #define FOV_LEFT 2
+#endif
+#ifndef FOV_RIGHT
 #define FOV_RIGHT 4
+#endif
+#ifndef FOV_BEHIND
 #define FOV_BEHIND 8
+#endif
+#ifndef FIELD_OF_VISION_BLOCKER_PLANE
 #define FIELD_OF_VISION_BLOCKER_PLANE 102
+#endif
 
 // Missing subsystem - moved to proper location
 

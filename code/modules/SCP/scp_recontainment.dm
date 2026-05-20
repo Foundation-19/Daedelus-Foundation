@@ -199,19 +199,34 @@
 		return
 
 	suppression_charge -= 30
-	visible_message("<span class='notice'>[src] discharges a massive blast of fire retardant!</span>")
+	visible_message(span_notice("[src] discharges a massive blast of fire retardant!"))
+	playsound(src, 'sound/effects/spray.ogg', 50, TRUE, extrarange = 5)
 
 	for(var/mob/living/L in range(5, src))
 		if(istype(L, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = L
 			if(H.on_fire)
 				H.extinguish_mob()
-
-	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-457"]
-		if(instance && instance.containment_status == "breached")
+		else if(istype(L, /mob/living/scp/scp457))
+			var/mob/living/scp/scp457/scp = L
+			if(scp.heat_system) scp.heat_system.current_heat = max(0, scp.heat_system.current_heat - 50)
+			scp.Stun(60)
+			scp.visible_message(span_danger("The retardant blasts SCP-457, suppressing its flames!"))
+			var/turf/target_turf = get_turf(src)
+			for(var/turf/T in range(2, src))
+				if(istype(T.loc, /area/scp/hcz) || istype(T.loc, /area/scp/hcz))
+					target_turf = T
+					break
+			if(target_turf != get_turf(scp))
+				scp.forceMove(target_turf)
+			if(SSscp_persistence?.manager?.scp_instances?["SCP-457"])
+				var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-457"]
+				if(instance.containment_status == "breached")
+					instance.containment_status = "contained"
+					instance.containment_health = 100
+					SSscp_persistence.manager.active_breaches = max(0, SSscp_persistence.manager.active_breaches - 1)
 			hook_scp_recontainment("SCP-457", list(user))
-			priority_announce("SCP-457 has been suppressed via fire containment system.", null, null, ANNOUNCER_DEFAULT)
+			priority_announce("SCP-457 has been suppressed and returned to containment.", null, null, ANNOUNCER_DEFAULT)
 
 /obj/machinery/scp049_cure_station
 	name = "SCP-049 Containment Lure"
@@ -324,7 +339,14 @@
 		Z.ghostize()
 		qdel(Z)
 		zombies_destroyed++
+
 	if(zombies_destroyed > 0)
+		if(SSscp_persistence?.manager?.scp_instances?["SCP-008"])
+			var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-008"]
+			if(instance.containment_status == "breached")
+				instance.containment_status = "contained"
+				instance.containment_health = 100
+				SSscp_persistence.manager.active_breaches = max(0, SSscp_persistence.manager.active_breaches - 1)
 		hook_scp_recontainment("SCP-008", list())
 		priority_announce("SCP-008 biohazard incineration complete. [zombies_destroyed] instances neutralized.", null, null, ANNOUNCER_DEFAULT)
 	else
@@ -455,8 +477,23 @@
 	priority_announce("SCP-682 containment protocol activated. Deploying hydrochloric acid.", null, null, ANNOUNCER_ALERT)
 	for(var/mob/living/scp/scp682/reptile in range(5, src))
 		reptile.adjustFireLoss(150)
-		reptile.visible_message(span_danger("Acid sprays over SCP-682! It thrashes in pain!"))
+		reptile.Stun(80)
+		reptile.visible_message(span_danger("Acid sprays over SCP-682! It thrashes in pain and is driven back!"))
+		var/turf/target_turf = get_turf(src)
+		for(var/turf/T in range(2, src))
+			if(istype(T.loc, /area/scp/hcz) || istype(T.loc, /area/scp/hcz))
+				target_turf = T
+				break
+		if(target_turf != get_turf(reptile))
+			reptile.forceMove(target_turf)
+		if(SSscp_persistence?.manager?.scp_instances?["SCP-682"])
+			var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-682"]
+			if(instance.containment_status == "breached")
+				instance.containment_status = "contained"
+				instance.containment_health = 100
+				SSscp_persistence.manager.active_breaches = max(0, SSscp_persistence.manager.active_breaches - 1)
 	hook_scp_recontainment("SCP-682", list(user))
+	priority_announce("SCP-682 has been driven back to containment via acid deployment.", null, null, ANNOUNCER_DEFAULT)
 
 /obj/machinery/scp939_dampener
 	name = "SCP-939 Sonic Dampener"
@@ -481,10 +518,26 @@
 		return
 	active = TRUE
 	visible_message(span_notice("[src] emits a low hum as counter-frequencies fill the air."))
+	playsound(src, 'sound/machines/defib_zap.ogg', 50, TRUE, extrarange = 5)
 	for(var/mob/living/scp/scp939/target in range(10, src))
-		target.set_confusion_if_lower(30)
-		to_chat(target, span_warning("A piercing frequency disrupts your senses! Your voice mimickry is impaired!"))
+		target.Stun(60)
+		target.Stun(40)
+		to_chat(target, span_warning("A piercing frequency disrupts your senses! Your voice mimicry is impaired!"))
+		var/turf/target_turf = get_turf(src)
+		for(var/turf/T in range(2, src))
+			if(istype(T.loc, /area/scp/hcz))
+				target_turf = T
+				break
+		if(target_turf != get_turf(target))
+			target.forceMove(target_turf)
+		if(SSscp_persistence?.manager?.scp_instances?["SCP-939"])
+			var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-939"]
+			if(instance.containment_status == "breached")
+				instance.containment_status = "contained"
+				instance.containment_health = 100
+				SSscp_persistence.manager.active_breaches = max(0, SSscp_persistence.manager.active_breaches - 1)
 	hook_scp_recontainment("SCP-939", list(user))
+	priority_announce("SCP-939 has been neutralized via sonic dampener and returned to containment.", null, null, ANNOUNCER_DEFAULT)
 	addtimer(CALLBACK(src, .proc/deactivate_dampener), dampen_duration)
 
 /obj/machinery/scp939_dampener/proc/deactivate_dampener()

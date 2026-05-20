@@ -62,7 +62,7 @@
 	if(!target_brain)
 		to_chat(user, span_warning("[target] doesn't have a brain to operate on."))
 		return FALSE
-	if(target.scp513_stalked_ref)
+	if(locate(/datum/element/scp513_stalked) in target.status_effects)
 		return TRUE
 	if(target.mind?.has_antag_datum(/datum/antagonist/sarkic))
 		return TRUE
@@ -82,7 +82,7 @@
 /datum/surgery_step/anomalous_purge/succeed_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/purged_something = FALSE
 
-	if(target.scp513_stalked_ref)
+	if(locate(/datum/element/scp513_stalked) in target.status_effects)
 		target.RemoveElement(/datum/element/scp513_stalked)
 		to_chat(target, span_notice("The watching presence fades from your mind."))
 		purged_something = TRUE
@@ -168,8 +168,6 @@
 			TK.use(1)
 	else
 		user.visible_message(span_warning("[user] suddenly notices the brain is gone."), vision_distance = COMBAT_MESSAGE_RANGE)
-
-#define TRAIT_MEMETIC_SHIELDING "memetic_shielding"
 
 /obj/item/surgical_disk/foundation
 	name = "Foundation Surgical Programs Disk"

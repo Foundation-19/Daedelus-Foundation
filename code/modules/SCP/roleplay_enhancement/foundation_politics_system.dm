@@ -14,10 +14,18 @@
 #define BUDGET_PURCHASE_FACILITY_REPAIR "facility_repair"
 #define BUDGET_PURCHASE_INTELLIGENCE "intelligence"
 
+#ifndef TENSION_LOW
 #define TENSION_LOW 25
+#endif
+#ifndef TENSION_MEDIUM
 #define TENSION_MEDIUM 50
+#endif
+#ifndef TENSION_HIGH
 #define TENSION_HIGH 75
+#endif
+#ifndef TENSION_CRITICAL
 #define TENSION_CRITICAL 90
+#endif
 
 SUBSYSTEM_DEF(foundation_politics)
 	name = "Foundation Politics"
