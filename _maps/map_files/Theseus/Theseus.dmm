@@ -17752,9 +17752,6 @@
 	network = list("ss13","medbay");
 	c_tag = "Medbay Lobby"
 	},
-/obj/structure/sign/departments/examroom{
-	pixel_x = -32
-	},
 /turf/open/floor/carpet/blue,
 /area/station/medical/medbay/lobby)
 "gCS" = (
@@ -28010,10 +28007,6 @@
 	name = "Medical Deliveries"
 	},
 /obj/structure/disposalpipe/trunk,
-/obj/structure/sign/departments/examroom{
-	pixel_y = -32;
-	color = "#52B4E9"
-	},
 /obj/structure/barricade/wooden,
 /obj/structure/window/spawner/north,
 /turf/open/floor/iron,
@@ -58424,7 +58417,6 @@
 /area/station/maintenance/solars/starboard/aft)
 "vRg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/wardrobe/det_wardrobe,
 /turf/open/floor/iron/dark,
 /area/station/security/detectives_office/private_investigators_office)
 "vRp" = (
