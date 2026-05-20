@@ -68,18 +68,36 @@
 // ===== SECURITY CONSOLE =====
 /obj/machinery/modular_computer/console/preset/security
 	console_department = "Security"
-	name = "company console"
+	name = "security console"
 	desc = "A stationary computer. This one comes preloaded with facility record programs."
 	_has_second_id_slot = TRUE
 	_has_printer = TRUE
 
 /obj/machinery/modular_computer/console/preset/security/install_programs()
 	var/obj/item/computer_hardware/hard_drive/hard_drive = cpu.all_components[MC_HDD]
+	hard_drive.store_file(new/datum/computer_file/program/chatclient())
 	hard_drive.store_file(new/datum/computer_file/program/records/security())
 	hard_drive.store_file(new/datum/computer_file/program/records/medical())
 	hard_drive.store_file(new/datum/computer_file/program/secureye())
 	hard_drive.store_file(new/datum/computer_file/program/alarm_monitor())
 
+// ===== SECURITY COMMAND CONSOLE =====
+/obj/machinery/modular_computer/console/preset/security/command
+	console_department = "Security Command"
+	name = "security command console"
+	desc = "A stationary computer. This one comes preloaded with facility and command programs."
+	_has_second_id_slot = TRUE
+	_has_printer = TRUE
+
+/obj/machinery/modular_computer/console/preset/security/command/install_programs()
+	var/obj/item/computer_hardware/hard_drive/hard_drive = cpu.all_components[MC_HDD]
+	hard_drive.store_file(new/datum/computer_file/program/chatclient())
+	hard_drive.store_file(new/datum/computer_file/program/records/security())
+	hard_drive.store_file(new/datum/computer_file/program/records/medical())
+	hard_drive.store_file(new/datum/computer_file/program/secureye())
+	hard_drive.store_file(new/datum/computer_file/program/alarm_monitor())
+	hard_drive.store_file(new/datum/computer_file/program/job_management())
+	hard_drive.store_file(new/datum/computer_file/program/crew_manifest())
 
 // ===== IDENTIFICATION CONSOLE =====
 /obj/machinery/modular_computer/console/preset/id

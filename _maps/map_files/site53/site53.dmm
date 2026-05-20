@@ -1486,7 +1486,6 @@
 "aqz" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/remains/human,
-/obj/item/clothing/under/rank/security/lcz,
 /obj/item/clothing/suit/armor/vest/scp/medarmor/ruined,
 /turf/open/floor/asteroid,
 /area/site53/llcz/mine/unexplored)
@@ -12284,7 +12283,6 @@
 	name = "division locker"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/clothing/under/rank/security/lcz/recontain,
 /turf/open/floor/iron/dark/smooth,
 /area/site53/llcz/entrance_checkpoint)
 "cDM" = (
@@ -22886,7 +22884,6 @@
 /obj/item/ammo_casing/c9mm9mm9mm9mm{
 	caliber = "5.7x28mm"
 	},
-/obj/item/clothing/under/rank/security/lcz/recontain,
 /turf/open/floor/iron/white/smooth,
 /area/site53/llcz/hallways)
 "ePC" = (
@@ -37720,7 +37717,6 @@
 	},
 /obj/effect/turf_decal/corner/red/diagonal,
 /obj/effect/decal/remains/human,
-/obj/item/clothing/under/rank/warden/lcz,
 /turf/open/floor/iron/dark,
 /area/site53/llcz/hallways)
 "hOg" = (
@@ -64048,7 +64044,6 @@
 	},
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/blood/splatter,
-/obj/item/clothing/under/rank/security/lcz,
 /turf/open/floor/iron/white,
 /area/site53/llcz/hallways)
 "npP" = (
@@ -89879,7 +89874,6 @@
 /obj/effect/turf_decal/corner/orange/half,
 /obj/structure/closet/secure/administration/commsofficer,
 /obj/item/clothing/accessory/storage/webbing_large,
-/obj/item/clothing/under/rank/security/comms,
 /obj/item/clothing/suit/armor/comms,
 /obj/item/clothing/suit/storage/leather_jacket,
 /obj/item/clothing/accessory/toggleable/corpjacket,

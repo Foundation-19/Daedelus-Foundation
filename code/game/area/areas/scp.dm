@@ -177,6 +177,9 @@
 /area/station/safe_scp/scp_529
 	name = "SCP-529 Containment"
 
+/area/station/safe_scp/scp_storage
+	name = "LCZ Anomalous Item Storage"
+
 /area/station/security/lcz/scp_914
 	name = "\improper SCP-914 Security Post"
 	icon_state = "checkpoint"
