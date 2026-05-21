@@ -281,6 +281,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 	///Units of water to reclaim per second
 	var/reclaim_rate = 0.5
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink, (-14))
+
 /obj/structure/sink/Initialize(mapload, bolt)
 	. = ..()
 	if(has_water_reclaimer)

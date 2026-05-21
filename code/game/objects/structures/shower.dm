@@ -34,6 +34,8 @@
 	/// Whether to allow players to toggle the water reclaimer.
 	var/can_toggle_refill = TRUE
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/shower, (-16))
+
 /obj/machinery/shower/Initialize(mapload)
 	. = ..()
 	create_reagents(reagent_capacity)
