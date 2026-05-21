@@ -5261,7 +5261,6 @@
 #include "modular_pariah\modules\aesthetics\extinguisher\code\extinguisher.dm"
 #include "modular_pariah\modules\aesthetics\firealarm\code\firealarm.dm"
 #include "modular_pariah\modules\aesthetics\firedoor\code\firedoor.dm"
-#include "modular_pariah\modules\aesthetics\janitor\janitor.dm"
 #include "modular_pariah\modules\aesthetics\lights\code\lighting.dm"
 #include "modular_pariah\modules\aesthetics\rack\code\rack.dm"
 #include "modular_pariah\modules\aesthetics\stacks\stacks.dm"

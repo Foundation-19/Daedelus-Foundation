@@ -412,6 +412,45 @@
 	icon_state = reagents.total_volume ? "water_cup" : "water_cup_e"
 	return ..()
 
+/obj/item/reagent_containers/food/drinks/sillycup/scp294
+	name = "paper drinking cup"
+	desc = "A standard paper cup, it looks oddly durable.."
+	icon = 'icons/scp/scp294.dmi'
+	icon_state = "294_cup_e"
+	possible_transfer_amounts = list(30)
+	volume = 30
+	spillable = TRUE
+	isGlass = FALSE
+	armor = list(BLUNT = 0, PUNCTURE = 0, SLASH = 0, LASER = 00, ENERGY = 5, BOMB = 80, BIO = 100, FIRE = 100, ACID = 100)
+
+/obj/item/reagent_containers/food/drinks/sillycup/scp294/update_icon_state()
+	. = ..()
+
+	if(reagents?.total_volume)
+		icon_state = "294_cup"
+	else
+		icon_state = "294_cup_e"
+
+/obj/item/reagent_containers/food/drinks/sillycup/scp294/update_overlays()
+	. = ..()
+
+	if(reagents?.total_volume)
+		var/mutable_appearance/reagent_overlay = mutable_appearance(icon, "294_reagent")
+		reagent_overlay.color = reagents.get_color()
+		. += reagent_overlay
+
+/obj/item/reagent_containers/food/drinks/sillycup/scp294/on_reagent_change(changetype)
+	. = ..()
+
+	var/datum/reagent/master_reagent = reagents.get_master_reagent()
+
+	if(master_reagent)
+		name = "cup of [master_reagent.name]"
+	else
+		name = initial(name)
+
+	update_appearance()
+
 /obj/item/reagent_containers/food/drinks/sillycup/smallcarton
 	name = "small carton"
 	desc = "A small carton, intended for holding drinks."

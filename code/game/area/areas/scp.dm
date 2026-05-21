@@ -177,6 +177,9 @@
 /area/station/safe_scp/scp_529
 	name = "SCP-529 Containment"
 
+/area/station/safe_scp/scp_294
+	name = "SCP-294 Containment"
+
 /area/station/safe_scp/scp_storage
 	name = "LCZ Anomalous Item Storage"
 

@@ -4,9 +4,8 @@ GLOBAL_LIST_EMPTY(pending_clarity_prompts)
 /obj/machinery/scp294
 	name = "coffee machine"
 	desc = "A standard coffee vending machine. This one seems to have a QWERTY keyboard."
-	icon = 'icons/obj/vending.dmi'
-
-	icon_state = "coffee"
+	icon = 'icons/scp/scp294.dmi'
+	icon_state = "coffee_294"
 	anchored = TRUE
 	density = TRUE
 

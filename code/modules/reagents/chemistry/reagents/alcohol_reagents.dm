@@ -1489,8 +1489,8 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /datum/reagent/consumable/ethanol/eggnog
 	name = "Eggnog"
 	description = "For enjoying the most wonderful time of the year."
-	color = "#fcfdc6" // rgb: 252, 253, 198
-	nutriment_factor = 2 * REAGENTS_METABOLISM
+	color = "#ffe2ad" // rgb: 252, 253, 198
+	nutriment_factor = 2
 	boozepwr = 1
 	quality = DRINK_VERYGOOD
 	taste_description = "custard and alcohol"
@@ -1531,7 +1531,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /datum/reagent/consumable/ethanol/creme_de_menthe
 	name = "Creme de Menthe"
 	description = "A minty liqueur excellent for refreshing, cool drinks."
-	color = "#00cc00"
+	color = "#467446"
 	boozepwr = 20
 	taste_description = "a minty, cool, and invigorating splash of cold streamwater"
 	glass_icon_state = "glass_green"
@@ -1542,7 +1542,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /datum/reagent/consumable/ethanol/creme_de_cacao
 	name = "Creme de Cacao"
 	description = "A chocolatey liqueur excellent for adding dessert notes to beverages and bribing sororities."
-	color = "#996633"
+	color = "#350900"
 	boozepwr = 20
 	taste_description = "a slick and aromatic hint of chocolates swirling in a bite of alcohol"
 	glass_icon_state = "glass_brown"
@@ -1556,7 +1556,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	color = "#F7F0D0"
 	boozepwr = 20
 	taste_description = "a sweet milky flavor with notes of toasted sugar"
-	glass_icon_state = "glass_white"
+	glass_icon_state = "tiltaellen"
 	glass_name = "Creme de Coconut"
 	glass_desc = "An unintimidating glass of coconut liqueur."
 
