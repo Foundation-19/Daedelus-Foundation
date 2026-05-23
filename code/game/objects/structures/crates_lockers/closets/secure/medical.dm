@@ -31,7 +31,7 @@
 		new /obj/item/clothing/mask/muzzle/breath(src)
 
 /obj/structure/closet/secure_closet/medical3
-	name = "'s locker"
+	name = "doctor's locker"
 	req_access = list(ACCESS_MEDICAL_LVL3)
 	icon_state = "med_secure"
 

@@ -237,38 +237,6 @@
 /obj/structure/closet/wardrobe/suit
 	name = "suit wardrobe"
 
-// ================================================================
-// CHAIR STUBS
-// ================================================================
-
-/obj/structure/chair/armchair
-	name = "armchair"
-	icon_state = "comfychair"
-
-/obj/structure/chair/armchair/beige
-	name = "beige armchair"
-	color = "#C8A882"
-
-/obj/structure/chair/armchair/black
-	name = "black armchair"
-	color = "#333333"
-
-/obj/structure/chair/armchair/blue
-	name = "blue armchair"
-	color = "#66B2FF"
-
-/obj/structure/chair/armchair/brown
-	name = "brown armchair"
-	color = "#865C2A"
-
-/obj/structure/chair/armchair/green
-	name = "green armchair"
-	color = "#00CC00"
-
-/obj/structure/chair/armchair/red
-	name = "red armchair"
-	color = "#CC0000"
-
 /obj/structure/chair/bar/padded
 	name = "padded bar stool"
 

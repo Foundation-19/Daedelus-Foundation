@@ -138,12 +138,46 @@
 	airlock_wires = /datum/wires/airlock/security
 
 /area/station/cdcz/hallway
+	name = "\improper CDCZ Hallway"
+	icon_state = "cdcz_hall"
+
+/area/station/cdcz/cells
+	name = "\improper CDCZ Cells"
+	icon_state = "cdcz_hall"
+
+/area/station/cdcz/hallway/entrance
 	name = "\improper CDCZ Entrance Hallway"
+	icon_state = "cdcz_enthall"
+
+/area/station/cdcz/custodial
+	name = "\improper CDCZ Custodial Closet"
+	icon_state = "cdcz_enthall"
+
+/area/station/cdcz/gym
+	name = "\improper CDCZ Gym"
+	icon_state = "cdcz_enthall"
+
+/area/station/cdcz/art
+	name = "\improper CDCZ Art Studio"
 	icon_state = "cdcz_enthall"
 
 /area/station/security/cdcz/checkpoint
 	name = "\improper CDCZ Security Checkpoint"
 	icon_state = "checkpoint"
+
+/area/station/security/cdcz/post
+	name = "\improper CDCZ Security Post"
+	icon_state = "checkpoint"
+
+/area/station/security/cdcz/control
+	name = "\improper CDCZ Control Room"
+	icon_state = "security"
+
+/area/station/ai_monitored/security/cdcz_armory
+	name = "\improper CDCZ Armory"
+	icon_state = "armory"
+	ambience_index = AMBIENCE_DANGER
+	airlock_wires = /datum/wires/airlock/security
 
 /area/station/engineering/lcz/tech_storage
 	name = "\improper LCZ Technical Storage"
