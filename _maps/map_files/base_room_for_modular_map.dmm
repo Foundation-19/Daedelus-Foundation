@@ -1,0 +1,64 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/closed/wall/mineral/titanium,
+/area/space)
+"i" = (
+/obj/machinery/door/airlock,
+/turf/open/floor/holofloor/white,
+/area/space)
+"H" = (
+/turf/open/floor/holofloor/white,
+/area/space)
+"Y" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
+/turf/open/floor/holofloor/white,
+/area/space)
+
+(1,1,1) = {"
+a
+a
+a
+i
+a
+a
+"}
+(2,1,1) = {"
+a
+H
+H
+H
+H
+a
+"}
+(3,1,1) = {"
+a
+H
+H
+H
+H
+a
+"}
+(4,1,1) = {"
+a
+H
+Y
+H
+H
+a
+"}
+(5,1,1) = {"
+a
+H
+H
+H
+H
+a
+"}
+(6,1,1) = {"
+a
+a
+a
+i
+a
+a
+"}
