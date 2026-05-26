@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals&#x2F;signals_scp.dm - Daedalus Dock</title>
+</head>
+<body>
+<header>
+    <a href="index.html">Daedalus Dock</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="code/__DEFINES/dcs/signals/signals_scp.html#define">Define Details</a></header>
+<main>
+<h1>code/__DEFINES/dcs/signals/signals_scp.dm 
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/dcs/signals/signals_scp.dm">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals&#x2F;signals_scp.dm"/></a></h1>
+
+<table class="summary" cellspacing="0">
+        <tr><th><a href="code/__DEFINES/dcs/signals/signals_scp.html#define/COMSIG_SCP066_ATTACK_TARGET">COMSIG_SCP066_ATTACK_TARGET</a></th><td>From base of /mob/living/simple_animal/hostile/retaliate/scp066/attack_target(): ()</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals/signals_scp.html#define/COMSIG_SCP066_AUTOHISS">COMSIG_SCP066_AUTOHISS</a></th><td>From base of /mob/living/simple_animal/hostile/retaliate/scp066/handle_autohiss(): ()</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals/signals_scp.html#define/COMSIG_SCP066_NOISE_EMOTE">COMSIG_SCP066_NOISE_EMOTE</a></th><td>From base of /mob/living/simple_animal/hostile/retaliate/scp066/proc/Noise(): ()</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals/signals_scp.html#define/COMSIG_SCP066_ERIC_EMOTE">COMSIG_SCP066_ERIC_EMOTE</a></th><td>From base of /mob/living/simple_animal/hostile/retaliate/scp066/proc/Eric(): ()</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals/signals_scp.html#define/COMSIG_SCP066_LOUD_NOISE_EMOTE">COMSIG_SCP066_LOUD_NOISE_EMOTE</a></th><td>From base of /mob/living/simple_animal/hostile/retaliate/scp066/proc/LoudNoise(): ()</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals/signals_scp.html#define/COMSIG_SCP216_OPEN">COMSIG_SCP216_OPEN</a></th><td>Sent when the safe is opened.</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals/signals_scp.html#define/COMSIG_SCP216_CLOSE">COMSIG_SCP216_CLOSE</a></th><td>Sent when the safe is closed.</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals/signals_scp.html#define/COMSIG_SCP216_MOB_RELEASED">COMSIG_SCP216_MOB_RELEASED</a></th><td>Sent when a mob falls out of the safe upon opening. (mob/living/mob_released)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals/signals_scp.html#define/COMSIG_SCP216_ITEM_INSERTED">COMSIG_SCP216_ITEM_INSERTED</a></th><td>Sent after an item is successfully inserted into the safe. (atom/movable/inserted_item, mob/user)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals/signals_scp.html#define/COMSIG_SCP216_ITEM_RETRIEVED">COMSIG_SCP216_ITEM_RETRIEVED</a></th><td>Sent after an item is successfully retrieved from the safe. (atom/movable/retrieved_item, mob/user)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals/signals_scp.html#define/COMSIG_SCP216_CODE_CHANGED">COMSIG_SCP216_CODE_CHANGED</a></th><td>Sent when the safe's combination code is successfully changed. (int/new_code)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals/signals_scp.html#define/COMSIG_SCP216_ITEMS_GENERATED">COMSIG_SCP216_ITEMS_GENERATED</a></th><td>Sent after random items are generated for a new code. (int/code)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals/signals_scp.html#define/COMSIG_SCP216_TEMPORAL_DISPLACEMENT">COMSIG_SCP216_TEMPORAL_DISPLACEMENT</a></th><td>Sent when an item is temporally displaced by SCP-216. (atom/movable/displaced_item, mob/user)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals/signals_scp.html#define/COMSIG_SCP151_EFFECT_APPLIED">COMSIG_SCP151_EFFECT_APPLIED</a></th><td>from /obj/structure/scp151/proc/effect(): (mob/living/carbon/human/H, obj/structure/scp151/source_scp)</td></tr></table><h2 id="define">Define Details</h2>
+<h3 id="define/COMSIG_SCP066_ATTACK_TARGET"><aside class="declaration">#define </aside>COMSIG_SCP066_ATTACK_TARGET
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/dcs/signals/signals_scp.dm#L3">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals&#x2F;signals_scp.dm 3"/></a>
+    </h3>
+    <p>From base of /mob/living/simple_animal/hostile/retaliate/scp066/attack_target(): ()</p><h3 id="define/COMSIG_SCP066_AUTOHISS"><aside class="declaration">#define </aside>COMSIG_SCP066_AUTOHISS
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/dcs/signals/signals_scp.dm#L5">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals&#x2F;signals_scp.dm 5"/></a>
+    </h3>
+    <p>From base of /mob/living/simple_animal/hostile/retaliate/scp066/handle_autohiss(): ()</p><h3 id="define/COMSIG_SCP066_ERIC_EMOTE"><aside class="declaration">#define </aside>COMSIG_SCP066_ERIC_EMOTE
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/dcs/signals/signals_scp.dm#L9">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals&#x2F;signals_scp.dm 9"/></a>
+    </h3>
+    <p>From base of /mob/living/simple_animal/hostile/retaliate/scp066/proc/Eric(): ()</p><h3 id="define/COMSIG_SCP066_LOUD_NOISE_EMOTE"><aside class="declaration">#define </aside>COMSIG_SCP066_LOUD_NOISE_EMOTE
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/dcs/signals/signals_scp.dm#L11">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals&#x2F;signals_scp.dm 11"/></a>
+    </h3>
+    <p>From base of /mob/living/simple_animal/hostile/retaliate/scp066/proc/LoudNoise(): ()</p><h3 id="define/COMSIG_SCP066_NOISE_EMOTE"><aside class="declaration">#define </aside>COMSIG_SCP066_NOISE_EMOTE
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/dcs/signals/signals_scp.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals&#x2F;signals_scp.dm 7"/></a>
+    </h3>
+    <p>From base of /mob/living/simple_animal/hostile/retaliate/scp066/proc/Noise(): ()</p><h3 id="define/COMSIG_SCP151_EFFECT_APPLIED"><aside class="declaration">#define </aside>COMSIG_SCP151_EFFECT_APPLIED
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/dcs/signals/signals_scp.dm#L33">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals&#x2F;signals_scp.dm 33"/></a>
+    </h3>
+    <p>from /obj/structure/scp151/proc/effect(): (mob/living/carbon/human/H, obj/structure/scp151/source_scp)</p><h3 id="define/COMSIG_SCP216_CLOSE"><aside class="declaration">#define </aside>COMSIG_SCP216_CLOSE
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/dcs/signals/signals_scp.dm#L17">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals&#x2F;signals_scp.dm 17"/></a>
+    </h3>
+    <p>Sent when the safe is closed.</p><h3 id="define/COMSIG_SCP216_CODE_CHANGED"><aside class="declaration">#define </aside>COMSIG_SCP216_CODE_CHANGED
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/dcs/signals/signals_scp.dm#L25">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals&#x2F;signals_scp.dm 25"/></a>
+    </h3>
+    <p>Sent when the safe's combination code is successfully changed. (int/new_code)</p><h3 id="define/COMSIG_SCP216_ITEMS_GENERATED"><aside class="declaration">#define </aside>COMSIG_SCP216_ITEMS_GENERATED
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/dcs/signals/signals_scp.dm#L27">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals&#x2F;signals_scp.dm 27"/></a>
+    </h3>
+    <p>Sent after random items are generated for a new code. (int/code)</p><h3 id="define/COMSIG_SCP216_ITEM_INSERTED"><aside class="declaration">#define </aside>COMSIG_SCP216_ITEM_INSERTED
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/dcs/signals/signals_scp.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals&#x2F;signals_scp.dm 21"/></a>
+    </h3>
+    <p>Sent after an item is successfully inserted into the safe. (atom/movable/inserted_item, mob/user)</p><h3 id="define/COMSIG_SCP216_ITEM_RETRIEVED"><aside class="declaration">#define </aside>COMSIG_SCP216_ITEM_RETRIEVED
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/dcs/signals/signals_scp.dm#L23">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals&#x2F;signals_scp.dm 23"/></a>
+    </h3>
+    <p>Sent after an item is successfully retrieved from the safe. (atom/movable/retrieved_item, mob/user)</p><h3 id="define/COMSIG_SCP216_MOB_RELEASED"><aside class="declaration">#define </aside>COMSIG_SCP216_MOB_RELEASED
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/dcs/signals/signals_scp.dm#L19">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals&#x2F;signals_scp.dm 19"/></a>
+    </h3>
+    <p>Sent when a mob falls out of the safe upon opening. (mob/living/mob_released)</p><h3 id="define/COMSIG_SCP216_OPEN"><aside class="declaration">#define </aside>COMSIG_SCP216_OPEN
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/dcs/signals/signals_scp.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals&#x2F;signals_scp.dm 15"/></a>
+    </h3>
+    <p>Sent when the safe is opened.</p><h3 id="define/COMSIG_SCP216_TEMPORAL_DISPLACEMENT"><aside class="declaration">#define </aside>COMSIG_SCP216_TEMPORAL_DISPLACEMENT
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/dcs/signals/signals_scp.dm#L29">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals&#x2F;signals_scp.dm 29"/></a>
+    </h3>
+    <p>Sent when an item is temporally displaced by SCP-216. (atom/movable/displaced_item, mob/user)</p></main>
+<footer>
+    daedalus.dme
+    <a href="https://github.com/Foundation-19/Daedelus-Foundation/tree/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef">0bf3d7d</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.8.0</a></footer>
+</body>
+</html>

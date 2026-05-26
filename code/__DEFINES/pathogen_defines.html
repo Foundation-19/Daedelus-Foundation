@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>code&#x2F;__DEFINES&#x2F;pathogen_defines.dm - Daedalus Dock</title>
+</head>
+<body>
+<header>
+    <a href="index.html">Daedalus Dock</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="code/__DEFINES/pathogen_defines.html#define">Define Details</a></header>
+<main>
+<h1>code/__DEFINES/pathogen_defines.dm 
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm"/></a></h1>
+
+<table class="summary" cellspacing="0">
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/PATHOGEN_CURABLE">PATHOGEN_CURABLE</a></th><td>If present, the disease can be cured either randomly over time or reagents.</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/PATHOGEN_RESIST_ON_CURE">PATHOGEN_RESIST_ON_CURE</a></th><td>If present, when the disease is cured, it will be added to the mob's resistances.</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/PATHOGEN_NEED_ALL_CURES">PATHOGEN_NEED_ALL_CURES</a></th><td>If present, an affected mob will need every reagent in the cure list to be cured.</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/PATHOGEN_REGRESS_TO_CURE">PATHOGEN_REGRESS_TO_CURE</a></th><td>A disease will need to regress to stage 1 to cure itself</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/PATHOGEN_SEVERITY_POSITIVE">PATHOGEN_SEVERITY_POSITIVE</a></th><td>Diseases that buff, heal, or at least do nothing at all</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/PATHOGEN_SEVERITY_NONTHREAT">PATHOGEN_SEVERITY_NONTHREAT</a></th><td>Diseases that may have annoying effects, but nothing disruptive (sneezing)</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/PATHOGEN_SEVERITY_MINOR">PATHOGEN_SEVERITY_MINOR</a></th><td>Diseases that can annoy in concrete ways (dizziness)</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/PATHOGEN_SEVERITY_MEDIUM">PATHOGEN_SEVERITY_MEDIUM</a></th><td>Diseases that can do minor harm, or severe annoyance (vomit)</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/PATHOGEN_SEVERITY_HARMFUL">PATHOGEN_SEVERITY_HARMFUL</a></th><td>Diseases that can do significant harm, or severe disruption (brainrot)</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/PATHOGEN_SEVERITY_DANGEROUS">PATHOGEN_SEVERITY_DANGEROUS</a></th><td>Diseases that can kill or maim if left untreated (flesh eating, blindness)</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/PATHOGEN_SEVERITY_BIOHAZARD">PATHOGEN_SEVERITY_BIOHAZARD</a></th><td>Diseases that can quickly kill an unprepared victim (fungal tb, gbs)</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/PATHOGEN_SEVERITY_ANOMALOUS">PATHOGEN_SEVERITY_ANOMALOUS</a></th><td>Anomalous existential threat - Keter-class pathogens</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/BSL_1">BSL_1</a></th><td>BSL-1: Non-anomalous, routine handling. No special containment.</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/BSL_2">BSL_2</a></th><td>BSL-2: Anomalous but containable. Standard lab practices.</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/BSL_3">BSL_3</a></th><td>BSL-3: Dangerous anomalous. Requires containment suits, negative pressure.</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/BSL_4">BSL_4</a></th><td>BSL-4: Existential threat. Full suit, double-door decon, isolated systems.</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/PATHOGEN_TRANSMISSION_AIRBORNE">PATHOGEN_TRANSMISSION_AIRBORNE</a></th><td>Spreads through HVAC and air systems</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/PATHOGEN_TRANSMISSION_BLOOD">PATHOGEN_TRANSMISSION_BLOOD</a></th><td>Spreads through blood and bodily fluids</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/PATHOGEN_TRANSMISSION_CONTACT">PATHOGEN_TRANSMISSION_CONTACT</a></th><td>Spreads through surface contact</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/PATHOGEN_TRANSMISSION_VECTOR">PATHOGEN_TRANSMISSION_VECTOR</a></th><td>Spreads through animal/insect vectors</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/PATHOGEN_TRANSMISSION_WATER">PATHOGEN_TRANSMISSION_WATER</a></th><td>Spreads through water/plumbing systems</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/PATHOGEN_TRANSMISSION_FOOD">PATHOGEN_TRANSMISSION_FOOD</a></th><td>Spreads through food/kitchen</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/PATHOGEN_TRANSMISSION_ANOMALOUS">PATHOGEN_TRANSMISSION_ANOMALOUS</a></th><td>Anomalous transmission - memetic, dimensional, or reality-based</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/RESEARCH_STAGE_IDENTIFIED">RESEARCH_STAGE_IDENTIFIED</a></th><td>Initial identification only</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/RESEARCH_STAGE_CATALOGUED">RESEARCH_STAGE_CATALOGUED</a></th><td>Basic properties catalogued</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/RESEARCH_STAGE_MAPPED">RESEARCH_STAGE_MAPPED</a></th><td>Transmission vectors mapped</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/RESEARCH_STAGE_COUNTERMEASURE">RESEARCH_STAGE_COUNTERMEASURE</a></th><td>Countermeasures in development</td></tr>
+        <tr><th><a href="code/__DEFINES/pathogen_defines.html#define/RESEARCH_STAGE_CURED">RESEARCH_STAGE_CURED</a></th><td>Cure/treatment developed</td></tr></table><h2 id="define">Define Details</h2>
+<h3 id="define/BSL_1"><aside class="declaration">#define </aside>BSL_1
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L54">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 54"/></a>
+    </h3>
+    <p>BSL-1: Non-anomalous, routine handling. No special containment.</p><h3 id="define/BSL_2"><aside class="declaration">#define </aside>BSL_2
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L56">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 56"/></a>
+    </h3>
+    <p>BSL-2: Anomalous but containable. Standard lab practices.</p><h3 id="define/BSL_3"><aside class="declaration">#define </aside>BSL_3
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L58">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 58"/></a>
+    </h3>
+    <p>BSL-3: Dangerous anomalous. Requires containment suits, negative pressure.</p><h3 id="define/BSL_4"><aside class="declaration">#define </aside>BSL_4
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L60">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 60"/></a>
+    </h3>
+    <p>BSL-4: Existential threat. Full suit, double-door decon, isolated systems.</p><h3 id="define/PATHOGEN_CURABLE"><aside class="declaration">#define </aside>PATHOGEN_CURABLE
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L11">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 11"/></a>
+    </h3>
+    <p>If present, the disease can be cured either randomly over time or reagents.</p><h3 id="define/PATHOGEN_NEED_ALL_CURES"><aside class="declaration">#define </aside>PATHOGEN_NEED_ALL_CURES
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 15"/></a>
+    </h3>
+    <p>If present, an affected mob will need every reagent in the cure list to be cured.</p><h3 id="define/PATHOGEN_REGRESS_TO_CURE"><aside class="declaration">#define </aside>PATHOGEN_REGRESS_TO_CURE
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L17">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 17"/></a>
+    </h3>
+    <p>A disease will need to regress to stage 1 to cure itself</p><h3 id="define/PATHOGEN_RESIST_ON_CURE"><aside class="declaration">#define </aside>PATHOGEN_RESIST_ON_CURE
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L13">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 13"/></a>
+    </h3>
+    <p>If present, when the disease is cured, it will be added to the mob's resistances.</p><h3 id="define/PATHOGEN_SEVERITY_ANOMALOUS"><aside class="declaration">#define </aside>PATHOGEN_SEVERITY_ANOMALOUS
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L50">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 50"/></a>
+    </h3>
+    <p>Anomalous existential threat - Keter-class pathogens</p><h3 id="define/PATHOGEN_SEVERITY_BIOHAZARD"><aside class="declaration">#define </aside>PATHOGEN_SEVERITY_BIOHAZARD
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L48">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 48"/></a>
+    </h3>
+    <p>Diseases that can quickly kill an unprepared victim (fungal tb, gbs)</p><h3 id="define/PATHOGEN_SEVERITY_DANGEROUS"><aside class="declaration">#define </aside>PATHOGEN_SEVERITY_DANGEROUS
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L46">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 46"/></a>
+    </h3>
+    <p>Diseases that can kill or maim if left untreated (flesh eating, blindness)</p><h3 id="define/PATHOGEN_SEVERITY_HARMFUL"><aside class="declaration">#define </aside>PATHOGEN_SEVERITY_HARMFUL
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L44">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 44"/></a>
+    </h3>
+    <p>Diseases that can do significant harm, or severe disruption (brainrot)</p><h3 id="define/PATHOGEN_SEVERITY_MEDIUM"><aside class="declaration">#define </aside>PATHOGEN_SEVERITY_MEDIUM
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L42">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 42"/></a>
+    </h3>
+    <p>Diseases that can do minor harm, or severe annoyance (vomit)</p><h3 id="define/PATHOGEN_SEVERITY_MINOR"><aside class="declaration">#define </aside>PATHOGEN_SEVERITY_MINOR
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L40">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 40"/></a>
+    </h3>
+    <p>Diseases that can annoy in concrete ways (dizziness)</p><h3 id="define/PATHOGEN_SEVERITY_NONTHREAT"><aside class="declaration">#define </aside>PATHOGEN_SEVERITY_NONTHREAT
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L38">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 38"/></a>
+    </h3>
+    <p>Diseases that may have annoying effects, but nothing disruptive (sneezing)</p><h3 id="define/PATHOGEN_SEVERITY_POSITIVE"><aside class="declaration">#define </aside>PATHOGEN_SEVERITY_POSITIVE
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L36">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 36"/></a>
+    </h3>
+    <p>Diseases that buff, heal, or at least do nothing at all</p><h3 id="define/PATHOGEN_TRANSMISSION_AIRBORNE"><aside class="declaration">#define </aside>PATHOGEN_TRANSMISSION_AIRBORNE
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L64">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 64"/></a>
+    </h3>
+    <p>Spreads through HVAC and air systems</p><h3 id="define/PATHOGEN_TRANSMISSION_ANOMALOUS"><aside class="declaration">#define </aside>PATHOGEN_TRANSMISSION_ANOMALOUS
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L76">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 76"/></a>
+    </h3>
+    <p>Anomalous transmission - memetic, dimensional, or reality-based</p><h3 id="define/PATHOGEN_TRANSMISSION_BLOOD"><aside class="declaration">#define </aside>PATHOGEN_TRANSMISSION_BLOOD
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L66">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 66"/></a>
+    </h3>
+    <p>Spreads through blood and bodily fluids</p><h3 id="define/PATHOGEN_TRANSMISSION_CONTACT"><aside class="declaration">#define </aside>PATHOGEN_TRANSMISSION_CONTACT
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L68">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 68"/></a>
+    </h3>
+    <p>Spreads through surface contact</p><h3 id="define/PATHOGEN_TRANSMISSION_FOOD"><aside class="declaration">#define </aside>PATHOGEN_TRANSMISSION_FOOD
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L74">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 74"/></a>
+    </h3>
+    <p>Spreads through food/kitchen</p><h3 id="define/PATHOGEN_TRANSMISSION_VECTOR"><aside class="declaration">#define </aside>PATHOGEN_TRANSMISSION_VECTOR
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L70">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 70"/></a>
+    </h3>
+    <p>Spreads through animal/insect vectors</p><h3 id="define/PATHOGEN_TRANSMISSION_WATER"><aside class="declaration">#define </aside>PATHOGEN_TRANSMISSION_WATER
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L72">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 72"/></a>
+    </h3>
+    <p>Spreads through water/plumbing systems</p><h3 id="define/RESEARCH_STAGE_CATALOGUED"><aside class="declaration">#define </aside>RESEARCH_STAGE_CATALOGUED
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L82">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 82"/></a>
+    </h3>
+    <p>Basic properties catalogued</p><h3 id="define/RESEARCH_STAGE_COUNTERMEASURE"><aside class="declaration">#define </aside>RESEARCH_STAGE_COUNTERMEASURE
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L86">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 86"/></a>
+    </h3>
+    <p>Countermeasures in development</p><h3 id="define/RESEARCH_STAGE_CURED"><aside class="declaration">#define </aside>RESEARCH_STAGE_CURED
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L88">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 88"/></a>
+    </h3>
+    <p>Cure/treatment developed</p><h3 id="define/RESEARCH_STAGE_IDENTIFIED"><aside class="declaration">#define </aside>RESEARCH_STAGE_IDENTIFIED
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L80">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 80"/></a>
+    </h3>
+    <p>Initial identification only</p><h3 id="define/RESEARCH_STAGE_MAPPED"><aside class="declaration">#define </aside>RESEARCH_STAGE_MAPPED
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/__DEFINES/pathogen_defines.dm#L84">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;pathogen_defines.dm 84"/></a>
+    </h3>
+    <p>Transmission vectors mapped</p></main>
+<footer>
+    daedalus.dme
+    <a href="https://github.com/Foundation-19/Daedelus-Foundation/tree/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef">0bf3d7d</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.8.0</a></footer>
+</body>
+</html>

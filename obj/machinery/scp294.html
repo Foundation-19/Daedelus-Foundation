@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;obj&#x2F;machinery&#x2F;scp294 - Daedalus Dock</title>
+</head>
+<body>
+<header>
+    <a href="index.html">Daedalus Dock</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="obj/machinery/scp294.html#var">Var Details</a> - <a href="obj/machinery/scp294.html#proc">Proc Details</a></header>
+<main>
+<h1>scp294 <aside>/<a href="obj.html">obj</a>/<a href="obj/machinery.html">machinery</a>/<a href="obj/machinery/scp294.html">scp294</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/modules/SCP/scp294.dm#L4">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;SCP&#x2F;scp294.dm 4"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="obj/machinery/scp294.html#var/blacklist">blacklist</a></th><td>Blacklisted reagents DO NOT USE THIS UNLESS ABSOLUTLEY NECCESARY, I DISLIKE PEOPLE IDIOT PROOFING SCPS - Dark</td></tr>
+            <tr><th><a href="obj/machinery/scp294.html#var/custom_effect_definitions">custom_effect_definitions</a></th><td>Custom effect definitions</td></tr>
+            <tr><th><a href="obj/machinery/scp294.html#var/max_uses">max_uses</a></th><td>How many times we can use the machine before it needs to cooldown</td></tr>
+            <tr><th><a href="obj/machinery/scp294.html#var/shortcut_chems">shortcut_chems</a></th><td>Reagent types
+Shortcut names for things like &quot;poision&quot; or &quot;death&quot; where it dosent match a reagent name exactly</td></tr>
+            <tr><th><a href="obj/machinery/scp294.html#var/started_restock">started_restock</a></th><td>Have we started restock?</td></tr>
+            <tr><th><a href="obj/machinery/scp294.html#var/usage_cooldown">usage_cooldown</a></th><td>How long to wait until we can use again</td></tr>
+            <tr><th><a href="obj/machinery/scp294.html#var/usage_cooldown_tracker">usage_cooldown_tracker</a></th><td>Tracks our usage cooldown</td></tr>
+            <tr><th><a href="obj/machinery/scp294.html#var/uses_tracker">uses_tracker</a></th><td>Tracks our uses</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="obj/machinery/scp294.html#proc/add_reagent_to_cup">add_reagent_to_cup</a></th><td>Adds reagent we want to pass to cup from list made in find_reagents_to_fill_from</td></tr>
+            <tr><th><a href="obj/machinery/scp294.html#proc/find_reagents_to_fill_from">find_reagents_to_fill_from</a></th><td>Cycles through all reagents datums and picks out ones that contain the chemical we are looking for</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/blacklist"><aside class="declaration">var </aside>blacklist
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/modules/SCP/scp294.dm#L61">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;SCP&#x2F;scp294.dm 61"/></a></h3>
+        <p>Blacklisted reagents DO NOT USE THIS UNLESS ABSOLUTLEY NECCESARY, I DISLIKE PEOPLE IDIOT PROOFING SCPS - Dark</p><h3 id="var/custom_effect_definitions"><aside class="declaration">var </aside>custom_effect_definitions
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/modules/SCP/scp294.dm#L65">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;SCP&#x2F;scp294.dm 65"/></a></h3>
+        <p>Custom effect definitions</p><h3 id="var/max_uses"><aside class="declaration">var </aside>max_uses
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/modules/SCP/scp294.dm#L18">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;SCP&#x2F;scp294.dm 18"/></a></h3>
+        <p>How many times we can use the machine before it needs to cooldown</p><h3 id="var/shortcut_chems"><aside class="declaration">var </aside>shortcut_chems
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/modules/SCP/scp294.dm#L31">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;SCP&#x2F;scp294.dm 31"/></a></h3>
+        <p>Reagent types
+Shortcut names for things like &quot;poision&quot; or &quot;death&quot; where it dosent match a reagent name exactly</p><h3 id="var/started_restock"><aside class="declaration">var </aside>started_restock
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/modules/SCP/scp294.dm#L27">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;SCP&#x2F;scp294.dm 27"/></a></h3>
+        <p>Have we started restock?</p><h3 id="var/usage_cooldown"><aside class="declaration">var </aside>usage_cooldown
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/modules/SCP/scp294.dm#L16">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;SCP&#x2F;scp294.dm 16"/></a></h3>
+        <p>How long to wait until we can use again</p><h3 id="var/usage_cooldown_tracker"><aside class="declaration">var </aside>usage_cooldown_tracker
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/modules/SCP/scp294.dm#L23">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;SCP&#x2F;scp294.dm 23"/></a></h3>
+        <p>Tracks our usage cooldown</p><h3 id="var/uses_tracker"><aside class="declaration">var </aside>uses_tracker
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/modules/SCP/scp294.dm#L25">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;SCP&#x2F;scp294.dm 25"/></a></h3>
+        <p>Tracks our uses</p><h2 id="proc">Proc Details</h2><h3 id="proc/add_reagent_to_cup"><aside class="declaration">proc </aside>add_reagent_to_cup<aside>(input_path, D, reagents_to_fill_from) 
+        
+    
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/modules/SCP/scp294.dm#L98">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;SCP&#x2F;scp294.dm 98"/></a></aside>
+        </h3>
+        <p>Adds reagent we want to pass to cup from list made in find_reagents_to_fill_from</p><h3 id="proc/find_reagents_to_fill_from"><aside class="declaration">proc </aside>find_reagents_to_fill_from<aside>(input_path) 
+        
+    
+            <a href="https://github.com/Foundation-19/Daedelus-Foundation/blob/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef/code/modules/SCP/scp294.dm#L88">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;SCP&#x2F;scp294.dm 88"/></a></aside>
+        </h3>
+        <p>Cycles through all reagents datums and picks out ones that contain the chemical we are looking for</p></main>
+<footer>
+    daedalus.dme
+    <a href="https://github.com/Foundation-19/Daedelus-Foundation/tree/0bf3d7d3daa53e8cfa44856e12aae102f8a28aef">0bf3d7d</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.8.0</a></footer>
+</body>
+</html>
