@@ -143,7 +143,7 @@
 
 /area/station/cdcz/cells
 	name = "\improper CDCZ Cells"
-	icon_state = "cdcz_hall"
+	icon_state = "cdcz_cells"
 
 /area/station/cdcz/hallway/entrance
 	name = "\improper CDCZ Entrance Hallway"
@@ -151,15 +151,59 @@
 
 /area/station/cdcz/custodial
 	name = "\improper CDCZ Custodial Closet"
-	icon_state = "cdcz_enthall"
+	icon_state = "cdcz_custodial"
+
+/area/station/cdcz/showers
+	name = "\improper CDCZ Showers"
+	icon_state = "cdcz_showers"
 
 /area/station/cdcz/gym
 	name = "\improper CDCZ Gym"
-	icon_state = "cdcz_enthall"
+	icon_state = "cdcz_gym"
 
 /area/station/cdcz/art
 	name = "\improper CDCZ Art Studio"
-	icon_state = "cdcz_enthall"
+	icon_state = "cdcz_art"
+
+/area/station/cdcz/basketball
+	name = "\improper CDCZ Basketball Court"
+	icon_state = "cdcz_basketball"
+
+/area/station/cdcz/cafeteria
+	name = "\improper CDCZ Cafeteria"
+	icon_state = "cdcz_cafeteria"
+
+/area/station/cdcz/kitchen
+	name = "\improper CDCZ Kitchen"
+	icon_state = "cdcz_kitchen"
+
+/area/station/cdcz/hydroponics
+	name = "\improper CDCZ Hydroponics"
+	icon_state = "cdcz_hydro"
+
+/area/station/cdcz/assembly
+	name = "\improper CDCZ Assembly Hall"
+	icon_state = "cdcz_assembly"
+
+/area/station/cdcz/luxury
+	name = "\improper CDCZ Luxury Hallway"
+	icon_state = "cdcz_luxhall"
+
+/area/station/cdcz/luxury/commissary
+	name = "\improper CDCZ Commissary"
+	icon_state = "cdcz_commissary"
+
+/area/station/cdcz/luxury/library
+	name = "\improper CDCZ Library"
+	icon_state = "cdcz_library"
+
+/area/station/cdcz/luxury/lounge
+	name = "\improper CDCZ Lounge"
+	icon_state = "cdcz_lounge"
+
+/area/station/cdcz/luxury/cells
+	name = "\improper CDCZ Luxury Cells"
+	icon_state = "cdcz_luxcells"
 
 /area/station/security/cdcz/checkpoint
 	name = "\improper CDCZ Security Checkpoint"

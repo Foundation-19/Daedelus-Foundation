@@ -6767,13 +6767,6 @@
 	},
 /turf/open/floor/iron/dark/smooth,
 /area/site53/uez/equipmentroom)
-"bwv" = (
-/obj/effect/turf_decal/corner/orange/mono,
-/obj/structure/chair/armchair/brown{
-	dir = 8
-	},
-/turf/open/floor/iron/smooth,
-/area/site53/upper_surface/commstower)
 "bwC" = (
 /obj/structure/disposaloutlet{
 	dir = 4
@@ -6964,10 +6957,6 @@
 	},
 /turf/open/floor/iron,
 /area/site53/lhcz/scp035room)
-"byE" = (
-/obj/structure/chair/armchair/brown,
-/turf/open/floor/wood,
-/area/site53/ulcz/scp082/recreation)
 "byF" = (
 /obj/structure/rack{
 	dir = 8
@@ -8637,12 +8626,6 @@
 /obj/effect/turf_decal/industrial/warning,
 /turf/open/floor/iron/techfloor_grid,
 /area/site53/uhcz/scp106containment)
-"bPp" = (
-/obj/structure/chair/armchair/black{
-	dir = 1
-	},
-/turf/open/floor/wood,
-/area/site53/uez/repoffice/ethics)
 "bPs" = (
 /obj/structure/cable/green{
 	d1 = 1;
@@ -17237,10 +17220,6 @@
 	},
 /turf/open/floor/iron/techfloor_grid,
 /area/site53/uhcz/scp106containment)
-"dEO" = (
-/obj/structure/chair/armchair/beige,
-/turf/open/floor/wood,
-/area/site53/ulcz/humanoidcontainment)
 "dEU" = (
 /obj/effect/turf_decal/corner/brown/border{
 	dir = 5
@@ -22322,13 +22301,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/site53/surface/bunker)
-"eIn" = (
-/obj/effect/turf_decal/corner/orange/mono,
-/obj/structure/chair/armchair/brown{
-	dir = 4
-	},
-/turf/open/floor/iron/smooth,
-/area/site53/upper_surface/commstower)
 "eIq" = (
 /obj/effect/turf_decal/corner/orange/half{
 	dir = 1
@@ -25972,9 +25944,6 @@
 /turf/open/floor/iron,
 /area/site53/uhcz/scp106containment)
 "fxj" = (
-/obj/structure/chair/armchair/black{
-	dir = 8
-	},
 /obj/machinery/camera/network/entrance{
 	c_tag = "Medical Psychiatry";
 	dir = 8
@@ -27842,9 +27811,6 @@
 /turf/open/floor/plating,
 /area/site53/engineering/server_room)
 "fPf" = (
-/obj/structure/chair/armchair/blue{
-	dir = 1
-	},
 /obj/effect/turf_decal/corner/blue/border{
 	dir = 6
 	},
@@ -28066,9 +28032,6 @@
 /turf/open/floor/iron/smooth,
 /area/site53/ulcz/scp082)
 "fRq" = (
-/obj/structure/chair/armchair/beige{
-	dir = 1
-	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -35884,9 +35847,6 @@
 "huq" = (
 /obj/effect/turf_decal/corner/blue/border{
 	dir = 10
-	},
-/obj/structure/chair/armchair/blue{
-	dir = 1
 	},
 /turf/open/floor/iron/dark/smooth,
 /area/site53/upper_surface/breachshelter)
@@ -44854,12 +44814,6 @@
 	},
 /turf/open/floor/iron/white/smooth,
 /area/site53/medical/infirmary)
-"jrM" = (
-/obj/structure/chair/armchair/beige{
-	dir = 1
-	},
-/turf/open/floor/wood,
-/area/site53/ulcz/scp082/recreation)
 "jrS" = (
 /obj/effect/landmark,
 /turf/open/floor/plating,
@@ -55880,7 +55834,6 @@
 /turf/open/floor/iron/techfloor_grid,
 /area/site53/ulcz/maintenance)
 "lFu" = (
-/obj/structure/chair/armchair/blue,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -58985,15 +58938,6 @@
 	},
 /turf/open/floor/iron/white/smooth,
 /area/site53/reswing/lowres/xenobotany)
-"mng" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/chair/armchair/green{
-	dir = 4
-	},
-/turf/open/floor/wood,
-/area/site53/uez/repoffice/ethics)
 "mnh" = (
 /obj/structure/flora/ausbushes/ferny,
 /obj/effect/turf_decal/corner/keter/border{
@@ -60375,9 +60319,6 @@
 /turf/open/floor/iron,
 /area/site53/llcz/hallways)
 "mBR" = (
-/obj/structure/chair/armchair/blue{
-	dir = 1
-	},
 /obj/effect/turf_decal/corner/blue/border,
 /turf/open/floor/iron/dark/smooth,
 /area/site53/upper_surface/breachshelter)
@@ -62694,13 +62635,6 @@
 	},
 /turf/open/floor/iron,
 /area/site53/logistics/logistics)
-"nah" = (
-/obj/structure/chair/armchair/beige,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/wood,
-/area/site53/ulcz/scp082/recreation)
 "nak" = (
 /obj/effect/turf_decal/corner/paleblue/border{
 	dir = 5
@@ -66135,12 +66069,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/site53/uhcz/scp457containment)
-"nOp" = (
-/obj/structure/chair/armchair/black{
-	dir = 1
-	},
-/turf/open/floor/carpet/blue,
-/area/site53/uez/hallway)
 "nOD" = (
 /obj/structure/barricade/security,
 /turf/open/floor/plating,
@@ -72549,10 +72477,6 @@
 	dir = 4
 	},
 /area/site53/lowertrams/hub)
-"pir" = (
-/obj/structure/chair/armchair/black,
-/turf/open/floor/wood,
-/area/site53/uez/repoffice/ethics)
 "pix" = (
 /obj/effect/landmark,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -74026,7 +73950,6 @@
 /turf/open/floor/iron/white/smooth,
 /area/site53/ulcz/scp216)
 "pAL" = (
-/obj/structure/chair/armchair/brown,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -75034,9 +74957,6 @@
 /turf/open/floor/plating,
 /area/site53/uez/mcrsubstation)
 "pKB" = (
-/obj/structure/chair/armchair/black{
-	dir = 4
-	},
 /obj/structure/cable/green{
 	d1 = 4;
 	d2 = 8;
@@ -78636,9 +78556,6 @@
 /turf/open/floor/iron/techfloor,
 /area/site53/engineering/controlroom)
 "qxU" = (
-/obj/structure/chair/armchair/black{
-	dir = 1
-	},
 /obj/effect/landmark/start{
 	name = "Internal Tribunal Department Officer";
 	icon_state = "comitdspawn";
@@ -81082,7 +80999,6 @@
 /turf/open/floor/iron/white,
 /area/site53/lhcz/scp049containment)
 "qXv" = (
-/obj/structure/chair/armchair/blue,
 /obj/effect/turf_decal/corner/blue/border{
 	dir = 1
 	},
@@ -82390,7 +82306,6 @@
 /obj/effect/turf_decal/corner/blue/border{
 	dir = 9
 	},
-/obj/structure/chair/armchair/blue,
 /turf/open/floor/iron/dark/smooth,
 /area/site53/upper_surface/breachshelter)
 "rke" = (
@@ -83104,9 +83019,6 @@
 /turf/open/floor/iron/white,
 /area/site53/medical/infirmary)
 "rrk" = (
-/obj/structure/chair/armchair/black{
-	dir = 4
-	},
 /obj/effect/landmark/start{
 	name = "Ethics Committee Liaison"
 	},
@@ -89770,7 +89682,6 @@
 /turf/open/floor/iron/dark,
 /area/site53/llcz/dclass/isolation)
 "sJa" = (
-/obj/structure/chair/armchair/blue,
 /obj/effect/turf_decal/corner/blue/border{
 	dir = 5
 	},
@@ -90389,12 +90300,6 @@
 "sPO" = (
 /turf/open/floor/iron,
 /area/site53/lowertrams/janitoroffice)
-"sPP" = (
-/obj/structure/chair/armchair/brown{
-	dir = 4
-	},
-/turf/open/floor/wood,
-/area/site53/logistics/logistics)
 "sPQ" = (
 /obj/effect/turf_decal/industrial/warning{
 	dir = 8
@@ -101605,9 +101510,6 @@
 /turf/open/floor/iron,
 /area/site53/llcz/dclass/primaryhallway)
 "vgg" = (
-/obj/structure/chair/armchair/blue{
-	dir = 1
-	},
 /obj/machinery/light,
 /obj/effect/turf_decal/corner/blue/border,
 /turf/open/floor/iron/dark/smooth,
@@ -107806,12 +107708,6 @@
 	},
 /turf/open/floor/iron/dark/smooth,
 /area/vacant/prototype/engine)
-"wAB" = (
-/obj/structure/chair/armchair/brown{
-	dir = 8
-	},
-/turf/open/floor/wood,
-/area/site53/logistics/logistics)
 "wAI" = (
 /obj/structure/cable/green{
 	d1 = 4;
@@ -114879,9 +114775,6 @@
 /turf/open/floor/iron/white/smooth,
 /area/site53/medical/infirmary)
 "xYF" = (
-/obj/structure/chair/armchair/black{
-	dir = 8
-	},
 /obj/effect/landmark/start{
 	name = "Guard Commander";
 	icon = 'icons/effects/landmarks.dmi';
@@ -159735,7 +159628,7 @@ eXt
 upE
 jeY
 ccr
-byE
+qeK
 qeK
 qeK
 ftW
@@ -160510,9 +160403,9 @@ nEN
 wTd
 qeK
 qeK
-nah
+nEN
 anO
-jrM
+qeK
 ccr
 eyo
 eyo
@@ -209630,8 +209523,8 @@ jIm
 izd
 ljV
 vLw
-sPP
-sPP
+wYx
+wYx
 wYx
 rYr
 ghM
@@ -210144,8 +210037,8 @@ eZU
 fEJ
 qPc
 qMl
-wAB
-wAB
+wYx
+wYx
 lnU
 rYr
 ghM
@@ -225271,7 +225164,7 @@ hYO
 hYO
 hYO
 pyg
-dEO
+fEj
 kVc
 fRq
 sUo
@@ -339961,8 +339854,8 @@ ctP
 vnJ
 rvF
 rvF
-eIn
-eIn
+rvF
+rvF
 ctP
 ctP
 twt
@@ -342017,8 +341910,8 @@ ctP
 fpP
 rvF
 rvF
-bwv
-bwv
+rvF
+rvF
 ctP
 ctP
 hep
@@ -345746,7 +345639,7 @@ wrP
 wrP
 hiD
 eMC
-nOp
+epy
 kEF
 mOG
 rib
@@ -349619,7 +349512,7 @@ wHH
 msg
 pnA
 lqv
-mng
+inK
 inK
 cZs
 inK
@@ -349875,9 +349768,9 @@ mpg
 wHH
 aLj
 pnA
-pir
+dtZ
 plT
-bPp
+dtZ
 dtZ
 dtZ
 qxB
@@ -350132,9 +350025,9 @@ mpg
 wHH
 msg
 pnA
-pir
+dtZ
 rVD
-bPp
+dtZ
 dtZ
 dtZ
 pkZ
