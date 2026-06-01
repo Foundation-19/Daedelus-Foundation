@@ -333,6 +333,11 @@
 	ACCESS_SECURITY_LVL3, \
 	ACCESS_SECURITY_LVL4, \
 	ACCESS_SECURITY_LVL5, \
+	)
+/// Name for the Class-D region.
+#define REGION_CLASSD "Class-D"
+/// Used to seed the accesses_by_region list in SSid_access. A list of all CDCZ regional accesses that are overseen by the Zone Security.
+#define REGION_ACCESS_CLASSD list( \
 	ACCESS_DCLASS, \
 	ACCESS_DCLASS_MINING, \
 	ACCESS_DCLASS_BOTANY, \
