@@ -401,18 +401,18 @@
 	if(!client || !check_rights(R_ADMIN))
 		return
 
-	to_chat(src, "<span class='notice'>Starting SCP integration validation...</span>")
+	to_chat(src, span_notice("Starting SCP integration validation..."))
 
 	var/datum/scp_integration_validator/validator = new()
 	var/list/summary = validator.run_full_validation()
 
 	// Display results
-	to_chat(src, "<span class='notice'>=== SCP Integration Validation Results ===</span>")
-	to_chat(src, "<span class='notice'>Total Validations: [summary["total_validations"]]</span>")
-	to_chat(src, "<span class='notice'>Passed: [summary["passed_validations"]]</span>")
-	to_chat(src, "<span class='warning'>Failed: [summary["failed_validations"]]</span>")
-	to_chat(src, "<span class='notice'>Success Rate: [round(summary["success_rate"], 0.1)]%</span>")
-	to_chat(src, "<span class='notice'>Duration: [round(summary["test_duration"]/10, 0.1)] seconds</span>")
+	to_chat(src, span_notice("=== SCP Integration Validation Results ==="))
+	to_chat(src, span_notice("Total Validations: [summary["total_validations"]]"))
+	to_chat(src, span_notice("Passed: [summary["passed_validations"]]"))
+	to_chat(src, span_warning("Failed: [summary["failed_validations"]]"))
+	to_chat(src, span_notice("Success Rate: [round(summary["success_rate"], 0.1)]%"))
+	to_chat(src, span_notice("Duration: [round(summary["test_duration"]/10, 0.1)] seconds"))
 
 	// Show detailed results
 	for(var/list/result in summary["results"])
@@ -420,16 +420,16 @@
 		to_chat(src, "<span class='[status_color]'>[result["test"]]: [result["status"]]</span>")
 
 		for(var/detail in result["details"])
-			to_chat(src, "<span class='notice'>  - [detail]</span>")
+			to_chat(src, span_notice("  - [detail]"))
 
 	// Overall assessment
 	if(summary["success_rate"] >= 90)
-		to_chat(src, "<span class='boldnotice'>✅ INTEGRATION VALIDATION: EXCELLENT - System ready for production</span>")
+		to_chat(src, span_boldnotice("✅ INTEGRATION VALIDATION: EXCELLENT - System ready for production"))
 	else if(summary["success_rate"] >= 75)
-		to_chat(src, "<span class='notice'>✅ INTEGRATION VALIDATION: GOOD - Minor issues detected</span>")
+		to_chat(src, span_notice("✅ INTEGRATION VALIDATION: GOOD - Minor issues detected"))
 	else if(summary["success_rate"] >= 50)
-		to_chat(src, "<span class='warning'>⚠️ INTEGRATION VALIDATION: FAIR - Several issues need attention</span>")
+		to_chat(src, span_warning("⚠️ INTEGRATION VALIDATION: FAIR - Several issues need attention"))
 	else
-		to_chat(src, "<span class='danger'>❌ INTEGRATION VALIDATION: POOR - Major issues detected</span>")
+		to_chat(src, span_danger("❌ INTEGRATION VALIDATION: POOR - Major issues detected"))
 
 	qdel(validator)

@@ -63,7 +63,7 @@
 		/obj/item/laser_pointer
 	)
 	suit = /obj/item/clothing/suit/toggle/labcoat/science
-	belt = /obj/item/modular_computer/tablet/pda/heads/rd
+	belt = /obj/item/modular_computer/tablet/pda/foundation_science
 	ears = /obj/item/radio/headset/heads/cmo
 	shoes = /obj/item/clothing/shoes/laceup
 	gloves = /obj/item/clothing/gloves/color/black

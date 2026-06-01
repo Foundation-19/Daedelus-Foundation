@@ -50,21 +50,21 @@
 		absorption_system.check_for_victims()
 
 	if(duration_open > 60 && prob(10))
-		visible_message("<span class='warning'>Darkness seems to pour out of [src]!</span>")
+		visible_message(span_warning("Darkness seems to pour out of [src]!"))
 
 /obj/structure/closet/scp080/open()
 	. = ..()
 	if(!opened)
 		hook_scp_breach("SCP-080", src)
 		icon_state = "scp080_open"
-		visible_message("<span class='danger'>[src] swings open, revealing impenetrable darkness within!</span>")
+		visible_message(span_danger("[src] swings open, revealing impenetrable darkness within!"))
 
 /obj/structure/closet/scp080/close()
 	. = ..()
 	if(opened)
 		icon_state = "scp080_closed"
 		darkness_level = max(0, darkness_level - 10)
-		visible_message("<span class='notice'>[src] closes, the darkness contained within.</span>")
+		visible_message(span_notice("[src] closes, the darkness contained within."))
 
 /obj/structure/closet/scp080/attack_hand(mob/living/carbon/human/user)
 	..()
@@ -73,17 +73,17 @@
 /obj/structure/closet/scp080/attackby(obj/item/I, mob/living/carbon/human/user, params)
 	if(istype(I, /obj/item/flashlight))
 		if(opened && darkness_level > 50)
-			to_chat(user, "<span class='warning'>The light from [I] is swallowed by the darkness!</span>")
+			to_chat(user, span_warning("The light from [I] is swallowed by the darkness!"))
 			hook_scp_interaction(user, "SCP-080", INTERACTION_TYPE_CONTAINMENT)
 			return
 	return ..()
 
 /obj/structure/closet/scp080/examine(mob/user)
 	. = ..()
-	to_chat(user, "<span class='warning'>A wardrobe containing infinite darkness. Those who enter may never return.</span>")
-	to_chat(user, "<span class='notice'>Darkness level: [darkness_level]%</span>")
+	to_chat(user, span_warning("A wardrobe containing infinite darkness. Those who enter may never return."))
+	to_chat(user, span_notice("Darkness level: [darkness_level]%"))
 	if(opened)
-		to_chat(user, "<span class='danger'>It is currently open!</span>")
+		to_chat(user, span_danger("It is currently open!"))
 
 /obj/structure/closet/scp080/proc/on_victim_absorbed(mob/living/carbon/human/victim)
 	if(!victim)
@@ -111,13 +111,13 @@
 	for(var/obj/machinery/light/L in range(darkness_radius, parent))
 		if(L.on)
 			L.set_on(FALSE)
-			L.visible_message("<span class='warning'>[L] flickers and dies!</span>")
+			L.visible_message(span_warning("[L] flickers and dies!"))
 
 	for(var/obj/item/flashlight/F in range(darkness_radius, parent))
 		if(F.on)
 			F.on = FALSE
 			F.update_brightness()
-			F.visible_message("<span class='warning'>[F] flickers and dies!</span>")
+			F.visible_message(span_warning("[F] flickers and dies!"))
 
 /datum/scp080_absorption_system
 	var/obj/structure/parent
@@ -147,16 +147,16 @@
 	if(!scp080_parent)
 		return
 
-	victim.visible_message("<span class='danger'>[victim] is pulled into the darkness of [scp080_parent]!</span>", "<span class='danger'>The darkness pulls you in!</span>")
+	victim.visible_message(span_danger("[victim] is pulled into the darkness of [scp080_parent]!"), span_danger("The darkness pulls you in!"))
 
 	if(do_after(victim, 30, scp080_parent))
 		if(prob(70))
 			scp080_parent.on_victim_absorbed(victim)
 			victim.forceMove(scp080_parent)
 			victim.stat = DEAD
-			victim.visible_message("<span class='danger'>[victim] disappears into the wardrobe!</span>")
+			victim.visible_message(span_danger("[victim] disappears into the wardrobe!"))
 		else
-			to_chat(victim, "<span class='notice'>You manage to pull yourself free!</span>")
+			to_chat(victim, span_notice("You manage to pull yourself free!"))
 			hook_scp_interaction(victim, "SCP-080", INTERACTION_TYPE_SURVIVAL)
 
 /datum/scp080_research_system

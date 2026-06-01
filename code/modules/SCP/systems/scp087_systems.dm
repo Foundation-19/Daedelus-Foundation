@@ -40,7 +40,7 @@
 	// Announce descent to nearby people
 	for(var/mob/living/carbon/human/H in range(5, owner))
 		if(H.stat != DEAD)
-			to_chat(H, "<span class='danger'>The stairwell seems to descend deeper into endless darkness...</span>")
+			to_chat(H, span_danger("The stairwell seems to descend deeper into endless darkness..."))
 
 /datum/scp087_descent_system/proc/increase_descent_intensity()
 	descent_cooldown = world.time + descent_cooldown_time
@@ -49,7 +49,7 @@
 	// Create more intense effects as descent increases
 	for(var/mob/living/carbon/human/H in range(4, owner))
 		if(H.stat != DEAD)
-			to_chat(H, "<span class='danger'>The darkness below grows more oppressive and infinite...</span>")
+			to_chat(H, span_danger("The darkness below grows more oppressive and infinite..."))
 			if(descent_intensity > 30)
 				H.adjustBruteLoss(2) // Physical strain from the psychological pressure
 
@@ -94,11 +94,11 @@
 		var/horror_intensity_factor = psychological_horror / max_psychological_horror
 
 		if(prob(10 * horror_intensity_factor))
-			to_chat(H, "<span class='danger'>You feel an overwhelming sense of dread and despair...</span>")
+			to_chat(H, span_danger("You feel an overwhelming sense of dread and despair..."))
 			H.adjustBruteLoss(3)
 
 		if(prob(5 * horror_intensity_factor))
-			to_chat(H, "<span class='danger'>The darkness seems to whisper unspeakable things...</span>")
+			to_chat(H, span_danger("The darkness seems to whisper unspeakable things..."))
 			if(H.stamina)
 				H.stamina.adjust(-10)
 
@@ -112,7 +112,7 @@
 	// More intense horror effects
 	for(var/mob/living/carbon/human/H in range(6, owner))
 		if(H.stat != DEAD)
-			to_chat(H, "<span class='danger'>The psychological pressure becomes almost unbearable...</span>")
+			to_chat(H, span_danger("The psychological pressure becomes almost unbearable..."))
 			if(horror_intensity > 30)
 				H.adjustBruteLoss(5)
 				if(H.stamina)
@@ -157,7 +157,7 @@
 	// Announce entity presence
 	for(var/mob/living/carbon/human/H in range(4, owner))
 		if(H.stat != DEAD)
-			to_chat(H, "<span class='danger'>You sense something watching you from the depths below...</span>")
+			to_chat(H, span_danger("You sense something watching you from the depths below..."))
 
 /datum/scp087_entity_system/proc/create_entity_encounter(list/targets)
 	entity_cooldown = world.time + entity_cooldown_time
@@ -170,23 +170,23 @@
 	switch(encounter_type)
 		if("sounds")
 			for(var/mob/living/carbon/human/H in targets)
-				to_chat(H, "<span class='danger'>You hear something moving in the darkness below...</span>")
+				to_chat(H, span_danger("You hear something moving in the darkness below..."))
 				playsound(owner, 'sound/effects/ghost.ogg', 30, 0)
 
 		if("movement")
 			for(var/mob/living/carbon/human/H in targets)
-				to_chat(H, "<span class='danger'>Something shifts in the shadows far below...</span>")
+				to_chat(H, span_danger("Something shifts in the shadows far below..."))
 				H.adjustBruteLoss(2)
 
 		if("presence")
 			for(var/mob/living/carbon/human/H in targets)
-				to_chat(H, "<span class='danger'>You feel the unmistakable presence of something malevolent...</span>")
+				to_chat(H, span_danger("You feel the unmistakable presence of something malevolent..."))
 				if(H.stamina)
 					H.stamina.adjust(-20)
 
 		if("terror")
 			for(var/mob/living/carbon/human/H in targets)
-				to_chat(H, "<span class='danger'>A wave of pure terror washes over you!</span>")
+				to_chat(H, span_danger("A wave of pure terror washes over you!"))
 				H.adjustBruteLoss(5)
 				if(H.stamina)
 					H.stamina.adjust(-15)
@@ -228,7 +228,7 @@
 
 		for(var/mob/living/carbon/human/H in range(6, owner))
 			if(H.stat != DEAD)
-				to_chat(H, "<span class='danger'>The darkness grows deeper and more oppressive...</span>")
+				to_chat(H, span_danger("The darkness grows deeper and more oppressive..."))
 
 /datum/scp087_environmental_system/proc/apply_environmental_effects(list/targets)
 	for(var/mob/living/carbon/human/H in targets)
@@ -236,12 +236,12 @@
 		var/darkness_factor = darkness_level / max_darkness_level
 
 		if(prob(5 * darkness_factor))
-			to_chat(H, "<span class='danger'>The oppressive darkness makes it hard to breathe...</span>")
+			to_chat(H, span_danger("The oppressive darkness makes it hard to breathe..."))
 			if(H.stamina)
 				H.stamina.adjust(-8)
 
 		if(prob(3 * darkness_factor))
-			to_chat(H, "<span class='danger'>The supernatural cold chills you to the bone...</span>")
+			to_chat(H, span_danger("The supernatural cold chills you to the bone..."))
 			H.adjustBruteLoss(1)
 
 // Research System - Collects data on SCP-087's effects

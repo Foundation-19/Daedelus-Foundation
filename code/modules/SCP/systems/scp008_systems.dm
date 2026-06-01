@@ -275,7 +275,7 @@
 	owner.horde_system.update_territory_radius()
 
 	// Notify owner
-	to_chat(owner, "<span class='notice'>SCP-008 has evolved to stage [new_stage]!</span>")
+	to_chat(owner, span_notice("SCP-008 has evolved to stage [new_stage]!"))
 
 	// Add to persistence
 	owner.add_evolution_record(new_stage)
@@ -379,11 +379,11 @@
 
 	// Notify owner
 	if(new_level > old_level)
-		to_chat(owner, "<span class='warning'>Containment level increased to [new_level]!</span>")
+		to_chat(owner, span_warning("Containment level increased to [new_level]!"))
 		containment_failures++
 		owner.evolution_system.add_containment_survival()
 	else if(new_level < old_level)
-		to_chat(owner, "<span class='notice'>Containment level decreased to [new_level].</span>")
+		to_chat(owner, span_notice("Containment level decreased to [new_level]."))
 		containment_successes++
 
 /datum/scp008_containment_system/proc/apply_containment_effects(level)

@@ -57,7 +57,6 @@
 
 /mob/living/scp/scp2020/Initialize(mapload)
 	. = ..()
-	set_species(/datum/species/scp2020)
 	SCP = new /datum/scp(src, "Cliche, Right?", SCP_SAFE, "2020", SCP_PLAYABLE|SCP_ROLEPLAY)
 	SCP.min_playercount = 30
 	SCP.min_time = 15 MINUTES
@@ -148,15 +147,15 @@
 
 /mob/living/scp/scp2020/examine(mob/user)
 	. = ..()
-	to_chat(user, "<span class='notice'>A green-skinned humanoid that seems convinced it exists within a science fiction story.</span>")
-	to_chat(user, "<span class='notice'>It appears completely harmless, if rather talkative about narrative conventions.</span>")
+	to_chat(user, span_notice("A green-skinned humanoid that seems convinced it exists within a science fiction story."))
+	to_chat(user, span_notice("It appears completely harmless, if rather talkative about narrative conventions."))
 
 /mob/living/scp/scp2020/proc/give_dramatic_speech()
 	if(stat == DEAD)
 		return
 
 	if(world.time < narrative_cooldown)
-		to_chat(src, "<span class='warning'>You need to wait for the right dramatic moment...</span>")
+		to_chat(src, span_warning("You need to wait for the right dramatic moment..."))
 		return
 
 	narrative_cooldown = world.time + narrative_cooldown_time * 2
@@ -166,14 +165,14 @@
 	dramatic_speeches++
 	plot_developments++
 
-	visible_message("<span class='notice'>[src] gestures dramatically!</span>")
+	visible_message(span_notice("[src] gestures dramatically!"))
 
 /mob/living/scp/scp2020/proc/narrate_events()
 	if(stat == DEAD)
 		return
 
 	if(world.time < narrative_cooldown)
-		to_chat(src, "<span class='warning'>The narrative needs time to breathe...</span>")
+		to_chat(src, span_warning("The narrative needs time to breathe..."))
 		return
 
 	narrative_cooldown = world.time + narrative_cooldown_time
@@ -205,7 +204,7 @@
 		return
 
 	if(world.time < narrative_cooldown)
-		to_chat(src, "<span class='warning'>You need to observe more before identifying the trope...</span>")
+		to_chat(src, span_warning("You need to observe more before identifying the trope..."))
 		return
 
 	narrative_cooldown = world.time + narrative_cooldown_time
@@ -232,9 +231,17 @@
 	message += "<b>Dramatic Speeches:</b> [dramatic_speeches]<br>"
 	message += "<b>Conversations Held:</b> [conversations_held]<br>"
 
-	to_chat(src, "<span class='notice'>[message]</span>")
+	to_chat(src, span_notice("[message]"))
+
+/mob/living/scp/scp2020/get_status_tab_items()
+	. = ..()
+	. += "Narrative Phase: [narrative_phase]"
+	. += "Cliches Identified: [cliche_count]"
+	. += "Plot Developments: [plot_developments]"
+	. += "Dramatic Speeches: [dramatic_speeches]"
+	. += "Conversations Held: [conversations_held]"
 
 /mob/living/scp/scp2020/death(gibbed, cause_of_death = "Unknown")
 	say("I... I don't think... this is how the story... was supposed to end...")
-	visible_message("<span class='danger'>[src] collapses, looking genuinely surprised!</span>")
+	visible_message(span_danger("[src] collapses, looking genuinely surprised!"))
 	return ..()

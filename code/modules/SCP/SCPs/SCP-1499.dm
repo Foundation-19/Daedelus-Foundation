@@ -61,7 +61,7 @@
 	if(dimension_system)
 		dimension_system.transport_to_dimension(wearer)
 
-	to_chat(wearer, "<span class='warning'>Reality shifts around you. You find yourself in an alien landscape!</span>")
+	to_chat(wearer, span_warning("Reality shifts around you. You find yourself in an alien landscape!"))
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/mask/gas/scp1499/proc/exit_dimension(mob/living/carbon/human/wearer)
@@ -74,7 +74,7 @@
 	if(dimension_system)
 		dimension_system.return_from_dimension(wearer, original_location)
 
-	to_chat(wearer, "<span class='notice'>The alien landscape fades as reality returns to normal.</span>")
+	to_chat(wearer, span_notice("The alien landscape fades as reality returns to normal."))
 	hook_scp_interaction(wearer, "SCP-1499", INTERACTION_TYPE_SURVIVAL)
 	safe_returns++
 
@@ -96,11 +96,11 @@
 		entity_system.process_entities(wearer, trip_duration)
 
 	if(trip_duration > 600 && prob(5))
-		to_chat(wearer, "<span class='warning'>You feel like you should remove the mask soon...</span>")
+		to_chat(wearer, span_warning("You feel like you should remove the mask soon..."))
 
 /obj/item/clothing/mask/gas/scp1499/examine(mob/user)
 	. = ..()
-	to_chat(user, "<span class='notice'>A gas mask that transports the wearer to an alien dimension.</span>")
+	to_chat(user, span_notice("A gas mask that transports the wearer to an alien dimension."))
 
 /datum/scp1499_dimension_system
 	var/obj/item/parent
@@ -210,7 +210,7 @@
 		return
 
 	if(prob(5))
-		wearer.visible_message("<span class='notice'>[wearer] stares blankly into nothing.</span>")
+		wearer.visible_message(span_notice("[wearer] stares blankly into nothing."))
 
 	if(duration > 1800)
 		wearer.Sleeping(10)
@@ -250,7 +250,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	to_chat(H, "<span class='warning'>The growth pulses beneath your touch. It's warm.</span>")
+	to_chat(H, span_warning("The growth pulses beneath your touch. It's warm."))
 	if(H.sanity)
 		H.sanity.adjust_sanity(-5, "scp1499_flesh_touch")
 
@@ -277,7 +277,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	to_chat(H, "<span class='danger'>Strange visions flood your mind as you touch the altar!</span>")
+	to_chat(H, span_danger("Strange visions flood your mind as you touch the altar!"))
 	if(H.sanity)
 		H.sanity.adjust_sanity(-25, "scp1499_altar")
 		H.sanity.hallucination_level = min(H.sanity.hallucination_level + 30, H.sanity.max_hallucination)
@@ -329,7 +329,7 @@
 	E.target = wearer
 	spawned_entities += E
 
-	wearer.visible_message("<span class='danger'>A strange entity manifests nearby!</span>", "<span class='danger'>One of the dimension's inhabitants approaches!</span>")
+	wearer.visible_message(span_danger("A strange entity manifests nearby!"), span_danger("One of the dimension's inhabitants approaches!"))
 	hook_scp_combat(wearer, "SCP-1499", 0, 5)
 
 /datum/scp1499_entity_system/proc/attack_wearer(mob/living/carbon/human/wearer, obj/effect/scp1499_entity/entity)
@@ -338,7 +338,7 @@
 
 	var/damage = rand(5, 15)
 	wearer.adjustBruteLoss(damage)
-	to_chat(wearer, "<span class='danger'>[entity] attacks you!</span>")
+	to_chat(wearer, span_danger("[entity] attacks you!"))
 	hook_scp_combat(wearer, "SCP-1499", 0, damage)
 
 /obj/effect/scp1499_entity

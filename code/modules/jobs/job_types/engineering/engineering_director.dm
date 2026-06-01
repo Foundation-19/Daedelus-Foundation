@@ -72,7 +72,7 @@
 	head = /obj/item/clothing/head/hardhat/white
 	suit = /obj/item/clothing/suit/hazardvest
 	shoes = /obj/item/clothing/shoes/workboots
-	l_pocket = /obj/item/modular_computer/tablet/pda/heads/ce
+	l_pocket = /obj/item/modular_computer/tablet/pda/foundation_engineer
 
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel/eng

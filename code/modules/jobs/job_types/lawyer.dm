@@ -45,7 +45,7 @@
 
 	id_trim = /datum/id_trim/job/lawyer
 	uniform = /obj/item/clothing/under/rank/civilian/lawyer/black
-	belt = /obj/item/modular_computer/tablet/pda/lawyer
+	belt = /obj/item/modular_computer/tablet/pda/foundation_ethics
 	shoes = /obj/item/clothing/shoes/laceup
 	l_pocket = /obj/item/laser_pointer
 	r_pocket = /obj/item/clothing/accessory/lawyers_badge

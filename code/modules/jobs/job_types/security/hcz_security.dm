@@ -1,6 +1,8 @@
 /datum/job/junior_hcz_guard
 	title = JOB_JUNIOR_HCZ_GUARD
-	description = "Maintain the security of Keter anomalies held in the HCZ."
+	description = "Patrol HCZ containment corridors under supervision. Monitor Keter-level \
+		SCP containment, report containment integrity changes, and assist with recontainment \
+		operations. Learn HCZ-specific protocols from senior guards."
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_GUARD_COMMANDER)
 	faction = FACTION_STATION
@@ -32,7 +34,7 @@
 	suit = /obj/item/clothing/suit/armor/vest/scp/medarmor
 	suit_store = /obj/item/gun/energy/disabler
 	backpack_contents = list(/obj/item/storage/evidencebag = 1)
-	belt = /obj/item/modular_computer/tablet/pda/security
+	belt = /obj/item/modular_computer/tablet/pda/foundation_guard
 	ears = /obj/item/radio/headset/headset_sec/alt
 	head = /obj/item/clothing/head/helmet/scp/hczsecurityguard
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -62,7 +64,9 @@
 
 /datum/job/hcz_guard
 	title = JOB_HCZ_GUARD
-	description = "Maintain the security of Keter anomalies held in the HCZ."
+	description = "Maintain Keter SCP containment security. Operate the HCZ gas system, \
+		respond to containment breaches, run recontainment protocols from the Recontainment \
+		Terminal, and coordinate with MTF during major breaches."
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_GUARD_COMMANDER)
 	faction = FACTION_STATION
@@ -94,7 +98,7 @@
 	suit = /obj/item/clothing/suit/armor/vest/scp/lczcomm
 	suit_store = /obj/item/gun/energy/disabler
 	backpack_contents = list(/obj/item/storage/evidencebag = 1)
-	belt = /obj/item/modular_computer/tablet/pda/security
+	belt = /obj/item/modular_computer/tablet/pda/foundation_guard
 	ears = /obj/item/radio/headset/headset_sec/alt
 	head = /obj/item/clothing/head/helmet/scp/hczsecurityguard
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -125,7 +129,9 @@
 
 /datum/job/senior_hcz_guard
 	title = JOB_SENIOR_HCZ_GUARD
-	description = "Maintain the security of Keter anomalies held in the HCZ."
+	description = "Lead HCZ guard squads and coordinate recontainment operations. Train \
+		privates, manage containment breach responses, operate the HCZ gas system, and \
+		authorize lethal force during Keter-level breaches."
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_GUARD_COMMANDER)
 	faction = FACTION_STATION
@@ -157,7 +163,7 @@
 	suit = /obj/item/clothing/suit/armor/vest/scp/lczcomm
 	suit_store = /obj/item/gun/energy/disabler
 	backpack_contents = list(/obj/item/storage/evidencebag = 1)
-	belt = /obj/item/modular_computer/tablet/pda/security
+	belt = /obj/item/modular_computer/tablet/pda/foundation_guard
 	ears = /obj/item/radio/headset/headset_sec/alt
 	head = /obj/item/clothing/head/helmet/scp/hczsecurityguard
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -188,7 +194,9 @@
 
 /datum/job/hcz_commander
 	title = JOB_HCZ_ZONE_SENIOR_LIEUTENANT
-	description = "Maintain the security of Keter anomalies held in the HCZ."
+	description = "Command all HCZ security operations. Authorize recontainment protocols, \
+		coordinate MTF deployments, manage the HCZ patrol and gas consoles, and liaise \
+		with the Guard Commander on Keter-level threats."
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_GUARD_COMMANDER)
 	faction = FACTION_STATION
@@ -220,7 +228,7 @@
 	suit = /obj/item/clothing/suit/armor/vest/scp/lczcomm
 	suit_store = /obj/item/gun/energy/disabler
 	backpack_contents = list(/obj/item/storage/evidencebag = 1)
-	belt = /obj/item/modular_computer/tablet/pda/security
+	belt = /obj/item/modular_computer/tablet/pda/foundation_guard
 	ears = /obj/item/radio/headset/headset_sec/alt
 	head = /obj/item/clothing/head/helmet/scp/hczsecurityguard
 	shoes = /obj/item/clothing/shoes/jackboots

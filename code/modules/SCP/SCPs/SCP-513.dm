@@ -25,7 +25,7 @@
 		return
 	ring_cooldown = world.time + ring_cooldown_time
 	ring_count++
-	visible_message("<span class='danger'>[user] rings SCP-513!</span>")
+	visible_message(span_danger("[user] rings SCP-513!"))
 	playsound(src, 'sound/weapons/punch1.ogg', 50, TRUE)
 	hook_scp_breach("SCP-513", src)
 	for(var/mob/living/carbon/human/H in range(hear_radius, src))
@@ -34,10 +34,10 @@
 		if(!(H in affected_mobs))
 			affected_mobs += H
 			H.AddElement(/datum/element/scp513_stalked)
-			to_chat(H, "<span class='danger'>You hear the cowbell ring. Something has noticed you.</span>")
+			to_chat(H, span_danger("You hear the cowbell ring. Something has noticed you."))
 			hook_scp_interaction(H, "SCP-513", INTERACTION_TYPE_OBSERVATION)
 		else
-			to_chat(H, "<span class='warning'>The cowbell rings again... the presence feels closer.</span>")
+			to_chat(H, span_warning("The cowbell rings again... the presence feels closer."))
 
 /obj/item/scp513/attack_self(mob/user)
 	ring_bell(user)
@@ -47,9 +47,9 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.SCP)
-			. += "<span class='warning'>SCP-513 - Ringing causes SCP-513-1 to stalk all who hear it. There is no cure.</span>"
+			. += span_warning("SCP-513 - Ringing causes SCP-513-1 to stalk all who hear it. There is no cure.")
 		else
-			. += "<span class='danger'>A rusted cowbell. You feel an odd compulsion to ring it.</span>"
+			. += span_danger("A rusted cowbell. You feel an odd compulsion to ring it.")
 
 /datum/element/scp513_stalked
 	element_flags = ELEMENT_BESPOKE
@@ -73,7 +73,7 @@
 	ghost_effect = new /obj/effect/scp513_1(get_turf(H), H)
 	RegisterSignal(H, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 	RegisterSignal(H, COMSIG_PARENT_QDELETING, PROC_REF(on_target_destroy))
-	to_chat(H, "<span class='warning'>You feel like something is watching you from just out of sight...</span>")
+	to_chat(H, span_warning("You feel like something is watching you from just out of sight..."))
 
 /datum/element/scp513_stalked/Detach(datum/source)
 	. = ..()
@@ -110,13 +110,13 @@
 		"You see pale, spindly fingers curl around a doorframe. When you approach, no one is there."
 	)
 	var/sighting = pick(sightings)
-	to_chat(H, "<span class='danger'>[sighting]</span>")
+	to_chat(H, span_danger("[sighting]"))
 	if(H.sanity)
 		H.sanity.adjust_sanity(-8, "scp513_sighting")
 	if(prob(30))
 		if(H.stamina)
 			H.stamina.adjust(-15)
-		to_chat(H, "<span class='warning'>You stumble in panic!</span>")
+		to_chat(H, span_warning("You stumble in panic!"))
 	last_sighting = world.time
 	hook_scp_combat(H, "SCP-513", 0, 5)
 

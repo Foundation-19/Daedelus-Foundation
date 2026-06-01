@@ -1,6 +1,8 @@
 /datum/job/communications_director
 	title = JOB_COMMUNICATIONS_DIRECTOR
-	description = "Keep communications systems online. Inform the site of on-going threats. Dispatch security."
+	description = "Keep communications systems online. Inform the site of on-going threats. Dispatch security, \
+	medical, and engineering personnel via the Communications Console. Monitor facility threat levels and \
+	coordinate emergency responses. Make site-wide announcements to keep personnel informed."
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
 	faction = FACTION_STATION
 	total_positions = 1
@@ -20,7 +22,7 @@
 
 	outfits = list(
 		"Default" = list(
-			SPECIES_HUMAN = /datum/outfit/job/ethics_committee_liaison,
+			SPECIES_HUMAN = /datum/outfit/job/communications_director,
 		),
 	)
 
@@ -54,7 +56,7 @@
 	backpack_contents = list(
 		/obj/item/assembly/flash/handheld = 1
 	)
-	belt = /obj/item/modular_computer/tablet/pda
+	belt = /obj/item/modular_computer/tablet/pda/foundation_comms
 	ears = /obj/item/radio/headset/heads/captain
 	gloves = /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/laceup

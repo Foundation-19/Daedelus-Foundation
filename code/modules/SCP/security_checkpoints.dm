@@ -28,6 +28,7 @@
 	RegisterSignal(src, COMSIG_ATOM_ENTERED, PROC_REF(on_crossed))
 
 /obj/machinery/scp_checkpoint_scanner/proc/on_crossed(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
 	if(!ishuman(AM))
 		return
 	if(world.time < scan_cooldown)
@@ -44,15 +45,18 @@
 
 	var/obj/item/card/id/id_card = H.get_idcard(TRUE)
 	if(!id_card || !(ACCESS_SECURITY in id_card.access))
-		to_chat(H, "<span class='warning'>Requires Security access to operate checkpoint scanner.</span>")
+		to_chat(H, span_warning("Requires Security access to operate checkpoint scanner."))
 		return
 
 	if(length(contraband_detected))
-		to_chat(H, "<span class='notice'>=== Recent Contraband Detections ===</span>")
+		to_chat(H, span_notice("=== Recent Contraband Detections ==="))
 		for(var/list/detection in contraband_detected)
-			to_chat(H, "<span class='warning'>[detection["name"]] - [detection["item"]] at [time2text(detection["time"], "hh:mm:ss")]</span>")
+			var/det_name = detection["name"]
+			var/det_item = detection["item"]
+			var/det_time = detection["time"]
+			to_chat(H, span_warning("[det_name] - [det_item] at [time2text(det_time, "hh:mm:ss")]"))
 	else
-		to_chat(H, "<span class='notice'>No recent contraband detections.</span>")
+		to_chat(H, span_notice("No recent contraband detections."))
 
 /obj/machinery/scp_checkpoint_scanner/proc/scan_person(mob/living/carbon/human/H)
 	if(!H || H.stat == DEAD)
@@ -93,8 +97,8 @@
 	if(length(contraband_detected) > 20)
 		contraband_detected.Cut(1, 2)
 
-	visible_message("<span class='warning'>[src] flashes red as it detects contraband on [H]!</span>")
-	to_chat(H, "<span class='danger'>The checkpoint scanner has detected unauthorized items on your person!</span>")
+	visible_message(span_warning("[src] flashes red as it detects contraband on [H]!"))
+	to_chat(H, span_danger("The checkpoint scanner has detected unauthorized items on your person!"))
 
 	if(alert_security && world.time > last_alert_time + alert_cooldown)
 		last_alert_time = world.time
@@ -106,7 +110,8 @@
 			var/obj/item/card/id/sec_id = sec.get_idcard(TRUE)
 			if(sec_id && (ACCESS_SECURITY in sec_id.access))
 				var/area/A = get_area(src)
-				to_chat(sec, "<span class='danger'>CHECKPOINT ALERT: Contraband detected on [H.name] at [A ? A.name : "unknown location"]. Items: [english_list(found_contraband)]</span>")
+				var/contraband_location = A ? A.name : "unknown location"
+				to_chat(sec, span_danger("CHECKPOINT ALERT: Contraband detected on [H.name] at [contraband_location]. Items: [english_list(found_contraband)]"))
 
 		var/datum/dclass_player/player = SSdclass?.manager?.dclass_players[H.ckey]
 		if(player)
@@ -133,11 +138,11 @@
 
 	var/obj/item/card/id/id_card = H.get_idcard(TRUE)
 	if(!id_card || !(ACCESS_SECURITY in id_card.access))
-		to_chat(H, "<span class='warning'>Requires Security access to operate the checkpoint gate.</span>")
+		to_chat(H, span_warning("Requires Security access to operate the checkpoint gate."))
 		return
 
 	if(locked)
-		to_chat(H, "<span class='warning'>Gate is locked during lockdown.</span>")
+		to_chat(H, span_warning("Gate is locked during lockdown."))
 		return
 
 	toggle_gate(H)
@@ -147,12 +152,12 @@
 	if(open)
 		density = FALSE
 		icon_state = "open"
-		visible_message("<span class='notice'>[src] opens.</span>")
+		visible_message(span_notice("[src] opens."))
 		addtimer(CALLBACK(src, .proc/auto_close), auto_close_time)
 	else
 		density = TRUE
 		icon_state = "closed"
-		visible_message("<span class='notice'>[src] closes.</span>")
+		visible_message(span_notice("[src] closes."))
 
 /obj/machinery/scp_checkpoint_gate/proc/auto_close()
 	if(open)
@@ -191,11 +196,11 @@
 
 	var/obj/item/card/id/id_card = H.get_idcard(TRUE)
 	if(!id_card || !(ACCESS_SECURITY in id_card.access))
-		to_chat(H, "<span class='warning'>Requires Security access to perform searches.</span>")
+		to_chat(H, span_warning("Requires Security access to perform searches."))
 		return
 
 	if(search_in_progress)
-		to_chat(H, "<span class='notice'>Search in progress: [search_progress]% complete.</span>")
+		to_chat(H, span_notice("Search in progress: [search_progress]% complete."))
 		return
 
 	var/list/nearby_targets = list()
@@ -204,7 +209,7 @@
 			nearby_targets += target
 
 	if(!length(nearby_targets))
-		to_chat(H, "<span class='warning'>No one nearby to search.</span>")
+		to_chat(H, span_warning("No one nearby to search."))
 		return
 
 	var/mob/living/carbon/human/target = input(H, "Select person to search:", "Search Procedure") as null|anything in nearby_targets
@@ -218,8 +223,8 @@
 	search_target = target
 	search_progress = 0
 
-	to_chat(searcher, "<span class='notice'>You begin searching [target]...</span>")
-	to_chat(target, "<span class='warning'>[searcher] is performing a search on you. Stand still.</span>")
+	to_chat(searcher, span_notice("You begin searching [target]..."))
+	to_chat(target, span_warning("[searcher] is performing a search on you. Stand still."))
 
 	while(search_progress < 100)
 		if(!search_target || !searcher || QDELETED(search_target) || QDELETED(searcher))
@@ -227,7 +232,7 @@
 			return
 
 		if(get_dist(searcher, search_target) > 2)
-			to_chat(searcher, "<span class='warning'>Search target moved out of range.</span>")
+			to_chat(searcher, span_warning("Search target moved out of range."))
 			search_in_progress = FALSE
 			return
 
@@ -249,11 +254,11 @@
 		if(findtext("[I.type]", "scp") && !findtext("[I.type]", "document"))
 			contraband_found += I
 
-	to_chat(searcher, "<span class='notice'>=== Search Results: [target.name] ===</span>")
+	to_chat(searcher, span_notice("=== Search Results: [target.name] ==="))
 	if(length(contraband_found))
-		to_chat(searcher, "<span class='danger'>CONTRABAND FOUND:</span>")
+		to_chat(searcher, span_danger("CONTRABAND FOUND:"))
 		for(var/obj/item/I in contraband_found)
-			to_chat(searcher, "<span class='danger'>- [I.name] ([I.type])</span>")
+			to_chat(searcher, span_danger("- [I.name] ([I.type])"))
 			I.forceMove(get_turf(target))
 
 		var/datum/dclass_player/player = SSdclass?.manager?.dclass_players[target.ckey]
@@ -262,6 +267,7 @@
 			player.suspicion_level = min(100, player.suspicion_level + 20)
 			player.strikes++
 	else
-		to_chat(searcher, "<span class='green'>No contraband detected. Subject is clear.</span>")
+		to_chat(searcher, span_nicegreen("No contraband detected. Subject is clear."))
 
-	to_chat(target, "<span class='notice'>Search complete. [length(contraband_found) ? "Contraband has been confiscated." : "You have been cleared."]</span>")
+	var/search_result_msg = length(contraband_found) ? "Contraband has been confiscated." : "You have been cleared."
+	to_chat(target, span_notice("Search complete. [search_result_msg]"))

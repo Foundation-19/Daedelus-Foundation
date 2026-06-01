@@ -104,7 +104,7 @@
 
 	return data
 
-/datum/scp_progression_ui/ui_act(action, params)
+/datum/scp_progression_ui/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
@@ -112,8 +112,8 @@
 	switch(action)
 		if("export_scp_data")
 			var/data_json = json_encode(list("ckey" = user.ckey, "scp_data" = "export"))
-			user << browse(data_json, "window=scp_progression_data;size=600x400;can_close=1;can_resize=1")
-			to_chat(user, span_notice("SCP progression data exported."))
+			user << ftp(data_json, "scp_progression_[user.ckey]_[time2text(world.time, "YYYYMMDD_HHMMSS")].json")
+			to_chat(user, span_notice("SCP progression data downloaded."))
 			. = TRUE
 
 		if("refresh_scp_data")

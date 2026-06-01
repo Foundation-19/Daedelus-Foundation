@@ -23,16 +23,16 @@
 
 	var/obj/item/card/id/id_card = H.get_idcard(TRUE)
 	if(!id_card)
-		to_chat(H, "<span class='warning'>ID card required.</span>")
+		to_chat(H, span_warning("ID card required."))
 		return
 
 	var/has_access = (ACCESS_ADMIN in id_card.access) || (ACCESS_SECURITY in id_card.access)
 	if(!has_access)
-		to_chat(H, "<span class='warning'>Requires Command or Security access to use the PA system.</span>")
+		to_chat(H, span_warning("Requires Command or Security access to use the PA system."))
 		return
 
 	if(world.time < announcement_cooldown)
-		to_chat(H, "<span class='warning'>PA system recharging. Available in [DisplayTimeText(announcement_cooldown - world.time)].</span>")
+		to_chat(H, span_warning("PA system recharging. Available in [DisplayTimeText(announcement_cooldown - world.time)]."))
 		return
 
 	var/list/zone_options = list(
@@ -118,11 +118,11 @@
 /obj/item/scp_radio_jammer/attack_self(mob/user)
 	active = !active
 	if(active)
-		to_chat(user, "<span class='notice'>Radio jammer activated. Foundation frequencies within [jam_range] meters will be disrupted.</span>")
+		to_chat(user, span_notice("Radio jammer activated. Foundation frequencies within [jam_range] meters will be disrupted."))
 		LAZYADD(GLOB.active_scp_jammers, src)
 		START_PROCESSING(SSobj, src)
 	else
-		to_chat(user, "<span class='notice'>Radio jammer deactivated.</span>")
+		to_chat(user, span_notice("Radio jammer deactivated."))
 		LAZYREMOVE(GLOB.active_scp_jammers, src)
 		STOP_PROCESSING(SSobj, src)
 

@@ -11,14 +11,3 @@
 	brutemod = 0.8
 	burnmod = 0.8
 	siemens_coeff = 0.2
-
-/datum/species/scp2343/spec_life(mob/living/carbon/human/H)
-	. = ..()
-	if(!H || H.stat == DEAD)
-		return
-	if(prob(1))
-		H.visible_message("<span class='notice'>Reality hums gently around [H].</span>")
-
-
-
-

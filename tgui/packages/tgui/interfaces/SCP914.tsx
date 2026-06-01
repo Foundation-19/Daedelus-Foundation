@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Window } from '../layouts';
+import { NtosWindow } from '../layouts';
 
 type ItemData = {
   name: string;
@@ -59,8 +59,8 @@ export const SCP914 = (_props: unknown) => {
     max_progress > 0 ? Math.round((progress / max_progress) * 100) : 0;
 
   return (
-    <Window theme="scp_terminal" width={550} height={520}>
-      <Window.Content scrollable>
+    <NtosWindow width={550} height={520}>
+      <NtosWindow.Content scrollable>
         <div
           style={{
             background: C.bg,
@@ -344,7 +344,7 @@ export const SCP914 = (_props: unknown) => {
             <span>Enhanced: {objects_enhanced}</span>
           </div>
         </div>
-      </Window.Content>
-    </Window>
+      </NtosWindow.Content>
+    </NtosWindow>
   );
 };

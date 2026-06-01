@@ -72,15 +72,23 @@
 	if(istype(I, /obj/item/food))
 		food_given++
 		hook_scp_interaction(user, "SCP-529", INTERACTION_TYPE_CARE)
-		visible_message("<span class='notice'>[src] happily eats the [I.name]!</span>")
+		visible_message(span_notice("[src] happily eats the [I.name]!"))
 		qdel(I)
 		return
 	return ..()
 
 /mob/living/simple_animal/scp529/examine(mob/user)
 	. = ..()
-	to_chat(user, "<span class='notice'>Despite having no rear half, this cat appears perfectly healthy and content.</span>")
-	to_chat(user, "<span class='notice'>It seems to be named 'Josie'.</span>")
+	to_chat(user, span_notice("Despite having no rear half, this cat appears perfectly healthy and content."))
+	to_chat(user, span_notice("It seems to be named 'Josie'."))
+
+/mob/living/simple_animal/scp529/death(gibbed, cause_of_death = "Unknown")
+	hook_scp_recontainment("SCP-529", list())
+	return ..()
+
+/mob/living/simple_animal/scp529/death(gibbed, cause_of_death = "Unknown")
+	hook_scp_recontainment("SCP-529", list())
+	return ..()
 
 /datum/scp529_health_system
 	var/mob/living/simple_animal/parent
@@ -98,7 +106,7 @@
 		parent.adjustBruteLoss(-regeneration_rate)
 
 	if(prob(1))
-		parent.visible_message("<span class='notice'>[parent]'s missing half briefly shimmers.</span>")
+		parent.visible_message(span_notice("[parent]'s missing half briefly shimmers."))
 
 /datum/scp529_interaction_system
 	var/mob/living/simple_animal/parent

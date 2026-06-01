@@ -54,6 +54,7 @@
 	playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
 
 /obj/machinery/fusion_fuel_compressor/update_icon()
+	. = ..()
 	if(processing)
 		icon_state = "core1"
 	else

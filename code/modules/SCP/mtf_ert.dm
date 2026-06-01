@@ -57,7 +57,7 @@
 
 /datum/antagonist/mtf/greet()
 	. = ..()
-	to_chat(owner, "<span class='boldannounce'>You are a Mobile Task Force operative of the SCP Foundation.</span>")
+	to_chat(owner, span_boldannounce("You are a Mobile Task Force operative of the SCP Foundation."))
 	to_chat(owner, "<span class='warningplain'>Secure. Contain. Protect.</span>")
 	if(mtf_team && mtf_team.mission)
 		to_chat(owner, "<span class='warningplain'>Mission: [mtf_team.mission.explanation_text]</span>")
@@ -159,7 +159,9 @@
 	shoes = /obj/item/clothing/shoes/jackboots
 	gloves = /obj/item/clothing/gloves/color/black
 	back = /obj/item/storage/backpack/security
+	belt = /obj/item/storage/belt/military
 	id = /obj/item/card/id/advanced
+	r_hand = /obj/item/gun/ballistic/automatic/scp/p90
 
 /datum/outfit/mtf/security/alert
 	name = "MTF Security Alert"
@@ -176,6 +178,7 @@
 	back = /obj/item/storage/backpack/industrial
 	belt = /obj/item/storage/belt/utility/full
 	id = /obj/item/card/id/advanced
+	l_hand = /obj/item/gun/ballistic/automatic/scp/ierichon
 
 /datum/outfit/mtf/engineer/alert
 	name = "MTF Engineer Alert"
@@ -192,6 +195,7 @@
 	back = /obj/item/storage/backpack/medic
 	belt = /obj/item/storage/belt/medical
 	id = /obj/item/card/id/advanced
+	l_hand = /obj/item/gun/ballistic/automatic/scp/ierichon
 
 /datum/outfit/mtf/medic/alert
 	name = "MTF Medical Alert"
@@ -204,9 +208,12 @@
 	head = /obj/item/clothing/head/helmet/scp/security
 	ears = /obj/item/radio/headset/scp_command
 	shoes = /obj/item/clothing/shoes/jackboots
-	gloves = /obj/item/clothing/gloves/color/black
+	gloves = /obj/item/clothing/gloves/combat
 	back = /obj/item/storage/backpack/security
+	belt = /obj/item/storage/belt/military
 	id = /obj/item/card/id/advanced
+	r_hand = /obj/item/gun/ballistic/automatic/scp/p90
+	l_pocket = /obj/item/ammo_box/magazine/scp/p90_mag
 
 /datum/outfit/mtf/commander/alert
 	name = "MTF Commander Alert"
@@ -219,9 +226,12 @@
 	head = /obj/item/clothing/head/helmet/scp/security
 	ears = /obj/item/radio/headset/scp_mtf
 	shoes = /obj/item/clothing/shoes/jackboots
-	gloves = /obj/item/clothing/gloves/color/black
+	gloves = /obj/item/clothing/gloves/combat
 	back = /obj/item/storage/backpack/security
+	belt = /obj/item/storage/belt/military
 	id = /obj/item/card/id/advanced
+	r_hand = /obj/item/gun/ballistic/automatic/scp/m16
+	l_pocket = /obj/item/ammo_box/magazine/scp/m16_mag
 
 /datum/outfit/mtf/nu7/commander
 	name = "MTF Nu-7 Commander"
@@ -234,9 +244,13 @@
 	head = /obj/item/clothing/head/helmet/scp/security
 	ears = /obj/item/radio/headset/scp_mtf
 	shoes = /obj/item/clothing/shoes/jackboots
-	gloves = /obj/item/clothing/gloves/color/black
+	gloves = /obj/item/clothing/gloves/combat
+	glasses = /obj/item/clothing/glasses/hud/scramble
 	back = /obj/item/storage/backpack/security
+	belt = /obj/item/storage/belt/military
 	id = /obj/item/card/id/advanced
+	r_hand = /obj/item/gun/ballistic/automatic/scp/p90
+	l_pocket = /obj/item/ammo_box/magazine/scp/p90_mag
 
 /datum/outfit/mtf/epsilon11/commander
 	name = "MTF Epsilon-11 Commander"
@@ -249,9 +263,12 @@
 	head = /obj/item/clothing/head/helmet/scp/security
 	ears = /obj/item/radio/headset/scp_mtf
 	shoes = /obj/item/clothing/shoes/jackboots
-	gloves = /obj/item/clothing/gloves/color/black
+	gloves = /obj/item/clothing/gloves/combat
 	back = /obj/item/storage/backpack/security
+	belt = /obj/item/storage/belt/military
 	id = /obj/item/card/id/advanced
+	r_hand = /obj/item/gun/ballistic/automatic/scp/p90
+	l_pocket = /obj/item/ammo_box/magazine/scp/p90_mag
 
 /datum/outfit/mtf/beta7
 	name = "MTF Beta-7"
@@ -260,9 +277,12 @@
 	head = /obj/item/clothing/head/helmet/scp/security
 	ears = /obj/item/radio/headset/scp_mtf
 	shoes = /obj/item/clothing/shoes/jackboots
-	gloves = /obj/item/clothing/gloves/color/black
+	gloves = /obj/item/clothing/gloves/combat
 	back = /obj/item/storage/backpack/security
+	belt = /obj/item/storage/belt/military
 	id = /obj/item/card/id/advanced
+	r_hand = /obj/item/gun/ballistic/automatic/scp/p90
+	l_pocket = /obj/item/ammo_box/magazine/scp/p90_mag
 
 /datum/outfit/mtf/eta10
 	name = "MTF Eta-10"
@@ -271,9 +291,13 @@
 	head = /obj/item/clothing/head/helmet/scp/security
 	ears = /obj/item/radio/headset/scp_mtf
 	shoes = /obj/item/clothing/shoes/jackboots
-	gloves = /obj/item/clothing/gloves/color/black
+	gloves = /obj/item/clothing/gloves/combat
+	glasses = /obj/item/clothing/glasses/hud/scramble
 	back = /obj/item/storage/backpack/security
+	belt = /obj/item/storage/belt/military
 	id = /obj/item/card/id/advanced
+	r_hand = /obj/item/gun/ballistic/automatic/scp/p90
+	l_pocket = /obj/item/ammo_box/magazine/scp/p90_mag
 
 /datum/outfit/mtf/deathsquad
 	name = "O5 Death Squad"
@@ -296,7 +320,10 @@
 	shoes = /obj/item/clothing/shoes/jackboots
 	gloves = /obj/item/clothing/gloves/combat
 	back = /obj/item/storage/backpack/security
+	belt = /obj/item/storage/belt/military
 	id = /obj/item/card/id/advanced
+	r_hand = /obj/item/gun/ballistic/automatic/scp/m16
+	l_pocket = /obj/item/ammo_box/magazine/scp/m16_mag
 
 /datum/outfit/mtf/goc/commander
 	name = "GOC Commander"

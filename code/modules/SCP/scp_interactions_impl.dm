@@ -262,8 +262,7 @@
 	reptile.adjustFireLoss(-50, updating_health = TRUE, forced = TRUE)
 	if(reptile.evolution_system)
 		reptile.evolution_system.add_adaptation("fire_resistance", 0.5)
-	if(flame.heat_system)
-		flame.heat_system.add_heat(30)
+	flame.AddHeat(30)
 	reptile.visible_message(span_danger("SCP-682 and SCP-457 clash! Fire and fury! 682 begins adapting; 457 feeds on the destruction!"))
 	return TRUE
 
@@ -285,8 +284,7 @@
 	var/obj/structure/coffin/scp895/coffin = istype(scp1, /obj/structure/coffin/scp895) ? scp1 : scp2
 	if(!flame || !coffin)
 		return FALSE
-	if(flame.heat_system)
-		flame.heat_system.add_heat(20)
+	flame.AddHeat(20)
 	coffin.hallucination_range_camera = min(30, coffin.hallucination_range_camera + 5)
 	coffin.hallucination_range_direct = min(6, coffin.hallucination_range_direct + 1)
 	flame.visible_message(span_danger("SCP-457 burns near SCP-895! Corrupted smoke billows through the vents!"))
@@ -344,4 +342,489 @@
 			if(H.sanity)
 				H.sanity.adjust_sanity(-5, "scp939_035_lure")
 			break
+	return TRUE
+
+// ============================================================================
+// SCP-610 CROSS-INTERACTIONS
+// ============================================================================
+
+/proc/interact_610_flesh_overrun_008(mob/living/scp1, mob/living/scp2)
+	for(var/mob/living/simple_animal/hostile/scp610_fleshman/F in range(5, scp1))
+		for(var/mob/living/simple_animal/hostile/scp008_zombie/Z in range(3, F))
+			F.visible_message(span_danger("[F] consumes [Z]'s infected flesh!"))
+			qdel(Z)
+			F.adjustHealth(-20)
+			break
+		break
+	return TRUE
+
+/proc/interact_610_spread_on_682(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp/scp682/lizard = istype(scp1, /mob/living/scp/scp682) ? scp1 : scp2
+	if(!lizard)
+		return FALSE
+	if(lizard.evolution_system)
+		lizard.evolution_system.active_adaptations["bio_resistance"] = world.time + 120 SECONDS
+	lizard.visible_message(span_danger("[lizard] shakes off the fleshy growth with extreme prejudice!"))
+	return TRUE
+
+/proc/interact_610_corrupt_939_voice(mob/living/scp1, mob/living/scp2)
+	var/mob/living/simple_animal/hostile/scp610_half_infested/infested = locate() in range(5, scp1)
+	if(!infested)
+		return FALSE
+	infested.visible_message(span_warning("[infested] emits a disturbing gurgling sound that harmonizes with nearby predatory calls..."))
+	return TRUE
+
+/proc/interact_610_absorb_035_host(mob/living/scp1, mob/living/scp2)
+	return TRUE
+
+/proc/interact_610_infest_087_stairwell(mob/living/scp1, mob/living/scp2)
+	var/obj/structure/scp087/stairs = istype(scp1, /obj/structure/scp087) ? scp1 : (istype(scp2, /obj/structure/scp087) ? scp2 : null)
+	if(!stairs)
+		return FALSE
+	stairs.visible_message(span_warning("Flesh creeps begin spreading down the stairwell... The descent grows more horrifying."))
+	return TRUE
+
+/proc/interact_610_overrun_3008(mob/living/scp1, mob/living/scp2)
+	for(var/obj/structure/scp610_flesh_structure/F in range(5, scp1))
+		for(var/mob/living/simple_animal/hostile/retaliate/scp1507/staff in range(5, F))
+			staff.visible_message(span_danger("[staff] attacks [F] with territorial fury!"))
+			F.take_damage(15, BRUTE, "melee")
+			break
+		break
+	return TRUE
+
+/proc/interact_013_bluelady_012(mob/living/scp1, mob/living/scp2)
+	for(var/mob/living/carbon/human/H in range(5, scp1))
+		if(H.stat == DEAD || H.SCP)
+			continue
+		if(prob(10))
+			to_chat(H, span_warning("A ghostly melody fills your mind, compelling you to write..."))
+	return TRUE
+
+/proc/interact_017_shadow_173(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp/scp173/statue = istype(scp1, /mob/living/scp/scp173) ? scp1 : scp2
+	if(!statue)
+		return FALSE
+	statue.visible_message(span_warning("A shadowy entity manifests near [statue], lingering in the darkness..."))
+	return TRUE
+
+/proc/interact_017_shadow_096(mob/living/scp1, mob/living/scp2)
+	return TRUE
+
+/proc/interact_073_reflect_682(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp/scp682/lizard = istype(scp1, /mob/living/scp/scp682) ? scp1 : scp2
+	if(!lizard)
+		return FALSE
+	if(lizard.evolution_system)
+		lizard.evolution_system.active_adaptations["reflection_immunity"] = world.time + 180 SECONDS
+	lizard.visible_message(span_danger("[lizard] seems to learn from the reflected damage, adapting rapidly!"))
+	return TRUE
+
+/proc/interact_073_reflect_457(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp/scp457/flame = istype(scp1, /mob/living/scp/scp457) ? scp1 : scp2
+	if(!flame)
+		return FALSE
+	flame.adjustFireLoss(30, updating_health = TRUE, forced = TRUE)
+	flame.visible_message(span_danger("[flame] recoils as its own fire is reflected back!"))
+	return TRUE
+
+/proc/interact_076_dual_682(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp/scp682/lizard = istype(scp1, /mob/living/scp/scp682) ? scp1 : scp2
+	if(lizard?.evolution_system)
+		lizard.evolution_system.active_adaptations["combat_experience"] = world.time + 300 SECONDS
+	scp1.visible_message(span_danger("Two abominations clash in a devastating battle that shakes the facility!"))
+	return TRUE
+
+/proc/interact_076_dual_096(mob/living/scp1, mob/living/scp2)
+	scp1.visible_message(span_danger("A berserker and a screaming giant feed off each other's rage! The air crackles with hostility!"))
+	return TRUE
+
+/proc/interact_076_hunt_610(mob/living/scp1, mob/living/scp2)
+	for(var/mob/living/simple_animal/hostile/scp610_fleshman/F in range(8, scp1))
+		F.adjustHealth(40)
+		F.visible_message(span_danger("A supernatural warrior carves through [F] with practiced efficiency!"))
+		break
+	return TRUE
+
+/proc/interact_082_feed_610(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp/scp082/chef = istype(scp1, /mob/living/scp/scp082) ? scp1 : scp2
+	if(!chef)
+		return FALSE
+	chef.adjustBruteLoss(-15)
+	chef.visible_message(span_danger("[chef] devours a piece of flesh with grotesque satisfaction, growing more robust!"))
+	return TRUE
+
+/proc/interact_082_feed_1048(mob/living/scp1, mob/living/scp2)
+	var/mob/living/simple_animal/scp1048/bear = locate() in range(3, scp1)
+	if(bear)
+		bear.visible_message(span_warning("[scp1] eyes [bear] hungrily, but the bear construct fights back!"))
+	return TRUE
+
+/proc/interact_087_deep_fear_096(mob/living/scp1, mob/living/scp2)
+	return TRUE
+
+/proc/interact_1048_build_610(mob/living/scp1, mob/living/scp2)
+	var/mob/living/simple_animal/scp1048/bear = istype(scp1, /mob/living/simple_animal/scp1048) ? scp1 : scp2
+	if(!bear)
+		return FALSE
+	var/turf/T = get_turf(bear)
+	if(!T || !istype(T, /turf/open/flesh))
+		return FALSE
+	bear.visible_message(span_danger("[bear] constructs a flesh bear from the organic material!"))
+	var/mob/living/simple_animal/hostile/scp610_fleshman/flesh_bear = new(T)
+	flesh_bear.name = "SCP-1048-C (Flesh)"
+	flesh_bear.maxHealth = 200
+	flesh_bear.health = 200
+	return TRUE
+
+/proc/interact_105_portal_1128(mob/living/scp1, mob/living/scp2)
+	for(var/mob/living/carbon/human/H in range(5, scp1))
+		if(H.stat == DEAD)
+			continue
+		for(var/turf/open/water/W in range(10, H))
+			to_chat(H, span_warning("You feel a terrible awareness of something vast lurking in the water..."))
+			break
+		break
+	return TRUE
+
+/proc/interact_105_portal_106(mob/living/scp1, mob/living/scp2)
+	scp1.visible_message(span_notice("A portal flickers open, bypassing the dimensional decay nearby."))
+	return TRUE
+
+/proc/interact_1102_ladder_087(mob/living/scp1, mob/living/scp2)
+	return TRUE
+
+/proc/interact_1102_ladder_1499(mob/living/scp1, mob/living/scp2)
+	return TRUE
+
+/proc/interact_1128_aquatic_610(mob/living/scp1, mob/living/scp2)
+	for(var/mob/living/carbon/human/H in range(5, scp1))
+		if(H.stat == DEAD || H.SCP)
+			continue
+		if(prob(10))
+			scp610_infect(H, 15)
+			to_chat(H, span_userdanger("The fear of the deep weakens your mental defenses! The flesh takes hold!"))
+			break
+	return TRUE
+
+/proc/interact_131_watch_173(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp/scp173/statue = istype(scp1, /mob/living/scp/scp173) ? scp1 : scp2
+	if(!statue)
+		return FALSE
+	statue.visible_message(span_notice("A small eye-pod creature stares unblinkingly at the sculpture, keeping it still."))
+	return TRUE
+
+/proc/interact_131_watch_096(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp/scp096/shy = istype(scp1, /mob/living/scp/scp096) ? scp1 : scp2
+	if(!shy)
+		return FALSE
+	scp1.visible_message(span_notice("A small eye-pod creature averts its gaze, making distressed sounds as a warning."))
+	return TRUE
+
+/proc/interact_1507_flock_610(mob/living/scp1, mob/living/scp2)
+	for(var/obj/structure/scp610_flesh_structure/F in range(5, scp1))
+		F.take_damage(10, BRUTE, "melee")
+		F.visible_message(span_warning("A flamingo pecks aggressively at [F]!"))
+		break
+	return TRUE
+
+/proc/interact_1507_flock_3008(mob/living/scp1, mob/living/scp2)
+	return TRUE
+
+/proc/interact_151_mirror_035(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp035/mask = istype(scp1, /mob/living/scp035) ? scp1 : scp2
+	if(!mask)
+		return FALSE
+	for(var/mob/living/carbon/human/H in range(8, mask))
+		if(H.stat == DEAD || H.SCP)
+			continue
+		if(prob(15))
+			to_chat(H, span_warning("You see strange suggestions in the water's reflection..."))
+			break
+	return TRUE
+
+/proc/interact_151_mirror_895(mob/living/scp1, mob/living/scp2)
+	for(var/mob/living/carbon/human/H in range(5, scp1))
+		if(H.stat == DEAD)
+			continue
+		if(H.hallucination < 30)
+			H.hallucination += 10
+		break
+	return TRUE
+
+/proc/interact_1981_broadcast_079(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp079/ai = istype(scp1, /mob/living/scp079) ? scp1 : scp2
+	if(!ai)
+		return FALSE
+	ai.visible_message(span_warning("Static from the broadcast interferes with [ai]'s processing..."))
+	return TRUE
+
+/proc/interact_1981_broadcast_035(mob/living/scp1, mob/living/scp2)
+	for(var/mob/living/carbon/human/H in range(8, scp1))
+		if(H.stat == DEAD || H.SCP)
+			continue
+		if(prob(10))
+			to_chat(H, span_warning("The broadcast mentions something that resonates with a dark presence in your mind..."))
+			break
+	return TRUE
+
+/proc/interact_2020_phase_106(mob/living/scp1, mob/living/scp2)
+	scp1.visible_message(span_warning("Spatial distortions ripple through the area as two phasing entities interfere with each other!"))
+	return TRUE
+
+/proc/interact_2020_phase_1499(mob/living/scp1, mob/living/scp2)
+	return TRUE
+
+/proc/interact_2343_benevolence_610(mob/living/scp1, mob/living/scp2)
+	for(var/obj/structure/scp610_flesh_structure/F in range(5, scp1))
+		F.take_damage(25, BURN, FIRE)
+		F.visible_message(span_notice("The flesh withers and recoils from the benevolent presence!"))
+		break
+	for(var/mob/living/simple_animal/hostile/scp610_fleshman/M in range(5, scp1))
+		M.adjustHealth(15)
+		break
+	return TRUE
+
+/proc/interact_2343_benevolence_049(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp/scp049/doctor = istype(scp1, /mob/living/scp/scp049) ? scp1 : scp2
+	if(!doctor)
+		return FALSE
+	doctor.visible_message(span_notice("[doctor] seems calmer in the benevolent presence, its compulsion diminished."))
+	return TRUE
+
+/proc/interact_2427_malfunction_079(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp079/ai = istype(scp1, /mob/living/scp079) ? scp1 : scp2
+	if(!ai)
+		return FALSE
+	ai.visible_message(span_warning("[ai]'s processes stutter and glitch from electronic interference!"))
+	return TRUE
+
+/proc/interact_2427_malfunction_914(mob/living/scp1, mob/living/scp2)
+	return TRUE
+
+/proc/interact_280_shadow_017(mob/living/scp1, mob/living/scp2)
+	scp1.visible_message(span_danger("Shadows merge and twist, forming a larger and more menacing darkness!"))
+	return TRUE
+
+/proc/interact_280_shadow_106(mob/living/scp1, mob/living/scp2)
+	var/mob/living/simple_animal/hostile/scp280/shadow = istype(scp1, /mob/living/simple_animal/hostile/scp280) ? scp1 : scp2
+	if(!shadow)
+		return FALSE
+	shadow.visible_message(span_warning("[shadow] slips through shadows into a dimensional pocket!"))
+	return TRUE
+
+/proc/interact_3008_staff_610(mob/living/scp1, mob/living/scp2)
+	for(var/mob/living/simple_animal/hostile/retaliate/scp1507/staff in range(5, scp1))
+		for(var/mob/living/simple_animal/hostile/scp610_fleshman/F in range(3, staff))
+			staff.visible_message(span_danger("[staff] attacks [F] with staff-like fury!"))
+			F.adjustHealth(20)
+			break
+		break
+	return TRUE
+
+/proc/interact_3199_egg_610(mob/living/scp1, mob/living/scp2)
+	var/turf/T = get_turf(scp1)
+	if(!T || !istype(T, /turf/open/flesh))
+		return FALSE
+	scp1.visible_message(span_danger("An egg hatches on the flesh, releasing a hybrid creature!"))
+	return TRUE
+
+/proc/interact_3199_egg_008(mob/living/scp1, mob/living/scp2)
+	scp1.visible_message(span_danger("Eggs hatch near infected tissue, releasing plague-spreading hybrids!"))
+	return TRUE
+
+/proc/interact_343_god_682(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp/scp682/lizard = istype(scp1, /mob/living/scp/scp682) ? scp1 : scp2
+	if(!lizard)
+		return FALSE
+	lizard.adjustBruteLoss(30)
+	lizard.visible_message(span_warning("[lizard] seems diminished in this presence, its adaptations failing."))
+	return TRUE
+
+/proc/interact_343_god_999(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp/scp999/tickle = istype(scp1, /mob/living/scp/scp999) ? scp1 : scp2
+	if(!tickle)
+		return FALSE
+	tickle.visible_message(span_notice("[tickle]'s aura glows brighter in the divine presence!"))
+	return TRUE
+
+/proc/interact_347_stealth_035(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp035/mask = istype(scp1, /mob/living/scp035) ? scp1 : scp2
+	if(!mask)
+		return FALSE
+	mask.visible_message(span_warning("An unseen agent extends the mask's influence..."))
+	return TRUE
+
+/proc/interact_408_swarm_173(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp/scp173/statue = istype(scp1, /mob/living/scp/scp173) ? scp1 : scp2
+	if(!statue)
+		return FALSE
+	statue.visible_message(span_warning("A butterfly swarm obscures vision near [statue]..."))
+	return TRUE
+
+/proc/interact_408_swarm_096(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp/scp096/shy = istype(scp1, /mob/living/scp/scp096) ? scp1 : scp2
+	if(!shy)
+		return FALSE
+	shy.visible_message(span_warning("Butterflies swarm around [shy], briefly distracting it."))
+	return TRUE
+
+/proc/interact_527_trade_999(mob/living/scp1, mob/living/scp2)
+	scp1.visible_message(span_notice("A small dragon-like creature and a slime blob exchange objects in an adorable display."))
+	return TRUE
+
+/proc/interact_527_trade_082(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp/scp082/chef = istype(scp1, /mob/living/scp/scp082) ? scp1 : scp2
+	if(!chef)
+		return FALSE
+	chef.visible_message(span_notice("[chef] accepts ingredients from a small dragon-like creature and begins cooking!"))
+	return TRUE
+
+/proc/interact_529_half_cat_131(mob/living/scp1, mob/living/scp2)
+	scp1.visible_message(span_notice("A half-cat and an eye-pod creature form an adorable protective pair."))
+	return TRUE
+
+/proc/interact_966_stalk_610(mob/living/scp1, mob/living/scp2)
+	for(var/mob/living/carbon/human/H in range(5, scp1))
+		var/datum/status_effect/scp610_infection/infection = H.has_status_effect(/datum/status_effect/scp610_infection)
+		if(infection)
+			infection.infection_progress += 5
+			to_chat(H, span_warning("Your exhausted body can't fight the infection... it's spreading faster!"))
+			break
+	return TRUE
+
+/proc/interact_966_stalk_096(mob/living/scp1, mob/living/scp2)
+	for(var/mob/living/carbon/human/H in range(8, scp1))
+		if(H.stat == DEAD)
+			continue
+		if(prob(5))
+			to_chat(H, span_warning("Your sleep-deprived eyes struggle to focus... you almost saw something terrible."))
+			break
+	return TRUE
+
+/proc/interact_080_fog_610(mob/living/scp1, mob/living/scp2)
+	for(var/mob/living/simple_animal/hostile/scp610_fleshman/F in range(5, scp1))
+		F.alpha = 100
+		F.visible_message(span_warning("[F] becomes nearly invisible in the fog!"))
+		addtimer(CALLBACK(F, TYPE_PROC_REF(/atom, update_appearance)), 30 SECONDS)
+		break
+	return TRUE
+
+/proc/interact_080_fog_173(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp/scp173/statue = istype(scp1, /mob/living/scp/scp173) ? scp1 : scp2
+	if(!statue)
+		return FALSE
+	statue.visible_message(span_warning("Fog rolls in around [statue], reducing visibility..."))
+	return TRUE
+
+/proc/interact_080_fog_280(mob/living/scp1, mob/living/scp2)
+	scp1.visible_message(span_danger("The fog and shadows merge into a wall of living darkness!"))
+	return TRUE
+
+/proc/interact_066_eric_035(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp035/mask = istype(scp1, /mob/living/scp035) ? scp1 : scp2
+	if(!mask)
+		return FALSE
+	scp1.visible_message(span_warning("A small metal sphere repeatedly says 'Eric!' near [mask], disrupting its concentration."))
+	return TRUE
+
+/proc/interact_3349_liquid_008(mob/living/scp1, mob/living/scp2)
+	scp1.visible_message(span_danger("The reagent interacts with infected tissue, creating an accelerated infection vector!"))
+	return TRUE
+
+/proc/interact_3349_liquid_610(mob/living/scp1, mob/living/scp2)
+	scp1.visible_message(span_danger("The reagent dissolves into liquid flesh that pulses with infection!"))
+	return TRUE
+
+/proc/interact_2398_baseball_173(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp/scp173/statue = istype(scp1, /mob/living/scp/scp173) ? scp1 : scp2
+	if(!statue)
+		return FALSE
+	var/obj/item/material/twohanded/baseballbat/scp2398/bat = locate() in range(2, statue)
+	if(!bat)
+		return FALSE
+	statue.visible_message(span_danger("[statue] is knocked backward by a powerful swing!"))
+	step_away(statue, bat, 2)
+	return TRUE
+
+/proc/interact_2398_baseball_610(mob/living/scp1, mob/living/scp2)
+	for(var/mob/living/simple_animal/hostile/scp610_fleshman/F in range(3, scp1))
+		F.adjustHealth(25)
+		F.visible_message(span_danger("[F] is knocked back by a powerful swing!"))
+		break
+	return TRUE
+
+/proc/interact_247_illusion_096(mob/living/scp1, mob/living/scp2)
+	return TRUE
+
+/proc/interact_247_illusion_173(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp/scp173/statue = istype(scp1, /mob/living/scp/scp173) ? scp1 : scp2
+	if(!statue)
+		return FALSE
+	statue.visible_message(span_warning("[statue] appears as a harmless decorative piece... but something feels wrong."))
+	return TRUE
+
+/proc/interact_5295_digital_079(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp079/ai = istype(scp1, /mob/living/scp079) ? scp1 : scp2
+	if(!ai)
+		return FALSE
+	ai.visible_message(span_warning("[ai] begins executing strange procedures from an unknown protocol..."))
+	return TRUE
+
+/proc/interact_035_manipulate_610(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp035/mask = istype(scp1, /mob/living/scp035) ? scp1 : scp2
+	if(!mask)
+		return FALSE
+	for(var/mob/living/simple_animal/hostile/scp610_fleshman/F in range(5, mask))
+		F.visible_message(span_danger("[F] seems to move with unnatural purpose, as if directed by an intelligence beyond the flesh..."))
+		break
+	return TRUE
+
+/proc/interact_049_sense_610_flesh(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp/scp049/doctor = istype(scp1, /mob/living/scp/scp049) ? scp1 : scp2
+	if(!doctor)
+		return FALSE
+	doctor.visible_message(span_warning("[doctor] becomes agitated, sensing an extreme form of the Pestilence in the flesh nearby!"))
+	return TRUE
+
+/proc/interact_999_calm_610(mob/living/scp1, mob/living/scp2)
+	for(var/mob/living/carbon/human/H in range(5, scp1))
+		var/datum/status_effect/scp610_infection/infection = H.has_status_effect(/datum/status_effect/scp610_infection)
+		if(infection)
+			infection.infection_progress = max(0, infection.infection_progress - 5)
+			to_chat(H, span_notice("A warm, joyful aura soothes the burning in your flesh..."))
+			break
+	return TRUE
+
+/proc/interact_682_adapt_610(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp/scp682/lizard = istype(scp1, /mob/living/scp/scp682) ? scp1 : scp2
+	if(!lizard)
+		return FALSE
+	if(lizard.evolution_system)
+		lizard.evolution_system.active_adaptations["flesh_immunity"] = world.time + 300 SECONDS
+	lizard.adjustBruteLoss(-10)
+	lizard.visible_message(span_danger("[lizard] consumes the flesh creatures and grows stronger, completely immune to the infection!"))
+	return TRUE
+
+/proc/interact_457_burn_610(mob/living/scp1, mob/living/scp2)
+	var/burned = FALSE
+	for(var/obj/structure/scp610_flesh_structure/F in range(5, scp1))
+		F.take_damage(40, BURN, FIRE)
+		F.visible_message(span_danger("[F] burns rapidly in the intense heat!"))
+		burned = TRUE
+		break
+	for(var/mob/living/simple_animal/hostile/scp610_fleshman/M in range(5, scp1))
+		M.adjustFireLoss(30)
+		burned = TRUE
+		break
+	return burned
+
+/proc/interact_939_hunt_610(mob/living/scp1, mob/living/scp2)
+	var/mob/living/scp/scp939/predator = istype(scp1, /mob/living/scp/scp939) ? scp1 : scp2
+	if(!predator)
+		return FALSE
+	for(var/mob/living/simple_animal/hostile/scp610_half_infested/infested in range(8, predator))
+		infested.adjustHealth(20)
+		infested.visible_message(span_danger("[predator] preys on the half-infested [infested]!"))
+		break
 	return TRUE

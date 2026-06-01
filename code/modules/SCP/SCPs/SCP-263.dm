@@ -56,7 +56,7 @@
 	active = TRUE
 	icon_state = "scp263_on"
 	hook_scp_breach("SCP-263", src)
-	visible_message("<span class='warning'>[src] flickers to life!</span>")
+	visible_message(span_warning("[src] flickers to life!"))
 
 /obj/machinery/scp263/proc/deactivate()
 	active = FALSE
@@ -92,16 +92,16 @@
 
 	if(active)
 		deactivate()
-		to_chat(user, "<span class='notice'>You turn off [src].</span>")
+		to_chat(user, span_notice("You turn off [src]."))
 	else
 		activate()
-		to_chat(user, "<span class='warning'>[src] turns on!</span>")
+		to_chat(user, span_warning("[src] turns on!"))
 
 /obj/machinery/scp263/examine(mob/user)
 	. = ..()
-	to_chat(user, "<span class='notice'>An old television that sometimes shows strange game shows.</span>")
+	to_chat(user, span_notice("An old television that sometimes shows strange game shows."))
 	if(active)
-		to_chat(user, "<span class='warning'>It's currently on.</span>")
+		to_chat(user, span_warning("It's currently on."))
 
 /datum/scp263_game_system
 	var/obj/machinery/parent
@@ -121,8 +121,8 @@
 	current_game = pick(games)
 	game_phase = 0
 
-	parent.audible_message("<span class='warning'>A cheerful game show tune plays from [parent]!</span>")
-	parent.audible_message("<span class='bold'>WELCOME TO THE SHOW! Our contestant tonight is... [contestant.name]!</span>")
+	parent.audible_message(span_warning("A cheerful game show tune plays from [parent]!"))
+	parent.audible_message(span_bold("WELCOME TO THE SHOW! Our contestant tonight is... [contestant.name]!"))
 
 	hook_scp_interaction(contestant, "SCP-263", INTERACTION_TYPE_COMBAT)
 
@@ -146,11 +146,11 @@
 		var/answer = input(contestant, question, "SCP-263 Quiz") as null|text
 
 		if(!answer || lowertext(answer) != lowertext(questions[question]))
-			parent.audible_message("<span class='danger'>WRONG! You must be PUNISHED!</span>")
+			parent.audible_message(span_danger("WRONG! You must be PUNISHED!"))
 			contestant.adjustBruteLoss(30)
 			hook_scp_combat(contestant, "SCP-263", 0, 30)
 		else
-			parent.audible_message("<span class='notice'>CORRECT! You live... for now.</span>")
+			parent.audible_message(span_notice("CORRECT! You live... for now."))
 
 		end_game()
 
@@ -160,27 +160,27 @@
 		var/guess = input(contestant, "Pick a number between 1 and 10!", "SCP-263 Lucky Number") as null|num
 
 		if(!guess || guess != lucky_number)
-			parent.audible_message("<span class='danger'>The lucky number was [lucky_number]! TOO BAD!</span>")
+			parent.audible_message(span_danger("The lucky number was [lucky_number]! TOO BAD!"))
 			contestant.adjustFireLoss(20)
 			hook_scp_combat(contestant, "SCP-263", 0, 20)
 		else
-			parent.audible_message("<span class='notice'>LUCKY YOU! Literally!</span>")
+			parent.audible_message(span_notice("LUCKY YOU! Literally!"))
 			contestant.adjustBruteLoss(-20)
 
 		end_game()
 
 /datum/scp263_game_system/proc/run_truth_or_die(mob/living/carbon/human/contestant)
-	parent.audible_message("<span class='warning'>Tell me your DARKEST SECRET or SUFFER!</span>")
+	parent.audible_message(span_warning("Tell me your DARKEST SECRET or SUFFER!"))
 
 	spawn()
 		var/secret = input(contestant, "What is your darkest secret?", "SCP-263: Truth or Die") as null|text
 
 		if(!secret || length(secret) < 10)
-			parent.audible_message("<span class='danger'>LIES! SUFFER!</span>")
+			parent.audible_message(span_danger("LIES! SUFFER!"))
 			contestant.adjustBruteLoss(25)
 			hook_scp_combat(contestant, "SCP-263", 0, 25)
 		else
-			parent.audible_message("<span class='notice'>HOW ENTERTAINING! You may live.</span>")
+			parent.audible_message(span_notice("HOW ENTERTAINING! You may live."))
 
 		end_game()
 

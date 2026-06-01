@@ -82,23 +82,23 @@
 	refinement_breakthroughs++
 	breakthrough_chance = min(max_breakthrough_chance, breakthrough_chance + 1)
 
-	owner.visible_message("<span class='notice'>SCP-914 creates a breakthrough refinement!</span>")
+	owner.visible_message(span_notice("SCP-914 creates a breakthrough refinement!"))
 
 	// Enhance nearby objects
 	for(var/obj/O in range(refinement_radius + refinement_radius_expansion, owner))
 		if(O != owner)
-			owner.visible_message("<span class='notice'>[O] is enhanced by SCP-914's breakthrough!</span>")
+			owner.visible_message(span_notice("[O] is enhanced by SCP-914's breakthrough!"))
 
 /datum/scp914_refinement_system/proc/create_catastrophe()
 	refinement_catastrophes++
 	catastrophe_chance = min(max_catastrophe_chance, catastrophe_chance + 1)
 
-	owner.visible_message("<span class='danger'>SCP-914 experiences a refinement catastrophe!</span>")
+	owner.visible_message(span_danger("SCP-914 experiences a refinement catastrophe!"))
 
 	// Damage nearby objects
 	for(var/obj/O in range(refinement_radius + refinement_radius_expansion, owner))
 		if(O != owner)
-			owner.visible_message("<span class='danger'>[O] is damaged by SCP-914's catastrophe!</span>")
+			owner.visible_message(span_danger("[O] is damaged by SCP-914's catastrophe!"))
 
 /datum/scp914_refinement_system/proc/complete_refinement()
 	active = FALSE
@@ -118,11 +118,16 @@
 		if(item)
 			process_refinement_item(item)
 
+	// Process mobs in input booth
+	if(owner?.input_booth)
+		for(var/mob/living/scp/scp173/S in get_turf(owner.input_booth))
+			S.scp914_refine(refinement_setting, owner)
+
 	input_objects.Cut()
 
 	// Update persistence
 	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-914"]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances["SCP-914"]
 		if(instance)
 			instance.add_interaction_record(null, "refinement_completed")
 
@@ -134,12 +139,12 @@
 
 	if(isnull(result_type))
 		objects_destroyed++
-		owner.visible_message("<span class='danger'>[item] is destroyed by SCP-914!</span>")
+		owner.visible_message(span_danger("[item] is destroyed by SCP-914!"))
 		qdel(item)
 	else if(result_type == item.type && refinement_setting != SCP914_ONE_TO_ONE)
 		output_objects += item
 		item.forceMove(owner)
-		owner.visible_message("<span class='notice'>[item] passes through SCP-914 unchanged.</span>")
+		owner.visible_message(span_notice("[item] passes through SCP-914 unchanged."))
 	else
 		var/obj/item/result = new result_type(get_turf(owner))
 		if(result)
@@ -150,7 +155,7 @@
 					result.desc = "[result.desc] It crackles with strange energy."
 			output_objects += result
 			objects_enhanced++
-			owner.visible_message("<span class='notice'>[item] is refined into [result.name] by SCP-914!</span>")
+			owner.visible_message(span_notice("[item] is refined into [result.name] by SCP-914!"))
 		qdel(item)
 
 	total_materials_processed++
@@ -178,7 +183,7 @@
 		// Create reality distortions
 		for(var/mob/living/carbon/human/H in range(reality_distortion_radius, owner))
 			if(H != owner)
-				to_chat(H, "<span class='notice'>You feel reality shifting around SCP-914...</span>")
+				to_chat(H, span_notice("You feel reality shifting around SCP-914..."))
 
 /datum/scp914_reality_system/proc/activate_reality_manipulation()
 	if(world.time < reality_manipulation_cooldown)
@@ -206,7 +211,7 @@
 		// Create temporal distortions
 		for(var/mob/living/carbon/human/H in range(temporal_distortion_radius, owner))
 			if(H != owner)
-				to_chat(H, "<span class='notice'>You feel time warping around SCP-914...</span>")
+				to_chat(H, span_notice("You feel time warping around SCP-914..."))
 				temporal_events++
 
 /datum/scp914_temporal_system/proc/activate_temporal_effects()
@@ -270,14 +275,14 @@
 	if(new_status == "breached")
 		containment_breach = TRUE
 		emergency_shutdown = TRUE
-		owner.visible_message("<span class='danger'>SCP-914 containment breach detected! Emergency shutdown activated!</span>")
+		owner.visible_message(span_danger("SCP-914 containment breach detected! Emergency shutdown activated!"))
 	else
 		containment_breach = FALSE
 		emergency_shutdown = FALSE
 
 /datum/scp914_containment_system/proc/emergency_shutdown_procedure()
 	emergency_shutdown = TRUE
-	owner.visible_message("<span class='danger'>SCP-914 emergency shutdown activated!</span>")
+	owner.visible_message(span_danger("SCP-914 emergency shutdown activated!"))
 
 	// Stop all active processes
 	if(owner.refinement_system)
@@ -299,13 +304,13 @@
 	if(reality_distortion_level > 0)
 		for(var/mob/living/carbon/human/H in range(environmental_effects_radius, owner))
 			if(prob(5))
-				to_chat(H, "<span class='notice'>You notice subtle changes in the environment around SCP-914...</span>")
+				to_chat(H, span_notice("You notice subtle changes in the environment around SCP-914..."))
 
 	// Temporal distortion effects
 	if(temporal_distortion_level > 0)
 		for(var/mob/living/carbon/human/H in range(environmental_effects_radius, owner))
 			if(prob(3))
-				to_chat(H, "<span class='notice'>Time seems to flow differently near SCP-914...</span>")
+				to_chat(H, span_notice("Time seems to flow differently near SCP-914..."))
 
 	// Energy fluctuation effects
 	if(energy_fluctuation_level > 0)

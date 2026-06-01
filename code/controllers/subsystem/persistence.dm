@@ -146,23 +146,23 @@ SUBSYSTEM_DEF(persistence)
 	// Load adventure data into the system
 	for(var/adventure_id in json)
 		// Process each adventure
-		world.log << "Persistence: Loaded adventure [adventure_id]"
+		log_game("Persistence: Loaded adventure [adventure_id]")
 
 /datum/controller/subsystem/persistence/proc/initialize_persistence_managers()
 	// Initialize all persistence managers
-	world.log << "Persistence: Initializing persistence managers..."
+	log_game("Persistence: Initializing persistence managers...")
 
 	// Ensure all subsystems are ready
 	if(!SSsecurity_persistence)
-		world.log << "Persistence: Warning - Security persistence subsystem not available"
+		log_game("Persistence: Warning - Security persistence subsystem not available")
 	if(!SSmedical_persistence)
-		world.log << "Persistence: Warning - Medical persistence subsystem not available"
+		log_game("Persistence: Warning - Medical persistence subsystem not available")
 	if(!SSresearch_persistence)
-		world.log << "Persistence: Warning - Research persistence subsystem not available"
+		log_game("Persistence: Warning - Research persistence subsystem not available")
 	if(!SSpersonnel_persistence)
-		world.log << "Persistence: Warning - Personnel persistence subsystem not available"
+		log_game("Persistence: Warning - Personnel persistence subsystem not available")
 
-	world.log << "Persistence: Persistence managers initialized"
+	log_game("Persistence: Persistence managers initialized")
 
 /datum/controller/subsystem/persistence/Shutdown()
 	collect_data()
@@ -212,7 +212,7 @@ SUBSYSTEM_DEF(persistence)
 			successfully_loaded_engravings++
 			turfs_to_pick_from -= engraved_wall
 
-	log_world("Loaded [successfully_loaded_engravings] engraved messages on map [SSmapping.config.map_name]")
+	log_game("Loaded [successfully_loaded_engravings] engraved messages on map [SSmapping.config.map_name]")
 
 /datum/controller/subsystem/persistence/proc/save_wall_engravings()
 	var/list/saved_data = list()

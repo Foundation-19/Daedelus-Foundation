@@ -100,7 +100,7 @@
 	if(.)
 		return
 
-	var/mob/living/carbon/human/H = usr
+	var/mob/living/carbon/human/H = ui.user
 	var/obj/item/card/id/id_card = H.get_idcard(TRUE)
 	if(!id_card || !(ACCESS_ADMIN in id_card.access))
 		return

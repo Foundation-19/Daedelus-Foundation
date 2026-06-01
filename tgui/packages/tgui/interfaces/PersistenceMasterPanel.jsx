@@ -212,12 +212,16 @@ const NAV_ITEMS = [
   { key: 'medical', label: 'MEDICAL' },
   { key: 'security', label: 'SECURITY' },
   { key: 'research', label: 'RESEARCH' },
+  { key: 'chemical', label: 'CHEMICAL' },
+  { key: 'incident', label: 'INCIDENT' },
+  { key: 'psychological', label: 'PSYCH' },
+  { key: 'infrastructure', label: 'INFRA' },
+  { key: 'analytics', label: 'ANALYTICS' },
   { key: 'personnel', label: 'PERSONNEL' },
   { key: 'players', label: 'PLAYERS' },
   { key: 'budget', label: 'BUDGET' },
   { key: 'progression', label: 'PROGRESS' },
   { key: 'skill_progression', label: 'SKILLS' },
-  { key: 'scp_management', label: 'SCP MGMT' },
 ];
 
 const SubTabBar = ({ tabs, active, onChange }) => (
@@ -270,7 +274,11 @@ const GenericSection = ({ title, data, act, actions }) => (
     >
       {actions &&
         actions.map((a, i) => (
-          <TermButton key={i} color={a.color} onClick={() => act(a.action)}>
+          <TermButton
+            key={i}
+            color={a.color}
+            onClick={() => act(a.action, a.params || undefined)}
+          >
             {a.label}
           </TermButton>
         ))}
@@ -315,12 +323,15 @@ export const PersistenceMasterPanel = (props, context) => {
     medical_data,
     security_data,
     research_data,
+    chemical_data,
+    incident_data,
+    psychological_data,
+    infrastructure_data,
+    analytics_data,
     personnel_data,
     budget_data,
     player_data,
     system_status,
-    analytics_data,
-    infrastructure_data,
   } = data;
 
   return (
@@ -507,7 +518,7 @@ export const PersistenceMasterPanel = (props, context) => {
                       color="yellow"
                       onClick={() => act('progression_export_data')}
                     >
-                      EXPORT ALL
+                      DOWNLOAD ALL
                     </TermButton>
                     <TermButton
                       color="red"
@@ -566,59 +577,339 @@ export const PersistenceMasterPanel = (props, context) => {
                     </TermButton>
                   </Box>
                   {facility_data ? (
-                    <Box style={{ lineHeight: '1.6' }}>
-                      <TermRow>
-                        <TermLabel>ROOMS</TermLabel>
-                        <TermValue>
-                          {facility_data.room_states_count || 0}/50
-                        </TermValue>
-                      </TermRow>
-                      <TermRow>
-                        <TermLabel>EQUIPMENT</TermLabel>
-                        <TermValue>
-                          {facility_data.equipment_operational || 0}/45
-                        </TermValue>
-                      </TermRow>
-                      <TermRow>
-                        <TermLabel>SECURITY SYSTEMS</TermLabel>
-                        <TermValue>
-                          {facility_data.security_systems_count || 0}/15
-                        </TermValue>
-                      </TermRow>
-                      <TermRow>
-                        <TermLabel>POWER EFFICIENCY</TermLabel>
-                        <TermValue color={C.amber}>
-                          {facility_data.power_efficiency
-                            ? Math.round(facility_data.power_efficiency * 100)
-                            : 0}
-                          %
-                        </TermValue>
-                      </TermRow>
-                      <TermRow>
-                        <TermLabel>CONTAINMENT STABILITY</TermLabel>
-                        <TermValue>
-                          {facility_data.containment_stability || 0}%
-                        </TermValue>
-                      </TermRow>
-                      <TermRow>
-                        <TermLabel>HEALTH</TermLabel>
-                        <TermValue color={C.green}>
-                          {facility_data.facility_health || 0}%
-                        </TermValue>
-                      </TermRow>
-                      <TermRow>
-                        <TermLabel>MAINTENANCE</TermLabel>
-                        <TermValue>
-                          {facility_data.maintenance_level || 0}%
-                        </TermValue>
-                      </TermRow>
-                      <TermRow>
-                        <TermLabel>SECURITY LEVEL</TermLabel>
-                        <TermValue color={C.redBright}>
-                          {facility_data.security_level || 0}
-                        </TermValue>
-                      </TermRow>
-                    </Box>
+                    <>
+                      {getSubTab('facility') === 'overview' && (
+                        <Box style={{ lineHeight: '1.6' }}>
+                          <TermRow>
+                            <TermLabel>ROOMS</TermLabel>
+                            <TermValue>
+                              {facility_data.room_states_count || 0}/50
+                            </TermValue>
+                          </TermRow>
+                          <TermRow>
+                            <TermLabel>EQUIPMENT</TermLabel>
+                            <TermValue>
+                              {facility_data.equipment_operational || 0}/45
+                            </TermValue>
+                          </TermRow>
+                          <TermRow>
+                            <TermLabel>SECURITY SYSTEMS</TermLabel>
+                            <TermValue>
+                              {facility_data.security_systems_count || 0}/15
+                            </TermValue>
+                          </TermRow>
+                          <TermRow>
+                            <TermLabel>POWER EFFICIENCY</TermLabel>
+                            <TermValue color={C.amber}>
+                              {facility_data.power_efficiency
+                                ? Math.round(facility_data.power_efficiency * 100)
+                                : 0}
+                              %
+                            </TermValue>
+                          </TermRow>
+                          <TermRow>
+                            <TermLabel>CONTAINMENT STABILITY</TermLabel>
+                            <TermValue>
+                              {facility_data.containment_stability || 0}%
+                            </TermValue>
+                          </TermRow>
+                          <TermRow>
+                            <TermLabel>HEALTH</TermLabel>
+                            <TermValue color={C.green}>
+                              {facility_data.facility_health || 0}%
+                            </TermValue>
+                          </TermRow>
+                          <TermRow>
+                            <TermLabel>MAINTENANCE</TermLabel>
+                            <TermValue>
+                              {facility_data.maintenance_level || 0}%
+                            </TermValue>
+                          </TermRow>
+                          <TermRow>
+                            <TermLabel>SECURITY LEVEL</TermLabel>
+                            <TermValue color={C.redBright}>
+                              {facility_data.security_level || 0}
+                            </TermValue>
+                          </TermRow>
+                        </Box>
+                      )}
+                      {getSubTab('facility') === 'rooms' && (
+                        <Box>
+                          {facility_data.rooms &&
+                          facility_data.rooms.length > 0 ? (
+                            facility_data.rooms.map((room, idx) => (
+                              <Box
+                                key={idx}
+                                style={{
+                                  marginBottom: '4px',
+                                  padding: '6px 8px',
+                                  borderLeft: `2px solid ${
+                                    room.status === 'OPERATIONAL'
+                                      ? C.green
+                                      : C.redBright
+                                  }`,
+                                  background: C.panel,
+                                }}
+                              >
+                                <TermRow>
+                                  <TermValue bold color={C.amber}>
+                                    {(room.room_type || 'UNKNOWN').toUpperCase()}
+                                  </TermValue>
+                                  <TermLabel style={{ marginLeft: '8px' }}>
+                                    ID
+                                  </TermLabel>
+                                  <TermValue color={C.textDim}>
+                                    {room.room_id}
+                                  </TermValue>
+                                </TermRow>
+                                <TermRow>
+                                  <TermLabel>STATUS</TermLabel>
+                                  <TermValue
+                                    color={
+                                      room.status === 'OPERATIONAL'
+                                        ? C.green
+                                        : C.redBright
+                                    }
+                                  >
+                                    {room.status}
+                                  </TermValue>
+                                  <TermLabel style={{ marginLeft: '8px' }}>
+                                    HEALTH
+                                  </TermLabel>
+                                  <TermValue color={C.amber}>
+                                    {room.health}%
+                                  </TermValue>
+                                  <TermLabel style={{ marginLeft: '8px' }}>
+                                    SECURITY
+                                  </TermLabel>
+                                  <TermValue>
+                                    LVL {room.security_level}
+                                  </TermValue>
+                                </TermRow>
+                              </Box>
+                            ))
+                          ) : (
+                            <Box
+                              style={term({
+                                color: C.textDim,
+                                fontStyle: 'italic',
+                              })}
+                            >
+                              NO ROOM DATA
+                            </Box>
+                          )}
+                        </Box>
+                      )}
+                      {getSubTab('facility') === 'equipment' && (
+                        <Box>
+                          {facility_data.equipment_status &&
+                          Object.keys(facility_data.equipment_status).length >
+                            0 ? (
+                            Object.entries(facility_data.equipment_status).map(
+                              ([eqId, eq]) => (
+                                <Box
+                                  key={eqId}
+                                  style={{
+                                    marginBottom: '4px',
+                                    padding: '6px 8px',
+                                    borderLeft: `2px solid ${
+                                      eq.operational ? C.green : C.redBright
+                                    }`,
+                                    background: C.panel,
+                                  }}
+                                >
+                                  <TermRow>
+                                    <TermValue bold color={C.amber}>
+                                      {(
+                                        eq.equipment_type ||
+                                        eqId
+                                      ).toUpperCase()}
+                                    </TermValue>
+                                    <TermLabel style={{ marginLeft: '8px' }}>
+                                      STATUS
+                                    </TermLabel>
+                                    <TermValue
+                                      color={
+                                        eq.operational
+                                          ? C.green
+                                          : C.redBright
+                                      }
+                                    >
+                                      {eq.operational
+                                        ? 'OPERATIONAL'
+                                        : 'OFFLINE'}
+                                    </TermValue>
+                                  </TermRow>
+                                  <TermRow>
+                                    <TermLabel>HEALTH</TermLabel>
+                                    <TermValue color={C.amber}>
+                                      {Math.round(eq.health || 0)}%
+                                    </TermValue>
+                                    <TermLabel style={{ marginLeft: '8px' }}>
+                                      EFFICIENCY
+                                    </TermLabel>
+                                    <TermValue>
+                                      {Math.round(
+                                        (eq.efficiency || 0) * 100,
+                                      )}
+                                      %
+                                    </TermValue>
+                                    {eq.maintenance_required && (
+                                      <TermValue
+                                        color={C.redBright}
+                                        style={{ marginLeft: '8px' }}
+                                      >
+                                        MAINTENANCE REQUIRED
+                                      </TermValue>
+                                    )}
+                                  </TermRow>
+                                </Box>
+                              ),
+                            )
+                          ) : (
+                            <Box
+                              style={term({
+                                color: C.textDim,
+                                fontStyle: 'italic',
+                              })}
+                            >
+                              NO EQUIPMENT DATA
+                            </Box>
+                          )}
+                          {facility_data.maintenance_tasks &&
+                            facility_data.maintenance_tasks.length > 0 && (
+                              <Box>
+                                <TermDivider />
+                                <TermHeader>MAINTENANCE SCHEDULE</TermHeader>
+                                {facility_data.maintenance_tasks.map(
+                                  (task, idx) => (
+                                    <Box
+                                      key={idx}
+                                      style={{
+                                        marginBottom: '4px',
+                                        padding: '6px 8px',
+                                        borderLeft: `2px solid ${
+                                          task.priority === 'high'
+                                            ? C.redBright
+                                            : task.priority === 'medium'
+                                              ? C.amber
+                                              : C.border
+                                        }`,
+                                        background: C.panel,
+                                      }}
+                                    >
+                                      <TermRow>
+                                        <TermValue bold color={C.amber}>
+                                          {task.task_id}
+                                        </TermValue>
+                                        <TermLabel style={{ marginLeft: '8px' }}>
+                                          {task.task_name}
+                                        </TermLabel>
+                                      </TermRow>
+                                      <TermRow>
+                                        <TermLabel>PRIORITY</TermLabel>
+                                        <TermValue
+                                          color={
+                                            task.priority === 'high'
+                                              ? C.redBright
+                                              : C.amber
+                                          }
+                                        >
+                                          {(task.priority || 'LOW').toUpperCase()}
+                                        </TermValue>
+                                        <TermLabel style={{ marginLeft: '8px' }}>
+                                          ASSIGNED
+                                        </TermLabel>
+                                        <TermValue>
+                                          {task.assigned_to}
+                                        </TermValue>
+                                        <TermLabel style={{ marginLeft: '8px' }}>
+                                          DUE
+                                        </TermLabel>
+                                        <TermValue color={C.textDim}>
+                                          {task.due_date}
+                                        </TermValue>
+                                      </TermRow>
+                                    </Box>
+                                  ),
+                                )}
+                              </Box>
+                            )}
+                        </Box>
+                      )}
+                      {getSubTab('facility') === 'systems' && (
+                        <Box>
+                          {facility_data.security_systems &&
+                          Object.keys(facility_data.security_systems).length >
+                            0 ? (
+                            Object.entries(facility_data.security_systems).map(
+                              ([sysId, sys]) => (
+                                <Box
+                                  key={sysId}
+                                  style={{
+                                    marginBottom: '4px',
+                                    padding: '6px 8px',
+                                    borderLeft: `2px solid ${
+                                      sys.operational ? C.green : C.redBright
+                                    }`,
+                                    background: C.panel,
+                                  }}
+                                >
+                                  <TermRow>
+                                    <TermValue bold color={C.amber}>
+                                      {(sys.system_type || sysId).toUpperCase()}
+                                    </TermValue>
+                                    <TermLabel style={{ marginLeft: '8px' }}>
+                                      STATUS
+                                    </TermLabel>
+                                    <TermValue
+                                      color={
+                                        sys.operational
+                                          ? C.green
+                                          : C.redBright
+                                      }
+                                    >
+                                      {sys.operational
+                                        ? 'OPERATIONAL'
+                                        : 'OFFLINE'}
+                                    </TermValue>
+                                  </TermRow>
+                                  <TermRow>
+                                    <TermLabel>HEALTH</TermLabel>
+                                    <TermValue color={C.amber}>
+                                      {Math.round(sys.health || 0)}%
+                                    </TermValue>
+                                    <TermLabel style={{ marginLeft: '8px' }}>
+                                      SECURITY LEVEL
+                                    </TermLabel>
+                                    <TermValue>
+                                      LVL {sys.security_level || 0}
+                                    </TermValue>
+                                    {sys.alert_status && (
+                                      <TermValue
+                                        color={C.redBright}
+                                        style={{ marginLeft: '8px' }}
+                                      >
+                                        ALERT: {sys.alert_status}
+                                      </TermValue>
+                                    )}
+                                  </TermRow>
+                                </Box>
+                              ),
+                            )
+                          ) : (
+                            <Box
+                              style={term({
+                                color: C.textDim,
+                                fontStyle: 'italic',
+                              })}
+                            >
+                              NO SECURITY SYSTEM DATA
+                            </Box>
+                          )}
+                        </Box>
+                      )}
+                    </>
                   ) : (
                     <Box
                       style={term({ color: C.textDim, fontStyle: 'italic' })}
@@ -649,9 +940,6 @@ export const PersistenceMasterPanel = (props, context) => {
                     </TermButton>
                     <TermButton onClick={() => act('scp_save_data')}>
                       SAVE
-                    </TermButton>
-                    <TermButton onClick={() => act('scp_add_research')}>
-                      ADD RESEARCH
                     </TermButton>
                     <TermButton color="red" onClick={() => act('test_systems')}>
                       CONTAINMENT CHECK
@@ -734,25 +1022,318 @@ export const PersistenceMasterPanel = (props, context) => {
                       action: 'security_save_data',
                     },
                     { label: 'LOAD', action: 'security_load_data' },
-                    { label: 'SCAN', action: 'security_scan' },
+                    {
+                      label: 'SCAN',
+                      color: 'yellow',
+                      action: 'security_scan',
+                      params: {
+                        scan_data: {
+                          scan_type: 'comprehensive',
+                          target_systems: {
+                            access_control: true,
+                            surveillance: true,
+                            communications: true,
+                            databases: true,
+                            networks: true,
+                            physical_security: true,
+                          },
+                        },
+                      },
+                    },
                   ]}
                 />
               )}
 
               {/* RESEARCH */}
               {activeTab === 'research' && (
+                <Box>
+                  <TermHeader>RESEARCH PROJECTS MANAGEMENT</TermHeader>
+                  <Box
+                    style={{
+                      display: 'flex',
+                      gap: '4px',
+                      marginBottom: '12px',
+                      flexWrap: 'wrap',
+                    }}
+                  >
+                    <TermButton
+                      color="green"
+                      onClick={() => act('research_save_data')}
+                    >
+                      SAVE
+                    </TermButton>
+                    <TermButton onClick={() => act('research_load_data')}>
+                      LOAD
+                    </TermButton>
+                    <TermButton onClick={() => act('research_view_status')}>
+                      VIEW
+                    </TermButton>
+                  </Box>
+                  {research_data ? (
+                    <Box style={{ lineHeight: '1.6' }}>
+                      {Object.entries(research_data)
+                        .filter(([k, v]) => typeof v !== 'object')
+                        .map(([key, value]) => (
+                          <TermRow key={key}>
+                            <TermLabel>{key.replace(/_/g, ' ')}</TermLabel>
+                            <TermValue
+                              color={
+                                typeof value === 'number'
+                                  ? C.amber
+                                  : C.textBright
+                              }
+                            >
+                              {String(value)}
+                            </TermValue>
+                          </TermRow>
+                        ))}
+                      {research_data.research_projects &&
+                        research_data.research_projects.length > 0 && (
+                          <Box>
+                            <TermDivider />
+                            <TermHeader>PROJECTS</TermHeader>
+                            {research_data.research_projects.map((proj, idx) => (
+                              <Box
+                                key={proj.project_id || idx}
+                                style={{
+                                  marginBottom: '6px',
+                                  padding: '6px 8px',
+                                  borderLeft: `2px solid ${
+                                    proj.status === 'COMPLETED'
+                                      ? C.green
+                                      : proj.status === 'ACTIVE'
+                                        ? C.amber
+                                        : proj.status === 'CANCELLED'
+                                          ? C.redBright
+                                          : C.border
+                                  }`,
+                                  background: C.panel,
+                                }}
+                              >
+                                <TermRow>
+                                  <TermValue bold color={C.amber}>
+                                    {proj.project_name || 'Unknown'}
+                                  </TermValue>
+                                  <TermLabel style={{ marginLeft: '8px' }}>
+                                    ID
+                                  </TermLabel>
+                                  <TermValue color={C.textDim}>
+                                    {proj.project_id || 'N/A'}
+                                  </TermValue>
+                                </TermRow>
+                                <TermRow>
+                                  <TermLabel>STATUS</TermLabel>
+                                  <TermValue
+                                    color={
+                                      proj.status === 'COMPLETED'
+                                        ? C.green
+                                        : proj.status === 'ACTIVE'
+                                          ? C.amber
+                                          : proj.status === 'CANCELLED'
+                                            ? C.redBright
+                                            : C.textBright
+                                    }
+                                  >
+                                    {proj.status || 'UNKNOWN'}
+                                  </TermValue>
+                                  {proj.field && (
+                                    <>
+                                      <TermLabel style={{ marginLeft: '8px' }}>
+                                        FIELD
+                                      </TermLabel>
+                                      <TermValue>{proj.field}</TermValue>
+                                    </>
+                                  )}
+                                  {proj.lead_researcher && (
+                                    <>
+                                      <TermLabel style={{ marginLeft: '8px' }}>
+                                        LEAD
+                                      </TermLabel>
+                                      <TermValue>{proj.lead_researcher}</TermValue>
+                                    </>
+                                  )}
+                                </TermRow>
+                                <TermRow>
+                                  <TermLabel>PROGRESS</TermLabel>
+                                  <TermValue color={C.amber}>
+                                    {Math.round(proj.progress || 0)}%
+                                  </TermValue>
+                                  {proj.budget !== undefined && (
+                                    <>
+                                      <TermLabel style={{ marginLeft: '8px' }}>
+                                        BUDGET
+                                      </TermLabel>
+                                      <TermValue>
+                                        {proj.budget_used || 0}/{proj.budget || 0}
+                                      </TermValue>
+                                    </>
+                                  )}
+                                  <TermButton
+                                    color="red"
+                                    style={{ marginLeft: '8px' }}
+                                    onClick={() =>
+                                      act('research_delete_project', {
+                                        project_id: proj.project_id,
+                                      })
+                                    }
+                                  >
+                                    DELETE
+                                  </TermButton>
+                                </TermRow>
+                                {proj.description && (
+                                  <Box
+                                    style={{
+                                      color: C.textDim,
+                                      fontSize: '10px',
+                                      marginTop: '2px',
+                                      borderLeft: `1px solid ${C.border}`,
+                                      paddingLeft: '6px',
+                                    }}
+                                  >
+                                    {proj.description}
+                                  </Box>
+                                )}
+                              </Box>
+                            ))}
+                          </Box>
+                        )}
+                    </Box>
+                  ) : (
+                    <Box
+                      style={term({ color: C.textDim, fontStyle: 'italic' })}
+                    >
+                      NO RESEARCH DATA
+                    </Box>
+                  )}
+                </Box>
+              )}
+
+              {/* CHEMICAL */}
+              {activeTab === 'chemical' && (
                 <GenericSection
-                  title="RESEARCH PROJECTS MANAGEMENT"
-                  data={research_data}
+                  title="CHEMICAL CONTAINMENT MANAGEMENT"
+                  data={chemical_data}
                   act={act}
                   actions={[
                     {
                       label: 'SAVE',
                       color: 'green',
-                      action: 'research_save_data',
+                      action: 'chemical_save_data',
                     },
-                    { label: 'LOAD', action: 'research_load_data' },
-                    { label: 'VIEW', action: 'research_view_status' },
+                    { label: 'LOAD', action: 'chemical_load_data' },
+                    { label: 'VIEW', action: 'chemical_view_records' },
+                    {
+                      label: 'RESEARCH',
+                      color: 'green',
+                      action: 'chemical_add_research',
+                    },
+                    {
+                      label: 'CONTAINMENT',
+                      color: 'yellow',
+                      action: 'chemical_containment_status',
+                    },
+                  ]}
+                />
+              )}
+
+              {/* INCIDENT */}
+              {activeTab === 'incident' && (
+                <GenericSection
+                  title="INCIDENT RESPONSE MANAGEMENT"
+                  data={incident_data}
+                  act={act}
+                  actions={[
+                    {
+                      label: 'SAVE',
+                      color: 'green',
+                      action: 'incident_save_data',
+                    },
+                    { label: 'LOAD', action: 'incident_load_data' },
+                    { label: 'VIEW', action: 'incident_view_logs' },
+                    {
+                      label: 'BREACH',
+                      color: 'red',
+                      action: 'incident_add_breach',
+                    },
+                    {
+                      label: 'TEAMS',
+                      color: 'yellow',
+                      action: 'incident_response_teams',
+                    },
+                  ]}
+                />
+              )}
+
+              {/* PSYCHOLOGICAL */}
+              {activeTab === 'psychological' && (
+                <GenericSection
+                  title="PSYCHOLOGICAL SERVICES MANAGEMENT"
+                  data={psychological_data}
+                  act={act}
+                  actions={[
+                    {
+                      label: 'SAVE',
+                      color: 'green',
+                      action: 'psychological_save_data',
+                    },
+                    { label: 'LOAD', action: 'psychological_load_data' },
+                    { label: 'VIEW', action: 'psychological_view_records' },
+                    {
+                      label: 'SESSION',
+                      color: 'green',
+                      action: 'psychological_add_session',
+                    },
+                    {
+                      label: 'ASSESS',
+                      color: 'yellow',
+                      action: 'psychological_assessments',
+                    },
+                  ]}
+                />
+              )}
+
+              {/* INFRASTRUCTURE */}
+              {activeTab === 'infrastructure' && (
+                <GenericSection
+                  title="INFRASTRUCTURE MANAGEMENT"
+                  data={infrastructure_data}
+                  act={act}
+                  actions={[
+                    {
+                      label: 'SAVE',
+                      color: 'green',
+                      action: 'infrastructure_save_data',
+                    },
+                    { label: 'LOAD', action: 'infrastructure_load_data' },
+                    { label: 'VIEW', action: 'infrastructure_view_status' },
+                    {
+                      label: 'RESET',
+                      color: 'red',
+                      action: 'infrastructure_reset_data',
+                    },
+                  ]}
+                />
+              )}
+
+              {/* ANALYTICS */}
+              {activeTab === 'analytics' && (
+                <GenericSection
+                  title="ANALYTICS & PERFORMANCE"
+                  data={analytics_data}
+                  act={act}
+                  actions={[
+                    {
+                      label: 'SAVE',
+                      color: 'green',
+                      action: 'analytics_save_data',
+                    },
+                    { label: 'LOAD', action: 'analytics_load_data' },
+                    { label: 'VIEW', action: 'analytics_view_status' },
+                    {
+                      label: 'RESET',
+                      color: 'red',
+                      action: 'analytics_reset_data',
+                    },
                   ]}
                 />
               )}
@@ -796,7 +1377,7 @@ export const PersistenceMasterPanel = (props, context) => {
                       color="yellow"
                       onClick={() => act('player_export_data')}
                     >
-                      EXPORT
+                      DOWNLOAD
                     </TermButton>
                     <TermButton
                       color="red"
@@ -906,16 +1487,47 @@ export const PersistenceMasterPanel = (props, context) => {
                   >
                     <TermButton
                       color="green"
-                      onClick={() => act('budget_request_increase')}
+                      onClick={() =>
+                        act('budget_request_increase', {
+                          request_data: {
+                            department_id: 'general',
+                            requested_amount: 50000,
+                            requested_category: 'operational',
+                            justification: 'Admin emergency request',
+                            priority: 1,
+                          },
+                        })
+                      }
                     >
                       REQUEST
                     </TermButton>
-                    <TermButton onClick={() => act('budget_add_transaction')}>
+                    <TermButton
+                      onClick={() =>
+                        act('budget_add_transaction', {
+                          transaction_data: {
+                            department_id: 'general',
+                            transaction_type: 'EXPENSE',
+                            amount: 10000,
+                            category: 'miscellaneous',
+                            description: 'Admin logged transaction',
+                          },
+                        })
+                      }
+                    >
                       TRANSACTION
                     </TermButton>
                     <TermButton
                       color="yellow"
-                      onClick={() => act('budget_transfer')}
+                      onClick={() =>
+                        act('budget_transfer', {
+                          transfer_data: {
+                            from_department: 'general',
+                            to_department: 'security',
+                            amount: 25000,
+                            reason: 'Admin budget transfer',
+                          },
+                        })
+                      }
                     >
                       TRANSFER
                     </TermButton>
@@ -934,10 +1546,95 @@ export const PersistenceMasterPanel = (props, context) => {
                                   : C.textBright
                               }
                             >
-                              {String(value)}
+                              {typeof value === 'number'
+                                ? String(value).replace(
+                                    /\B(?=(\d{3})+(?!\d))/g,
+                                    ',',
+                                  )
+                                : String(value)}
                             </TermValue>
                           </TermRow>
                         ))}
+                      {budget_data.departments &&
+                        Object.keys(budget_data.departments).length > 0 && (
+                          <Box>
+                            <TermDivider />
+                            <TermHeader>DEPARTMENT BUDGETS</TermHeader>
+                            {Object.entries(budget_data.departments).map(
+                              ([deptId, dept]) => (
+                                <Box
+                                  key={deptId}
+                                  style={{
+                                    marginBottom: '6px',
+                                    padding: '6px 8px',
+                                    borderLeft: `2px solid ${C.borderRed}`,
+                                    background: C.panel,
+                                  }}
+                                >
+                                  <TermRow>
+                                    <TermValue bold color={C.amber}>
+                                      {(dept.name || deptId).toUpperCase()}
+                                    </TermValue>
+                                  </TermRow>
+                                  <TermRow>
+                                    <TermLabel>ALLOCATED</TermLabel>
+                                    <TermValue color={C.amber}>
+                                      {String(dept.allocated || 0).replace(
+                                        /\B(?=(\d{3})+(?!\d))/g,
+                                        ',',
+                                      )}
+                                    </TermValue>
+                                    <TermLabel style={{ marginLeft: '8px' }}>
+                                      SPENT
+                                    </TermLabel>
+                                    <TermValue color={C.redBright}>
+                                      {String(dept.spent || 0).replace(
+                                        /\B(?=(\d{3})+(?!\d))/g,
+                                        ',',
+                                      )}
+                                    </TermValue>
+                                    <TermLabel style={{ marginLeft: '8px' }}>
+                                      REMAINING
+                                    </TermLabel>
+                                    <TermValue color={C.green}>
+                                      {String(dept.remaining || 0).replace(
+                                        /\B(?=(\d{3})+(?!\d))/g,
+                                        ',',
+                                      )}
+                                    </TermValue>
+                                  </TermRow>
+                                </Box>
+                              ),
+                            )}
+                          </Box>
+                        )}
+                      {budget_data.pending_requests &&
+                        budget_data.pending_requests.length > 0 && (
+                          <Box>
+                            <TermDivider />
+                            <TermHeader>PENDING REQUESTS</TermHeader>
+                            {budget_data.pending_requests.map((req, idx) => (
+                              <TermRow key={idx}>
+                                <TermValue bold color={C.amber}>
+                                  {req.id}
+                                </TermValue>
+                                <TermLabel style={{ marginLeft: '8px' }}>
+                                  DEPT
+                                </TermLabel>
+                                <TermValue>{req.department}</TermValue>
+                                <TermLabel style={{ marginLeft: '8px' }}>
+                                  AMOUNT
+                                </TermLabel>
+                                <TermValue color={C.amber}>
+                                  {String(req.amount).replace(
+                                    /\B(?=(\d{3})+(?!\d))/g,
+                                    ',',
+                                  )}
+                                </TermValue>
+                              </TermRow>
+                            ))}
+                          </Box>
+                        )}
                     </Box>
                   ) : (
                     <Box
@@ -957,7 +1654,7 @@ export const PersistenceMasterPanel = (props, context) => {
                   act={act}
                   actions={[
                     {
-                      label: 'SAVE',
+                      label: 'DOWNLOAD',
                       color: 'green',
                       action: 'progression_export_data',
                     },
@@ -973,25 +1670,6 @@ export const PersistenceMasterPanel = (props, context) => {
 
               {/* SKILL PROGRESSION */}
               {activeTab === 'skill_progression' && <SkillProgression />}
-
-              {/* SCP MANAGEMENT */}
-              {activeTab === 'scp_management' && (
-                <GenericSection
-                  title="SCP MANAGEMENT INTERFACE"
-                  data={scp_data}
-                  act={act}
-                  actions={[
-                    {
-                      label: 'VIEW STATUS',
-                      color: 'green',
-                      action: 'scp_view_status',
-                    },
-                    { label: 'SAVE', action: 'scp_save_data' },
-                    { label: 'ADD INSTANCE', action: 'scp_add_instance' },
-                    { label: 'TEST', color: 'yellow', action: 'test_systems' },
-                  ]}
-                />
-              )}
             </Box>
 
             {/* RIGHT: SCIPNET Sidebar */}
@@ -1053,6 +1731,26 @@ export const PersistenceMasterPanel = (props, context) => {
                   {research_data ? 'LIVE' : 'OFFLINE'}
                 </Box>
                 <Box>
+                  <StatusDot online={!!chemical_data} /> CHEMICAL:{' '}
+                  {chemical_data ? 'LIVE' : 'OFFLINE'}
+                </Box>
+                <Box>
+                  <StatusDot online={!!incident_data} /> INCIDENT:{' '}
+                  {incident_data ? 'LIVE' : 'OFFLINE'}
+                </Box>
+                <Box>
+                  <StatusDot online={!!psychological_data} /> PSYCH:{' '}
+                  {psychological_data ? 'LIVE' : 'OFFLINE'}
+                </Box>
+                <Box>
+                  <StatusDot online={!!infrastructure_data} /> INFRA:{' '}
+                  {infrastructure_data ? 'LIVE' : 'OFFLINE'}
+                </Box>
+                <Box>
+                  <StatusDot online={!!analytics_data} /> ANALYTICS:{' '}
+                  {analytics_data ? 'LIVE' : 'OFFLINE'}
+                </Box>
+                <Box>
                   <StatusDot online={!!personnel_data} /> PERSONNEL:{' '}
                   {personnel_data ? 'LIVE' : 'OFFLINE'}
                 </Box>
@@ -1072,12 +1770,30 @@ export const PersistenceMasterPanel = (props, context) => {
                   lineHeight: '1.6',
                 })}
               >
-                <Box>ACTIVE THREATS: 0</Box>
-                <Box>OUTBREAKS: 0</Box>
-                <Box>BREACHES: 0</Box>
-                <Box>STAFF: 0</Box>
-                <Box>PROJECTS: 0</Box>
-                <Box>PLAYERS: 0</Box>
+                <Box>
+                  ACTIVE THREATS:{' '}
+                  {security_data?.active_threats ?? 0}
+                </Box>
+                <Box>
+                  OUTBREAKS:{' '}
+                  {medical_data?.active_outbreaks ?? 0}
+                </Box>
+                <Box>
+                  BREACHES:{' '}
+                  {incident_data?.active_incidents ?? 0}
+                </Box>
+                <Box>
+                  STAFF:{' '}
+                  {personnel_data?.active_staff ?? 0}
+                </Box>
+                <Box>
+                  PROJECTS:{' '}
+                  {research_data?.total_research_projects ?? 0}
+                </Box>
+                <Box>
+                  PLAYERS:{' '}
+                  {player_data?.total_players ?? 0}
+                </Box>
               </Box>
 
               <TermDivider />

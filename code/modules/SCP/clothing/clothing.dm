@@ -87,7 +87,7 @@
 	desc = "A modified uniform made specifically for the MTF unit 'Red Right Hand.'"
 	icon_state = "alpha-uniform"
 	worn_icon_state = "alpha-uniform"
-	armor = list(melee = 30, bullet = 20, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(BLUNT = 30, PUNCTURE = 20, SLASH = 0, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.9
 
 // Foundation-19 Security Uniforms - Adapted for Daedalus Dock
@@ -98,7 +98,7 @@
 	desc = "A black formal-like uniform used by Entrance Zone's security personnel, woven with fabric durable enough to absorb melee attacks. It has a Entrance Zone badge on the chest."
 	icon_state = "ez_guard"
 	worn_icon_state = "ez_guard"
-	armor = list(melee = 25, bullet = 15, laser = 10, energy = 5, bomb = 5, bio = 0, rad = 0)
+	armor = list(BLUNT = 25, PUNCTURE = 15, SLASH = 0, LASER = 10, ENERGY = 5, BOMB = 5, BIO = 0, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.9
 
 /obj/item/clothing/under/scp/warden/ez
@@ -106,7 +106,7 @@
 	desc = "A black formal-like uniform used by Entrance Zone's senior security personnel, woven with fabric durable enough to absorb melee attacks. It has a Entrance Zone badge on the chest, and silver insignia."
 	icon_state = "ez_sergeant"
 	worn_icon_state = "ez_sergeant"
-	armor = list(melee = 30, bullet = 20, laser = 15, energy = 10, bomb = 10, bio = 5, rad = 0)
+	armor = list(BLUNT = 30, PUNCTURE = 20, SLASH = 0, LASER = 15, ENERGY = 10, BOMB = 10, BIO = 5, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.9
 
 /obj/item/clothing/under/scp/hos/ez
@@ -114,7 +114,7 @@
 	desc = "A black formal-like uniform used by Entrance Zone's lead security personnel, woven with fabric durable enough to absorb melee attacks. It has a Entrance Zone badge on the chest, and golden insignia."
 	icon_state = "ez_supervisor"
 	worn_icon_state = "ez_supervisor"
-	armor = list(melee = 35, bullet = 25, laser = 20, energy = 15, bomb = 15, bio = 10, rad = 5)
+	armor = list(BLUNT = 35, PUNCTURE = 25, SLASH = 0, LASER = 20, ENERGY = 15, BOMB = 15, BIO = 10, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.8
 
 // Light Containment Zone Uniforms
@@ -123,7 +123,7 @@
 	desc = "A white, tactical security uniform with SCP insignia on it, with red shoulder and wrist markings, as well as medical insignia. Weaved with a durable fabric to absorb melee hits. Sterilized fabric for better treatment, and less likely for infections."
 	icon_state = "lczmed_guard"
 	worn_icon_state = "lczmed_guard"
-	armor = list(melee = 30, bullet = 20, laser = 15, energy = 10, bomb = 10, bio = 20, rad = 5)
+	armor = list(BLUNT = 30, PUNCTURE = 20, SLASH = 0, LASER = 15, ENERGY = 10, BOMB = 10, BIO = 20, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.9
 
 /obj/item/clothing/under/scp/security/lcz/riot
@@ -131,7 +131,7 @@
 	desc = "A white, tactical security uniform with SCP insignia on it, with blue shoulder and wrist markings, as well as shield insignia. Weaved with a durable fabric to absorb melee hits. Moreso than the other security uniforms."
 	icon_state = "lczriot_guard"
 	worn_icon_state = "lczriot_guard"
-	armor = list(melee = 40, bullet = 15, laser = 10, energy = 10, bomb = 20, bio = 5, rad = 5)
+	armor = list(BLUNT = 40, PUNCTURE = 15, SLASH = 0, LASER = 10, ENERGY = 10, BOMB = 20, BIO = 5, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.9
 
 /obj/item/clothing/under/scp/security/lcz/recontain
@@ -139,7 +139,7 @@
 	desc = "A white, tactical security uniform with SCP insignia on it, with cyan shoulder and wrist markings, as well as chevron insignia. Weaved with a durable fabric to absorb melee hits. You feel like this division will come back one day.."
 	icon_state = "lczrecon_guard"
 	worn_icon_state = "lczrecon_guard"
-	armor = list(melee = 35, bullet = 25, laser = 20, energy = 15, bomb = 15, bio = 10, rad = 5)
+	armor = list(BLUNT = 35, PUNCTURE = 25, SLASH = 0, LASER = 20, ENERGY = 15, BOMB = 15, BIO = 10, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.9
 
 /obj/item/clothing/under/scp/security/lcz/cadet
@@ -147,7 +147,7 @@
 	desc = "A black shortsleeved shirt worn by Cadets still in training, bearing \"Trainee\" on the back of the shirt in white, with the Security Department logo on the shoulder. Also along with this is the LCZ security trousers."
 	icon_state = "lcz_cadet"
 	worn_icon_state = "lcz_cadet"
-	armor = list(melee = 20, bullet = 10, laser = 5, energy = 5, bomb = 5, bio = 0, rad = 0)
+	armor = list(BLUNT = 20, PUNCTURE = 10, SLASH = 0, LASER = 5, ENERGY = 5, BOMB = 5, BIO = 0, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.9
 
 /obj/item/clothing/under/scp/security/lcz
@@ -155,15 +155,15 @@
 	desc = "A white, tactical security uniform with SCP insignia on it, with black shoulder and wrist markings. Weaved with a durable fabric to absorb melee hits."
 	icon_state = "lcz_guard"
 	worn_icon_state = "lcz_guard"
-	armor = list(melee = 30, bullet = 20, laser = 15, energy = 10, bomb = 10, bio = 5, rad = 5)
+	armor = list(BLUNT = 30, PUNCTURE = 20, SLASH = 0, LASER = 15, ENERGY = 10, BOMB = 10, BIO = 5, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.9
 
 /obj/item/clothing/under/scp/warden/lcz
 	name = "LCZ senior security uniform"
 	desc = "A white, tactical security uniform with SCP insignia on it. Weaved with a durable fabric to absorb melee hits. This one has a silver badge, and belt buckle, with a dirty rose color on the shoulders and wrists most known for Sergeants."
-	icon_state = "lcz_sergeant"
-	worn_icon_state = "lcz_sergeant"
-	armor = list(melee = 35, bullet = 25, laser = 20, energy = 15, bomb = 15, bio = 10, rad = 5)
+	icon_state = "white_sergeant_lcz"
+	worn_icon_state = "white_sergeant_lcz"
+	armor = list(BLUNT = 35, PUNCTURE = 25, SLASH = 0, LASER = 20, ENERGY = 15, BOMB = 15, BIO = 10, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.9
 
 /obj/item/clothing/under/scp/hos/lcz
@@ -171,7 +171,7 @@
 	desc = "A white, tactical security uniform with SCP insignia on it, with black shoulder and wrist markings. Weaved with a durable fabric to absorb melee hits. This one has a golden badge, and belt buckle, with a command blue color most known for Commanders."
 	icon_state = "lcz_commander"
 	worn_icon_state = "lcz_commander"
-	armor = list(melee = 40, bullet = 30, laser = 25, energy = 20, bomb = 20, bio = 15, rad = 10)
+	armor = list(BLUNT = 40, PUNCTURE = 30, SLASH = 0, LASER = 25, ENERGY = 20, BOMB = 20, BIO = 15, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.8
 
 // Heavy Containment Zone Uniforms
@@ -180,7 +180,7 @@
 	desc = "A black tactical jumpsuit, with dark red shoulder and wrist markings. Weaved with a durable fabric to absorb melee hits."
 	icon_state = "hcz_guard"
 	worn_icon_state = "hcz_guard"
-	armor = list(melee = 35, bullet = 25, laser = 20, energy = 15, bomb = 15, bio = 10, rad = 10)
+	armor = list(BLUNT = 35, PUNCTURE = 25, SLASH = 0, LASER = 20, ENERGY = 15, BOMB = 15, BIO = 10, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.9
 
 /obj/item/clothing/under/scp/warden/hcz
@@ -188,7 +188,7 @@
 	desc = "A black tactical jumpsuit, with dark red shoulder and wrist markings. Weaved with a durable fabric to absorb melee hits. This one has a silver badge, and belt buckle, with a dirty rose color most known for Sergeants."
 	icon_state = "hcz_sergeant"
 	worn_icon_state = "hcz_sergeant"
-	armor = list(melee = 40, bullet = 30, laser = 25, energy = 20, bomb = 20, bio = 15, rad = 15)
+	armor = list(BLUNT = 40, PUNCTURE = 30, SLASH = 0, LASER = 25, ENERGY = 20, BOMB = 20, BIO = 15, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.9
 
 /obj/item/clothing/under/scp/hos/hcz
@@ -196,7 +196,7 @@
 	desc = "A black tactical jumpsuit, with dark red shoulder and wrist markings. Weaved with a durable fabric to absorb melee hits. This one has a golden badge, and belt buckle, with a lighter red color most known for Commanders."
 	icon_state = "hcz_commander"
 	worn_icon_state = "hcz_commander"
-	armor = list(melee = 45, bullet = 35, laser = 30, energy = 25, bomb = 25, bio = 20, rad = 20)
+	armor = list(BLUNT = 45, PUNCTURE = 35, SLASH = 0, LASER = 30, ENERGY = 25, BOMB = 25, BIO = 20, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.8
 
 // Guard Commander Uniforms
@@ -205,7 +205,7 @@
 	desc = "A white tactical shirt, with a pair of black trousers with golden striping on the side, the shirt is covered in gold insignia, with an additional black color over the wrists. There's a golden badge and belt buckle. This is definitely the definition of prospertiy."
 	icon_state = "hos"
 	worn_icon_state = "hos"
-	armor = list(melee = 50, bullet = 40, laser = 35, energy = 30, bomb = 30, bio = 25, rad = 25)
+	armor = list(BLUNT = 50, PUNCTURE = 40, SLASH = 0, LASER = 35, ENERGY = 30, BOMB = 30, BIO = 25, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.7
 
 /obj/item/clothing/under/scp/hos/guardcom/alt
@@ -213,7 +213,7 @@
 	desc = "A white turtleneck, atop of a set of black tactical cargo pants. The turtleneck has a golden insignia on the right shoulder, denoting the rank of Guard Commander. It smells of gunpowder."
 	icon_state = "hosalt"
 	worn_icon_state = "hosalt"
-	armor = list(melee = 45, bullet = 35, laser = 30, energy = 25, bomb = 25, bio = 20, rad = 20)
+	armor = list(BLUNT = 45, PUNCTURE = 35, SLASH = 0, LASER = 30, ENERGY = 25, BOMB = 25, BIO = 20, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.7
 
 // Representative Organizations
@@ -240,7 +240,7 @@
 	desc = "A blue-ish black tactical suit with a UNGOC logo on one of the shoulders. It's comfortable materials make it good for manueverability. All combat, all the time."
 	icon_state = "goc_jumpsuit"
 	worn_icon_state = "goc_jumpsuit"
-	armor = list(melee = 40, bullet = 35, laser = 30, energy = 25, bomb = 20, bio = 15, rad = 15)
+	armor = list(BLUNT = 40, PUNCTURE = 35, SLASH = 0, LASER = 30, ENERGY = 25, BOMB = 20, BIO = 15, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.8
 
 // Standard Security Uniforms
@@ -251,7 +251,7 @@
 	worn_icon = 'icons/mob/clothing/under/security.dmi'
 	icon_state = "warden"
 	worn_icon_state = "warden"
-	armor = list(melee = 30, bullet = 20, laser = 15, energy = 10, bomb = 10, bio = 5, rad = 5)
+	armor = list(BLUNT = 30, PUNCTURE = 20, SLASH = 0, LASER = 15, ENERGY = 10, BOMB = 10, BIO = 5, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.9
 
 /obj/item/clothing/under/scp/security
@@ -261,7 +261,7 @@
 	worn_icon = 'icons/mob/clothing/under/security.dmi'
 	icon_state = "security"
 	worn_icon_state = "security"
-	armor = list(melee = 25, bullet = 15, laser = 10, energy = 5, bomb = 5, bio = 0, rad = 0)
+	armor = list(BLUNT = 25, PUNCTURE = 15, SLASH = 0, LASER = 10, ENERGY = 5, BOMB = 5, BIO = 0, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.9
 
 /obj/item/clothing/under/scp/dispatch
@@ -271,7 +271,7 @@
 	worn_icon = 'icons/mob/clothing/under/security.dmi'
 	icon_state = "security"
 	worn_icon_state = "security"
-	armor = list(melee = 20, bullet = 10, laser = 5, energy = 5, bomb = 5, bio = 0, rad = 0)
+	armor = list(BLUNT = 20, PUNCTURE = 10, SLASH = 0, LASER = 5, ENERGY = 5, BOMB = 5, BIO = 0, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.9
 
 /obj/item/clothing/under/scp/security2
@@ -281,7 +281,7 @@
 	worn_icon = 'icons/mob/clothing/under/security.dmi'
 	icon_state = "security"
 	worn_icon_state = "security"
-	armor = list(melee = 25, bullet = 15, laser = 10, energy = 5, bomb = 5, bio = 0, rad = 0)
+	armor = list(BLUNT = 25, PUNCTURE = 15, SLASH = 0, LASER = 10, ENERGY = 5, BOMB = 5, BIO = 0, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.9
 
 /obj/item/clothing/under/scp/security/corp
@@ -307,7 +307,7 @@
 	worn_icon = 'icons/mob/clothing/under/security.dmi'
 	icon_state = "security"
 	worn_icon_state = "security"
-	armor = list(melee = 35, bullet = 25, laser = 20, energy = 15, bomb = 15, bio = 10, rad = 10)
+	armor = list(BLUNT = 35, PUNCTURE = 25, SLASH = 0, LASER = 20, ENERGY = 15, BOMB = 15, BIO = 10, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.9
 
 // Detective Uniforms
@@ -343,7 +343,7 @@
 	worn_icon = 'icons/mob/clothing/under/security.dmi'
 	icon_state = "hos"
 	worn_icon_state = "hos"
-	armor = list(melee = 40, bullet = 30, laser = 25, energy = 20, bomb = 20, bio = 15, rad = 15)
+	armor = list(BLUNT = 40, PUNCTURE = 30, SLASH = 0, LASER = 25, ENERGY = 20, BOMB = 20, BIO = 15, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.8
 
 /obj/item/clothing/under/scp/hos/corp
@@ -458,7 +458,7 @@
 	icon = 'icons/obj/clothing/suits.dmi'
 	worn_icon = 'icons/mob/clothing/suit.dmi'
 	body_parts_covered = 15
-	armor = list(melee = 40, bullet = 30, laser = 25, energy = 20, bomb = 20, bio = 15, rad = 15)
+	armor = list(BLUNT = 40, PUNCTURE = 30, SLASH = 0, LASER = 25, ENERGY = 20, BOMB = 20, BIO = 15, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.6
 
 /obj/item/clothing/suit/scp/hos/jensen
@@ -477,7 +477,7 @@
 	icon = 'icons/obj/clothing/suits.dmi'
 	worn_icon = 'icons/mob/clothing/suit.dmi'
 	body_parts_covered = 3
-	armor = list(melee = 35, bullet = 30, laser = 25, energy = 20, bomb = 15, bio = 10, rad = 10)
+	armor = list(BLUNT = 35, PUNCTURE = 30, SLASH = 0, LASER = 25, ENERGY = 20, BOMB = 15, BIO = 10, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.7
 
 /obj/item/clothing/suit/scp/hos/coat
@@ -488,7 +488,7 @@
 	icon = 'icons/obj/clothing/suits.dmi'
 	worn_icon = 'icons/mob/clothing/suit.dmi'
 	body_parts_covered = 15
-	armor = list(melee = 30, bullet = 25, laser = 20, energy = 15, bomb = 15, bio = 10, rad = 10)
+	armor = list(BLUNT = 30, PUNCTURE = 25, SLASH = 0, LASER = 20, ENERGY = 15, BOMB = 15, BIO = 10, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.8
 
 /obj/item/clothing/suit/armor/director_coat
@@ -499,7 +499,7 @@
 	icon = 'icons/obj/clothing/suits.dmi'
 	worn_icon = 'icons/mob/clothing/suit.dmi'
 	body_parts_covered = 15
-	armor = list(melee = 40, bullet = 35, laser = 30, energy = 25, bomb = 20, bio = 15, rad = 10)
+	armor = list(BLUNT = 40, PUNCTURE = 35, SLASH = 0, LASER = 30, ENERGY = 25, BOMB = 20, BIO = 15, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.7
 	allowed = list(/obj/item/gun/energy, /obj/item/restraints/handcuffs, /obj/item/assembly/flash)
 
@@ -540,7 +540,7 @@
 	icon = 'icons/obj/clothing/hats.dmi'
 	worn_icon = 'icons/mob/clothing/head.dmi'
 	body_parts_covered = 0
-	armor = list(melee = 40, bullet = 30, laser = 25, energy = 20, bomb = 20, bio = 15, rad = 15)
+	armor = list(BLUNT = 40, PUNCTURE = 30, SLASH = 0, LASER = 25, ENERGY = 20, BOMB = 20, BIO = 15, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.6
 
 /obj/item/clothing/head/beret/sec/guardcom
@@ -548,7 +548,7 @@
 	desc = "A black beret with the Guard Commander's insignia. For those who command with authority and style."
 	icon_state = "beret_badge"
 	worn_icon_state = "beret_guardcom"
-	armor = list(melee = 10, bullet = 5, laser = 5, energy = 5, bomb = 5, bio = 0, rad = 0)
+	armor = list(BLUNT = 10, PUNCTURE = 5, SLASH = 0, LASER = 5, ENERGY = 5, BOMB = 5, BIO = 0, FIRE = 0, ACID = 0)
 
 // Detective Headgear
 /obj/item/clothing/head/scp/det
@@ -558,7 +558,7 @@
 	worn_icon_state = "detective"
 	icon = 'icons/obj/clothing/hats.dmi'
 	worn_icon = 'icons/mob/clothing/head.dmi'
-	armor = list(melee = 30, bullet = 15, laser = 10, energy = 5, bomb = 5, bio = 0, rad = 0)
+	armor = list(BLUNT = 30, PUNCTURE = 15, SLASH = 0, LASER = 10, ENERGY = 5, BOMB = 5, BIO = 0, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.9
 
 /obj/item/clothing/head/scp/det/grey

@@ -535,33 +535,6 @@
 	if(scp_performance.access_level >= 3)
 		update_player_statistics(player, "scp_access_level", scp_performance.access_level)
 
-// Enhanced player data with persistence integration
-/datum/dclass_player
-	var/round_start_time = 0
-	var/stealth_round_completed = FALSE
-	var/escaped_during_scp_event = FALSE
-	var/current_round_stats = list()
-
-/datum/dclass_player/New(var/player_ckey)
-	ckey = player_ckey
-	data_file_path = "data/dclass/[ckey].json"
-	round_start_time = world.time
-	generate_dclass_number()
-	initialize_skills()
-	load_data()
-
-	// Initialize round statistics
-	current_round_stats = list(
-		"start_time" = round_start_time,
-		"escape_attempts" = 0,
-		"contraband_found" = 0,
-		"alliances_formed" = 0,
-		"players_betrayed" = 0,
-		"work_assignments" = 0,
-		"guard_detections" = 0,
-		"stealth_time" = 0
-	)
-
 /datum/dclass_player/proc/process_player_with_persistence()
 	// Regular processing
 	process_player()
@@ -590,16 +563,5 @@
 	if(SSdclass && SSdclass.manager && SSdclass.manager.persistence_manager)
 		SSdclass.manager.persistence_manager.save_round_data(src)
 		SSdclass.manager.persistence_manager.integrate_with_scp_persistence(src)
-
-// Add persistence manager to main manager
-/datum/dclass_manager
-	var/datum/dclass_persistence_manager/persistence_manager
-
-/datum/dclass_manager/New()
-	. = ..()
-	persistence_manager = new /datum/dclass_persistence_manager()
-
-/datum/dclass_manager/proc/initialize_persistence()
-	persistence_manager = new /datum/dclass_persistence_manager()
 
 // Note: process_dclass() is defined in dclass_system.dm and includes persistence features

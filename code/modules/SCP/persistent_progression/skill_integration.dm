@@ -10,7 +10,7 @@ SUBSYSTEM_DEF(skill_integration)
 
 /datum/controller/subsystem/skill_integration/Initialize()
 	manager = new /datum/skill_integration_manager()
-	world.log << "Skill Integration Subsystem: Initialized"
+	log_game("Skill Integration Subsystem: Initialized")
 	return ..()
 
 /datum/controller/subsystem/skill_integration/fire()
@@ -188,7 +188,7 @@ SUBSYSTEM_DEF(skill_integration)
 
 	// Notify player
 	var/skill_name = get_skill_name(skill_type)
-	to_chat(mind.current, "<span class='notice'>Congratulations! You've reached [skill_level] level in [skill_name]!</span>")
+	to_chat(mind.current, span_notice("Congratulations! You've reached [skill_level] level in [skill_name]!"))
 
 // Research Skill Integration
 /datum/skill_integration_manager/proc/on_research_activity(mob/living/carbon/human/researcher, research_type, base_experience = 0)
@@ -209,7 +209,7 @@ SUBSYSTEM_DEF(skill_integration)
 
 	// Notify player of skill bonus
 	if(enhanced_experience > base_experience)
-		to_chat(researcher, "<span class='notice'>Your research skills provide a [round((enhanced_experience - base_experience) / base_experience * 100)]% bonus to research experience!</span>")
+		to_chat(researcher, span_notice("Your research skills provide a [round((enhanced_experience - base_experience) / base_experience * 100)]% bonus to research experience!"))
 
 /datum/skill_integration_manager/proc/apply_research_skill_bonuses(mob/living/carbon/human/researcher, research_type, base_experience)
 	if(!researcher || !researcher.mind)
@@ -261,19 +261,19 @@ SUBSYSTEM_DEF(skill_integration)
 
 /datum/skill_integration_manager/proc/trigger_research_intuition(mob/living/carbon/human/researcher, research_type)
 	// Level 25+ research ability
-	to_chat(researcher, "<span class='notice'>Your research intuition helps you understand complex patterns.</span>")
+	to_chat(researcher, span_notice("Your research intuition helps you understand complex patterns."))
 
 /datum/skill_integration_manager/proc/trigger_research_mastery(mob/living/carbon/human/researcher, research_type)
 	// Level 50+ research ability
-	to_chat(researcher, "<span class='notice'>Your research mastery allows you to identify breakthrough opportunities.</span>")
+	to_chat(researcher, span_notice("Your research mastery allows you to identify breakthrough opportunities."))
 
 /datum/skill_integration_manager/proc/trigger_research_breakthrough(mob/living/carbon/human/researcher, research_type)
 	// Level 75+ research ability
-	to_chat(researcher, "<span class='notice'>Your advanced research skills enable breakthrough discoveries.</span>")
+	to_chat(researcher, span_notice("Your advanced research skills enable breakthrough discoveries."))
 
 /datum/skill_integration_manager/proc/trigger_legendary_research(mob/living/carbon/human/researcher, research_type)
 	// Level 100+ research ability
-	to_chat(researcher, "<span class='notice'>Your legendary research abilities unlock unprecedented insights.</span>")
+	to_chat(researcher, span_notice("Your legendary research abilities unlock unprecedented insights."))
 
 /datum/skill_integration_manager/proc/check_research_achievements(mob/living/carbon/human/researcher)
 	if(!researcher || !researcher.mind)
@@ -293,7 +293,7 @@ SUBSYSTEM_DEF(skill_integration)
 
 /datum/skill_integration_manager/proc/award_research_achievement(mob/living/carbon/human/researcher, achievement_id, achievement_name)
 	research_milestones += achievement_id
-	to_chat(researcher, "<span class='achievement'>Achievement Unlocked: [achievement_name]!</span>")
+	to_chat(researcher, span_boldnotice("Achievement Unlocked: [achievement_name]!"))
 
 /datum/skill_integration_manager/proc/award_research_rewards(mob/living/carbon/human/researcher, research_type)
 	if(!researcher || !researcher.mind)
@@ -312,7 +312,7 @@ SUBSYSTEM_DEF(skill_integration)
 	// Create and give research cloak
 	var/obj/item/clothing/neck/cloak/skill_reward/research/research_cloak = new()
 	researcher.put_in_hands(research_cloak)
-	to_chat(researcher, "<span class='notice'>You receive a Research Master's Cloak for your expertise!</span>")
+	to_chat(researcher, span_notice("You receive a Research Master's Cloak for your expertise!"))
 
 /datum/skill_integration_manager/proc/has_research_cloak(mob/living/carbon/human/researcher)
 	if(!researcher)

@@ -62,9 +62,9 @@
 	if(!target_brain)
 		to_chat(user, span_warning("[target] doesn't have a brain to operate on."))
 		return FALSE
-	if(target.scp513_stalked_ref)
+	if(locate(/datum/element/scp513_stalked) in target.status_effects)
 		return TRUE
-	if(target.mind?.has_antag_datum(/datum/antagonist/sarkic))
+	if(target.mind?.has_antag_datum(/datum/antagonist/sarkic_cult))
 		return TRUE
 	if(target.mind?.has_antag_datum(/datum/antagonist/chaos_insurgency))
 		return TRUE
@@ -82,7 +82,7 @@
 /datum/surgery_step/anomalous_purge/succeed_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/purged_something = FALSE
 
-	if(target.scp513_stalked_ref)
+	if(locate(/datum/element/scp513_stalked) in target.status_effects)
 		target.RemoveElement(/datum/element/scp513_stalked)
 		to_chat(target, span_notice("The watching presence fades from your mind."))
 		purged_something = TRUE
@@ -91,8 +91,8 @@
 		target.hallucination = max(0, target.hallucination - 50)
 		purged_something = TRUE
 
-	if(target.mind?.has_antag_datum(/datum/antagonist/sarkic))
-		target.mind.remove_antag_datum(/datum/antagonist/sarkic)
+	if(target.mind?.has_antag_datum(/datum/antagonist/sarkic_cult))
+		target.mind.remove_antag_datum(/datum/antagonist/sarkic_cult)
 		to_chat(target, span_warning("The alien thoughts in your mind dissolve. Your old self resurfaces."))
 		purged_something = TRUE
 
@@ -169,8 +169,6 @@
 	else
 		user.visible_message(span_warning("[user] suddenly notices the brain is gone."), vision_distance = COMBAT_MESSAGE_RANGE)
 
-#define TRAIT_MEMETIC_SHIELDING "memetic_shielding"
-
 /obj/item/surgical_disk/foundation
 	name = "Foundation Surgical Programs Disk"
 	desc = "A disk containing Foundation-specific surgical programs for anomalous influence removal and memetic shielding installation."
@@ -178,13 +176,17 @@
 	var/list/available_surgeries = list(
 		/datum/surgery_step/anomalous_purge,
 		/datum/surgery_step/memetic_shielding,
+		/datum/surgery_step/scp008_excision,
+		/datum/surgery_step/scp049_cure_reversal,
+		/datum/surgery_step/containment_implant_install,
+		/datum/surgery_step/amnestic_implant_install,
 	)
 
 /obj/item/surgical_disk/foundation/attack_self(mob/user)
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	var/list/options = list("Anomalous Purge", "Memetic Shielding")
+	var/list/options = list("Anomalous Purge", "Memetic Shielding", "SCP-008 Excision", "Pestilence Extraction", "Containment Tracker", "Amnestic Implant")
 	var/choice = input(H, "Select a surgical program to learn:", "Foundation Surgery") as null|anything in options
 	if(!choice)
 		return
@@ -194,6 +196,14 @@
 			learned_step = /datum/surgery_step/anomalous_purge
 		if("Memetic Shielding")
 			learned_step = /datum/surgery_step/memetic_shielding
+		if("SCP-008 Excision")
+			learned_step = /datum/surgery_step/scp008_excision
+		if("Pestilence Extraction")
+			learned_step = /datum/surgery_step/scp049_cure_reversal
+		if("Containment Tracker")
+			learned_step = /datum/surgery_step/containment_implant_install
+		if("Amnestic Implant")
+			learned_step = /datum/surgery_step/amnestic_implant_install
 	if(learned_step)
 		to_chat(H, span_notice("You study the [choice] surgical procedure from the disk."))
 		hook_scp_interaction(H, "Foundation Surgery", INTERACTION_TYPE_MEDICAL)

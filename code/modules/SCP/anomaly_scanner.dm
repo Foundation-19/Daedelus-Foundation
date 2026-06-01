@@ -13,7 +13,7 @@
 
 /obj/item/anomaly_scanner/attack_self(mob/user)
 	if(scan_cooldown > 0)
-		to_chat(user, "<span class='warning'>Scanner is recharging. Wait [ceil(scan_cooldown / 10)] seconds.</span>")
+		to_chat(user, span_warning("Scanner is recharging. Wait [ceil(scan_cooldown / 10)] seconds."))
 		return
 
 	if(!ishuman(user))
@@ -71,10 +71,10 @@
 	last_scan_results = scan_data
 
 	if(length(scan_data) == 0)
-		to_chat(user, "<span class='notice'>No anomalous signatures detected within range.</span>")
+		to_chat(user, span_notice("No anomalous signatures detected within range."))
 		playsound(src, 'sound/machines/twobeep.ogg', 20, TRUE)
 	else
-		to_chat(user, "<span class='notice'>[length(scan_data)] anomalous signature\s detected! Check scanner display for details.</span>")
+		to_chat(user, span_notice("[length(scan_data)] anomalous signature\s detected! Check scanner display for details."))
 		playsound(src, 'sound/machines/triple_beep.ogg', 30, TRUE)
 
 	ui_interact(user)
@@ -103,7 +103,7 @@
 
 	switch(action)
 		if("scan")
-			attack_self(usr)
+			attack_self(ui.user)
 			. = TRUE
 		if("toggle_breached_only")
 			detect_breached_only = !detect_breached_only

@@ -51,7 +51,7 @@
 		if(achievement.database_id == achievement_id)
 			// Unlock the achievement
 			achievement.unlock(ckey)
-			world.log << "Achievement Integration: [ckey] unlocked SSachievements achievement: [achievement_name] ([achievement_id])"
+			log_game("Achievement Integration: [ckey] unlocked SSachievements achievement: [achievement_name] ([achievement_id])")
 			return TRUE
 	return FALSE
 
@@ -78,7 +78,7 @@
 		if(player_data && !(our_achievement_id in player_data.achievements))
 			// Unlock in our system
 			player_data.unlock_achievement(our_achievement_id)
-			world.log << "Achievement Integration: [ckey] unlocked progression achievement: [our_achievement_id] via SSachievements"
+			log_game("Achievement Integration: [ckey] unlocked progression achievement: [our_achievement_id] via SSachievements")
 
 // Hook into SSachievements unlock system
 /datum/award/achievement/proc/unlock(key)

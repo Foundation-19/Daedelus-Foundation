@@ -41,38 +41,38 @@
 			var/build_type = params["build_id"]
 			var/cost = text2num(params["cost"])
 			if(uses < cost)
-				to_chat(usr, span_warning("Not enough materials remaining."))
+				to_chat(ui.user, span_warning("Not enough materials remaining."))
 				return
 			uses -= cost
-			var/turf/T = get_turf(usr)
+			var/turf/T = get_turf(ui.user)
 			if(!T)
 				return
 			switch(build_type)
 				if("wall")
 					var/turf/closed/wall/W = T
 					if(istype(W))
-						to_chat(usr, span_warning("There's already a wall here."))
+						to_chat(ui.user, span_warning("There's already a wall here."))
 						uses += cost
 						return
 					var/turf/new_wall = T.ChangeTurf(/turf/closed/wall)
 					if(new_wall)
 						playsound(T, 'sound/items/welder.ogg', 50, TRUE)
-						to_chat(usr, span_notice("Containment wall constructed."))
+						to_chat(ui.user, span_notice("Containment wall constructed."))
 				if("door")
 					var/obj/machinery/door/airlock/scp/containment/D = new(T)
 					if(D)
 						playsound(T, 'sound/machines/doors/airlock_close.ogg', 50, TRUE)
-						to_chat(usr, span_notice("Containment door installed."))
+						to_chat(ui.user, span_notice("Containment door installed."))
 				if("window")
 					var/obj/structure/window/reinforced/W = new(T)
 					if(W)
 						playsound(T, 'sound/effects/glassbr1.ogg', 50, TRUE)
-						to_chat(usr, span_notice("Observation window installed."))
+						to_chat(ui.user, span_notice("Observation window installed."))
 				if("airlock")
 					var/obj/machinery/door/airlock/scp/decon/A = new(T)
 					if(A)
 						playsound(T, 'sound/machines/doors/airlock_close.ogg', 50, TRUE)
-						to_chat(usr, span_notice("Decontamination airlock installed."))
+						to_chat(ui.user, span_notice("Decontamination airlock installed."))
 
 /obj/machinery/door/airlock/scp
 	name = "Foundation airlock"
@@ -81,6 +81,16 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_sc
 	req_access = list(ACCESS_SCIENCE)
 	normal_integrity = 500
+	var/zone_name = "UNKNOWN"
+	var/clearance_message = "Insufficient clearance for this zone."
+
+/obj/machinery/door/airlock/scp/do_animate(animation)
+	. = ..()
+	if(animation == "deny")
+		playsound(src, 'sound/machines/deniedbeep.ogg', 50, FALSE, 3)
+		var/mob/user = usr
+		if(user && ishuman(user))
+			to_chat(user, span_warning("[clearance_message]"))
 
 /obj/machinery/door/airlock/scp/containment
 	name = "Containment Door"
@@ -102,11 +112,21 @@
 /obj/machinery/door/airlock/scp/lcz
 	name = "LCZ Airlock"
 	req_access = list(ACCESS_LCZ)
+	zone_name = "Light Containment Zone"
+	clearance_message = "ACCESS DENIED: LCZ clearance required. Report to your supervisor for access authorization."
 
 /obj/machinery/door/airlock/scp/hcz
 	name = "HCZ Airlock"
 	req_access = list(ACCESS_HCZ)
+	zone_name = "Heavy Containment Zone"
+	clearance_message = "ACCESS DENIED: HCZ Level 3+ clearance required. Unauthorized entry to Keter containment is grounds for immediate termination."
 
 /obj/machinery/door/airlock/scp/ez
 	name = "EZ Airlock"
 	req_access = list(ACCESS_EZ)
+	zone_name = "Entrance Zone"
+	clearance_message = "ACCESS DENIED: EZ clearance required. All visitors must be escorted by Foundation personnel."
+
+/obj/machinery/door/airlock/scp/dclass
+	zone_name = "D-Class Block"
+	clearance_message = "ACCESS DENIED: D-Class personnel must remain in designated areas. Unauthorized departure is grounds for immediate termination."

@@ -6,6 +6,7 @@
 // as temporary blips rather than actual visual contact.
 
 /mob/living/scp/scp939
+	ai_enabled = TRUE
 	name = "SCP-939"
 	desc = "A large, eyeless predator. Its mouth is filled with needle-like teeth. It has no eyes — it hunts by sound."
 	icon = 'icons/scp/scp_939.dmi'
@@ -71,6 +72,8 @@
 	research_integration?.process_research()
 
 	process_sound_detection()
+	if(ai_target && ishuman(ai_target) && prob(20))
+		share_target_with_pack(ai_target)
 
 /mob/living/scp/scp939/Destroy()
 	QDEL_NULL(voice_system)
@@ -211,6 +214,117 @@
 	if(!target)
 		return
 	hook_scp_interaction(target, "SCP-939", INTERACTION_TYPE_COMMUNICATION)
+
+/mob/living/scp/scp939/process_ai()
+	if(stat == DEAD)
+		return
+	if(containment_status != "breached")
+		return
+	if(world.time < last_ai_tick + ai_tick_interval)
+		return
+	last_ai_tick = world.time
+
+	process_sound_detection()
+
+	var/mob/living/carbon/human/prey = ai_find_sound_prey()
+	if(prey)
+		ai_hunt_prey(prey)
+		if(prob(20))
+			share_target_with_pack(prey)
+		return
+
+	if(prob(15))
+		ai_mimic_lure()
+
+	if(prob(25))
+		ai_territorial_wander()
+
+/mob/living/scp/scp939/proc/ai_find_sound_prey()
+	var/mob/living/carbon/human/best = null
+	var/best_certainty = -1
+	for(var/mob/living/carbon/human/H in detected_mobs)
+		if(H.stat == DEAD || QDELETED(H))
+			continue
+		var/list/info = detected_mobs[H]
+		if(!info)
+			continue
+		var/certainty = info["certainty"] || 0
+		if(certainty > best_certainty)
+			best_certainty = certainty
+			best = H
+	return best
+
+/mob/living/scp/scp939/proc/ai_hunt_prey(mob/living/carbon/human/prey)
+	if(!prey || QDELETED(prey))
+		return
+
+	if(get_dist(src, prey) <= 1)
+		on_attack_mob(prey)
+		if(prey.stat == DEAD)
+			voice_system?.learn_voice(prey)
+			on_hunt_kill(prey)
+		return
+
+	var/direction = get_dir(src, prey)
+	if(prob(40))
+		var/list/predirs = list()
+		if(direction & NORTH)
+			predirs += NORTHEAST
+			predirs += NORTHWEST
+		if(direction & SOUTH)
+			predirs += SOUTHEAST
+			predirs += SOUTHWEST
+		if(direction & EAST)
+			predirs += NORTHEAST
+			predirs += SOUTHEAST
+		if(direction & WEST)
+			predirs += NORTHWEST
+			predirs += SOUTHWEST
+		if(length(predirs))
+			var/alt_dir = pick(predirs)
+			var/turf/alt_step = get_step(src, alt_dir)
+			if(alt_step && !alt_step.density)
+				step_to(src, alt_step)
+				return
+
+	step_to(src, prey)
+
+	if(prob(10))
+		playsound(src, 'sound/weapons/slash.ogg', 30, TRUE, extrarange = 5)
+
+/mob/living/scp/scp939/proc/ai_mimic_lure()
+	if(!voice_system || !length(voice_system.learned_voices))
+		return
+
+	var/mob/living/carbon/human/far_target = null
+	for(var/mob/living/carbon/human/H in range(15, src))
+		if(H == src || H.stat == DEAD || QDELETED(H))
+			continue
+		if(get_dist(src, H) > 7)
+			far_target = H
+			break
+	if(!far_target)
+		return
+
+	var/mob/living/carbon/human/mimicked = pick(voice_system.learned_voices)
+	if(!mimicked || QDELETED(mimicked))
+		return
+
+	var/lure_msg = pick("Help! I'm trapped in here!", "Is anyone there? Please, I need help!", "I found a way out! Over here!", "Don't leave me behind!", "There's something in here with me...")
+	far_target.Hear(lure_msg, src, null, lure_msg, null, list("scp939_mimic"), list(), get_turf(src), 7)
+
+/mob/living/scp/scp939/proc/ai_territorial_wander()
+	if(territory_system)
+		territory_system.update_territory_control()
+
+	if(ai_home_turf && get_dist(src, ai_home_turf) > ai_wander_range * 2)
+		var/turf/wander_target = get_step_towards(src, ai_home_turf)
+		if(wander_target && !wander_target.density)
+			step_to(src, wander_target)
+		else
+			step_rand(src)
+	else
+		step_rand(src)
 
 /mob/living/scp/scp939/proc/on_recontainment()
 	hook_scp_recontainment("SCP-939", list("method" = "standard"))

@@ -1,7 +1,8 @@
 /datum/job/psychologist
 	title = "Psychiatrist"
-	description = "Advocate sanity, self-esteem, and teamwork in a station \
-		staffed with headcases."
+	description = "Conduct psychological evaluations, track SCP exposure effects on personnel, \
+		and manage amnestic recommendations. Use the Psychology Evaluation Console to assess sanity, \
+		record SCP exposure, conduct counseling sessions, and recommend treatment for affected staff."
 	department_head = list(JOB_HUMAN_RESOURCES_DIRECTOR)
 	faction = FACTION_STATION
 	total_positions = 1
@@ -52,7 +53,7 @@
 		/obj/item/storage/pill_bottle/paxpsych,
 		/obj/item/storage/pill_bottle/haloperidol,
 		)
-	belt = /obj/item/modular_computer/tablet/pda/medical
+	belt = /obj/item/modular_computer/tablet/pda/foundation_medical
 	ears = /obj/item/radio/headset/headset_med
 	shoes = /obj/item/clothing/shoes/laceup
 	suit = /obj/item/clothing/suit/toggle/labcoat

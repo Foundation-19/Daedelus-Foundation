@@ -68,6 +68,9 @@
 
 /obj/structure/closet/secure
 	name = "secure locker"
+	var/icon_closed
+	var/icon_locked
+	var/icon_off
 
 /obj/structure/closet/secure/administration/commsofficer
 	name = "comms officer's locker"
@@ -356,6 +359,7 @@
 
 /obj/machinery/door/airlock/multi_tile/glass/research
 	name = "glass research airlock"
+	var/secured_wires
 
 /obj/machinery/door/airlock/multi_tile/glass/science
 	name = "glass science airlock"

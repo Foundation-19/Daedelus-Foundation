@@ -43,5 +43,9 @@
 //A placeholder for a random gas generated each round.
 #define GAS_ALIEN				"aliether"
 
+//SCP containment gases
+#define GAS_DECONTAM			"decontamination_gas"
+#define GAS_MEMETIC_NEUTRAL		"memetic_neutralizer"
+
 ///All gases that are not placeholders.
 #define ASSORTED_GASES (xgm_gas_data.gases - GAS_ALIEN)

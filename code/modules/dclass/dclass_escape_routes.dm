@@ -77,7 +77,7 @@
 
 	var/list/escape_turfs = list()
 	for(var/area/A in get_sorted_areas())
-		if(istype(A, /area/scp/ez) || istype(A, /area/scp/surface))
+		if(istype(A, /area/scp/ez) || istype(A, /area/scp/surface) || istype(A, /area/site53/surface))
 			for(var/turf/open/T in A)
 				if(!T.density)
 					escape_turfs += T
@@ -92,6 +92,41 @@
 
 	if(SSpersistent_progression)
 		SSpersistent_progression.award_experience(H.ckey, "scp_survival", 50, "D-Class Escape")
+
+	notify_escape(H)
+
+/datum/dclass_escape_route/proc/notify_escape(mob/living/carbon/human/H)
+	priority_announce("ALERT: D-Class personnel [H.name] has escaped containment and reached the surface. All security personnel are to locate and detain the escapee immediately. Facility security level may be elevated.", "CONTAINMENT BREACH", "D-Class Escape", ANNOUNCER_ALERT)
+
+	if(SSsecurity_level)
+		var/current = SSsecurity_level.current_level
+		if(current < SEC_LEVEL_RED)
+			set_foundation_security_code(SEC_LEVEL_RED, "D-Class escape to surface")
+
+	var/datum/antagonist/dclass_escaped/escaped_antag = new()
+	H.mind.add_antag_datum(escaped_antag)
+
+/datum/antagonist/dclass_escaped
+	name = "Escaped D-Class"
+	show_in_antagpanel = TRUE
+	show_to_ghosts = TRUE
+	suicide_cry = "FREEDOM!!"
+	can_elimination_hijack = ELIMINATION_PREVENT
+	hijack_speed = 0.5
+
+/datum/antagonist/dclass_escaped/on_gain()
+	. = ..()
+	var/datum/objective/escape_obj = new()
+	escape_obj.owner = owner
+	escape_obj.explanation_text = "You have escaped the facility. Avoid recapture at all costs. Reach the facility perimeter or find a way off-site."
+	escape_obj.completed = FALSE
+	objectives += escape_obj
+
+/datum/antagonist/dclass_escaped/greet()
+	. = ..()
+	to_chat(owner.current, "<span class='boldannounce'>You have escaped containment!</span>")
+	to_chat(owner.current, "<span class='announce'>You are now an escaped D-Class. Avoid recapture. Find a way off-site.</span>")
+	to_chat(owner.current, "<span class='announce'>Security will be hunting you. Stay hidden or fight your way out.</span>")
 
 /datum/dclass_escape_route/proc/fail_escape(mob/living/carbon/human/H)
 	to_chat(H, "<span class='danger'>You fail to get through [name]!</span>")

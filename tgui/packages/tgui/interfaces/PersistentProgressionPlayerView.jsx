@@ -430,7 +430,7 @@ export const PersistentProgressionPlayerView = (props, context) => {
             <TermHeader>ADMINISTRATIVE ACTIONS</TermHeader>
             <Box style={{ display: 'flex', gap: '4px' }}>
               <TermButton color="green" onClick={() => act('export_data')}>
-                EXPORT DATA
+                DOWNLOAD DATA
               </TermButton>
               <TermButton color="red" onClick={() => act('reset_progress')}>
                 RESET PROGRESS

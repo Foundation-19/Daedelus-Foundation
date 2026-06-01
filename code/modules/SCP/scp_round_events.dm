@@ -15,14 +15,15 @@
 	endWhen = 50
 
 /datum/round_event/scp_containment_breach/announce(fake)
-	priority_announce("ALERT: Containment failure detected in secure storage. All security personnel respond immediately.", null, null, ANNOUNCER_ALERT)
+	// Automated announcements removed - dispatch should announce containment breaches
+	// priority_announce("ALERT: Containment failure detected in secure storage. All security personnel respond immediately.", null, null, ANNOUNCER_ALERT)
 
 /datum/round_event/scp_containment_breach/start()
 	var/list/breachable_scps = list("SCP-173", "SCP-049", "SCP-096", "SCP-106", "SCP-939", "SCP-457", "SCP-035", "SCP-682")
 	var/list/valid_scps = list()
 	for(var/scp_id in breachable_scps)
 		if(SSscp_persistence && SSscp_persistence.manager)
-			var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[scp_id]
+			var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[scp_id]
 			if(instance && instance.containment_status != "breached")
 				valid_scps += scp_id
 	if(!length(valid_scps))
@@ -30,7 +31,7 @@
 	breached_scp = pick(valid_scps)
 	var/atom/scp_atom = null
 	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[breached_scp]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[breached_scp]
 		if(instance)
 			for(var/mob/living/scp/S in GLOB.mob_list)
 				if(!QDELETED(S) && S.persistence_id == breached_scp)
@@ -40,7 +41,9 @@
 
 /datum/round_event/scp_containment_breach/tick()
 	if(activeFor == 30)
-		priority_announce("ALERT: [breached_scp] containment status: BREACHED. Enact recontainment protocol immediately.", null, null, ANNOUNCER_ALERT)
+		// Automated announcements removed - dispatch should announce containment breaches
+		// priority_announce("ALERT: [breached_scp] containment status: BREACHED. Enact recontainment protocol immediately.", null, null, ANNOUNCER_ALERT)
+		return
 
 /datum/round_event_control/scp_power_fluctuation
 	name = "SCP Facility Power Fluctuation"
@@ -58,23 +61,24 @@
 	endWhen = 30
 
 /datum/round_event/scp_power_fluctuation/announce(fake)
-	priority_announce("WARNING: Power grid instability detected in containment wing. Backup generators standing by.", null, null, ANNOUNCER_POWEROFF)
+	// Automated announcements removed - engineering/dispatch should announce power issues
+	// priority_announce("WARNING: Power grid instability detected in containment wing. Backup generators standing by.", null, null, ANNOUNCER_POWEROFF)
 
 /datum/round_event/scp_power_fluctuation/start()
 	for(var/obj/machinery/power/apc/A as anything in INSTANCES_OF(/obj/machinery/power/apc))
 		if(prob(30))
 			A.energy_fail(rand(30, 120))
-	if(SSscp_persistence && SSscp_persistence.manager && length(SSscp_persistence.manager.scp_instances) > 0)
+	if(SSscp_persistence && SSscp_persistence.manager && length(SSscp_persistence?.manager?.scp_instances) > 0)
 		var/list/breached = list()
-		for(var/scp_id in SSscp_persistence.manager.scp_instances)
-			var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[scp_id]
+		for(var/scp_id in SSscp_persistence?.manager?.scp_instances)
+			var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[scp_id]
 			if(instance && instance.containment_status == "breached")
 				breached += scp_id
 		if(length(breached) && prob(25))
 			var/breached_id = pick(breached)
 			var/atom/scp_atom = null
 			if(SSscp_persistence && SSscp_persistence.manager)
-				var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[breached_id]
+				var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[breached_id]
 				if(instance)
 					for(var/mob/living/scp/S in GLOB.mob_list)
 						if(!QDELETED(S) && S.persistence_id == breached_id)
@@ -111,7 +115,7 @@
 		if(zone == "lcz" || zone == "hcz")
 			if(H.sanity && prob(40))
 				H.sanity.adjust_sanity(-15, "memetic_hazard_event")
-				to_chat(H, "<span class='warning'>Your mind feels violated by an unseen force!</span>")
+				to_chat(H, span_warning("Your mind feels violated by an unseen force!"))
 
 /datum/round_event_control/scp_cascade_warning
 	name = "SCP Cascade Warning"
@@ -129,14 +133,15 @@
 	endWhen = 40
 
 /datum/round_event/scp_cascade_warning/announce(fake)
-	priority_announce("CRITICAL: Multiple SCP containment anomalies detected. Facility-wide cascade event possible. All personnel brace for impact.", null, null, ANNOUNCER_ALERT)
+	// Automated announcements removed - dispatch/AIC should announce cascade events
+	// priority_announce("CRITICAL: Multiple SCP containment anomalies detected. Facility-wide cascade event possible. All personnel brace for impact.", null, null, ANNOUNCER_ALERT)
 
 /datum/round_event/scp_cascade_warning/start()
 	var/list/breachable = list("SCP-173", "SCP-106", "SCP-049", "SCP-682", "SCP-096")
 	var/list/valid = list()
 	for(var/scp_id in breachable)
 		if(SSscp_persistence && SSscp_persistence.manager)
-			var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[scp_id]
+			var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[scp_id]
 			if(!instance || instance.containment_status != "breached")
 				valid += scp_id
 	if(!length(valid))
@@ -144,7 +149,7 @@
 	var/first_scp = pick(valid)
 	var/atom/first_atom = null
 	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/fi = SSscp_persistence.manager.scp_instances[first_scp]
+		var/datum/scp_instance/fi = SSscp_persistence?.manager?.scp_instances[first_scp]
 		if(fi)
 			for(var/mob/living/scp/S in GLOB.mob_list)
 				if(!QDELETED(S) && S.persistence_id == first_scp)
@@ -156,7 +161,7 @@
 		var/second_scp = pick(remaining)
 		var/atom/second_atom = null
 		if(SSscp_persistence && SSscp_persistence.manager)
-			var/datum/scp_instance/si = SSscp_persistence.manager.scp_instances[second_scp]
+			var/datum/scp_instance/si = SSscp_persistence?.manager?.scp_instances[second_scp]
 			if(si)
 				for(var/mob/living/scp/S in GLOB.mob_list)
 					if(!QDELETED(S) && S.persistence_id == second_scp)
@@ -201,8 +206,8 @@
 	if(SSscp_research && SSscp_research.manager)
 		var/bonus_points = rand(100, 500)
 		adjust_global_research_points(bonus_points, "round_event_breakthrough")
-		if(SSscp_research.manager.research_breakthroughs < 99)
-			SSscp_research.manager.research_breakthroughs++
+		if(SSscp_research?.manager?.research_breakthroughs < 99)
+			SSscp_research?.manager?.research_breakthroughs++
 		var/list/researchers_notified = list()
 		for(var/mob/living/carbon/human/H in GLOB.player_list)
 			if(QDELETED(H))
@@ -210,7 +215,7 @@
 			if(H.stat == DEAD || !H.client)
 				continue
 			if(H.job && (H.job == JOB_RESEARCH_DIRECTOR || H.job == JOB_SENIOR_RESEARCHER || H.job == JOB_RESEARCHER || H.job == JOB_JUNIOR_RESEARCHER))
-				to_chat(H, "<span class='notice'>Research breakthrough detected! +[bonus_points] research points allocated to your department.</span>")
+				to_chat(H, span_notice("Research breakthrough detected! +[bonus_points] research points allocated to your department."))
 				researchers_notified += H
 				if(SSpersistent_progression && H.ckey)
 					SSpersistent_progression.award_experience(H.ckey, "scp_research_contribution", 50, "Research Breakthrough Event")
@@ -243,11 +248,11 @@
 			continue
 		var/obj/item/card/id/id_card = H.get_idcard(TRUE)
 		if(id_card && (ACCESS_SECURITY in id_card.access))
-			to_chat(H, "<span class='danger'>Your security headset crackles: Priority alert in effect. Report to containment wing.</span>")
+			to_chat(H, span_danger("Your security headset crackles: Priority alert in effect. Report to containment wing."))
 			if(H.sanity)
 				H.sanity.adjust_sanity(-5, "security_alert_stress")
 		if(findtext(H.job, "D-Class") && SSdclass && SSdclass.manager)
-			var/datum/dclass_player/player = SSdclass.manager.dclass_players[H.ckey]
+			var/datum/dclass_player/player = SSdclass?.manager?.dclass_players[H.ckey]
 			if(player && prob(30))
 				player.add_contraband(pick(contraband_types), 1)
 
@@ -279,9 +284,9 @@
 		var/area/A = get_area(H)
 		if(istype(A, /area/scp/dclass))
 			dclass_count++
-			to_chat(H, "<span class='warning'>The air of tension in the cell block is palpable. Something is about to happen.</span>")
+			to_chat(H, span_warning("The air of tension in the cell block is palpable. Something is about to happen."))
 			if(SSdclass && SSdclass.manager)
-				var/datum/dclass_player/player = SSdclass.manager.dclass_players[H.ckey]
+				var/datum/dclass_player/player = SSdclass?.manager?.dclass_players[H.ckey]
 				if(player)
 					player.adjust_trust(5, "dclass_incident")
 					player.add_contraband("improvised_tool", 1)

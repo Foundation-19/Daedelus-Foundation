@@ -3,6 +3,7 @@
 #define SCP1128_PHASE_MANIFEST "manifested"
 
 /mob/living/scp/scp1128
+	ai_enabled = TRUE
 	name = "SCP-1128"
 	desc = "An aquatic predator that manifests when its victims are submerged in water. Those who know of its existence become vulnerable."
 	icon = 'icons/mob/carp.dmi'
@@ -78,7 +79,7 @@
 
 	haunt_cooldown = 200
 
-	to_chat(victim, "<span class='danger'>You feel something moving beneath the water...</span>")
+	to_chat(victim, span_danger("You feel something moving beneath the water..."))
 	playsound(victim, 'sound/effects/slosh.ogg', 30, TRUE)
 
 	if(victim.sanity)
@@ -104,7 +105,7 @@
 	alpha = 255
 	density = TRUE
 
-	visible_message("<span class='danger'>A massive aquatic horror erupts from the water!</span>")
+	visible_message(span_danger("A massive aquatic horror erupts from the water!"))
 	playsound(src, 'sound/effects/slosh.ogg', 60, TRUE, extrarange = 10)
 
 	hook_scp_breach("SCP-1128", src)
@@ -119,7 +120,7 @@
 	alpha = 0
 	density = FALSE
 
-	visible_message("<span class='notice'>The aquatic horror sinks back beneath the water and vanishes.</span>")
+	visible_message(span_notice("The aquatic horror sinks back beneath the water and vanishes."))
 
 /mob/living/scp/scp1128/proc/attempt_grab(mob/living/carbon/human/victim)
 	if(grab_cooldown > 0)
@@ -133,8 +134,8 @@
 	victim.adjustOxyLoss(20)
 
 	victim.visible_message(
-		"<span class='danger'>[src] drags [victim] beneath the water!</span>",
-		"<span class='userdanger'>Something grabs you from below and drags you under! You can't breathe!</span>"
+		span_danger("[src] drags [victim] beneath the water!"),
+		span_userdanger("Something grabs you from below and drags you under! You can't breathe!")
 	)
 
 	if(victim.sanity)
@@ -155,7 +156,7 @@
 	if(H.sanity)
 		H.sanity.add_trauma(TRAUMA_SCP_EXPOSURE, 10)
 
-	visible_message("<span class='danger'>[src] attacks [H] with crushing force!</span>")
+	visible_message(span_danger("[src] attacks [H] with crushing force!"))
 	playsound(src, 'sound/effects/blobattack.ogg', 40, TRUE)
 
 /mob/living/scp/scp1128/proc/add_aware_victim(mob/living/carbon/human/H)
@@ -173,7 +174,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		add_aware_victim(H)
-		to_chat(H, "<span class='warning'>This is SCP-1128, an aquatic predator. By observing it, you have become vulnerable when submerged in water...</span>")
+		to_chat(H, span_warning("This is SCP-1128, an aquatic predator. By observing it, you have become vulnerable when submerged in water..."))
 		if(H.sanity)
 			H.sanity.add_trauma(TRAUMA_SCP_EXPOSURE, 5)
 
@@ -182,3 +183,31 @@
 	. += "Phase: [manifestation_phase]"
 	. += "Aware Victims: [length(aware_victims)]"
 	. += "Water Tiles: [length(water_turfs)]"
+
+/mob/living/scp/scp1128/process_ai()
+	if(stat == DEAD)
+		return
+
+	switch(manifestation_phase)
+		if(SCP1128_PHASE_OBSERVE)
+			if(length(water_turfs))
+				var/turf/open/water/W = pick(water_turfs)
+				if(get_dist(src, W) > 3)
+					step_towards(src, W)
+			else if(length(aware_victims))
+				var/first_ckey = aware_victims[1]
+				var/mob/M = get_mob_by_ckey(first_ckey)
+				if(M && get_dist(src, M) > 5)
+					step_towards(src, M)
+			else if(prob(8))
+				step_rand(src)
+		if(SCP1128_PHASE_HAUNT)
+			return
+		if(SCP1128_PHASE_MANIFEST)
+			for(var/ckey in aware_victims)
+				var/mob/living/carbon/human/H = get_mob_by_ckey(ckey)
+				if(!H || H.stat == DEAD)
+					continue
+				if(get_dist(src, H) > 1)
+					ai_step_towards(H)
+				break

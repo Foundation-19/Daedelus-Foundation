@@ -39,7 +39,7 @@
 
 	var/scp106_status = "unknown"
 	if(SSscp_persistence?.manager?.scp_instances?["SCP-106"])
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-106"]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances["SCP-106"]
 		scp106_status = instance.containment_status
 	data["scp106_status"] = scp106_status
 
@@ -50,7 +50,7 @@
 	if(.)
 		return
 
-	var/mob/user = usr
+	var/mob/user = ui.user
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
@@ -75,16 +75,16 @@
 
 /obj/machinery/scp_femur_breaker/proc/activate(mob/activator)
 	if(!occupied)
-		to_chat(activator, "<span class='warning'>The Femur Breaker requires a subject.</span>")
+		to_chat(activator, span_warning("The Femur Breaker requires a subject."))
 		return
 
 	for(var/mob/living/carbon/human/H in src)
 		H.adjustBruteLoss(80)
 		H.emote("scream")
-		visible_message("<span class='danger'>The Femur Breaker activates! [H] screams in agony!</span>")
+		visible_message(span_danger("The Femur Breaker activates! [H] screams in agony!"))
 
 		if(SSscp_persistence && SSscp_persistence.manager)
-			var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-106"]
+			var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances["SCP-106"]
 			if(instance && instance.containment_status == "breached")
 				priority_announce("ATTENTION: Femur Breaker protocol activated. SCP-106 is being lured back to containment.", null, null, ANNOUNCER_ALERT)
 				addtimer(CALLBACK(src, .proc/complete_femur_breaker, H), 300)
@@ -96,7 +96,7 @@
 /obj/machinery/scp_femur_breaker/proc/complete_femur_breaker(mob/living/carbon/human/victim)
 	if(!SSscp_persistence || !SSscp_persistence.manager)
 		return
-	var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-106"]
+	var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances["SCP-106"]
 	if(instance)
 		instance.containment_status = "contained"
 		instance.containment_health = 100
@@ -104,8 +104,8 @@
 			instance.add_interaction_record(victim, "femur_breaker_recontainment")
 		else
 			instance.add_interaction_record(null, "femur_breaker_recontainment")
-		SSscp_persistence.manager.active_breaches = max(0, SSscp_persistence.manager.active_breaches - 1)
-		SSscp_persistence.manager.global_containment_stability = min(100, SSscp_persistence.manager.global_containment_stability + 5)
+		SSscp_persistence?.manager?.active_breaches = max(0, SSscp_persistence?.manager?.active_breaches - 1)
+		SSscp_persistence?.manager?.global_containment_stability = min(100, SSscp_persistence?.manager?.global_containment_stability + 5)
 
 	var/list/recontain_list = !QDELETED(victim) ? list(victim) : list()
 	hook_scp_recontainment("SCP-106", recontain_list)
@@ -124,17 +124,17 @@
 	var/found_scp = FALSE
 	for(var/mob/living/scp/scp096/S in oview(1, H))
 
-		user.visible_message("<span class='danger'>[user] attempts to place the containment bag over SCP-096's head!</span>")
+		user.visible_message(span_danger("[user] attempts to place the containment bag over SCP-096's head!"))
 		if(do_after(user, 30, target = S))
 			var/hood = new /obj/item/clothing/head/scp096_hood()
 			S.equip_to_slot_or_del(hood, ITEM_SLOT_HEAD)
 			S.emote("scream")
-			to_chat(user, "<span class='notice'>You place the containment bag over SCP-096's head!</span>")
+			to_chat(user, span_notice("You place the containment bag over SCP-096's head!"))
 			qdel(src)
 		found_scp = TRUE
 		break
 	if(!found_scp)
-		to_chat(user, "<span class='warning'>No nearby SCP-096 without head covering.</span>")
+		to_chat(user, span_warning("No nearby SCP-096 without head covering."))
 
 /obj/item/clothing/head/scp096_hood
 	name = "SCP-096 Containment Hood"
@@ -148,7 +148,7 @@
 	. = ..()
 	if(slot == ITEM_SLOT_HEAD && istype(H, /mob/living/scp/scp096))
 		can_trigger = FALSE
-		H.visible_message("<span class='notice'>SCP-096's face is now covered.</span>")
+		H.visible_message(span_notice("SCP-096's face is now covered."))
 
 /obj/item/scp173_blink_kit
 	name = "SCP-173 Observation Kit"
@@ -159,14 +159,14 @@
 	if(!ishuman(user))
 		return
 	if(uses <= 0)
-		to_chat(user, "<span class='warning'>The kit is empty.</span>")
+		to_chat(user, span_warning("The kit is empty."))
 		return
 
 	uses--
 	var/mob/living/carbon/human/H = user
 	if(H.stamina)
 		H.stamina.adjust(30)
-	to_chat(H, "<span class='notice'>You apply the eye drops and stimulants. Your eyes feel refreshed!</span>")
+	to_chat(H, span_notice("You apply the eye drops and stimulants. Your eyes feel refreshed!"))
 	H.set_drugginess(10)
 
 /obj/machinery/scp457_suppression
@@ -191,7 +191,7 @@
 		return
 
 	if(suppression_charge < 30)
-		to_chat(user, "<span class='warning'>Insufficient charge. Current: [round(suppression_charge)]%</span>")
+		to_chat(user, span_warning("Insufficient charge. Current: [round(suppression_charge)]%"))
 		return
 
 	var/confirm = alert(user, "Activate fire suppression? Charge: [round(suppression_charge)]%", "Suppression", "Activate", "Cancel")
@@ -199,19 +199,34 @@
 		return
 
 	suppression_charge -= 30
-	visible_message("<span class='notice'>[src] discharges a massive blast of fire retardant!</span>")
+	visible_message(span_notice("[src] discharges a massive blast of fire retardant!"))
+	playsound(src, 'sound/effects/spray.ogg', 50, TRUE, extrarange = 5)
 
 	for(var/mob/living/L in range(5, src))
 		if(istype(L, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = L
 			if(H.on_fire)
 				H.extinguish_mob()
-
-	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-457"]
-		if(instance && instance.containment_status == "breached")
+		else if(istype(L, /mob/living/scp/scp457))
+			var/mob/living/scp/scp457/scp = L
+			if(scp) scp.current_heat = max(0, scp.current_heat - 50)
+			scp.Stun(60)
+			scp.visible_message(span_danger("The retardant blasts SCP-457, suppressing its flames!"))
+			var/turf/target_turf = get_turf(src)
+			for(var/turf/T in range(2, src))
+				if(istype(T.loc, /area/scp/hcz) || istype(T.loc, /area/scp/hcz))
+					target_turf = T
+					break
+			if(target_turf != get_turf(scp))
+				scp.forceMove(target_turf)
+			if(SSscp_persistence?.manager?.scp_instances?["SCP-457"])
+				var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances["SCP-457"]
+				if(instance.containment_status == "breached")
+					instance.containment_status = "contained"
+					instance.containment_health = 100
+					SSscp_persistence?.manager?.active_breaches = max(0, SSscp_persistence?.manager?.active_breaches - 1)
 			hook_scp_recontainment("SCP-457", list(user))
-			priority_announce("SCP-457 has been suppressed via fire containment system.", null, null, ANNOUNCER_DEFAULT)
+			priority_announce("SCP-457 has been suppressed and returned to containment.", null, null, ANNOUNCER_DEFAULT)
 
 /obj/machinery/scp049_cure_station
 	name = "SCP-049 Containment Lure"
@@ -287,7 +302,7 @@
 		scp.lure_target = null
 
 	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-049"]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances["SCP-049"]
 		if(instance && instance.containment_status == "breached")
 			hook_scp_recontainment("SCP-049", list())
 
@@ -324,7 +339,14 @@
 		Z.ghostize()
 		qdel(Z)
 		zombies_destroyed++
+
 	if(zombies_destroyed > 0)
+		if(SSscp_persistence?.manager?.scp_instances?["SCP-008"])
+			var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances["SCP-008"]
+			if(instance.containment_status == "breached")
+				instance.containment_status = "contained"
+				instance.containment_health = 100
+				SSscp_persistence?.manager?.active_breaches = max(0, SSscp_persistence?.manager?.active_breaches - 1)
 		hook_scp_recontainment("SCP-008", list())
 		priority_announce("SCP-008 biohazard incineration complete. [zombies_destroyed] instances neutralized.", null, null, ANNOUNCER_DEFAULT)
 	else
@@ -455,8 +477,23 @@
 	priority_announce("SCP-682 containment protocol activated. Deploying hydrochloric acid.", null, null, ANNOUNCER_ALERT)
 	for(var/mob/living/scp/scp682/reptile in range(5, src))
 		reptile.adjustFireLoss(150)
-		reptile.visible_message(span_danger("Acid sprays over SCP-682! It thrashes in pain!"))
+		reptile.Stun(80)
+		reptile.visible_message(span_danger("Acid sprays over SCP-682! It thrashes in pain and is driven back!"))
+		var/turf/target_turf = get_turf(src)
+		for(var/turf/T in range(2, src))
+			if(istype(T.loc, /area/scp/hcz) || istype(T.loc, /area/scp/hcz))
+				target_turf = T
+				break
+		if(target_turf != get_turf(reptile))
+			reptile.forceMove(target_turf)
+		if(SSscp_persistence?.manager?.scp_instances?["SCP-682"])
+			var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances["SCP-682"]
+			if(instance.containment_status == "breached")
+				instance.containment_status = "contained"
+				instance.containment_health = 100
+				SSscp_persistence?.manager?.active_breaches = max(0, SSscp_persistence?.manager?.active_breaches - 1)
 	hook_scp_recontainment("SCP-682", list(user))
+	priority_announce("SCP-682 has been driven back to containment via acid deployment.", null, null, ANNOUNCER_DEFAULT)
 
 /obj/machinery/scp939_dampener
 	name = "SCP-939 Sonic Dampener"
@@ -481,10 +518,26 @@
 		return
 	active = TRUE
 	visible_message(span_notice("[src] emits a low hum as counter-frequencies fill the air."))
+	playsound(src, 'sound/machines/defib_zap.ogg', 50, TRUE, extrarange = 5)
 	for(var/mob/living/scp/scp939/target in range(10, src))
-		target.set_confusion_if_lower(30)
-		to_chat(target, span_warning("A piercing frequency disrupts your senses! Your voice mimickry is impaired!"))
+		target.Stun(60)
+		target.Stun(40)
+		to_chat(target, span_warning("A piercing frequency disrupts your senses! Your voice mimicry is impaired!"))
+		var/turf/target_turf = get_turf(src)
+		for(var/turf/T in range(2, src))
+			if(istype(T.loc, /area/scp/hcz))
+				target_turf = T
+				break
+		if(target_turf != get_turf(target))
+			target.forceMove(target_turf)
+		if(SSscp_persistence?.manager?.scp_instances?["SCP-939"])
+			var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances["SCP-939"]
+			if(instance.containment_status == "breached")
+				instance.containment_status = "contained"
+				instance.containment_health = 100
+				SSscp_persistence?.manager?.active_breaches = max(0, SSscp_persistence?.manager?.active_breaches - 1)
 	hook_scp_recontainment("SCP-939", list(user))
+	priority_announce("SCP-939 has been neutralized via sonic dampener and returned to containment.", null, null, ANNOUNCER_DEFAULT)
 	addtimer(CALLBACK(src, .proc/deactivate_dampener), dampen_duration)
 
 /obj/machinery/scp939_dampener/proc/deactivate_dampener()
@@ -649,10 +702,10 @@
 					sarc.contained_scp.stat = UNCONSCIOUS
 					sarc.contained_scp.current_state = "dormant"
 					sarc.contained_scp.dormant_timer = world.time + sarc.contained_scp.dormant_duration
-					hook_scp_recontainment("SCP-076", list(usr))
+					hook_scp_recontainment("SCP-076", list(ui.user))
 					priority_announce("SCP-076-1 sarcophagus has been sealed remotely. SCP-076-2 forced into dormant state.", null, null, ANNOUNCER_DEFAULT)
 				else
-					to_chat(usr, span_warning("Cannot seal while SCP-076-2 is active!"))
+					to_chat(ui.user, span_warning("Cannot seal while SCP-076-2 is active!"))
 			. = TRUE
 
 /obj/item/circuitboard/computer/scp076_sealing_terminal

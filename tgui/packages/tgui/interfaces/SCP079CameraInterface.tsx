@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import { useBackend } from '../backend';
 import { Box, Button, Input } from '../components';
-import { Window } from '../layouts';
+import { NtosWindow } from '../layouts';
 
 type Ability = {
   id: string;
@@ -104,8 +104,8 @@ export const SCP079CameraInterface = (props) => {
   );
 
   return (
-    <Window theme="scp_terminal" width={700} height={600}>
-      <Window.Content scrollable>
+    <NtosWindow width={700} height={600}>
+      <NtosWindow.Content scrollable>
         <Box
           style={{
             background: C.bg,
@@ -136,7 +136,7 @@ export const SCP079CameraInterface = (props) => {
             </Box>
             <Box
               style={{
-                fontSize: '9px',
+                fontSize: '11px',
                 color: C.textDim,
                 letterSpacing: '0.12em',
                 marginTop: '2px',
@@ -215,7 +215,7 @@ export const SCP079CameraInterface = (props) => {
                     onClick={() => act('set_zone_filter', { zone: z })}
                     style={{
                       fontFamily: C.mono,
-                      fontSize: '9px',
+                      fontSize: '11px',
                       letterSpacing: '0.1em',
                       background:
                         zone_filter === z
@@ -224,7 +224,7 @@ export const SCP079CameraInterface = (props) => {
                       border: `1px solid ${zone_filter === z ? C.blueBright : C.border}`,
                       borderRadius: 0,
                       color: zone_filter === z ? C.textBright : C.textDim,
-                      padding: '2px 8px',
+                      padding: '4px 10px',
                     }}
                   >
                     {z}
@@ -258,7 +258,7 @@ export const SCP079CameraInterface = (props) => {
                 >
                   <Box
                     style={{
-                      fontSize: '9px',
+                      fontSize: '11px',
                       color: C.textDim,
                       letterSpacing: '0.1em',
                     }}
@@ -279,7 +279,7 @@ export const SCP079CameraInterface = (props) => {
 
               <Box
                 style={{
-                  fontSize: '9px',
+                  fontSize: '11px',
                   color: C.textDim,
                   letterSpacing: '0.1em',
                   marginBottom: '6px',
@@ -328,7 +328,7 @@ export const SCP079CameraInterface = (props) => {
                       </Box>
                       <Box
                         style={{
-                          fontSize: '9px',
+                          fontSize: '11px',
                           color: C.textDim,
                         }}
                       >
@@ -338,13 +338,13 @@ export const SCP079CameraInterface = (props) => {
                     <Box style={{ display: 'flex', gap: '4px' }}>
                       <Box
                         style={{
-                          fontSize: '9px',
+                          fontSize: '11px',
                           color:
                             cam.status === 'functional'
                               ? C.greenBright
                               : C.redBright,
                           letterSpacing: '0.1em',
-                          padding: '2px 0',
+                          padding: '4px 0',
                         }}
                       >
                         {cam.status.toUpperCase()}
@@ -357,13 +357,13 @@ export const SCP079CameraInterface = (props) => {
                           disabled={cam.status !== 'functional'}
                           style={{
                             fontFamily: C.mono,
-                            fontSize: '9px',
+                            fontSize: '11px',
                             letterSpacing: '0.1em',
                             background: 'rgba(34,68,170,0.2)',
                             border: `1px solid ${C.blue}`,
                             borderRadius: 0,
                             color: C.blueBright,
-                            padding: '2px 8px',
+                            padding: '4px 10px',
                           }}
                         >
                           CONNECT
@@ -433,7 +433,7 @@ export const SCP079CameraInterface = (props) => {
                       </Box>
                       <Box
                         style={{
-                          fontSize: '9px',
+                          fontSize: '11px',
                           color: C.textDim,
                         }}
                       >
@@ -448,13 +448,13 @@ export const SCP079CameraInterface = (props) => {
                         }
                         style={{
                           fontFamily: C.mono,
-                          fontSize: '9px',
+                          fontSize: '11px',
                           letterSpacing: '0.1em',
                           background: 'transparent',
                           border: `1px solid ${C.border}`,
                           borderRadius: 0,
                           color: C.text,
-                          padding: '2px 8px',
+                          padding: '4px 10px',
                         }}
                       >
                         TOGGLE
@@ -466,7 +466,7 @@ export const SCP079CameraInterface = (props) => {
                           }
                           style={{
                             fontFamily: C.mono,
-                            fontSize: '9px',
+                            fontSize: '11px',
                             letterSpacing: '0.1em',
                             background: door.hacked
                               ? 'rgba(212,160,23,0.2)'
@@ -474,7 +474,7 @@ export const SCP079CameraInterface = (props) => {
                             border: `1px solid ${door.hacked ? C.amber : C.border}`,
                             borderRadius: 0,
                             color: door.hacked ? C.amber : C.textDim,
-                            padding: '2px 8px',
+                            padding: '4px 10px',
                           }}
                         >
                           {door.hacked ? 'HACKED' : 'HACK'}
@@ -543,7 +543,7 @@ export const SCP079CameraInterface = (props) => {
                       </Box>
                       <Box
                         style={{
-                          fontSize: '9px',
+                          fontSize: '11px',
                           color:
                             apc.power_status === 'online'
                               ? C.greenBright
@@ -560,13 +560,13 @@ export const SCP079CameraInterface = (props) => {
                         }
                         style={{
                           fontFamily: C.mono,
-                          fontSize: '9px',
+                          fontSize: '11px',
                           letterSpacing: '0.1em',
                           background: 'transparent',
                           border: `1px solid ${C.border}`,
                           borderRadius: 0,
                           color: C.text,
-                          padding: '2px 8px',
+                          padding: '4px 10px',
                         }}
                       >
                         CONTROL
@@ -658,7 +658,7 @@ export const SCP079CameraInterface = (props) => {
                       </Box>
                       <Box
                         style={{
-                          fontSize: '9px',
+                          fontSize: '11px',
                           color: C.textDim,
                         }}
                       >
@@ -670,7 +670,7 @@ export const SCP079CameraInterface = (props) => {
                       disabled={!ability.available}
                       style={{
                         fontFamily: C.mono,
-                        fontSize: '9px',
+                        fontSize: '11px',
                         letterSpacing: '0.1em',
                         background: ability.available
                           ? 'rgba(34,68,170,0.2)'
@@ -709,7 +709,7 @@ export const SCP079CameraInterface = (props) => {
                   onClick={() => act('flicker_lights')}
                   style={{
                     fontFamily: C.mono,
-                    fontSize: '9px',
+                    fontSize: '11px',
                     letterSpacing: '0.1em',
                     background: 'rgba(34,68,170,0.15)',
                     border: `1px solid ${C.blue}`,
@@ -726,7 +726,7 @@ export const SCP079CameraInterface = (props) => {
                   placeholder="Message..."
                   style={{
                     fontFamily: C.mono,
-                    fontSize: '9px',
+                    fontSize: '11px',
                     width: '160px',
                     background: C.panel,
                     border: `1px solid ${C.border}`,
@@ -743,7 +743,7 @@ export const SCP079CameraInterface = (props) => {
                   }}
                   style={{
                     fontFamily: C.mono,
-                    fontSize: '9px',
+                    fontSize: '11px',
                     letterSpacing: '0.1em',
                     background: 'rgba(34,68,170,0.15)',
                     border: `1px solid ${C.blue}`,
@@ -765,7 +765,7 @@ export const SCP079CameraInterface = (props) => {
                     disabled={processing_power < 35}
                     style={{
                       fontFamily: C.mono,
-                      fontSize: '9px',
+                      fontSize: '11px',
                       letterSpacing: '0.1em',
                       background: processing_power >= 35 ? 'rgba(139,0,0,0.2)' : 'transparent',
                       border: `1px solid ${processing_power >= 35 ? C.red : C.border}`,
@@ -791,7 +791,7 @@ export const SCP079CameraInterface = (props) => {
             <Box
               style={{
                 color: C.textDim,
-                fontSize: '9px',
+                fontSize: '11px',
                 letterSpacing: '0.1em',
               }}
             >
@@ -800,7 +800,7 @@ export const SCP079CameraInterface = (props) => {
             </Box>
           </Box>
         </Box>
-      </Window.Content>
-    </Window>
+      </NtosWindow.Content>
+    </NtosWindow>
   );
 };

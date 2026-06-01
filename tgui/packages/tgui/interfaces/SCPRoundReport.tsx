@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { useBackend } from '../backend';
-import { Window } from '../layouts';
+import { NtosWindow } from '../layouts';
 
 type LogEntry = {
   cause?: string;
@@ -203,8 +203,8 @@ export const SCPRoundReport = (_props: unknown) => {
   } = data;
 
   return (
-    <Window theme="scp_terminal" width={750} height={620}>
-      <Window.Content scrollable>
+    <NtosWindow width={750} height={620}>
+      <NtosWindow.Content scrollable>
         <div
           style={{
             background: C.bg,
@@ -1093,7 +1093,7 @@ export const SCPRoundReport = (_props: unknown) => {
             </button>
           </div>
         </div>
-      </Window.Content>
-    </Window>
+      </NtosWindow.Content>
+    </NtosWindow>
   );
 };

@@ -3,7 +3,7 @@ import React from 'react';
 
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Input, Section, Stack } from '../components';
-import { Window } from '../layouts';
+import { NtosWindow } from '../layouts';
 
 type EmergencyType = {
   id: string;
@@ -53,8 +53,8 @@ export const SCPIntercomConsole = (props) => {
   const onCooldown = cooldown_remaining > 0;
 
   return (
-    <Window theme="scp_terminal" width={550} height={500}>
-      <Window.Content scrollable>
+    <NtosWindow width={550} height={500}>
+      <NtosWindow.Content scrollable>
         <Box
           style={{
             background: C.bg,
@@ -317,7 +317,7 @@ export const SCPIntercomConsole = (props) => {
             </Box>
           </Box>
         </Box>
-      </Window.Content>
-    </Window>
+      </NtosWindow.Content>
+    </NtosWindow>
   );
 };

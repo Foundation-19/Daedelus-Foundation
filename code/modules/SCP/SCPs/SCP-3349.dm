@@ -69,9 +69,9 @@
 	total_infections++
 	containment_breached = TRUE
 
-	to_chat(target, "<span class='warning'>You feel an odd flutter in your chest... Your heartbeat seems irregular.</span>")
+	to_chat(target, span_warning("You feel an odd flutter in your chest... Your heartbeat seems irregular."))
 
-	visible_message("<span class='notice'>[target] clutches their chest briefly.</span>")
+	visible_message(span_notice("[target] clutches their chest briefly."))
 
 	addtimer(CALLBACK(src, PROC_REF(begin_arrhythmia), target), 30 SECONDS)
 
@@ -80,7 +80,7 @@
 		infected_targets -= target
 		return
 
-	to_chat(target, "<span class='warning'>Your heart is beating strangely... You can hear something in its rhythm.</span>")
+	to_chat(target, span_warning("Your heart is beating strangely... You can hear something in its rhythm."))
 
 	process_affected_target(target)
 
@@ -134,19 +134,19 @@
 			var/phrase = pick(phrases)
 			vocalization = "[target]'s heartbeat distinctly forms words: '[phrase]'."
 
-	visible_message("<span class='warning'>[vocalization]</span>")
+	visible_message(span_warning("[vocalization]"))
 	total_vocalizations++
 
 	vocalization_log += list(list("time" = world.time, "type" = vocalization_type, "target" = target.ckey))
 
 	if(prob(40))
 		target.adjustBruteLoss(3)
-		to_chat(target, "<span class='warning'>The irregular heartbeat causes you chest pain!</span>")
+		to_chat(target, span_warning("The irregular heartbeat causes you chest pain!"))
 
 	if(prob(20))
 		if(target.stamina)
 			target.stamina.adjust(-15)
-		to_chat(target, "<span class='warning'>The arrhythmia leaves you feeling weak and lightheaded!</span>")
+		to_chat(target, span_warning("The arrhythmia leaves you feeling weak and lightheaded!"))
 
 	if(target.stat != DEAD && (target in infected_targets))
 		addtimer(CALLBACK(src, PROC_REF(process_affected_target), target), rand(20 SECONDS, 45 SECONDS))
@@ -158,7 +158,7 @@
 			continue
 
 		if(prob(10))
-			audible_message("<span class='notice'>A faint, rhythmic sound emanates from [H]...</span>")
+			audible_message(span_notice("A faint, rhythmic sound emanates from [H]..."))
 
 /obj/item/reagent_containers/glass/bottle/scp3349/attack(mob/living/target, mob/living/user)
 	if(ishuman(target))
@@ -167,7 +167,7 @@
 		containment_breached = TRUE
 		infect_target(H)
 
-		visible_message("<span class='danger'>[user] exposes [H] to SCP-3349!</span>")
+		visible_message(span_danger("[user] exposes [H] to SCP-3349!"))
 
 		hook_scp_combat(H, "SCP-3349", 0, infection_strength)
 		return
@@ -180,10 +180,10 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.SCP)
-			to_chat(user, "<span class='warning'>This is SCP-3349, a communicable cardiac arrhythmia that produces vocalizations from the heart's electrical activity.</span>")
-			to_chat(user, "<span class='warning'>Infected targets: [length(infected_targets)]</span>")
+			to_chat(user, span_warning("This is SCP-3349, a communicable cardiac arrhythmia that produces vocalizations from the heart's electrical activity."))
+			to_chat(user, span_warning("Infected targets: [length(infected_targets)]"))
 		else
-			to_chat(user, "<span class='notice'>A sealed medical container. The fluid inside pulses faintly.</span>")
+			to_chat(user, span_notice("A sealed medical container. The fluid inside pulses faintly."))
 
 /obj/item/reagent_containers/glass/bottle/scp3349/proc/is_spreading()
 	return length(infected_targets) > 0

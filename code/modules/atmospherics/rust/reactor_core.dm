@@ -147,6 +147,7 @@
 
 /obj/machinery/power/fusion_core/mapped
 	anchored = TRUE
+	var/initial_id_tag
 
 /obj/machinery/power/fusion_core/Initialize(mapload)
 	. = ..()

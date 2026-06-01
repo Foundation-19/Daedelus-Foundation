@@ -17,7 +17,17 @@
 	var/list/arguments = args.Copy()
 	arguments[1] = src
 
-	// If the status effect we're applying doesn't allow multiple effects, we need to handle it
+	var/effect_exclusive_group = initial(new_effect.exclusive_group)
+	if(effect_exclusive_group)
+		var/limit = GLOB.status_group_limits[effect_exclusive_group] || 0
+		if(limit > 0)
+			var/current_count = 0
+			for(var/datum/status_effect/existing as anything in status_effects)
+				if(existing.exclusive_group == effect_exclusive_group)
+					current_count++
+			if(current_count >= limit)
+				return
+
 	if(initial(new_effect.status_type) != STATUS_EFFECT_MULTIPLE)
 		for(var/datum/status_effect/existing_effect as anything in status_effects)
 			if(existing_effect.id != initial(new_effect.id))
@@ -41,6 +51,10 @@
 				if(STATUS_EFFECT_EXTEND)
 					arguments.Insert(1, new_effect)
 					existing_effect.extend(arglist(arguments))
+					return
+				if(STATUS_EFFECT_CHANGE)
+					arguments.Insert(1, new_effect)
+					existing_effect.on_change(arglist(arguments))
 					return
 
 	// Create the status effect with our mob + our arguments

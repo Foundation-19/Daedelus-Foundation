@@ -1,7 +1,8 @@
 /datum/job/goi_rep
 	title = "Group of Interest Representative"
 	description = "Represent your respective group of interest. Advise command personnel \
-	about your group's best interests."
+	about your group's best interests. Use the GOI Relations Terminal to file intelligence reports, \
+	send communiques to your organization, and manage diplomatic standing with the Foundation."
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
 	faction = FACTION_STATION
 	total_positions = 1
@@ -72,7 +73,7 @@
 	backpack_contents = list(
 		/obj/item/assembly/flash/handheld = 1
 	)
-	belt = /obj/item/modular_computer/tablet/pda
+	belt = /obj/item/modular_computer/tablet/pda/foundation_command
 	ears = /obj/item/radio/headset/headset_com
 	glasses = /obj/item/clothing/glasses/sunglasses
 	shoes = /obj/item/clothing/shoes/laceup
@@ -96,7 +97,7 @@
 		/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
 		/obj/item/knife/bloodletter = 1
 	)
-	belt = /obj/item/modular_computer/tablet/pda
+	belt = /obj/item/modular_computer/tablet/pda/foundation_command
 	ears = /obj/item/radio/headset/heads/cmo
 	head = /obj/item/clothing/head/flatcap
 	shoes = /obj/item/clothing/shoes/laceup
@@ -115,7 +116,7 @@
 	id_trim = /datum/id_trim/job/uiu_rep
 	uniform = /obj/item/clothing/under/rank/security/guard
 	suit = /obj/item/clothing/suit/irs
-	belt = /obj/item/modular_computer/tablet/pda/detective
+	belt = /obj/item/modular_computer/tablet/pda/foundation_investigations
 	ears = /obj/item/radio/headset/heads/hos
 	gloves = /obj/item/clothing/gloves/forensic
 	neck = /obj/item/clothing/neck/tie/black
@@ -151,7 +152,7 @@
 		/obj/item/ammo_box/a357 = 1,
 		/obj/item/storage/fancy/cigarettes/cigars/havana = 1
 	)
-	belt = /obj/item/modular_computer/tablet/pda
+	belt = /obj/item/modular_computer/tablet/pda/foundation_command
 	ears = /obj/item/radio/headset/headset_com
 	head = /obj/item/clothing/head/that
 	shoes = /obj/item/clothing/shoes/laceup

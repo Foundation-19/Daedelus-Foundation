@@ -118,16 +118,26 @@
 	data["hair_color"] = prefs.read_preference(/datum/preference/color/hair_color)
 	data["faction"] = prefs.read_preference(/datum/preference/choiced/faction)
 	data["class"] = prefs.read_preference(/datum/preference/choiced/class)
+	var/player_rank = 0
+	var/player_class_id = ""
+	if (user?.ckey && istype(SSpersistent_progression))
+		var/datum/persistent_player_data/pdata = SSpersistent_progression.get_player_data(user.ckey)
+		if (pdata)
+			player_rank = pdata.current_rank
+			player_class_id = pdata.current_class_id
+	data["persistent_rank"] = player_rank
+	data["persistent_class"] = player_class_id
 	var/list/fcstate = prefs.read_preference(/datum/preference/blob/faction_class_state)
 	data["faction_class_locked"] = !!fcstate?["locked"]
 	data["faction_class_reset_tokens"] = fcstate?["tokens"] || 0
 	data["can_admin_override"] = !!user?.client?.holder
 	var/list/available = list()
 	if (data["faction"] && data["class"]) {
-		var/list/jobs = get_faction_class_jobs(data["faction"], data["class"])
+		var/list/jobs = get_faction_class_jobs(data["faction"], data["class"], player_rank, player_class_id)
 		for (var/job_title in jobs)
 			var/desc = get_job_description(job_title)
-			available += list(list("title" = job_title, "description" = desc))
+			var/required = get_required_rank_for_job(data["class"], job_title)
+			available += list(list("title" = job_title, "description" = desc, "required_rank" = required))
 	}
 	data["available_jobs"] = available
 	data["job_preferences"] = prefs.read_preference(/datum/preference/blob/job_priority) || list()
@@ -249,7 +259,7 @@
 			new /datum/loadout_ui(usr.client)
 			return TRUE
 		if ("open_appearance_mods")
-			prefs.ui_act("appearance_mods", list(), null, null)
+			prefs.ui_act("appearance_mods", list(), ui, state)
 			return TRUE
 		if ("antag_select_all")
 			var/list/ant = prefs.read_preference(/datum/preference/blob/antagonists) || list()
@@ -275,7 +285,15 @@
 		if ("set_preference")
 			var/key = params["preference"]
 			var/value = params["value"]
-			result = prefs.ui_act("set_preference", list("preference" = key, "value" = value), null, null)
+			result = prefs.ui_act("set_preference", list("preference" = key, "value" = value), ui, state)
+			if (result)
+				if(key == "real_name")
+					to_chat(usr, span_notice("Name updated to: [prefs.read_preference(/datum/preference/name/real_name)]"))
+			else
+				if (key == "real_name")
+					to_chat(usr, span_warning("Invalid name. Must be at least 2 alphanumeric characters, no prohibited words."))
+				else
+					to_chat(usr, span_warning("Failed to update [key]."))
 		if ("finalize")
 			var/list/job_prefs = prefs.read_preference(/datum/preference/blob/job_priority) || list()
 			var/selected_job
@@ -293,6 +311,18 @@
 					if (job_prefs[J3] == JP_LOW)
 						selected_job = J3
 						break
+			if (selected_job)
+				var/class_id = prefs.read_preference(/datum/preference/choiced/class)
+				var/required = get_required_rank_for_job(class_id, selected_job)
+				if (required > 0)
+					var/finalize_rank = 0
+					if (usr?.ckey && istype(SSpersistent_progression))
+						var/datum/persistent_player_data/pdata = SSpersistent_progression.get_player_data(usr.ckey)
+						if (pdata)
+							finalize_rank = pdata.current_rank
+					if (finalize_rank < required)
+						to_chat(usr, span_warning("Insufficient rank for [selected_job]. Required: rank [required], Current: rank [finalize_rank]."))
+						return FALSE
 			SYNC_PERSONNEL_RECORD(selected_job)
 			prefs.save_character()
 			prefs.save_preferences()
@@ -390,11 +420,11 @@
 			var/color_key = params["preference"]
 			var/new_color = input(usr, "Choose color", "Character Preference") as color|null
 			if (new_color)
-				result = prefs.ui_act("set_preference", list("preference" = color_key, "value" = new_color), null, null)
+				result = prefs.ui_act("set_preference", list("preference" = color_key, "value" = new_color), ui, state)
 		if ("set_random_preference")
 			var/rand_key = params["preference"]
 			var/rand_value = params["value"]
-			result = prefs.ui_act("set_preference", list("preference" = rand_key, "value" = rand_value), null, null)
+			result = prefs.ui_act("set_preference", list("preference" = rand_key, "value" = rand_value), ui, state)
 		if ("set_preview_pref")
 			var/preview_val = params["value"]
 			if (preview_val in list(PREVIEW_PREF_JOB, PREVIEW_PREF_LOADOUT, PREVIEW_PREF_UNDERWEAR))
@@ -457,7 +487,7 @@
 		"intelligence" = "Intelligence: analysis, investigation, covert ops."
 	)
 
-/datum/character_setup_ui/proc/get_faction_class_jobs(faction_id, class_id)
+/datum/character_setup_ui/proc/get_faction_class_jobs(faction_id, class_id, player_rank = 0, player_class_id = "")
 	var/list/jobs = list()
 	switch(faction_id)
 		if ("foundation")
@@ -484,7 +514,84 @@
 			jobs += list()
 		if ("chaos_insurgency")
 			jobs += list()
-	return jobs
+	if (player_rank <= 0 || !player_class_id || player_class_id != class_id)
+		return jobs
+	var/list/filtered = list()
+	for (var/job in jobs)
+		var/required = get_required_rank_for_job(class_id, job)
+		if (player_rank >= required)
+			filtered += job
+	return filtered
+
+/datum/character_setup_ui/proc/get_required_rank_for_job(class_id, job_title)
+	switch(class_id)
+		if("administrative")
+			switch(job_title)
+				if(JOB_COMMUNICATIONS_DIRECTOR)
+					return 0
+				if(JOB_ETHICS_COMMITTEE_LIAISON)
+					return 1
+				if(JOB_HUMAN_RESOURCES_DIRECTOR)
+					return 3
+				if(JOB_SITE_DIRECTOR)
+					return 5
+		if("security")
+			switch(job_title)
+				if(JOB_JUNIOR_LCZ_GUARD, JOB_JUNIOR_HCZ_GUARD, JOB_JUNIOR_EZ_GUARD)
+					return 0
+				if(JOB_LCZ_GUARD, JOB_HCZ_GUARD, JOB_EZ_GUARD)
+					return 1
+				if(JOB_SENIOR_LCZ_GUARD, JOB_SENIOR_HCZ_GUARD, JOB_SENIOR_EZ_GUARD)
+					return 2
+				if(JOB_LCZ_ZONE_JUNIOR_LIEUTENANT, JOB_HCZ_ZONE_SENIOR_LIEUTENANT, JOB_EZ_ZONE_SUPERVISOR, JOB_INVESTIGATIONS_AGENT)
+					return 3
+				if(JOB_GUARD_COMMANDER, JOB_RAISA_AGENT)
+					return 4
+		if("research")
+			switch(job_title)
+				if(JOB_JUNIOR_RESEARCHER)
+					return 0
+				if(JOB_RESEARCHER)
+					return 1
+				if(JOB_SENIOR_RESEARCHER)
+					return 2
+				if(JOB_ASSISTANT_RESEARCH_DIRECTOR)
+					return 3
+				if(JOB_RESEARCH_DIRECTOR)
+					return 5
+		if("medical")
+			switch(job_title)
+				if(JOB_TRAINEE_DOCTOR)
+					return 0
+				if(JOB_CHEMIST, JOB_PSYCHOLOGIST)
+					return 1
+				if(JOB_MEDICAL_DOCTOR, JOB_PARAMEDIC)
+					return 2
+				if(JOB_SURGEON, JOB_VIROLOGIST)
+					return 3
+				if(JOB_ASSISTANT_MEDICAL_DIRECTOR)
+					return 4
+				if(JOB_MEDICAL_DIRECTOR)
+					return 5
+		if("engineering")
+			switch(job_title)
+				if(JOB_JUNIOR_ENGINEER, JOB_LOGISTICS_TECHNICIAN)
+					return 0
+				if(JOB_ENGINEER, JOB_ATMOSPHERIC_TECHNICIAN, JOB_IT_TECHNICIAN)
+					return 1
+				if(JOB_SENIOR_ENGINEER, JOB_CONTAINMENT_ENGINEER, JOB_LOGISTICS_OFFICER)
+					return 2
+				if(JOB_ASSISTANT_ENGINEERING_DIRECTOR)
+					return 4
+				if(JOB_ENGINEERING_DIRECTOR)
+					return 5
+		if("intelligence")
+			switch(job_title)
+				if(JOB_INVESTIGATIONS_AGENT)
+					return 0
+				if(JOB_RAISA_AGENT)
+					return 3
+	return 0
 
 /datum/character_setup_ui/proc/get_job_description(job_title)
 	var/datum/job/J = SSjob.GetJob(job_title)

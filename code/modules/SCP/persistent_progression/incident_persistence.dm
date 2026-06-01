@@ -151,15 +151,15 @@ SUBSYSTEM_DEF(incident_persistence)
 
 // Subsystem initialization
 /datum/controller/subsystem/incident_persistence/Initialize()
-	world.log << "Incident persistence subsystem initializing..."
+	log_game("Incident persistence subsystem initializing...")
 	manager = new /datum/incident_persistence_manager()
-	world.log << "Incident persistence manager created"
+	log_game("Incident persistence manager created")
 
 	// Load existing incident data from game systems
-	world.log << "Loading existing incident data..."
+	log_game("Loading existing incident data...")
 	manager.load_existing_incident_data()
 
-	world.log << "Incident records count at initialization: [length(manager.incident_records)]"
+	log_game("Incident records count at initialization: [length(manager.incident_records)]")
 	return ..()
 
 /datum/controller/subsystem/incident_persistence/fire()
@@ -168,11 +168,11 @@ SUBSYSTEM_DEF(incident_persistence)
 
 // Load existing incident data from game systems
 /datum/incident_persistence_manager/proc/load_existing_incident_data()
-	world.log << "Incident: Loading existing incident data..."
+	log_game("Incident: Loading existing incident data...")
 
 	// Monitor for active incidents in the game world
 	// This would integrate with existing game systems to detect incidents
-	world.log << "Incident: Monitoring for active incidents..."
+	log_game("Incident: Monitoring for active incidents...")
 
 // Add incident record
 /datum/incident_persistence_manager/proc/add_incident_record(var/incident_type, var/incident_description, var/location)
@@ -364,4 +364,8 @@ SUBSYSTEM_DEF(incident_persistence)
 // Save incident data
 /datum/incident_persistence_manager/proc/save_incident_data()
 	// This would save data to persistent storage
-	world.log << "Incident: Saving incident data to persistent storage"
+	log_game("Incident: Saving incident data to persistent storage")
+
+/datum/incident_persistence_manager/proc/load_incident_data()
+	// This would load data from persistent storage
+	log_game("Incident: Loading incident data from persistent storage")

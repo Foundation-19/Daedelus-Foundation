@@ -147,14 +147,8 @@
 		if("export_all_data")
 			var/export_data = manager.export_error_data()
 			var/json_data = json_encode(export_data)
-
-			// Create a file for download
-			var/filename = "error_data_[time2text(world.time, "YYYY-MM-DD_hh-mm-ss")].json"
-			var/file_path = "data/logs/[filename]"
-
-			text2file(json_data, file_path)
-
-			to_chat(usr, span_notice("Error data exported to [file_path]"))
+			usr << ftp(json_data, "error_data_[time2text(world.time, "YYYYMMDD_HHMMSS")].json")
+			to_chat(usr, span_notice("Error data downloaded."))
 			. = TRUE
 
 		if("reset_statistics")
@@ -186,12 +180,8 @@
 				)
 
 				var/json_data = json_encode(error_data)
-				var/filename = "error_[error_id]_[time2text(world.time, "YYYY-MM-DD_hh-mm-ss")].json"
-				var/file_path = "data/logs/[filename]"
-
-				text2file(json_data, file_path)
-
-				to_chat(usr, span_notice("Error data exported to [file_path]"))
+				usr << ftp(json_data, "error_[error_id]_[time2text(world.time, "YYYYMMDD_HHMMSS")].json")
+				to_chat(usr, span_notice("Error data downloaded."))
 				. = TRUE
 
 // Helper proc for sorting error entries by timestamp (reverse order)

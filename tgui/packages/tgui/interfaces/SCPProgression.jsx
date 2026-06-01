@@ -157,7 +157,7 @@ export const SCPProgression = (props) => {
                     color="green"
                     onClick={() => act('export_scp_data')}
                   >
-                    EXPORT
+                    DOWNLOAD
                   </TermButton>
                   <TermButton onClick={() => act('refresh_scp_data')}>
                     REFRESH

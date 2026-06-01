@@ -57,7 +57,7 @@
 	uniform = /obj/item/clothing/under/suit/navy
 	suit = /obj/item/clothing/suit/toggle/lawyer
 	gloves = /obj/item/clothing/gloves/color/black
-	belt = /obj/item/modular_computer/tablet/pda/heads/hop
+	belt = /obj/item/modular_computer/tablet/pda/foundation_command
 	ears = /obj/item/radio/headset/heads/hop
 	head = /obj/item/clothing/head/hopcap
 	shoes = /obj/item/clothing/shoes/laceup

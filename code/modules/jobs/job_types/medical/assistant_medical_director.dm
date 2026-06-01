@@ -51,7 +51,7 @@
 	uniform = /obj/item/clothing/under/rank/medical/scrubs/purple
 	suit = /obj/item/clothing/suit/toggle/labcoat
 	suit_store = /obj/item/flashlight/pen
-	belt = /obj/item/modular_computer/tablet/pda/medical
+	belt = /obj/item/modular_computer/tablet/pda/foundation_medical
 	ears = /obj/item/radio/headset/headset_med
 	shoes = /obj/item/clothing/shoes/laceup
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile

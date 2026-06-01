@@ -47,7 +47,7 @@
 	if(!istype(user))
 		return
 
-	to_chat(user, "<span class='notice'>You approach the entrance to the infinite IKEA...</span>")
+	to_chat(user, span_notice("You approach the entrance to the infinite IKEA..."))
 	if(alert(user, "Enter SCP-3008 - The Infinite IKEA? You may become lost inside.", "Enter IKEA", "Yes", "No") == "Yes")
 		enter_ikea(user)
 
@@ -57,7 +57,7 @@
 
 	var/datum/ikea_interior/interior = get_available_interior()
 	if(!interior)
-		to_chat(user, "<span class='warning'>The IKEA is currently full. Please try again later.</span>")
+		to_chat(user, span_warning("The IKEA is currently full. Please try again later."))
 		return
 
 	var/turf/entry_point = interior.get_entry_point()
@@ -65,12 +65,12 @@
 		var/turf/fallback = pick(GLOB.station_turfs)
 		if(fallback)
 			user.forceMove(fallback)
-		to_chat(user, "<span class='warning'>The IKEA dimension is unstable. You were ejected.</span>")
+		to_chat(user, span_warning("The IKEA dimension is unstable. You were ejected."))
 		return
 
 	user.forceMove(entry_point)
-	to_chat(user, "<span class='danger'>You enter the infinite IKEA. The store stretches on forever in all directions...</span>")
-	to_chat(user, "<span class='warning'>You hear the sound of IKEA staff approaching. They are not friendly.</span>")
+	to_chat(user, span_danger("You enter the infinite IKEA. The store stretches on forever in all directions..."))
+	to_chat(user, span_warning("You hear the sound of IKEA staff approaching. They are not friendly."))
 	interior.add_occupant(user)
 	hook_scp_exploration(user, "SCP-3008", 0)
 	on_ikea_entry(user)
@@ -103,10 +103,10 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.SCP)
-			to_chat(user, "<span class='warning'>This is SCP-3008, an infinite IKEA store with hostile staff entities.</span>")
+			to_chat(user, span_warning("This is SCP-3008, an infinite IKEA store with hostile staff entities."))
 		else
-			to_chat(user, "<span class='danger'>An entrance to an IKEA store that seems to stretch on infinitely into the distance.</span>")
-			to_chat(user, "<span class='notice'>You can click on this to enter the IKEA.</span>")
+			to_chat(user, span_danger("An entrance to an IKEA store that seems to stretch on infinitely into the distance."))
+			to_chat(user, span_notice("You can click on this to enter the IKEA."))
 
 /obj/structure/scp3008/proc/on_ikea_entry(mob/living/carbon/human/entrant)
 	if(!entrant)
@@ -140,12 +140,12 @@
 		if(occupant && occupant.loc)
 			if(parent_entrance && parent_entrance.loc)
 				occupant.forceMove(get_turf(parent_entrance))
-				to_chat(occupant, "<span class='notice'>You are ejected from the IKEA.</span>")
+				to_chat(occupant, span_notice("You are ejected from the IKEA."))
 			else
 				var/turf/safe_turf = pick(GLOB.station_turfs)
 				if(safe_turf)
 					occupant.forceMove(safe_turf)
-					to_chat(occupant, "<span class='notice'>You are teleported to safety.</span>")
+					to_chat(occupant, span_notice("You are teleported to safety."))
 
 	for(var/mob/living/simple_animal/hostile/ikea_staff/staff in staff_entities)
 		qdel(staff)
@@ -171,12 +171,12 @@
 	generate_ikea_labyrinth(new_z)
 
 	if(!entry_point)
-		world.log << "IKEA interior [id]: Entry point is null after generation, using fallback"
+		log_game("IKEA interior [id]: Entry point is null after generation, using fallback")
 		entry_point = locate(50, 50, new_z)
 		if(entry_point)
 			entry_point.ChangeTurf(/turf/open/floor/wood)
 
-	world.log << "IKEA interior [id]: Entry point at [entry_point ? "[entry_point.x],[entry_point.y],[entry_point.z]" : "NULL"]"
+	log_game("IKEA interior [id]: Entry point at [entry_point ? "[entry_point.x],[entry_point.y],[entry_point.z]" : "NULL"]")
 
 /area/scp/ikea
 	name = "SCP-3008 Interior"
@@ -192,7 +192,7 @@
 	ambientsounds = list('sound/ambience/ambigen1.ogg','sound/ambience/ambigen3.ogg','sound/ambience/ambigen4.ogg','sound/ambience/ambigen5.ogg','sound/ambience/ambigen6.ogg','sound/ambience/ambigen7.ogg','sound/ambience/ambigen8.ogg','sound/ambience/ambigen9.ogg','sound/ambience/ambigen10.ogg','sound/ambience/ambigen11.ogg','sound/ambience/ambigen12.ogg')
 
 /datum/ikea_interior/proc/generate_ikea_labyrinth(z_level)
-	world.log << "IKEA interior: Starting BSP generation for z-level [z_level]"
+	log_game("IKEA interior: Starting BSP generation for z-level [z_level]")
 
 	var/area/scp/ikea/ikea_area = new /area/scp/ikea()
 	interior_area = ikea_area
@@ -279,7 +279,7 @@
 		if(entry_point)
 			entry_point.ChangeTurf(/turf/open/floor/wood)
 
-	world.log << "IKEA interior: BSP generation completed - [length(rooms)] rooms on z-level [z_level]"
+	log_game("IKEA interior: BSP generation completed - [length(rooms)] rooms on z-level [z_level]")
 
 /datum/ikea_sector
 	var/x1
@@ -914,14 +914,14 @@
 
 	var/datum/ikea_interior/current_interior = get_ikea_interior()
 	if(!current_interior)
-		to_chat(src, "<span class='warning'>You are not in an IKEA interior.</span>")
+		to_chat(src, span_warning("You are not in an IKEA interior."))
 		return
 
 	var/turf/current_turf = get_turf(src)
 	if(current_turf && current_interior.entry_point && get_dist(current_turf, current_interior.entry_point) <= 5)
 		if(current_interior.parent_entrance && current_interior.parent_entrance.loc)
 			forceMove(get_turf(current_interior.parent_entrance))
-			to_chat(src, "<span class='notice'>You successfully escape from the infinite IKEA!</span>")
+			to_chat(src, span_notice("You successfully escape from the infinite IKEA!"))
 			current_interior.remove_occupant(src)
 
 			if(SSscp_research && SSscp_research.manager)
@@ -930,10 +930,10 @@
 			var/turf/safe_turf = pick(GLOB.station_turfs)
 			if(safe_turf)
 				forceMove(safe_turf)
-				to_chat(src, "<span class='notice'>You are teleported to safety.</span>")
+				to_chat(src, span_notice("You are teleported to safety."))
 				current_interior.remove_occupant(src)
 	else
-		to_chat(src, "<span class='warning'>You need to be closer to the entrance to escape. The IKEA seems to be shifting around you...</span>")
+		to_chat(src, span_warning("You need to be closer to the entrance to escape. The IKEA seems to be shifting around you..."))
 
 /mob/living/carbon/human/proc/get_ikea_interior()
 	for(var/obj/structure/scp3008/entrance in GLOB.scp3008_entrances)
@@ -948,15 +948,15 @@
 	set category = "IKEA"
 	set desc = "Get tips for surviving in the infinite IKEA."
 
-	to_chat(src, "<span class='notice'><b>IKEA Survival Tips:</b></span>")
-	to_chat(src, "<span class='notice'>• Avoid IKEA staff - they are hostile and will attack you</span>")
-	to_chat(src, "<span class='notice'>• Look for resources like food, water, and tools</span>")
-	to_chat(src, "<span class='notice'>• The labyrinth layout constantly shifts - don't rely on landmarks</span>")
-	to_chat(src, "<span class='notice'>• Find the entrance area to escape (near coordinates 50,50)</span>")
-	to_chat(src, "<span class='notice'>• Work with other survivors to increase your chances</span>")
-	to_chat(src, "<span class='notice'>• Look for section signs to navigate the maze</span>")
-	to_chat(src, "<span class='notice'>• The maze has open areas for different IKEA sections</span>")
-	to_chat(src, "<span class='notice'>• Use furniture and objects as cover from staff</span>")
+	to_chat(src, span_notice("<b>IKEA Survival Tips:</b>"))
+	to_chat(src, span_notice("• Avoid IKEA staff - they are hostile and will attack you"))
+	to_chat(src, span_notice("• Look for resources like food, water, and tools"))
+	to_chat(src, span_notice("• The labyrinth layout constantly shifts - don't rely on landmarks"))
+	to_chat(src, span_notice("• Find the entrance area to escape (near coordinates 50,50)"))
+	to_chat(src, span_notice("• Work with other survivors to increase your chances"))
+	to_chat(src, span_notice("• Look for section signs to navigate the maze"))
+	to_chat(src, span_notice("• The maze has open areas for different IKEA sections"))
+	to_chat(src, span_notice("• Use furniture and objects as cover from staff"))
 
 /datum/ikea_interior/proc/add_occupant(mob/living/carbon/human/occupant)
 	if(occupant && !(occupant in occupants))
@@ -980,16 +980,16 @@
 
 	var/datum/ikea_interior/current_interior = get_ikea_interior()
 	if(!current_interior)
-		to_chat(src, "<span class='warning'>You are not in an IKEA interior.</span>")
+		to_chat(src, span_warning("You are not in an IKEA interior."))
 		return
 
 	var/turf/current_turf = get_turf(src)
-	to_chat(src, "<span class='notice'><b>IKEA Interior Debug Info:</b></span>")
-	to_chat(src, "<span class='notice'>Interior ID: [current_interior.id]</span>")
-	to_chat(src, "<span class='notice'>Current Position: [current_turf.x], [current_turf.y], [current_turf.z]</span>")
-	to_chat(src, "<span class='notice'>Entry Point: [current_interior.entry_point ? "[current_interior.entry_point.x], [current_interior.entry_point.y], [current_interior.entry_point.z]" : "NULL"]</span>")
-	to_chat(src, "<span class='notice'>Occupants: [length(current_interior.occupants)]</span>")
-	to_chat(src, "<span class='notice'>IKEA Turfs: [length(current_interior.ikea_turfs)]</span>")
+	to_chat(src, span_notice("<b>IKEA Interior Debug Info:</b>"))
+	to_chat(src, span_notice("Interior ID: [current_interior.id]"))
+	to_chat(src, span_notice("Current Position: [current_turf.x], [current_turf.y], [current_turf.z]"))
+	to_chat(src, span_notice("Entry Point: [current_interior.entry_point ? "[current_interior.entry_point.x], [current_interior.entry_point.y], [current_interior.entry_point.z]" : "NULL"]"))
+	to_chat(src, span_notice("Occupants: [length(current_interior.occupants)]"))
+	to_chat(src, span_notice("IKEA Turfs: [length(current_interior.ikea_turfs)]"))
 
 /datum/ikea_interior/proc/process_day_night()
 	cycle_timer += 2 SECONDS
@@ -1003,7 +1003,7 @@
 		night_warning_given = TRUE
 		for(var/mob/living/carbon/human/H in occupants)
 			if(H.client)
-				to_chat(H, "<span class='warning'>The lights in the store are beginning to flicker... Night is approaching.</span>")
+				to_chat(H, span_warning("The lights in the store are beginning to flicker... Night is approaching."))
 				SEND_SOUND(H, sound('sound/effects/bamf.ogg'))
 
 /datum/ikea_interior/proc/begin_night()
@@ -1013,7 +1013,7 @@
 
 	for(var/mob/living/carbon/human/H in occupants)
 		if(H.client)
-			to_chat(H, "<span class='danger'>The lights go out. The IKEA staff are becoming aggressive...</span>")
+			to_chat(H, span_danger("The lights go out. The IKEA staff are becoming aggressive..."))
 			SEND_SOUND(H, sound('sound/effects/bamf.ogg'))
 
 	for(var/mob/living/simple_animal/hostile/ikea_staff/staff in staff_entities)
@@ -1028,7 +1028,7 @@
 
 	for(var/mob/living/carbon/human/H in occupants)
 		if(H.client)
-			to_chat(H, "<span class='notice'>The lights come back on. The staff seem calmer now... but the layout has changed.</span>")
+			to_chat(H, span_notice("The lights come back on. The staff seem calmer now... but the layout has changed."))
 
 	for(var/mob/living/simple_animal/hostile/ikea_staff/staff in staff_entities)
 		if(staff && !QDELETED(staff))
@@ -1109,12 +1109,12 @@
 	. = ..()
 	if(linked_interior)
 		if(linked_interior.is_night)
-			to_chat(user, "<span class='danger'>It is NIGHT. The staff are hostile.</span>")
+			to_chat(user, span_danger("It is NIGHT. The staff are hostile."))
 		else
 			var/time_left = max(0, linked_interior.cycle_duration - linked_interior.cycle_timer)
-			to_chat(user, "<span class='notice'>It is DAY. Night falls in [DisplayTimeText(time_left)].</span>")
+			to_chat(user, span_notice("It is DAY. Night falls in [DisplayTimeText(time_left)]."))
 	else
-		to_chat(user, "<span class='notice'>The clock is not connected to an interior.</span>")
+		to_chat(user, span_notice("The clock is not connected to an interior."))
 
 /datum/ikea_interior/proc/spawn_enhanced_loot(z_level)
 	for(var/i in 1 to 4)

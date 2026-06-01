@@ -1,9 +1,6 @@
 // Site53 map mob stubs - Bay/VORE mob types that don't exist in /tg/
 // Stub types so the map loads; map-spawned instances become generic parent mobs
 
-/mob/living/scp096
-	name = "SCP-096"
-
 /mob/living/simple_animal/hostile/scarybat
 	name = "scary bat"
 	icon_state = "bat"

@@ -460,8 +460,8 @@
 
 /obj/item/paper/proc/resolve_logo_urls(html_text)
 	var/static/list/scp_logo_names = list(
-		"scplogo.png", "ethics.png", "o5.png", "admin.png", "eng.png",
-		"sec.png", "med.png", "sci.png", "log.png", "isd.png", "dea.png",
+		"scplogo.png", "ethics.png", "o5.png", "scp_admin.png", "scp_eng.png",
+		"scp_sec.png", "scp_med.png", "scp_sci.png", "log.png", "isd.png", "dea.png",
 		"man.png", "int.png", "mtf.png", "trib.png", "ungoc.png", "aiad.png",
 		"amd.png", "dcd.png", "fsd.png", "misi.png", "pata.png", "raisa.png",
 		"uiu.png", "gr.png", "mcd.png", "sh.png", "ci.png", "cotbg.png",

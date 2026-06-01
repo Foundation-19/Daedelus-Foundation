@@ -46,8 +46,8 @@
 	id_trim = /datum/id_trim/job/junior_researcher
 	uniform = /obj/item/clothing/under/rank/rnd/scientist
 	suit = /obj/item/clothing/suit/toggle/labcoat/science
-	backpack_contents = list()
-	belt = /obj/item/modular_computer/tablet/pda/science
+	backpack_contents = list(/obj/item/scp_scanner = 1)
+	belt = /obj/item/modular_computer/tablet/pda/foundation_science
 	ears = /obj/item/radio/headset/headset_med
 	shoes = /obj/item/clothing/shoes/laceup
 	l_hand = /obj/item/clipboard
@@ -109,8 +109,8 @@
 	id_trim = /datum/id_trim/job/researcher
 	uniform = /obj/item/clothing/under/rank/rnd/scientist
 	suit = /obj/item/clothing/suit/toggle/labcoat/science
-	backpack_contents = list()
-	belt = /obj/item/modular_computer/tablet/pda/science
+	backpack_contents = list(/obj/item/scp_scanner/advanced = 1)
+	belt = /obj/item/modular_computer/tablet/pda/foundation_science
 	ears = /obj/item/radio/headset/headset_med
 	shoes = /obj/item/clothing/shoes/laceup
 	l_hand = /obj/item/clipboard
@@ -172,8 +172,8 @@
 	id_trim = /datum/id_trim/job/senior_researcher
 	uniform = /obj/item/clothing/under/rank/rnd/scientist
 	suit = /obj/item/clothing/suit/toggle/labcoat/science
-	backpack_contents = list()
-	belt = /obj/item/modular_computer/tablet/pda/science
+	backpack_contents = list(/obj/item/scp_scanner/experimental = 1)
+	belt = /obj/item/modular_computer/tablet/pda/foundation_science
 	ears = /obj/item/radio/headset/headset_med
 	shoes = /obj/item/clothing/shoes/laceup
 	gloves = /obj/item/clothing/gloves/color/latex

@@ -152,6 +152,7 @@
 
 /turf/open/floor/iron/white/smooth
 	name = "white smooth floor"
+	var/id_tag
 
 /turf/open/floor/shuttle
 	name = "shuttle floor"
@@ -252,12 +253,15 @@
 
 /obj/machinery/airlock_controller
 	name = "airlock controller"
+	var/tag_exterior_door
+	var/tag_interior_door
 
 /obj/machinery/airlock_controller/airlock_controller
 	name = "airlock controller"
 
 /obj/machinery/alarm
 	name = "air alarm"
+	var/alarm_id
 
 /obj/machinery/artifact
 	name = "artifact"
@@ -380,6 +384,7 @@
 	name = "organ printer"
 	desc = "A machine for synthesizing organic organs."
 	density = TRUE
+	var/max_stored_matter
 
 /obj/machinery/pager
 	name = "pager"
@@ -410,6 +415,9 @@
 	name = "shield wall generator"
 	desc = "Generates an energy shield wall."
 	density = TRUE
+	var/active = FALSE
+	var/max_range
+	var/storedpower
 
 /obj/machinery/suit_cycler
 	name = "suit cycler"
@@ -442,12 +450,6 @@
 
 /obj/structure/drain
 	name = "drain"
-	anchored = TRUE
-
-/obj/structure/femur_breaker
-	name = "femur breaker"
-	desc = "A device used to break a subject's femur for SCP-106 recontainment."
-	density = TRUE
 	anchored = TRUE
 
 /obj/structure/fitness
@@ -1097,9 +1099,6 @@
 
 /obj/gun
 	name = "gun"
-
-/obj/scp106_random
-	name = "SCP-106 anomaly"
 
 /obj/scp263
 	name = "SCP-263"

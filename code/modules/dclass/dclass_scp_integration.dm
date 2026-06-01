@@ -2,19 +2,6 @@
 // Connects D-Class test subjects to actual SCP objects during experiments
 // Hooks into the existing hook_scp_interaction system via a separate call
 
-#ifndef INTERACTION_TYPE_OBSERVATION
-#define INTERACTION_TYPE_OBSERVATION 1
-#define INTERACTION_TYPE_COMBAT 2
-#define INTERACTION_TYPE_CONTAINMENT 3
-#define INTERACTION_TYPE_RESEARCH 4
-#define INTERACTION_TYPE_COMMUNICATION 5
-#define INTERACTION_TYPE_EXPERIMENT 6
-#define INTERACTION_TYPE_CARE 7
-#define INTERACTION_TYPE_EXPLORATION 8
-#define INTERACTION_TYPE_SURVIVAL 9
-#define INTERACTION_TYPE_MEDICAL 10
-#endif
-
 /proc/hook_dclass_scp_interaction(mob/living/carbon/human/player, scp_id, interaction_type, list/data = null)
 	if(!player || !player.ckey)
 		return

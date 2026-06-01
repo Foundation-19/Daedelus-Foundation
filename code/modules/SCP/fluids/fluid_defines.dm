@@ -1,0 +1,9 @@
+#define FLUID_TYPE_WATER "water"
+#define FLUID_TYPE_BIOMASS "biomass"
+#define FLUID_TYPE_DECON "decon"
+#define FLUID_DEPTH_SHALLOW 1
+#define FLUID_DEPTH_WADE 2
+#define FLUID_DEPTH_SWIM 3
+#define FLUID_DEPTH_DROWN 4
+#define FLUID_SPREAD_THRESHOLD 10
+#define FLUID_DEPTH_THRESHOLDS list(2, 50, 100, 200)

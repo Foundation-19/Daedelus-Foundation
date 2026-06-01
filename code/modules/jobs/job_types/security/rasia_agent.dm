@@ -1,7 +1,8 @@
 /datum/job/raisa_agent
 	title = JOB_RAISA_AGENT
-	description = "Help security solve crimes or take on private cases for wealthy clients. \
-		Look badass and abuse every substance."
+	description = "Conduct intelligence analysis and information security operations for the Foundation. \
+		Use the RAISA Intelligence Terminal to file intelligence reports, monitor surveillance subjects, \
+		flag personnel of interest, and contain information security breaches."
 	faction = FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
@@ -52,7 +53,7 @@
 	id_trim = /datum/id_trim/job/raisa_agent
 	uniform = /obj/item/clothing/under/rank/security/guard
 	suit = /obj/item/clothing/suit/det_suit
-	belt = /obj/item/modular_computer/tablet/pda/detective
+	belt = /obj/item/modular_computer/tablet/pda/foundation_investigations
 	gloves = /obj/item/clothing/gloves/forensic
 	head = /obj/item/clothing/head/fedora/det_hat
 	neck = /obj/item/clothing/neck/tie/black
@@ -62,6 +63,9 @@
 
 	l_hand = /obj/item/storage/briefcase/crimekit
 
+	backpack_contents = list(
+		/obj/item/anomalous_evidence_bag = 2,
+	)
 	chameleon_extras = list(
 		/obj/item/clothing/glasses/sunglasses,
 		/obj/item/gun/ballistic/revolver/detective,

@@ -100,16 +100,16 @@
 				return
 			var/mob/living/carbon/human/H = user
 			if(SSstorytelling.manager.write_journal(H, entry_text))
-				to_chat(user, "<span class='notice'>Journal entry recorded.</span>")
+				to_chat(user, span_notice("Journal entry recorded."))
 				. = TRUE
 			else
 				var/cooldown_remaining = 0
 				var/last_time = SSstorytelling.manager.journal_cooldowns[user.ckey] || 0
 				cooldown_remaining = max(0, JOURNAL_COOLDOWN - (world.time - last_time))
 				if(cooldown_remaining > 0)
-					to_chat(user, "<span class='warning'>You must wait [round(cooldown_remaining / 10)] seconds before writing another journal entry.</span>")
+					to_chat(user, span_warning("You must wait [round(cooldown_remaining / 10)] seconds before writing another journal entry."))
 				else
-					to_chat(user, "<span class='warning'>Could not record journal entry. Text may be too long (max [JOURNAL_MAX_LENGTH] chars).</span>")
+					to_chat(user, span_warning("Could not record journal entry. Text may be too long (max [JOURNAL_MAX_LENGTH] chars)."))
 
 /mob/verb/open_storytelling_system()
 	set name = "Open Storytelling System"

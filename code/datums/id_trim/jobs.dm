@@ -3,6 +3,28 @@
  * It also contains special prisoner trims and the miner's spare ID trim.
  */
 
+#ifndef ACCESS_LCZ
+#define ACCESS_LCZ 100
+#endif
+#ifndef ACCESS_HCZ
+#define ACCESS_HCZ 101
+#endif
+#ifndef ACCESS_EZ
+#define ACCESS_EZ 102
+#endif
+#ifndef ACCESS_TOX
+#define ACCESS_TOX 112
+#endif
+#ifndef ACCESS_TOX_STORAGE
+#define ACCESS_TOX_STORAGE 113
+#endif
+#ifndef ACCESS_VIROLOGY
+#define ACCESS_VIROLOGY 118
+#endif
+#ifndef ACCESS_XENOARCH
+#define ACCESS_XENOARCH 123
+#endif
+
 /// ID Trims for station jobs.
 /datum/id_trim/job
 	trim_state = "trim_assistant"
@@ -640,6 +662,76 @@
 	config_job = "senior_researcher"
 	template_access = list(ACCESS_ADMIN_LVL4, ACCESS_ADMIN_LVL5, ACCESS_SCIENCE_LVL5)
 	job = /datum/job/senior_researcher
+
+/datum/id_trim/job/research_associate
+	assignment = "Research Associate"
+	trim_state = "sciencelvl1"
+	sechud_icon_state = SECHUD_RESEARCH_ASSOCIATE
+	extra_access = list()
+	minimal_access = list(ACCESS_SCIENCE, ACCESS_SCIENCE_LVL1, ACCESS_SCIENCE_LVL2, ACCESS_LCZ)
+	config_job = "research_associate"
+	template_access = list(ACCESS_ADMIN_LVL4, ACCESS_ADMIN_LVL5, ACCESS_SCIENCE_LVL5)
+	job = /datum/job/research_associate
+
+/datum/id_trim/job/lab_technician
+	assignment = "Lab Technician"
+	trim_state = "sciencelvl1"
+	sechud_icon_state = SECHUD_LAB_TECHNICIAN
+	extra_access = list()
+	minimal_access = list(ACCESS_SCIENCE, ACCESS_SCIENCE_LVL1, ACCESS_SCIENCE_LVL2, ACCESS_LCZ, ACCESS_TOX, ACCESS_TOX_STORAGE)
+	config_job = "lab_technician"
+	template_access = list(ACCESS_ADMIN_LVL4, ACCESS_ADMIN_LVL5, ACCESS_SCIENCE_LVL5)
+	job = /datum/job/lab_technician
+
+/datum/id_trim/job/xenobiologist
+	assignment = "Xenobiologist"
+	trim_state = "sciencelvl2"
+	sechud_icon_state = SECHUD_XENOBIOLOGIST
+	extra_access = list(ACCESS_SCIENCE_LVL3)
+	minimal_access = list(ACCESS_MEDICAL_LVL1, ACCESS_SCIENCE, ACCESS_SCIENCE_LVL1, ACCESS_SCIENCE_LVL2, ACCESS_LCZ, ACCESS_HCZ, ACCESS_VIROLOGY)
+	config_job = "xenobiologist"
+	template_access = list(ACCESS_ADMIN_LVL4, ACCESS_ADMIN_LVL5, ACCESS_SCIENCE_LVL5)
+	job = /datum/job/xenobiologist
+
+/datum/id_trim/job/roboticist
+	assignment = "Roboticist"
+	trim_state = "sciencelvl2"
+	sechud_icon_state = SECHUD_ROBOTICIST
+	extra_access = list(ACCESS_SCIENCE_LVL3)
+	minimal_access = list(ACCESS_MEDICAL_LVL1, ACCESS_SCIENCE, ACCESS_SCIENCE_LVL1, ACCESS_SCIENCE_LVL2, ACCESS_LCZ, ACCESS_HCZ)
+	config_job = "roboticist"
+	template_access = list(ACCESS_ADMIN_LVL4, ACCESS_ADMIN_LVL5, ACCESS_SCIENCE_LVL5)
+	job = /datum/job/roboticist
+
+/datum/id_trim/job/chemist_science
+	assignment = "Research Chemist"
+	trim_state = "sciencelvl2"
+	sechud_icon_state = SECHUD_RESEARCH_CHEMIST
+	extra_access = list(ACCESS_SCIENCE_LVL3)
+	minimal_access = list(ACCESS_MEDICAL_LVL1, ACCESS_SCIENCE, ACCESS_SCIENCE_LVL1, ACCESS_SCIENCE_LVL2, ACCESS_LCZ, ACCESS_TOX, ACCESS_TOX_STORAGE)
+	config_job = "chemist_science"
+	template_access = list(ACCESS_ADMIN_LVL4, ACCESS_ADMIN_LVL5, ACCESS_SCIENCE_LVL5)
+	job = /datum/job/chemist_science
+
+/datum/id_trim/job/archaeologist
+	assignment = "Archaeologist"
+	trim_state = "sciencelvl2"
+	sechud_icon_state = SECHUD_ARCHAEOLOGIST
+	extra_access = list(ACCESS_SCIENCE_LVL3)
+	minimal_access = list(ACCESS_MEDICAL_LVL1, ACCESS_SCIENCE, ACCESS_SCIENCE_LVL1, ACCESS_SCIENCE_LVL2, ACCESS_LCZ, ACCESS_XENOARCH)
+	config_job = "archaeologist"
+	template_access = list(ACCESS_ADMIN_LVL4, ACCESS_ADMIN_LVL5, ACCESS_SCIENCE_LVL5)
+	job = /datum/job/archaeologist
+
+/datum/id_trim/job/field_agent
+	assignment = "Field Agent"
+	trim_state = "sciencelvl3"
+	sechud_icon_state = SECHUD_FIELD_AGENT
+	extra_access = list()
+	minimal_access = list(ACCESS_MEDICAL_LVL1, ACCESS_SCIENCE, ACCESS_SCIENCE_LVL1, ACCESS_SCIENCE_LVL2, ACCESS_SCIENCE_LVL3, ACCESS_LCZ, ACCESS_HCZ, ACCESS_EZ, ACCESS_XENOARCH)
+	config_job = "field_agent"
+	template_access = list(ACCESS_ADMIN_LVL4, ACCESS_ADMIN_LVL5, ACCESS_SCIENCE_LVL5)
+	job = /datum/job/field_agent
 
 // MEDICAL JOBS
 

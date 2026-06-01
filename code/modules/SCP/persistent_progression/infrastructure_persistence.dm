@@ -194,15 +194,15 @@ SUBSYSTEM_DEF(infrastructure_persistence)
 
 // Subsystem initialization
 /datum/controller/subsystem/infrastructure_persistence/Initialize()
-	world.log << "Infrastructure persistence subsystem initializing..."
+	log_game("Infrastructure persistence subsystem initializing...")
 	manager = new /datum/infrastructure_persistence_manager()
-	world.log << "Infrastructure persistence manager created"
+	log_game("Infrastructure persistence manager created")
 
 	// Load existing infrastructure data from game systems
-	world.log << "Loading existing infrastructure data..."
+	log_game("Loading existing infrastructure data...")
 	manager.load_existing_infrastructure_data()
 
-	world.log << "Equipment status count at initialization: [length(manager.equipment_status)]"
+	log_game("Equipment status count at initialization: [length(manager.equipment_status)]")
 	return ..()
 
 /datum/controller/subsystem/infrastructure_persistence/fire()
@@ -211,7 +211,7 @@ SUBSYSTEM_DEF(infrastructure_persistence)
 
 // Load existing infrastructure data from game systems
 /datum/infrastructure_persistence_manager/proc/load_existing_infrastructure_data()
-	world.log << "Infrastructure: Loading existing infrastructure data..."
+	log_game("Infrastructure: Loading existing infrastructure data...")
 
 	// Initialize with some basic equipment
 	var/datum/equipment_status/status1 = new /datum/equipment_status(
@@ -247,8 +247,8 @@ SUBSYSTEM_DEF(infrastructure_persistence)
 	system1.efficiency = 1.0
 	power_systems["PWR_SMES"] = system1
 
-	world.log << "Infrastructure: Loaded [length(equipment_status)] equipment status records"
-	world.log << "Infrastructure: Loaded [length(power_systems)] power systems"
+	log_game("Infrastructure: Loaded [length(equipment_status)] equipment status records")
+	log_game("Infrastructure: Loaded [length(power_systems)] power systems")
 
 // Add maintenance record
 /datum/infrastructure_persistence_manager/proc/add_maintenance_record(var/equipment_id, var/maintenance_type, var/maintenance_description, var/technician_ckey)
@@ -529,4 +529,8 @@ SUBSYSTEM_DEF(infrastructure_persistence)
 // Save infrastructure data
 /datum/infrastructure_persistence_manager/proc/save_infrastructure_data()
 	// This would save data to persistent storage
-	world.log << "Infrastructure: Saving infrastructure data to persistent storage"
+	log_game("Infrastructure: Saving infrastructure data to persistent storage")
+
+/datum/infrastructure_persistence_manager/proc/load_infrastructure_data()
+	// This would load data from persistent storage
+	log_game("Infrastructure: Loading infrastructure data from persistent storage")

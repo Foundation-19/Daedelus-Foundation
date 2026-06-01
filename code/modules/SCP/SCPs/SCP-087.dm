@@ -108,7 +108,7 @@
 
 	for(var/mob/living/carbon/human/H in range(8, src))
 		if(H.stat != DEAD)
-			to_chat(H, "<span class='danger'>The stairwell's malevolent presence intensifies dramatically!</span>")
+			to_chat(H, span_danger("The stairwell's malevolent presence intensifies dramatically!"))
 
 	activation_events = 50
 
@@ -118,7 +118,7 @@
 	people_affected += length(targets)
 
 	for(var/mob/living/carbon/human/H in targets)
-		to_chat(H, "<span class='danger'>You feel yourself being pulled into the infinite darkness of the stairwell...</span>")
+		to_chat(H, span_danger("You feel yourself being pulled into the infinite darkness of the stairwell..."))
 		H.adjustBruteLoss(10)
 		if(H.stamina)
 			H.stamina.adjust(-30)
@@ -134,7 +134,7 @@
 
 	// Automatic response to interaction
 	if(user.stat != DEAD)
-		to_chat(user, "<span class='danger'>As you touch the stairwell, you feel an overwhelming urge to descend...</span>")
+		to_chat(user, span_danger("As you touch the stairwell, you feel an overwhelming urge to descend..."))
 
 		// Trigger systems based on interaction
 		if(descent_system)
@@ -143,10 +143,11 @@
 			horror_system.increase_psychological_horror()
 
 /obj/structure/scp087/proc/on_crossed(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
 		if(H.stat != DEAD)
-			to_chat(H, "<span class='danger'>As you step onto the stairwell, the darkness below seems to beckon...</span>")
+			to_chat(H, span_danger("As you step onto the stairwell, the darkness below seems to beckon..."))
 
 			// Trigger multiple systems
 			if(descent_system)
@@ -194,7 +195,7 @@
 
 	var/list/status = get_status()
 	for(var/line in status)
-		to_chat(usr, "<span class='notice'>[line]</span>")
+		to_chat(usr, span_notice("[line]"))
 
 // Persistence system
 /obj/structure/scp087/proc/save_persistence_data()

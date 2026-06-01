@@ -1,7 +1,8 @@
 /datum/job/it_technician
 	title = JOB_IT_TECHNICIAN
-	description = "Start the Supermatter, wire the solars, repair station hull \
-		and wiring damage."
+	description = "Maintain the facility network infrastructure. Monitor network nodes and server racks \
+		via the IT Network Console. Repair degraded systems, reboot firewalls, and deploy SCP-079 \
+		countermeasures when the AI compromises facility systems."
 	department_head = list(JOB_ENGINEERING_DIRECTOR)
 	faction = FACTION_STATION
 	total_positions = 5
@@ -58,7 +59,7 @@
 	head = /obj/item/clothing/head/hardhat
 	shoes = /obj/item/clothing/shoes/workboots
 	gloves = /obj/item/clothing/gloves/color/yellow
-	l_pocket = /obj/item/modular_computer/tablet/pda/engineering
+	l_pocket = /obj/item/modular_computer/tablet/pda/foundation_engineer
 	r_pocket = /obj/item/t_scanner
 
 	backpack = /obj/item/storage/backpack/industrial
@@ -90,7 +91,7 @@
 		/obj/item/barcodescanner = 1,
 		/obj/item/choice_beacon/hero = 1,
 	)
-	belt = /obj/item/modular_computer/tablet/pda/curator
+	belt = /obj/item/modular_computer/tablet/pda/foundation_engineer
 	ears = /obj/item/radio/headset/headset_srv
 	shoes = /obj/item/clothing/shoes/laceup
 	l_pocket = /obj/item/laser_pointer

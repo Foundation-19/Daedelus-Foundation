@@ -64,6 +64,26 @@
 				if(H.stat != DEAD && !H.SCP)
 					mask.telepathy_system.apply_influence(H)
 					break
+	else if(mask && mask.possession_system?.current_host)
+		if(prob(8))
+			var/mob/living/carbon/human/host = mask.possession_system.current_host
+			for(var/atom/A in range(1, host))
+				if(A == host || A == mask)
+					continue
+				if(isobj(A))
+					var/obj/O = A
+					if(istype(O, /obj/item/organ) || istype(O, /obj/item/bodypart))
+						continue
+					if(ismob(O.loc))
+						continue
+					O.take_damage(15, BURN, ACID)
+				if(ishuman(A))
+					var/mob/living/carbon/human/H = A
+					if(H != host && H.stat != DEAD)
+						H.adjustBruteLoss(5)
+						H.adjustFireLoss(5)
+						to_chat(H, span_danger("Corrosive liquid burns your skin!"))
+			playsound(host, 'sound/weapons/sear.ogg', 30, TRUE)
 
 /mob/living/scp035/proc/enter_host(mob/living/carbon/human/host)
 	if(!host || !mask)
@@ -94,7 +114,7 @@
 	persistence_data["last_breach_time"] = last_breach_time
 	persistence_data["interaction_history"] = interaction_history.Copy()
 	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[persistence_id]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[persistence_id]
 		if(instance)
 			instance.containment_status = containment_status
 
@@ -117,11 +137,7 @@
 	last_breach_time = world.time
 	if(mask)
 		mask.containment_status = "breached"
-	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[persistence_id]
-		if(instance)
-			instance.containment_status = "breached"
-			instance.add_breach_record()
+	hook_scp_breach("SCP-035", src)
 
 /mob/living/scp035/proc/return_to_containment()
 	if(containment_status == "contained")
@@ -129,16 +145,13 @@
 	containment_status = "contained"
 	if(mask)
 		mask.containment_status = "contained"
-	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[persistence_id]
-		if(instance)
-			instance.containment_status = "contained"
+	hook_scp_recontainment("SCP-035", list(src))
 
 /mob/living/scp035/proc/add_interaction_record(target, interaction_type)
 	var/record = "[time2text(world.time, "YYYY-MM-DD hh:mm:ss")]: [interaction_type] with [target ? "[target]" : "unknown"]"
 	interaction_history += record
 	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[persistence_id]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[persistence_id]
 		if(instance)
 			instance.add_interaction_record(target, interaction_type)
 
@@ -258,6 +271,54 @@
 	var/list/learned_abilities = list()
 	var/consciousness_level = 100
 	var/max_consciousness = 100
+	var/host_degradation_timer = 0
+
+/datum/scp035_possession/proc/process_host_degradation()
+	if(!current_host || current_host.stat == DEAD)
+		return
+	switch(host_degradation_timer)
+		if(50 to 100)
+			if(prob(10))
+				to_chat(current_host, span_warning("Your body aches. The mask's influence is taking a toll."))
+		if(100 to 200)
+			current_host.adjustBruteLoss(1)
+			if(prob(15))
+				to_chat(current_host, span_warning("Your skin feels like it's decaying..."))
+		if(200 to 400)
+			current_host.adjustBruteLoss(3)
+			current_host.adjustToxLoss(2)
+			if(prob(10))
+				current_host.vomit(0, FALSE, FALSE, 3, FALSE, VOMIT_TOXIC)
+		if(400 to INFINITY)
+			current_host.adjustBruteLoss(5)
+			current_host.adjustToxLoss(3)
+			if(prob(30))
+				to_chat(current_host, span_userdanger("Your body is failing! The mask needs a new host!"))
+			if(current_host.health <= 0)
+				abandon_host()
+				attempt_new_host()
+
+/datum/scp035_possession/proc/abandon_host()
+	if(!current_host)
+		return
+	to_chat(current_host, span_danger("The mask releases its grip on you! Your body gives out..."))
+	current_host.adjustBruteLoss(50)
+	remove_from_current_host()
+	host_degradation_timer = 0
+
+/datum/scp035_possession/proc/attempt_new_host()
+	var/list/candidates = list()
+	for(var/mob/living/carbon/human/H in view(7, mask))
+		if(H.stat == DEAD || H == current_host)
+			continue
+		if(H.SCP)
+			continue
+		candidates += H
+	if(length(candidates))
+		var/mob/living/carbon/human/new_host = pick(candidates)
+		transfer_host(new_host)
+		mask.visible_message(span_danger("The mask tears itself free and latches onto [new_host]!"))
+		to_chat(new_host, span_userdanger("The mask leaps onto your face! You feel its consciousness merge with yours!"))
 
 /datum/scp035_possession/New(obj/item/clothing/mask/scp035/mask_ref)
 	. = ..()
@@ -279,14 +340,15 @@
 	if(!current_host)
 		return
 
-	consciousness_level = max(0, consciousness_level - 0.5)
+	host_degradation_timer++
+	process_host_degradation()
 
 	if(current_host.sanity)
 		current_host.sanity.adjust_sanity(-0.1)
 
 	if(consciousness_level <= 20 && consciousness_level > 0)
 		if(prob(10))
-			to_chat(current_host, "<span class='danger'>Your consciousness is fading! The mask is consuming your mind!</span>")
+			to_chat(current_host, span_danger("Your consciousness is fading! The mask is consuming your mind!"))
 		if(current_host.sanity)
 			current_host.sanity.adjust_sanity(-1)
 
@@ -328,7 +390,7 @@
 		current_host.sanity.add_trauma(TRAUMA_PSYCHOLOGICAL, 15)
 		current_host.sanity.hallucination_level = min(current_host.sanity.hallucination_level + 20, current_host.sanity.max_hallucination)
 		current_host.sanity.insanity_level = min(current_host.sanity.insanity_level + 10, current_host.sanity.max_insanity)
-		to_chat(current_host, "<span class='danger'>The mask's influence is affecting your mental state!</span>")
+		to_chat(current_host, span_danger("The mask's influence is affecting your mental state!"))
 
 	// Learn from new host
 	learn_host_abilities(current_host)
@@ -338,7 +400,7 @@
 
 	// Update persistence
 	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-035"]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances["SCP-035"]
 		if(instance)
 			instance.add_interaction_record(current_host, "possession")
 
@@ -376,7 +438,7 @@
 	former_host.adjustBruteLoss(5)
 	if(former_host.stamina)
 		former_host.stamina.adjust(-25)
-	to_chat(former_host, "<span class='danger'>The mask's influence is removed! You feel weakened!</span>")
+	to_chat(former_host, span_danger("The mask's influence is removed! You feel weakened!"))
 
 	STOP_PROCESSING(SSobj, mask)
 	mask.corruption_system.reset_for_new_host()
@@ -397,8 +459,8 @@
 	if(host.stamina)
 		host.stamina.adjust(50)
 
-	to_chat(host, "<span class='notice'>You feel the mask's consciousness merging with yours...</span>")
-	to_chat(host, "<span class='warning'>The mask's personality traits are influencing you: [jointext(personality_traits, ", ")]</span>")
+	to_chat(host, span_notice("You feel the mask's consciousness merging with yours..."))
+	to_chat(host, span_warning("The mask's personality traits are influencing you: [jointext(personality_traits, ", ")]"))
 
 	// Reset systems for new host
 	mask.corruption_system.reset_for_new_host()
@@ -410,7 +472,7 @@
 	for(var/ability in host_abilities)
 		if(!(ability in learned_abilities))
 			learned_abilities += ability
-			to_chat(current_host, "<span class='notice'>You have learned: [ability]</span>")
+			to_chat(current_host, span_notice("You have learned: [ability]"))
 
 /datum/scp035_possession/proc/get_host_abilities(mob/living/carbon/human/host)
 	var/list/abilities = list()
@@ -472,14 +534,14 @@
 		host.sanity.insanity_level = host.sanity.max_insanity
 		host.sanity.adjust_sanity(-30)
 
-	host.visible_message("<span class='danger'>[host] has been completely corrupted by SCP-035!</span>")
-	to_chat(host, "<span class='danger'>You have been completely corrupted! Your consciousness is fading...</span>")
+	host.visible_message(span_danger("[host] has been completely corrupted by SCP-035!"))
+	to_chat(host, span_danger("You have been completely corrupted! Your consciousness is fading..."))
 
 	mask.consciousness_transfers++
 	remove_from_current_host()
 
 	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-035"]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances["SCP-035"]
 		if(instance)
 			instance.add_interaction_record(host, "complete_corruption")
 
@@ -518,19 +580,19 @@
 	if(corrosion_damage >= 20)
 		host.adjustBruteLoss(1)
 		if(prob(5))
-			to_chat(host, "<span class='warning'>The mask's corrosive substance is burning your skin!</span>")
+			to_chat(host, span_warning("The mask's corrosive substance is burning your skin!"))
 
 	if(corrosion_damage >= 50)
 		host.adjustBruteLoss(2)
 		host.adjustToxLoss(1)
 		if(prob(5))
-			to_chat(host, "<span class='danger'>The corrosion is spreading! You can feel it eating away at you!</span>")
+			to_chat(host, span_danger("The corrosion is spreading! You can feel it eating away at you!"))
 
 	if(corrosion_damage >= 80)
 		host.adjustBruteLoss(3)
 		host.adjustToxLoss(2)
 		if(prob(5))
-			to_chat(host, "<span class='danger'>The corrosion is overwhelming! Your body is being consumed!</span>")
+			to_chat(host, span_danger("The corrosion is overwhelming! Your body is being consumed!"))
 
 	if(corrosion_damage >= 100)
 		mask.possession_system.complete_corruption(host)
@@ -553,14 +615,14 @@
 		if(host.stamina)
 			host.stamina.adjust(-5)
 		if(prob(5))
-			to_chat(host, "<span class='warning'>You feel the mask's influence growing stronger...</span>")
+			to_chat(host, span_warning("You feel the mask's influence growing stronger..."))
 
 	if(corruption_level >= 40)
 		host.adjustBruteLoss(1)
 		if(host.stamina)
 			host.stamina.adjust(-10)
 		if(prob(5))
-			to_chat(host, "<span class='danger'>The mask's corruption is affecting your body!</span>")
+			to_chat(host, span_danger("The mask's corruption is affecting your body!"))
 
 	if(corruption_level >= 60)
 		host.adjustBruteLoss(2)
@@ -568,7 +630,7 @@
 		if(host.stamina)
 			host.stamina.adjust(-15)
 		if(prob(5))
-			to_chat(host, "<span class='danger'>Your consciousness is being consumed by the mask!</span>")
+			to_chat(host, span_danger("Your consciousness is being consumed by the mask!"))
 
 	if(corruption_level >= 80)
 		host.adjustBruteLoss(3)
@@ -576,7 +638,7 @@
 		if(host.stamina)
 			host.stamina.adjust(-25)
 		if(prob(5))
-			to_chat(host, "<span class='danger'>The mask's corruption is nearly complete!</span>")
+			to_chat(host, span_danger("The mask's corruption is nearly complete!"))
 
 /datum/scp035_corruption/proc/reset_for_new_host()
 	corruption_level = 0
@@ -685,17 +747,17 @@
 
 /datum/scp035_telepathy/proc/apply_influence_effects(mob/living/carbon/human/target, influence_level)
 	if(influence_level >= 20 && prob(10))
-		to_chat(target, "<span class='warning'>You hear whispers in your mind...</span>")
+		to_chat(target, span_warning("You hear whispers in your mind..."))
 
 	if(influence_level >= 40)
 		if(prob(10))
-			to_chat(target, "<span class='danger'>The whispers are getting louder! You feel drawn to the mask!</span>")
+			to_chat(target, span_danger("The whispers are getting louder! You feel drawn to the mask!"))
 		if(target.stamina)
 			target.stamina.adjust(-5)
 
 	if(influence_level >= 60)
 		if(prob(10))
-			to_chat(target, "<span class='danger'>The mask is calling to you! You must wear it!</span>")
+			to_chat(target, span_danger("The mask is calling to you! You must wear it!"))
 		if(target.stamina)
 			target.stamina.adjust(-10)
 		target.adjustToxLoss(1)
@@ -705,7 +767,7 @@
 
 	if(influence_level >= 80)
 		if(prob(10))
-			to_chat(target, "<span class='danger'>The mask's influence is overwhelming! You need to wear it!</span>")
+			to_chat(target, span_danger("The mask's influence is overwhelming! You need to wear it!"))
 		if(target.stamina)
 			target.stamina.adjust(-15)
 		target.adjustToxLoss(2)
@@ -719,7 +781,7 @@
 		if(!target || target.stat == DEAD || target.SCP)
 			return
 		if(prob(10))
-			to_chat(target, "<span class='danger'>You can't resist anymore! You must wear the mask!</span>")
+			to_chat(target, span_danger("You can't resist anymore! You must wear the mask!"))
 		if(target.stamina)
 			target.stamina.adjust(-25)
 		target.adjustToxLoss(5)
@@ -732,7 +794,7 @@
 
 	// Force target to wear the mask
 	if(mask.possession_system.transfer_host(target))
-		to_chat(target, "<span class='danger'>You are compelled to wear the mask!</span>")
+		to_chat(target, span_danger("You are compelled to wear the mask!"))
 
 // Personality System
 /datum/scp035_personality
@@ -793,11 +855,11 @@
 		if(target)
 			possession_system.transfer_host(target)
 	else
-		to_chat(usr, "<span class='warning'>No suitable targets nearby.</span>")
+		to_chat(usr, span_warning("No suitable targets nearby."))
 
 /obj/item/clothing/mask/scp035/proc/expand_telepathic_range()
 	telepathy_system.range = min(telepathy_system.max_range, telepathy_system.range + 2)
-	to_chat(usr, "<span class='notice'>Telepathic range expanded to [telepathy_system.range] tiles.</span>")
+	to_chat(usr, span_notice("Telepathic range expanded to [telepathy_system.range] tiles."))
 
 /obj/item/clothing/mask/scp035/proc/view_possession_status()
 	var/message = "<h2>SCP-035 Possession Status</h2>"
@@ -818,7 +880,7 @@
 	else
 		message += "<i>No possession history yet.</i>"
 
-	to_chat(usr, "<span class='notice'>[message]</span>")
+	to_chat(usr, span_notice("[message]"))
 
 /obj/item/clothing/mask/scp035/proc/view_affected_targets()
 	var/message = "<h2>SCP-035 Affected Targets</h2>"
@@ -831,7 +893,7 @@
 	else
 		message += "<i>No targets currently affected.</i>"
 
-	to_chat(usr, "<span class='notice'>[message]</span>")
+	to_chat(usr, span_notice("[message]"))
 
 /obj/item/clothing/mask/scp035/proc/view_learned_abilities()
 	var/message = "<h2>SCP-035 Learned Abilities</h2>"
@@ -843,19 +905,19 @@
 	else
 		message += "<i>No abilities learned yet.</i>"
 
-	to_chat(usr, "<span class='notice'>[message]</span>")
+	to_chat(usr, span_notice("[message]"))
 
 /obj/item/clothing/mask/scp035/proc/remove_mask_verb()
 	if(possession_system.current_host)
 		var/host_name = possession_system.current_host.name
 		possession_system.remove_from_current_host()
-		to_chat(usr, "<span class='notice'>Mask removed from [host_name].</span>")
+		to_chat(usr, span_notice("Mask removed from [host_name]."))
 	else
-		to_chat(usr, "<span class='warning'>No current host to remove mask from.</span>")
+		to_chat(usr, span_warning("No current host to remove mask from."))
 
 /obj/item/clothing/mask/scp035/proc/use_learned_ability()
 	if(!length(possession_system.learned_abilities))
-		to_chat(usr, "<span class='warning'>No abilities learned yet.</span>")
+		to_chat(usr, span_warning("No abilities learned yet."))
 		return
 
 	var/ability = input(usr, "Choose an ability to use:", "Use Learned Ability") as null|anything in possession_system.learned_abilities
@@ -864,7 +926,7 @@
 
 /obj/item/clothing/mask/scp035/proc/use_ability(ability)
 	if(!possession_system?.current_host)
-		to_chat(usr, "<span class='warning'>You need a host to use abilities.</span>")
+		to_chat(usr, span_warning("You need a host to use abilities."))
 		return
 
 	var/mob/living/carbon/human/H = possession_system.current_host
@@ -876,8 +938,8 @@
 			H.adjustFireLoss(-heal_amount)
 			H.adjustToxLoss(-heal_amount * 0.5)
 			H.adjustOxyLoss(-heal_amount)
-			H.visible_message("<span class='notice'>[H]'s wounds begin to knit closed with unsettling speed.</span>", \
-				"<span class='notice'>You draw upon stolen medical knowledge to accelerate healing.</span>")
+			H.visible_message(span_notice("[H]'s wounds begin to knit closed with unsettling speed."), \
+				span_notice("You draw upon stolen medical knowledge to accelerate healing."))
 			hook_scp_interaction(H, "SCP-035", INTERACTION_TYPE_RESEARCH)
 
 		if("Healing Abilities")
@@ -893,10 +955,10 @@
 					var/heal = 20 * min(possession_system.possession_strength, 5)
 					patient.adjustBruteLoss(-heal)
 					patient.adjustFireLoss(-heal)
-					patient.visible_message("<span class='notice'>[H] performs an impossibly precise medical procedure on [patient]!</span>", \
-						"<span class='notice'>You apply stolen medical expertise to heal [patient].</span>")
+					patient.visible_message(span_notice("[H] performs an impossibly precise medical procedure on [patient]!"), \
+						span_notice("You apply stolen medical expertise to heal [patient]."))
 			else
-				to_chat(usr, "<span class='warning'>No injured targets nearby to heal.</span>")
+				to_chat(usr, span_warning("No injured targets nearby to heal."))
 
 		if("Combat Training")
 			if(H.stamina)
@@ -906,19 +968,19 @@
 			H.SetImmobilized(0)
 			H.SetParalyzed(0)
 			H.scp035_modify_physiology(0.7, 1, 30 SECONDS)
-			H.visible_message("<span class='warning'>[H] moves with unnatural combat precision!</span>", \
-				"<span class='notice'>You draw upon stolen combat training, shaking off incapacitation.</span>")
+			H.visible_message(span_warning("[H] moves with unnatural combat precision!"), \
+				span_notice("You draw upon stolen combat training, shaking off incapacitation."))
 			hook_scp_combat(H, "SCP-035", 0, possession_system.possession_strength)
 
 		if("Security Clearance")
 			var/obj/item/card/id/id_card = H.get_idcard(TRUE)
 			if(id_card)
 				id_card.add_access(list(ACCESS_SECURITY, ACCESS_SECURITY_LVL1, ACCESS_SECURITY_LVL2, ACCESS_SECURITY_LVL3), mode = TRY_ADD_ALL_NO_WILDCARD)
-				to_chat(usr, "<span class='notice'>You grant yourself temporary security access using stolen credentials.</span>")
+				to_chat(usr, span_notice("You grant yourself temporary security access using stolen credentials."))
 				addtimer(CALLBACK(id_card, /obj/item/card/id/proc/remove_access, list(ACCESS_SECURITY, ACCESS_SECURITY_LVL1, ACCESS_SECURITY_LVL2, ACCESS_SECURITY_LVL3)), 60 SECONDS)
-				H.visible_message("<span class='warning'>[H]'s ID card flashes with unauthorized security access!</span>")
+				H.visible_message(span_warning("[H]'s ID card flashes with unauthorized security access!"))
 			else
-				to_chat(usr, "<span class='warning'>You need an ID card to grant security access.</span>")
+				to_chat(usr, span_warning("You need an ID card to grant security access."))
 
 		if("Research Skills")
 			var/list/nearby_scps = list()
@@ -929,11 +991,11 @@
 				var/obj/scp_obj = input(usr, "Choose an SCP to analyze:", "SCP-035 Research") as null|anything in nearby_scps
 				if(scp_obj)
 					var/analysis_quality = min(possession_system.possession_strength * 20, 100)
-					to_chat(usr, "<span class='notice'>You analyze [scp_obj] with stolen scientific expertise (Quality: [analysis_quality]%).</span>")
-					to_chat(usr, "<span class='info'>SCP-[scp_obj.SCP.designation] - Object Class: [scp_obj.SCP.classification]</span>")
+					to_chat(usr, span_notice("You analyze [scp_obj] with stolen scientific expertise (Quality: [analysis_quality]%)."))
+					to_chat(usr, span_info("SCP-[scp_obj.SCP.designation] - Object Class: [scp_obj.SCP.classification]"))
 					hook_scp_interaction(H, "SCP-035", INTERACTION_TYPE_RESEARCH)
 			else
-				to_chat(usr, "<span class='notice'>You scan the area with scientific precision but find no SCPs to analyze.</span>")
+				to_chat(usr, span_notice("You scan the area with scientific precision but find no SCPs to analyze."))
 
 		if("Analysis Abilities")
 			var/list/nearby_humans = list()
@@ -943,14 +1005,14 @@
 			if(length(nearby_humans))
 				var/mob/living/carbon/human/target = input(usr, "Choose a target to analyze:", "SCP-035 Analysis") as null|anything in nearby_humans
 				if(target)
-					to_chat(usr, "<span class='notice'>--- Subject Analysis: [target.name] ---</span>")
-					to_chat(usr, "<span class='info'>Health: [round(target.health / target.maxHealth * 100)]% | Job: [target.job || "Unknown"]</span>")
-					to_chat(usr, "<span class='info'>Brute: [round(target.getBruteLoss())] | Burn: [round(target.getFireLoss())] | Toxin: [round(target.getToxLoss())] | Oxy: [round(target.getOxyLoss())]</span>")
+					to_chat(usr, span_notice("--- Subject Analysis: [target.name] ---"))
+					to_chat(usr, span_info("Health: [round(target.health / target.maxHealth * 100)]% | Job: [target.job || "Unknown"]"))
+					to_chat(usr, span_info("Brute: [round(target.getBruteLoss())] | Burn: [round(target.getFireLoss())] | Toxin: [round(target.getToxLoss())] | Oxy: [round(target.getOxyLoss())]"))
 					if(target.sanity)
-						to_chat(usr, "<span class='info'>Mental State: [round(target.sanity.sanity_level)]% | Traumas: [length(target.sanity.traumas)]</span>")
+						to_chat(usr, span_info("Mental State: [round(target.sanity.sanity_level)]% | Traumas: [length(target.sanity.traumas)]"))
 					hook_scp_interaction(H, "SCP-035", INTERACTION_TYPE_RESEARCH)
 			else
-				to_chat(usr, "<span class='warning'>No targets nearby to analyze.</span>")
+				to_chat(usr, span_warning("No targets nearby to analyze."))
 
 		if("Technical Skills")
 			var/list/nearby_machines = list()
@@ -963,13 +1025,13 @@
 					M.panel_open = TRUE
 					if(M.machine_stat & BROKEN)
 						M.set_machine_stat(M.machine_stat & ~BROKEN)
-						M.visible_message("<span class='notice'>[H] performs an impossibly fast repair on [M]!</span>")
+						M.visible_message(span_notice("[H] performs an impossibly fast repair on [M]!"))
 					else
-						M.visible_message("<span class='notice'>[H] interfaces with [M] with uncanny technical skill.</span>")
-					to_chat(usr, "<span class='notice'>You apply stolen engineering knowledge to [M].</span>")
+						M.visible_message(span_notice("[H] interfaces with [M] with uncanny technical skill."))
+					to_chat(usr, span_notice("You apply stolen engineering knowledge to [M]."))
 					hook_scp_interaction(H, "SCP-035", INTERACTION_TYPE_RESEARCH)
 			else
-				to_chat(usr, "<span class='warning'>No machines nearby to interface with.</span>")
+				to_chat(usr, span_warning("No machines nearby to interface with."))
 
 		if("Repair Abilities")
 			var/list/nearby_broken = list()
@@ -981,21 +1043,21 @@
 				if(M)
 					M.set_machine_stat(M.machine_stat & ~BROKEN)
 					M.panel_open = FALSE
-					M.visible_message("<span class='notice'>[H] repairs [M] with inhuman speed!</span>", \
-						"<span class='notice'>You draw upon stolen engineering expertise to repair [M].</span>")
+					M.visible_message(span_notice("[H] repairs [M] with inhuman speed!"), \
+						span_notice("You draw upon stolen engineering expertise to repair [M]."))
 					hook_scp_interaction(H, "SCP-035", INTERACTION_TYPE_RESEARCH)
 			else
-				to_chat(usr, "<span class='notice'>No broken machinery nearby to repair.</span>")
+				to_chat(usr, span_notice("No broken machinery nearby to repair."))
 
 		if("Administrative Access")
 			var/obj/item/card/id/id_card = H.get_idcard(TRUE)
 			if(id_card)
 				id_card.add_access(list(ACCESS_ADMIN, ACCESS_ADMIN_LVL1, ACCESS_ADMIN_LVL2, ACCESS_ADMIN_LVL3, ACCESS_ADMIN_LVL4), mode = TRY_ADD_ALL_NO_WILDCARD)
-				to_chat(usr, "<span class='notice'>You grant yourself temporary administrative access using stolen authority.</span>")
+				to_chat(usr, span_notice("You grant yourself temporary administrative access using stolen authority."))
 				addtimer(CALLBACK(id_card, /obj/item/card/id/proc/remove_access, list(ACCESS_ADMIN, ACCESS_ADMIN_LVL1, ACCESS_ADMIN_LVL2, ACCESS_ADMIN_LVL3, ACCESS_ADMIN_LVL4)), 45 SECONDS)
-				H.visible_message("<span class='warning'>[H]'s ID card flashes with unauthorized administrative access!</span>")
+				H.visible_message(span_warning("[H]'s ID card flashes with unauthorized administrative access!"))
 			else
-				to_chat(usr, "<span class='warning'>You need an ID card to grant administrative access.</span>")
+				to_chat(usr, span_warning("You need an ID card to grant administrative access."))
 
 		if("Command Authority")
 			var/list/nearby_humans = list()
@@ -1008,27 +1070,27 @@
 					if(target.sanity)
 						target.sanity.adjust_sanity(-25, "scp035_command")
 					target.apply_status_effect(/datum/status_effect/incapacitating/stun, 3 SECONDS)
-					target.visible_message("<span class='warning'>[target] freezes under [H]'s commanding presence!</span>", \
-						"<span class='danger'>An overwhelming authority compels you to obey!</span>")
+					target.visible_message(span_warning("[target] freezes under [H]'s commanding presence!"), \
+						span_danger("An overwhelming authority compels you to obey!"))
 					hook_scp_interaction(target, "SCP-035", INTERACTION_TYPE_COMMUNICATION)
 			else
-				to_chat(usr, "<span class='warning'>No targets nearby to command.</span>")
+				to_chat(usr, span_warning("No targets nearby to command."))
 
 		if("Enhanced Speed")
 			H.add_movespeed_modifier(/datum/movespeed_modifier/scp035_speed)
-			to_chat(usr, "<span class='notice'>You move with stolen supernatural speed!</span>")
+			to_chat(usr, span_notice("You move with stolen supernatural speed!"))
 			addtimer(CALLBACK(H, /mob/proc/remove_movespeed_modifier, /datum/movespeed_modifier/scp035_speed), 30 SECONDS)
 
 		if("Enhanced Durability")
 			H.scp035_modify_physiology(0.5, 0.5, 30 SECONDS)
-			to_chat(usr, "<span class='notice'>You harden your stolen body against damage!</span>")
+			to_chat(usr, span_notice("You harden your stolen body against damage!"))
 
 		if("Heat Resistance")
 			H.scp035_modify_physiology(1, 0.3, 45 SECONDS)
-			to_chat(usr, "<span class='notice'>You suppress your stolen body's heat sensitivity!</span>")
+			to_chat(usr, span_notice("You suppress your stolen body's heat sensitivity!"))
 
 		else
-			to_chat(usr, "<span class='notice'>You use your [ability].</span>")
+			to_chat(usr, span_notice("You use your [ability]."))
 
 /mob/living/carbon/human/proc/scp035_reset_physiology()
 	physiology.brute_mod = initial(physiology.brute_mod)
@@ -1074,17 +1136,17 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.SCP)
-			to_chat(user, "<span class='warning'>This is SCP-035, a possessive mask that can take control of hosts and corrupt them.</span>")
-			to_chat(user, "<span class='info'>Corruption Level: [corruption_system.corruption_level]/[corruption_system.max_corruption], Possession Strength: [possession_system.possession_strength]/[possession_system.max_possession_strength]</span>")
+			to_chat(user, span_warning("This is SCP-035, a possessive mask that can take control of hosts and corrupt them."))
+			to_chat(user, span_info("Corruption Level: [corruption_system.corruption_level]/[corruption_system.max_corruption], Possession Strength: [possession_system.possession_strength]/[possession_system.max_possession_strength]"))
 		else
-			to_chat(user, "<span class='danger'>A white porcelain mask with a sad expression. It seems to be weeping a black substance...</span>")
-			to_chat(user, "<span class='warning'>You feel an overwhelming urge to wear this mask...</span>")
+			to_chat(user, span_danger("A white porcelain mask with a sad expression. It seems to be weeping a black substance..."))
+			to_chat(user, span_warning("You feel an overwhelming urge to wear this mask..."))
 
-			// Apply initial telepathic influence
-			if(!(H in telepathy_system.affected_targets))
+			// Apply initial telepathic influence (only if close)
+			if(get_dist(H, src) <= 3 && !(H in telepathy_system.affected_targets))
 				telepathy_system.affected_targets += H
-				telepathy_system.influence_levels[H] = 15
-				to_chat(user, "<span class='danger'>The mask's telepathic influence begins to affect you!</span>")
+				telepathy_system.influence_levels[H] = 5
+				to_chat(user, span_danger("The mask's telepathic influence begins to affect you!"))
 
 // Enhanced status display
 /obj/item/clothing/mask/scp035/proc/get_status_tab_items()

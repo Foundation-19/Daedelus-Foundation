@@ -30,18 +30,12 @@ SUBSYSTEM_DEF(scp_facility_equipment)
 			dclass_rec += A
 
 	var/photocopier_count = 0
-	var/admin_console_count = 0
 
 	photocopier_count += try_spawn_in_area(ez_offices, /obj/machinery/photocopier, 1)
 	photocopier_count += try_spawn_in_area(lcz_labs, /obj/machinery/photocopier, 1)
 	photocopier_count += try_spawn_in_area(dclass_rec, /obj/machinery/photocopier, 1)
 
-	admin_console_count += try_spawn_in_area(hcz_obs, /obj/machinery/computer/containment_protocol_console, 1)
-	admin_console_count += try_spawn_in_area(ez_lobbies, /obj/machinery/computer/personnel_management_console, 1)
-	admin_console_count += try_spawn_in_area(ez_offices, /obj/machinery/computer/disciplinary_console, 1)
-	admin_console_count += try_spawn_in_area(ez_briefing, /obj/machinery/computer/emergency_broadcast_console, 1)
-
-	log_world("SCP Facility Equipment: Spawned [photocopier_count] photocopier(s), [admin_console_count] admin console(s)")
+	log_world("SCP Facility Equipment: Spawned [photocopier_count] photocopier(s)")
 
 /datum/controller/subsystem/scp_facility_equipment/proc/try_spawn_in_area(list/areas, obj_type, max_count)
 	if(!length(areas))

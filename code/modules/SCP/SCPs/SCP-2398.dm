@@ -16,11 +16,11 @@
 
 	// Check if user is holding the bat with both hands
 	if(!user.is_holding(src))
-		to_chat(user, "<span class='danger'>You need both hands to swing this bat!</span>")
+		to_chat(user, span_danger("You need both hands to swing this bat!"))
 		return
 
 	if(!do_after(user, swing_time))
-		to_chat(user, "<span class='danger'>You were interrupted!</span>")
+		to_chat(user, span_danger("You were interrupted!"))
 		return
 
 	hook_scp_interaction(user, "SCP-2398", "bat_swing_attempt")
@@ -28,7 +28,7 @@
 	// Damage user's hands
 	if(prob(hand_fracture_chance))
 		user.adjustBruteLoss(10)
-		to_chat(user, "<span class='danger'>The force of the swing damages your hands!</span>")
+		to_chat(user, span_danger("The force of the swing damages your hands!"))
 
 	// Calculate explosion size based on target size
 	var/explosion_size = max(1, min(5, round(M.mob_size / 20)))
@@ -43,7 +43,7 @@
 
 	hook_scp_interaction(user, "SCP-2398", "bat_swing_complete")
 	// Admin logging
-	to_chat(user, "<span class='notice'>You swing the bat with incredible force!</span>")
+	to_chat(user, span_notice("You swing the bat with incredible force!"))
 
 /obj/item/material/twohanded/baseballbat/scp2398/ex_act(severity) //We shouldent explode ourselves as a result
 	return

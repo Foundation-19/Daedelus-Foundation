@@ -41,7 +41,7 @@
 
 	var/obj/item/card/id/id_card = H.get_idcard(TRUE)
 	if(!id_card || !(ACCESS_ADMIN in id_card.access))
-		to_chat(H, "<span class='warning'>Requires Command access to operate lockdown systems.</span>")
+		to_chat(H, span_warning("Requires Command access to operate lockdown systems."))
 		return
 
 	if(lockdown_state != LOCKDOWN_NONE)
@@ -82,7 +82,7 @@
 
 /obj/machinery/facility_lockdown_console/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
-	var/mob/user = usr
+	var/mob/user = ui.user
 	if(.)
 		return
 
@@ -91,7 +91,7 @@
 	var/mob/living/carbon/human/H = user
 	var/obj/item/card/id/id_card = H.get_idcard(TRUE)
 	if(!id_card || !(ACCESS_ADMIN in id_card.access))
-		to_chat(H, "<span class='warning'>Requires Command access to operate lockdown systems.</span>")
+		to_chat(H, span_warning("Requires Command access to operate lockdown systems."))
 		return
 
 	switch(action)
@@ -110,12 +110,12 @@
 
 /obj/machinery/facility_lockdown_console/proc/show_lockdown_status(mob/user)
 	var/duration = lockdown_start_time ? DisplayTimeText(world.time - lockdown_start_time) : "N/A"
-	to_chat(user, "<span class='notice'>Lockdown Status: [lockdown_state == LOCKDOWN_FULL ? "FULL" : "PARTIAL"]</span>")
-	to_chat(user, "<span class='notice'>Reason: [lockdown_reason]</span>")
-	to_chat(user, "<span class='notice'>Duration: [duration]</span>")
-	to_chat(user, "<span class='notice'>Blast Doors: [blast_doors_closed ? "CLOSED" : "OPEN"]</span>")
-	to_chat(user, "<span class='notice'>Elevators: [elevators_disabled ? "DISABLED" : "OPERATIONAL"]</span>")
-	to_chat(user, "<span class='notice'>Communications: [comms_jammed ? "JAMMED" : "NORMAL"]</span>")
+	to_chat(user, span_notice("Lockdown Status: [lockdown_state == LOCKDOWN_FULL ? "FULL" : "PARTIAL"]"))
+	to_chat(user, span_notice("Reason: [lockdown_reason]"))
+	to_chat(user, span_notice("Duration: [duration]"))
+	to_chat(user, span_notice("Blast Doors: [blast_doors_closed ? "CLOSED" : "OPEN"]"))
+	to_chat(user, span_notice("Elevators: [elevators_disabled ? "DISABLED" : "OPERATIONAL"]"))
+	to_chat(user, span_notice("Communications: [comms_jammed ? "JAMMED" : "NORMAL"]"))
 
 	var/lift = alert(user, "Lift lockdown?", "Facility Lockdown", "Lift Lockdown", "Keep Active")
 	if(lift == "Lift Lockdown")
@@ -149,7 +149,7 @@
 	report_lockdown_to_round_log(reason, 0)
 
 	if(SSscp_persistence && SSscp_persistence.manager)
-		SSscp_persistence.manager.global_scp_management_mode = "lockdown"
+		SSscp_persistence?.manager?.global_scp_management_mode = "lockdown"
 
 /obj/machinery/facility_lockdown_console/proc/lift_lockdown(mob/user)
 	lockdown_state = LOCKDOWN_NONE
@@ -165,7 +165,7 @@
 	report_lockdown_to_round_log("Lockdown lifted", world.time - lockdown_start_time)
 
 	if(SSscp_persistence && SSscp_persistence.manager)
-		SSscp_persistence.manager.global_scp_management_mode = "standard"
+		SSscp_persistence?.manager?.global_scp_management_mode = "standard"
 
 /obj/machinery/facility_lockdown_console/proc/close_blast_doors()
 	blast_doors_closed = TRUE
@@ -193,8 +193,8 @@
 
 /obj/machinery/facility_lockdown_console/proc/lockdown_dclass_areas()
 	if(SSdclass && SSdclass.manager)
-		saved_security_level = SSdclass.manager.current_security_level
-		SSdclass.manager.current_security_level = 4
+		saved_security_level = SSdclass?.manager?.current_security_level
+		SSdclass?.manager?.current_security_level = 4
 	if(world.time < cached_airlock_iteration_lockdown)
 		return
 	cached_airlock_iteration_lockdown = world.time + airlock_cache_cooldown
@@ -205,7 +205,7 @@
 
 /obj/machinery/facility_lockdown_console/proc/unlock_dclass_areas()
 	if(SSdclass && SSdclass.manager)
-		SSdclass.manager.current_security_level = saved_security_level ? saved_security_level : 1
+		SSdclass?.manager?.current_security_level = saved_security_level ? saved_security_level : 1
 	if(world.time < cached_airlock_iteration_unlock)
 		return
 	cached_airlock_iteration_unlock = world.time + airlock_cache_cooldown
@@ -250,7 +250,7 @@
 			if(istype(R) && R.is_on())
 				R.set_on(FALSE)
 				jammed_radios += R
-			to_chat(H, "<span class='warning'>Your radio crackles and goes silent. Communications are being jammed.</span>")
+			to_chat(H, span_warning("Your radio crackles and goes silent. Communications are being jammed."))
 
 /obj/machinery/facility_lockdown_console/proc/unjam_communications()
 	comms_jammed = FALSE
@@ -265,7 +265,7 @@
 			continue
 		var/area/A = get_area(H)
 		if(istype(A, /area/scp/lcz) || istype(A, /area/scp/hcz))
-			to_chat(H, "<span class='notice'>Your radio crackles back to life. Communications restored.</span>")
+			to_chat(H, span_notice("Your radio crackles back to life. Communications restored."))
 /proc/trigger_facility_lockdown(reason = "Cascade event detected")
 	var/list/consoles = list()
 	for(var/obj/machinery/facility_lockdown_console/C in INSTANCES_OF(/obj/machinery/facility_lockdown_console))

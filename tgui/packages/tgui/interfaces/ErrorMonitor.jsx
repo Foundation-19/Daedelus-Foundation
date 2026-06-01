@@ -359,7 +359,7 @@ const ErrorDetails = (props, context) => {
       <Box mt={2}>
         <Button content="Close" onClick={onClose} />
         <Button
-          content="Export Error Data"
+          content="Download Error Data"
           onClick={() => act('export_error_data', { error_id: error.error_id })}
           ml={1}
         />
@@ -502,7 +502,7 @@ const ErrorSettings = (props, context) => {
           onClick={() => act('clear_error_log')}
         />
         <Button
-          content="Export All Data"
+          content="Download All Data"
           onClick={() => act('export_all_data')}
           ml={1}
         />

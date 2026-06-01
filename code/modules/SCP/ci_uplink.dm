@@ -290,12 +290,6 @@
 	name = "Chaos Insurgency Uplink Spawner"
 	loot = list(/obj/item/uplink/ci)
 
-/obj/item/camera/ci_intel_camera
-	name = "CI intel camera"
-	desc = "A compact camera used by Chaos Insurgency for intelligence gathering."
-	icon = 'icons/obj/device.dmi'
-	icon_state = "camera_bug"
-
 /obj/item/ci_supply_beacon
 	name = "CI Supply Beacon"
 	desc = "A beacon that signals Chaos Insurgency forces to airdrop supplies. Single use."

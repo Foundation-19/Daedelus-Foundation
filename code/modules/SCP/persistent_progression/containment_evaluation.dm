@@ -20,7 +20,7 @@ SUBSYSTEM_DEF(containment_evaluation)
 
 /datum/controller/subsystem/containment_evaluation/Initialize()
 	manager = new /datum/containment_evaluation_manager()
-	world.log << "Containment Evaluation System: Initialized"
+	log_game("Containment Evaluation System: Initialized")
 	return ..()
 
 /datum/controller/subsystem/containment_evaluation/fire()
@@ -420,7 +420,7 @@ SUBSYSTEM_DEF(containment_evaluation)
 	set desc = "View your containment statistics."
 	
 	if(!SScontainment_evaluation || !SScontainment_evaluation.manager)
-		to_chat(src, "<span class='warning'>Containment evaluation system not available.</span>")
+		to_chat(src, span_warning("Containment evaluation system not available."))
 		return
 	
 	if(!ckey)
@@ -430,7 +430,7 @@ SUBSYSTEM_DEF(containment_evaluation)
 	var/datum/player_containment_stats/stats = manager.get_player_stats(ckey)
 	
 	if(!stats)
-		to_chat(src, "<span class='notice'>No containment statistics available yet.</span>")
+		to_chat(src, span_notice("No containment statistics available yet."))
 		return
 	
 	var/list/summary = stats.get_summary()
@@ -452,7 +452,7 @@ SUBSYSTEM_DEF(containment_evaluation)
 		for(var/scp_id in summary["by_scp"])
 			message += "- [scp_id]: [summary["by_scp"][scp_id]]<br>"
 	
-	to_chat(src, "<span class='notice'>[message]</span>")
+	to_chat(src, span_notice("[message]"))
 
 /mob/proc/view_active_breaches()
 	set name = "View Active Breaches"
@@ -460,7 +460,7 @@ SUBSYSTEM_DEF(containment_evaluation)
 	set desc = "View currently active containment breaches."
 	
 	if(!SScontainment_evaluation || !SScontainment_evaluation.manager)
-		to_chat(src, "<span class='warning'>Containment evaluation system not available.</span>")
+		to_chat(src, span_warning("Containment evaluation system not available."))
 		return
 	
 	var/datum/containment_evaluation_manager/manager = SScontainment_evaluation.manager
@@ -479,7 +479,7 @@ SUBSYSTEM_DEF(containment_evaluation)
 			message += "- Type: [eval.breach_type]<br>"
 			message += "- Participants: [length(eval.participants)]<br><br>"
 	
-	to_chat(src, "<span class='notice'>[message]</span>")
+	to_chat(src, span_notice("[message]"))
 
 /proc/trigger_containment_evaluation(scp_id, breach_type)
 	if(!SScontainment_evaluation || !SScontainment_evaluation.manager)

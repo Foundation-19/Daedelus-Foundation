@@ -1,7 +1,8 @@
 /datum/job/chaplain
 	title = JOB_CHAPLAIN
 	description = "Hold services and funerals, cremate people, preach your \
-		religion, protect the crew against cults."
+		religion, protect the crew against cults. Provide spiritual counseling \
+		to SCP-exposed personnel and assist the Psychologist with sanity recovery."
 	department_head = list(JOB_HUMAN_RESOURCES_DIRECTOR)
 	faction = FACTION_STATION
 	total_positions = 1

@@ -37,6 +37,7 @@
 	return ..()
 
 /obj/item/scp113/proc/handle_item_pickup(datum/source, mob/living/user)
+	SIGNAL_HANDLER
 	if(!ishuman(user))
 		return
 
@@ -68,6 +69,7 @@
 	victims[H.ckey] = list("time" = world.time, "count" = current_count + 1)
 
 /obj/item/scp113/proc/handle_item_unequipped(datum/source, mob/living/user)
+	SIGNAL_HANDLER
 	if(!ishuman(user))
 		return
 
@@ -78,16 +80,16 @@
 
 /obj/item/scp113/examine(mob/user)
 	. = ..()
-	to_chat(user, "<span class='notice'>A smooth red quartz that affects the biology of those who touch it.</span>")
-	to_chat(user, "<span class='notice'>Transformations recorded: [transformation_count]</span>")
+	to_chat(user, span_notice("A smooth red quartz that affects the biology of those who touch it."))
+	to_chat(user, span_notice("Transformations recorded: [transformation_count]"))
 
 /obj/item/scp113/attack(mob/living/M, mob/living/carbon/human/user, target_zone)
 	. = ..()
 	if(ishuman(M) && user.combat_mode == FALSE)
 		var/mob/living/carbon/human/H = M
 		hook_scp_interaction(user, "SCP-113", INTERACTION_TYPE_MEDICAL)
-		to_chat(user, "<span class='notice'>You offer [src] to [H].</span>")
-		to_chat(H, "<span class='notice'>[user] offers you [src]. Touch it to receive its effects.</span>")
+		to_chat(user, span_notice("You offer [src] to [H]."))
+		to_chat(H, span_notice("[user] offers you [src]. Touch it to receive its effects."))
 
 /datum/scp113_transformation_system
 	var/obj/item/parent
@@ -102,7 +104,7 @@
 	if(!target)
 		return FALSE
 
-	to_chat(target, "<span class='warning'>You feel a strange sensation spread through your body...</span>")
+	to_chat(target, span_warning("You feel a strange sensation spread through your body..."))
 	hook_scp_combat(target, "SCP-113", 0, pain_level)
 
 	return TRUE
@@ -113,7 +115,7 @@
 
 	var/original_gender = target.gender
 	target.gender = original_gender == MALE ? FEMALE : MALE
-	target.visible_message("<span class='warning'>[target]'s body shifts and changes!</span>", "<span class='notice'>Your body has changed. You feel different now.</span>")
+	target.visible_message(span_warning("[target]'s body shifts and changes!"), span_notice("Your body has changed. You feel different now."))
 
 	hook_scp_interaction(target, "SCP-113", INTERACTION_TYPE_MEDICAL)
 
@@ -145,7 +147,7 @@
 	if(!victim)
 		return
 
-	victim.visible_message("<span class='danger'>[victim]'s body violently rejects the transformation!</span>", "<span class='danger'>Your body feels like it's tearing itself apart!</span>")
+	victim.visible_message(span_danger("[victim]'s body violently rejects the transformation!"), span_danger("Your body feels like it's tearing itself apart!"))
 
 	if(use_count >= 3 && prob(fatality_chance * use_count))
 		victim.gib()

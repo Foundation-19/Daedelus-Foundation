@@ -344,20 +344,17 @@
 				. = TRUE
 
 		if("save_character")
-			// Character is automatically saved when updated
-			to_chat(usr, "<span class='notice'>Character saved successfully!</span>")
+			to_chat(ui.user, span_notice("Character saved successfully!"))
 			. = TRUE
 
 		if("sync_to_preferences")
-			// Sync character sheet changes back to preferences
 			sync_character_to_preferences()
-			to_chat(usr, "<span class='notice'>Character sheet synced to preferences!</span>")
+			to_chat(ui.user, span_notice("Character sheet synced to preferences!"))
 			. = TRUE
 
 		if("sync_from_preferences")
-			// Sync preferences to character sheet
 			sync_with_character_preferences()
-			to_chat(usr, "<span class='notice'>Character sheet synced from preferences!</span>")
+			to_chat(ui.user, span_notice("Character sheet synced from preferences!"))
 			. = TRUE
 
 		if("update_character_background")
@@ -419,7 +416,7 @@
 	if(character.growth.roleplay_experience_points >= required_exp)
 		character.growth.character_level++
 		character.growth.roleplay_experience_points -= required_exp
-		to_chat(user, "<span class='notice'>Character level increased to [character.growth.character_level]!</span>")
+		to_chat(user, span_notice("Character level increased to [character.growth.character_level]!"))
 
 	// Update personnel record if linked
 	if(character.linked_personnel_record)

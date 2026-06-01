@@ -49,6 +49,8 @@ type OptionalProps = Partial<{
   maxLength: number;
   /** Mark this if you want to use a monospace font */
   monospace: boolean;
+  /** Mark this for a larger input field */
+  large: boolean;
   /** Fires when user is 'done typing': Clicked out, blur, enter key */
   onChange: (event: SyntheticEvent<HTMLInputElement>, value: string) => void;
   /** Fires once the enter key is pressed */
@@ -87,6 +89,7 @@ export function Input(props: Props) {
     disabled,
     expensive,
     fluid,
+    large,
     maxLength,
     monospace,
     onChange,
@@ -140,10 +143,16 @@ export function Input(props: Props) {
     const input = inputRef.current;
     if (!input) return;
 
+    if (input === document.activeElement) return;
+
     const newValue = toInputValue(value);
 
     if (input.value !== newValue) input.value = newValue;
+  }, [value]);
 
+  useEffect(() => {
+    const input = inputRef.current;
+    if (!input) return;
     if (!autoFocus && !autoSelect) return;
 
     setTimeout(() => {
@@ -161,6 +170,7 @@ export function Input(props: Props) {
         'Input',
         fluid && 'Input--fluid',
         monospace && 'Input--monospace',
+        large && 'Input--large',
         className,
       ])}
       {...rest}

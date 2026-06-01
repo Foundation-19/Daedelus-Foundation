@@ -224,7 +224,7 @@
 		apply_faction_to_mob(H, job_faction)
 
 		// Log faction assignment
-		world.log << "Faction Integration: [H.ckey] assigned to faction [job_faction] via job [J.title]"
+		log_game("Faction Integration: [H.ckey] assigned to faction [job_faction] via job [J.title]")
 
 // Hook for when a player changes faction manually
 /datum/faction_integration/proc/on_faction_changed(mob/living/carbon/human/H, old_faction, new_faction)
@@ -235,7 +235,7 @@
 	apply_faction_to_mob(H, new_faction)
 
 	// Log faction change
-	world.log << "Faction Integration: [H.ckey] changed faction from [old_faction] to [new_faction]"
+	log_game("Faction Integration: [H.ckey] changed faction from [old_faction] to [new_faction]")
 
 // Get faction statistics
 /datum/faction_integration/proc/get_faction_stats()
@@ -277,5 +277,5 @@ GLOBAL_VAR_INIT(faction_integration, null)
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/initialize_global_faction_integration), 5 SECONDS)
 		return
 	GLOB.faction_integration = new /datum/faction_integration()
-	world.log << "Faction Integration: Initialized global faction integration"
+	log_game("Faction Integration: Initialized global faction integration")
 

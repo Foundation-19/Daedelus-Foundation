@@ -22,14 +22,21 @@
 /mob/living/carbon/human/proc/checkarmor(obj/item/bodypart/limb, d_type)
 	if(!d_type)
 		return 0
-	var/protection = limb.returnArmor().getRating(d_type)
+	var/datum/armor/limb_armor = limb.returnArmor()
+	var/protection = limb_armor?.getRating(d_type) || 0
 	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, ears, wear_id, wear_neck) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
 
 	for(var/obj/item/clothing/C in body_parts)
 		if(C.body_parts_covered & limb.body_part)
-			protection += C.returnArmor().getRating(d_type)
+			var/datum/armor/clothing_armor = C.returnArmor()
+			var/rating = clothing_armor?.getRating(d_type)
+			if(isnum(rating))
+				protection += rating
 
-	protection += physiology.returnArmor().getRating(d_type)
+	var/datum/armor/phys_armor = physiology?.returnArmor()
+	var/phys_rating = phys_armor?.getRating(d_type)
+	if(isnum(phys_rating))
+		protection += phys_rating
 	return protection
 
 ///Get all the clothing on a specific body part

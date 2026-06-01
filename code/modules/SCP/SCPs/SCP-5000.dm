@@ -9,7 +9,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	armor = list(melee = 40, bullet = 30, laser = 30, energy = 20, bomb = 20, bio = 100, rad = 100)
+	armor = list(BLUNT = 40, PUNCTURE = 30, SLASH = 0, LASER = 30, ENERGY = 20, BOMB = 20, BIO = 100, FIRE = 0, ACID = 0)
 
 	var/active = FALSE
 	var/foundation_hostile = FALSE

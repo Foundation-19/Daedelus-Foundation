@@ -84,23 +84,6 @@
 /obj/machinery/self_destruct
 	name = "self-destruct mechanism"
 
-/obj/structure/scp_914
-	name = "SCP-914"
-	density = TRUE
-	anchored = TRUE
-
-/obj/structure/scp082_trunk
-	name = "trunk"
-	density = TRUE
-
-	density = TRUE
-
-/obj/structure/scp173_cage
-	name = "containment cage"
-	density = TRUE
-
-	density = TRUE
-
 /obj/turbolift_map_holder
 	name = "Facility Elevator"
 	desc = "A heavy-duty freight elevator for moving between facility levels."

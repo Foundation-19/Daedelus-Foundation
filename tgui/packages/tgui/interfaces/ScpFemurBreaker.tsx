@@ -3,7 +3,7 @@ import React from 'react';
 
 import { useBackend } from '../backend';
 import { Box, Button, LabeledList, Section } from '../components';
-import { Window } from '../layouts';
+import { NtosWindow } from '../layouts';
 
 type Data = {
   occupied: BooleanLike;
@@ -32,8 +32,8 @@ export const ScpFemurBreaker = (props) => {
   const progressPct = Math.round((activation_progress / activation_threshold) * 100);
 
   return (
-    <Window theme="scp_terminal" width={500} height={500}>
-      <Window.Content scrollable>
+    <NtosWindow width={500} height={500}>
+      <NtosWindow.Content scrollable>
         <Section title="SCP-106 FEMUR BREAKER PROTOCOL">
           <Box
             style={{
@@ -197,7 +197,7 @@ export const ScpFemurBreaker = (props) => {
             </Button>
           </Box>
         </Section>
-      </Window.Content>
-    </Window>
+      </NtosWindow.Content>
+    </NtosWindow>
   );
 };

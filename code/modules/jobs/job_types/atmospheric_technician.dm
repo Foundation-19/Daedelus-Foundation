@@ -1,6 +1,9 @@
 /datum/job/atmospheric_technician
 	title = JOB_ATMOSPHERIC_TECHNICIAN
-	description = "Ensure the air is breathable on the station, fill oxygen tanks, fight fires, purify the air."
+	description = "Ensure the air is breathable on the station, fill oxygen tanks, fight fires, purify the air. \
+		As a Foundation atmospheric technician, you also deploy containment gases — \
+		Decontamination Gas to neutralize SCP-008 biological hazards, and Memetic Neutralizer \
+		to counter cognitohazard exposure in affected areas."
 	department_head = list(JOB_CHIEF_ENGINEER)
 	faction = FACTION_STATION
 	total_positions = 3
@@ -49,7 +52,7 @@
 	uniform = /obj/item/clothing/under/rank/engineering/atmospheric_technician
 	belt = /obj/item/storage/belt/utility/atmostech
 	ears = /obj/item/radio/headset/headset_eng
-	l_pocket = /obj/item/modular_computer/tablet/pda/atmos
+	l_pocket = /obj/item/modular_computer/tablet/pda/foundation_engineer
 	r_pocket = /obj/item/analyzer
 
 	backpack = /obj/item/storage/backpack/industrial

@@ -134,20 +134,20 @@
 
 	switch(new_stage)
 		if(TRANSFORMATION_STAGE_EUPHORIA)
-			to_chat(user, "<span class='notice'>[pick(transform_messages["euphoria"])]</span>")
+			to_chat(user, span_notice("[pick(transform_messages["euphoria"])]"))
 			user.sanity?.adjust_sanity(5, "SCP-427 initial euphoria")
 
 		if(TRANSFORMATION_STAGE_DEPENDENCY)
-			to_chat(user, "<span class='warning'>[pick(transform_messages["dependency"])]</span>")
+			to_chat(user, span_warning("[pick(transform_messages["dependency"])]"))
 			addiction_strength = min(addiction_strength + 0.2, 0.8)
 
 		if(TRANSFORMATION_STAGE_MUTATION)
-			to_chat(user, "<span class='danger'>[pick(transform_messages["mutation"])]</span>")
+			to_chat(user, span_danger("[pick(transform_messages["mutation"])]"))
 			apply_mutation_effects(user)
 			addiction_strength = min(addiction_strength + 0.3, 1.0)
 
 		if(TRANSFORMATION_STAGE_HORROR)
-			to_chat(user, "<span class='userdanger'>[pick(transform_messages["horror"])]</span>")
+			to_chat(user, span_userdanger("[pick(transform_messages["horror"])]"))
 			apply_body_horror_effects(user)
 			shake_camera(user, 4, 2)
 
@@ -160,21 +160,21 @@
 	switch(stage)
 		if(TRANSFORMATION_STAGE_EUPHORIA)
 			if(prob(5))
-				to_chat(user, "<span class='notice'>The warmth from the locket spreads through your entire body.</span>")
+				to_chat(user, span_notice("The warmth from the locket spreads through your entire body."))
 
 		if(TRANSFORMATION_STAGE_DEPENDENCY)
 			if(prob(3))
 				user.emote("sigh")
 			if(prob(2) && !locket_open)
 				user.visible_message(
-					"<span class='warning'>[user]'s hand twitches toward the locket.</span>",
-					"<span class='danger'>You feel an overwhelming urge to open the locket again.</span>"
+					span_warning("[user]'s hand twitches toward the locket."),
+					span_danger("You feel an overwhelming urge to open the locket again.")
 				)
 
 		if(TRANSFORMATION_STAGE_MUTATION)
 			if(prob(4))
 				user.adjustBruteLoss(1)
-				to_chat(user, "<span class='warning'>You feel a sharp pain as something shifts under your skin.</span>")
+				to_chat(user, span_warning("You feel a sharp pain as something shifts under your skin."))
 			if(prob(2))
 				shake_camera(user, 1, 1)
 
@@ -184,8 +184,8 @@
 				user.emote("scream")
 			if(prob(3))
 				user.visible_message(
-					"<span class='danger'>[user]'s skin bulges unnaturally!</span>",
-					"<span class='userdanger'>Something moves violently beneath your skin!</span>"
+					span_danger("[user]'s skin bulges unnaturally!"),
+					span_userdanger("Something moves violently beneath your skin!")
 				)
 				shake_camera(user, 3, 2)
 
@@ -196,7 +196,7 @@
 	user.add_client_colour(/datum/client_colour/scp427_mutation)
 	client_colours_applied[user.ckey || "\ref[user]"] = TRUE
 
-	to_chat(user, "<span class='danger'>The world takes on a reddish tint as your body begins to change...</span>")
+	to_chat(user, span_danger("The world takes on a reddish tint as your body begins to change..."))
 
 /obj/item/clothing/neck/scp427/proc/apply_body_horror_effects(mob/living/carbon/human/user)
 	if(!user.client)
@@ -217,8 +217,8 @@
 
 	playsound(user_turf, 'sound/effects/bang.ogg', 75, TRUE, 12)
 	user.visible_message(
-		"<span class='danger'>[user]'s body begins to violently mutate!</span>",
-		"<span class='userdanger'>YOUR BODY IS TEARING ITSELF APART! IT'S TRANSFORMING!</span>"
+		span_danger("[user]'s body begins to violently mutate!"),
+		span_userdanger("YOUR BODY IS TEARING ITSELF APART! IT'S TRANSFORMING!")
 	)
 
 	user.Stun(60)
@@ -237,8 +237,8 @@
 	playsound(user_turf, 'sound/effects/explosion1.ogg', 100, TRUE, 12)
 
 	user.visible_message(
-		"<span class='danger'>[user] erupts into a writhing mass of flesh and bone!</span>",
-		"<span class='userdanger'>YOU ARE NO LONGER HUMAN!</span>"
+		span_danger("[user] erupts into a writhing mass of flesh and bone!"),
+		span_userdanger("YOU ARE NO LONGER HUMAN!")
 	)
 
 	SCP.log_interaction(user, "transformation")
@@ -258,14 +258,14 @@
 /obj/item/clothing/neck/scp427/proc/handle_addiction(mob/living/carbon/human/user)
 	if(!locket_open && addiction_strength > 0)
 		if(prob(addiction_strength * 10))
-			to_chat(user, "<span class='warning'>You feel an intense craving to open the locket again.</span>")
+			to_chat(user, span_warning("You feel an intense craving to open the locket again."))
 			user.sanity?.adjust_sanity(-2, "SCP-427 withdrawal")
 			user.adjustBruteLoss(rand(1, 3))
 
 		if(prob(addiction_strength * 5))
 			user.visible_message(
-				"<span class='notice'>[user]'s hand trembles near the locket.</span>",
-				"<span class='danger'>Your hand moves toward the locket against your will!</span>"
+				span_notice("[user]'s hand trembles near the locket."),
+				span_danger("Your hand moves toward the locket against your will!")
 			)
 			deltimer(addiction_timer_id)
 			addiction_timer_id = addtimer(CALLBACK(src, PROC_REF(attempt_auto_open), user), 10, TIMER_STOPPABLE)
@@ -325,31 +325,31 @@
 	if(locket_open)
 		icon_state = "bronze"
 		START_PROCESSING(SSobj, src)
-		to_chat(user, "<span class='notice'>You feel a warm, healing energy emanating from the locket.</span>")
+		to_chat(user, span_notice("You feel a warm, healing energy emanating from the locket."))
 	else
 		icon_state = "bronze"
 		STOP_PROCESSING(SSobj, src)
-		to_chat(user, "<span class='notice'>The healing energy fades as you close the locket.</span>")
+		to_chat(user, span_notice("The healing energy fades as you close the locket."))
 		clear_visual_effects(H)
 
 /obj/item/clothing/neck/scp427/equipped(mob/user, slot)
 	. = ..()
 	if(locket_open && ishuman(user))
-		to_chat(user, "<span class='notice'>The locket's healing energy flows through you.</span>")
+		to_chat(user, span_notice("The locket's healing energy flows through you."))
 
 /obj/item/clothing/neck/scp427/unequipped(mob/user)
 	. = ..()
 	if(ishuman(user))
 		clear_visual_effects(user)
 		if(locket_open)
-			to_chat(user, "<span class='notice'>The locket's effects fade as you remove it.</span>")
+			to_chat(user, span_notice("The locket's effects fade as you remove it."))
 
 /obj/item/clothing/neck/scp427/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This ornate locket seems to have healing properties when opened.</span>"
+	. += span_notice("This ornate locket seems to have healing properties when opened.")
 
 	if(locket_open)
-		. += "<span class='warning'>The locket is open and emanating healing energy.</span>"
+		. += span_warning("The locket is open and emanating healing energy.")
 		var/user_key = user.ckey || "\ref[user]"
 		if(user_key in time_used)
 			var/usage_time = time_used[user_key]
@@ -357,15 +357,15 @@
 
 			switch(stage)
 				if(TRANSFORMATION_STAGE_EUPHORIA)
-					. += "<span class='notice'>You have used the locket for [usage_time] seconds.</span>"
+					. += span_notice("You have used the locket for [usage_time] seconds.")
 				if(TRANSFORMATION_STAGE_DEPENDENCY)
-					. += "<span class='warning'>You feel dependent on the locket's warmth.</span>"
+					. += span_warning("You feel dependent on the locket's warmth.")
 				if(TRANSFORMATION_STAGE_MUTATION)
-					. += "<span class='danger'>Your body is beginning to change. You should stop using the locket.</span>"
+					. += span_danger("Your body is beginning to change. You should stop using the locket.")
 				if(TRANSFORMATION_STAGE_HORROR)
-					. += "<span class='userdanger'>YOUR BODY IS BEING TRANSFORMED! REMOVE THE LOCKET IMMEDIATELY!</span>"
+					. += span_userdanger("YOUR BODY IS BEING TRANSFORMED! REMOVE THE LOCKET IMMEDIATELY!")
 				if(TRANSFORMATION_STAGE_MONSTER)
-					. += "<span class='userdanger'>TRANSFORMATION IS IMMINENT!</span>"
+					. += span_userdanger("TRANSFORMATION IS IMMINENT!")
 
 /obj/item/clothing/neck/scp427/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -413,7 +413,7 @@
 /mob/living/simple_animal/hostile/scp427_1/attack_ghost(mob/user)
 	. = ..()
 	if(.)
-		to_chat(user, "<span class='danger'>This was once [transformed_from].</span>")
+		to_chat(user, span_danger("This was once [transformed_from]."))
 
 // Mutation client colour
 /datum/client_colour/scp427_mutation

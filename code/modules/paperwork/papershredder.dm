@@ -84,6 +84,7 @@
 		return new /obj/item/shreddedp(drop_location())
 
 /obj/machinery/papershredder/update_icon_state()
+	. = ..()
 	icon_state = "papershredder[clamp(round(paperamount / 2), 0, 5)]"
 
 /obj/item/shreddedp

@@ -1,4 +1,5 @@
 /mob/living/scp/scp073
+	ai_enabled = TRUE
 	name = "SCP-073"
 	desc = "A man with dark skin, wearing a business suit. Where he walks, plants wither and die. Those who harm him find the harm reflected upon themselves."
 	icon = 'icons/mob/human.dmi'
@@ -101,8 +102,8 @@
 			attacker.adjustToxLoss(reflected)
 
 	attacker.visible_message(
-		"<span class='danger'>[attacker]'s attack is reflected back upon themselves!</span>",
-		"<span class='userdanger'>Your attack is reflected back! The pain is your own!</span>"
+		span_danger("[attacker]'s attack is reflected back upon themselves!"),
+		span_userdanger("Your attack is reflected back! The pain is your own!")
 	)
 
 	playsound(src, 'sound/weapons/punch1.ogg', 50, TRUE)
@@ -134,8 +135,8 @@
 		var/mob/living/carbon/human/H = A
 		touched_by[H.ckey] = world.time
 		H.visible_message(
-			"<span class='notice'>[src] touches [H] gently.</span>",
-			"<span class='warning'>[src] touches you. A strange cold sensation washes over you, and your memories seem to blur...</span>"
+			span_notice("[src] touches [H] gently."),
+			span_warning("[src] touches you. A strange cold sensation washes over you, and your memories seem to blur...")
 		)
 		if(H.sanity)
 			H.sanity.add_trauma(TRAUMA_PSYCHOLOGICAL, 5)
@@ -147,3 +148,23 @@
 	. = ..()
 	if(ishuman(user))
 		to_chat(user, "<span class='warning'>This is SCP-073, 'Cain'. Any harm inflicted upon him is reflected back to the attacker. Plants wither in his presence.</span>")
+
+/mob/living/scp/scp073/process_ai()
+	if(stat == DEAD)
+		return
+
+	var/nearby_humans = 0
+	for(var/mob/living/carbon/human/H in view(5, src))
+		if(H != src && H.stat != DEAD)
+			nearby_humans++
+
+	if(nearby_humans > 2)
+		var/turf/away = get_step_away(src, pick(range(3, src)))
+		if(away)
+			step_towards(src, away)
+	else if(nearby_humans == 1)
+		var/mob/living/carbon/human/H = locate() in view(5, src)
+		if(H && get_dist(src, H) > 2)
+			ai_step_towards(H)
+	else if(prob(10))
+		step_rand(src)

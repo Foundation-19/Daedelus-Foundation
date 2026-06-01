@@ -226,11 +226,11 @@ SUBSYSTEM_DEF(scp_achievements)
 
 	switch(action)
 		if("view_other")
-			if(!check_rights(R_ADMIN, FALSE, usr))
+			if(!check_rights(R_ADMIN, FALSE, ui.user))
 				return
 			var/target_ckey = params["ckey"]
 			if(!target_ckey)
 				return
 			var/list/other_achievements = SSscp_achievements.get_player_achievements(target_ckey)
 			for(var/list/A in other_achievements)
-				to_chat(usr, span_notice("[A["name"]] - [A["unlocked"] ? "UNLOCKED" : "[A["progress"]]/[A["goal"]]"] ([A["category"]])"))
+				to_chat(ui.user, span_notice("[A["name"]] - [A["unlocked"] ? "UNLOCKED" : "[A["progress"]]/[A["goal"]]"] ([A["category"]])"))

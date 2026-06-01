@@ -7,22 +7,22 @@
 	icon = 'icons/obj/clothing/accessories.dmi'
 	icon_state = "vest_black"
 	w_class = 2
-	var/armor_bonus = list(melee = 10, bullet = 10, laser = 5, energy = 5, bomb = 5, bio = 0, rad = 0)
+	var/armor_bonus = list(BLUNT = 10, PUNCTURE = 10, SLASH = 0, LASER = 5, ENERGY = 5, BOMB = 5, BIO = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/accessory/armorplate/medium
 	name = "medium armor plate"
 	desc = "A medium armor plate providing balanced protection."
-	armor_bonus = list(melee = 15, bullet = 15, laser = 10, energy = 10, bomb = 10, bio = 5, rad = 5)
+	armor_bonus = list(BLUNT = 15, PUNCTURE = 15, SLASH = 0, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 5, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/accessory/armorplate/tactical
 	name = "tactical armor plate"
 	desc = "A tactical armor plate designed for combat situations."
-	armor_bonus = list(melee = 20, bullet = 20, laser = 15, energy = 15, bomb = 15, bio = 10, rad = 10)
+	armor_bonus = list(BLUNT = 20, PUNCTURE = 20, SLASH = 0, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/accessory/armorplate/tactical/mtf
 	name = "MTF tactical armor plate"
 	desc = "A specialized tactical armor plate designed for Mobile Task Force operations."
-	armor_bonus = list(melee = 25, bullet = 25, laser = 20, energy = 20, bomb = 20, bio = 15, rad = 15)
+	armor_bonus = list(BLUNT = 25, PUNCTURE = 25, SLASH = 0, LASER = 20, ENERGY = 20, BOMB = 20, BIO = 15, FIRE = 0, ACID = 0)
 
 // Storage Pouches
 /obj/item/clothing/accessory/storage/pouches
@@ -55,11 +55,11 @@
 	desc = "Protective guards for the arms."
 	icon = 'icons/obj/clothing/accessories.dmi'
 	icon_state = "vest_sheriff"
-	var/armor_bonus = list(melee = 10, bullet = 5, laser = 5, energy = 0, bomb = 0, bio = 0, rad = 0)
+	var/armor_bonus = list(BLUNT = 10, PUNCTURE = 5, SLASH = 0, LASER = 5, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/accessory/legguards
 	name = "leg guards"
 	desc = "Protective guards for the legs."
 	icon = 'icons/obj/clothing/accessories.dmi'
 	icon_state = "vest_sheriff"
-	var/armor_bonus = list(melee = 10, bullet = 5, laser = 5, energy = 0, bomb = 0, bio = 0, rad = 0)
+	var/armor_bonus = list(BLUNT = 10, PUNCTURE = 5, SLASH = 0, LASER = 5, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)

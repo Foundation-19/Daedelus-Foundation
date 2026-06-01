@@ -47,7 +47,7 @@
 	if(.)
 		return
 
-	var/mob/user = usr
+	var/mob/user = ui.user
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user

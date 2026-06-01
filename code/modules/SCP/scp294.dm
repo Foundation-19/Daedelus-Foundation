@@ -48,7 +48,12 @@ GLOBAL_LIST_EMPTY(pending_clarity_prompts)
 		"class f amnestics" = /datum/reagent/medicine/amnestics/classf,
 		"class g amnestics" = /datum/reagent/medicine/amnestics/classg,
 		"class h amnestics" = /datum/reagent/medicine/amnestics/classh,
-		"class i amnestics" = /datum/reagent/medicine/amnestics/classi
+		"class i amnestics" = /datum/reagent/medicine/amnestics/classi,
+		"foundation spring" = /datum/reagent/consumable/ethanol/foundation_spring,
+		"class cognitohazard" = /datum/reagent/consumable/ethanol/class_cognitohazard,
+		"containment breach" = /datum/reagent/consumable/ethanol/containment_breach,
+		"amnestic's kiss" = /datum/reagent/consumable/ethanol/amnestics_kiss,
+		"telekill old fashioned" = /datum/reagent/consumable/ethanol/telekill_old_fashioned
 	)
 
 	///Blacklisted reagents DO NOT USE THIS UNLESS ABSOLUTLEY NECCESARY, I DISLIKE PEOPLE IDIOT PROOFING SCPS - Dark

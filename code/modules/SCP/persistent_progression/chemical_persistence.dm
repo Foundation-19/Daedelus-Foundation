@@ -173,15 +173,15 @@ SUBSYSTEM_DEF(chemical_persistence)
 
 // Subsystem initialization
 /datum/controller/subsystem/chemical_persistence/Initialize()
-	world.log << "Chemical persistence subsystem initializing..."
+	log_game("Chemical persistence subsystem initializing...")
 	manager = new /datum/chemical_persistence_manager()
-	world.log << "Chemical persistence manager created"
+	log_game("Chemical persistence manager created")
 
 	// Load existing chemical data from game systems
-	world.log << "Loading existing chemical data..."
+	log_game("Loading existing chemical data...")
 	manager.load_existing_chemical_data()
 
-	world.log << "Chemical records count at initialization: [length(manager.chemical_records)]"
+	log_game("Chemical records count at initialization: [length(manager.chemical_records)]")
 	return ..()
 
 /datum/controller/subsystem/chemical_persistence/fire()
@@ -190,7 +190,7 @@ SUBSYSTEM_DEF(chemical_persistence)
 
 // Load existing chemical data from game systems
 /datum/chemical_persistence_manager/proc/load_existing_chemical_data()
-	world.log << "Chemical: Loading existing chemical data..."
+	log_game("Chemical: Loading existing chemical data...")
 
 	// Initialize with some basic chemical records
 	var/datum/chemical_record/record1 = new /datum/chemical_record(
@@ -215,7 +215,7 @@ SUBSYSTEM_DEF(chemical_persistence)
 	record2.danger_level = 1
 	chemical_records["CHEM_OXYGEN"] = record2
 
-	world.log << "Chemical: Loaded [length(chemical_records)] chemical records"
+	log_game("Chemical: Loaded [length(chemical_records)] chemical records")
 
 // Add chemical research project
 /datum/chemical_persistence_manager/proc/add_research_project(var/project_name, var/project_description, var/research_field, var/lead_researcher)
@@ -418,4 +418,8 @@ SUBSYSTEM_DEF(chemical_persistence)
 // Save chemical data
 /datum/chemical_persistence_manager/proc/save_chemical_data()
 	// This would save data to persistent storage
-	world.log << "Chemical: Saving chemical data to persistent storage"
+	log_game("Chemical: Saving chemical data to persistent storage")
+
+/datum/chemical_persistence_manager/proc/load_chemical_data()
+	// This would load data from persistent storage
+	log_game("Chemical: Loading chemical data from persistent storage")

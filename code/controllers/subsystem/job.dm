@@ -1058,6 +1058,10 @@ SUBSYSTEM_DEF(job)
 		JobDebug("[debug_prefix] Error: [get_job_unavailable_error_message(JOB_UNAVAILABLE_PLAYTIME)], Player: [player], MissingTime: [required_playtime_remaining][add_job_to_log ? ", Job: [possible_job]" : ""]")
 		return JOB_UNAVAILABLE_PLAYTIME
 
+	if(!check_job_rank_requirement(player, possible_job))
+		JobDebug("[debug_prefix] Error: [get_job_unavailable_error_message(JOB_UNAVAILABLE_RANK)], Player: [player][add_job_to_log ? ", Job: [possible_job]" : ""]")
+		return JOB_UNAVAILABLE_RANK
+
 	// Run the banned check last since it should be the rarest check to fail and can access the database.
 	if(is_banned_from(player.ckey, possible_job.title))
 		JobDebug("[debug_prefix] Error: [get_job_unavailable_error_message(JOB_UNAVAILABLE_BANNED)], Player: [player][add_job_to_log ? ", Job: [possible_job]" : ""]")
@@ -1069,6 +1073,38 @@ SUBSYSTEM_DEF(job)
 		return JOB_UNAVAILABLE_GENERIC
 
 	return JOB_AVAILABLE
+
+/datum/controller/subsystem/job/proc/check_job_rank_requirement(mob/dead/new_player/player, datum/job/possible_job)
+	var/job_class = get_job_class(possible_job.title)
+	if(!job_class)
+		return TRUE
+	var/required_rank = get_required_rank_for_job(job_class, possible_job.title)
+	if(required_rank <= 0)
+		return TRUE
+	if(!player?.ckey)
+		return TRUE
+	if(!istype(SSpersistent_progression))
+		return TRUE
+	var/datum/persistent_player_data/pdata = SSpersistent_progression.get_player_data(player.ckey)
+	if(!pdata)
+		return TRUE
+	if(pdata.current_class_id != job_class)
+		return TRUE
+	return pdata.current_rank >= required_rank
+
+/datum/controller/subsystem/job/proc/get_job_class(job_title)
+	var/list/class_jobs = list(
+		"administrative" = list(JOB_SITE_DIRECTOR, JOB_HUMAN_RESOURCES_DIRECTOR, JOB_ETHICS_COMMITTEE_LIAISON, JOB_COMMUNICATIONS_DIRECTOR),
+		"security" = list(JOB_GUARD_COMMANDER, JOB_EZ_ZONE_SUPERVISOR, JOB_SENIOR_EZ_GUARD, JOB_EZ_GUARD, JOB_JUNIOR_EZ_GUARD, JOB_LCZ_ZONE_JUNIOR_LIEUTENANT, JOB_SENIOR_LCZ_GUARD, JOB_LCZ_GUARD, JOB_JUNIOR_LCZ_GUARD, JOB_HCZ_ZONE_SENIOR_LIEUTENANT, JOB_SENIOR_HCZ_GUARD, JOB_HCZ_GUARD, JOB_JUNIOR_HCZ_GUARD, JOB_INVESTIGATIONS_AGENT, JOB_RAISA_AGENT),
+		"research" = list(JOB_RESEARCH_DIRECTOR, JOB_ASSISTANT_RESEARCH_DIRECTOR, JOB_SENIOR_RESEARCHER, JOB_RESEARCHER, JOB_JUNIOR_RESEARCHER),
+		"medical" = list(JOB_MEDICAL_DIRECTOR, JOB_ASSISTANT_MEDICAL_DIRECTOR, JOB_MEDICAL_DOCTOR, JOB_SURGEON, JOB_PARAMEDIC, JOB_CHEMIST, JOB_TRAINEE_DOCTOR, JOB_VIROLOGIST, JOB_PSYCHOLOGIST),
+		"engineering" = list(JOB_ENGINEERING_DIRECTOR, JOB_ASSISTANT_ENGINEERING_DIRECTOR, JOB_CONTAINMENT_ENGINEER, JOB_SENIOR_ENGINEER, JOB_ENGINEER, JOB_JUNIOR_ENGINEER, JOB_ATMOSPHERIC_TECHNICIAN, JOB_IT_TECHNICIAN, JOB_LOGISTICS_OFFICER, JOB_LOGISTICS_TECHNICIAN),
+		"intelligence" = list(JOB_INVESTIGATIONS_AGENT, JOB_RAISA_AGENT),
+	)
+	for(var/class_id in class_jobs)
+		if(job_title in class_jobs[class_id])
+			return class_id
+	return ""
 
 /datum/controller/subsystem/job/proc/validate_required_jobs(list/required_jobs)
 	if(!length(required_jobs))

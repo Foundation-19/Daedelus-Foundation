@@ -6,7 +6,7 @@ SUBSYSTEM_DEF(technology_persistence)
 
 /datum/controller/subsystem/technology_persistence/Initialize()
 	manager = new /datum/technology_persistence_manager()
-	world.log << "Technology Persistence Subsystem: Initialized"
+	log_game("Technology Persistence Subsystem: Initialized")
 	return ..()
 
 /datum/controller/subsystem/technology_persistence/fire()
@@ -261,8 +261,24 @@ SUBSYSTEM_DEF(technology_persistence)
 			unlock_time = world.time
 
 /datum/technology/proc/is_technology_unlocked(var/tech_id)
-	// Check if a technology is unlocked (simplified)
-	return TRUE // Placeholder
+	if(!tech_id)
+		return FALSE
+	var/datum/research_laboratory_manager/mgr = SSresearch_laboratory?.manager
+	if(!mgr)
+		return FALSE
+	var/datum/tech_tree/tree = mgr.tech_tree
+	if(!tree)
+		return FALSE
+	var/datum/tech_node/node = tree.nodes[tech_id]
+	if(!node)
+		for(var/nid in tree.nodes)
+			var/datum/tech_node/n = tree.nodes[nid]
+			if(n.node_id == tech_id)
+				node = n
+				break
+	if(!node)
+		return FALSE
+	return node.unlocked
 
 // Equipment Blueprint Datum
 /datum/equipment_blueprint
@@ -419,7 +435,7 @@ SUBSYSTEM_DEF(technology_persistence)
 	set category = "Technology"
 
 	if(!SStechnology_persistence || !SStechnology_persistence.manager)
-		to_chat(src, "<span class='warning'>Technology Persistence system not available.</span>")
+		to_chat(src, span_warning("Technology Persistence system not available."))
 		return
 
 	var/datum/technology_persistence_manager/manager = SStechnology_persistence.manager
@@ -446,18 +462,18 @@ SUBSYSTEM_DEF(technology_persistence)
 		var/datum/scientific_discovery/discovery = manager.scientific_discoveries[discovery_id]
 		message += "<b>[discovery.discovery_name]:</b> [discovery.discovery_type] ([discovery.innovation_value] innovation)<br>"
 
-	to_chat(src, "<span class='notice'>[message]</span>")
+	to_chat(src, span_notice("[message]"))
 
 /mob/proc/manage_technology_persistence()
 	set name = "Manage Technology Persistence"
 	set category = "Technology"
 
 	if(!check_rights(R_ADMIN))
-		to_chat(src, "<span class='warning'>You don't have permission to manage technology persistence.</span>")
+		to_chat(src, span_warning("You don't have permission to manage technology persistence."))
 		return
 
 	if(!SStechnology_persistence || !SStechnology_persistence.manager)
-		to_chat(src, "<span class='warning'>Technology Persistence system not available.</span>")
+		to_chat(src, span_warning("Technology Persistence system not available."))
 		return
 
 	var/datum/technology_persistence_manager/manager = SStechnology_persistence.manager
@@ -474,11 +490,11 @@ SUBSYSTEM_DEF(technology_persistence)
 	switch(action)
 		if("Save Technology Data")
 			manager.save_technology_data()
-			to_chat(src, "<span class='notice'>Technology data saved successfully.</span>")
+			to_chat(src, span_notice("Technology data saved successfully."))
 
 		if("Load Technology Data")
 			manager.load_technology_data()
-			to_chat(src, "<span class='notice'>Technology data loaded successfully.</span>")
+			to_chat(src, span_notice("Technology data loaded successfully."))
 
 		if("Reset Technology Data")
 			if(alert(src, "Are you sure you want to reset all technology persistence data?", "Confirm Reset", "Yes", "No") == "Yes")
@@ -489,7 +505,7 @@ SUBSYSTEM_DEF(technology_persistence)
 				manager.research_facilities = list()
 				manager.patents = list()
 				manager.technology_transfers = list()
-				to_chat(src, "<span class='notice'>Technology persistence data reset.</span>")
+				to_chat(src, span_notice("Technology persistence data reset."))
 
 		if("Add Research Project")
 			var/project_name = input(src, "Enter project name:", "Add Research Project") as text
@@ -500,7 +516,7 @@ SUBSYSTEM_DEF(technology_persistence)
 				var/project_id = "project_[world.time]"
 				var/datum/tech_research_project/new_project = new /datum/tech_research_project(project_id, project_name, project_desc, research_field)
 				manager.research_projects[project_id] = new_project
-				to_chat(src, "<span class='notice'>Research project '[project_name]' added successfully.</span>")
+				to_chat(src, span_notice("Research project '[project_name]' added successfully."))
 
 		if("Add Technology")
 			var/tech_name = input(src, "Enter technology name:", "Add Technology") as text
@@ -510,7 +526,7 @@ SUBSYSTEM_DEF(technology_persistence)
 				var/tech_id = "tech_[world.time]"
 				var/datum/technology/new_tech = new /datum/technology(tech_id, tech_name, tech_desc)
 				manager.technology_tree[tech_id] = new_tech
-				to_chat(src, "<span class='notice'>Technology '[tech_name]' added successfully.</span>")
+				to_chat(src, span_notice("Technology '[tech_name]' added successfully."))
 
 		if("View Detailed Status")
 			view_technology_persistence()

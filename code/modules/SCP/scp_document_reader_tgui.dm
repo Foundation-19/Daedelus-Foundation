@@ -62,5 +62,5 @@
 	switch(action)
 		if("sync")
 			last_sync_time = 0
-			sync_unlocked_documents(usr)
+			sync_unlocked_documents(ui.user)
 			. = TRUE

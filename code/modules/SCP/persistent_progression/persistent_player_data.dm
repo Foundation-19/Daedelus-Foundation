@@ -75,6 +75,7 @@
 	var/total_objectives = 0
 	var/total_scp_interactions = 0
 	var/total_containment_breaches = 0
+	var/total_recontainments = 0
 	var/total_research_completed = 0
 	var/total_treatments = 0
 	var/total_constructions = 0

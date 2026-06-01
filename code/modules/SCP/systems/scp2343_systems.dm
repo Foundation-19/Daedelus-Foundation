@@ -1,4 +1,4 @@
-// SCP-2343 Modular Systems (benevolent reality effects)
+// SCP-2343 Modular Systems (trickster reality effects)
 
 /datum/scp2343_benevolence_system
 	var/mob/living/scp/scp2343/owner
@@ -16,7 +16,6 @@
 		return
 	next_tick = world.time + tick_interval
 
-	// Pick a gentle beneficial effect for nearby humans
 	var/list/targets = list()
 	for(var/mob/living/carbon/human/H in view(effect_radius, owner))
 		if(H != owner && H.stat != DEAD)
@@ -25,19 +24,18 @@
 		return
 
 	var/mob/living/carbon/human/target = pick(targets)
-	var/roll = rand(1,4)
+	var/roll = rand(1, 4)
 	switch(roll)
 		if(1)
-			to_chat(target, "<span class='good'>A calming warmth soothes you.</span>")
-			// light brute relief stand-in
+			to_chat(target, span_notice("A calming warmth soothes you."))
 			target.adjustBruteLoss(-5)
 		if(2)
-			to_chat(target, "<span class='good'>A gentle light eases your mind.</span>")
+			to_chat(target, span_notice("A gentle light eases your mind."))
 			target.sanity?.adjust_sanity(1)
 		if(3)
-			to_chat(target, "<span class='good'>Ambient noise fades; you feel focused.</span>")
+			to_chat(target, span_notice("Ambient noise fades; you feel focused."))
 		if(4)
-			to_chat(target, "<span class='good'>A refreshing coolness revitalizes you.</span>")
+			to_chat(target, span_notice("A refreshing coolness revitalizes you."))
 			target.adjustToxLoss(-2)
 
 /datum/scp2343_research_system
@@ -55,7 +53,3 @@
 		return
 	last = world.time
 	owner.SCP?.award_research(null, "benevolent_reality", 6)
-
-
-
-

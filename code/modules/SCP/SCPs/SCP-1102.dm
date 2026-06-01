@@ -38,7 +38,7 @@
 		return
 
 	if(portal_cooldown > world.time)
-		to_chat(user, "<span class='warning'>The portal is still recharging...</span>")
+		to_chat(user, span_warning("The portal is still recharging..."))
 		return
 
 	if(enter_point && !QDELETED(enter_point))
@@ -52,21 +52,21 @@
 	if(dimension_system)
 		dimension_system.enter_dimension(user)
 
-	to_chat(user, "<span class='warning'>You feel a strange sensation as you open the case...</span>")
-	to_chat(user, "<span class='notice'>You find yourself climbing down a ladder that shouldn't be there.</span>")
+	to_chat(user, span_warning("You feel a strange sensation as you open the case..."))
+	to_chat(user, span_notice("You find yourself climbing down a ladder that shouldn't be there."))
 
 	playsound(src, 'sound/effects/explosion1.ogg', 50)
 	playsound(enter_point, 'sound/effects/explosion1.ogg', 50)
 
 	user.forceMove(get_turf(enter_point))
-	to_chat(user, "<span class='warning'>The case disappears behind you as you descend into an endless void.</span>")
+	to_chat(user, span_warning("The case disappears behind you as you descend into an endless void."))
 
 	portal_cooldown = world.time + portal_cooldown_time
 
 /obj/item/storage/briefcase/scp1102ru/examine(mob/user)
 	. = ..()
-	to_chat(user, "<span class='notice'>A case containing a portal to another dimension.</span>")
-	to_chat(user, "<span class='notice'>Explorations: [explorations]</span>")
+	to_chat(user, span_notice("A case containing a portal to another dimension."))
+	to_chat(user, span_notice("Explorations: [explorations]"))
 
 /obj/structure/ladder/scp1102ladder
 	name = "strange ladder"
@@ -92,11 +92,11 @@
 
 /obj/structure/ladder/scp1102ladder/use(mob/living/carbon/human/user)
 	if(!linked_case)
-		to_chat(user, "<span class='warning'>The ladder seems to lead nowhere...</span>")
+		to_chat(user, span_warning("The ladder seems to lead nowhere..."))
 		return
 
 	if(linked_case.portal_cooldown > world.time)
-		to_chat(user, "<span class='warning'>The portal is still recharging...</span>")
+		to_chat(user, span_warning("The portal is still recharging..."))
 		return
 
 	hook_scp_interaction(user, "SCP-1102-RU-1", INTERACTION_TYPE_EXPLORATION)
@@ -105,12 +105,12 @@
 	if(effect_system && prob(30))
 		effect_system.apply_dimension_effect(user)
 
-	to_chat(user, "<span class='notice'>You climb back up the ladder...</span>")
+	to_chat(user, span_notice("You climb back up the ladder..."))
 	playsound(src, 'sound/effects/explosion1.ogg', 50)
 	playsound(linked_case, 'sound/effects/explosion1.ogg', 50)
 
 	user.forceMove(get_turf(linked_case))
-	to_chat(user, "<span class='notice'>You emerge from the strange case.</span>")
+	to_chat(user, span_notice("You emerge from the strange case."))
 
 	linked_case.portal_cooldown = world.time + linked_case.portal_cooldown_time
 
@@ -124,12 +124,12 @@
 	if(depth_system)
 		depth_system.process_depth(depth_level)
 
-	to_chat(user, "<span class='warning'>You climb deeper into the void... Depth level: [depth_level]</span>")
+	to_chat(user, span_warning("You climb deeper into the void... Depth level: [depth_level]"))
 
 /obj/structure/ladder/scp1102ladder/examine(mob/user)
 	. = ..()
-	to_chat(user, "<span class='notice'>A ladder in an endless void. Current depth: [depth_level]</span>")
-	to_chat(user, "<span class='warning'>Climbing deeper may have consequences.</span>")
+	to_chat(user, span_notice("A ladder in an endless void. Current depth: [depth_level]"))
+	to_chat(user, span_warning("Climbing deeper may have consequences."))
 
 /datum/scp1102_dimension_system
 	var/obj/item/parent
@@ -148,7 +148,7 @@
 	current_depth = 1
 
 	if(dimension_stability < 50 && prob(30))
-		to_chat(explorer, "<span class='warning'>The dimension feels unstable...</span>")
+		to_chat(explorer, span_warning("The dimension feels unstable..."))
 		explorer.adjust_drowsyness(5)
 		hook_scp_combat(explorer, "SCP-1102-RU", 0, 5)
 
@@ -196,13 +196,13 @@
 
 	switch(effect)
 		if("void_whispers")
-			to_chat(subject, "<span class='warning'>You hear whispers from the void...</span>")
+			to_chat(subject, span_warning("You hear whispers from the void..."))
 			subject.adjust_drowsyness(2)
 			hook_scp_combat(subject, "SCP-1102-RU-1", 0, 2)
 		if("temporal_drift")
-			to_chat(subject, "<span class='warning'>Time seems to shift around you...</span>")
+			to_chat(subject, span_warning("Time seems to shift around you..."))
 			subject.stamina?.adjust(-20)
 		if("gravity_shift")
-			to_chat(subject, "<span class='warning'>Gravity fluctuates!</span>")
+			to_chat(subject, span_warning("Gravity fluctuates!"))
 			if(prob(50))
 				subject.Knockdown(30)

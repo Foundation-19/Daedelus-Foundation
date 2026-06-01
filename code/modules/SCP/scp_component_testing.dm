@@ -367,12 +367,18 @@
 
 		var/list/global_summary = testing_manager.get_global_summary()
 
-		to_chat(src, "<span class='notice'>=== Component Test Results ===</span>")
-		to_chat(src, "<span class='notice'>Total Tests: [global_summary["total_tests"]]</span>")
-		to_chat(src, "<span class='notice'>Passed: [global_summary["total_passed"]]</span>")
-		to_chat(src, "<span class='warning'>Failed: [global_summary["total_failed"]]</span>")
-		to_chat(src, "<span class='notice'>Skipped: [global_summary["total_skipped"]]</span>")
-		to_chat(src, "<span class='danger'>Errors: [global_summary["total_errors"]]</span>")
-		to_chat(src, "<span class='notice'>Success Rate: [round(global_summary["overall_success_rate"], 0.1)]%</span>")
+		to_chat(src, span_notice("=== Component Test Results ==="))
+		var/total_tests = global_summary["total_tests"]
+		var/total_passed = global_summary["total_passed"]
+		var/total_failed = global_summary["total_failed"]
+		var/total_skipped = global_summary["total_skipped"]
+		var/total_errors = global_summary["total_errors"]
+		var/overall_rate = global_summary["overall_success_rate"]
+		to_chat(src, span_notice("Total Tests: [total_tests]"))
+		to_chat(src, span_notice("Passed: [total_passed]"))
+		to_chat(src, span_warning("Failed: [total_failed]"))
+		to_chat(src, span_notice("Skipped: [total_skipped]"))
+		to_chat(src, span_danger("Errors: [total_errors]"))
+		to_chat(src, span_notice("Success Rate: [round(overall_rate, 0.1)]%"))
 	else
-		to_chat(src, "<span class='warning'>No SCP with advanced components found for testing.</span>")
+		to_chat(src, span_warning("No SCP with advanced components found for testing."))

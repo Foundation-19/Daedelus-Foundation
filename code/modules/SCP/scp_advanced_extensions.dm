@@ -13,14 +13,6 @@
 	/// Component configuration data
 	var/list/component_configs = list()
 
-// Extended Destroy to handle advanced components
-/datum/scp/Destroy()
-	. = ..()
-	// Clean up advanced components if they exist
-	if(advanced_components)
-		qdel(advanced_components)
-		advanced_components = null
-
 // Extended compInit to support advanced components
 /datum/scp/proc/compInit_advanced()
 	// Call original compInit first (if it exists)
@@ -156,12 +148,6 @@
 		var/list/component_status = get_component_status()
 		for(var/status_line in component_status)
 			examine_list += span_notice("[status_line]")
-
-// Extended log_interaction to trigger component events (non-overwriting)
-/datum/scp/proc/log_interaction_advanced(mob/user, interaction_type)
-	// Trigger component event if using advanced components
-	if(uses_advanced_components)
-		trigger_component_event(COMPONENT_EVENT_INTERACT, list("user" = user, "type" = interaction_type))
 
 // Extended log_breach to trigger component events (non-overwriting)
 /datum/scp/proc/log_breach_advanced()

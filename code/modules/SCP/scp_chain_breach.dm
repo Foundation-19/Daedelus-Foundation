@@ -47,8 +47,8 @@ SUBSYSTEM_DEF(scp_chain_breach)
 		if("multi_breach")
 			var/breached_count = 0
 			if(SSscp_persistence?.manager?.scp_instances)
-				for(var/scp_id in SSscp_persistence.manager.scp_instances)
-					var/datum/scp_instance/SI = SSscp_persistence.manager.scp_instances[scp_id]
+				for(var/scp_id in SSscp_persistence?.manager?.scp_instances)
+					var/datum/scp_instance/SI = SSscp_persistence?.manager?.scp_instances[scp_id]
 					if(SI && SI.containment_status == "breached")
 						breached_count++
 			return breached_count >= 2
@@ -63,8 +63,8 @@ SUBSYSTEM_DEF(scp_chain_breach)
 		if("containment_critical")
 			var/critical_count = 0
 			if(SSscp_persistence?.manager?.scp_instances)
-				for(var/scp_id in SSscp_persistence.manager.scp_instances)
-					var/datum/scp_instance/SI = SSscp_persistence.manager.scp_instances[scp_id]
+				for(var/scp_id in SSscp_persistence?.manager?.scp_instances)
+					var/datum/scp_instance/SI = SSscp_persistence?.manager?.scp_instances[scp_id]
 					if(SI && SI.containment_status == "breached")
 						critical_count++
 			return critical_count >= 1
@@ -101,8 +101,8 @@ SUBSYSTEM_DEF(scp_chain_breach)
 	switch(effect)
 		if("cascade_containment_failure")
 			if(SSscp_persistence?.manager?.scp_instances)
-				for(var/scp_id in SSscp_persistence.manager.scp_instances)
-					var/datum/scp_instance/SI = SSscp_persistence.manager.scp_instances[scp_id]
+				for(var/scp_id in SSscp_persistence?.manager?.scp_instances)
+					var/datum/scp_instance/SI = SSscp_persistence?.manager?.scp_instances[scp_id]
 					if(SI && SI.containment_health > 0)
 						SI.containment_health = max(0, SI.containment_health - 15)
 			priority_announce("CASCADE CONTAINMENT FAILURE DETECTED. ALL SCP CONTAINMENT SYSTEMS COMPROMISED.", "CRITICAL ALERT", null, 'sound/misc/notice1.ogg')
@@ -142,7 +142,7 @@ SUBSYSTEM_DEF(scp_chain_breach)
 				if(QDELETED(S))
 					continue
 				if(SSscp_persistence?.manager?.scp_instances?["SCP-106"])
-					var/datum/scp_instance/SI = SSscp_persistence.manager.scp_instances["SCP-106"]
+					var/datum/scp_instance/SI = SSscp_persistence?.manager?.scp_instances["SCP-106"]
 					SI.containment_health = max(0, SI.containment_health - 25)
 		if("tension_spike")
 			if(SSfoundation_politics?.manager)

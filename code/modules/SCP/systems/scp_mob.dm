@@ -5,6 +5,9 @@
 	status_flags = 0
 	hud_possible = list()
 	hud_type = /datum/hud
+	var/scp_designation = ""
+	var/scp_class = ""
+	var/scp_name = ""
 	var/obj_damage = 50
 	melee_damage_lower = 15
 	melee_damage_upper = 25
@@ -50,11 +53,23 @@
 	var/containment_breach_attempts = 0
 	var/last_containment_check = 0
 	var/containment_check_interval = 30 SECONDS
+	var/containment_tension = 0
+	var/corrosion_resource = 0
+	var/hack_progress = 0
 	var/list/containment_abilities = list()
 	var/list/active_containment_effects = list()
 	var/breached = FALSE
 	var/containment_procedures = "Standard containment procedures."
 	var/recontainment_procedures = "Standard recontainment protocol."
+
+	var/ai_enabled = FALSE
+	var/ai_active = FALSE
+	var/ai_tick_interval = 20
+	var/last_ai_tick = 0
+	var/ai_target
+	var/ai_state = "idle"
+	var/ai_wander_range = 10
+	var/turf/ai_home_turf
 
 	var/list/skill_cooldowns = list()
 	var/list/skill_levels = list()
@@ -83,6 +98,7 @@
 	if(SSscp_persistence && SSscp_persistence.manager)
 		SSscp_persistence.manager.scp_instances[persistence_id] = new /datum/scp_instance(persistence_id, src)
 
+	setup_containment_system()
 	setup_modular_features()
 
 /datum/movespeed_modifier/scp_base
@@ -109,7 +125,7 @@
 	feature_configs = null
 
 	if(SSscp_persistence && SSscp_persistence.manager)
-		SSscp_persistence.manager.scp_instances -= persistence_id
+		SSscp_persistence?.manager?.scp_instances -= persistence_id
 
 	return ..()
 
@@ -143,10 +159,19 @@
 
 /mob/living/scp/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
+	if(QDELETED(src))
+		return
 	process_scp_effects()
 	update_persistence()
 	check_containment()
 	process_modular_features()
+	if(ai_enabled && !key && world.time >= last_ai_tick + ai_tick_interval)
+		last_ai_tick = world.time
+		process_ai()
+	if(containment_status == "contained" && stat != DEAD)
+		containment_tension = min(100, containment_tension + 0.05)
+		if(prob(5))
+			containment_tension = min(100, containment_tension + 1)
 
 /mob/living/scp/proc/process_scp_effects()
 	for(var/effect in active_effects)
@@ -163,6 +188,8 @@
 
 /mob/living/scp/proc/update_persistence()
 	if(world.time < last_persistence_save + persistence_save_interval)
+		return
+	if(!persistence_data)
 		return
 	last_persistence_save = world.time
 	persistence_data["health"] = scp_health
@@ -196,7 +223,7 @@
 	last_breach_time = world.time
 	to_chat(src, span_danger("You have breached containment!"))
 	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[persistence_id]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[persistence_id]
 		if(instance)
 			instance.containment_status = "breached"
 			instance.add_breach_record()
@@ -207,7 +234,7 @@
 	containment_status = "contained"
 	to_chat(src, span_notice("You have returned to containment."))
 	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[persistence_id]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[persistence_id]
 		if(instance)
 			instance.containment_status = "contained"
 
@@ -248,7 +275,18 @@
 	var/integrity_modifier = (100 - containment_integrity) / 10
 	var/level_modifier = (5 - containment_level) * 5
 	var/resistance_modifier = containment_resistance / 10
-	return min(95, max(5, base_chance + integrity_modifier + level_modifier + resistance_modifier))
+	var/effectiveness_modifier = 0
+	if(SSscp_persistence?.manager?.scp_instances?[persistence_id])
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[persistence_id]
+		effectiveness_modifier = -((instance.containment_effectiveness - 1.0) * 50)
+	var/power_modifier = 0
+	var/area/A = get_area(src)
+	if(A && !A.powered(AREA_USAGE_ENVIRON))
+		power_modifier = 15
+	var/cascade_modifier = 0
+	if(SSscp_persistence?.manager)
+		cascade_modifier = SSscp_persistence?.manager?.active_breaches * 5
+	return min(95, max(5, base_chance + integrity_modifier + level_modifier + resistance_modifier + effectiveness_modifier + power_modifier + cascade_modifier))
 
 /mob/living/scp/proc/enhance_containment_resistance(amount = 10)
 	containment_resistance = min(max_containment_resistance, containment_resistance + amount)
@@ -331,7 +369,7 @@
 	var/record = "[time2text(world.time, "YYYY-MM-DD hh:mm:ss")]: [interaction_type] with [target ? "[target]" : "unknown"]"
 	interaction_history += record
 	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[persistence_id]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[persistence_id]
 		if(instance)
 			instance.add_interaction_record(target, interaction_type)
 
@@ -366,9 +404,14 @@
 /mob/living/scp/proc/scp_death()
 	visible_message(span_danger("[src] is neutralized!"))
 	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[persistence_id]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[persistence_id]
 		if(instance)
 			instance.containment_status = "neutralized"
+	hook_scp_recontainment(persistence_id, list())
+
+/mob/living/scp/death(gibbed)
+	hook_scp_recontainment(persistence_id, list())
+	return ..()
 
 /mob/living/scp/get_status_tab_items()
 	. = ..()
@@ -498,3 +541,134 @@
 
 /mob/living/scp/proc/process_skill_effect(skill_name)
 	return
+
+/mob/living/scp/proc/process_ai()
+	if(stat == DEAD)
+		return
+	if(containment_status != "breached")
+		return
+	if(!ai_home_turf)
+		ai_home_turf = get_turf(src)
+	if(ai_state == "idle")
+		ai_idle()
+	else if(ai_state == "pursuing")
+		ai_pursue()
+	else if(ai_state == "wandering")
+		ai_wander()
+
+/mob/living/scp/proc/ai_idle()
+	ai_target = find_ai_target()
+	if(ai_target)
+		ai_state = "pursuing"
+		return
+	if(prob(30))
+		ai_state = "wandering"
+
+/mob/living/scp/proc/find_ai_target()
+	var/closest_dist = INFINITY
+	var/closest_mob
+	for(var/mob/living/carbon/human/H in view(7, src))
+		if(H.stat == DEAD)
+			continue
+		if(H == src)
+			continue
+		var/dist = get_dist(src, H)
+		if(dist < closest_dist)
+			closest_dist = dist
+			closest_mob = H
+	return closest_mob
+
+/mob/living/scp/proc/ai_pursue()
+	if(!ai_target || get_dist(src, ai_target) > 14)
+		ai_target = null
+		ai_state = "idle"
+		return
+	if(isliving(ai_target))
+		var/mob/living/L = ai_target
+		if(L.stat == DEAD)
+			ai_target = null
+			ai_state = "idle"
+			return
+	if(!step_to(src, get_step_towards(src, ai_target)))
+		if(!step_rand(src))
+			ai_state = "idle"
+	if(ai_target in view(1, src))
+		ai_attack_target(ai_target)
+
+/mob/living/scp/proc/ai_attack_target(target)
+	if(isliving(target))
+		var/mob/living/L = target
+		L.attack_animal(src)
+		if(prob(25))
+			evolve_from_interaction()
+
+/mob/living/scp/proc/ai_wander()
+	if(ai_home_turf && get_dist(src, ai_home_turf) > ai_wander_range)
+		step_to(src, get_step_towards(src, ai_home_turf))
+	else
+		step_rand(src)
+	if(prob(40))
+		ai_state = "idle"
+	ai_target = find_ai_target()
+	if(ai_target)
+		ai_state = "pursuing"
+
+/mob/living/scp/proc/ai_open_door()
+	var/obj/machinery/door/D = locate() in range(1, src)
+	if(D && D.density)
+		D.open(TRUE)
+		return TRUE
+	return FALSE
+
+/mob/living/scp/proc/ai_step_towards(atom/target, max_dist = 14)
+	if(!target || get_dist(src, target) > max_dist)
+		return FALSE
+	var/turf/next_step = get_step_towards(src, target)
+	if(!next_step)
+		return FALSE
+	var/blocked = FALSE
+	for(var/obj/O in next_step)
+		if(O.density)
+			if(istype(O, /obj/machinery/door))
+				var/obj/machinery/door/D = O
+				if(D.density)
+					D.open(TRUE)
+					return TRUE
+			else
+				blocked = TRUE
+	if(next_step.density)
+		blocked = TRUE
+	if(blocked)
+		if(ai_open_door())
+			return TRUE
+		var/turf/alt = get_step_rand(src)
+		if(alt && !alt.density)
+			Move(alt)
+		return FALSE
+	return step_to(src, target)
+
+/mob/living/scp/proc/ai_has_los(atom/target)
+	if(!target)
+		return FALSE
+	var/turf/T = get_turf(src)
+	var/turf/U = get_turf(target)
+	if(!T || !U || T.z != U.z)
+		return FALSE
+	var/distance = get_dist(T, U)
+	if(distance > 14)
+		return FALSE
+	var/turf/current = T
+	for(var/i = 1 to distance)
+		current = get_step_towards(current, U)
+		if(current.density)
+			return FALSE
+		for(var/obj/O in current)
+			if(O.density && !istype(O, /obj/machinery/door))
+				return FALSE
+	return TRUE
+
+/mob/living/scp/proc/ai_try_attack(atom/target)
+	if(!target || get_dist(src, target) > 1)
+		return FALSE
+	UnarmedAttack(target)
+	return TRUE

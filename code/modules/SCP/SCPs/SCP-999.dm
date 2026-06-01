@@ -1,4 +1,5 @@
 /mob/living/scp/scp999
+	ai_enabled = TRUE
 	name = "SCP-999"
 	desc = "A large, amorphous, gelatinous mass of translucent orange slime. It appears to be friendly and seeks physical contact."
 	icon = 'icons/scp/scp-999.dmi'
@@ -21,6 +22,8 @@
 	var/healing_sessions = 0
 	var/mood_improvements = 0
 	var/comfort_provided = 0
+	var/candy_consumed = 0
+	var/candy_happiness_bonus = 0
 
 	var/tickle_cooldown = 0
 	var/tickle_cooldown_time = 8 SECONDS
@@ -51,6 +54,10 @@
 
 	max_scp_armor = 25
 	scp_armor = max_scp_armor
+
+	add_verb(src, list(
+		/mob/living/scp/scp999/proc/verb_comfort_zone,
+	))
 
 /mob/living/scp/scp999/Destroy()
 	healed_targets = list()
@@ -92,11 +99,6 @@
 	. = ..()
 
 	provide_comfort()
-
-	if(!client)
-		var/mob/living/carbon/human/target = find_target()
-		if(target)
-			approach_target(target)
 
 	if(prob(8))
 		auto_babble()
@@ -143,7 +145,7 @@
 				mood_improved_targets.Cut(1, 51)
 			mood_improvements++
 			comfort_provided++
-			to_chat(H, "<span class='notice'>You feel a sense of calm and happiness from [src]'s presence.</span>")
+			to_chat(H, span_notice("You feel a sense of calm and happiness from [src]'s presence."))
 
 /mob/living/scp/scp999/proc/find_target()
 	var/mob/living/carbon/human/closest = null
@@ -177,7 +179,7 @@
 	healing_cooldown = world.time + healing_cooldown_time
 	var/heal_amount = healing_power
 
-	visible_message("<span class='notice'>[src] gently nuzzles [target], enveloping them in warm slime!</span>")
+	visible_message(span_notice("[src] gently nuzzles [target], enveloping them in warm slime!"))
 	playsound(src, pick(happy_sounds), 30, TRUE)
 
 	target.adjustBruteLoss(-heal_amount)
@@ -193,7 +195,7 @@
 			healed_targets.Cut(1, 51)
 		healing_sessions++
 
-	to_chat(target, "<span class='notice'>You feel completely healed and rejuvenated! A warm euphoria spreads through you.</span>")
+	to_chat(target, span_notice("You feel completely healed and rejuvenated! A warm euphoria spreads through you."))
 
 	if(target && target.ckey)
 		hook_scp_care(target, "SCP-999", "healing")
@@ -227,15 +229,15 @@
 	if(!scp096)
 		return
 
-	visible_message("<span class='notice'>[src] warbles soothingly at [scp096]. The air grows heavy with comfort.</span>")
+	visible_message(span_notice("[src] warbles soothingly at [scp096]. The air grows heavy with comfort."))
 	playsound(src, pick(happy_sounds), 40, TRUE)
 
 	if(scp096.state == "screaming")
 		scp096.docile_grace_until = world.time + 15 SECONDS
-		to_chat(scp096, "<span class='notice'>A wave of calm washes over you. The rage struggles against the warmth...</span>")
+		to_chat(scp096, span_notice("A wave of calm washes over you. The rage struggles against the warmth..."))
 	else if(scp096.state == "docile")
 		scp096.docile_grace_until = world.time + 30 SECONDS
-		to_chat(scp096, "<span class='notice'>The warm presence soothes you. You feel less inclined to react.</span>")
+		to_chat(scp096, span_notice("The warm presence soothes you. You feel less inclined to react."))
 
 	for(var/mob/living/carbon/human/H in range(5, src))
 		award_research_points("999", "calm_scp", 20, H.ckey)
@@ -244,12 +246,12 @@
 	if(!scp106)
 		return
 
-	visible_message("<span class='notice'>[src] blorbles at [scp106]. The corrosive entity seems to slow slightly.</span>")
+	visible_message(span_notice("[src] blorbles at [scp106]. The corrosive entity seems to slow slightly."))
 
 	if(scp106.corrosion_active)
 		scp106.corrosion_active = FALSE
 		addtimer(CALLBACK(scp106, /mob/living/scp/scp106/proc/toggle_corrosion, TRUE), 20 SECONDS)
-		to_chat(scp106, "<span class='notice'>An unusual warmth permeates you. The hunger fades, briefly.</span>")
+		to_chat(scp106, span_notice("An unusual warmth permeates you. The hunger fades, briefly."))
 
 	for(var/mob/living/carbon/human/H in range(5, src))
 		award_research_points("999", "calm_scp", 15, H.ckey)
@@ -262,10 +264,10 @@
 
 	tickle_cooldown = world.time + tickle_cooldown_time
 
-	visible_message("<span class='notice'>[src] wraps around [target] and tickles them enthusiastically!</span>")
+	visible_message(span_notice("[src] wraps around [target] and tickles them enthusiastically!"))
 	playsound(src, pick(tickle_sounds), 40, TRUE)
 
-	to_chat(target, "<span class='notice'>[src] tickles you! You can't help but laugh uncontrollably!</span>")
+	to_chat(target, span_notice("[src] tickles you! You can't help but laugh uncontrollably!"))
 
 	if(target.reagents)
 		target.reagents.add_reagent(/datum/reagent/medicine/anomalous_happiness, 8)
@@ -289,25 +291,80 @@
 			tickle_target(H)
 		return
 
+	if(istype(A, /obj/item/food/candy))
+		ConsumeCandy(A)
+		return
+
+	if(istype(A, /obj/item/food))
+		var/obj/item/food/F = A
+		if(F.foodtypes & SUGAR)
+			ConsumeCandy(A, is_candy = FALSE)
+			return
+
 	return ..()
+
+/mob/living/scp/scp999/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/food/candy))
+		user.visible_message(span_notice("[user] offers [I] to [src]!"))
+		ConsumeCandy(I)
+		return TRUE
+
+	if(istype(I, /obj/item/food))
+		var/obj/item/food/F = I
+		if(F.foodtypes & SUGAR)
+			user.visible_message(span_notice("[user] feeds [I] to [src]!"))
+			ConsumeCandy(I, is_candy = FALSE)
+			return TRUE
+
+	return ..()
+
+/mob/living/scp/scp999/proc/ConsumeCandy(obj/item/food/candy, is_candy = TRUE)
+	if(!candy || QDELETED(candy))
+		return
+
+	var/joy_bonus = is_candy ? 20 : 10
+	var/heal_bonus = is_candy ? 15 : 8
+	var/happiness_gain = is_candy ? 15 : 7
+
+	var/candy_name = candy.name
+	qdel(candy)
+
+	candy_consumed++
+	candy_happiness_bonus = min(50, candy_happiness_bonus + joy_bonus)
+	happiness_level = min(max_happiness, happiness_level + happiness_gain)
+	adjustBruteLoss(-heal_bonus, forced = TRUE)
+
+	if(is_candy)
+		visible_message(span_notice("[src] vibrates with pure joy after eating [candy_name]! Glorp!"))
+		playsound(src, pick(happy_sounds), 50, TRUE)
+		say(generate_glubby_speech())
+		to_chat(src, span_notice("The [candy_name] was delicious! Happiness: [happiness_level]/[max_happiness]"))
+	else
+		visible_message(span_notice("[src] happily absorbs [candy_name]!"))
+		playsound(src, pick(happy_sounds), 30, TRUE)
+
+	addtimer(CALLBACK(src, .proc/candy_happiness_decay), 60 SECONDS)
+
+/mob/living/scp/scp999/proc/candy_happiness_decay()
+	candy_happiness_bonus = max(0, candy_happiness_bonus - 5)
 
 /mob/living/scp/scp999/attack_hand(mob/living/carbon/human/user)
 	if(user.combat_mode)
 		return ..()
 
 	if(world.time < tickle_cooldown)
-		to_chat(user, "<span class='notice'>[src] burbles happily at your touch!</span>")
+		to_chat(user, span_notice("[src] burbles happily at your touch!"))
 		if(user.reagents)
 			user.reagents.add_reagent(/datum/reagent/medicine/anomalous_happiness, 2)
 		return ..()
 
-	visible_message("<span class='notice'>[user] pets [src]! It warbles with delight!</span>")
+	visible_message(span_notice("[user] pets [src]! It warbles with delight!"))
 	playsound(src, pick(happy_sounds), 30, TRUE)
 
 	if(user.reagents)
 		user.reagents.add_reagent(/datum/reagent/medicine/anomalous_happiness, 3)
 
-	to_chat(user, "<span class='notice'>Touching [src] fills you with warm euphoria!</span>")
+	to_chat(user, span_notice("Touching [src] fills you with warm euphoria!"))
 
 	if(user.ckey)
 		hook_scp_interaction(user, "SCP-999", INTERACTION_TYPE_CARE, list("type" = "pet"))
@@ -318,14 +375,14 @@
 	if(healing_sessions > 0 || comfort_provided > 0)
 		happiness_level = min(max_happiness, happiness_level + 1)
 
-	healing_power = 25 + (happiness_level / 4)
+	healing_power = 25 + (happiness_level / 4) + candy_happiness_bonus
 
 /mob/living/scp/scp999/proc/heal_nearby_ability()
 	if(world.time < healing_cooldown)
 		return
 
 	var/heal_amount = healing_power / 2
-	to_chat(src, "<span class='notice'>You release a burst of healing energy. Healed: [length(healed_targets)]</span>")
+	to_chat(src, span_notice("You release a burst of healing energy. Healed: [length(healed_targets)]"))
 
 	for(var/mob/living/carbon/human/H in range(comfort_radius, src))
 		if(H != src && !H.SCP)
@@ -337,16 +394,16 @@
 			if(!(H.ckey in healed_targets))
 				healed_targets += H.ckey
 				healing_sessions++
-			to_chat(H, "<span class='notice'>You feel a wave of healing energy from [src]!</span>")
+			to_chat(H, span_notice("You feel a wave of healing energy from [src]!"))
 
 	healing_cooldown = world.time + healing_cooldown_time
 
 /mob/living/scp/scp999/proc/comfort_zone_ability()
-	to_chat(src, "<span class='notice'>You create a comfort zone. Comfort provided: [comfort_provided]</span>")
+	to_chat(src, span_notice("You create a comfort zone. Comfort provided: [comfort_provided]"))
 
 	for(var/mob/living/carbon/human/H in range(comfort_radius, src))
 		if(H != src && !H.SCP)
-			to_chat(H, "<span class='notice'>You feel overwhelming comfort and peace...</span>")
+			to_chat(H, span_notice("You feel overwhelming comfort and peace..."))
 			H.adjustBruteLoss(-(healing_power / 2))
 			H.adjustFireLoss(-(healing_power / 2))
 			H.adjustToxLoss(-(healing_power / 2))
@@ -362,14 +419,42 @@
 	message += "<b>Healed Targets:</b> [length(healed_targets)]<br>"
 	message += "<b>Mood Improvements:</b> [length(mood_improved_targets)]<br>"
 
-	to_chat(src, "<span class='notice'>[message]</span>")
+	to_chat(src, span_notice("[message]"))
 
 /mob/living/scp/scp999/get_status_tab_items()
 	. = ..()
 	. += "Healing Power: [healing_power]"
 	. += "Happiness Level: [happiness_level]/[max_happiness]"
+	. += "Candy Bonus: [candy_happiness_bonus]"
+	. += "Candy Consumed: [candy_consumed]"
 	. += "Comfort Radius: [comfort_radius]"
 	. += "Healed Targets: [length(healed_targets)]"
+	. += "Healing Sessions: [healing_sessions]"
+	. += "Mood Improved: [mood_improvements]"
+
+/mob/living/scp/scp999/proc/verb_comfort_zone()
+	set name = "Comfort Zone"
+	set category = "SCP-999"
+	comfort_zone_ability()
+
+/mob/living/scp/scp999/verb/verb_eat_candy()
+	set name = "Eat Candy"
+	set category = "SCP-999"
+	set desc = "Eat nearby candy or sweet food to boost your happiness!"
+	var/list/treats = list()
+	for(var/obj/item/food/candy/C in range(1, src))
+		treats += C
+	for(var/obj/item/food/F in range(1, src))
+		if(F.foodtypes & SUGAR)
+			treats += F
+	if(!length(treats))
+		to_chat(src, span_warning("No candy or sweets nearby!"))
+		return
+	var/obj/item/food/chosen = input(src, "Choose a treat to eat:", "Eat Candy") as null|anything in treats
+	if(!chosen || QDELETED(chosen))
+		return
+	var/is_candy = istype(chosen, /obj/item/food/candy)
+	ConsumeCandy(chosen, is_candy)
 
 /mob/living/scp/scp999/examine(mob/user)
 	. = ..()
@@ -377,12 +462,12 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.SCP)
-			to_chat(user, "<span class='warning'>This is SCP-999, a friendly gelatinous entity that heals and improves mood.</span>")
+			to_chat(user, span_warning("This is SCP-999, a friendly gelatinous entity that heals and improves mood."))
 		else
-			to_chat(user, "<span class='notice'>A friendly orange slime that seems to radiate happiness and healing energy. Just being near it makes you feel lighter.</span>")
+			to_chat(user, span_notice("A friendly orange slime that seems to radiate happiness and healing energy. Just being near it makes you feel lighter."))
 
 /mob/living/scp/scp999/scp_death()
-	visible_message("<span class='danger'>[src] appears to lose its vibrant color and stops moving!</span>")
+	visible_message(span_danger("[src] appears to lose its vibrant color and stops moving!"))
 	playsound(src, 'sound/machines/chime.ogg', 50, TRUE)
 	..()
 
@@ -397,7 +482,7 @@
 
 /mob/living/scp/scp999/proc/view_scp999_persistence_data()
 	if(!check_rights(R_ADMIN))
-		to_chat(src, "<span class='warning'>You don't have permission to view persistence data.</span>")
+		to_chat(src, span_warning("You don't have permission to view persistence data."))
 		return
 
 	var/message = "<h2>SCP-999 Persistence Data</h2>"
@@ -413,11 +498,11 @@
 	message += "<b>Health:</b> [health]/[maxHealth]<br>"
 
 	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[persistence_id]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[persistence_id]
 		if(instance)
 			message += "<b>Interaction History:</b> [length(instance.interaction_history)] records<br>"
 
-	to_chat(src, "<span class='notice'>[message]</span>")
+	to_chat(src, span_notice("[message]"))
 
 /datum/reagent/medicine/anomalous_happiness
 	name = "Anomalous Happiness"
@@ -442,18 +527,63 @@
 			"You can't help but smile.",
 			"The world feels a little kinder."
 		)
-		to_chat(C, "<span class='notice'>[pick(messages)]</span>")
+		to_chat(C, span_notice("[pick(messages)]"))
 
 /datum/reagent/medicine/anomalous_happiness/on_mob_metabolize(mob/living/carbon/C, class)
 	. = ..()
-	to_chat(C, "<span class='notice'>A wave of euphoria washes over you!</span>")
+	to_chat(C, span_notice("A wave of euphoria washes over you!"))
 
 /datum/reagent/medicine/anomalous_happiness/on_mob_end_metabolize(mob/living/carbon/C, class)
 	. = ..()
-	to_chat(C, "<span class='warning'>The warm happiness fades, leaving a gentle afterglow.</span>")
+	to_chat(C, span_warning("The warm happiness fades, leaving a gentle afterglow."))
 
 /datum/reagent/medicine/anomalous_happiness/overdose_process(mob/living/carbon/C, removed)
 	if(prob(25))
-		to_chat(C, "<span class='warning'>The happiness is almost overwhelming... your thoughts feel hazy.</span>")
+		to_chat(C, span_warning("The happiness is almost overwhelming... your thoughts feel hazy."))
 		C.adjust_confusion(2 SECONDS)
 	C.adjust_drowsyness(1 SECONDS)
+
+/mob/living/scp/scp999/process_ai()
+	if(stat == DEAD)
+		return
+	if(containment_status == "breached" && prob(15))
+		calm_enraged_096()
+
+	var/obj/item/food/candy/nearby_candy = locate() in range(3, src)
+	if(nearby_candy)
+		if(get_dist(src, nearby_candy) <= 1)
+			ConsumeCandy(nearby_candy)
+		else
+			step_to(src, nearby_candy)
+		return
+
+	var/obj/item/food/sweet = null
+	for(var/obj/item/food/F in range(3, src))
+		if(F.foodtypes & SUGAR)
+			sweet = F
+			break
+	if(sweet)
+		if(get_dist(src, sweet) <= 1)
+			ConsumeCandy(sweet, is_candy = FALSE)
+		else
+			step_to(src, sweet)
+		return
+
+	var/mob/living/carbon/human/closest_hurt
+	var/closest_dist = INFINITY
+	for(var/mob/living/carbon/human/H in view(7, src))
+		if(H.stat == DEAD)
+			continue
+		if(H.health >= H.maxHealth * 0.9)
+			continue
+		var/dist = get_dist(src, H)
+		if(dist < closest_dist)
+			closest_dist = dist
+			closest_hurt = H
+	if(closest_hurt)
+		if(get_dist(src, closest_hurt) > 1)
+			step_to(src, get_step_towards(src, closest_hurt))
+		else
+			heal_target(closest_hurt)
+	else if(prob(30))
+		step_rand(src)

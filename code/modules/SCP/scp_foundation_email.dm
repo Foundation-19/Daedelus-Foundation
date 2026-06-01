@@ -35,7 +35,7 @@
 	data["max_messages"] = max_messages
 	return data
 
-/obj/machinery/foundation_email_terminal/ui_act(action, params)
+/obj/machinery/foundation_email_terminal/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
@@ -46,13 +46,13 @@
 			var/subject = params["subject"] || "No Subject"
 			var/body = params["body"] || ""
 
-			if(!usr)
+			if(!ui.user)
 				return
 
-			var/sender_name = usr?.real_name || "Unknown"
+			var/sender_name = ui.user?.real_name || "Unknown"
 			var/sender_job = "Unknown"
-			if(ishuman(usr))
-				var/mob/living/carbon/human/H = usr
+			if(ishuman(ui.user))
+				var/mob/living/carbon/human/H = ui.user
 				sender_job = H.job || "Unknown"
 
 			var/message = list(
@@ -81,7 +81,7 @@
 			inbox += list(message)
 
 			if(GLOB.scp_admin_log)
-				GLOB.scp_admin_log.log_event("email", "N/A", usr?.ckey || "N/A", recipient, "[subject]: [body]", 1)
+				GLOB.scp_admin_log.log_event("email", "N/A", ui.user?.ckey || "N/A", recipient, "[subject]: [body]", 1)
 
 			visible_message(span_notice("[src] sends the message."))
 			playsound(loc, 'sound/machines/terminal_processing.ogg', 30, TRUE)

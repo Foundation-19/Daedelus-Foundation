@@ -65,7 +65,7 @@
 
 /mob/living/simple_animal/hostile/scp280/examine(mob/user)
 	. = ..()
-	to_chat(user, "<span class='warning'>A shadowy entity that moves through darkness. Its eyes gleam malevolently.</span>")
+	to_chat(user, span_warning("A shadowy entity that moves through darkness. Its eyes gleam malevolently."))
 
 /mob/living/simple_animal/hostile/scp280/proc/on_light_exposure()
 	if(shadow_system)
@@ -105,9 +105,9 @@
 
 	if(length(dark_turfs) > 0)
 		var/turf/target = pick(dark_turfs)
-		parent.visible_message("<span class='warning'>[parent] dissolves into shadows!</span>")
+		parent.visible_message(span_warning("[parent] dissolves into shadows!"))
 		parent.forceMove(target)
-		parent.visible_message("<span class='warning'>[parent] emerges from the darkness!</span>")
+		parent.visible_message(span_warning("[parent] emerges from the darkness!"))
 		teleport_cooldown = world.time + teleport_delay
 		hook_scp_interaction(parent, "SCP-280", INTERACTION_TYPE_CONTAINMENT)
 

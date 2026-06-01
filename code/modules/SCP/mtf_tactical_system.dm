@@ -57,7 +57,7 @@
 /datum/mtf_squad/proc/notify_squad(message)
 	for(var/mob/living/carbon/human/H as anything in squad_members)
 		if(H && H.client)
-			to_chat(H, "<span class='notice'>[squad_name] COMMS: [message]</span>")
+			to_chat(H, span_notice("[squad_name] COMMS: [message]"))
 
 /datum/mtf_squad/proc/update_formation_positions()
 	if(!squad_leader || !isturf(get_turf(squad_leader)))
@@ -315,12 +315,12 @@ GLOBAL_LIST_EMPTY(mtf_squads)
 	. = ..()
 	if(.)
 		return
-	if(!ishuman(usr))
+	if(!ishuman(ui.user))
 		return
-	var/mob/living/carbon/human/H = usr
+	var/mob/living/carbon/human/H = ui.user
 	var/obj/item/card/id/id_card = H.get_idcard(TRUE)
 	if(!id_card || !(ACCESS_SECURITY in id_card.access))
-		to_chat(H, "<span class='warning'>Requires Security access.</span>")
+		to_chat(H, span_warning("Requires Security access."))
 		return
 	switch(action)
 		if("set_formation")

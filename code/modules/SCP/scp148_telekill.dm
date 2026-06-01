@@ -64,12 +64,6 @@
 		H.remove_status_effect(/datum/status_effect/memetic_shield)
 	return ..()
 
-/obj/item/clothing/suit/armor/vest/scp/telekill/Destroy()
-	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		H.remove_status_effect(/datum/status_effect/memetic_shield)
-	return ..()
-
 /obj/item/storage/box/telekill_kit
 	name = "Telekill anti-memetic kit"
 	desc = "A sealed Foundation kit containing Telekill alloy equipment for memetic hazard response."

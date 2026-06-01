@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Window } from '../layouts';
+import { NtosWindow } from '../layouts';
 
 type CountermeasureStage = {
   completed: boolean;
@@ -78,13 +78,12 @@ export const SCP079Recontainment = (_props: unknown) => {
   const statusColor = completed ? C.green : hack_active ? C.amber : C.textDim;
 
   return (
-    <Window
-      theme="scp_terminal"
+    <NtosWindow
       title="SCP FOUNDATION — SCP-079 RECONTAINMENT"
       width={600}
       height={500}
     >
-      <Window.Content scrollable>
+      <NtosWindow.Content scrollable>
         <div
           style={{
             background: C.bg,
@@ -474,7 +473,7 @@ export const SCP079Recontainment = (_props: unknown) => {
             </div>
           )}
         </div>
-      </Window.Content>
-    </Window>
+      </NtosWindow.Content>
+    </NtosWindow>
   );
 };

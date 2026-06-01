@@ -16,12 +16,23 @@ export class Dropdown extends Component {
     this.state = {
       selected: props.selected,
       open: false,
+      prevSelected: props.selected,
     };
     this.handleClick = () => {
       if (this.state.open) {
         this.setOpen(false);
       }
     };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.selected !== state.prevSelected) {
+      return {
+        selected: props.selected,
+        prevSelected: props.selected,
+      };
+    }
+    return null;
   }
 
   componentWillUnmount() {

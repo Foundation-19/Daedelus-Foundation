@@ -80,8 +80,8 @@
 	melee_damage_lower = min(melee_damage_lower + enrage_potency, max_damage)
 	melee_damage_upper = min(melee_damage_upper + enrage_potency, max_damage)
 
-	to_chat(src, "<span class='danger'>You become enraged!</span>")
-	visible_message("<span class='danger'>[src]'s plastic body creaks as it becomes aggressive!</span>")
+	to_chat(src, span_danger("You become enraged!"))
+	visible_message(span_danger("[src]'s plastic body creaks as it becomes aggressive!"))
 	playsound(src, 'sound/effects/explosion1.ogg', 50)
 
 	hook_scp_breach("SCP-1507", src)
@@ -102,8 +102,9 @@
 		attacks_made++
 
 /mob/living/simple_animal/hostile/retaliate/scp1507/death(gibbed, cause_of_death = "Unknown")
-	visible_message("<span class='danger'>[src] shatters into plastic pieces!</span>")
+	visible_message(span_danger("[src] shatters into plastic pieces!"))
 	playsound(src, 'sound/effects/glassbr1.ogg', 50, TRUE)
+	hook_scp_recontainment("SCP-1507", list())
 	if(flock_system)
 		flock_system.notify_flock_of_death()
 	return ..()
@@ -116,7 +117,7 @@
 
 /mob/living/simple_animal/hostile/retaliate/scp1507/proc/coordinate_attack()
 	if(!target)
-		to_chat(src, "<span class='warning'>You have no target to coordinate against!</span>")
+		to_chat(src, span_warning("You have no target to coordinate against!"))
 		return
 
 	if(flock_system)
@@ -126,16 +127,16 @@
 /mob/living/simple_animal/hostile/retaliate/scp1507/examine(mob/user)
 	. = ..()
 	if(enraged)
-		to_chat(user, "<span class='danger'>It looks extremely angry! Its plastic surface is cracked.</span>")
+		to_chat(user, span_danger("It looks extremely angry! Its plastic surface is cracked."))
 	else
-		to_chat(user, "<span class='notice'>It looks like a normal plastic flamingo, but it seems to be watching you.</span>")
+		to_chat(user, span_notice("It looks like a normal plastic flamingo, but it seems to be watching you."))
 
 	var/nearby_flock = 0
 	for(var/mob/living/simple_animal/hostile/retaliate/scp1507/F in range(10, src))
 		if(F != src)
 			nearby_flock++
 	if(nearby_flock > 0)
-		to_chat(user, "<span class='warning'>There are [nearby_flock] other flamingos nearby.</span>")
+		to_chat(user, span_warning("There are [nearby_flock] other flamingos nearby."))
 
 /mob/living/simple_animal/hostile/retaliate/scp1507/proc/on_enrage()
 	hook_scp_breach("SCP-1507", src)
@@ -174,7 +175,7 @@
 	if(!parent)
 		return
 
-	parent.visible_message("<span class='notice'>[parent] makes a loud plastic squeaking sound!</span>")
+	parent.visible_message(span_notice("[parent] makes a loud plastic squeaking sound!"))
 	playsound(parent, 'sound/items/toysqueak1.ogg', 100, TRUE)
 
 	for(var/mob/living/simple_animal/hostile/retaliate/scp1507/F in range(flock_call_range, parent))
@@ -186,7 +187,7 @@
 	if(!parent || !new_target)
 		return
 
-	parent.visible_message("<span class='warning'>[parent] squawks aggressively!</span>")
+	parent.visible_message(span_warning("[parent] squawks aggressively!"))
 
 	for(var/mob/living/simple_animal/hostile/retaliate/scp1507/F in range(alert_range, parent))
 		if(F.stat != DEAD)
@@ -245,7 +246,7 @@
 		wander_timer = 0
 		if(prob(30))
 			grazing = TRUE
-			parent.visible_message("<span class='notice'>[parent] pecks at the ground.</span>")
+			parent.visible_message(span_notice("[parent] pecks at the ground."))
 		else
 			grazing = FALSE
 

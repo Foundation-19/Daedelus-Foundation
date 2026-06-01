@@ -1,16 +1,6 @@
 // SCP-096 - The Shy Guy
 // A tall, thin humanoid that becomes enraged when its face is viewed
-
-#define SCP096_DOCILE "docile"
-#define SCP096_SCREAMING "screaming"
-#define SCP096_PURSUING "pursuing"
-#define SCP096_VIEW_RANGE 12
-#define SCP096_SCREAM_PHASE_MIN (60 SECONDS)
-#define SCP096_SCREAM_PHASE_MAX (120 SECONDS)
-#define SCP096_PURSUIT_SPEED_MOD -3
-#define SCP096_PURSUIT_DAMAGE 60
-#define SCP096_RAGE_DAMAGE_MULT 0.15
-#define SCP096_FACE_COVER_EMOTE_COOLDOWN (10 SECONDS)
+// Defines moved to code/modules/SCP/scp_defines.dm
 
 /datum/movespeed_modifier/scp096_pursuit
 	id = "scp096_pursuit"
@@ -18,6 +8,7 @@
 	slowdown = SCP096_PURSUIT_SPEED_MOD
 
 /mob/living/scp/scp096
+	ai_enabled = TRUE
 	name = "SCP-096"
 	desc = "A tall, thin humanoid figure with pale skin and disproportionately long arms. It covers its face with its hands."
 	icon = 'icons/scp/scp-096.dmi'
@@ -68,7 +59,7 @@
 /mob/living/scp/scp096/proc/process_docile()
 	if(world.time > last_face_cover_emote + SCP096_FACE_COVER_EMOTE_COOLDOWN)
 		if(prob(15))
-			visible_message("<span class='notice'>[src] quietly covers its face with its hands.</span>")
+			visible_message(span_notice("[src] quietly covers its face with its hands."))
 			last_face_cover_emote = world.time
 
 	if(prob(3))
@@ -85,7 +76,7 @@
 		return
 
 	if(prob(25))
-		visible_message("<span class='danger'>[src] screams in utter anguish!</span>")
+		visible_message(span_danger("[src] screams in utter anguish!"))
 
 	if(prob(10))
 		playsound(src, 'sound/scp/096/096-rage.ogg', 100, FALSE, extrarange = 100)
@@ -164,13 +155,13 @@
 			rage_activations++
 			scream_phase_end = world.time + rand(SCP096_SCREAM_PHASE_MIN, SCP096_SCREAM_PHASE_MAX)
 			on_rage_trigger(AI)
-			to_chat(AI, "<span class='userdanger'>You see SCP-096's face through the camera! It begins to scream!</span>")
+			to_chat(AI, span_userdanger("You see SCP-096's face through the camera! It begins to scream!"))
 			playsound(src, 'sound/scp/096/096-rage.ogg', 100, FALSE, extrarange = 100)
-			visible_message("<span class='danger'>[src] begins screaming in utter anguish!</span>")
+			visible_message(span_danger("[src] begins screaming in utter anguish!"))
 		face_viewers += AI
 		new_viewers += AI
 
-	for(var/mob/M in GLOB.mob_list)
+	for(var/mob/M in GLOB.player_list)
 		if(QDELETED(M) || M.stat == DEAD || M == src)
 			continue
 		if(!M.client || (M in new_viewers))
@@ -218,9 +209,9 @@
 				rage_activations++
 				scream_phase_end = world.time + rand(SCP096_SCREAM_PHASE_MIN, SCP096_SCREAM_PHASE_MAX)
 				on_rage_trigger(M)
-				to_chat(M, "<span class='userdanger'>You see SCP-096's face through the camera! It begins to scream!</span>")
+				to_chat(M, span_userdanger("You see SCP-096's face through the camera! It begins to scream!"))
 				playsound(src, 'sound/scp/096/096-rage.ogg', 100, FALSE, extrarange = 100)
-				visible_message("<span class='danger'>[src] begins screaming in utter anguish!</span>")
+				visible_message(span_danger("[src] begins screaming in utter anguish!"))
 			face_viewers += M
 			new_viewers += M
 
@@ -256,6 +247,12 @@
 	if(istype(hood))
 		return FALSE
 
+	var/obj/item/clothing/glasses/hud/scramble/scramble = viewer.get_item_by_slot(ITEM_SLOT_EYES)
+	if(istype(scramble) && scramble.protects_against("SCP-096"))
+		if(prob(5))
+			to_chat(viewer, span_warning("Your SCRAMBLE goggles flicker briefly..."))
+		return FALSE
+
 	return TRUE
 
 /mob/living/scp/scp096/proc/has_los_to(mob/viewer)
@@ -279,7 +276,7 @@
 		if(state == SCP096_SCREAMING && !(viewer in target_queue))
 			target_queue += viewer
 			face_viewers += viewer
-			to_chat(viewer, "<span class='userdanger'>You see SCP-096's face! It begins to scream!</span>")
+			to_chat(viewer, span_userdanger("You see SCP-096's face! It begins to scream!"))
 			hook_scp_observation(viewer, "SCP-096")
 			start_scp_survival_tracking(viewer, "SCP-096", INTERACTION_RISK_CRITICAL)
 		return
@@ -293,11 +290,11 @@
 
 	on_rage_trigger(viewer)
 
-	to_chat(viewer, "<span class='userdanger'>You see SCP-096's face! It begins to scream!</span>")
+	to_chat(viewer, span_userdanger("You see SCP-096's face! It begins to scream!"))
 
 	playsound(src, 'sound/scp/096/096-rage.ogg', 100, FALSE, extrarange = 100)
 
-	visible_message("<span class='danger'>[src] begins screaming in utter anguish!</span>")
+	visible_message(span_danger("[src] begins screaming in utter anguish!"))
 
 	for(var/mob/M in GLOB.player_list)
 		if(QDELETED(M))
@@ -305,7 +302,7 @@
 		if(M.z == z && M != src && M != viewer)
 			var/dist = get_dist(M, src)
 			if(dist <= 30)
-				to_chat(M, "<span class='danger'>You hear a horrifying scream echoing from somewhere nearby!</span>")
+				to_chat(M, span_danger("You hear a horrifying scream echoing from somewhere nearby!"))
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
 					if(H.sanity)
@@ -316,7 +313,7 @@
 
 	add_movespeed_modifier(/datum/movespeed_modifier/scp096_pursuit)
 
-	visible_message("<span class='danger'>[src] lowers its hands and sprints with terrifying speed!</span>")
+	visible_message(span_danger("[src] lowers its hands and sprints with terrifying speed!"))
 	playsound(src, 'sound/scp/096/096-chase.ogg', 100, FALSE, extrarange = 50)
 
 	hook_scp_breach("SCP-096", src)
@@ -329,7 +326,7 @@
 		return
 
 	current_target.adjustBruteLoss(SCP096_PURSUIT_DAMAGE)
-	visible_message("<span class='danger'>[src] tears into [current_target] with devastating force!</span>")
+	visible_message(span_danger("[src] tears into [current_target] with devastating force!"))
 	playsound(src, 'sound/weapons/punch1.ogg', 50, TRUE)
 
 	if(current_target.stat == DEAD)
@@ -357,7 +354,7 @@
 
 	remove_movespeed_modifier(/datum/movespeed_modifier/scp096_pursuit)
 
-	visible_message("<span class='notice'>[src] covers its face with its hands and returns to a docile state.</span>")
+	visible_message(span_notice("[src] covers its face with its hands and returns to a docile state."))
 
 /mob/living/scp/scp096/UnarmedAttack(atom/A)
 	if(!isliving(A))
@@ -386,11 +383,11 @@
 		return
 
 	if(state == SCP096_DOCILE)
-		. += "<span class='notice'>It is covering its face with its hands.</span>"
+		. += span_notice("It is covering its face with its hands.")
 	else if(state == SCP096_SCREAMING)
-		. += "<span class='danger'>It is screaming in pure anguish!</span>"
+		. += span_danger("It is screaming in pure anguish!")
 	else if(state == SCP096_PURSUING)
-		. += "<span class='danger'>Its face is exposed — DO NOT LOOK!</span>"
+		. += span_danger("Its face is exposed — DO NOT LOOK!")
 
 	if(can_viewer_see_face(H) && state == SCP096_DOCILE)
 		trigger_face_view(H)
@@ -407,7 +404,6 @@
 
 /mob/living/scp/scp096/death(gibbed)
 	STOP_PROCESSING(SSobj, src)
-	hook_scp_recontainment("SCP-096", list())
 	. = ..()
 
 /mob/living/scp/scp096/Logout()
@@ -425,21 +421,31 @@
 	. += "State: [state]"
 	. += "Targets Remaining: [length(target_queue)]"
 	. += "Total Kills: [kills_count]"
+	. += "Rage Activations: [rage_activations]"
 
 /mob/living/scp/scp096/proc/show_status_verb()
-	to_chat(src, "<span class='notice'>=== SCP-096 Status ===</span>")
-	to_chat(src, "<span class='notice'>State: [state]</span>")
-	to_chat(src, "<span class='notice'>Targets Remaining: [length(target_queue)]</span>")
-	to_chat(src, "<span class='notice'>Total Kills: [kills_count]</span>")
-	to_chat(src, "<span class='notice'>Rage Activations: [rage_activations]</span>")
+	to_chat(src, span_notice("=== SCP-096 Status ==="))
+	to_chat(src, span_notice("State: [state]"))
+	to_chat(src, span_notice("Targets Remaining: [length(target_queue)]"))
+	to_chat(src, span_notice("Total Kills: [kills_count]"))
+	to_chat(src, span_notice("Rage Activations: [rage_activations]"))
 
-#undef SCP096_DOCILE
-#undef SCP096_SCREAMING
-#undef SCP096_PURSUING
-#undef SCP096_VIEW_RANGE
-#undef SCP096_SCREAM_PHASE_MIN
-#undef SCP096_SCREAM_PHASE_MAX
-#undef SCP096_PURSUIT_SPEED_MOD
-#undef SCP096_PURSUIT_DAMAGE
-#undef SCP096_RAGE_DAMAGE_MULT
-#undef SCP096_FACE_COVER_EMOTE_COOLDOWN
+/mob/living/scp/scp096/process_ai()
+	if(stat == DEAD)
+		return
+	if(containment_status != "breached")
+		return
+	if(state == "pursuing" && length(target_queue))
+		var/mob/living/first_target = target_queue[1]
+		if(first_target && get_dist(src, first_target) > 1)
+			step_to(src, get_step_towards(src, first_target))
+		return
+	if(state != "docile")
+		return
+	for(var/mob/living/carbon/human/H in view(7, src))
+		if(H.stat == DEAD || H == src)
+			continue
+		if(can_viewer_see_face(H))
+			trigger_face_view(H)
+			return
+

@@ -87,14 +87,14 @@
 /mob/living/simple_animal/scp1048/attack_hand(mob/living/carbon/human/M)
 	. = ..()
 	if(!M.combat_mode)
-		visible_message("<span class='notice'>[src] hugs [M]'s hand affectionately!</span>")
-		to_chat(M, "<span class='notice'>[src] feels warm and soft. You feel a bit calmer.</span>")
+		visible_message(span_notice("[src] hugs [M]'s hand affectionately!"))
+		to_chat(M, span_notice("[src] feels warm and soft. You feel a bit calmer."))
 		hook_scp_interaction(M, "SCP-1048", INTERACTION_TYPE_CARE)
 
 /mob/living/simple_animal/scp1048/proc/cuddle_person(mob/living/carbon/human/H)
 	cuddle_cooldown = world.time + 10 SECONDS
-	visible_message("<span class='notice'>[src] hugs [H] affectionately! It seems so innocent and friendly.</span>")
-	to_chat(H, "<span class='notice'>[src] wraps its tiny arms around you. It's surprisingly warm for a stuffed bear.</span>")
+	visible_message(span_notice("[src] hugs [H] affectionately! It seems so innocent and friendly."))
+	to_chat(H, span_notice("[src] wraps its tiny arms around you. It's surprisingly warm for a stuffed bear."))
 	hook_scp_interaction(H, "SCP-1048", INTERACTION_TYPE_CARE)
 
 /mob/living/simple_animal/scp1048/proc/attempt_build_copy()
@@ -112,13 +112,13 @@
 	var/mob/living/simple_animal/hostile/scp1048_copy/copy = new copy_type(T)
 	copies_spawned += copy
 
-	visible_message("<span class='danger'>[src] presents a grotesque copy of itself made from harvested materials!</span>")
+	visible_message(span_danger("[src] presents a grotesque copy of itself made from harvested materials!"))
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 
 	hook_scp_breach("SCP-1048", src)
 
 	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-1048"]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances["SCP-1048"]
 		if(instance)
 			instance.add_interaction_record(null, "copy_built_[initial(copy.name)]")
 
@@ -172,7 +172,7 @@
 	if(parent.follow_target && get_dist(parent, parent.follow_target) <= 1)
 		hug_timer++
 		if(hug_timer >= 20 && prob(10))
-			parent.visible_message("<span class='notice'>[parent] hugs [parent.follow_target]'s leg!</span>")
+			parent.visible_message(span_notice("[parent] hugs [parent.follow_target]'s leg!"))
 			hug_timer = 0
 
 /datum/scp1048_behavior_system/proc/find_friend()
@@ -248,25 +248,26 @@
 	)
 	var/harvest_message = pick(harvest_messages)
 
-	parent.visible_message("<span class='warning'>[harvest_message]</span>")
+	parent.visible_message(span_warning("[harvest_message]"))
 
 	if(prob(30))
 		parent.infant_parts++
 
 	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-1048"]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances["SCP-1048"]
 		if(instance)
 			instance.add_interaction_record(null, "material_harvested")
 
 /mob/living/simple_animal/scp1048/examine(mob/user)
 	. = ..()
 	if(ishuman(user))
-		to_chat(user, "<span class='notice'>A small, adorable teddy bear. It looks completely harmless and seems to want a hug.</span>")
+		to_chat(user, span_notice("A small, adorable teddy bear. It looks completely harmless and seems to want a hug."))
 		if(materials_collected > 0)
-			to_chat(user, "<span class='notice'>Its button eyes seem to watch you carefully...</span>")
+			to_chat(user, span_notice("Its button eyes seem to watch you carefully..."))
 
 /mob/living/simple_animal/scp1048/death(gibbed, cause_of_death = "Unknown")
 	visible_message("<span class='danger'>[src] falls over, its stuffing spilling out!</span>")
+	hook_scp_recontainment("SCP-1048", list())
 	return ..()
 
 /mob/living/simple_animal/scp1048/proc/view_build_status()
@@ -282,11 +283,13 @@
 			if(!QDELETED(C))
 				message += "- [C.name] ([C.stat == DEAD ? "Dead" : "Active"])<br>"
 
-	to_chat(src, "<span class='notice'>[message]</span>")
+	to_chat(src, span_notice("[message]"))
 
-/mob/living/simple_animal/scp1048/proc/view_persistence_data()
+/mob/living/simple_animal/scp1048/proc/view_persistence_data(mob/user)
+	if(!user)
+		user = usr
 	if(!check_rights(R_ADMIN))
-		to_chat(usr, "<span class='warning'>You don't have permission to view persistence data.</span>")
+		to_chat(user, span_warning("You don't have permission to view persistence data."))
 		return
 
 	var/message = "<h2>SCP-1048 Persistence Data</h2>"
@@ -295,16 +298,18 @@
 	message += "<b>Copies Built:</b> [length(copies_spawned)]<br>"
 
 	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-1048"]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances["SCP-1048"]
 		if(instance)
 			message += "<b>Interaction History:</b> [length(instance.interaction_history)] records<br>"
 
-	to_chat(usr, "<span class='notice'>[message]</span>")
+	to_chat(user, span_notice("[message]"))
 
 /mob/living/simple_animal/scp1048/get_status_tab_items()
 	. = ..()
 	. += "Materials: [materials_collected]/[materials_needed]"
 	. += "Copies: [length(copies_spawned)]/[max_copies]"
+	. += "Build Ready: [materials_collected >= materials_needed ? "Yes" : "No"]"
+	. += "Body Parts Harvested: [body_parts_harvested]"
 
 // === HOSTILE COPIES ===
 
@@ -369,7 +374,7 @@
 /mob/living/simple_animal/hostile/scp1048_copy/scp1048_a/proc/perform_scream()
 	special_ability_cooldown = world.time + special_ability_cooldown_time
 
-	visible_message("<span class='danger'>[src] emits an earsplitting, inhuman shriek!</span>")
+	visible_message(span_danger("[src] emits an earsplitting, inhuman shriek!"))
 	playsound(src, 'sound/effects/screech.ogg', 100, TRUE)
 
 	for(var/mob/living/carbon/human/H in range(scream_range, src))
@@ -383,7 +388,7 @@
 		H.do_jitter_animation(20)
 		H.adjustBruteLoss(scream_damage)
 
-		to_chat(H, "<span class='userdanger'>A deafening, unnatural scream fills your mind with overwhelming terror!</span>")
+		to_chat(H, span_userdanger("A deafening, unnatural scream fills your mind with overwhelming terror!"))
 		hook_scp_combat(H, "SCP-1048-A", scream_damage, 0)
 
 // SCP-1048-B: Made from a human infant, aggressively attacks personnel
@@ -407,7 +412,7 @@
 		var/mob/living/carbon/human/H = target
 		if(prob(25))
 			H.Knockdown(20)
-			visible_message("<span class='danger'>[src] tackles [H] to the ground with terrifying force!</span>")
+			visible_message(span_danger("[src] tackles [H] to the ground with terrifying force!"))
 
 // SCP-1048-C: Made from unknown materials, hostile
 /mob/living/simple_animal/hostile/scp1048_copy/scp1048_c
@@ -438,7 +443,7 @@
 /mob/living/simple_animal/hostile/scp1048_copy/scp1048_c/proc/perform_special_ability()
 	ability_cooldown = world.time + ability_cooldown_time
 
-	visible_message("<span class='danger'>[src]'s form ripples and distorts, releasing a wave of nauseating energy!</span>")
+	visible_message(span_danger("[src]'s form ripples and distorts, releasing a wave of nauseating energy!"))
 
 	for(var/mob/living/carbon/human/H in range(5, src))
 		if(H.SCP || H == src)
@@ -448,17 +453,17 @@
 		H.Stun(15)
 		H.do_jitter_animation(15)
 
-		to_chat(H, "<span class='userdanger'>A wave of sickening energy washes over you from [src]!</span>")
+		to_chat(H, span_userdanger("A wave of sickening energy washes over you from [src]!"))
 		hook_scp_combat(H, "SCP-1048-C", 10, 0)
 
 /mob/living/simple_animal/hostile/scp1048_copy/death(gibbed, cause_of_death = "Unknown")
-	visible_message("<span class='danger'>[src] collapses into a pile of grotesque organic matter!</span>")
+	visible_message(span_danger("[src] collapses into a pile of grotesque organic matter!"))
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 	return ..()
 
 /mob/living/simple_animal/hostile/scp1048_copy/examine(mob/user)
 	. = ..()
-	to_chat(user, "<span class='danger'>This is not SCP-1048 itself — it is one of its hostile copies.</span>")
+	to_chat(user, span_danger("This is not SCP-1048 itself — it is one of its hostile copies."))
 
 /mob/living/simple_animal/hostile/scp1048_copy/get_status_tab_items()
 	. = ..()

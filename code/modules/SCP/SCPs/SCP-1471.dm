@@ -56,10 +56,10 @@
 		manifestation_system.check_manifestation(user, manifestation_level)
 
 	var/message = pick(list(
-		"<span class='warning'>The screen flickers with static...</span>",
-		"<span class='warning'>You see a shadowy figure in the corner of the screen...</span>",
-		"<span class='danger'>The entity seems closer now...</span>",
-		"<span class='notice'>The app shows a photo of somewhere nearby...</span>"
+		span_warning("The screen flickers with static..."),
+		span_warning("You see a shadowy figure in the corner of the screen..."),
+		span_danger("The entity seems closer now..."),
+		span_notice("The app shows a photo of somewhere nearby...")
 	))
 	to_chat(user, message)
 
@@ -69,9 +69,9 @@
 
 /obj/item/device/scp1471/examine(mob/user)
 	. = ..()
-	to_chat(user, "<span class='notice'>A smartphone with the MalO ver1.0.0 app installed.</span>")
+	to_chat(user, span_notice("A smartphone with the MalO ver1.0.0 app installed."))
 	if(ishuman(user) && user.ckey == user_ckey)
-		to_chat(user, "<span class='warning'>Manifestation progress: [manifestation_level]%</span>")
+		to_chat(user, span_warning("Manifestation progress: [manifestation_level]%"))
 
 /datum/scp1471_manifestation_system
 	var/obj/item/parent
@@ -104,7 +104,7 @@
 	if(istype(phone))
 		phone.spawned_entities += entity
 
-	target.visible_message("<span class='danger'>A shadowy entity manifests!</span>", "<span class='danger'>The entity from the app has found you!</span>")
+	target.visible_message(span_danger("A shadowy entity manifests!"), span_danger("The entity from the app has found you!"))
 
 /obj/effect/scp1471_entity
 	name = "shadowy entity"
@@ -155,11 +155,11 @@
 
 	switch(harassment)
 		if("whispers")
-			to_chat(target, "<span class='warning'>You hear whispering behind you...</span>")
+			to_chat(target, span_warning("You hear whispering behind you..."))
 		if("scratches")
-			to_chat(target, "<span class='warning'>Something scratches at the edge of your vision...</span>")
+			to_chat(target, span_warning("Something scratches at the edge of your vision..."))
 		if("breathes")
-			to_chat(target, "<span class='warning'>Cold breath touches your neck...</span>")
+			to_chat(target, span_warning("Cold breath touches your neck..."))
 
 	target.adjust_drowsyness(2)
 	hook_scp_combat(target, "SCP-1471", 0, 2)

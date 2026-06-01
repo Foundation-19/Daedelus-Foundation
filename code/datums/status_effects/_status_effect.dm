@@ -27,6 +27,7 @@
 	var/atom/movable/screen/alert/status_effect/linked_alert
 	/// Used to define if the status effect should be using SSfastprocess or SSprocessing
 	var/processing_speed = STATUS_EFFECT_FAST_PROCESS
+	var/exclusive_group
 
 /datum/status_effect/New(list/arguments)
 	on_creation(arglist(arguments))
@@ -37,7 +38,7 @@
 /datum/status_effect/proc/on_creation(mob/living/new_owner, ...)
 	if(new_owner)
 		owner = new_owner
-	if(QDELETED(owner) || !on_apply())
+	if(QDELETED(owner) || !pre_check() || !on_apply())
 		qdel(src)
 		return
 	if(owner)
@@ -121,6 +122,18 @@
 	LAZYREMOVE(owner.status_effects, src)
 	owner = null
 	qdel(src)
+
+/datum/status_effect/proc/pre_check()
+	return TRUE
+
+/datum/status_effect/proc/on_change(list/arguments)
+	return
+
+/datum/status_effect/proc/modify_change(change_amount)
+	return change_amount
+
+/datum/status_effect/proc/check_exclusive_group()
+	return
 
 /// Called before being fully removed (before on_remove)
 /// Returning FALSE will cancel removal

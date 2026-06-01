@@ -6,6 +6,7 @@
 #define JOB_UNAVAILABLE_SLOTFULL 5
 /// Job unavailable due to incompatibility with an antag role.
 #define JOB_UNAVAILABLE_ANTAG_INCOMPAT 6
+#define JOB_UNAVAILABLE_RANK 7
 
 #define DEFAULT_RELIGION "Christianity"
 #define DEFAULT_DEITY "Space Jesus"

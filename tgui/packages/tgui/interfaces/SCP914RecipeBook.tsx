@@ -2,7 +2,7 @@ import { BooleanLike } from 'common/react';
 import React from 'react';
 import { useBackend } from '../backend';
 import { Box, Button, Stack } from '../components';
-import { Window } from '../layouts';
+import { NtosWindow } from '../layouts';
 
 type Recipe = {
   id: string;
@@ -69,8 +69,8 @@ export const SCP914RecipeBook = (props) => {
   } = data;
 
   return (
-    <Window theme="scp_terminal" width={700} height={600}>
-      <Window.Content scrollable>
+    <NtosWindow width={700} height={600}>
+      <NtosWindow.Content scrollable>
         <Box
           style={{
             background: C.bg,
@@ -407,7 +407,7 @@ export const SCP914RecipeBook = (props) => {
             </Box>
           </Box>
         </Box>
-      </Window.Content>
-    </Window>
+      </NtosWindow.Content>
+    </NtosWindow>
   );
 };

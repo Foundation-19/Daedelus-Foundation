@@ -8,7 +8,13 @@ type VarEntry = {
   value: string;
 };
 
+type VVCommand = {
+  key: string;
+  label: string;
+};
+
 type ViewVariablesData = {
+  commands: VVCommand[];
   is_atom: number;
   is_datum: number;
   is_deleted: number;
@@ -83,6 +89,7 @@ const formatValue = (value: string): string => {
 export const AdminViewVariables = (_props: unknown) => {
   const { act, data } = useBackend<ViewVariablesData>();
   const {
+    commands = [],
     is_atom,
     is_datum,
     is_deleted,
@@ -281,6 +288,46 @@ export const AdminViewVariables = (_props: unknown) => {
               EXPOSE TO PLAYER
             </TermButton>
           </Box>
+
+          {commands.length > 0 && (
+            <Box
+              style={{
+                padding: '6px 14px',
+                borderBottom: `1px solid ${C.border}`,
+              }}
+            >
+              <Box
+                style={{
+                  fontSize: '9px',
+                  color: C.textDim,
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                  marginBottom: '4px',
+                }}
+              >
+                COMMANDS
+              </Box>
+              <Box style={{ display: 'flex', gap: '3px', flexWrap: 'wrap' }}>
+                {commands.map((cmd) => (
+                  <TermButton
+                    key={cmd.key}
+                    color={
+                      cmd.key === 'delete' || cmd.key === 'gib'
+                        ? 'red'
+                        : cmd.key === 'godmode' ||
+                            cmd.key === 'direct_control' ||
+                            cmd.key === 'buildmode'
+                          ? 'green'
+                          : undefined
+                    }
+                    onClick={() => act('vv_action', { vv_key: cmd.key })}
+                  >
+                    {cmd.label.toUpperCase()}
+                  </TermButton>
+                ))}
+              </Box>
+            </Box>
+          )}
 
           <Box
             style={{

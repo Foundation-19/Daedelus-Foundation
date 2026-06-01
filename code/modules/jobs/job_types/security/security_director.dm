@@ -76,7 +76,7 @@
 	backpack_contents = list(
 		/obj/item/storage/evidencebag = 1,
 		)
-	belt = /obj/item/modular_computer/tablet/pda/heads/hos
+	belt = /obj/item/modular_computer/tablet/pda/foundation_security
 	ears = /obj/item/radio/headset/heads/hos/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	gloves = /obj/item/clothing/gloves/combat

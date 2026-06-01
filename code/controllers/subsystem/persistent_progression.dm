@@ -21,7 +21,7 @@ SUBSYSTEM_DEF(persistent_progression)
 	var/use_database = TRUE
 
 /datum/controller/subsystem/persistent_progression/Initialize()
-	world.log << "Persistent Progression Subsystem: Initializing..."
+	log_game("Persistent Progression Subsystem: Initializing...")
 
 	load_all_classes()
 	load_all_factions()
@@ -35,14 +35,14 @@ SUBSYSTEM_DEF(persistent_progression)
 
 	if(use_database)
 		database_adapter = new /datum/persistent_progression_database_adapter()
-		world.log << "Persistent Progression: Database adapter initialized"
+		log_game("Persistent Progression: Database adapter initialized")
 	else
-		world.log << "Persistent Progression: Using JSON storage (database disabled)"
+		log_game("Persistent Progression: Using JSON storage (database disabled)")
 	round_start_time = world.time
 
 	SSticker.OnRoundend(CALLBACK(src, PROC_REF(process_round_end)))
 
-	world.log << "Persistent Progression Subsystem: Initialized successfully with [length(classes)] classes, [length(factions)] factions, [length(experience_sources)] experience sources"
+	log_game("Persistent Progression Subsystem: Initialized successfully with [length(classes)] classes, [length(factions)] factions, [length(experience_sources)] experience sources")
 
 	return ..()
 
@@ -50,7 +50,7 @@ SUBSYSTEM_DEF(persistent_progression)
 	if(!faction_integration)
 		faction_integration = new /datum/faction_integration()
 		GLOB.faction_integration = faction_integration
-		world.log << "Persistent Progression: Faction integration initialized"
+		log_game("Persistent Progression: Faction integration initialized")
 
 /datum/controller/subsystem/persistent_progression/proc/get_total_experience()
 	var/total_exp = 0
@@ -102,7 +102,7 @@ SUBSYSTEM_DEF(persistent_progression)
 	return json_encode(export_data)
 
 /datum/controller/subsystem/persistent_progression/proc/reset_all_data()
-	world.log << "Persistent Progression: Resetting all data..."
+	log_game("Persistent Progression: Resetting all data...")
 
 	for(var/ckey in player_data)
 		var/datum/persistent_player_data/player = player_data[ckey]
@@ -112,42 +112,42 @@ SUBSYSTEM_DEF(persistent_progression)
 	for(var/ckey in player_data)
 		save_player_data(ckey)
 
-	world.log << "Persistent Progression: All data reset successfully"
+	log_game("Persistent Progression: All data reset successfully")
 
 /datum/controller/subsystem/persistent_progression/proc/save_all_data()
 	for(var/ckey in player_data)
 		save_player_data(ckey)
-	world.log << "Persistent Progression: All player data saved"
+	log_game("Persistent Progression: All player data saved")
 
 /datum/controller/subsystem/persistent_progression/proc/load_all_data()
 	player_data.Cut()
-	world.log << "Persistent Progression: All player data reloaded on next access"
+	log_game("Persistent Progression: All player data reloaded on next access")
 
 /datum/controller/subsystem/persistent_progression/proc/load_all_classes()
-	world.log << "Persistent Progression: Loading classes..."
+	log_game("Persistent Progression: Loading classes...")
 	classes["security"] = new /datum/persistent_class/security()
 	classes["research"] = new /datum/persistent_class/research()
 	classes["medical"] = new /datum/persistent_class/medical()
 	classes["engineering"] = new /datum/persistent_class/engineering()
 	classes["administrative"] = new /datum/persistent_class/administrative()
 	classes["containment"] = new /datum/persistent_class/containment()
-	world.log << "Persistent Progression: Loaded [length(classes)] classes"
+	log_game("Persistent Progression: Loaded [length(classes)] classes")
 
 /datum/controller/subsystem/persistent_progression/proc/load_all_factions()
-	world.log << "Persistent Progression: Loading factions..."
+	log_game("Persistent Progression: Loading factions...")
 	factions["foundation"] = new /datum/persistent_faction/foundation()
 	factions["goc"] = new /datum/persistent_faction/goc()
 	factions["serpents_hand"] = new /datum/persistent_faction/serpents_hand()
 	factions["chaos_insurgency"] = new /datum/persistent_faction/chaos_insurgency()
 	factions["mcd"] = new /datum/persistent_faction/mcd()
 	factions["uiu"] = new /datum/persistent_faction/uiu()
-	world.log << "Persistent Progression: Loaded [length(factions)] factions"
+	log_game("Persistent Progression: Loaded [length(factions)] factions")
 
 /datum/controller/subsystem/persistent_progression/proc/load_all_experience_sources()
 	var/list/all_sources = get_all_experience_sources()
 	for(var/source_id in all_sources)
 		experience_sources[source_id] = all_sources[source_id]
-	world.log << "Persistent Progression: Loaded [length(experience_sources)] experience sources"
+	log_game("Persistent Progression: Loaded [length(experience_sources)] experience sources")
 
 /datum/controller/subsystem/persistent_progression/proc/get_player_data(ckey)
 	if(!ckey)
@@ -235,6 +235,7 @@ SUBSYSTEM_DEF(persistent_progression)
 		"total_objectives" = data.total_objectives,
 		"total_scp_interactions" = data.total_scp_interactions,
 		"total_containment_breaches" = data.total_containment_breaches,
+		"total_recontainments" = data.total_recontainments,
 		"total_research_completed" = data.total_research_completed,
 		"total_treatments" = data.total_treatments,
 		"total_constructions" = data.total_constructions,
@@ -320,6 +321,7 @@ SUBSYSTEM_DEF(persistent_progression)
 	data.total_objectives = load_data["total_objectives"] || 0
 	data.total_scp_interactions = load_data["total_scp_interactions"] || 0
 	data.total_containment_breaches = load_data["total_containment_breaches"] || 0
+	data.total_recontainments = load_data["total_recontainments"] || 0
 	data.total_research_completed = load_data["total_research_completed"] || 0
 	data.total_treatments = load_data["total_treatments"] || 0
 	data.total_constructions = load_data["total_constructions"] || 0

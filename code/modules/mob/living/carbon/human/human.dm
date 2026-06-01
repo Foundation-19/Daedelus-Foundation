@@ -1464,6 +1464,18 @@
         if("team_success")
             tracker.update_metric("administrative", "team_successes", tracker.administrative_stats["team_successes"] + 1)
 
+/mob/living/carbon/human/proc/setup_dclass_verbs()
+	var/list/dclass_verbs = list(
+		/mob/living/carbon/human/proc/accept_trade,
+		/mob/living/carbon/human/proc/decline_trade,
+		/mob/living/carbon/human/proc/join_riot,
+		/mob/living/carbon/human/proc/refuse_riot,
+	)
+	if(findtext(job, "D-Class"))
+		add_verb(src, dclass_verbs)
+	else
+		remove_verb(src, dclass_verbs)
+
 /mob/living/carbon/human/proc/track_containment_action(action_type)
     if(!mind || !mind.persistent_data)
         return

@@ -2,6 +2,7 @@
 // A fish-man from the SCP-005 "Mr." series
 
 /mob/living/scp/scp527
+	ai_enabled = TRUE
 	name = "Mr. Fish"
 	desc = "A humanoid male with a fish head. He appears to be a specimen from the 'Mr.' series of SCPs."
 	icon = 'icons/scp/scp-527.dmi'
@@ -53,23 +54,23 @@
 
 /mob/living/scp/scp527/examine(mob/user)
 	. = ..()
-	to_chat(user, "<span class='notice'>A fish-headed humanoid from Dr. Wondertainment's 'Mr.' series.</span>")
-	to_chat(user, "<span class='notice'>He seems comfortable in and out of water.</span>")
+	to_chat(user, span_notice("A fish-headed humanoid from Dr. Wondertainment's 'Mr.' series."))
+	to_chat(user, span_notice("He seems comfortable in and out of water."))
 
 /mob/living/scp/scp527/proc/dive()
 	var/turf/open/water/W = locate() in range(1, src)
 	if(W)
 		forceMove(W)
-		visible_message("<span class='notice'>[src] dives into the water!</span>")
+		visible_message(span_notice("[src] dives into the water!"))
 		if(aquatic_system)
 			aquatic_system.enter_water()
 	else
-		to_chat(src, "<span class='warning'>No water nearby to dive into!</span>")
+		to_chat(src, span_warning("No water nearby to dive into!"))
 
 /mob/living/scp/scp527/proc/breathe_underwater()
 	if(aquatic_system)
 		aquatic_system.toggle_underwater_mode()
-		to_chat(src, "<span class='notice'>You [aquatic_system.underwater_mode ? "begin" : "stop"] breathing underwater.</span>")
+		to_chat(src, span_notice("You [aquatic_system.underwater_mode ? "begin" : "stop"] breathing underwater."))
 
 /datum/scp527_aquatic_system
 	var/mob/living/carbon/human/parent
@@ -117,7 +118,7 @@
 			nearby_fish += A
 
 	if(length(nearby_fish) > 0)
-		to_chat(parent, "<span class='notice'>You sense [length(nearby_fish)] fish nearby.</span>")
+		to_chat(parent, span_notice("You sense [length(nearby_fish)] fish nearby."))
 		return nearby_fish
 
 /datum/scp527_research_system
@@ -127,3 +128,25 @@
 
 /datum/scp527_research_system/New(mob/living/carbon/human/P)
 	parent = P
+
+/mob/living/scp/scp527/process_ai()
+	if(stat == DEAD)
+		return
+
+	if(health < maxHealth * 0.5)
+		var/turf/open/water/W = locate() in range(7, src)
+		if(W)
+			if(get_dist(src, W) > 1)
+				ai_step_towards(W)
+			else
+				dive()
+			return
+
+	if(world.time % 50 == 0)
+		var/mob/living/carbon/human/H = locate() in view(4, src)
+		if(H && H.stat != DEAD)
+			var/greetings = list("Glub.", "Bloop.", "Nice weather... for fish.", "Hello there.")
+			say(pick(greetings))
+
+	if(prob(10))
+		step_rand(src)

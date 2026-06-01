@@ -349,7 +349,7 @@ SUBSYSTEM_DEF(medical_persistence)
 
 /datum/medical_persistence_manager/proc/save_medical_data_to_database()
 	if(!SSdbcore.Connect())
-		world.log << "Medical Persistence: Database connection failed, skipping database save"
+		log_game("Medical Persistence: Database connection failed, skipping database save")
 		return
 
 	// Save medical records to database
@@ -376,7 +376,7 @@ SUBSYSTEM_DEF(medical_persistence)
 		))
 
 		if(!query_save_record.warn_execute())
-			world.log << "Medical Persistence: Failed to save medical record for [ckey]"
+			log_game("Medical Persistence: Failed to save medical record for [ckey]")
 		qdel(query_save_record)
 
 	// Save treatment logs to database
@@ -401,7 +401,7 @@ SUBSYSTEM_DEF(medical_persistence)
 		))
 
 		if(!query_save_treatment.warn_execute())
-			world.log << "Medical Persistence: Failed to save treatment log [treatment_id]"
+			log_game("Medical Persistence: Failed to save treatment log [treatment_id]")
 		qdel(query_save_treatment)
 
 	// Save outbreak records to database
@@ -430,7 +430,7 @@ SUBSYSTEM_DEF(medical_persistence)
 		))
 
 		if(!query_save_outbreak.warn_execute())
-			world.log << "Medical Persistence: Failed to save outbreak record [outbreak_id]"
+			log_game("Medical Persistence: Failed to save outbreak record [outbreak_id]")
 		qdel(query_save_outbreak)
 
 	// Save research projects to database
@@ -463,10 +463,10 @@ SUBSYSTEM_DEF(medical_persistence)
 		))
 
 		if(!query_save_project.warn_execute())
-			world.log << "Medical Persistence: Failed to save research project [project_id]"
+			log_game("Medical Persistence: Failed to save research project [project_id]")
 		qdel(query_save_project)
 
-	world.log << "Medical Persistence: Saved [length(medical_records)] medical records, [length(treatment_logs)] treatment logs, [length(outbreak_records)] outbreak records, and [length(research_projects)] research projects to database"
+	log_game("Medical Persistence: Saved [length(medical_records)] medical records, [length(treatment_logs)] treatment logs, [length(outbreak_records)] outbreak records, and [length(research_projects)] research projects to database")
 
 /datum/medical_persistence_manager/proc/load_medical_data()
 	var/savefile/S = new /savefile("data/medical_persistence.json")
@@ -549,15 +549,15 @@ SUBSYSTEM_DEF(medical_persistence)
 
 // Subsystem initialization
 /datum/controller/subsystem/medical_persistence/Initialize()
-	world.log << "Medical persistence subsystem initializing..."
+	log_game("Medical persistence subsystem initializing...")
 	manager = new /datum/medical_persistence_manager()
-	world.log << "Medical persistence manager created"
+	log_game("Medical persistence manager created")
 
 	// Load existing medical records from datacore
-	world.log << "Loading existing medical records from datacore..."
+	log_game("Loading existing medical records from datacore...")
 	manager.load_existing_medical_records()
 
-	world.log << "Medical records count at initialization: [length(manager.medical_records)]"
+	log_game("Medical records count at initialization: [length(manager.medical_records)]")
 	return ..()
 
 /datum/controller/subsystem/medical_persistence/fire()
@@ -590,7 +590,7 @@ SUBSYSTEM_DEF(medical_persistence)
 	if(!SSdatacore)
 		return
 
-	world.log << "Medical: Loading existing medical records from datacore..."
+	log_game("Medical: Loading existing medical records from datacore...")
 
 	// Load from general records (station records)
 	for(var/datum/data/record/general_record in SSdatacore.get_records(DATACORE_RECORDS_STATION))
@@ -621,7 +621,7 @@ SUBSYSTEM_DEF(medical_persistence)
 				medical_record.last_updated = world.time
 				medical_records[ckey] = medical_record
 
-				world.log << "Medical: Loaded general record for [general_record.fields[DATACORE_NAME]] (Health: [health_rating])"
+				log_game("Medical: Loaded general record for [general_record.fields[DATACORE_NAME]] (Health: [health_rating])")
 
 	// Load from medical records (detailed medical data)
 	for(var/datum/data/record/medical_record in SSdatacore.get_records(DATACORE_RECORDS_MEDICAL))
@@ -648,7 +648,7 @@ SUBSYSTEM_DEF(medical_persistence)
 
 				existing_record.last_updated = world.time
 
-				world.log << "Medical: Updated medical record for [medical_record.fields[DATACORE_NAME]] (Blood: [existing_record.blood_type])"
+				log_game("Medical: Updated medical record for [medical_record.fields[DATACORE_NAME]] (Blood: [existing_record.blood_type])")
 			else
 				// Create new record if general record doesn't exist
 				var/datum/medical_record/new_record = new /datum/medical_record(ckey, medical_record.fields[DATACORE_NAME])
@@ -656,9 +656,9 @@ SUBSYSTEM_DEF(medical_persistence)
 					new_record.blood_type = medical_record.fields[DATACORE_BLOOD_TYPE]
 				medical_records[ckey] = new_record
 
-				world.log << "Medical: Created new medical record for [medical_record.fields[DATACORE_NAME]]"
+				log_game("Medical: Created new medical record for [medical_record.fields[DATACORE_NAME]]")
 
-	world.log << "Medical: Loaded [length(medical_records)] medical records from datacore"
+	log_game("Medical: Loaded [length(medical_records)] medical records from datacore")
 
 // Add treatment log
 /datum/medical_persistence_manager/proc/add_treatment_log(var/patient_ckey, var/treatment_type, var/doctor_ckey)
@@ -779,7 +779,7 @@ SUBSYSTEM_DEF(medical_persistence)
 
 		return TRUE
 	catch(var/exception)
-		world.log << "Medical persistence import error: [exception]"
+		log_game("Medical persistence import error: [exception]")
 		return FALSE
 
 // Get critical patients count
@@ -804,9 +804,9 @@ SUBSYSTEM_DEF(medical_persistence)
 	var/savefile/S = new /savefile("data/medical_persistence.json")
 	if(S)
 		S["data"] << null
-		world.log << "Medical: Cleared persistent storage file"
+		log_game("Medical: Cleared persistent storage file")
 
-	world.log << "Medical: Cleared all persistent storage data"
+	log_game("Medical: Cleared all persistent storage data")
 
 
 

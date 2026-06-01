@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Window } from '../layouts';
+import { NtosWindow } from '../layouts';
 
 type SCPData = {
   breach_count: number;
@@ -48,8 +48,8 @@ export const SCPMonitoringConsole = (_props: unknown) => {
   const { scps = [], global_stability, active_breaches, alert_level } = data;
 
   return (
-    <Window theme="scp_terminal" width={700} height={500}>
-      <Window.Content scrollable>
+    <NtosWindow width={700} height={500}>
+      <NtosWindow.Content scrollable>
         <div
           style={{
             background: C.bg,
@@ -276,7 +276,7 @@ export const SCPMonitoringConsole = (_props: unknown) => {
             </div>
           )}
         </div>
-      </Window.Content>
-    </Window>
+      </NtosWindow.Content>
+    </NtosWindow>
   );
 };

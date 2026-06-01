@@ -16,7 +16,7 @@
 	if(!H || H.stat == DEAD)
 		return
 	if(prob(1))
-		H.visible_message("<span class='notice'>Reality shimmers faintly around [H].</span>")
+		H.visible_message(span_notice("Reality shimmers faintly around [H]."))
 
 
 

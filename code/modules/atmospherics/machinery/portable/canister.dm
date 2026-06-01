@@ -1,5 +1,12 @@
 #define CAN_DEFAULT_RELEASE_PRESSURE (ONE_ATMOSPHERE)
 
+#ifndef GAS_DECONTAM
+#define GAS_DECONTAM "decontamination_gas"
+#endif
+#ifndef GAS_MEMETIC_NEUTRAL
+#define GAS_MEMETIC_NEUTRAL "memetic_neutralizer"
+#endif
+
 ///List of all the gases, used in labelling the canisters
 GLOBAL_LIST_INIT(gas_id_to_canister, init_gas_id_to_canister())
 
@@ -21,6 +28,8 @@ GLOBAL_LIST_INIT(gas_id_to_canister, init_gas_id_to_canister())
 		GAS_TRITIUM = /obj/machinery/portable_atmospherics/canister/tritium,
 		"caution" = /obj/machinery/portable_atmospherics/canister,
 		GAS_STEAM = /obj/machinery/portable_atmospherics/canister/water_vapor,
+		GAS_DECONTAM = /obj/machinery/portable_atmospherics/canister/decontamination,
+		GAS_MEMETIC_NEUTRAL = /obj/machinery/portable_atmospherics/canister/memetic_neutralizer,
 	))
 
 

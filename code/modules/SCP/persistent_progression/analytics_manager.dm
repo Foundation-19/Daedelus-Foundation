@@ -48,6 +48,7 @@
 		"total_player_kills" = 0,
 		"total_scp_interactions" = 0,
 		"total_containment_breaches" = 0,
+		"total_recontainments" = 0,
 		"total_research_discoveries" = 0,
 		"total_medical_treatments" = 0,
 		"total_engineering_builds" = 0,
@@ -165,7 +166,7 @@
 /datum/player_analytics_manager/proc/notify_milestone(ckey, event_type, count)
 	for(var/client/C in GLOB.clients)
 		if(C.ckey == ckey)
-			to_chat(C, "<span class='boldnotice'>MILESTONE: You have recorded [count] [event_type] events!</span>")
+			to_chat(C, span_boldnotice("MILESTONE: You have recorded [count] [event_type] events!"))
 			break
 
 /datum/player_analytics_manager/proc/get_player_statistics(ckey)

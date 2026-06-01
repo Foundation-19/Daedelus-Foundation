@@ -46,11 +46,11 @@
 		var/video_intensity = video_manipulation / max_video_manipulation
 
 		if(prob(8 * video_intensity))
-			to_chat(H, "<span class='danger'>You see disturbing video imagery that seems to distort reality...</span>")
+			to_chat(H, span_danger("You see disturbing video imagery that seems to distort reality..."))
 			H.adjustBruteLoss(2)
 
 		if(prob(5 * video_intensity))
-			to_chat(H, "<span class='danger'>The video recording shows impossible scenes that shouldn't exist...</span>")
+			to_chat(H, span_danger("The video recording shows impossible scenes that shouldn't exist..."))
 			if(H.stamina)
 				H.stamina.adjust(-10)
 
@@ -68,7 +68,7 @@
 		if(5)
 			evolution_message = "SCP-1981 achieves ultimate video evolution!"
 
-	owner.visible_message("<span class='danger'>[evolution_message]</span>")
+	owner.visible_message(span_danger("[evolution_message]"))
 
 // Reality Distortion System - Manages reality-warping effects
 /datum/scp1981_reality_system
@@ -115,11 +115,11 @@
 		var/distortion_factor = reality_distortion / max_reality_distortion
 
 		if(prob(6 * distortion_factor))
-			to_chat(H, "<span class='danger'>Reality seems to distort and warp around you...</span>")
+			to_chat(H, span_danger("Reality seems to distort and warp around you..."))
 			H.adjustBruteLoss(3)
 
 		if(prob(4 * distortion_factor))
-			to_chat(H, "<span class='danger'>The laws of physics seem to bend and break...</span>")
+			to_chat(H, span_danger("The laws of physics seem to bend and break..."))
 			if(H.stamina)
 				H.stamina.adjust(-15)
 
@@ -128,7 +128,7 @@
 
 	for(var/mob/living/carbon/human/H in range(6, owner))
 		if(H.stat != DEAD)
-			to_chat(H, "<span class='danger'>The reality distortion becomes more potent and dangerous...</span>")
+			to_chat(H, span_danger("The reality distortion becomes more potent and dangerous..."))
 
 // Temporal Effects System - Manages time manipulation
 /datum/scp1981_temporal_system
@@ -175,11 +175,11 @@
 		var/temporal_factor = temporal_effects / max_temporal_effects
 
 		if(prob(5 * temporal_factor))
-			to_chat(H, "<span class='danger'>Time seems to behave strangely around you...</span>")
+			to_chat(H, span_danger("Time seems to behave strangely around you..."))
 			H.adjustBruteLoss(2)
 
 		if(prob(3 * temporal_factor))
-			to_chat(H, "<span class='danger'>You feel moments of temporal displacement...</span>")
+			to_chat(H, span_danger("You feel moments of temporal displacement..."))
 			if(H.stamina)
 				H.stamina.adjust(-12)
 
@@ -188,7 +188,7 @@
 
 	for(var/mob/living/carbon/human/H in range(8, owner))
 		if(H.stat != DEAD)
-			to_chat(H, "<span class='danger'>The temporal manipulation becomes more sophisticated...</span>")
+			to_chat(H, span_danger("The temporal manipulation becomes more sophisticated..."))
 
 // Synthesis System - Manages combined effects
 /datum/scp1981_synthesis_system
@@ -220,12 +220,12 @@
 	// Create powerful combined effects
 	for(var/mob/living/carbon/human/H in range(8, owner))
 		if(H.stat != DEAD)
-			to_chat(H, "<span class='danger'>You experience overwhelming video distortion and reality warping!</span>")
+			to_chat(H, span_danger("You experience overwhelming video distortion and reality warping!"))
 			H.adjustBruteLoss(15)
 			if(H.stamina)
 				H.stamina.adjust(-25)
 
-	owner.visible_message("<span class='danger'>SCP-1981 synthesizes all its effects in a powerful burst!</span>")
+	owner.visible_message(span_danger("SCP-1981 synthesizes all its effects in a powerful burst!"))
 
 // Research System - Collects data on SCP-1981's effects
 /datum/scp1981_research_system

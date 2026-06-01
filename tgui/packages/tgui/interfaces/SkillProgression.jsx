@@ -757,30 +757,28 @@ export const SkillProgression = (props, context) => {
 
   if (!has_data) {
     return (
-      <Window
-        title="SCP FOUNDATION — SKILL PROGRESSION"
-        width={1100}
-        height={750}
-        theme="scp_terminal"
+      <Box
+        style={{
+          background: C.bg,
+          border: `1px solid ${C.borderRed}`,
+          fontFamily: C.mono,
+          fontSize: '12px',
+          color: C.text,
+          padding: '24px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
       >
-        <Window.Content scrollable>
-          <Box
-            style={{
-              background: C.bg,
-              border: `1px solid ${C.borderRed}`,
-              fontFamily: C.mono,
-              fontSize: '12px',
-              color: C.text,
-              minHeight: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <NoticeBox>NO PROGRESSION DATA AVAILABLE</NoticeBox>
+        <Box>
+          <Box style={term({ color: C.amber, fontSize: '14px', marginBottom: '8px' })}>
+            NO PROGRESSION DATA AVAILABLE
           </Box>
-        </Window.Content>
-      </Window>
+          <Box style={term({ color: C.textDim, fontSize: '11px' })}>
+            Connect to a living mob to populate skill data.
+          </Box>
+        </Box>
+      </Box>
     );
   }
 
@@ -793,23 +791,16 @@ export const SkillProgression = (props, context) => {
   ];
 
   return (
-    <Window
-      title="SCP FOUNDATION — SKILL PROGRESSION TERMINAL"
-      width={1100}
-      height={750}
-      theme="scp_terminal"
+    <Box
+      style={{
+        background: C.bg,
+        border: `1px solid ${C.borderRed}`,
+        fontFamily: C.mono,
+        fontSize: '12px',
+        color: C.text,
+        minHeight: '100%',
+      }}
     >
-      <Window.Content scrollable>
-        <Box
-          style={{
-            background: C.bg,
-            border: `1px solid ${C.borderRed}`,
-            fontFamily: C.mono,
-            fontSize: '12px',
-            color: C.text,
-            minHeight: '100%',
-          }}
-        >
           <Box
             style={{
               borderBottom: `2px solid ${C.borderRed}`,
@@ -945,10 +936,8 @@ export const SkillProgression = (props, context) => {
             >
               SCP FOUNDATION | SKILL PROGRESSION | ALL DATA CLASSIFIED |
               UNAUTHORIZED ACCESS IS A CLASS-B INFRACTION
-            </Box>
-          </Box>
         </Box>
-      </Window.Content>
-    </Window>
+      </Box>
+    </Box>
   );
 };

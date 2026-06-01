@@ -12,7 +12,7 @@
 	host.sanity.hallucination_level = min(host.sanity.hallucination_level + 20, host.sanity.max_hallucination)
 	host.sanity.insanity_level = min(host.sanity.insanity_level + 10, host.sanity.max_insanity)
 
-	to_chat(host, "<span class='danger'>The mask's influence is affecting your mental state!</span>")
+	to_chat(host, span_danger("The mask's influence is affecting your mental state!"))
 
 // SCP-096 Sanity Integration
 /mob/living/simple_animal/hostile/scp096/proc/affect_viewer_sanity(mob/living/carbon/human/viewer)
@@ -27,7 +27,7 @@
 	viewer.sanity.hallucination_level = min(viewer.sanity.hallucination_level + 30, viewer.sanity.max_hallucination)
 	viewer.sanity.insanity_level = min(viewer.sanity.insanity_level + 15, viewer.sanity.max_insanity)
 
-	to_chat(viewer, "<span class='danger'>The sight of SCP-096 has traumatized you!</span>")
+	to_chat(viewer, span_danger("The sight of SCP-096 has traumatized you!"))
 
 // SCP-173 Sanity Integration
 /obj/structure/scp173/proc/affect_nearby_sanity()
@@ -41,7 +41,7 @@
 		H.sanity.insanity_level = min(H.sanity.insanity_level + 2, H.sanity.max_insanity)
 
 		if(prob(10))
-			to_chat(H, "<span class='warning'>You feel an overwhelming sense of dread...</span>")
+			to_chat(H, span_warning("You feel an overwhelming sense of dread..."))
 
 // SCP-049 Sanity Integration
 /mob/living/simple_animal/hostile/scp049/proc/affect_patient_sanity(mob/living/carbon/human/patient)
@@ -55,7 +55,7 @@
 		patient.sanity.add_trauma(TRAUMA_PHYSICAL, 15)
 	patient.sanity.hallucination_level = min(patient.sanity.hallucination_level + 25, patient.sanity.max_hallucination)
 
-	to_chat(patient, "<span class='danger'>The doctor's 'treatment' has left you mentally scarred!</span>")
+	to_chat(patient, span_danger("The doctor's 'treatment' has left you mentally scarred!"))
 
 // SCP-106 Sanity Integration
 /mob/living/simple_animal/hostile/scp106/proc/affect_victim_sanity(mob/living/carbon/human/victim)
@@ -70,7 +70,7 @@
 	victim.sanity.hallucination_level = victim.sanity.max_hallucination
 	victim.sanity.insanity_level = min(victim.sanity.insanity_level + 20, victim.sanity.max_insanity)
 
-	to_chat(victim, "<span class='danger'>The pocket dimension has shattered your sanity!</span>")
+	to_chat(victim, span_danger("The pocket dimension has shattered your sanity!"))
 
 // SCP-3008 Sanity Integration
 /area/scp3008/proc/affect_occupant_sanity(mob/living/carbon/human/occupant)
@@ -83,7 +83,7 @@
 	occupant.sanity.social_isolation = min(occupant.sanity.social_isolation + 5, occupant.sanity.max_social_isolation)
 
 	if(prob(5))
-		to_chat(occupant, "<span class='warning'>The endless corridors are getting to you...</span>")
+		to_chat(occupant, span_warning("The endless corridors are getting to you..."))
 
 // Generic SCP Sanity Effects
 /datum/scp/proc/apply_sanity_effects(mob/living/carbon/human/target, severity = 10)
@@ -416,7 +416,7 @@
 		if(H.sanity)
 			H.sanity.add_trauma(TRAUMA_PSYCHOLOGICAL, 3)
 		if(prob(10))
-			to_chat(H, "<span class='warning'>An unnatural decay clings to the air around you...</span>")
+			to_chat(H, span_warning("An unnatural decay clings to the air around you..."))
 
 // SCP-076 Sanity Integration
 /mob/living/scp/scp076/proc/affect_combat_sanity(mob/living/carbon/human/victim)
@@ -436,7 +436,7 @@
 		if(H.sanity)
 			H.sanity.add_trauma(TRAUMA_VIOLENCE, 2)
 		if(prob(5))
-			to_chat(H, "<span class='warning'>An overwhelming bloodlust fills your mind!</span>")
+			to_chat(H, span_warning("An overwhelming bloodlust fills your mind!"))
 
 // SCP-105 Sanity Integration
 /mob/living/scp/scp105/proc/affect_nearby_sanity()
@@ -476,4 +476,4 @@
 			H.sanity.add_trauma(TRAUMA_SCP_EXPOSURE, 5)
 		H.sanity.hallucination_level = min(H.sanity.hallucination_level + 8, H.sanity.max_hallucination)
 		if(prob(10))
-			to_chat(H, "<span class='danger'>You feel something watching you from beneath the water!</span>")
+			to_chat(H, span_danger("You feel something watching you from beneath the water!"))

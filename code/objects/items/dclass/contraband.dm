@@ -169,13 +169,22 @@
 
 /obj/item/dclass_contraband/Initialize()
 	. = ..()
-	// Add to D-Class player's contraband if they're holding it
 	if(ismob(loc))
 		var/mob/M = loc
 		if(M.ckey && SSdclass && SSdclass.manager)
 			var/datum/dclass_player/player = SSdclass.manager.get_dclass_player(M.ckey)
 			if(player)
 				player.add_contraband(contraband_key)
+
+/obj/item/dclass_contraband/equipped(mob/user, slot)
+	. = ..()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(findtext(H.job, "D-Class"))
+			add_verb(user, list(
+				/obj/item/dclass_contraband/proc/examine_contraband,
+				/obj/item/dclass_contraband/proc/hide_contraband,
+			))
 
 // Use contraband item
 /obj/item/dclass_contraband/attack_self(mob/user)
@@ -296,9 +305,10 @@
 	return FALSE
 
 // Contraband item verbs
-/obj/item/dclass_contraband/verb/examine_contraband()
+/obj/item/dclass_contraband/proc/examine_contraband()
 	set name = "Examine Contraband"
 	set category = "D-Class"
+	set hidden = TRUE
 	set src in usr
 
 	if(!usr.ckey)
@@ -321,9 +331,10 @@
 
 	to_chat(usr, "<span class='notice'>[info]</span>")
 
-/obj/item/dclass_contraband/verb/hide_contraband()
+/obj/item/dclass_contraband/proc/hide_contraband()
 	set name = "Hide Contraband"
 	set category = "D-Class"
+	set hidden = TRUE
 	set src in usr
 
 	if(!usr.ckey)

@@ -51,7 +51,8 @@
 	endWhen = 20
 
 /datum/round_event/scp_containment_degradation/announce(fake)
-	priority_announce("NOTICE: Containment integrity monitoring detected degradation in structural elements. Engineering personnel inspect containment walls.", "CONTAINMENT WARNING", null, ANNOUNCER_DEFAULT)
+	// Automated announcements removed - engineering/dispatch should announce containment issues
+	// priority_announce("NOTICE: Containment integrity monitoring detected degradation in structural elements. Engineering personnel inspect containment walls.", "CONTAINMENT WARNING", null, ANNOUNCER_DEFAULT)
 
 /datum/round_event/scp_containment_degradation/start()
 	var/damaged = 0
@@ -95,46 +96,6 @@
 			if(prob(30))
 				H.drowsyness += 10
 
-/datum/round_event_control/scp_dclass_uprising
-	name = "SCP D-Class Uprising"
-	typepath = /datum/round_event/scp_dclass_uprising
-	max_occurrences = 1
-	weight = 10
-	earliest_start = 25 MINUTES
-	min_players = 15
-
-/datum/round_event/scp_dclass_uprising
-
-/datum/round_event/scp_dclass_uprising/setup()
-	startWhen = 1
-	announceWhen = 1
-	endWhen = 30
-
-/datum/round_event/scp_dclass_uprising/announce(fake)
-	priority_announce("ALERT: Unauthorized D-Class assembly detected. Security personnel respond to D-Class areas. Elevate security protocols.", "D-CLASS ALERT", null, ANNOUNCER_ALERT)
-
-/datum/round_event/scp_dclass_uprising/start()
-	if(SSdclass?.manager)
-		SSdclass.manager.current_security_level = max(SSdclass.manager.current_security_level, 3)
-
-	for(var/mob/living/carbon/human/H in GLOB.player_list)
-		if(QDELETED(H) || H.stat == DEAD || !H.client)
-			continue
-		if(!findtext(H.job, "D-Class"))
-			continue
-		to_chat(H, span_warning("A call goes out among the D-Class — this is our chance! The guards are distracted!"))
-		if(H.sanity)
-			H.sanity.adjust_sanity(-15, "dclass_uprising")
-		H.add_client_colour(/datum/client_colour/monochrome)
-
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/dclass_uprising_cleanup), 2 MINUTES)
-
-/proc/dclass_uprising_cleanup()
-	for(var/mob/living/carbon/human/H in GLOB.player_list)
-		if(QDELETED(H))
-			continue
-		H.remove_client_colour(/datum/client_colour/monochrome)
-
 /datum/round_event_control/scp_power_surge
 	name = "SCP Power Surge"
 	typepath = /datum/round_event/scp_power_surge
@@ -151,7 +112,8 @@
 	endWhen = 20
 
 /datum/round_event/scp_power_surge/announce(fake)
-	priority_announce("WARNING: Anomalous power surge detected in containment grid. Backup generators standing by.", "POWER SURGE", null, ANNOUNCER_POWEROFF)
+	// Automated announcements removed - engineering/dispatch should announce power issues
+	// priority_announce("WARNING: Anomalous power surge detected in containment grid. Backup generators standing by.", "POWER SURGE", null, ANNOUNCER_POWEROFF)
 
 /datum/round_event/scp_power_surge/start()
 	var/list/surge_apcs = list()
@@ -164,8 +126,8 @@
 	if(length(surge_apcs) && prob(30))
 		var/list/breached = list()
 		if(SSscp_persistence?.manager)
-			for(var/scp_id in SSscp_persistence.manager.scp_instances)
-				var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[scp_id]
+			for(var/scp_id in SSscp_persistence?.manager?.scp_instances)
+				var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[scp_id]
 				if(instance.containment_status == "breached")
 					breached += scp_id
 		if(length(breached))

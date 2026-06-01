@@ -50,7 +50,7 @@
 
 /datum/antagonist/goc/greet()
 	. = ..()
-	to_chat(owner, "<span class='boldannounce'>You are a Global Occult Coalition operative.</span>")
+	to_chat(owner, span_boldannounce("You are a Global Occult Coalition operative."))
 	to_chat(owner, "<span class='warningplain'>The GOC operates under the UN to neutralize paranormal threats. The Foundation is an ally, but your mission takes priority.</span>")
 
 /datum/antagonist/goc/commander
@@ -92,7 +92,7 @@
 
 /datum/antagonist/uiu/greet()
 	. = ..()
-	to_chat(owner, "<span class='boldannounce'>You are an FBI Unusual Incidents Unit agent.</span>")
+	to_chat(owner, span_boldannounce("You are an FBI Unusual Incidents Unit agent."))
 	to_chat(owner, "<span class='warningplain'>The UIU investigates paranormal activity on US soil. You're here to observe and report.</span>")
 
 /datum/outfit/uiu
@@ -126,7 +126,7 @@
 
 /datum/antagonist/isd/greet()
 	. = ..()
-	to_chat(owner, "<span class='boldannounce'>You are an Internal Security Department agent.</span>")
+	to_chat(owner, span_boldannounce("You are an Internal Security Department agent."))
 	to_chat(owner, "<span class='warningplain'>The ISD monitors Foundation personnel for corruption, sabotage, and unauthorized activity. Your identity is classified.</span>")
 
 /datum/antagonist/isd/proc/forge_objectives()

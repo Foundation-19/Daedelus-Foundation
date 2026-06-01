@@ -1,6 +1,8 @@
 /datum/job/bureaucrat
 	title = "Bureaucrat"
-	description = "Handles relationships with Mars Executive Outcomes. Acts as a guard for Management."
+	description = "Manage the Foundation budget. Approve or deny department funding requests, \
+	reallocate resources between departments, and ensure financial stability. Use the Budget \
+	Management Console to track spending and authorize expenditures."
 	department_head = list(JOB_CAPTAIN)
 	faction = FACTION_STATION
 	total_positions = 1

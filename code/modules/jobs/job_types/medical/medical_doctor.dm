@@ -51,7 +51,7 @@
 	uniform = /obj/item/clothing/under/rank/medical/scrubs/blue
 	suit = /obj/item/clothing/suit/toggle/labcoat
 	suit_store = /obj/item/flashlight/pen
-	belt = /obj/item/modular_computer/tablet/pda/medical
+	belt = /obj/item/modular_computer/tablet/pda/foundation_medical
 	ears = /obj/item/radio/headset/headset_med
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	l_hand = /obj/item/storage/medkit/surgery
@@ -131,7 +131,7 @@
 	uniform = /obj/item/clothing/under/rank/medical/scrubs/blue
 	suit = /obj/item/clothing/suit/toggle/labcoat
 	suit_store = /obj/item/flashlight/pen
-	belt = /obj/item/modular_computer/tablet/pda/medical
+	belt = /obj/item/modular_computer/tablet/pda/foundation_medical
 	ears = /obj/item/radio/headset/headset_med
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	l_hand = /obj/item/storage/medkit/surgery

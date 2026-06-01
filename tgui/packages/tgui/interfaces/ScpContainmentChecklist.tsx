@@ -3,7 +3,7 @@ import React from 'react';
 
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Collapsible, Section, Stack } from '../components';
-import { Window } from '../layouts';
+import { NtosWindow } from '../layouts';
 
 type ProcedureStep = string;
 
@@ -235,13 +235,10 @@ export const ScpContainmentConsole = (_props: unknown) => {
     });
 
   return (
-    <Window
-      width={600}
-      height={700}
-      theme="scp"
+    <NtosWindow width={600} height={700}
       backgroundColor={C.bg}
     >
-      <Window.Content scrollable>
+      <NtosWindow.Content scrollable>
         <Stack vertical fill>
           <Stack.Item>
             <Section
@@ -333,7 +330,7 @@ export const ScpContainmentConsole = (_props: unknown) => {
             )}
           </Stack.Item>
         </Stack>
-      </Window.Content>
-    </Window>
+      </NtosWindow.Content>
+    </NtosWindow>
   );
 };

@@ -14,7 +14,10 @@
 
 	var/deployment_cooldown = 0
 	var/deployment_cooldown_time = 15 MINUTES
+	var/reinforce_cooldown = 0
+	var/reinforce_cooldown_time = 5 MINUTES
 	var/last_deployment = ""
+	var/list/deployed_teams = list()
 	var/available_teams = list(
 		"mtf_nu7" = list("name" = "Nu-7 'Hammer Down'", "desc" = "Heavy assault team. Best for Keter-class breaches.", "specialty" = "Heavy Assault / Keter-Class", "size" = 4, "min_breach" = 2),
 		"mtf_epsilon11" = list("name" = "Epsilon-11 'Nine-Tailed Fox'", "desc" = "Containment specialists. Best for Euclid breaches.", "specialty" = "Containment / Euclid-Class", "size" = 3, "min_breach" = 1),
@@ -63,7 +66,7 @@
 
 	var/active_breaches = 0
 	if(SSscp_persistence && SSscp_persistence.manager)
-		active_breaches = SSscp_persistence.manager.active_breaches
+		active_breaches = SSscp_persistence?.manager?.active_breaches
 	data["active_breach_count"] = active_breaches
 	data["last_deployment"] = last_deployment
 
@@ -79,25 +82,50 @@
 			var/team_key = params["team_name"]
 			if(!team_key || !(team_key in available_teams))
 				return
-			var/mob/living/carbon/human/H = usr
+			var/mob/living/carbon/human/H = ui.user
 			if(!istype(H))
 				return
 			var/obj/item/card/id/id_card = H.get_idcard(TRUE)
 			if(!id_card || !(ACCESS_ADMIN in id_card.access))
-				to_chat(H, "<span class='warning'>Requires Command access to authorize MTF deployment.</span>")
+				to_chat(H, span_warning("Requires Command access to authorize MTF deployment."))
 				return
 			if(world.time < deployment_cooldown)
-				to_chat(H, "<span class='warning'>MTF deployment systems recharging. Available in [DisplayTimeText(deployment_cooldown - world.time)].</span>")
+				to_chat(H, span_warning("MTF deployment systems recharging. Available in [DisplayTimeText(deployment_cooldown - world.time)]."))
 				return
 			var/list/team = available_teams[team_key]
 			var/active_breaches = 0
 			if(SSscp_persistence && SSscp_persistence.manager)
-				active_breaches = SSscp_persistence.manager.active_breaches
+				active_breaches = SSscp_persistence?.manager?.active_breaches
 			if(active_breaches < team["min_breach"])
-				to_chat(H, "<span class='warning'>Insufficient threat level. [team["name"]] requires at least [team["min_breach"]] active breach(es). Current: [active_breaches]</span>")
+				to_chat(H, span_warning("Insufficient threat level. [team["name"]] requires at least [team["min_breach"]] active breach(es). Current: [active_breaches]"))
 				return
 			last_deployment = team["name"]
 			deploy_mtf_team(team_key, team, H)
+		if("reinforce")
+			var/mob/living/carbon/human/H = ui.user
+			if(!istype(H))
+				return
+			var/obj/item/card/id/id_card = H.get_idcard(TRUE)
+			if(!id_card || !(ACCESS_ADMIN in id_card.access))
+				to_chat(H, span_warning("Requires Command access to authorize MTF reinforcement."))
+				return
+			if(world.time < reinforce_cooldown)
+				to_chat(H, span_warning("Reinforcement systems recharging. Available in [DisplayTimeText(reinforce_cooldown - world.time)]."))
+				return
+			var/alive_mtf = 0
+			for(var/mob/living/carbon/human/M in GLOB.player_list)
+				if(M.stat == DEAD)
+					continue
+				var/obj/item/card/id/M_id = M.get_idcard(TRUE)
+				if(M_id && findtext(M_id.assignment || "", "MTF"))
+					alive_mtf++
+			if(alive_mtf == 0)
+				to_chat(H, span_warning("No active MTF teams detected. Deploy a team first."))
+				return
+			if(alive_mtf >= 6)
+				to_chat(H, span_warning("MTF presence is already sufficient. Reinforcement denied."))
+				return
+			reinforce_mtf_team(H)
 
 /obj/machinery/mtf_deployment_console/attack_hand(mob/user)
 	if(!ishuman(user))
@@ -106,11 +134,11 @@
 
 	var/obj/item/card/id/id_card = H.get_idcard(TRUE)
 	if(!id_card || !(ACCESS_ADMIN in id_card.access))
-		to_chat(H, "<span class='warning'>Requires Command access to authorize MTF deployment.</span>")
+		to_chat(H, span_warning("Requires Command access to authorize MTF deployment."))
 		return
 
 	if(world.time < deployment_cooldown)
-		to_chat(H, "<span class='warning'>MTF deployment systems recharging. Available in [DisplayTimeText(deployment_cooldown - world.time)].</span>")
+		to_chat(H, span_warning("MTF deployment systems recharging. Available in [DisplayTimeText(deployment_cooldown - world.time)]."))
 		return
 
 	var/list/options = list()
@@ -127,10 +155,10 @@
 
 	var/active_breaches = 0
 	if(SSscp_persistence && SSscp_persistence.manager)
-		active_breaches = SSscp_persistence.manager.active_breaches
+		active_breaches = SSscp_persistence?.manager?.active_breaches
 
 	if(active_breaches < team["min_breach"])
-		to_chat(H, "<span class='warning'>Insufficient threat level. [team["name"]] requires at least [team["min_breach"]] active breach(es). Current: [active_breaches]</span>")
+		to_chat(H, span_warning("Insufficient threat level. [team["name"]] requires at least [team["min_breach"]] active breach(es). Current: [active_breaches]"))
 		return
 
 	var/confirm = alert(H, "Deploy [team["name"]]? Team size: [team["size"]]. This action cannot be undone.", "MTF Deployment", "Deploy", "Cancel")
@@ -193,9 +221,74 @@
 
 	for(var/mob/living/carbon/human/H in deployed_members)
 		for(var/obj in objectives)
-			to_chat(H, "<span class='notice'>MTF Objective: [obj]</span>")
+			to_chat(H, span_notice("MTF Objective: [obj]"))
 
 	report_lockdown_to_round_log("MTF Deployment: [team_data["name"]]", 0)
+
+/obj/machinery/mtf_deployment_console/proc/reinforce_mtf_team(mob/deployer)
+	reinforce_cooldown = world.time + 5 MINUTES
+
+	priority_announce("ATTENTION: MTF reinforcement team has been deployed to Site-53. All personnel cooperate with MTF operations.", "MTF REINFORCEMENT", null, ANNOUNCER_ALERT)
+
+	var/list/spawn_turfs = list()
+	for(var/turf/T in get_area_turfs(/area/scp/surface/helipad))
+		if(!T.density)
+			spawn_turfs += T
+
+	if(!length(spawn_turfs))
+		for(var/turf/T in get_area_turfs(/area/scp/ez/lobby))
+			if(!T.density)
+				spawn_turfs += T
+
+	if(!length(spawn_turfs))
+		for(var/turf/T in get_area_turfs(/area/site53/surface))
+			if(!T.density)
+				spawn_turfs += T
+
+	if(!length(spawn_turfs))
+		var/turf/fallback = get_safe_random_station_turf()
+		if(fallback)
+			spawn_turfs += fallback
+
+	var/list/objectives = list("Reinforce active MTF operations", "Secure all containment breaches")
+	if(SSscp_persistence && SSscp_persistence.manager)
+		for(var/scp_id in SSscp_persistence?.manager?.scp_instances)
+			var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[scp_id]
+			if(instance.containment_status == "breached")
+				objectives += "Priority: Recontain [scp_id]"
+
+	var/list/deployed_members = list()
+	var/team_size = 3
+
+	var/list/spawn_loc = length(spawn_turfs) ? pick(spawn_turfs) : get_turf(src)
+	var/mob/living/carbon/human/mtf_commander = new(spawn_loc)
+	equip_mtf_member(mtf_commander, "mtf_epsilon11", TRUE)
+	deployed_members += mtf_commander
+
+	for(var/i in 2 to team_size)
+		var/turf/member_loc = length(spawn_turfs) ? pick(spawn_turfs) : get_turf(src)
+		var/mob/living/carbon/human/mtf_member = new(member_loc)
+		equip_mtf_member(mtf_member, "mtf_epsilon11", FALSE)
+		deployed_members += mtf_member
+
+	var/list/candidates = poll_candidates_for_mob("Do you want to play as MTF Reinforcement?", ROLE_MTF, null, 10 SECONDS, mtf_commander)
+	if(length(candidates))
+		var/mob/dead/observer/candidate = candidates[1]
+		mtf_commander.key = candidate.key
+
+	for(var/i in 2 to length(deployed_members))
+		var/mob/living/carbon/human/mtf_member = deployed_members[i]
+		var/list/more_candidates = poll_candidates_for_mob("Do you want to play as MTF Reinforcement?", ROLE_MTF, null, 10 SECONDS, mtf_member)
+		if(length(more_candidates))
+			var/mob/dead/observer/candidate = more_candidates[1]
+			mtf_member.key = candidate.key
+
+	for(var/mob/living/carbon/human/H in deployed_members)
+		for(var/obj in objectives)
+			to_chat(H, span_notice("MTF Objective: [obj]"))
+
+	deployed_teams["reinforcement_[world.time]"] = list("name" = "Reinforcement", "size" = team_size, "deployed" = world.time)
+	report_lockdown_to_round_log("MTF Reinforcement deployed", 0)
 
 /obj/machinery/mtf_deployment_console/proc/generate_mtf_objectives(team_key)
 	var/list/objectives = list("Secure all containment breaches")
@@ -215,8 +308,8 @@
 			objectives += "Establish quarantine perimeter"
 
 	if(SSscp_persistence && SSscp_persistence.manager)
-		for(var/scp_id in SSscp_persistence.manager.scp_instances)
-			var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[scp_id]
+		for(var/scp_id in SSscp_persistence?.manager?.scp_instances)
+			var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[scp_id]
 			if(instance.containment_status == "breached")
 				objectives += "Priority: Recontain [scp_id]"
 
@@ -225,88 +318,37 @@
 /obj/machinery/mtf_deployment_console/proc/equip_mtf_member(mob/living/carbon/human/H, team_key, is_commander)
 	H.set_species(/datum/species/human)
 
-	var/obj/item/card/id/id_card = new /obj/item/card/id/advanced()
-	id_card.registered_name = H.real_name
-	id_card.assignment = is_commander ? "MTF Commander" : "MTF Operative"
-	id_card.access = list(
-		ACCESS_SECURITY, ACCESS_SECURITY_LVL1, ACCESS_SECURITY_LVL2, ACCESS_SECURITY_LVL3, ACCESS_SECURITY_LVL4, ACCESS_SECURITY_LVL5,
-		ACCESS_SCIENCE, ACCESS_MEDICAL, ACCESS_ADMIN, ACCESS_DCLASS,
-	)
-	H.equip_to_slot_or_del(id_card, ITEM_SLOT_ID)
-
 	var/outfit_type
 	switch(team_key)
 		if("mtf_nu7")
-			outfit_type = /datum/outfit/mtf_nu7
+			outfit_type = is_commander ? /datum/outfit/mtf/nu7/commander : /datum/outfit/mtf/nu7
 		if("mtf_epsilon11")
-			outfit_type = /datum/outfit/mtf_epsilon11
+			outfit_type = is_commander ? /datum/outfit/mtf/epsilon11/commander : /datum/outfit/mtf/epsilon11
 		if("mtf_epsilon9")
-			outfit_type = /datum/outfit/mtf_epsilon9
+			outfit_type = /datum/outfit/mtf/epsilon9
 		if("mtf_beta7")
-			outfit_type = /datum/outfit/mtf_beta7
+			outfit_type = /datum/outfit/mtf/beta7
 		else
-			outfit_type = /datum/outfit/mtf_default
+			outfit_type = is_commander ? /datum/outfit/mtf/commander : /datum/outfit/mtf/security
 
 	if(outfit_type)
 		var/datum/outfit/O = new outfit_type
 		O.equip(H)
 
-/datum/outfit/mtf_default
-	name = "MTF Default"
-	uniform = /obj/item/clothing/under/rank/security/guard
-	suit = /obj/item/clothing/suit/armor/vest/sec
-	head = /obj/item/clothing/head/helmet/sec
-	shoes = /obj/item/clothing/shoes/jackboots
-	gloves = /obj/item/clothing/gloves/color/black
-	back = /obj/item/storage/backpack/security
-	belt = /obj/item/storage/belt/security/full
-	ears = /obj/item/radio/headset/heads/hos
-	mask = /obj/item/clothing/mask/gas/sechailer
-
-/datum/outfit/mtf_nu7
-	name = "MTF Nu-7 Hammer Down"
-	uniform = /obj/item/clothing/under/rank/security/captain
-	suit = /obj/item/clothing/suit/armor/vest/sec
-	head = /obj/item/clothing/head/helmet/sec
-	shoes = /obj/item/clothing/shoes/jackboots
-	gloves = /obj/item/clothing/gloves/combat
-	back = /obj/item/storage/backpack/duffelbag/sec
-	belt = /obj/item/storage/belt/security/full
-	ears = /obj/item/radio/headset/heads/hos
-	mask = /obj/item/clothing/mask/gas/sechailer
-
-/datum/outfit/mtf_epsilon11
-	name = "MTF Epsilon-11 Nine-Tailed Fox"
-	uniform = /obj/item/clothing/under/rank/security/guard
-	suit = /obj/item/clothing/suit/armor/vest/sec
-	head = /obj/item/clothing/head/helmet/sec
-	shoes = /obj/item/clothing/shoes/jackboots
-	gloves = /obj/item/clothing/gloves/color/black
-	back = /obj/item/storage/backpack/security
-	belt = /obj/item/storage/belt/security/full
-	ears = /obj/item/radio/headset/heads/hos
-	mask = /obj/item/clothing/mask/gas/sechailer
-
-/datum/outfit/mtf_epsilon9
-	name = "MTF Epsilon-9 Fire Eaters"
-	uniform = /obj/item/clothing/under/rank/security/guard
-	suit = /obj/item/clothing/suit/fire/atmos
-	head = /obj/item/clothing/head/hardhat/red
-	shoes = /obj/item/clothing/shoes/jackboots
-	gloves = /obj/item/clothing/gloves/color/black
-	back = /obj/item/storage/backpack/security
-	belt = /obj/item/storage/belt/security/full
-	ears = /obj/item/radio/headset/heads/hos
-	mask = /obj/item/clothing/mask/gas
-
-/datum/outfit/mtf_beta7
-	name = "MTF Beta-7 Maz Hatters"
-	uniform = /obj/item/clothing/under/rank/security/guard
-	suit = /obj/item/clothing/suit/bio_suit/general
-	head = /obj/item/clothing/head/bio_hood/general
-	shoes = /obj/item/clothing/shoes/jackboots
-	gloves = /obj/item/clothing/gloves/color/black
-	back = /obj/item/storage/backpack/security
-	belt = /obj/item/storage/belt/security/full
-	ears = /obj/item/radio/headset/heads/hos
-	mask = /obj/item/clothing/mask/gas
+	var/obj/item/card/id/id_card = H.get_idcard(TRUE)
+	if(id_card)
+		id_card.registered_name = H.real_name
+		id_card.assignment = is_commander ? "MTF Commander" : "MTF Operative"
+		id_card.access = list(
+			ACCESS_SECURITY, ACCESS_SECURITY_LVL1, ACCESS_SECURITY_LVL2, ACCESS_SECURITY_LVL3, ACCESS_SECURITY_LVL4, ACCESS_SECURITY_LVL5,
+			ACCESS_SCIENCE, ACCESS_MEDICAL, ACCESS_ADMIN, ACCESS_DCLASS,
+		)
+	else
+		id_card = new /obj/item/card/id/advanced()
+		id_card.registered_name = H.real_name
+		id_card.assignment = is_commander ? "MTF Commander" : "MTF Operative"
+		id_card.access = list(
+			ACCESS_SECURITY, ACCESS_SECURITY_LVL1, ACCESS_SECURITY_LVL2, ACCESS_SECURITY_LVL3, ACCESS_SECURITY_LVL4, ACCESS_SECURITY_LVL5,
+			ACCESS_SCIENCE, ACCESS_MEDICAL, ACCESS_ADMIN, ACCESS_DCLASS,
+		)
+		H.equip_to_slot_or_del(id_card, ITEM_SLOT_ID)

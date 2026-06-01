@@ -349,6 +349,18 @@ const GASES = [
     label: 'Rn',
     color: 'grey',
   },
+  {
+    id: 'decontamination_gas',
+    name: 'Decontamination Gas',
+    label: 'Dc',
+    color: 'lightcyan',
+  },
+  {
+    id: 'memetic_neutralizer',
+    name: 'Memetic Neutralizer',
+    label: 'Mn',
+    color: 'thistle',
+  },
 ];
 
 export const getGasLabel = (gasId, fallbackValue) => {

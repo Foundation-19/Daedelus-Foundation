@@ -5,6 +5,9 @@
 #define CONTAINMENT_WALL_REINFORCED_INTEGRITY 600
 #define CONTAINMENT_WALL_WELD_REPAIR 50
 #define CONTAINMENT_WALL_WELD_TIME 30
+#define CONTAINMENT_WALL_DECAY_INTERVAL 600
+#define CONTAINMENT_WALL_DECAY_AMOUNT 1
+#define CONTAINMENT_WALL_DECAY_POWERLESS 5
 
 /turf/closed/wall/scp_containment
 	name = "containment wall"
@@ -21,6 +24,7 @@
 	var/last_damage_time = 0
 	var/damage_overlay = 0
 	var/containment_zone = "unknown"
+	var/last_decay_tick = 0
 
 /turf/closed/wall/scp_containment/lcz
 	containment_zone = "lcz"
@@ -36,10 +40,26 @@
 	. = ..()
 	SET_TRACKING(__TYPE__)
 	update_damage_overlay()
+	last_decay_tick = world.time
+	START_PROCESSING(SSobj, src)
 
 /turf/closed/wall/scp_containment/Destroy()
+	STOP_PROCESSING(SSobj, src)
 	UNSET_TRACKING(__TYPE__)
 	return ..()
+
+/turf/closed/wall/scp_containment/process()
+	if(world.time < last_decay_tick + CONTAINMENT_WALL_DECAY_INTERVAL)
+		return
+	last_decay_tick = world.time
+	if(containment_integrity <= 0)
+		return
+	var/area/A = get_area(src)
+	var/decay = CONTAINMENT_WALL_DECAY_AMOUNT
+	if(A && !A.powered(AREA_USAGE_ENVIRON))
+		decay = CONTAINMENT_WALL_DECAY_POWERLESS
+	if(decay > 0 && containment_integrity > 0)
+		damage_containment(decay, "structural decay")
 
 /turf/closed/wall/scp_containment/examine(mob/user)
 	. = ..()
@@ -125,6 +145,8 @@
 			var/repair = min(CONTAINMENT_WALL_WELD_REPAIR, max_containment_integrity - containment_integrity)
 			containment_integrity += repair
 			to_chat(user, span_notice("You repair the containment wall. Integrity: [round((containment_integrity / max_containment_integrity) * 100)]%"))
+			if(SSround_objectives)
+				SSround_objectives.report_objective_progress("engineer_repair", 1)
 			update_damage_overlay()
 			welder.use(2)
 		return

@@ -91,7 +91,7 @@
 
 	// Notify parent mob
 	if(parent_mob)
-		to_chat(parent_mob, "<span class='boldnotice'>SKILL MILESTONE: [skill_name] advanced to level [new_level]! Session time: [round((world.time - session_start_time)/600, 0.1)] minutes</span>")
+		to_chat(parent_mob, span_boldnotice("SKILL MILESTONE: [skill_name] advanced to level [new_level]! Session time: [round((world.time - session_start_time)/600, 0.1)] minutes"))
 
 /datum/scp_advanced_component/skill_progression_tracker/proc/update_skill_efficiency(skill_name)
 	if(!(skill_name in skill_usage_history))

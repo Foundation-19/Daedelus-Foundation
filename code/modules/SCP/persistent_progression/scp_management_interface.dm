@@ -461,35 +461,35 @@
 		if("enable_scp")
 			var/scp_id = params["scp_id"]
 			if(scp_id && SSscp_persistence && SSscp_persistence.manager)
-				SSscp_persistence.manager.enable_scp(scp_id)
+				SSscp_persistence?.manager?.enable_scp(scp_id)
 				. = TRUE
 
 		if("disable_scp")
 			var/scp_id = params["scp_id"]
 			if(scp_id && SSscp_persistence && SSscp_persistence.manager)
-				SSscp_persistence.manager.disable_scp(scp_id)
+				SSscp_persistence?.manager?.disable_scp(scp_id)
 				. = TRUE
 
 		if("set_management_mode")
 			var/mode = params["mode"]
 			if(mode && SSscp_persistence && SSscp_persistence.manager)
-				SSscp_persistence.manager.set_management_mode(mode)
+				SSscp_persistence?.manager?.set_management_mode(mode)
 				. = TRUE
 
 		if("toggle_auto_containment")
 			if(SSscp_persistence && SSscp_persistence.manager)
-				SSscp_persistence.manager.auto_containment_enabled = !SSscp_persistence.manager.auto_containment_enabled
+				SSscp_persistence?.manager?.auto_containment_enabled = !SSscp_persistence?.manager?.auto_containment_enabled
 				. = TRUE
 
 		if("toggle_scp_rotation")
 			if(SSscp_persistence && SSscp_persistence.manager)
-				SSscp_persistence.manager.scp_rotation_enabled = !SSscp_persistence.manager.scp_rotation_enabled
+				SSscp_persistence?.manager?.scp_rotation_enabled = !SSscp_persistence?.manager?.scp_rotation_enabled
 				. = TRUE
 
 		if("set_rotation_interval")
 			var/interval = text2num(params["interval"])
 			if(interval && SSscp_persistence && SSscp_persistence.manager)
-				SSscp_persistence.manager.rotation_interval = interval * 600 // Convert minutes to ticks
+				SSscp_persistence?.manager?.rotation_interval = interval * 600 // Convert minutes to ticks
 				. = TRUE
 
 		if("set_scp_configuration")
@@ -497,7 +497,7 @@
 			var/config_key = params["config_key"]
 			var/value = params["value"]
 			if(scp_id && config_key && SSscp_persistence && SSscp_persistence.manager)
-				SSscp_persistence.manager.set_scp_configuration(scp_id, config_key, value)
+				SSscp_persistence?.manager?.set_scp_configuration(scp_id, config_key, value)
 				. = TRUE
 
 		if("create_spawn_schedule")
@@ -554,7 +554,7 @@
 
 		if("force_scp_rotation")
 			if(SSscp_persistence && SSscp_persistence.manager)
-				SSscp_persistence.manager.force_scp_rotation()
+				SSscp_persistence?.manager?.force_scp_rotation()
 				. = TRUE
 
 		if("force_contain_scp")
@@ -589,17 +589,17 @@
 					"updated_by" = admin_client.key
 				)
 
-				to_chat(admin_client, "<span class='notice'>Player [player_name] ([player_key]) has been added to the Player Access Management system.</span>")
-				world.log << "SCPManagementInterface: Player [player_key] added by [admin_client.key]"
+				to_chat(admin_client, span_notice("Player [player_name] ([player_key]) has been added to the Player Access Management system."))
+				log_game("SCPManagementInterface: Player [player_key] added by [admin_client.key]")
 				. = TRUE
 
 		if("remove_player_from_access")
 			var/player_key = params["player_key"]
 			if(player_key && player_permissions && player_permissions[player_key])
 				var/player_name = player_permissions[player_key]["name"]
-				to_chat(admin_client, "<span class='notice'>Player [player_name] ([player_key]) has been removed from the Player Access Management system.</span>")
+				to_chat(admin_client, span_notice("Player [player_name] ([player_key]) has been removed from the Player Access Management system."))
 				player_permissions -= player_key
-				world.log << "SCPManagementInterface: Player [player_key] removed by [admin_client.key]"
+				log_game("SCPManagementInterface: Player [player_key] removed by [admin_client.key]")
 				. = TRUE
 
 		if("update_player_permissions")
@@ -620,8 +620,8 @@
 				player_permissions[player_key]["updated_by"] = admin_client.key
 
 				var/player_name = player_permissions[player_key]["name"]
-				to_chat(admin_client, "<span class='notice'>Player [player_name] ([player_key]) permissions have been updated.</span>")
-				world.log << "SCPManagementInterface: Player [player_key] permissions updated by [admin_client.key]"
+				to_chat(admin_client, span_notice("Player [player_name] ([player_key]) permissions have been updated."))
+				log_game("SCPManagementInterface: Player [player_key] permissions updated by [admin_client.key]")
 				. = TRUE
 
 		if("view_scp_logs")
@@ -696,7 +696,7 @@
 	// Find the SCP template
 	var/list/template = scp_templates[scp_id]
 	if(!template)
-		to_chat(admin_client, "<span class='warning'>No template found for [scp_id]</span>")
+		to_chat(admin_client, span_warning("No template found for [scp_id]"))
 		return
 
 	// Check spawn conditions
@@ -704,21 +704,21 @@
 	var/min_players = template["spawn_conditions"]["min_players"]
 
 	if(player_count < min_players)
-		to_chat(admin_client, "<span class='warning'>Not enough players ([player_count]/[min_players]) to spawn [scp_id]</span>")
+		to_chat(admin_client, span_warning("Not enough players ([player_count]/[min_players]) to spawn [scp_id]"))
 		return
 
 	// Create the SCP object
 	var/obj/scp_object = create_scp_object(scp_id, template)
 	if(scp_object)
-		to_chat(admin_client, "<span class='notice'>Successfully spawned [scp_id] at [get_area(scp_object)]</span>")
+		to_chat(admin_client, span_notice("Successfully spawned [scp_id] at [get_area(scp_object)]"))
 
 		// Log the spawn
 		if(SSscp_persistence && SSscp_persistence.manager)
-			var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[scp_id]
+			var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[scp_id]
 			if(instance)
 				instance.add_interaction_record(null, "admin_forced_spawn")
 	else
-		to_chat(admin_client, "<span class='danger'>Failed to spawn [scp_id]</span>")
+		to_chat(admin_client, span_danger("Failed to spawn [scp_id]"))
 
 /datum/scp_management_interface/proc/create_scp_object(scp_id, template)
 	// This is a simplified version - in practice, you'd have specific creation logic for each SCP
@@ -785,15 +785,15 @@
 			scp.containment_status = "contained"
 		// Add more SCP-specific containment logic here
 
-	to_chat(admin_client, "<span class='notice'>Applied containment to [length(scp_objects)] instances of [scp_id]</span>")
+	to_chat(admin_client, span_notice("Applied containment to [length(scp_objects)] instances of [scp_id]"))
 
 /datum/scp_management_interface/proc/view_scp_logs(scp_id)
 	if(!scp_id || !SSscp_persistence || !SSscp_persistence.manager)
 		return
 
-	var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[scp_id]
+	var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[scp_id]
 	if(!instance)
-		to_chat(admin_client, "<span class='warning'>No logs found for [scp_id]</span>")
+		to_chat(admin_client, span_warning("No logs found for [scp_id]"))
 		return
 
 	var/message = "<h2>SCP [scp_id] Interaction Logs</h2>"
@@ -808,7 +808,7 @@
 		message += "<b>[interaction["timestamp"]]:</b> [interaction["type"]] - [interaction["target"] || "No target"]<br>"
 		count++
 
-	to_chat(admin_client, "<span class='notice'>[message]</span>")
+	to_chat(admin_client, span_notice("[message]"))
 
 /datum/scp_management_interface/proc/export_scp_data()
 	var/list/export_data = list(
@@ -820,14 +820,15 @@
 
 	if(SSscp_persistence && SSscp_persistence.manager)
 		export_data["persistence_data"] = list(
-			"enabled_scps" = SSscp_persistence.manager.enabled_scps,
-			"disabled_scps" = SSscp_persistence.manager.disabled_scps,
-			"scp_configurations" = SSscp_persistence.manager.scp_configurations,
-			"global_management_mode" = SSscp_persistence.manager.global_scp_management_mode
+			"enabled_scps" = SSscp_persistence?.manager?.enabled_scps,
+			"disabled_scps" = SSscp_persistence?.manager?.disabled_scps,
+			"scp_configurations" = SSscp_persistence?.manager?.scp_configurations,
+			"global_management_mode" = SSscp_persistence?.manager?.global_scp_management_mode
 		)
 
 	var/json_data = json_encode(export_data)
-	to_chat(admin_client, "<span class='notice'>SCP Management Data exported. Data length: [length(json_data)] characters</span>")
+	admin_client << ftp(json_data, "scp_management_[time2text(world.time, "YYYYMMDD_HHMMSS")].json")
+	to_chat(admin_client, span_notice("SCP management data downloaded."))
 
 /datum/scp_management_interface/proc/import_scp_data(data)
 	try
@@ -842,11 +843,11 @@
 			if("containment_protocols" in import_data)
 				containment_protocols = import_data["containment_protocols"]
 
-			to_chat(admin_client, "<span class='notice'>SCP Management Data imported successfully</span>")
+			to_chat(admin_client, span_notice("SCP Management Data imported successfully"))
 		else
-			to_chat(admin_client, "<span class='danger'>Failed to parse import data</span>")
+			to_chat(admin_client, span_danger("Failed to parse import data"))
 	catch(var/exception/e)
-		to_chat(admin_client, "<span class='danger'>Error importing data: [e]</span>")
+		to_chat(admin_client, span_danger("Error importing data: [e]"))
 
 
 

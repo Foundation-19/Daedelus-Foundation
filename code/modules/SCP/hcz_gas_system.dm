@@ -57,7 +57,7 @@
 	if(.)
 		return
 
-	var/mob/user = usr
+	var/mob/user = ui.user
 	var/obj/item/card/id/id_card
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user

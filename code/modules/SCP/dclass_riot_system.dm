@@ -26,6 +26,9 @@
 	if(riot_active)
 		return
 	riot_active = TRUE
+	for(var/mob/living/carbon/human/H in GLOB.player_list)
+		if(findtext(H.job, "D-Class"))
+			add_verb(H, list(/mob/living/carbon/human/proc/join_riot, /mob/living/carbon/human/proc/refuse_riot))
 	stage = 1
 	var/num_demands = rand(2, 3)
 	demands = list()
@@ -39,7 +42,7 @@
 	for(var/mob/living/carbon/human/H in rioting_dclass)
 		if(H.stat == DEAD)
 			continue
-		to_chat(H, "<span class='warning'>You feel a surge of defiance. The D-Class are organizing. You can join the unrest with the 'Join Riot' verb or stay out of it.</span>")
+		to_chat(H, span_warning("You feel a surge of defiance. The D-Class are organizing. You can join the unrest with the 'Join Riot' verb or stay out of it."))
 		RegisterSignal(H, COMSIG_LIVING_DEATH, PROC_REF(on_dclass_death))
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		if(QDELETED(H))
@@ -48,7 +51,7 @@
 			continue
 		var/obj/item/card/id/id_card = H.get_idcard(TRUE)
 		if(id_card && (ACCESS_SECURITY in id_card.access))
-			to_chat(H, "<span class='danger'>The D-Class are refusing to follow orders!</span>")
+			to_chat(H, span_danger("The D-Class are refusing to follow orders!"))
 			if(H.sanity)
 				H.sanity.adjust_sanity(-10, "dclass_unrest")
 	priority_announce("D-Class unrest has been detected in the facility. Security personnel are advised to monitor the situation.", null, null, ANNOUNCER_ALERT)
@@ -80,19 +83,19 @@
 	if(!istype(H) || H.stat == DEAD)
 		return FALSE
 	if(H in rioting_dclass)
-		to_chat(H, "<span class='notice'>You are already part of the unrest.</span>")
+		to_chat(H, span_notice("You are already part of the unrest."))
 		return FALSE
 	rioting_dclass += H
 	willing_dclass += H
 	RegisterSignal(H, COMSIG_LIVING_DEATH, PROC_REF(on_dclass_death))
-	to_chat(H, "<span class='warning'>You join the D-Class uprising!</span>")
+	to_chat(H, span_warning("You join the D-Class uprising!"))
 	return TRUE
 
 /datum/dclass_riot/proc/dclass_refuse(mob/living/carbon/human/H)
 	if(!istype(H) || H.stat == DEAD)
 		return FALSE
 	rioting_dclass -= H
-	to_chat(H, "<span class='notice'>You step back from the unrest. You'll follow orders.</span>")
+	to_chat(H, span_notice("You step back from the unrest. You'll follow orders."))
 	return TRUE
 
 /datum/dclass_riot/proc/tick()
@@ -114,7 +117,7 @@
 			for(var/mob/living/carbon/human/H in rioting_dclass)
 				if(QDELETED(H) || H.stat == DEAD)
 					continue
-				to_chat(H, "<span class='warning'>You gather with the other D-Class, raising your voices in protest!</span>")
+				to_chat(H, span_warning("You gather with the other D-Class, raising your voices in protest!"))
 			if(prob(20))
 				priority_announce("D-Class property damage reported in the cell block area.", null, null, ANNOUNCER_ALERT)
 		if(3)
@@ -122,7 +125,7 @@
 			for(var/mob/living/carbon/human/H in rioting_dclass)
 				if(QDELETED(H) || H.stat == DEAD)
 					continue
-				to_chat(H, "<span class='danger'>The riot has escalated! Fight for your freedom!</span>")
+				to_chat(H, span_danger("The riot has escalated! Fight for your freedom!"))
 			if(prob(30))
 				var/list/valid_airlocks = list()
 				for(var/obj/machinery/door/airlock/AL in INSTANCES_OF(/obj/machinery/door/airlock))
@@ -141,7 +144,7 @@
 			for(var/mob/living/carbon/human/H in rioting_dclass)
 				if(QDELETED(H) || H.stat == DEAD)
 					continue
-				to_chat(H, "<span class='userdanger'>You have weapons now. This is the final stand!</span>")
+				to_chat(H, span_userdanger("You have weapons now. This is the final stand!"))
 			if(SSscp_chain_breach)
 				for(var/datum/scp_chain_breach/CB in SSscp_chain_breach.chain_breaches)
 					if(CB.breach_id == "riot_cascade" && !CB.triggered)
@@ -159,14 +162,14 @@
 	if(!id_card)
 		return FALSE
 	if(!(ACCESS_SECURITY in id_card.access))
-		to_chat(H, "<span class='warning'>You lack the required access to negotiate with the D-Class.</span>")
+		to_chat(H, span_warning("You lack the required access to negotiate with the D-Class."))
 		return FALSE
 	if(negotiator)
-		to_chat(H, "<span class='warning'>Someone is already negotiating with the D-Class.</span>")
+		to_chat(H, span_warning("Someone is already negotiating with the D-Class."))
 		return FALSE
 	negotiator = H
 	negotiation_progress = 0
-	to_chat(H, "<span class='notice'>You begin negotiating with the D-Class rioters.</span>")
+	to_chat(H, span_notice("You begin negotiating with the D-Class rioters."))
 	priority_announce("Negotiations with D-Class rioters have begun.", null, null, ANNOUNCER_DEFAULT)
 	return TRUE
 
@@ -192,7 +195,7 @@
 	for(var/mob/living/carbon/human/H in rioting_dclass)
 		if(QDELETED(H) || H.stat == DEAD)
 			continue
-		to_chat(H, "<span class='notice'>The Foundation has agreed to: [demand]. Some rioters calm down.</span>")
+		to_chat(H, span_notice("The Foundation has agreed to: [demand]. Some rioters calm down."))
 	priority_announce("The Foundation has partially met D-Class demands: [demand].", null, null, ANNOUNCER_DEFAULT)
 	if(length(met_demands) >= length(demands) || negotiation_progress >= 100)
 		partial_win = TRUE
@@ -206,6 +209,8 @@
 
 /datum/dclass_riot/proc/end_riot(violent)
 	riot_active = FALSE
+	for(var/mob/living/carbon/human/H in GLOB.player_list)
+		remove_verb(H, list(/mob/living/carbon/human/proc/join_riot, /mob/living/carbon/human/proc/refuse_riot))
 	var/old_stage = stage
 	log_game("D-Class Riot ended: [partial_win ? "partial win" : "suppressed"]")
 	stage = 0
@@ -327,25 +332,27 @@ SUBSYSTEM_DEF(dclass_riot)
 	flags &= ~SS_NO_FIRE
 	return TRUE
 
-/mob/living/carbon/human/verb/join_riot()
+/mob/living/carbon/human/proc/join_riot()
 	set name = "Join Riot"
 	set category = "D-Class"
 	set desc = "Join the D-Class riot."
+	set hidden = TRUE
 	if(!findtext(job, "D-Class"))
 		return
 	if(!SSdclass_riot || !SSdclass_riot.current_riot || !SSdclass_riot.current_riot.riot_active)
-		to_chat(src, "<span class='warning'>There is no active riot to join.</span>")
+		to_chat(src, span_warning("There is no active riot to join."))
 		return
 	SSdclass_riot.current_riot.dclass_join(src)
 
-/mob/living/carbon/human/verb/refuse_riot()
+/mob/living/carbon/human/proc/refuse_riot()
 	set name = "Refuse Riot"
 	set category = "D-Class"
 	set desc = "Refuse to participate in the D-Class riot."
+	set hidden = TRUE
 	if(!findtext(job, "D-Class"))
 		return
 	if(!SSdclass_riot || !SSdclass_riot.current_riot || !SSdclass_riot.current_riot.riot_active)
-		to_chat(src, "<span class='notice'>There is no active riot.</span>")
+		to_chat(src, span_notice("There is no active riot."))
 		return
 	SSdclass_riot.current_riot.dclass_refuse(src)
 
@@ -399,7 +406,7 @@ SUBSYSTEM_DEF(dclass_riot)
 
 /obj/machinery/computer/dclass_riot_console/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
-	var/mob/user = usr
+	var/mob/user = ui.user
 	if(.)
 		return
 
@@ -408,7 +415,7 @@ SUBSYSTEM_DEF(dclass_riot)
 	var/mob/living/carbon/human/H = user
 	var/obj/item/card/id/id_card = H.get_idcard(TRUE)
 	if(!id_card || !(ACCESS_SECURITY in id_card.access))
-		to_chat(H, "<span class='warning'>Access denied.</span>")
+		to_chat(H, span_warning("Access denied."))
 		return
 
 	if(!SSdclass_riot || !SSdclass_riot.current_riot || !SSdclass_riot.current_riot.riot_active)
@@ -422,19 +429,19 @@ SUBSYSTEM_DEF(dclass_riot)
 			. = TRUE
 		if("authorize_suppression")
 			if(riot.last_action_time && (world.time - riot.last_action_time) < 10 SECONDS)
-				to_chat(H, "<span class='warning'>Action cooldown in effect. Wait a moment.</span>")
+				to_chat(H, span_warning("Action cooldown in effect. Wait a moment."))
 				return
 			riot.last_action_time = world.time
 			riot.suppress_riot(25)
-			to_chat(H, "<span class='notice'>Suppression forces authorized. Progress: [riot.suppression_progress]%</span>")
+			to_chat(H, span_notice("Suppression forces authorized. Progress: [riot.suppression_progress]%"))
 			. = TRUE
 		if("accept_demands")
 			if(riot.last_action_time && (world.time - riot.last_action_time) < 10 SECONDS)
-				to_chat(H, "<span class='warning'>Action cooldown in effect. Wait a moment.</span>")
+				to_chat(H, span_warning("Action cooldown in effect. Wait a moment."))
 				return
 			riot.last_action_time = world.time
 			riot.progress_negotiation(30)
-			to_chat(H, "<span class='notice'>Demands partially accepted. Negotiation progress: [riot.negotiation_progress]%</span>")
+			to_chat(H, span_notice("Demands partially accepted. Negotiation progress: [riot.negotiation_progress]%"))
 			. = TRUE
 		if("meet_demand")
 			var/demand = params["demand"]
@@ -443,12 +450,12 @@ SUBSYSTEM_DEF(dclass_riot)
 				. = TRUE
 		if("reject_demands")
 			if(riot.last_reject_time && (world.time - riot.last_reject_time) < 30 SECONDS)
-				to_chat(H, "<span class='warning'>Demands were recently rejected. The rioters won't listen again so soon.</span>")
+				to_chat(H, span_warning("Demands were recently rejected. The rioters won't listen again so soon."))
 				return
 			riot.last_reject_time = world.time
 			if(riot.stage < 4)
 				riot.escalate_riot()
 			else
-				to_chat(H, "<span class='warning'>The rioters are past negotiations. Only force will end this now.</span>")
-			to_chat(H, "<span class='warning'>Demands rejected. The situation escalates!</span>")
+				to_chat(H, span_warning("The rioters are past negotiations. Only force will end this now."))
+			to_chat(H, span_warning("Demands rejected. The situation escalates!"))
 			. = TRUE

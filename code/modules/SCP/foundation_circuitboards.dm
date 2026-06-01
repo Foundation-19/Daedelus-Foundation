@@ -62,13 +62,6 @@
 		/obj/item/stock_parts/scanning_module = 1,
 	)
 
-/obj/item/circuitboard/machine/scp_camera_console_board
-	name = "SCP Camera Console (Computer Board)"
-	build_path = /obj/machinery/computer/scp_camera_console
-	req_components = list(
-		/obj/item/stock_parts/scanning_module = 2,
-	)
-
 /obj/item/circuitboard/machine/foundation_pa
 	name = "Facility PA System (Machine Board)"
 	build_path = /obj/machinery/facility_pa

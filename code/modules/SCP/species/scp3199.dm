@@ -17,7 +17,7 @@
 	if(!H || H.stat == DEAD)
 		return
 	if(prob(1))
-		H.visible_message("<span class='notice'>A wet albumen sheen coats [H].</span>")
+		H.visible_message(span_notice("A wet albumen sheen coats [H]."))
 
 
 

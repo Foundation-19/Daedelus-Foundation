@@ -1,0 +1,1 @@
+#define STATUS_EFFECT_CHANGE 5

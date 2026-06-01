@@ -111,7 +111,7 @@ SUBSYSTEM_DEF(scp_research)
 /datum/scp_research_manager/proc/initialize_research_system()
 	initialize_research_rewards()
 	initialize_research_milestones()
-	world.log << "SCP Research: Research system initialized with [length(research_rewards)] rewards and [length(research_milestones) + 1] milestones"
+	log_game("SCP Research: Research system initialized with [length(research_rewards)] rewards and [length(research_milestones) + 1] milestones")
 
 /datum/scp_research_manager/proc/initialize_research_rewards()
 	add_research_reward("budget_1000", "budget", 1000, "Research Grant: Basic funding for SCP research", list("completed_projects" = 1))
@@ -144,6 +144,8 @@ SUBSYSTEM_DEF(scp_research)
 	research_milestones[milestone_id] = milestone
 
 /datum/scp_research_manager/proc/adjust_research_points(amount, reason)
+	if(amount > 0)
+		amount = round(amount * research_point_multiplier)
 	var/old = total_research_points
 	total_research_points = max(0, total_research_points + amount)
 	log_game("SCP Research: Points adjusted by [amount] ([reason]). [old] -> [total_research_points]")
@@ -155,7 +157,7 @@ SUBSYSTEM_DEF(scp_research)
 	research_projects[project_id] = project
 	var/datum/researcher_data/researcher = get_researcher_profile(researcher_ckey)
 	researcher.total_projects++
-	world.log << "SCP Research: Research project [project_id] started by [researcher_ckey]"
+	log_game("SCP Research: Research project [project_id] started by [researcher_ckey]")
 	return project
 
 /datum/scp_research_manager/proc/contribute_research_points(project_id, points, researcher_ckey)
@@ -202,7 +204,7 @@ SUBSYSTEM_DEF(scp_research)
 	var/level_reward = project.research_level * 100
 	researcher.research_points += level_reward
 	notify_researcher(researcher_ckey, "Research Level Up!", "Your research on [project.scp_designation] has reached level [project.research_level]! +[level_reward] research points")
-	world.log << "SCP Research: [researcher_ckey] reached research level [project.research_level] on [project.scp_designation]"
+	log_game("SCP Research: [researcher_ckey] reached research level [project.research_level] on [project.scp_designation]")
 
 /datum/scp_research_manager/proc/complete_research_project(project_id, researcher_ckey)
 	var/datum/research_data/project = research_projects[project_id]
@@ -221,7 +223,7 @@ SUBSYSTEM_DEF(scp_research)
 
 	var/budget_reward = project.completion_reward * budget_reward_multiplier
 	if(SSbudget_system && SSbudget_system.manager)
-		SSbudget_system.manager.add_transaction("research", "REVENUE", budget_reward, "research_funding", "Research completion: [project.scp_designation] - [project.research_type]", researcher_ckey)
+		SSbudget_system?.manager?.add_transaction("research", "REVENUE", budget_reward, "research_funding", "Research completion: [project.scp_designation] - [project.research_type]", researcher_ckey)
 
 	var/progression_reward = project.completion_reward * progression_multiplier
 	researcher.progression_points += progression_reward
@@ -235,7 +237,7 @@ SUBSYSTEM_DEF(scp_research)
 	check_reward_unlocks(researcher_ckey)
 	notify_researcher(researcher_ckey, "Research Complete!", "Research on [project.scp_designation] completed! +[project.completion_reward] research points, +[budget_reward] budget, +[progression_reward] progression")
 
-	world.log << "SCP Research: [researcher_ckey] completed research on [project.scp_designation]"
+	log_game("SCP Research: [researcher_ckey] completed research on [project.scp_designation]")
 	return TRUE
 
 /datum/scp_research_manager/proc/calculate_completion_reward(datum/research_data/project)
@@ -318,12 +320,12 @@ SUBSYSTEM_DEF(scp_research)
 	researcher.research_points += milestone_reward
 	researcher.achievements += milestone.milestone_name
 	notify_researcher(researcher_ckey, "Milestone Achieved!", "[milestone.milestone_name]: [milestone.milestone_description] +[milestone_reward] research points")
-	world.log << "SCP Research: [researcher_ckey] achieved milestone [milestone.milestone_name]"
+	log_game("SCP Research: [researcher_ckey] achieved milestone [milestone.milestone_name]")
 
 /datum/scp_research_manager/proc/notify_researcher(ckey, title, message)
 	for(var/client/C in GLOB.clients)
 		if(C.ckey == ckey)
-			to_chat(C, "<span class='notice'><b>[title]</b>: [message]</span>")
+			to_chat(C, span_notice("<b>[title]</b>: [message]"))
 			break
 
 /datum/scp_research_manager/proc/apply_tech_bonuses(node_id)
@@ -404,17 +406,17 @@ SUBSYSTEM_DEF(scp_research)
 /datum/scp_research_manager/proc/apply_containment_improvement(bonus)
 	containment_improvements++
 	for(var/scp_id in SSscp_persistence?.manager?.scp_instances)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[scp_id]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[scp_id]
 		if(instance)
 			instance.containment_effectiveness = min(1.0, instance.containment_effectiveness + bonus)
 			instance.containment_difficulty = max(1, instance.containment_difficulty - 1)
 
 /datum/controller/subsystem/scp_research/Initialize()
-	world.log << "SCP Research system initializing..."
+	log_game("SCP Research system initializing...")
 	manager = new /datum/scp_research_manager()
 	manager.initialize_research_system()
 	manager.load_research_persistence()
-	world.log << "SCP Research system initialized"
+	log_game("SCP Research system initialized")
 	return ..()
 
 /datum/controller/subsystem/scp_research/fire()
@@ -561,28 +563,28 @@ SUBSYSTEM_DEF(scp_research)
 			if(reward)
 				reward.unlocked = rdata["unlocked"] || FALSE
 
-	world.log << "SCP Research: Loaded persistence data"
+	log_game("SCP Research: Loaded persistence data")
 
 /proc/award_research_points(scp_designation, research_type, points, researcher_ckey)
 	if(SSscp_research && SSscp_research.manager)
 		var/project_id = "research_[scp_designation]_[research_type]_[researcher_ckey]"
-		if(!SSscp_research.manager.research_projects[project_id])
-			SSscp_research.manager.start_research_project(scp_designation, research_type, researcher_ckey)
-		return SSscp_research.manager.add_research_points(project_id, points, researcher_ckey)
+		if(!SSscp_research?.manager?.research_projects[project_id])
+			SSscp_research?.manager?.start_research_project(scp_designation, research_type, researcher_ckey)
+		return SSscp_research?.manager?.add_research_points(project_id, points, researcher_ckey)
 	return FALSE
 
 /proc/get_researcher_data(ckey)
 	if(SSscp_research && SSscp_research.manager)
-		return SSscp_research.manager.get_researcher_profile(ckey)
+		return SSscp_research?.manager?.get_researcher_profile(ckey)
 	return null
 
 /proc/check_research_achievements(ckey)
 	if(SSscp_research && SSscp_research.manager)
-		SSscp_research.manager.check_research_milestones(ckey)
+		SSscp_research?.manager?.check_research_milestones(ckey)
 
 /proc/adjust_global_research_points(amount, reason)
 	if(SSscp_research && SSscp_research.manager)
-		return SSscp_research.manager.adjust_research_points(amount, reason)
+		return SSscp_research?.manager?.adjust_research_points(amount, reason)
 	return 0
 
 /mob/proc/view_research_status()
@@ -591,32 +593,32 @@ SUBSYSTEM_DEF(scp_research)
 	set desc = "View your current research status and achievements."
 
 	if(!SSscp_research || !SSscp_research.manager)
-		to_chat(src, "<span class='warning'>Research system not available.</span>")
+		to_chat(src, span_warning("Research system not available."))
 		return
 
 	var/datum/researcher_data/researcher = get_researcher_data(ckey)
 	if(!researcher)
-		to_chat(src, "<span class='notice'>You haven't started any research projects yet.</span>")
+		to_chat(src, span_notice("You haven't started any research projects yet."))
 		return
 
-	to_chat(src, "<span class='notice'><b>=== RESEARCH STATUS ===</b></span>")
-	to_chat(src, "<span class='notice'>Research Points: [researcher.research_points]</span>")
-	to_chat(src, "<span class='notice'>Research Funding: [researcher.research_funding]</span>")
-	to_chat(src, "<span class='notice'>Progression Points: [researcher.progression_points]</span>")
-	to_chat(src, "<span class='notice'>Research Rank: [researcher.research_rank]</span>")
-	to_chat(src, "<span class='notice'>Total Projects: [researcher.total_projects]</span>")
-	to_chat(src, "<span class='notice'>Completed Projects: [researcher.completed_projects]</span>")
-	to_chat(src, "<span class='notice'>Failed Projects: [researcher.failed_projects]</span>")
+	to_chat(src, span_notice("<b>=== RESEARCH STATUS ===</b>"))
+	to_chat(src, span_notice("Research Points: [researcher.research_points]"))
+	to_chat(src, span_notice("Research Funding: [researcher.research_funding]"))
+	to_chat(src, span_notice("Progression Points: [researcher.progression_points]"))
+	to_chat(src, span_notice("Research Rank: [researcher.research_rank]"))
+	to_chat(src, span_notice("Total Projects: [researcher.total_projects]"))
+	to_chat(src, span_notice("Completed Projects: [researcher.completed_projects]"))
+	to_chat(src, span_notice("Failed Projects: [researcher.failed_projects]"))
 
 	if(length(researcher.achievements) > 0)
-		to_chat(src, "<span class='notice'><b>Achievements:</b></span>")
+		to_chat(src, span_notice("<b>Achievements:</b>"))
 		for(var/achievement in researcher.achievements)
-			to_chat(src, "<span class='notice'>- [achievement]</span>")
+			to_chat(src, span_notice("- [achievement]"))
 
 	if(length(researcher.completed_research) > 0)
-		to_chat(src, "<span class='notice'><b>Completed Research:</b></span>")
+		to_chat(src, span_notice("<b>Completed Research:</b>"))
 		for(var/research in researcher.completed_research)
-			to_chat(src, "<span class='notice'>- [research]</span>")
+			to_chat(src, span_notice("- [research]"))
 
 /mob/proc/view_research_projects()
 	set name = "View Research Projects"
@@ -624,20 +626,20 @@ SUBSYSTEM_DEF(scp_research)
 	set desc = "View your active research projects."
 
 	if(!SSscp_research || !SSscp_research.manager)
-		to_chat(src, "<span class='warning'>Research system not available.</span>")
+		to_chat(src, span_warning("Research system not available."))
 		return
 
 	var/found_projects = FALSE
-	to_chat(src, "<span class='notice'><b>=== ACTIVE RESEARCH PROJECTS ===</b></span>")
+	to_chat(src, span_notice("<b>=== ACTIVE RESEARCH PROJECTS ===</b>"))
 
-	for(var/project_id in SSscp_research.manager.research_projects)
-		var/datum/research_data/project = SSscp_research.manager.research_projects[project_id]
+	for(var/project_id in SSscp_research?.manager?.research_projects)
+		var/datum/research_data/project = SSscp_research?.manager?.research_projects[project_id]
 		if(project.researcher_ckey == ckey && project.status == "ACTIVE")
 			found_projects = TRUE
-			to_chat(src, "<span class='notice'>[project.scp_designation] - [project.research_type]</span>")
-			to_chat(src, "<span class='notice'>  Level: [project.research_level]/[project.max_research_level]</span>")
-			to_chat(src, "<span class='notice'>  Points: [project.research_points]/[project.research_cost]</span>")
-			to_chat(src, "<span class='notice'>  Time: [round((world.time - project.timestamp) / 600)] minutes</span>")
+			to_chat(src, span_notice("[project.scp_designation] - [project.research_type]"))
+			to_chat(src, span_notice("  Level: [project.research_level]/[project.max_research_level]"))
+			to_chat(src, span_notice("  Points: [project.research_points]/[project.research_cost]"))
+			to_chat(src, span_notice("  Time: [round((world.time - project.timestamp) / 600)] minutes"))
 
 	if(!found_projects)
-		to_chat(src, "<span class='notice'>No active research projects.</span>")
+		to_chat(src, span_notice("No active research projects."))

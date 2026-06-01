@@ -238,11 +238,11 @@
 
 /atom/movable/screen/fullscreen/sanity_vignette/light
 	icon_state = "passage3"
-	alpha = 120
+	alpha = 80
 
 /atom/movable/screen/fullscreen/sanity_vignette/medium
 	icon_state = "passage5"
-	alpha = 160
+	alpha = 130
 
 /atom/movable/screen/fullscreen/sanity_vignette/heavy
 	icon_state = "passage8"
@@ -324,8 +324,8 @@
 			owner.emote("scream")
 			owner.stamina?.adjust(-5)
 			owner.visible_message(
-				"<span class='warning'>[owner] screams in terror!</span>",
-				"<span class='danger'>You can't contain your terror any longer!</span>"
+				span_warning("[owner] screams in terror!"),
+				span_danger("You can't contain your terror any longer!")
 			)
 
 		if(SANITY_BEHAVIOR_DROP)
@@ -333,8 +333,8 @@
 			if(I)
 				owner.dropItemToGround(I)
 				owner.visible_message(
-					"<span class='warning'>[owner] drops [I] with shaking hands!</span>",
-					"<span class='danger'>Your hands shake uncontrollably and you drop [I]!</span>"
+					span_warning("[owner] drops [I] with shaking hands!"),
+					span_danger("Your hands shake uncontrollably and you drop [I]!")
 				)
 
 		if(SANITY_BEHAVIOR_FLEE)
@@ -343,24 +343,24 @@
 			if(target_turf && !target_turf.density)
 				owner.Move(target_turf, dir_flee)
 				owner.visible_message(
-					"<span class='warning'>[owner] stumbles away in panic!</span>",
-					"<span class='danger'>You scramble away without thinking!</span>"
+					span_warning("[owner] stumbles away in panic!"),
+					span_danger("You scramble away without thinking!")
 				)
 				owner.stamina?.adjust(-8)
 
 		if(SANITY_BEHAVIOR_FREEZE)
 			owner.Stun(30)
 			owner.visible_message(
-				"<span class='warning'>[owner] freezes in place, staring into nothing!</span>",
-				"<span class='danger'>Your body locks up as terror grips you!</span>"
+				span_warning("[owner] freezes in place, staring into nothing!"),
+				span_danger("Your body locks up as terror grips you!")
 			)
 
 		if(SANITY_BEHAVIOR_STAGGER)
 			owner.Stun(10)
 			owner.Knockdown(15)
 			owner.visible_message(
-				"<span class='warning'>[owner] staggers, barely able to stand!</span>",
-				"<span class='danger'>The world spins around you!</span>"
+				span_warning("[owner] staggers, barely able to stand!"),
+				span_danger("The world spins around you!")
 			)
 
 		if(SANITY_BEHAVIOR_HALLUCINATE)
@@ -381,7 +381,7 @@
 		"The lights are watching you...",
 	)
 
-	to_chat(owner, "<span class='warning'>[pick(possible)]</span>")
+	to_chat(owner, span_warning("[pick(possible)]"))
 
 	if(prob(30))
 		shake_camera(owner, 2, 1)
@@ -439,7 +439,7 @@
 
 	switch(type)
 		if(EPISODE_PANIC)
-			to_chat(owner, "<span class='userdanger'>PANIC ATTACK! Your chest tightens, you can't breathe!</span>")
+			to_chat(owner, span_userdanger("PANIC ATTACK! Your chest tightens, you can't breathe!"))
 			owner.emote("scream")
 			owner.stamina?.adjust(-20)
 			hallucination_level = min(hallucination_level + 15, max_hallucination)
@@ -447,14 +447,14 @@
 			owner.add_client_colour(/datum/client_colour/sanity_panic)
 
 		if(EPISODE_DISSOCIATIVE)
-			to_chat(owner, "<span class='userdanger'>You feel yourself slipping away... reality feels distant and unreal.</span>")
+			to_chat(owner, span_userdanger("You feel yourself slipping away... reality feels distant and unreal."))
 			owner.Stun(50)
 			owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/sanity_dissociative, TRUE, 3)
 			hallucination_level = min(hallucination_level + 20, max_hallucination)
 			owner.add_client_colour(/datum/client_colour/sanity_dissociative)
 
 		if(EPISODE_FLASHBACK)
-			to_chat(owner, "<span class='userdanger'>FLASHBACK! The memories come flooding back!</span>")
+			to_chat(owner, span_userdanger("FLASHBACK! The memories come flooding back!"))
 			owner.emote("scream")
 			owner.Knockdown(30)
 			shake_camera(owner, 8, 4)
@@ -467,10 +467,10 @@
 				"You see them die, over and over...",
 				"The creature's eyes bore into your soul once more...",
 			)
-			to_chat(owner, "<span class='danger'>[pick(flashback_messages)]</span>")
+			to_chat(owner, span_danger("[pick(flashback_messages)]"))
 
 		if(EPISODE_CATATONIC)
-			to_chat(owner, "<span class='userdanger'>Your mind shuts down completely. You can't move. You can't think.</span>")
+			to_chat(owner, span_userdanger("Your mind shuts down completely. You can't move. You can't think."))
 			owner.Stun(200)
 			owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/sanity_catatonic, TRUE, 5)
 			owner.add_client_colour(/datum/client_colour/sanity_catatonic)
@@ -503,7 +503,7 @@
 				var/dir_rand = pick(GLOB.cardinals)
 				owner.Move(get_step(owner, dir_rand), dir_rand)
 			if(prob(5))
-				to_chat(owner, "<span class='warning'>Where are you? What is this place?</span>")
+				to_chat(owner, span_warning("Where are you? What is this place?"))
 
 		if(EPISODE_FLASHBACK)
 			if(prob(10))
@@ -524,20 +524,20 @@
 
 	switch(episode_type)
 		if(EPISODE_PANIC)
-			to_chat(owner, "<span class='notice'>Your breathing slowly returns to normal...</span>")
+			to_chat(owner, span_notice("Your breathing slowly returns to normal..."))
 			owner.remove_client_colour(/datum/client_colour/sanity_panic)
 
 		if(EPISODE_DISSOCIATIVE)
-			to_chat(owner, "<span class='notice'>Reality snaps back into focus...</span>")
+			to_chat(owner, span_notice("Reality snaps back into focus..."))
 			owner.remove_movespeed_modifier(/datum/movespeed_modifier/sanity_dissociative)
 			owner.remove_client_colour(/datum/client_colour/sanity_dissociative)
 
 		if(EPISODE_FLASHBACK)
-			to_chat(owner, "<span class='notice'>The visions fade... but the memories remain.</span>")
+			to_chat(owner, span_notice("The visions fade... but the memories remain."))
 			add_trauma(TRAUMA_PSYCHOLOGICAL, 5)
 
 		if(EPISODE_CATATONIC)
-			to_chat(owner, "<span class='notice'>You slowly come back to awareness...</span>")
+			to_chat(owner, span_notice("You slowly come back to awareness..."))
 			owner.remove_movespeed_modifier(/datum/movespeed_modifier/sanity_catatonic)
 			owner.remove_client_colour(/datum/client_colour/sanity_catatonic)
 
@@ -562,27 +562,6 @@
 	priority = 10
 	fade_in = 20
 	fade_out = 40
-
-// ── Sanity Vignette Overlays ──
-// Uses the existing passage overlay from the codebase as a vignette effect
-
-/atom/movable/screen/fullscreen/sanity_vignette
-	icon = 'icons/hud/screen_full.dmi'
-	screen_loc = "CENTER-7,CENTER-7"
-	layer = FULLSCREEN_LAYER
-	plane = FULLSCREEN_PLANE
-
-/atom/movable/screen/fullscreen/sanity_vignette/light
-	icon_state = "passage3"
-	alpha = 80
-
-/atom/movable/screen/fullscreen/sanity_vignette/medium
-	icon_state = "passage5"
-	alpha = 130
-
-/atom/movable/screen/fullscreen/sanity_vignette/heavy
-	icon_state = "passage8"
-	alpha = 200
 
 // ── Movespeed Modifiers for Episodes ──
 

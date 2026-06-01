@@ -212,10 +212,6 @@
 /datum/component_manager_advanced
 	var/datum/scp_component_communicator/communicator = null
 
-/datum/component_manager_advanced/New(mob/target)
-	. = ..()
-	communicator = new /datum/scp_component_communicator()
-
 /datum/component_manager_advanced/proc/process_communication()
 	if(communicator)
 		communicator.process_message_queue()

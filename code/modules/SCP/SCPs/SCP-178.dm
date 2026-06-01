@@ -46,7 +46,7 @@
 		active = TRUE
 		activation_count++
 		hook_scp_interaction(user, "SCP-178", INTERACTION_TYPE_OBSERVATION)
-		to_chat(user, "<span class='warning'>The world shifts as you put on the glasses...</span>")
+		to_chat(user, span_warning("The world shifts as you put on the glasses..."))
 		START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/glasses/scp178/unequipped(mob/living/carbon/human/user, silent=FALSE)
@@ -73,13 +73,13 @@
 	if(dimension_phase % 50 == 0)
 		if(prob(15))
 			wearer.adjustOrganLoss(ORGAN_SLOT_BRAIN, sanity_drain)
-			to_chat(wearer, "<span class='danger'>You glimpse something... wrong.</span>")
+			to_chat(wearer, span_danger("You glimpse something... wrong."))
 			hook_scp_combat(wearer, "SCP-178", 0, 5)
 
 /obj/item/clothing/glasses/scp178/examine(mob/user)
 	. = ..()
 	if(ishuman(user))
-		to_chat(user, "<span class='notice'>A pair of 3D glasses. Looking through them might reveal hidden things.</span>")
+		to_chat(user, span_notice("A pair of 3D glasses. Looking through them might reveal hidden things."))
 
 /datum/scp178_perception_system
 	var/obj/item/parent
@@ -112,13 +112,13 @@
 	if(prob(10))
 		var/obj/effect/dimension_entity/entity = new(get_turf(viewer))
 		visible_entities += entity
-		viewer.visible_message("<span class='warning'>[viewer] stares at something you can't see.</span>", "<span class='danger'>A shadowy figure manifests nearby!</span>")
+		viewer.visible_message(span_warning("[viewer] stares at something you can't see."), span_danger("A shadowy figure manifests nearby!"))
 
 	if(length(visible_entities) > 0 && prob(entity_aggression / 10))
 		var/obj/effect/dimension_entity/E = pick(visible_entities)
 		if(E && get_dist(E, viewer) <= 2)
 			viewer.adjustBruteLoss(5)
-			to_chat(viewer, "<span class='danger'>One of the entities claws at you!</span>")
+			to_chat(viewer, span_danger("One of the entities claws at you!"))
 			hook_scp_combat(viewer, "SCP-178", 0, 5)
 
 	entity_aggression = min(max_aggression, entity_aggression + 0.1)

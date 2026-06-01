@@ -3,7 +3,7 @@ import React from 'react';
 
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Dropdown } from '../components';
-import { Window } from '../layouts';
+import { NtosWindow } from '../layouts';
 import { C, term, TermHeader, TermLabel, TermValue, TermRow, TermDivider, TermButton, TermProgressBar } from './CharacterSetup/shared';
 
 interface Achievement {
@@ -39,8 +39,8 @@ export const SCPAchievementConsole = (props) => {
     : 0;
 
   return (
-    <Window width={800} height={600} theme="scp_terminal">
-      <Window.Content scrollable>
+    <NtosWindow width={800} height={600} >
+      <NtosWindow.Content scrollable>
         <Box
           style={{
             background: C.bg,
@@ -190,7 +190,7 @@ export const SCPAchievementConsole = (props) => {
             </Box>
           </Box>
         </Box>
-      </Window.Content>
-    </Window>
+      </NtosWindow.Content>
+    </NtosWindow>
   );
 };

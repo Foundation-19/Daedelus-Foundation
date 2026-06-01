@@ -3,7 +3,7 @@ import React from 'react';
 
 import { useBackend } from '../backend';
 import { Box, Button, LabeledList, Section } from '../components';
-import { Window } from '../layouts';
+import { NtosWindow } from '../layouts';
 
 type Data = {
   gate_state: number;
@@ -33,8 +33,8 @@ export const ScpTeslaGate = (props) => {
   } = data;
 
   return (
-    <Window theme="scp_terminal" width={400} height={350}>
-      <Window.Content scrollable>
+    <NtosWindow width={400} height={350}>
+      <NtosWindow.Content scrollable>
         <Section title="TESLA GATE CONTROL">
           <LabeledList>
             <LabeledList.Item label="Status">
@@ -138,7 +138,7 @@ export const ScpTeslaGate = (props) => {
             </Button>
           </Box>
         </Section>
-      </Window.Content>
-    </Window>
+      </NtosWindow.Content>
+    </NtosWindow>
   );
 };

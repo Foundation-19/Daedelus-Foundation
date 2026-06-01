@@ -140,7 +140,7 @@
 	var/heal_amount = 5
 
 /datum/scp_component_effect/regeneration/on_apply()
-	to_chat(target_mob, "<span class='notice'>You feel your wounds beginning to heal...</span>")
+	to_chat(target_mob, span_notice("You feel your wounds beginning to heal..."))
 
 /datum/scp_component_effect/regeneration/on_tick()
 	if(!target_mob || target_mob.stat == DEAD)
@@ -154,7 +154,7 @@
 		L.adjustFireLoss(-actual_heal)
 
 /datum/scp_component_effect/regeneration/on_remove()
-	to_chat(target_mob, "<span class='notice'>Your regenerative abilities fade.</span>")
+	to_chat(target_mob, span_notice("Your regenerative abilities fade."))
 
 // Enhanced Strength Effect
 /datum/scp_component_effect/enhanced_strength
@@ -164,11 +164,11 @@
 	var/strength_multiplier = 1.5
 
 /datum/scp_component_effect/enhanced_strength/on_apply()
-	to_chat(target_mob, "<span class='notice'>You feel incredibly strong!</span>")
+	to_chat(target_mob, span_notice("You feel incredibly strong!"))
 	// Apply strength modifiers here
 
 /datum/scp_component_effect/enhanced_strength/on_remove()
-	to_chat(target_mob, "<span class='notice'>Your enhanced strength fades.</span>")
+	to_chat(target_mob, span_notice("Your enhanced strength fades."))
 	// Remove strength modifiers here
 
 // Invisibility Effect
@@ -179,11 +179,11 @@
 	var/invisibility_level = INVISIBILITY_OBSERVER
 
 /datum/scp_component_effect/invisibility/on_apply()
-	to_chat(target_mob, "<span class='notice'>You fade from view...</span>")
+	to_chat(target_mob, span_notice("You fade from view..."))
 	target_mob.invisibility = invisibility_level
 
 /datum/scp_component_effect/invisibility/on_remove()
-	to_chat(target_mob, "<span class='notice'>You become visible again.</span>")
+	to_chat(target_mob, span_notice("You become visible again."))
 	target_mob.invisibility = 0
 
 // Psychological Terror Effect
@@ -195,7 +195,7 @@
 	var/terror_intensity = 1
 
 /datum/scp_component_effect/psychological_terror/on_apply()
-	to_chat(target_mob, "<span class='danger'>An overwhelming sense of dread washes over you...</span>")
+	to_chat(target_mob, span_danger("An overwhelming sense of dread washes over you..."))
 
 /datum/scp_component_effect/psychological_terror/on_tick()
 	if(!target_mob || target_mob.stat == DEAD)
@@ -203,11 +203,11 @@
 		return
 
 	var/terror_messages = list(
-		"<span class='danger'>You feel like something terrible is about to happen...</span>",
-		"<span class='danger'>Your heart pounds with inexplicable fear...</span>",
-		"<span class='danger'>You can't shake the feeling that you're being watched...</span>",
-		"<span class='danger'>A chill runs down your spine...</span>",
-		"<span class='danger'>You feel an overwhelming urge to flee...</span>"
+		span_danger("You feel like something terrible is about to happen..."),
+		span_danger("Your heart pounds with inexplicable fear..."),
+		span_danger("You can't shake the feeling that you're being watched..."),
+		span_danger("A chill runs down your spine..."),
+		span_danger("You feel an overwhelming urge to flee...")
 	)
 
 	to_chat(target_mob, pick(terror_messages))
@@ -234,9 +234,9 @@
 
 	if(prob(20))
 		var/fatigue_messages = list(
-			"<span class='warning'>You feel incredibly tired but cannot sleep...</span>",
-			"<span class='warning'>Your eyelids are heavy, yet rest eludes you...</span>",
-			"<span class='warning'>Exhaustion grips you, but sleep is impossible...</span>"
+			span_warning("You feel incredibly tired but cannot sleep..."),
+			span_warning("Your eyelids are heavy, yet rest eludes you..."),
+			span_warning("Exhaustion grips you, but sleep is impossible...")
 		)
 		to_chat(target_mob, pick(fatigue_messages))
 
@@ -255,10 +255,10 @@
 
 	if(prob(30))
 		var/distortion_messages = list(
-			"<span class='danger'>The world around you seems to shift and warp...</span>",
-			"<span class='danger'>Reality feels unstable and uncertain...</span>",
-			"<span class='danger'>You question what is real and what is not...</span>",
-			"<span class='danger'>The boundaries between dream and reality blur...</span>"
+			span_danger("The world around you seems to shift and warp..."),
+			span_danger("Reality feels unstable and uncertain..."),
+			span_danger("You question what is real and what is not..."),
+			span_danger("The boundaries between dream and reality blur...")
 		)
 		to_chat(target_mob, pick(distortion_messages))
 
@@ -359,10 +359,6 @@
 // Enhanced Component Manager with Effects
 /datum/component_manager_advanced
 	var/datum/scp_component_effect_manager/effect_manager = null
-
-/datum/component_manager_advanced/New(mob/target)
-	. = ..()
-	effect_manager = new /datum/scp_component_effect_manager()
 
 /datum/component_manager_advanced/proc/add_effect(effect_type, source_component, config_data)
 	if(!effect_manager)

@@ -64,7 +64,7 @@
 			var/status = "contained"
 			var/obj_class = "Safe"
 			if(SSscp_persistence?.manager?.scp_instances?[scp_id])
-				var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[scp_id]
+				var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[scp_id]
 				status = instance.containment_status
 				obj_class = instance.containment_class
 			scp_data += list(list("id" = scp_id, "status" = status, "class" = obj_class))
@@ -72,8 +72,8 @@
 
 	var/list/breach_data = list()
 	if(SSscp_persistence?.manager)
-		for(var/scp_id in SSscp_persistence.manager.scp_instances)
-			var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[scp_id]
+		for(var/scp_id in SSscp_persistence?.manager?.scp_instances)
+			var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[scp_id]
 			if(instance.containment_status == "breached")
 				breach_data += list(list("id" = scp_id, "class" = instance.containment_class, "breach_time" = instance.last_breach))
 	data["active_breaches"] = breach_data

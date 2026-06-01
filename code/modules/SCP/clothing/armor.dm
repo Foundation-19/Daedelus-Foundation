@@ -8,7 +8,7 @@
 	w_class = 3
 	body_parts_covered = 15
 	cold_protection = 15
-	armor = list(melee = 25, bullet = 15, laser = 20, energy = 30, bomb = 10, bio = 5, rad = 5)
+	armor = list(BLUNT = 25, PUNCTURE = 15, SLASH = 0, LASER = 20, ENERGY = 30, BOMB = 10, BIO = 5, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/suit/armor/vest/scp/medarmor
 	name = "foundation security vest"
@@ -16,7 +16,7 @@
 	icon_state = "guard-armor"
 	body_parts_covered = 3
 	cold_protection = 3
-	armor = list(melee = 35, bullet = 25, laser = 30, energy = 15, bomb = 10, bio = 5, rad = 5)
+	armor = list(BLUNT = 35, PUNCTURE = 25, SLASH = 0, LASER = 30, ENERGY = 15, BOMB = 10, BIO = 5, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/suit/armor/vest/scp/medarmor/ruined
 	name = "ruined foundation security vest"
@@ -24,7 +24,7 @@
 	icon_state = "forgotten-guard-armor"
 	body_parts_covered = 3
 	cold_protection = 3
-	armor = list(melee = 30, bullet = 5, laser = 8, energy = 5, bomb = 5, bio = 0, rad = 5)
+	armor = list(BLUNT = 30, PUNCTURE = 5, SLASH = 0, LASER = 8, ENERGY = 5, BOMB = 5, BIO = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/suit/armor/vest/scp/medarmor/medic
 	name = "foundation security medical vest"
@@ -32,7 +32,7 @@
 	icon_state = "combatmedic"
 	body_parts_covered = 3
 	cold_protection = 3
-	armor = list(melee = 40, bullet = 30, laser = 35, energy = 30, bomb = 5, bio = 30, rad = 15)
+	armor = list(BLUNT = 40, PUNCTURE = 30, SLASH = 0, LASER = 35, ENERGY = 30, BOMB = 5, BIO = 30, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/suit/armor/vest/scp/medarmor/recontain
 	name = "foundation security response vest"
@@ -40,7 +40,7 @@
 	icon_state = "reconguard"
 	body_parts_covered = 7
 	cold_protection = 7
-	armor = list(melee = 40, bullet = 35, laser = 40, energy = 15, bomb = 10, bio = 5, rad = 5)
+	armor = list(BLUNT = 40, PUNCTURE = 35, SLASH = 0, LASER = 40, ENERGY = 15, BOMB = 10, BIO = 5, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/suit/armor/vest/scp/medarmor/riot
 	name = "foundation security riot vest"
@@ -48,7 +48,7 @@
 	icon_state = "riotguard"
 	body_parts_covered = 15
 	cold_protection = 15
-	armor = list(melee = 50, bullet = 5, laser = 15, energy = 15, bomb = 30, bio = 5, rad = 5)
+	armor = list(BLUNT = 50, PUNCTURE = 5, SLASH = 0, LASER = 15, ENERGY = 15, BOMB = 30, BIO = 5, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/suit/armor/vest/scp/medarmor/cadet
 	name = "foundation security trainee rig"
@@ -56,7 +56,7 @@
 	icon_state = "cadetarmor"
 	body_parts_covered = 3
 	cold_protection = 3
-	armor = list(melee = 40, bullet = 8, laser = 20, energy = 5, bomb = 5, bio = 5, rad = 5)
+	armor = list(BLUNT = 40, PUNCTURE = 8, SLASH = 0, LASER = 20, ENERGY = 5, BOMB = 5, BIO = 5, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/suit/armor/vest/scp/isd
 	name = "Internal Security trenchcoat"
@@ -64,7 +64,7 @@
 	icon_state = "isd_trenchcoat"
 	body_parts_covered = 3
 	cold_protection = 3
-	armor = list(melee = 45, bullet = 35, laser = 25, energy = 15, bomb = 10, bio = 5, rad = 5)
+	armor = list(BLUNT = 45, PUNCTURE = 35, SLASH = 0, LASER = 25, ENERGY = 15, BOMB = 10, BIO = 5, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/suit/armor/vest/scp/lczcomm
 	name = "heavy-plated foundation security armored vest"
@@ -72,7 +72,7 @@
 	icon_state = "heavy-guard-armor"
 	body_parts_covered = 15
 	cold_protection = 15
-	armor = list(melee = 40, bullet = 35, laser = 25, energy = 30, bomb = 10, bio = 5, rad = 5)
+	armor = list(BLUNT = 40, PUNCTURE = 35, SLASH = 0, LASER = 25, ENERGY = 30, BOMB = 10, BIO = 5, FIRE = 0, ACID = 0)
 
 // Chaos Insurgency Armor
 /obj/item/clothing/suit/armor/vest/scp/medarmor/chaos
@@ -81,7 +81,7 @@
 	icon_state = "ci_vest"
 	body_parts_covered = 3
 	cold_protection = 3
-	armor = list(melee = 20, bullet = 40, laser = 10, energy = 5, bomb = 5, bio = 0, rad = 0)
+	armor = list(BLUNT = 20, PUNCTURE = 40, SLASH = 0, LASER = 10, ENERGY = 5, BOMB = 5, BIO = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/suit/armor/vest/scp/medarmor/chaos/pilot
 	name = "Chaos Insurgency pilot vest"
@@ -89,7 +89,7 @@
 	icon_state = "ci_pilot_vest"
 	body_parts_covered = 3
 	cold_protection = 3
-	armor = list(melee = 15, bullet = 15, laser = 5, energy = 0, bomb = 0, bio = 0, rad = 5)
+	armor = list(BLUNT = 15, PUNCTURE = 15, SLASH = 0, LASER = 5, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 
 // MTF Specialized Armor
 /obj/item/clothing/suit/armor/vest/scp/medarmor/eta
@@ -98,7 +98,7 @@
 	icon_state = "eta-armor"
 	body_parts_covered = 63
 	cold_protection = 63
-	armor = list(melee = 45, bullet = 45, laser = 40, energy = 35, bomb = 10, bio = 5, rad = 5)
+	armor = list(BLUNT = 45, PUNCTURE = 45, SLASH = 0, LASER = 40, ENERGY = 35, BOMB = 10, BIO = 5, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/suit/armor/vest/scp/medarmor/beta
 	name = "Beta-7 armored suit"
@@ -107,7 +107,7 @@
 	body_parts_covered = 63
 	cold_protection = 63
 	permeability_coefficient = 0.5
-	armor = list(melee = 55, bullet = 50, laser = 35, energy = 15, bomb = 10, bio = 50, rad = 50)
+	armor = list(BLUNT = 55, PUNCTURE = 50, SLASH = 0, LASER = 35, ENERGY = 15, BOMB = 10, BIO = 50, FIRE = 0, ACID = 0)
 
 // Hazmat Suits
 /obj/item/clothing/head/hcz_hazmat
@@ -115,7 +115,7 @@
 	icon_state = "hcz-hazard-helmet"
 	desc = "A helmet that protects the head and face from biological contaminants, heavy acids, high temperatures, and bullets."
 	permeability_coefficient = 0
-	armor = list(melee = 30, bullet = 35, laser = 35, energy = 30, bomb = 30, bio = 50, rad = 50)
+	armor = list(BLUNT = 30, PUNCTURE = 35, SLASH = 0, LASER = 35, ENERGY = 30, BOMB = 30, BIO = 50, FIRE = 0, ACID = 0)
 	body_parts_covered = 1
 	siemens_coefficient = 0.5
 
@@ -126,5 +126,5 @@
 	w_class = 4
 	permeability_coefficient = 0
 	body_parts_covered = 63
-	armor = list(melee = 30, bullet = 35, laser = 35, energy = 30, bomb = 30, bio = 50, rad = 50)
+	armor = list(BLUNT = 30, PUNCTURE = 35, SLASH = 0, LASER = 35, ENERGY = 30, BOMB = 30, BIO = 50, FIRE = 0, ACID = 0)
 	siemens_coefficient = 0.5

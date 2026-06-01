@@ -11,7 +11,7 @@
 SUBSYSTEM_DEF(foundation_round)
 	name = "Foundation Round Progression"
 	wait = 600
-	flags = SS_NO_FIRE
+	flags = NONE
 	var/current_phase = ROUND_PHASE_STARTUP
 	var/phase_start_time = 0
 	var/list/phase_objectives = list()
@@ -39,9 +39,17 @@ SUBSYSTEM_DEF(foundation_round)
 				advance_phase(ROUND_PHASE_CRISIS)
 			else if(elapsed > 25 MINUTES && !cross_dept_bonus_issued)
 				issue_cross_department_objective()
+			if(prob(3))
+				trigger_power_failure_cascade()
 		if(ROUND_PHASE_CRISIS)
 			if(elapsed > 50 MINUTES)
 				advance_phase(ROUND_PHASE_RESOLUTION)
+			if(prob(5))
+				trigger_power_failure_cascade()
+			if(prob(2))
+				trigger_goi_breach_sabotage(pick("ci", "sarkic", "serpents"))
+			if(prob(1))
+				trigger_goi_midround_spawn(pick("ci", "sarkic", "serpents"))
 		if(ROUND_PHASE_RESOLUTION)
 			if(elapsed > 60 MINUTES)
 				advance_phase(ROUND_PHASE_DEBRIEF)

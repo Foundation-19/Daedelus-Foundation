@@ -20,6 +20,7 @@
 /obj/machinery/power/emitter/gyrotron/anchored
 	anchored = TRUE
 	welded = TRUE
+	var/initial_id_tag
 
 /obj/machinery/power/emitter/gyrotron/RefreshParts()
 	. = ..()

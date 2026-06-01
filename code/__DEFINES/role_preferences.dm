@@ -111,6 +111,7 @@
 #define ROLE_SCP457 "SCP-457"
 #define ROLE_SCP939 "SCP-939"
 #define ROLE_SCP682 "SCP-682"
+#define ROLE_SCP610 "SCP-610"
 #define ROLE_SARKIC_CULT "Sarkic Cultist"
 #define ROLE_CHAOS_INSURGENCY "Chaos Insurgency Agent"
 #define ROLE_SERPENTS_HAND "Serpent's Hand Member"

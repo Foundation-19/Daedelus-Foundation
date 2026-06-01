@@ -40,8 +40,8 @@
 	reanimation_cooldown = world.time + reanimation_delay
 	reanimated_corpses += target
 
-	to_chat(parent_mob, "<span class='notice'>You have cured [target] of their illness.</span>")
-	to_chat(target, "<span class='danger'>You feel an overwhelming urge to spread the cure...</span>")
+	to_chat(parent_mob, span_notice("You have cured [target] of their illness."))
+	to_chat(target, span_danger("You feel an overwhelming urge to spread the cure..."))
 
 	return TRUE
 
@@ -92,11 +92,11 @@
 
 /datum/scp_advanced_component/scp_096_shy_guy/proc/start_berserk_mode()
 	berserk_mode = TRUE
-	to_chat(parent_mob, "<span class='danger'>RAGE OVERWHELMS YOU!</span>")
+	to_chat(parent_mob, span_danger("RAGE OVERWHELMS YOU!"))
 
 /datum/scp_advanced_component/scp_096_shy_guy/proc/end_berserk_mode()
 	berserk_mode = FALSE
-	to_chat(parent_mob, "<span class='notice'>Your rage subsides.</span>")
+	to_chat(parent_mob, span_notice("Your rage subsides."))
 
 // SCP-106: The Old Man
 /datum/scp_advanced_component/scp_106_old_man
@@ -274,7 +274,7 @@
 	hunger_level = min(max_hunger_level, hunger_level + hunger_increase_rate)
 
 	if(hunger_level >= max_hunger_level)
-		to_chat(parent_mob, "<span class='danger'>You are starving!</span>")
+		to_chat(parent_mob, span_danger("You are starving!"))
 
 // SCP-939: Voice Mimic Component
 /datum/scp_advanced_component/scp_939_voice_mimic
@@ -305,7 +305,7 @@
 			communicate_with_pack_member(pack_member)
 
 /datum/scp_advanced_component/scp_939_voice_mimic/proc/communicate_with_pack_member(mob/living/carbon/human/member)
-	to_chat(parent_mob, "<span class='notice'>You communicate with your pack member.</span>")
+	to_chat(parent_mob, span_notice("You communicate with your pack member."))
 
 // SCP-966: Sleep Killer Component
 /datum/scp_advanced_component/scp_966_sleep_killer
@@ -336,7 +336,7 @@
 		if(H.stat == UNCONSCIOUS)
 			if(!(H in detected_targets))
 				detected_targets += H
-				to_chat(parent_mob, "<span class='notice'>You detect a vulnerable target: [H]</span>")
+			to_chat(parent_mob, span_notice("You detect a vulnerable target: [H]"))
 
 // SCP-131: Eye Pods Component
 /datum/scp_advanced_component/scp_131_eye_pods

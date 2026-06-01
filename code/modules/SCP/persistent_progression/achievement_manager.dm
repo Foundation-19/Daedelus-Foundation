@@ -20,6 +20,7 @@
 	register_faction_achievements()
 	register_hidden_achievements()
 	register_job_achievements()
+	register_foundation_job_achievements()
 	register_scp_achievements()
 	register_combat_achievements()
 	register_research_achievements()

@@ -6,7 +6,7 @@ SUBSYSTEM_DEF(facility_persistence)
 
 /datum/controller/subsystem/facility_persistence/Initialize()
 	manager = new /datum/facility_persistence_manager()
-	world.log << "Facility Persistence Subsystem: Initialized"
+	log_game("Facility Persistence Subsystem: Initialized")
 	return ..()
 
 /datum/controller/subsystem/facility_persistence/fire()
@@ -26,11 +26,12 @@ SUBSYSTEM_DEF(facility_persistence)
 	var/list/engineering_systems = list()
 	var/last_round_id = ""
 	var/facility_age = 0
-	var/facility_health = 100
-	var/maintenance_level = 50
+	var/facility_health = 0
+	var/maintenance_level = 0
+	var/list/maintenance_tasks = list()
 	var/security_level = 1
-	var/power_efficiency = 1.0
-	var/containment_stability = 100
+	var/power_efficiency = 0
+	var/containment_stability = 0
 
 /datum/facility_persistence_manager/proc/process_facility()
 	facility_age++
@@ -65,13 +66,18 @@ SUBSYSTEM_DEF(facility_persistence)
 
 /datum/facility_persistence_manager/proc/update_equipment_status()
 	for(var/obj/machinery/M as anything in INSTANCES_OF(/obj/machinery))
-		if(M.type in equipment_status)
-			var/datum/equipment_status/status = equipment_status[M.type]
-			status.update_status(M)
+		var/key = "[M.type]"
+		if(key in equipment_status)
+			var/datum/equipment_status/status = equipment_status[key]
+			status.health_percentage = M.density ? 100 : 50
+			status.operational_status = M.density ? "OPERATIONAL" : "OFFLINE"
+			status.energy_efficiency = status.health_percentage / 100
 		else
-			var/datum/equipment_status/new_status = new /datum/equipment_status(M.type)
-			equipment_status[M.type] = new_status
-			new_status.update_status(M)
+			var/datum/equipment_status/new_status = new /datum/equipment_status(key, "[M.type]", "[M.type]", "[get_area(M)]")
+			equipment_status[key] = new_status
+			new_status.health_percentage = M.density ? 100 : 50
+			new_status.operational_status = M.density ? "OPERATIONAL" : "OFFLINE"
+			new_status.energy_efficiency = new_status.health_percentage / 100
 
 /datum/facility_persistence_manager/proc/update_security_systems()
 	for(var/obj/machinery/camera/C as anything in INSTANCES_OF(/obj/machinery/camera))
@@ -210,7 +216,7 @@ SUBSYSTEM_DEF(facility_persistence)
 	// Calculate average equipment health
 	for(var/type in equipment_status)
 		var/datum/equipment_status/status = equipment_status[type]
-		total_health += status.health
+		total_health += status.health_percentage
 		component_count++
 
 	// Calculate average security system health
@@ -379,102 +385,6 @@ SUBSYSTEM_DEF(facility_persistence)
 		base_humidity += 10
 
 	return max(0, min(100, base_humidity))
-
-// Equipment Status Datum
-/datum/equipment_status
-	var/equipment_type
-	var/health = 100
-	var/operational = TRUE
-	var/efficiency = 1.0
-	var/facility_last_maintenance = 0
-	var/maintenance_required = FALSE
-	var/list/upgrades = list()
-	var/power_consumption = 0
-	var/heat_generation = 0
-
-/datum/equipment_status/New(var/type)
-	equipment_type = type
-
-/datum/equipment_status/proc/update_status(var/obj/machinery/M)
-	if(M)
-		// Calculate real operational status
-		operational = M.density
-
-		// Calculate real health based on actual damage
-		health = calculate_real_equipment_health(M)
-
-		// Check if maintenance is required based on real conditions
-		maintenance_required = health < 50 || (world.time - facility_last_maintenance) > 360000 // 10 minutes
-
-		// Calculate real efficiency
-		efficiency = health / 100
-
-		// Calculate real power consumption
-		power_consumption = calculate_real_power_consumption(M)
-
-		// Calculate real heat generation
-		heat_generation = calculate_real_heat_generation(M)
-
-		// Update maintenance timestamp
-		if(maintenance_required)
-			facility_last_maintenance = world.time
-
-// Calculate real equipment health based on actual damage
-/datum/equipment_status/proc/calculate_real_equipment_health(var/obj/machinery/M)
-	var/base_health = 100
-
-	// Reduce health based on operational status (simplified)
-	if(!M.density)
-		base_health *= 0.5
-
-	// Reduce health based on time since last maintenance
-	var/time_since_maintenance = world.time - facility_last_maintenance
-	if(time_since_maintenance > 360000) // 10 minutes
-		base_health -= min(20, time_since_maintenance / 3600000 * 10)
-
-	return max(0, base_health)
-
-// Calculate real power consumption based on equipment type and usage
-/datum/equipment_status/proc/calculate_real_power_consumption(var/obj/machinery/M)
-	var/base_consumption = 100
-
-	// Adjust based on equipment type
-	if(istype(M, /obj/machinery/power))
-		base_consumption = 500
-	else if(istype(M, /obj/machinery/atmospherics))
-		base_consumption = 200
-	else if(istype(M, /obj/machinery/computer))
-		base_consumption = 50
-
-	// Adjust based on operational status (simplified)
-	if(!M.density)
-		base_consumption *= 0.1 // Minimal power when not operational
-
-	// Adjust based on efficiency
-	base_consumption *= efficiency
-
-	return base_consumption
-
-// Calculate real heat generation based on equipment type and usage
-/datum/equipment_status/proc/calculate_real_heat_generation(var/obj/machinery/M)
-	var/base_heat = 10
-
-	// Adjust based on equipment type
-	if(istype(M, /obj/machinery/power))
-		base_heat = 50
-	else if(istype(M, /obj/machinery/atmospherics))
-		base_heat = 20
-	else if(istype(M, /obj/machinery/computer))
-		base_heat = 5
-
-	// Adjust based on operational status (simplified)
-	if(!M.density)
-		base_heat *= 0.1
-
-	// Adjust based on efficiency (less efficient = more heat)
-	base_heat *= (2.0 - efficiency)
-
-	return base_heat
 
 // Security Component Datum
 /datum/security_component

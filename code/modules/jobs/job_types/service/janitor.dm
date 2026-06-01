@@ -1,6 +1,8 @@
 /datum/job/janitor
 	title = JOB_JANITOR
-	description = "Clean up trash and blood. Replace broken lights. Slip people over."
+	description = "Clean up trash and blood. Replace broken lights. Slip people over. \
+		Use the Anomalous Decontamination Kit to clean SCP-106 corrosion trails, \
+		biohazard spills, and anomalous residues in containment areas."
 	department_head = list(JOB_HUMAN_RESOURCES_DIRECTOR)
 	faction = FACTION_STATION
 	total_positions = 2

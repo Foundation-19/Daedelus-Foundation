@@ -96,13 +96,13 @@
 
 	if(obsession_level >= 20)
 		if(can_message)
-			to_chat(target, "<span class='warning'>You feel drawn to the musical composition...</span>")
+			to_chat(target, span_warning("You feel drawn to the musical composition..."))
 			data["last_message"] = world.time
 		target.adjustToxLoss(1)
 
 	if(obsession_level >= 40)
 		if(can_message)
-			to_chat(target, "<span class='danger'>The composition is calling to you! You must complete it!</span>")
+			to_chat(target, span_danger("The composition is calling to you! You must complete it!"))
 			data["last_message"] = world.time
 		target.adjustToxLoss(3)
 		if(target.stamina)
@@ -110,7 +110,7 @@
 
 	if(obsession_level >= 60)
 		if(can_message)
-			to_chat(target, "<span class='danger'>The music is overwhelming! You can't think of anything else!</span>")
+			to_chat(target, span_danger("The music is overwhelming! You can't think of anything else!"))
 			data["last_message"] = world.time
 		target.adjustToxLoss(5)
 		if(target.stamina)
@@ -120,11 +120,11 @@
 		if(prob(30))
 			step_towards(target, src)
 			if(can_message)
-				to_chat(target, "<span class='danger'>You move closer to the composition!</span>")
+				to_chat(target, span_danger("You move closer to the composition!"))
 
 	if(obsession_level >= 80)
 		if(can_message)
-			to_chat(target, "<span class='danger'>You're completely obsessed! You must complete the composition with your blood!</span>")
+			to_chat(target, span_danger("You're completely obsessed! You must complete the composition with your blood!"))
 			data["last_message"] = world.time
 		target.adjustToxLoss(8)
 		if(target.stamina)
@@ -136,7 +136,7 @@
 
 	if(obsession_level >= 100)
 		if(can_message)
-			to_chat(target, "<span class='danger'>The obsession has consumed you! You will complete the composition or die trying!</span>")
+			to_chat(target, span_danger("The obsession has consumed you! You will complete the composition or die trying!"))
 			data["last_message"] = world.time
 		target.adjustToxLoss(15)
 		if(target.stamina)
@@ -147,7 +147,7 @@
 
 	// Update persistence system
 	if(SSscp_persistence && SSscp_persistence.manager && world.time >= persistence_cooldown)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-012"]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances["SCP-012"]
 		if(instance)
 			instance.add_interaction_record(target, "sanity_drain")
 		persistence_cooldown = world.time + 30 SECONDS
@@ -161,8 +161,8 @@
 	completion_attempts++
 	composers_affected++
 
-	visible_message("<span class='danger'>[composer] attempts to complete SCP-012 with their blood!</span>")
-	to_chat(composer, "<span class='danger'>You begin writing in your own blood to complete the composition!</span>")
+	visible_message(span_danger("[composer] attempts to complete SCP-012 with their blood!"))
+	to_chat(composer, span_danger("You begin writing in your own blood to complete the composition!"))
 
 	var/blood_loss = 20
 	composer.adjustBruteLoss(blood_loss)
@@ -172,7 +172,7 @@
 	// Check for composer death
 	if(composer.stat == DEAD)
 		composer_deaths++
-		to_chat(composer, "<span class='danger'>You have died completing the composition! Your sacrifice will be remembered!</span>")
+		to_chat(composer, span_danger("You have died completing the composition! Your sacrifice will be remembered!"))
 
 	var/composition_note = generate_composition_note(composer)
 	composition_notes += composition_note
@@ -182,11 +182,11 @@
 	if(completion_progress >= max_completion)
 		complete_composition(composer)
 	else
-		to_chat(composer, "<span class='notice'>You add a musical phrase to the composition. Progress: [completion_progress]/[max_completion]</span>")
+		to_chat(composer, span_notice("You add a musical phrase to the composition. Progress: [completion_progress]/[max_completion]"))
 
 	// Update persistence system
 	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-012"]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances["SCP-012"]
 		if(instance)
 			instance.add_interaction_record(composer, "completion_attempt")
 
@@ -231,8 +231,8 @@
 
 // Complete the composition
 /obj/item/paper/scp012/proc/complete_composition(mob/living/carbon/human/composer)
-	visible_message("<span class='danger'>[composer] collapses, blood covering their hands. The composition remains incomplete.</span>")
-	to_chat(composer, "<span class='danger'>You pour the last of your blood onto the page, but the notes blur and fade. It will never be finished...</span>")
+	visible_message(span_danger("[composer] collapses, blood covering their hands. The composition remains incomplete."))
+	to_chat(composer, span_danger("You pour the last of your blood onto the page, but the notes blur and fade. It will never be finished..."))
 
 	composer.adjustBruteLoss(50)
 	composer.adjustToxLoss(30)
@@ -246,7 +246,7 @@
 	hook_player_death_near_scp(composer, "SCP-012")
 
 	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-012"]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances["SCP-012"]
 		if(instance)
 			instance.add_interaction_record(composer, "failed_completion")
 
@@ -261,7 +261,7 @@
 // Admin verb to view SCP-012 persistence data
 /obj/item/paper/scp012/proc/view_persistence_data()
 	if(!check_rights(R_ADMIN))
-		to_chat(usr, "<span class='warning'>You don't have permission to view persistence data.</span>")
+		to_chat(usr, span_warning("You don't have permission to view persistence data."))
 		return
 
 	var/message = "<h2>SCP-012 Persistence Data</h2>"
@@ -276,11 +276,11 @@
 	message += "<b>Sanity Drain Radius:</b> [sanity_drain_radius] tiles<br>"
 
 	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-012"]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances["SCP-012"]
 		if(instance)
 			message += "<b>Interaction History:</b> [length(instance.interaction_history)] records<br>"
 
-	to_chat(usr, "<span class='notice'>[message]</span>")
+	to_chat(usr, span_notice("[message]"))
 
 // Override examine for SCP-012
 /obj/item/paper/scp012/examine(mob/user)
@@ -289,13 +289,13 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.SCP)
-			to_chat(user, "<span class='warning'>This is SCP-012, an incomplete musical composition that drives people to complete it with their blood.</span>")
+			to_chat(user, span_warning("This is SCP-012, an incomplete musical composition that drives people to complete it with their blood."))
 		else
-			to_chat(user, "<span class='danger'>A sheet of paper with an incomplete musical composition. You feel strangely drawn to it...</span>")
+			to_chat(user, span_danger("A sheet of paper with an incomplete musical composition. You feel strangely drawn to it..."))
 
 			// Apply initial obsession
 			var/ckey = H.ckey || REF(H)
 			if(!affected_composers[ckey])
 				affected_composers[ckey] = list("mob" = H, "obsession" = 10, "last_message" = 0)
-				to_chat(user, "<span class='warning'>The composition begins to call to you...</span>")
+				to_chat(user, span_warning("The composition begins to call to you..."))
 

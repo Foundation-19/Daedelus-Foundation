@@ -105,7 +105,7 @@
 	if(.)
 		return
 
-	var/mob/user = usr
+	var/mob/user = ui.user
 
 	switch(action)
 		if("change_setting")
@@ -123,7 +123,7 @@
 			refinement_system.active = TRUE
 			refinement_system.refinement_progress = 0
 			refinement_efficiency = min(2.0, refinement_efficiency + 0.05)
-			visible_message("<span class='notice'>SCP-914 begins refining on [refinement_system.refinement_setting] setting.</span>")
+			visible_message(span_notice("SCP-914 begins refining on [refinement_system.refinement_setting] setting."))
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
 				hook_scp_experiment(H, "SCP-914", EXPERIMENT_TYPE_TECHNICAL)
@@ -137,7 +137,7 @@
 			if(ismob(I.loc))
 				I.forceMove(src)
 			refinement_system.input_objects += I
-			to_chat(user, "<span class='notice'>Added [I.name] to SCP-914 input.</span>")
+			to_chat(user, span_notice("Added [I.name] to SCP-914 input."))
 			. = TRUE
 		if("remove_output")
 			if(!refinement_system)
@@ -148,7 +148,7 @@
 			refinement_system.output_objects -= I
 			I.forceMove(get_turf(user))
 			user.put_in_hands(I)
-			to_chat(user, "<span class='notice'>Removed [I.name] from SCP-914 output.</span>")
+			to_chat(user, span_notice("Removed [I.name] from SCP-914 output."))
 			. = TRUE
 		if("remove_input")
 			if(!refinement_system || refinement_system.active)
@@ -159,7 +159,7 @@
 			refinement_system.input_objects -= I
 			I.forceMove(get_turf(user))
 			user.put_in_hands(I)
-			to_chat(user, "<span class='notice'>Removed [I.name] from SCP-914 input.</span>")
+			to_chat(user, span_notice("Removed [I.name] from SCP-914 input."))
 			. = TRUE
 
 /obj/machinery/scp914/Destroy()
@@ -214,33 +214,33 @@
 		return
 
 	if(!refinement_system)
-		to_chat(usr, "<span class='warning'>SCP-914 refinement system not available.</span>")
+		to_chat(usr, span_warning("SCP-914 refinement system not available."))
 		return
 
 	var/new_setting = input(usr, "Choose refinement setting:", "SCP-914 Setting") as null|anything in refinement_system.refinement_settings
 	if(new_setting)
 		refinement_system.refinement_setting = new_setting
-		to_chat(usr, "<span class='notice'>SCP-914 setting changed to [refinement_system.refinement_setting].</span>")
+		to_chat(usr, span_notice("SCP-914 setting changed to [refinement_system.refinement_setting]."))
 
 /obj/machinery/scp914/proc/start_refinement()
 	if(!usr || !usr.client)
 		return
 
 	if(!refinement_system)
-		to_chat(usr, "<span class='warning'>SCP-914 refinement system not available.</span>")
+		to_chat(usr, span_warning("SCP-914 refinement system not available."))
 		return
 
 	if(refinement_system.active)
-		to_chat(usr, "<span class='warning'>SCP-914 is already active.</span>")
+		to_chat(usr, span_warning("SCP-914 is already active."))
 		return
 
 	if(!length(refinement_system.input_objects))
-		to_chat(usr, "<span class='warning'>No objects in input to refine.</span>")
+		to_chat(usr, span_warning("No objects in input to refine."))
 		return
 
 	refinement_system.active = TRUE
 	refinement_system.refinement_progress = 0
-	visible_message("<span class='notice'>SCP-914 begins refining [length(refinement_system.input_objects)] objects on [refinement_system.refinement_setting] setting.</span>")
+	visible_message(span_notice("SCP-914 begins refining [length(refinement_system.input_objects)] objects on [refinement_system.refinement_setting] setting."))
 
 	// Progression integration - log experiment start
 	if(ishuman(usr))
@@ -253,44 +253,44 @@
 		return
 
 	if(!refinement_system)
-		to_chat(usr, "<span class='warning'>SCP-914 refinement system not available.</span>")
+		to_chat(usr, span_warning("SCP-914 refinement system not available."))
 		return
 
 	if(!item)
-		to_chat(usr, "<span class='warning'>No item selected.</span>")
+		to_chat(usr, span_warning("No item selected."))
 		return
 
 	if(refinement_system.active)
-		to_chat(usr, "<span class='warning'>Cannot add items while SCP-914 is active.</span>")
+		to_chat(usr, span_warning("Cannot add items while SCP-914 is active."))
 		return
 
 	refinement_system.input_objects += item
 	item.forceMove(src)
-	to_chat(usr, "<span class='notice'>Added [item.name] to SCP-914 input.</span>")
+	to_chat(usr, span_notice("Added [item.name] to SCP-914 input."))
 
 /obj/machinery/scp914/proc/remove_from_output(obj/item/item in refinement_system.output_objects)
 	if(!usr || !usr.client)
 		return
 
 	if(!refinement_system)
-		to_chat(usr, "<span class='warning'>SCP-914 refinement system not available.</span>")
+		to_chat(usr, span_warning("SCP-914 refinement system not available."))
 		return
 
 	if(!item)
-		to_chat(usr, "<span class='warning'>No item selected.</span>")
+		to_chat(usr, span_warning("No item selected."))
 		return
 
 	refinement_system.output_objects -= item
 	item.forceMove(get_turf(src))
-	to_chat(usr, "<span class='notice'>Removed [item.name] from SCP-914 output.</span>")
+	to_chat(usr, span_notice("Removed [item.name] from SCP-914 output."))
 
 /obj/machinery/scp914/proc/emergency_shutdown()
 	if(!containment_system)
-		to_chat(usr, "<span class='warning'>SCP-914 containment system not available.</span>")
+		to_chat(usr, span_warning("SCP-914 containment system not available."))
 		return
 
 	containment_system.emergency_shutdown_procedure()
-	to_chat(usr, "<span class='notice'>SCP-914 emergency shutdown activated.</span>")
+	to_chat(usr, span_notice("SCP-914 emergency shutdown activated."))
 
 // ===== STATUS DISPLAY VERBS =====
 
@@ -309,14 +309,14 @@
 	if(containment_system)
 		message += "<b>Containment Status:</b> [containment_system.containment_status]<br>"
 
-	to_chat(usr, "<span class='notice'>[message]</span>")
+	to_chat(usr, span_notice("[message]"))
 
 /obj/machinery/scp914/proc/view_input_objects()
 	if(!usr || !usr.client)
 		return
 
 	if(!refinement_system)
-		to_chat(usr, "<span class='warning'>SCP-914 refinement system not available.</span>")
+		to_chat(usr, span_warning("SCP-914 refinement system not available."))
 		return
 
 	var/message = "<h2>SCP-914 Input Objects</h2>"
@@ -329,14 +329,14 @@
 	else
 		message += "<i>No objects in input.</i>"
 
-	to_chat(usr, "<span class='notice'>[message]</span>")
+	to_chat(usr, span_notice("[message]"))
 
 /obj/machinery/scp914/proc/view_output_objects()
 	if(!usr || !usr.client)
 		return
 
 	if(!refinement_system)
-		to_chat(usr, "<span class='warning'>SCP-914 refinement system not available.</span>")
+		to_chat(usr, span_warning("SCP-914 refinement system not available."))
 		return
 
 	var/message = "<h2>SCP-914 Output Objects</h2>"
@@ -349,23 +349,23 @@
 	else
 		message += "<i>No objects in output.</i>"
 
-	to_chat(usr, "<span class='notice'>[message]</span>")
+	to_chat(usr, span_notice("[message]"))
 
 /obj/machinery/scp914/proc/view_research_summary()
 	if(!usr || !usr.client)
 		return
 
 	if(!research_integration)
-		to_chat(usr, "<span class='warning'>SCP-914 research integration not available.</span>")
+		to_chat(usr, span_warning("SCP-914 research integration not available."))
 		return
 
 	var/summary = research_integration.get_research_summary()
-	to_chat(usr, "<span class='notice'>[summary]</span>")
+	to_chat(usr, span_notice("[summary]"))
 
 // Admin verb to view SCP-914 persistence data
 /obj/machinery/scp914/proc/view_persistence_data()
 	if(!check_rights(R_ADMIN))
-		to_chat(usr, "<span class='warning'>You don't have permission to view persistence data.</span>")
+		to_chat(usr, span_warning("You don't have permission to view persistence data."))
 		return
 
 	var/message = "<h2>SCP-914 Persistence Data</h2>"
@@ -391,11 +391,11 @@
 		message += "<b>Temporal Events:</b> [temporal_system.temporal_events]<br>"
 
 	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-914"]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances["SCP-914"]
 		if(instance)
 			message += "<b>Interaction History:</b> [length(instance.interaction_history)] records<br>"
 
-	to_chat(usr, "<span class='notice'>[message]</span>")
+	to_chat(usr, span_notice("[message]"))
 
 // Override examine for SCP-914
 /obj/machinery/scp914/examine(mob/user)
@@ -404,14 +404,14 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.SCP)
-			to_chat(user, "<span class='warning'>This is SCP-914, a clockwork refinement device with multiple settings.</span>")
+			to_chat(user, span_warning("This is SCP-914, a clockwork refinement device with multiple settings."))
 		else
-			to_chat(user, "<span class='notice'>A massive clockwork device that seems to refine objects placed within it.</span>")
+			to_chat(user, span_notice("A massive clockwork device that seems to refine objects placed within it."))
 
 		// Show current status to users
 		if(refinement_system)
-			to_chat(user, "<span class='notice'>Current setting: [refinement_system.refinement_setting]</span>")
-			to_chat(user, "<span class='notice'>Status: [refinement_system.active ? "Active" : "Inactive"]</span>")
+			to_chat(user, span_notice("Current setting: [refinement_system.refinement_setting]"))
+			to_chat(user, span_notice("Status: [refinement_system.active ? "Active" : "Inactive"]"))
 
 /obj/structure/scp914_booth
 	name = "SCP-914 Booth"
@@ -430,11 +430,11 @@
 
 /obj/structure/scp914_booth/input/attackby(obj/item/I, mob/user, params)
 	if(!linked_machine || !linked_machine.refinement_system || linked_machine.refinement_system.active)
-		to_chat(user, "<span class='warning'>Cannot add items right now.</span>")
+		to_chat(user, span_warning("Cannot add items right now."))
 		return
 	linked_machine.refinement_system.input_objects += I
 	I.forceMove(linked_machine)
-	to_chat(user, "<span class='notice'>Inserted [I.name] into SCP-914.</span>")
+	to_chat(user, span_notice("Inserted [I.name] into SCP-914."))
 
 /obj/structure/scp914_booth/output
 	name = "SCP-914 Output Booth"
@@ -447,13 +447,13 @@
 		return
 	var/datum/scp914_refinement_system/RS = linked_machine.refinement_system
 	if(!length(RS.output_objects))
-		to_chat(user, "<span class='notice'>No items in output.</span>")
+		to_chat(user, span_notice("No items in output."))
 		return
 	var/obj/item/I = RS.output_objects[length(RS.output_objects)]
 	RS.output_objects.Cut(length(RS.output_objects), 0)
 	if(I)
 		I.forceMove(get_turf(user))
 		user.put_in_hands(I)
-		to_chat(user, "<span class='notice'>Retrieved [I.name] from SCP-914 output.</span>")
+		to_chat(user, span_notice("Retrieved [I.name] from SCP-914 output."))
 
 

@@ -3,7 +3,7 @@ import React from 'react';
 
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Dropdown, Input } from '../components';
-import { Window } from '../layouts';
+import { NtosWindow } from '../layouts';
 import { C, term, TermHeader, TermLabel, TermValue, TermRow, TermDivider, TermButton, TermProgressBar } from './CharacterSetup/shared';
 
 interface LogEntry {
@@ -65,8 +65,8 @@ export const SCPAdminLogConsole = (props) => {
     : log_entries.filter((e) => e.log_type === selectedFilter);
 
   return (
-    <Window width={900} height={650} theme="scp_terminal">
-      <Window.Content scrollable>
+    <NtosWindow width={900} height={650} >
+      <NtosWindow.Content scrollable>
         <Box
           style={{
             background: C.bg,
@@ -214,7 +214,7 @@ export const SCPAdminLogConsole = (props) => {
             </Box>
           </Box>
         </Box>
-      </Window.Content>
-    </Window>
+      </NtosWindow.Content>
+    </NtosWindow>
   );
 };

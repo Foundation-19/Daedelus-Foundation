@@ -114,19 +114,9 @@ SUBSYSTEM_DEF(storytelling)
 /datum/storytelling_manager/proc/announce_arc_creation(datum/story_arc/arc)
 	if(!arc)
 		return
-	switch(arc.arc_type)
-		if(STORY_ARC_BREACH, STORY_ARC_CASCADE)
-			priority_announce("NARRATIVE TRACKER: Containment breach arc initiated for [arc.scp_id]. All relevant personnel take note.", null, null, ANNOUNCER_ALERT)
-		if(STORY_ARC_RIOT)
-			priority_announce("NARRATIVE TRACKER: D-Class unrest arc initiated. Security personnel be advised.", null, null, ANNOUNCER_ALERT)
-		if(STORY_ARC_CI_RAID)
-			priority_announce("NARRATIVE TRACKER: Hostile incursion arc initiated. All hands to battle stations.", null, null, ANNOUNCER_ALERT)
-		if(STORY_ARC_OUTBREAK)
-			priority_announce("NARRATIVE TRACKER: Pathogen outbreak arc initiated. Medical personnel respond.", null, null, ANNOUNCER_ALERT)
-		if(STORY_ARC_CORRUPTION)
-			priority_announce("NARRATIVE TRACKER: Anomalous corruption detected. Research and security personnel investigate.", null, null, ANNOUNCER_ALERT)
-		if(STORY_ARC_TAKEOVER)
-			priority_announce("NARRATIVE TRACKER: AI system anomaly detected. Engineering and command personnel respond.", null, null, ANNOUNCER_ALERT)
+	// Meta announcements removed - NARRATIVE TRACKER info shouldn't be IC
+	// All automated priority_announce calls have been commented out
+	return
 
 /datum/storytelling_manager/proc/find_arc_by_scp(scp_id, arc_type)
 	for(var/arc_id in active_arcs)
@@ -229,7 +219,7 @@ SUBSYSTEM_DEF(storytelling)
 	return summary
 
 /proc/log_storytelling(message)
-	world.log << "Storytelling: [message]"
+	log_game("Storytelling: [message]")
 
 /datum/story_arc
 	var/arc_id = ""
@@ -333,7 +323,7 @@ SUBSYSTEM_DEF(storytelling)
 /datum/story_arc/proc/check_security_responded()
 	if(!SSscp_persistence?.manager?.scp_instances?[scp_id])
 		return FALSE
-	var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[scp_id]
+	var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[scp_id]
 	if(!instance || instance.containment_status != "breached")
 		return FALSE
 	var/mob/living/scp/found_scp
@@ -393,7 +383,7 @@ SUBSYSTEM_DEF(storytelling)
 	if(!scp_check_id)
 		return FALSE
 	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[scp_check_id]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[scp_check_id]
 		if(instance && instance.containment_status == "contained")
 			return TRUE
 	return FALSE
@@ -490,7 +480,7 @@ SUBSYSTEM_DEF(storytelling)
 
 /datum/story_arc/proc/check_corruption_spreading()
 	if(scp_id && SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[scp_id]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[scp_id]
 		if(instance && instance.containment_status == "breached")
 			var/affected = 0
 			for(var/mob/living/carbon/human/H in GLOB.player_list)
@@ -513,7 +503,7 @@ SUBSYSTEM_DEF(storytelling)
 
 /datum/story_arc/proc/check_corruption_consumed()
 	if(scp_id && SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[scp_id]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[scp_id]
 		if(instance && instance.containment_status == "breached")
 			var/affected = 0
 			for(var/mob/living/carbon/human/H in GLOB.player_list)
@@ -674,7 +664,7 @@ SUBSYSTEM_DEF(storytelling)
 
 /datum/story_arc/proc/check_outbreak_critical()
 	if(SSmedical_persistence && SSmedical_persistence.manager)
-		return SSmedical_persistence.manager.active_outbreaks >= 3
+		return SSmedical_persistence?.manager?.active_outbreaks >= 3
 	return FALSE
 
 /proc/hook_storytelling_breach(scp_id, atom/scp_atom)

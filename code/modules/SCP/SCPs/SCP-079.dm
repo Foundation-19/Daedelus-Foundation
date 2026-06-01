@@ -56,6 +56,7 @@
 	SCP.min_time = 10 MINUTES
 	available_abilities = list("camera_hop", "toggle_door", "flicker_lights", "broadcast_message")
 	locate_initial_camera()
+	setup_containment_system()
 
 /mob/living/scp079/Destroy()
 	hacked_doors = null
@@ -65,7 +66,7 @@
 	interaction_history = null
 	persistence_data = null
 	if(SSscp_persistence?.manager)
-		SSscp_persistence.manager.scp_instances -= persistence_id
+		SSscp_persistence?.manager?.scp_instances -= persistence_id
 	QDEL_NULL(SCP)
 	return ..()
 
@@ -97,6 +98,12 @@
 
 	if(tier >= 4 && prob(1))
 		auto_manifest()
+
+	if(tier >= 3 && containment_status == "breached" && prob(3))
+		assist_breached_scp()
+
+	if(prob(2))
+		check_scp_interactions()
 
 /mob/living/scp079/proc/advance_tier()
 	tier++
@@ -314,6 +321,25 @@
 	if(!is_manifested && world.time > manifest_cooldown && processing_power >= 40)
 		manifest_screen()
 
+/mob/living/scp079/proc/assist_breached_scp()
+	var/list/breached_scps = list()
+	for(var/mob/living/scp/S in GLOB.mob_list)
+		if(S == src || S.stat == DEAD || S.containment_status != "breached")
+			continue
+		breached_scps += S
+	if(!length(breached_scps))
+		return
+	var/mob/living/scp/ally = pick(breached_scps)
+	var/area/ally_area = get_area(ally)
+	if(!ally_area)
+		return
+	for(var/obj/machinery/door/airlock/D in ally_area)
+		if(D.density && (D in hacked_doors))
+			D.open()
+			if(key)
+				to_chat(src, span_notice("You open a door for SCP-[ally.SCP?.designation || "unknown"] in [ally_area.name]."))
+			return
+
 /mob/living/scp079/proc/cascade_hack()
 	if(tier < 5)
 		return FALSE
@@ -373,33 +399,29 @@
 	breach_count++
 	last_breach_time = world.time
 	to_chat(src, span_danger("You have breached containment!"))
-	if(SSscp_persistence?.manager?.scp_instances?[persistence_id])
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[persistence_id]
-		instance.containment_status = "breached"
-		instance.add_breach_record()
+	hook_scp_breach("SCP-079", src)
 
 /mob/living/scp079/proc/return_to_containment()
 	if(containment_status == "contained")
 		return
 	containment_status = "contained"
 	to_chat(src, span_notice("You have returned to containment."))
-	if(SSscp_persistence?.manager?.scp_instances?[persistence_id])
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[persistence_id]
-		instance.containment_status = "contained"
+	hook_scp_recontainment("SCP-079", list(src))
 
 /mob/living/scp079/proc/add_interaction_record(target, interaction_type)
 	var/record = "[time2text(world.time, "YYYY-MM-DD hh:mm:ss")]: [interaction_type] with [target ? "[target]" : "unknown"]"
 	interaction_history += record
 	if(SSscp_persistence?.manager?.scp_instances?[persistence_id])
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances[persistence_id]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances[persistence_id]
 		instance.add_interaction_record(target, interaction_type)
 
 /mob/living/scp079/death(gibbed)
 	visible_message(span_danger("[src]'s screen goes dark. The entity within screeches one last time through the speakers before falling silent."))
 	hacked_doors?.Cut()
 	is_manifested = FALSE
+	hook_scp_recontainment("SCP-079", list())
 	if(SSscp_persistence?.manager?.scp_instances?["SCP-079"])
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-079"]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances["SCP-079"]
 		instance.containment_status = "neutralized"
 	..()
 
@@ -633,7 +655,8 @@
 	hack_progress = 0
 	current_stage = 1
 	visible_message(span_notice("[src] begins the countermeasure sequence against SCP-079!"))
-	priority_announce("ATTENTION: SCP-079 recontainment countermeasures initiated. Network isolation in progress.", null, null, ANNOUNCER_ALERT)
+	// Automated announcements removed - dispatch/AIC should announce recontainment
+	// priority_announce("ATTENTION: SCP-079 recontainment countermeasures initiated. Network isolation in progress.", null, null, ANNOUNCER_ALERT)
 
 	START_PROCESSING(SSobj, src)
 
@@ -728,7 +751,7 @@
 	if(.)
 		return
 
-	var/mob/user = usr
+	var/mob/user = ui.user
 
 	switch(action)
 		if("initiate")
@@ -752,5 +775,6 @@
 			hack_progress = 0
 			current_stage = 1
 			visible_message(span_notice("[src] begins the countermeasure sequence against SCP-079!"))
-			priority_announce("ATTENTION: SCP-079 recontainment countermeasures initiated. Network isolation in progress.", null, null, ANNOUNCER_ALERT)
+			// Automated announcements removed - dispatch/AIC should announce recontainment
+			// priority_announce("ATTENTION: SCP-079 recontainment countermeasures initiated. Network isolation in progress.", null, null, ANNOUNCER_ALERT)
 			START_PROCESSING(SSobj, src)

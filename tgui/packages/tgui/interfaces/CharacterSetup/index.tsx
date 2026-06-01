@@ -29,9 +29,6 @@ const TABS = [
   { key: 'finalize', label: 'COMMIT' },
 ];
 
-const inputStyle = { fontFamily: C.mono, fontSize: '14px', height: '32px', minHeight: '32px', width: '100%' };
-const wideInputStyle = { fontFamily: C.mono, fontSize: '14px', height: '32px', minHeight: '32px', flex: 1, minWidth: '180px' };
-
 // ── OVERVIEW PAGE ──────────────────────────────────────────────
 const OverviewPage = ({ data }: any) => (
   <TermBox>
@@ -64,19 +61,25 @@ const FactionClassPage = () => {
   const [confirmReset, setConfirmReset] = useSharedState('CS.confirmReset', false);
   const [confirmAdmin, setConfirmAdmin] = useSharedState('CS.confirmAdmin', false);
 
+  const longestFaction = factions.reduce((a: string, b: string) => a.length >= b.length ? a : b, 'SELECT...');
+  const longestClass = classes.reduce((a: string, b: string) => a.length >= b.length ? a : b, 'SELECT...');
+  const charPx = 7.5;
+  const arrowPx = 22;
+  const padPx = 16;
+
   return (
     <TermBox>
       <TermHeader>FACTION ASSIGNMENT</TermHeader>
       <TermRow>
         <TermLabel>FACTION</TermLabel>
         {locked ? <TermValue color={C.amber} bold>{selectedFaction || '—'}</TermValue> : (
-          <Dropdown width="100%" options={factions} selected={selectedFaction} displayText={selectedFaction || 'SELECT...'} onSelected={(v: string) => act('set_faction', { value: v })} />
+          <Dropdown width={`${longestFaction.length * charPx + arrowPx + padPx}px`} options={factions} selected={selectedFaction} onSelected={(v: string) => act('set_faction', { value: v })} />
         )}
       </TermRow>
       <TermRow>
         <TermLabel>CLASS</TermLabel>
         {locked ? <TermValue color={C.amber} bold>{selectedClass || '—'}</TermValue> : (
-          <Dropdown width="100%" options={classes} selected={selectedClass} displayText={selectedClass || 'SELECT...'} onSelected={(v: string) => act('set_class', { value: v })} />
+          <Dropdown width={`${longestClass.length * charPx + arrowPx + padPx}px`} options={classes} selected={selectedClass} onSelected={(v: string) => act('set_class', { value: v })} />
         )}
       </TermRow>
       <TermDivider />
@@ -122,17 +125,35 @@ const FactionClassPage = () => {
 // ── JOBS PAGE ──────────────────────────────────────────────────
 const JobsPage = () => {
   const { act, data }: any = useBackend();
-  const available: { description: string; title: string }[] = data.available_jobs || [];
+  const available: { description: string; title: string; required_rank: number }[] = data.available_jobs || [];
   const jobPrefs: Record<string, number> = data.job_preferences || {};
+  const playerRank: number = data.persistent_rank || 0;
+  const playerClass: string = data.persistent_class || '';
   if (!data.faction || !data.class) return <TermBox><NoticeBox>SELECT FACTION AND CLASS TO VIEW ASSIGNMENTS</NoticeBox></TermBox>;
   if (!available.length) return <TermBox><NoticeBox>NO ASSIGNMENTS AVAILABLE</NoticeBox></TermBox>;
   return (
     <TermBox>
       <TermHeader>ASSIGNMENT PREFERENCES — {data.faction?.toUpperCase()} / {data.class?.toUpperCase()}</TermHeader>
+      {playerClass === data.class && (
+        <Box style={{ marginBottom: '8px', padding: '4px 8px', background: 'rgba(0,0,0,0.3)', borderRadius: '2px' }}>
+          <TermLabel>YOUR RANK</TermLabel> <TermValue bold color={C.amber}>{playerRank}</TermValue>
+          <Box style={term({ color: C.textDim, fontSize: '10px', marginTop: '2px' })}>Higher ranks unlock more assignments. Earn experience in-round to rank up.</Box>
+        </Box>
+      )}
       {available.map((j) => (
         <Box key={j.title} style={{ marginBottom: '8px', borderBottom: `1px solid ${C.border}`, paddingBottom: '8px' }}>
           <Box style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-            <Box><TermValue bold>{j.title}</TermValue><Box style={term({ color: C.textDim, fontSize: '10px', marginTop: '2px' })}>{j.description}</Box></Box>
+            <Box>
+              <Box style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                <TermValue bold>{j.title}</TermValue>
+                {j.required_rank > 0 && (
+                  <Box style={term({ fontSize: '9px', color: playerRank >= j.required_rank ? C.green : C.red, background: 'rgba(0,0,0,0.4)', padding: '1px 4px', borderRadius: '2px' })}>
+                    RANK {j.required_rank}
+                  </Box>
+                )}
+              </Box>
+              <Box style={term({ color: C.textDim, fontSize: '10px', marginTop: '2px' })}>{j.description}</Box>
+            </Box>
             <PriorityButtons job={j.title} prefs={jobPrefs[j.title]} act={act} />
           </Box>
         </Box>
@@ -153,18 +174,13 @@ const CustomizationPage = () => {
   const nonContextual: Record<string, any> = charPrefs.non_contextual || {};
   const randomization: Record<string, any> = charPrefs.randomization || {};
   const genderChoices: string[] = data.gender_choices || ['male', 'female', 'plural'];
-  const [nameDraft, setNameDraft] = useSharedState('CS.nameDraft', data.real_name || '');
-  const [ageDraft, setAgeDraft] = useSharedState('CS.ageDraft', String(data.age ?? ''));
-  const [eyeDraft, setEyeDraft] = useSharedState('CS.eyeDraft', (data.eye_color || '').replace('#', ''));
-  const [hairDraft, setHairDraft] = useSharedState('CS.hairDraft', (data.hair_color || '').replace('#', ''));
-
   const renderPrefRow = (key: string, val: any) => {
     if (val === null || val === undefined) return null;
     if (typeof val === 'object' && val?.choices) {
       return (
         <TermRow key={key}>
           <TermLabel>{key.replace(/_/g, ' ')}</TermLabel>
-          <Dropdown width="200px" options={val.choices} selected={val.selected} displayText={val.selected || 'SELECT...'} onSelected={(v: string) => act('set_preference', { preference: key, value: v })} />
+          <Dropdown width="200px" options={val.choices} selected={val.selected} onSelected={(v: string) => act('set_preference', { preference: key, value: v })} />
         </TermRow>
       );
     }
@@ -196,22 +212,20 @@ const CustomizationPage = () => {
       <Box style={{ marginBottom: '14px' }}>
         <TermLabel>DESIGNATION</TermLabel>
         <Box style={{ display: 'flex', gap: '6px', marginTop: '4px' }}>
-          <Input fluid value={nameDraft} onChange={(_: any, v: string) => setNameDraft(v)} style={wideInputStyle} />
-          <TermButton onClick={() => act('set_preference', { preference: 'real_name', value: nameDraft })}>SAVE</TermButton>
+          <Input fluid large monospace width="100%" value={data.real_name || ''} onChange={(_: any, v: string) => act('set_preference', { preference: 'real_name', value: v })} />
           <TermButton color="yellow" onClick={() => act('randomize_name', { preference: 'real_name' })}>RAND</TermButton>
         </Box>
       </Box>
       <Box style={{ marginBottom: '14px' }}>
         <TermLabel>AGE</TermLabel>
         <Box style={{ display: 'flex', gap: '6px', marginTop: '4px' }}>
-          <Input fluid value={ageDraft} onChange={(_: any, v: string) => setAgeDraft(v.replace(/[^0-9]/g, ''))} style={wideInputStyle} />
-          <TermButton onClick={() => act('set_preference', { preference: 'age', value: Number(ageDraft) })}>SAVE</TermButton>
+          <Input fluid large monospace width="100%" value={String(data.age ?? '')} onChange={(_: any, v: string) => act('set_preference', { preference: 'age', value: Number(v) })} />
         </Box>
       </Box>
       <Box style={{ marginBottom: '14px' }}>
         <TermLabel>GENDER</TermLabel>
         <Box style={{ marginTop: '4px' }}>
-          <Dropdown width="100%" options={genderChoices} selected={data.gender || ''} displayText={data.gender || 'SELECT...'} onSelected={(v: string) => act('set_preference', { preference: 'gender', value: v })} />
+          <Dropdown width="100%" options={genderChoices} selected={data.gender || ''} onSelected={(v: string) => act('set_preference', { preference: 'gender', value: v })} />
         </Box>
       </Box>
 
@@ -220,18 +234,16 @@ const CustomizationPage = () => {
       <Box style={{ marginBottom: '14px' }}>
         <TermLabel>EYE COLOR</TermLabel>
         <Box style={{ display: 'flex', gap: '6px', alignItems: 'center', marginTop: '4px' }}>
-          <Input value={eyeDraft} onChange={(_: any, v: string) => setEyeDraft(v.replace(/[^0-9A-Fa-f]/g, '').slice(0, 6))} style={wideInputStyle} />
-          <Box style={{ width: '32px', height: '32px', background: eyeDraft ? `#${eyeDraft}` : 'transparent', border: `1px solid ${C.border}`, flexShrink: 0 }} />
-          <TermButton onClick={() => act('set_preference', { preference: 'eye_color', value: `#${eyeDraft}` })}>SAVE</TermButton>
+          <Input large monospace width="200px" value={(data.eye_color || '').replace('#', '')} onChange={(_: any, v: string) => act('set_preference', { preference: 'eye_color', value: `#${v}` })} />
+          <Box style={{ width: '32px', height: '32px', background: (data.eye_color || '').replace('#', '') ? `#${(data.eye_color || '').replace('#', '')}` : 'transparent', border: `1px solid ${C.border}`, flexShrink: 0 }} />
           <TermButton color="yellow" onClick={() => act('set_color_preference', { preference: 'eye_color' })}>PICK</TermButton>
         </Box>
       </Box>
       <Box style={{ marginBottom: '14px' }}>
         <TermLabel>HAIR COLOR</TermLabel>
         <Box style={{ display: 'flex', gap: '6px', alignItems: 'center', marginTop: '4px' }}>
-          <Input value={hairDraft} onChange={(_: any, v: string) => setHairDraft(v.replace(/[^0-9A-Fa-f]/g, '').slice(0, 6))} style={wideInputStyle} />
-          <Box style={{ width: '32px', height: '32px', background: hairDraft ? `#${hairDraft}` : 'transparent', border: `1px solid ${C.border}`, flexShrink: 0 }} />
-          <TermButton onClick={() => act('set_preference', { preference: 'hair_color', value: `#${hairDraft}` })}>SAVE</TermButton>
+          <Input large monospace width="200px" value={(data.hair_color || '').replace('#', '')} onChange={(_: any, v: string) => act('set_preference', { preference: 'hair_color', value: `#${v}` })} />
+          <Box style={{ width: '32px', height: '32px', background: (data.hair_color || '').replace('#', '') ? `#${(data.hair_color || '').replace('#', '')}` : 'transparent', border: `1px solid ${C.border}`, flexShrink: 0 }} />
           <TermButton color="yellow" onClick={() => act('set_color_preference', { preference: 'hair_color' })}>PICK</TermButton>
         </Box>
       </Box>
@@ -791,7 +803,7 @@ const CharacterSlots = (props: { profiles: (string | null)[]; activeSlot: number
   return (
     <Flex justify="center" style={{ marginBottom: '4px' }}>
       <Flex.Item width="30%">
-        <Dropdown width="100%" displayText={profiles[activeSlot] || `SLOT ${activeSlot + 1}`} options={profiles.map((p, i) => ({ value: i, displayText: p || `SLOT ${i + 1}` }))} onSelected={(slot: number) => act('change_slot', { slot: slot + 1 })} />
+        <Dropdown width="100%" selected={profiles[activeSlot] || `SLOT ${activeSlot + 1}`} options={profiles.map((p, i) => ({ value: i, displayText: p || `SLOT ${i + 1}` }))} onSelected={(slot: number) => act('change_slot', { slot: slot + 1 })} />
       </Flex.Item>
     </Flex>
   );

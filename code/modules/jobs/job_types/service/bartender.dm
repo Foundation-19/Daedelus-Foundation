@@ -1,6 +1,9 @@
 /datum/job/bartender
 	title = JOB_BARTENDER
-	description = "Serve booze, mix drinks, keep the crew drunk."
+	description = "Serve booze, mix drinks, keep the crew drunk. \
+		As a Foundation bartender, you have access to a unique menu of Foundation-themed cocktails — \
+		the Foundation Spring clears the mind, the Telekill Old Fashioned shields it, \
+		and the Amnestic's Kiss helps forget. Mix responsibly."
 	department_head = list(JOB_HUMAN_RESOURCES_DIRECTOR)
 	faction = FACTION_STATION
 	total_positions = 1
@@ -53,6 +56,7 @@
 	suit = /obj/item/clothing/suit/armor/vest
 	backpack_contents = list(
 		/obj/item/storage/box/beanbag = 1,
+		/obj/item/paper/foundation/bar_menu = 1,
 		)
 	belt = /obj/item/modular_computer/tablet/pda/bar
 	ears = /obj/item/radio/headset/headset_srv

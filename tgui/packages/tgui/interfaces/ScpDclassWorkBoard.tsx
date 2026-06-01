@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useBackend } from '../backend';
 import { Box, Button, Section, Stack } from '../components';
-import { Window } from '../layouts';
+import { NtosWindow } from '../layouts';
 
 type Assignment = {
   id: string;
@@ -67,8 +67,8 @@ export const ScpDclassWorkBoard = (_props: unknown) => {
   const { assignments = [], current_assignment, credits, trust, level } = data;
 
   return (
-    <Window width={500} height={600} theme="scp" backgroundColor={C.bg}>
-      <Window.Content scrollable>
+    <NtosWindow width={500} height={600}  backgroundColor={C.bg}>
+      <NtosWindow.Content scrollable>
         <Stack vertical fill>
           <Stack.Item>
             <Section
@@ -245,7 +245,7 @@ export const ScpDclassWorkBoard = (_props: unknown) => {
             )}
           </Stack.Item>
         </Stack>
-      </Window.Content>
-    </Window>
+      </NtosWindow.Content>
+    </NtosWindow>
   );
 };

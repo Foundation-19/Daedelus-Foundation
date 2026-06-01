@@ -66,3 +66,20 @@ $border-radius: base.$border-radius !default;
 .Input--monospace .Input__input {
   font-family: 'Consolas', monospace;
 }
+
+.Input--large {
+  width: 100%;
+  font-size: base.em(14px);
+  line-height: base.em(22px);
+
+  .Input__input {
+    font-size: base.em(14px);
+    line-height: base.em(22px);
+    height: base.em(22px);
+  }
+
+  .Input__baseline {
+    font-size: base.em(14px);
+    line-height: base.em(22px);
+  }
+}

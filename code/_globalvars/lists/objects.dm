@@ -42,3 +42,7 @@ GLOBAL_REAL_VAR(list/atmospherics) = list()
 
 /// Is a real global for speed
 GLOBAL_REAL_VAR(list/cable_list) = list()
+
+GLOBAL_LIST_EMPTY(status_group_limits)
+GLOBAL_LIST_EMPTY(minimap_markers)
+var/datum/minimap_renderer/minimap_renderer // typed global, assigned at runtime

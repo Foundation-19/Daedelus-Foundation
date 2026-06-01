@@ -163,12 +163,12 @@
 	if(!H || !J)
 		return
 
-	// Call the job's on_job_assigned method
 	if(istype(J, /datum/job))
 		J.on_job_assigned(H)
 
-	// Call faction integration if available
 	if(H.mind && SSpersistent_progression && SSpersistent_progression.faction_integration)
 		H.mind.on_job_assigned(J)
+
+	H.setup_dclass_verbs()
 
 	return TRUE

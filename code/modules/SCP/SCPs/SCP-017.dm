@@ -15,6 +15,7 @@
 	scp_health = 150
 	max_scp_armor = 50
 	scp_armor = 50
+	ai_enabled = TRUE
 
 	var/engulf_cooldown = 0
 	var/engulf_cooldown_time = 3 SECONDS
@@ -26,6 +27,63 @@
 	SCP = new /datum/scp(src, "shadow person", SCP_EUCLID, "017", SCP_PLAYABLE)
 	SCP.min_playercount = 20
 	SCP.min_time = 5 MINUTES
+
+/mob/living/scp/scp017/process_ai()
+	if(stat == DEAD)
+		return
+	if(containment_status != "breached")
+		return
+	if(world.time < last_ai_tick + ai_tick_interval)
+		return
+	last_ai_tick = world.time
+
+	if(engulf_cooldown > world.time)
+		return
+
+	var/turf/my_turf = get_turf(src)
+	if(!my_turf)
+		return
+
+	var/my_lumcount = my_turf.get_lumcount()
+	if(my_lumcount < 0.15)
+		ai_seek_light()
+		return
+
+	var/mob/living/shadow_caster = find_shadow_caster(my_turf, my_lumcount)
+	if(shadow_caster)
+		ai_pursue_and_engulf(shadow_caster)
+	else
+		ai_seek_light()
+
+/mob/living/scp/scp017/proc/ai_seek_light()
+	var/mob/living/carbon/human/best = null
+	var/best_lum = -1
+	for(var/mob/living/carbon/human/H in view(10, src))
+		if(H.stat == DEAD || H == src)
+			continue
+		var/turf/their_turf = get_turf(H)
+		if(!their_turf)
+			continue
+		var/their_lum = their_turf.get_lumcount()
+		if(their_lum > best_lum && their_lum >= 0.15)
+			best_lum = their_lum
+			best = H
+
+	if(best)
+		step_to(src, best)
+	else
+		var/obj/machinery/light/L = locate() in range(8, src)
+		if(L && L.on)
+			step_to(src, L)
+		else if(prob(40))
+			step_rand(src)
+
+/mob/living/scp/scp017/proc/ai_pursue_and_engulf(mob/living/target)
+	if(get_dist(src, target) <= 1)
+		engulf_target(target)
+		return
+
+	step_to(src, target)
 
 /mob/living/scp/scp017/process_scp_effects()
 	. = ..()
@@ -95,32 +153,32 @@
 	engulf_cooldown = world.time + engulf_cooldown_time
 
 	src.visible_message(
-		"<span class='danger'>[src] lunges at [target], engulfing [target.p_them()] in shadow!</span>",
-		"<span class='danger'>You engulf [target] in shadow!</span>"
+		span_danger("[src] lunges at [target], engulfing [target.p_them()] in shadow!"),
+		span_danger("You engulf [target] in shadow!")
 	)
 
 	if(target in view(1, src))
 		target.visible_message(
-			"<span class='userdanger'>[target] is swallowed whole by [src]!</span>",
-			"<span class='userdanger'>The shadow consumes you utterly!</span>"
+			span_userdanger("[target] is swallowed whole by [src]!"),
+			span_userdanger("The shadow consumes you utterly!")
 		)
 
 		target.death()
 		victims_engulfed++
-
-		var/obj/effect/decal/cleanable/ash/A = new /obj/effect/decal/cleanable/ash(get_turf(target))
-		A.visible_message("<span class='danger'>Only a small pile of ash remains where [target] once stood.</span>")
-
-		if(ismob(target))
-			var/mob/M = target
-			M.ghostize(TRUE)
-			qdel(target)
 
 		hook_scp_combat(target, "SCP-017", 100, 0)
 		hook_player_death_near_scp(target, "SCP-017")
 		hook_scp_breach("SCP-017", src)
 		SCP.log_interaction(target, "engulf")
 		SCP.award_research(target, "combat", 25)
+
+		var/obj/effect/decal/cleanable/ash/A = new /obj/effect/decal/cleanable/ash(get_turf(target))
+		A.visible_message(span_danger("Only a small pile of ash remains where [target] once stood."))
+
+		if(ismob(target))
+			var/mob/M = target
+			M.ghostize(TRUE)
+			qdel(target)
 	else
 		step_to(src, target)
 		if(target in view(1, src))
@@ -149,11 +207,11 @@
 
 /mob/living/scp/scp017/examine(mob/user)
 	. = ..()
-	. += "<span class='warning'>A shadowy figure that attacks anything which casts a shadow upon it. Keep it in the dark.</span>"
+	. += span_warning("A shadowy figure that attacks anything which casts a shadow upon it. Keep it in the dark.")
 	if(victims_engulfed > 0)
-		. += "<span class='danger'>It has consumed [victims_engulfed] victim\s.</span>"
+		. += span_danger("It has consumed [victims_engulfed] victim\s.")
 
 /mob/living/scp/scp017/scp_death()
-	visible_message("<span class='danger'>[src] dissolves into darkness!</span>")
+	visible_message(span_danger("[src] dissolves into darkness!"))
 	playsound(src, 'sound/effects/explosion2.ogg', 50)
 	..()

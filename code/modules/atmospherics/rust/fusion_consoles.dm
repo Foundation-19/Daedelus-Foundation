@@ -10,6 +10,7 @@
 	desc = "Controls the R-UST reactor core - field strength, startup, and shutdown."
 	circuit = /obj/item/circuitboard/computer/fusion/core_control
 	var/obj/machinery/power/reactor_core/linked_core
+	var/initial_id_tag
 
 /obj/machinery/computer/fusion/core_control/Initialize(mapload)
 	. = ..()
@@ -117,6 +118,7 @@
 	desc = "Controls the fuel injection system for the R-UST reactor."
 	circuit = /obj/item/circuitboard/computer/fusion/fuel_control
 	var/list/linked_injectors = list()
+	var/initial_id_tag
 
 /obj/machinery/computer/fusion/fuel_control/Initialize(mapload)
 	. = ..()
@@ -197,6 +199,7 @@
 	desc = "Controls the gyrotron emitters that inject energy into the electromagnetic field."
 	circuit = /obj/item/circuitboard/computer/fusion/gyrotron
 	var/list/linked_gyrotrons = list()
+	var/initial_id_tag
 
 /obj/machinery/computer/fusion/gyrotron/Initialize(mapload)
 	. = ..()

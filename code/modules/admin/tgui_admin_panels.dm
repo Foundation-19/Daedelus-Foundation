@@ -113,97 +113,97 @@
 
 	switch(action)
 		if("pp")
-			usr.client.holder.show_player_panel(M)
+			ui.user.client.holder.show_player_panel(M)
 		if("vv")
-			usr.client.debug_variables(M)
+			ui.user.client.debug_variables(M)
 		if("tp")
 			if(M.mind)
 				M.mind.traitor_panel()
 		if("pm")
-			usr.client.cmd_admin_pm(M.ckey)
+			ui.user.client.cmd_admin_pm(M.ckey)
 		if("sm")
-			usr.client.cmd_admin_subtle_message(M)
+			ui.user.client.cmd_admin_subtle_message(M)
 		if("flw")
-			usr.client.admin_follow(M)
+			ui.user.client.admin_follow(M)
 		if("logs")
 			var/source = M.ckey ? LOGSRC_CKEY : LOGSRC_MOB
-			usr.client.holder.Topic("", list("individuallog" = "[REF(M)]", "log_src" = source, "admin_token" = usr.client.holder.href_token))
+			ui.user.client.holder.Topic("", list("individuallog" = "[REF(M)]", "log_src" = source, "admin_token" = ui.user.client.holder.href_token))
 		if("notes")
-			usr.client.holder.Topic("", list("showmessageckey" = M.ckey, "admin_token" = usr.client.holder.href_token))
+			ui.user.client.holder.Topic("", list("showmessageckey" = M.ckey, "admin_token" = ui.user.client.holder.href_token))
 		if("kick")
-			usr.client.holder.Topic("", list("boot2" = "[REF(M)]", "admin_token" = usr.client.holder.href_token))
+			ui.user.client.holder.Topic("", list("boot2" = "[REF(M)]", "admin_token" = ui.user.client.holder.href_token))
 		if("ban")
 			if(M.client)
-				usr.client.holder.ban_panel(M.ckey, M.client.address, M.client.computer_id)
+				ui.user.client.holder.ban_panel(M.ckey, M.client.address, M.client.computer_id)
 			else
-				usr.client.holder.ban_panel(M.ckey)
+				ui.user.client.holder.ban_panel(M.ckey)
 		if("heal")
-			usr.client.holder.Topic("", list("revive" = "[REF(M)]", "admin_token" = usr.client.holder.href_token))
+			ui.user.client.holder.Topic("", list("revive" = "[REF(M)]", "admin_token" = ui.user.client.holder.href_token))
 		if("send_to_lobby")
-			usr.client.holder.Topic("", list("sendbacktolobby" = "[REF(M)]", "admin_token" = usr.client.holder.href_token))
+			ui.user.client.holder.Topic("", list("sendbacktolobby" = "[REF(M)]", "admin_token" = ui.user.client.holder.href_token))
 		if("prison")
-			usr.client.holder.Topic("", list("sendtoprison" = "[REF(M)]", "admin_token" = usr.client.holder.href_token))
+			ui.user.client.holder.Topic("", list("sendtoprison" = "[REF(M)]", "admin_token" = ui.user.client.holder.href_token))
 		if("jump_to")
-			usr.client.jumptomob(M)
+			ui.user.client.jumptomob(M)
 		if("get")
-			usr.client.Getmob(M)
+			ui.user.client.Getmob(M)
 		if("send")
-			usr.client.sendmob(M)
+			ui.user.client.sendmob(M)
 		if("narrate")
-			usr.client.cmd_admin_direct_narrate(M)
+			ui.user.client.cmd_admin_direct_narrate(M)
 		if("play_sound")
-			usr.client.holder.Topic("", list("playsoundto" = "[REF(M)]", "admin_token" = usr.client.holder.href_token))
+			ui.user.client.holder.Topic("", list("playsoundto" = "[REF(M)]", "admin_token" = ui.user.client.holder.href_token))
 		if("language_menu")
-			usr.client.holder.Topic("", list("languagemenu" = "[REF(M)]", "admin_token" = usr.client.holder.href_token))
+			ui.user.client.holder.Topic("", list("languagemenu" = "[REF(M)]", "admin_token" = ui.user.client.holder.href_token))
 		if("make_observer")
-			usr.client.holder.Topic("", list("simplemake" = "observer", "mob" = "[REF(M)]", "admin_token" = usr.client.holder.href_token))
+			ui.user.client.holder.Topic("", list("simplemake" = "observer", "mob" = "[REF(M)]", "admin_token" = ui.user.client.holder.href_token))
 		if("make_human")
-			usr.client.holder.Topic("", list("simplemake" = "human", "mob" = "[REF(M)]", "admin_token" = usr.client.holder.href_token))
+			ui.user.client.holder.Topic("", list("simplemake" = "human", "mob" = "[REF(M)]", "admin_token" = ui.user.client.holder.href_token))
 		if("make_monkey")
-			usr.client.holder.Topic("", list("simplemake" = "monkey", "mob" = "[REF(M)]", "admin_token" = usr.client.holder.href_token))
+			ui.user.client.holder.Topic("", list("simplemake" = "monkey", "mob" = "[REF(M)]", "admin_token" = ui.user.client.holder.href_token))
 		if("make_cyborg")
-			usr.client.holder.Topic("", list("simplemake" = "robot", "mob" = "[REF(M)]", "admin_token" = usr.client.holder.href_token))
+			ui.user.client.holder.Topic("", list("simplemake" = "robot", "mob" = "[REF(M)]", "admin_token" = ui.user.client.holder.href_token))
 		if("make_ai")
-			usr.client.holder.Topic("", list("makeai" = "[REF(M)]", "admin_token" = usr.client.holder.href_token))
+			ui.user.client.holder.Topic("", list("makeai" = "[REF(M)]", "admin_token" = ui.user.client.holder.href_token))
 		if("forcesay")
-			usr.client.holder.Topic("", list("forcespeech" = "[REF(M)]", "admin_token" = usr.client.holder.href_token))
+			ui.user.client.holder.Topic("", list("forcespeech" = "[REF(M)]", "admin_token" = ui.user.client.holder.href_token))
 		if("init_mind")
 			M.mind_initialize()
 		if("headset_msg")
-			usr.client.holder.Topic("", list("HeadsetMessage" = "[REF(M)]", "admin_token" = usr.client.holder.href_token))
+			ui.user.client.holder.Topic("", list("HeadsetMessage" = "[REF(M)]", "admin_token" = ui.user.client.holder.href_token))
 		if("check_antags")
-			usr.client.holder.check_antagonists()
+			ui.user.client.holder.check_antagonists()
 		if("mute_toggle")
 			if(!M.client)
 				return
 			var/mute_type = text2num(params["mute_type"])
 			if(!isnum(mute_type))
 				return
-			usr.client.holder.Topic("", list("mute" = M.ckey, "mute_type" = "[mute_type]", "admin_token" = usr.client.holder.href_token))
+			ui.user.client.holder.Topic("", list("mute" = M.ckey, "mute_type" = "[mute_type]", "admin_token" = ui.user.client.holder.href_token))
 		if("commend")
-			usr.client.holder.Topic("", list("admincommend" = "[REF(M)]", "admin_token" = usr.client.holder.href_token))
+			ui.user.client.holder.Topic("", list("admincommend" = "[REF(M)]", "admin_token" = ui.user.client.holder.href_token))
 		if("related_accounts_cid")
 			if(M.client)
-				usr.client.holder.Topic("", list("showrelatedacc" = "cid", "client" = "[REF(M.client)]", "admin_token" = usr.client.holder.href_token))
+				ui.user.client.holder.Topic("", list("showrelatedacc" = "cid", "client" = "[REF(M.client)]", "admin_token" = ui.user.client.holder.href_token))
 		if("related_accounts_ip")
 			if(M.client)
-				usr.client.holder.Topic("", list("showrelatedacc" = "ip", "client" = "[REF(M.client)]", "admin_token" = usr.client.holder.href_token))
+				ui.user.client.holder.Topic("", list("showrelatedacc" = "ip", "client" = "[REF(M.client)]", "admin_token" = ui.user.client.holder.href_token))
 		if("centcom_lookup")
 			if(M.client)
-				usr.client.holder.Topic("", list("centcomlookup" = M.client.ckey, "admin_token" = usr.client.holder.href_token))
+				ui.user.client.holder.Topic("", list("centcomlookup" = M.client.ckey, "admin_token" = ui.user.client.holder.href_token))
 		if("find_updated")
 			if(M.ckey)
 				var/mob/updated = get_mob_by_key(M.ckey)
 				if(updated)
-					usr.client.holder.show_player_panel(updated)
+					ui.user.client.holder.show_player_panel(updated)
 		if("edit_rights")
 			if(M.client)
-				usr.client.holder.Topic("", list("editrights" = (GLOB.admin_datums[M.client.ckey] || GLOB.deadmins[M.client.ckey]) ? "rank" : "add", "key" = M.key, "admin_token" = usr.client.holder.href_token))
+				ui.user.client.holder.Topic("", list("editrights" = (GLOB.admin_datums[M.client.ckey] || GLOB.deadmins[M.client.ckey]) ? "rank" : "add", "key" = M.key, "admin_token" = ui.user.client.holder.href_token))
 		if("skills")
 			if(M.mind)
-				usr.client.holder.show_skill_panel(M.mind)
+				ui.user.client.holder.show_skill_panel(M.mind)
 		if("subtle_msg")
-			usr.client.cmd_admin_subtle_message(M)
+			ui.user.client.cmd_admin_subtle_message(M)
 
 	return TRUE
 
@@ -229,7 +229,7 @@
 
 	data["round_state"] = SSticker.current_state
 	data["round_state_text"] = SSticker.current_state <= GAME_STATE_PREGAME ? "PRE-GAME" : SSticker.IsRoundInProgress() ? "IN PROGRESS" : "FINISHED"
-	data["has_marked_datum"] = !!(usr.client.holder.marked_datum && istype(usr.client.holder.marked_datum, /atom))
+	data["has_marked_datum"] = !!(user.client?.holder?.marked_datum && istype(user.client.holder.marked_datum, /atom))
 	data["mode"] = SSticker.mode ? SSticker.mode.name : "Unknown"
 	data["force_extended"] = GLOB.dynamic_forced_extended
 	data["no_stacking"] = GLOB.dynamic_no_stacking
@@ -254,20 +254,20 @@
 	switch(action)
 		if("create_object")
 			var/datum/admin_create_panel_ui/panel = new(admin_holder, "object")
-			panel.ui_interact(usr)
+			panel.ui_interact(ui.user)
 		if("quick_create_object")
-			usr.client.holder.quick_create_object(usr)
+			ui.user.client.holder.quick_create_object(ui.user)
 		if("create_turf")
 			var/datum/admin_create_panel_ui/panel = new(admin_holder, "turf")
-			panel.ui_interact(usr)
+			panel.ui_interact(ui.user)
 		if("create_mob")
 			var/datum/admin_create_panel_ui/panel = new(admin_holder, "mob")
-			panel.ui_interact(usr)
+			panel.ui_interact(ui.user)
 		if("dupe_marked")
-			if(usr.client.holder.marked_datum && istype(usr.client.holder.marked_datum, /atom))
-				DuplicateObject(usr.client.holder.marked_datum, perfectcopy=1, newloc=get_turf(usr))
+			if(ui.user.client.holder.marked_datum && istype(ui.user.client.holder.marked_datum, /atom))
+				DuplicateObject(ui.user.client.holder.marked_datum, perfectcopy=1, newloc=get_turf(ui.user))
 		if("force_ruleset")
-			usr.client.holder.Topic("", list("f_dynamic_roundstart" = "1", "admin_token" = usr.client.holder.href_token))
+			ui.user.client.holder.Topic("", list("f_dynamic_roundstart" = "1", "admin_token" = ui.user.client.holder.href_token))
 		if("remove_ruleset")
 			var/datum/dynamic_ruleset/roundstart/rule = locate(params["ref"]) in GLOB.dynamic_forced_roundstart_ruleset
 			if(rule)
@@ -275,20 +275,20 @@
 		if("clear_rulesets")
 			GLOB.dynamic_forced_roundstart_ruleset.Cut()
 		if("dynamic_options")
-			usr.client.holder.dynamic_mode_options(usr)
+			ui.user.client.holder.dynamic_mode_options(ui.user)
 		if("gamemode_panel")
 			if(SSticker.mode)
-				SSticker.mode.ui_interact(usr)
+				SSticker.mode.ui_interact(ui.user)
 		if("toggle_force_extended")
-			usr.client.holder.Topic("", list("f_dynamic_force_extended" = "1", "admin_token" = usr.client.holder.href_token))
+			ui.user.client.holder.Topic("", list("f_dynamic_force_extended" = "1", "admin_token" = ui.user.client.holder.href_token))
 		if("toggle_no_stacking")
-			usr.client.holder.Topic("", list("f_dynamic_no_stacking" = "1", "admin_token" = usr.client.holder.href_token))
+			ui.user.client.holder.Topic("", list("f_dynamic_no_stacking" = "1", "admin_token" = ui.user.client.holder.href_token))
 		if("set_forced_threat")
-			var/value = tgui_input_number(usr, "Set forced threat level (-1 to disable)", "Threat Level", GLOB.dynamic_forced_threat_level, 100, -1)
+			var/value = tgui_input_number(ui.user, "Set forced threat level (-1 to disable)", "Threat Level", GLOB.dynamic_forced_threat_level, 100, -1)
 			if(!isnull(value))
 				GLOB.dynamic_forced_threat_level = value
 		if("set_stacking_limit")
-			var/value = tgui_input_number(usr, "Set stacking limit threshold", "Stacking Limit", GLOB.dynamic_stacking_limit, 200, 0)
+			var/value = tgui_input_number(ui.user, "Set stacking limit threshold", "Stacking Limit", GLOB.dynamic_stacking_limit, 200, 0)
 			if(!isnull(value))
 				GLOB.dynamic_stacking_limit = value
 
@@ -357,7 +357,7 @@
 				return
 			var/amount = text2num(params["amount"]) || 1
 			amount = clamp(amount, 1, ADMIN_SPAWN_CAP)
-			var/turf/T = get_turf(usr)
+			var/turf/T = get_turf(ui.user)
 
 			if(ispath(path, /turf))
 				T.ChangeTurf(path)
@@ -366,12 +366,12 @@
 					var/atom/A = new path(T)
 					A.flags_1 |= ADMIN_SPAWNED_1
 
-			log_admin("[key_name(usr)] spawned [amount] x [path] at [AREACOORD(usr)]")
+			log_admin("[key_name(ui.user)] spawned [amount] x [path] at [AREACOORD(ui.user)]")
 		if("spawn_pod")
 			var/path = text2path(params["path"])
 			if(!path)
 				return
-			var/turf/T = get_turf(usr)
+			var/turf/T = get_turf(ui.user)
 			if(ispath(path, /turf))
 				T.ChangeTurf(path)
 			else
@@ -381,7 +381,7 @@
 				))
 				var/atom/A = new path(pod)
 				A.flags_1 |= ADMIN_SPAWNED_1
-			log_admin("[key_name(usr)] pod-spawned [path] at [AREACOORD(usr)]")
+			log_admin("[key_name(ui.user)] pod-spawned [path] at [AREACOORD(ui.user)]")
 
 	return TRUE
 
@@ -401,6 +401,21 @@
 		ui = new(user, src, "AdminViewVariables", "SCP FOUNDATION — ANOMALY INSPECTOR", 750, 650)
 		ui.open()
 
+/datum/admin_view_variables_ui/proc/get_vv_commands()
+	if(!isdatum(target) || islist(target))
+		return list()
+	var/raw_html = target.vv_get_dropdown()
+	var/list/commands = list()
+	var/regex/R = regex(@";(\w+)=TRUE[^>]*>([^<]+)</option>")
+	var/start = 1
+	while(R.Find(raw_html, start))
+		var/action_key = R.group[1]
+		var/label = R.group[2]
+		if(action_key && copytext(label, 1, 4) != "---")
+			commands += list(list("key" = action_key, "label" = label))
+		start = R.index + length(R.match)
+	return commands
+
 /datum/admin_view_variables_ui/ui_data(mob/user)
 	var/list/data = list()
 
@@ -419,6 +434,8 @@
 
 	if(!is_list && isdatum(target))
 		data["tag_index"] = LAZYFIND(user.client?.holder.tagged_datums, target)
+
+	data["commands"] = get_vv_commands()
 
 	var/list/vars_list = list()
 	if(is_list)
@@ -463,38 +480,38 @@
 			if(!target.can_vv_get(var_name))
 				return
 			var/current_value = target.vars[var_name]
-			var/default_class = usr.client.vv_get_class(var_name, current_value)
+			var/default_class = ui.user.client.vv_get_class(var_name, current_value)
 			if(default_class == VV_TEXT)
 				default_class = VV_MESSAGE
-			var/list/L = usr.client.vv_get_value(default_class = default_class, current_value = current_value, extra_classes = list(VV_LIST), var_name = var_name)
+			var/list/L = ui.user.client.vv_get_value(default_class = default_class, current_value = current_value, extra_classes = list(VV_LIST), var_name = var_name)
 			if(!L["class"])
 				return
 			if(L["class"] == VV_LIST)
 				if(islist(current_value))
-					usr.client.mod_list(current_value, target, "[target]", var_name)
+					ui.user.client.mod_list(current_value, target, "[target]", var_name)
 				else
-					usr.client.mod_list(list(), target, "[target]", var_name)
+					ui.user.client.mod_list(list(), target, "[target]", var_name)
 				return
 			target.vv_edit_var(var_name, L["value"])
 		if("mark")
-			usr.client.holder.marked_datum = target
+			ui.user.client.holder.marked_datum = target
 		if("tag")
-			if(target in usr.client.holder.tagged_datums)
-				usr.client.holder.tagged_datums -= target
+			if(target in ui.user.client.holder.tagged_datums)
+				ui.user.client.holder.tagged_datums -= target
 			else
-				LAZYADD(usr.client.holder.tagged_datums, target)
+				LAZYADD(ui.user.client.holder.tagged_datums, target)
 		if("refresh")
 			ui.send_full_update()
 		if("list_add")
 			if(islist(target))
 				var/list/L = target
-				var/value = tgui_input_text(usr, "Enter value to add", "Add Item")
+				var/value = tgui_input_text(ui.user, "Enter value to add", "Add Item")
 				if(value)
 					L += value
 		if("list_set_length")
 			if(islist(target))
 				var/list/L = target
-				var/new_len = tgui_input_number(usr, "New length", "Set Length", length(L), 1000, 0)
+				var/new_len = tgui_input_number(ui.user, "New length", "Set Length", length(L), 1000, 0)
 				if(!isnull(new_len))
 					L.len = new_len
 		if("list_erase_nulls")
@@ -510,7 +527,16 @@
 				var/list/L = target
 				shuffle_inplace(L)
 		if("expose")
-			var/mob/M = usr
+			var/mob/M = ui.user
 			M.client.debug_variables(target)
+		if("vv_action")
+			var/vv_key = params["vv_key"]
+			if(!vv_key || !isdatum(target))
+				return
+			var/list/href_list = list()
+			href_list[vv_key] = "TRUE"
+			href_list[VV_HK_TARGET] = REF(target)
+			usr.client.vv_do_basic(target, href_list)
+			target.vv_do_topic(href_list)
 
 	return TRUE

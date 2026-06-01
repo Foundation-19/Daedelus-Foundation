@@ -131,11 +131,11 @@ GLOBAL_DATUM_INIT(scp_admin_log, /datum/scp_admin_logger, new())
 	data["log_types"] = list("breach", "recontainment", "experiment", "interaction", "death", "achievement", "riot", "power")
 	return data
 
-/obj/machinery/computer/scp_admin_log_console/ui_act(action, params)
+/obj/machinery/computer/scp_admin_log_console/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
-	if(!check_rights(R_ADMIN, FALSE, usr))
+	if(!check_rights(R_ADMIN, FALSE, ui.user))
 		return
 	switch(action)
 		if("clear")

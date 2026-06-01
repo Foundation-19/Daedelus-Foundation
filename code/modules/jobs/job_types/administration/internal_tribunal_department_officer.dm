@@ -1,7 +1,8 @@
 /datum/job/internal_tribunal_department_officer
 	title = JOB_INTERNAL_TRIBUNAL_DEPARTMENT_OFFICER
 	description = "As an officer of the Internal Tribunal Department, your duty is to enforce \
-	and advise on the site regulations and standard operating procedure and ensure that they are not ignored."
+	and advise on the site regulations and standard operating procedure and ensure that they are not ignored. \
+	Use the Tribunal Console to file cases, conduct hearings, and render verdicts with appropriate sanctions."
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
 	faction = FACTION_STATION
 	total_positions = 1
@@ -60,7 +61,7 @@
 	backpack_contents = list(
 		/obj/item/assembly/flash/handheld = 1
 	)
-	belt = /obj/item/modular_computer/tablet/pda/captain
+	belt = /obj/item/modular_computer/tablet/pda/foundation_tribunal
 	ears = /obj/item/radio/headset/heads/captain
 	glasses = /obj/item/clothing/glasses/sunglasses
 	gloves = /obj/item/clothing/gloves/color/white

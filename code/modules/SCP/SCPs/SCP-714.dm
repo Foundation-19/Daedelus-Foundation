@@ -42,7 +42,7 @@
 		active = TRUE
 		equip_count++
 		hook_scp_interaction(user, "SCP-714", INTERACTION_TYPE_OBSERVATION)
-		to_chat(user, "<span class='notice'>The jade ring slides onto your finger, and you feel a protective presence.</span>")
+		to_chat(user, span_notice("The jade ring slides onto your finger, and you feel a protective presence."))
 		START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/ring/scp714/unequipped(mob/living/carbon/human/user, silent=FALSE)
@@ -71,12 +71,12 @@
 		if(wearer.stamina)
 			wearer.stamina.adjust(-wearer_stamina_drain)
 		if(prob(10))
-			to_chat(wearer, "<span class='warning'>The ring's protection comes at a cost - you feel drained.</span>")
+			to_chat(wearer, span_warning("The ring's protection comes at a cost - you feel drained."))
 
 /obj/item/clothing/ring/scp714/examine(mob/user)
 	. = ..()
 	if(ishuman(user))
-		to_chat(user, "<span class='notice'>A jade ring with protective properties. Wearing it may drain your energy.</span>")
+		to_chat(user, span_notice("A jade ring with protective properties. Wearing it may drain your energy."))
 
 /datum/scp714_protection_system
 	var/obj/item/parent
@@ -119,7 +119,7 @@
 
 	if(drowsiness_level > 50 && prob(5))
 		wearer.drowsyness = min(100, wearer.drowsyness + 5)
-		to_chat(wearer, "<span class='warning'>You feel sleepy...</span>")
+		to_chat(wearer, span_warning("You feel sleepy..."))
 
 /datum/scp714_research_system
 	var/obj/item/parent

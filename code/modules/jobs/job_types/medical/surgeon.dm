@@ -1,7 +1,10 @@
 /datum/job/surgeon
 	title = JOB_SURGEON
-	description = "Save lives, run around the station looking for victims, \
-		scan everyone in sight"
+	description = "Perform surgical procedures to save lives and repair injuries. \
+		As a Foundation surgeon, you are also trained in anomalous surgical techniques — \
+		SCP-008 tissue excision, Pestilence extraction, containment tracker implantation, \
+		and memetic shielding installation. Use your Foundation Surgical Programs Disk \
+		to learn these specialized procedures."
 	department_head = list(JOB_MEDICAL_DIRECTOR)
 	faction = FACTION_STATION
 	total_positions = 3
@@ -51,10 +54,13 @@
 	uniform = /obj/item/clothing/under/rank/medical/scrubs/green
 	suit = /obj/item/clothing/suit/toggle/labcoat
 	suit_store = /obj/item/flashlight/pen
-	belt = /obj/item/modular_computer/tablet/pda/medical
+	belt = /obj/item/modular_computer/tablet/pda/foundation_medical
 	ears = /obj/item/radio/headset/headset_med
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	l_hand = /obj/item/storage/medkit/surgery
+	backpack_contents = list(
+		/obj/item/surgical_disk/foundation = 1,
+	)
 
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med

@@ -1,7 +1,10 @@
 /datum/job/paramedic
 	title = JOB_PARAMEDIC
 	description = "Run around the station looking for patients, respond to \
-		emergencies, give patients a roller bed ride to medbay."
+		emergencies, give patients a roller bed ride to medbay. \
+		As a Foundation paramedic, you may be called to respond to medical emergencies \
+		in SCP containment zones — use your SCP Zone Emergency Kit and anomalous \
+		decontamination wand to safely treat and extract casualties."
 	department_head = list(JOB_MEDICAL_DIRECTOR)
 	faction = FACTION_STATION
 	total_positions = 2
@@ -56,6 +59,7 @@
 		/obj/item/bodybag/stasis = 1,
 		/obj/item/pager/aether = 1,
 		/obj/item/diagnosis_book = 1,
+		/obj/item/scp_decontamination_wand = 1,
 	)
 	belt = /obj/item/storage/belt/medical/paramedic
 	ears = /obj/item/radio/headset/headset_med

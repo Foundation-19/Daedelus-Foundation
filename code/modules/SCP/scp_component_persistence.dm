@@ -274,13 +274,6 @@
 	var/datum/scp_component_database/database = null
 	var/persistence_key = ""
 
-/datum/component_manager_advanced/New(mob/target)
-	. = ..()
-	database = new /datum/scp_component_database()
-
-	if(target && target.SCP)
-		persistence_key = "scp_[target.SCP.designation]"
-
 /datum/component_manager_advanced/proc/save_state()
 	if(!database)
 		return FALSE

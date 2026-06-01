@@ -420,7 +420,7 @@
 
 	// Log the event
 	var/log_entry = "[world.time] - [ckey] ([scp_id]) - [event_type]: [json_encode(event_data)]"
-	world.log << "SCP Event: [log_entry]"
+	log_game("SCP Event: [log_entry]")
 
 	// Store event in interaction logs
 	var/event_id = "[scp_id]_[ckey]_[world.time]"

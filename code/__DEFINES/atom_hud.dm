@@ -158,3 +158,10 @@
 #define SECHUD_RELIGIOUS_RESPONSE_OFFICER "hudreligiousresponseofficer"
 #define SECHUD_JANITORIAL_RESPONSE_OFFICER "hudjanitorialresponseofficer"
 #define SECHUD_ENTERTAINMENT_RESPONSE_OFFICER "hudentertainmentresponseofficer"
+
+#define SECHUD_RESEARCH_ASSOCIATE "hudscientist"
+#define SECHUD_LAB_TECHNICIAN "hudscientist"
+#define SECHUD_XENOBIOLOGIST "hudxenobiologist"
+#define SECHUD_RESEARCH_CHEMIST "hudpharmacist"
+#define SECHUD_ARCHAEOLOGIST "hudshaftminer"
+#define SECHUD_FIELD_AGENT "hudsecurityofficer"

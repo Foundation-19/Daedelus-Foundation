@@ -173,11 +173,11 @@
 	total_infections_caused++
 	containment_breached = TRUE
 	containment_status = "breached"
-	if(!SSscp_persistence || !SSscp_persistence.manager || SSscp_persistence.manager.scp_instances["SCP-008"]?.containment_status != "breached")
+	if(!SSscp_persistence || !SSscp_persistence.manager || SSscp_persistence?.manager?.scp_instances["SCP-008"]?.containment_status != "breached")
 		hook_scp_breach("SCP-008", src)
 
-	visible_message("<span class='danger'>[target] has been infected with SCP-008!</span>")
-	to_chat(target, "<span class='danger'>You have been infected with SCP-008! You feel your body beginning to decay...</span>")
+	visible_message(span_danger("[target] has been infected with SCP-008!"))
+	to_chat(target, span_danger("You have been infected with SCP-008! You feel your body beginning to decay..."))
 
 	// Apply infection effects
 	var/damage = get_infection_damage(infection_type)
@@ -192,7 +192,7 @@
 
 	// Update persistence system
 	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-008"]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances["SCP-008"]
 		if(instance)
 			instance.add_interaction_record(target, "infection")
 
@@ -233,8 +233,8 @@
 	zombified_targets[key] = target
 	total_host_deaths++
 
-	visible_message("<span class='danger'>[target] has been completely zombified by SCP-008!</span>")
-	to_chat(target, "<span class='danger'>You have been completely transformed into a zombie! You are now part of the SCP-008 horde.</span>")
+	visible_message(span_danger("[target] has been completely zombified by SCP-008!"))
+	to_chat(target, span_danger("You have been completely transformed into a zombie! You are now part of the SCP-008 horde."))
 
 	// Create zombie mob
 	var/mob/living/simple_animal/hostile/scp008_zombie/zombie = new /mob/living/simple_animal/hostile/scp008_zombie(target.loc)
@@ -277,11 +277,11 @@
 	var/infection_type = infection_system.get_infection_type()
 	infect_target(user, infection_type)
 
-	visible_message("<span class='danger'>[user] has been exposed to SCP-008!</span>")
+	visible_message(span_danger("[user] has been exposed to SCP-008!"))
 
 	// Update persistence system
 	if(SSscp_persistence && SSscp_persistence.manager)
-		var/datum/scp_instance/instance = SSscp_persistence.manager.scp_instances["SCP-008"]
+		var/datum/scp_instance/instance = SSscp_persistence?.manager?.scp_instances["SCP-008"]
 		if(instance)
 			instance.add_interaction_record(user, "reagent_exposure")
 
@@ -306,9 +306,9 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.SCP)
-			to_chat(user, "<span class='warning'>This is SCP-008, a zombie plague. Current evolution stage: [evolution_system.current_stage]</span>")
+			to_chat(user, span_warning("This is SCP-008, a zombie plague. Current evolution stage: [evolution_system.current_stage]"))
 		else
-			to_chat(user, "<span class='danger'>A sealed container containing a highly contagious zombie plague. The contents seem to writhe and move unnaturally.</span>")
+			to_chat(user, span_danger("A sealed container containing a highly contagious zombie plague. The contents seem to writhe and move unnaturally."))
 
 			// Apply fear effect to non-SCP humans
 			if(H.sanity)
@@ -349,7 +349,7 @@
 	var/research_field = "SCP-008_OUTBREAK"
 	var/lead_researcher = "System"
 
-	var/datum/research_persistence_project/project = SSresearch_persistence.manager.add_research_project(
+	var/datum/research_persistence_project/project = SSresearch_persistence?.manager?.add_research_project(
 		project_name,
 		project_description,
 		research_field,
@@ -367,7 +367,7 @@
 			project.status = "COMPLETED"
 
 			// Add scientific discovery
-			SSresearch_persistence.manager.add_scientific_discovery(
+			SSresearch_persistence?.manager?.add_scientific_discovery(
 				"SCP-008 Outbreak Patterns",
 				"Comprehensive analysis of SCP-008's infection spreading and horde formation mechanics",
 				"SCP_RESEARCH",
@@ -445,7 +445,7 @@
 	target.adjustToxLoss(infection_strength)
 
 	// Notify target
-	to_chat(target, "<span class='danger'>You have been infected by a zombie!</span>")
+	to_chat(target, span_danger("You have been infected by a zombie!"))
 
 	// Start infection timer
 	addtimer(CALLBACK(src, PROC_REF(zombify_target), target), 300)
@@ -454,8 +454,8 @@
 	if(!target || target.stat == DEAD)
 		return
 
-	visible_message("<span class='danger'>[target] has been zombified!</span>")
-	to_chat(target, "<span class='danger'>You have been completely transformed into a zombie!</span>")
+	visible_message(span_danger("[target] has been zombified!"))
+	to_chat(target, span_danger("You have been completely transformed into a zombie!"))
 
 	// Create new zombie
 	var/mob/living/simple_animal/hostile/scp008_zombie/new_zombie = new /mob/living/simple_animal/hostile/scp008_zombie(target.loc)

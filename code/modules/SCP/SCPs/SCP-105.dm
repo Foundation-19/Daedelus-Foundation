@@ -1,4 +1,5 @@
 /mob/living/scp/scp105
+	ai_enabled = TRUE
 	name = "SCP-105"
 	desc = "A young woman with blonde hair. She possesses the ability to manipulate photographs of locations she can see through cameras."
 	icon = 'icons/mob/human.dmi'
@@ -18,6 +19,11 @@
 	SCP = new /datum/scp(src, "SCP-105", SCP_SAFE, "105", SCP_SENTIENT)
 	maxHealth = 100
 	health = maxHealth
+
+	add_verb(src, list(
+		/mob/living/scp/scp105/proc/create_portal,
+		/mob/living/scp/scp105/proc/close_all_portals,
+	))
 
 /mob/living/scp/scp105/Destroy()
 	for(var/obj/effect/portal/scp105_portal/P in active_portals)
@@ -42,22 +48,22 @@
 	for(var/S in stale)
 		active_portals -= S
 
-/mob/living/scp/scp105/verb/create_portal()
+/mob/living/scp/scp105/proc/create_portal()
 	set name = "Open Iris Portal"
 	set category = "SCP-105"
 	set desc = "Create a portal through a camera feed you can see."
 
 	if(portal_cooldown > 0)
-		to_chat(src, "<span class='warning'>Your portal ability is still recharging. Wait [ceil(portal_cooldown / 10)] seconds.</span>")
+		to_chat(src, span_warning("Your portal ability is still recharging. Wait [ceil(portal_cooldown / 10)] seconds."))
 		return
 
 	if(length(active_portals) >= max_active_portals)
-		to_chat(src, "<span class='warning'>You have too many active portals. Close one first.</span>")
+		to_chat(src, span_warning("You have too many active portals. Close one first."))
 		return
 
 	var/obj/machinery/camera/target_cam = select_camera()
 	if(!target_cam)
-		to_chat(src, "<span class='warning'>No suitable camera found.</span>")
+		to_chat(src, span_warning("No suitable camera found."))
 		return
 
 	var/turf/origin_turf = get_turf(src)
@@ -71,7 +77,7 @@
 
 	portal_cooldown = portal_cooldown_duration
 
-	visible_message("<span class='notice'>A shimmering portal opens near [src]!</span>")
+	visible_message(span_notice("A shimmering portal opens near [src]!"))
 	playsound(src, 'sound/effects/sparks1.ogg', 30, TRUE)
 
 /mob/living/scp/scp105/proc/select_camera()
@@ -93,7 +99,7 @@
 
 	return cam_name
 
-/mob/living/scp/scp105/verb/close_all_portals()
+/mob/living/scp/scp105/proc/close_all_portals()
 	set name = "Close All Portals"
 	set category = "SCP-105"
 	set desc = "Close all active Iris portals."
@@ -101,12 +107,12 @@
 	for(var/obj/effect/portal/scp105_portal/P in active_portals)
 		qdel(P)
 	active_portals.Cut()
-	to_chat(src, "<span class='notice'>All portals closed.</span>")
+	to_chat(src, span_notice("All portals closed."))
 
 /mob/living/scp/scp105/examine(mob/user)
 	. = ..()
 	if(ishuman(user))
-		to_chat(user, "<span class='notice'>This is SCP-105, 'Iris'. She can create portals through camera feeds.</span>")
+		to_chat(user, span_notice("This is SCP-105, 'Iris'. She can create portals through camera feeds."))
 
 /mob/living/scp/scp105/get_status_tab_items()
 	. = ..()
@@ -128,31 +134,19 @@
 	owner = creator
 	destination = dest
 	duration_left = duration
-	START_PROCESSING(SSobj, src)
+	RegisterSignal(src, COMSIG_ATOM_ENTERED, .proc/on_entered)
 
-/obj/effect/portal/scp105_portal/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	if(owner)
-		owner.active_portals -= src
-	return ..()
-
-/obj/effect/portal/scp105_portal/process()
-	duration_left -= 20
-	if(duration_left <= 0)
-		visible_message("<span class='notice'>The Iris Portal fades away.</span>")
-		qdel(src)
-		return
-
-/obj/effect/portal/scp105_portal/Crossed(atom/movable/AM)
+/obj/effect/portal/scp105_portal/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
 	if(!destination)
 		return
 
 	if(ismob(AM))
 		var/mob/M = AM
 		if(M == owner)
-			to_chat(M, "<span class='notice'>You step through your own portal.</span>")
+			to_chat(M, span_notice("You step through your own portal."))
 		else
-			to_chat(M, "<span class='notice'>You step through the shimmering portal.</span>")
+			to_chat(M, span_notice("You step through the shimmering portal."))
 
 	AM.forceMove(destination)
 	playsound(destination, 'sound/effects/sparks1.ogg', 30, TRUE)
@@ -162,3 +156,16 @@
 		qdel(src)
 	else
 		return ..()
+
+/mob/living/scp/scp105/process_ai()
+	if(stat == DEAD)
+		return
+
+	if(prob(8))
+		var/mob/living/carbon/human/H = locate() in view(4, src)
+		if(H && H.stat != DEAD)
+			var/phrases = list("Hello.", "How are you?", "I can help, if you need it.", "Nice day, isn't it?")
+			say(pick(phrases))
+
+	if(prob(10))
+		step_rand(src)

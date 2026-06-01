@@ -1,24 +1,6 @@
 // D-Class Player Datum
 // Handles individual D-Class player data and progression
 
-#ifndef DCLASS_TRUST_HOSTILE
-#define DCLASS_TRUST_HOSTILE 0
-#define DCLASS_TRUST_SUSPICIOUS 1
-#define DCLASS_TRUST_NEUTRAL 2
-#define DCLASS_TRUST_COOPERATIVE 3
-#define DCLASS_TRUST_TRUSTED 4
-
-#define DCLASS_STATUS_GENERAL 0
-#define DCLASS_STATUS_TEST_SUBJECT 1
-#define DCLASS_STATUS_MEDICAL_SUBJECT 2
-#define DCLASS_STATUS_CONTAINMENT_ASSIST 3
-#endif
-
-#define DCLASS_FACTION_NONE 0
-#define DCLASS_FACTION_REBELS 1
-#define DCLASS_FACTION_COLLABORATORS 2
-#define DCLASS_FACTION_SURVIVORS 3
-
 /datum/dclass_player
 	var/ckey
 	var/name
@@ -95,12 +77,30 @@
 	var/save_interval = 300
 	var/data_file_path = ""
 
+	// Round Stats
+	var/round_start_time = 0
+	var/stealth_round_completed = FALSE
+	var/escaped_during_scp_event = FALSE
+	var/list/current_round_stats = list()
+
 /datum/dclass_player/New(var/player_ckey)
 	ckey = player_ckey
 	data_file_path = "data/dclass/[ckey].json"
+	round_start_time = world.time
 	generate_dclass_number()
 	initialize_skills()
 	load_data()
+
+	current_round_stats = list(
+		"start_time" = round_start_time,
+		"escape_attempts" = 0,
+		"contraband_found" = 0,
+		"alliances_formed" = 0,
+		"players_betrayed" = 0,
+		"work_assignments" = 0,
+		"guard_detections" = 0,
+		"stealth_time" = 0
+	)
 
 /datum/dclass_player/proc/generate_dclass_number()
 	dclass_number = "D-[rand(1000, 9999)]"
@@ -178,14 +178,16 @@
 	if(!work_data)
 		return
 
-	// Check if player is in the correct work area
 	if(mob && is_in_work_area())
-		// Gain experience for working
-		gain_experience(work_data["reward"] / 10, "working") // Divide by 10 for continuous gain
-
-		// Chance to find contraband
-		if(prob(5)) // 5% chance per process cycle
+		gain_experience(work_data["reward"] / 10, "working")
+		if(prob(5))
 			find_contraband_at_work()
+		if(current_work_assignment == "specimen_handling" && prob(3) && SSscp_research?.manager)
+			SSscp_research.manager.adjust_research_points(5, "dclass_specimen_work")
+		if(current_work_assignment == "document_archival" && prob(3) && SSscp_research?.manager)
+			SSscp_research.manager.adjust_research_points(3, "dclass_archival_work")
+		if(current_work_assignment == "testing_subject" && prob(2) && SSpsychology)
+			SSpsychology.record_exposure(mob, "D-Class Testing", "experimental", "D-Class participated in SCP testing as work assignment")
 
 /datum/dclass_player/proc/is_in_work_area()
 	if(!mob || !current_work_assignment)
@@ -208,6 +210,20 @@
 			work_area_found = (findtext(A.name, "medical") || findtext(A.name, "clinic") || findtext(A.name, "medbay") || istype(A, /area/station/medical))
 		if("science")
 			work_area_found = (findtext(A.name, "research") || findtext(A.name, "laboratory") || findtext(A.name, "science") || istype(A, /area/station/science) || istype(A, /area/scp/lcz/testing_lab) || istype(A, /area/scp/lcz/observation))
+		if("janitorial")
+			work_area_found = (findtext(A.name, "janitor") || findtext(A.name, "custodial") || istype(A, /area/scp/lcz) || istype(A, /area/scp/hcz))
+		if("specimen_handling")
+			work_area_found = (findtext(A.name, "research") || findtext(A.name, "specimen") || istype(A, /area/station/science) || istype(A, /area/scp/lcz))
+		if("laundry_decon")
+			work_area_found = (findtext(A.name, "laundry") || findtext(A.name, "decon") || findtext(A.name, "cleaning"))
+		if("construction")
+			work_area_found = (findtext(A.name, "construction") || findtext(A.name, "engineering") || istype(A, /area/scp/lcz) || istype(A, /area/scp/hcz))
+		if("testing_subject")
+			work_area_found = (findtext(A.name, "testing") || findtext(A.name, "observation") || istype(A, /area/scp/lcz/testing_lab) || istype(A, /area/scp/lcz/observation))
+		if("document_archival")
+			work_area_found = (findtext(A.name, "archive") || findtext(A.name, "library") || findtext(A.name, "records"))
+		if("botany_sample")
+			work_area_found = (findtext(A.name, "hydroponics") || findtext(A.name, "botany") || istype(A, /area/station/service/hydroponics))
 
 	return work_area_found
 
@@ -512,6 +528,10 @@
 	informant = TRUE
 	adjust_trust(20, "Became informant")
 	adjust_credits(500, "Informant signup bonus")
+	if(SSraisa && mob)
+		SSraisa.record_observation(mob)
+		var/datum/intel_report/R = new(mob, "surveillance", mob.real_name, mob.job, "CONFIDENTIAL", "D-Class [dclass_number] has been recruited as a Foundation informant.", "Monitor reliability, adjust surveillance as needed.")
+		SSraisa.file_report(R)
 	return TRUE
 
 /datum/dclass_player/proc/report_escape_plan(plan_name, participants_count)
@@ -521,6 +541,9 @@
 	var/reward = 200 + (participants_count * 50)
 	adjust_credits(reward, "Reported escape plan")
 	adjust_trust(10, "Reported escape plan")
+	if(SSraisa && mob)
+		var/datum/intel_report/R = new(mob, "threat_assessment", mob.real_name, mob.job, "SECRET", "D-Class informant [dclass_number] reports escape plan: [plan_name]. [participants_count] participants involved.", "Deploy security, increase perimeter patrols.")
+		SSraisa.file_report(R)
 	return TRUE
 
 // Sentence Management

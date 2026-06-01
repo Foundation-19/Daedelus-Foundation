@@ -277,10 +277,6 @@
 	if(event_manager)
 		event_manager.process_events()
 
-// Add event manager to main manager
-/datum/dclass_manager
-	var/datum/dclass_event_manager/event_manager
-
 // Note: process_dclass() is defined in dclass_system.dm and should include process_events() call
 
 // Enhanced player processing with event bonuses

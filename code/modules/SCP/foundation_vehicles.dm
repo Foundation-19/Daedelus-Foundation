@@ -4,7 +4,7 @@
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "atv"
 	max_integrity = 200
-	armor = list("melee" = 50, "bullet" = 40, "laser" = 40, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 40)
+	armor = list(BLUNT = 50, PUNCTURE = 40, SLASH = 0, LASER = 40, ENERGY = 0, BOMB = 30, BIO = 0, FIRE = 60, ACID = 40)
 	var/vehicle_id = "foundation_1"
 	key_type = /obj/item/key/foundation
 

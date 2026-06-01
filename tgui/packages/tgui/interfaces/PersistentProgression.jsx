@@ -368,7 +368,7 @@ export const PersistentProgression = (props) => {
                   style={{ display: 'flex', gap: '4px', marginBottom: '12px' }}
                 >
                   <TermButton color="green" onClick={() => act('export_data')}>
-                    EXPORT
+                    DOWNLOAD
                   </TermButton>
                   <TermButton color="red" onClick={() => act('reset_progress')}>
                     RESET

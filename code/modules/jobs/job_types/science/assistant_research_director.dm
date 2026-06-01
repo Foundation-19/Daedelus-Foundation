@@ -53,7 +53,7 @@
 	head = /obj/item/clothing/head/soft/paramedic
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/laceup
-	l_pocket = /obj/item/modular_computer/tablet/pda/science
+	l_pocket = /obj/item/modular_computer/tablet/pda/foundation_science
 
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med

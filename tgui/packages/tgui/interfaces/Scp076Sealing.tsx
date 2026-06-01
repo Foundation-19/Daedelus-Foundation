@@ -10,7 +10,7 @@ import {
   Section,
   Stack,
 } from '../components';
-import { Window } from '../layouts';
+import { NtosWindow } from '../layouts';
 
 const STATE_COLORS = {
   dormant: 'good',
@@ -42,13 +42,11 @@ export const Scp076Sealing = (props) => {
   const stateLabel = STATE_LABELS[scp_state] || scp_state?.toUpperCase();
 
   return (
-    <Window
-      title="SCP-076 Sealing Control"
-      width={450}
+    <NtosWindow title="SCP-076 Sealing Control" width={450}
       height={350}
-      theme="scp_terminal"
+      
     >
-      <Window.Content scrollable>
+      <NtosWindow.Content scrollable>
         <Stack vertical fill>
           <Stack.Item>
             <Section title="SCP-076-2 Status">
@@ -113,7 +111,7 @@ export const Scp076Sealing = (props) => {
             </Section>
           </Stack.Item>
         </Stack>
-      </Window.Content>
-    </Window>
+      </NtosWindow.Content>
+    </NtosWindow>
   );
 };

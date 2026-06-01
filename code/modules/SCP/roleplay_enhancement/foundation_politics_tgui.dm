@@ -228,7 +228,7 @@
 			if(SSfoundation_politics && SSfoundation_politics.manager)
 				var/datum/department/new_dept = SSfoundation_politics.manager.create_department(name, dept_type, head)
 				if(new_dept)
-					to_chat(user, "<span class='notice'>Department '[name]' created successfully!</span>")
+					to_chat(user, span_notice("Department '[name]' created successfully!"))
 					. = TRUE
 		if("create_faction")
 			if(!is_admin)
@@ -245,7 +245,7 @@
 			if(SSfoundation_politics && SSfoundation_politics.manager)
 				var/datum/faction/new_faction = SSfoundation_politics.manager.create_faction(name, faction_type, leader)
 				if(new_faction)
-					to_chat(user, "<span class='notice'>Faction '[name]' created successfully!</span>")
+					to_chat(user, span_notice("Faction '[name]' created successfully!"))
 					. = TRUE
 		if("spend_budget")
 			var/dept_id = params["dept_id"]
@@ -259,10 +259,10 @@
 				return
 			if(SSfoundation_politics && SSfoundation_politics.manager)
 				if(SSfoundation_politics.manager.spend_budget(dept_id, amount, reason))
-					to_chat(user, "<span class='notice'>Spent [amount] from department budget on: [reason]</span>")
+					to_chat(user, span_notice("Spent [amount] from department budget on: [reason]"))
 					. = TRUE
 				else
-					to_chat(user, "<span class='warning'>Insufficient budget or invalid request.</span>")
+					to_chat(user, span_warning("Insufficient budget or invalid request."))
 		if("set_department_head")
 			var/dept_id = params["dept_id"]
 			if(!dept_id)
@@ -274,7 +274,7 @@
 				return
 			if(SSfoundation_politics && SSfoundation_politics.manager)
 				if(SSfoundation_politics.manager.admin_set_department_head(dept_id, ckey))
-					to_chat(user, "<span class='notice'>Department head set to [ckey].</span>")
+					to_chat(user, span_notice("Department head set to [ckey]."))
 					. = TRUE
 		if("adjust_budget")
 			if(!is_admin)
@@ -285,7 +285,7 @@
 				return
 			if(SSfoundation_politics && SSfoundation_politics.manager)
 				if(SSfoundation_politics.manager.admin_adjust_budget(dept_id, amount))
-					to_chat(user, "<span class='notice'>Budget adjusted by [amount].</span>")
+					to_chat(user, span_notice("Budget adjusted by [amount]."))
 					. = TRUE
 		if("add_goal")
 			var/dept_id = params["dept_id"]
@@ -298,7 +298,7 @@
 				return
 			if(SSfoundation_politics && SSfoundation_politics.manager)
 				if(SSfoundation_politics.manager.admin_add_goal(dept_id, goal))
-					to_chat(user, "<span class='notice'>Goal '[goal]' added.</span>")
+					to_chat(user, span_notice("Goal '[goal]' added."))
 					. = TRUE
 		if("remove_goal")
 			var/dept_id = params["dept_id"]
@@ -309,7 +309,7 @@
 				return
 			if(SSfoundation_politics && SSfoundation_politics.manager)
 				if(SSfoundation_politics.manager.admin_remove_goal(dept_id, goal))
-					to_chat(user, "<span class='notice'>Goal '[goal]' removed.</span>")
+					to_chat(user, span_notice("Goal '[goal]' removed."))
 					. = TRUE
 		if("form_alliance")
 			var/dept_id_a = params["dept_id_a"]
@@ -321,7 +321,7 @@
 			if(SSfoundation_politics && SSfoundation_politics.manager)
 				var/result = SSfoundation_politics.manager.form_alliance(dept_id_a, dept_id_b)
 				if(result)
-					to_chat(user, "<span class='notice'>Alliance formed!</span>")
+					to_chat(user, span_notice("Alliance formed!"))
 					. = TRUE
 		if("break_alliance")
 			var/alliance_id = params["alliance_id"]
@@ -331,7 +331,7 @@
 				return
 			if(SSfoundation_politics && SSfoundation_politics.manager)
 				SSfoundation_politics.manager.break_alliance(alliance_id)
-				to_chat(user, "<span class='notice'>Alliance dissolved.</span>")
+				to_chat(user, span_notice("Alliance dissolved."))
 				. = TRUE
 		if("create_rivalry")
 			if(!is_admin)
@@ -342,7 +342,7 @@
 				return
 			if(SSfoundation_politics && SSfoundation_politics.manager)
 				SSfoundation_politics.manager.create_rivalry(dept_id_a, dept_id_b)
-				to_chat(user, "<span class='notice'>Rivalry created.</span>")
+				to_chat(user, span_notice("Rivalry created."))
 				. = TRUE
 		if("create_political_event")
 			if(!is_admin)
@@ -358,7 +358,7 @@
 				return
 			if(SSfoundation_politics && SSfoundation_politics.manager)
 				SSfoundation_politics.manager.create_political_event(event_type, title, description, list(), 0)
-				to_chat(user, "<span class='notice'>Political event '[title]' created successfully!</span>")
+				to_chat(user, span_notice("Political event '[title]' created successfully!"))
 				. = TRUE
 		if("resolve_conflict")
 			var/conflict_id = params["conflict_id"]
@@ -368,7 +368,7 @@
 				return
 			if(SSfoundation_politics && SSfoundation_politics.manager)
 				SSfoundation_politics.manager.admin_resolve_conflict(conflict_id)
-				to_chat(user, "<span class='notice'>Conflict resolved successfully!</span>")
+				to_chat(user, span_notice("Conflict resolved successfully!"))
 				. = TRUE
 		if("enact_policy")
 			var/dept_id = params["dept_id"]
@@ -379,10 +379,10 @@
 				return
 			if(SSfoundation_politics && SSfoundation_politics.manager)
 				if(SSfoundation_politics.manager.enact_policy(dept_id, policy_type))
-					to_chat(user, "<span class='notice'>Policy [policy_type] enacted for [dept_id]!</span>")
+					to_chat(user, span_notice("Policy [policy_type] enacted for [dept_id]!"))
 					. = TRUE
 				else
-					to_chat(user, "<span class='warning'>Failed to enact policy. Check budget, prerequisites, and department head status.</span>")
+					to_chat(user, span_warning("Failed to enact policy. Check budget, prerequisites, and department head status."))
 		if("execute_budget_purchase")
 			var/dept_id = params["dept_id"]
 			var/purchase_type = params["purchase_type"]
@@ -392,10 +392,10 @@
 				return
 			if(SSfoundation_politics && SSfoundation_politics.manager)
 				if(SSfoundation_politics.manager.execute_budget_purchase(dept_id, purchase_type))
-					to_chat(user, "<span class='notice'>Budget purchase [purchase_type] executed for [dept_id]!</span>")
+					to_chat(user, span_notice("Budget purchase [purchase_type] executed for [dept_id]!"))
 					. = TRUE
 				else
-					to_chat(user, "<span class='warning'>Failed to execute budget purchase. Check budget and department eligibility.</span>")
+					to_chat(user, span_warning("Failed to execute budget purchase. Check budget and department eligibility."))
 
 /mob/verb/open_foundation_politics()
 	set name = "Open Foundation Politics"

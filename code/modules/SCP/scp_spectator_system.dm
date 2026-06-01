@@ -69,8 +69,8 @@
 /datum/action/ghost/scp_follow/proc/get_dclass_targets()
 	var/list/targets = list()
 	if(SSdclass && SSdclass.manager)
-		for(var/ckey in SSdclass.manager.dclass_players)
-			var/mob/M = SSdclass.manager.dclass_players[ckey]
+		for(var/ckey in SSdclass?.manager?.dclass_players)
+			var/mob/M = SSdclass?.manager?.dclass_players[ckey]
 			if(M && !QDELETED(M))
 				var/label = "[M.name] (D-Class)"
 				targets[label] = M

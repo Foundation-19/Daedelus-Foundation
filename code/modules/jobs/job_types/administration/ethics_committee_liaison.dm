@@ -1,7 +1,9 @@
 /datum/job/ethics_committee_liaison
 	title = JOB_ETHICS_COMMITTEE_LIAISON
 	description = "You are a liaison of the Ethics Committee. Ensure committee-approved practices \
-	are followed on site and investigate all unethical behaviors to report back to the committee. "
+	are followed on site and investigate all unethical behaviors to report back to the committee. \
+	Use the Ethics Review Console to file and review violations, oversee high-risk SCP tests, and \
+	recommend amnestic treatment for exposed personnel. "
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
 	faction = FACTION_STATION
 	total_positions = 1
@@ -57,7 +59,7 @@
 	backpack_contents = list(
 		/obj/item/assembly/flash/handheld = 1
 	)
-	belt = /obj/item/modular_computer/tablet/pda/captain
+	belt = /obj/item/modular_computer/tablet/pda/foundation_ethics
 	ears = /obj/item/radio/headset/heads/hos
 	glasses = /obj/item/clothing/glasses/sunglasses
 	gloves = /obj/item/clothing/gloves/color/white

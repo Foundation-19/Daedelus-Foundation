@@ -69,6 +69,7 @@ DEFINE_INTERACTABLE(/obj/machinery/light)
 
 	///The area this thing is in.
 	var/area/my_area = null
+	var/id
 
 /obj/machinery/light/Move()
 	if(status != LIGHT_BROKEN)

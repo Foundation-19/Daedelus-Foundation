@@ -40,3 +40,7 @@
 
 // SCP-294 signals
 #define COMSIG_SCP294_DISPENSE_ATTEMPT "scp294_dispense_attempt"
+
+// SCP-610 breach/recontainment signals
+#define COMSIG_SCP_BREACH "comsig_scp_breach"
+#define COMSIG_SCP_RECONTAINED "comsig_scp_recontained"

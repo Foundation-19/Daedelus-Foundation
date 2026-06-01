@@ -1,6 +1,8 @@
 /datum/job/cook
 	title = JOB_COOK
-	description = "Serve food, cook meat, keep the crew fed."
+	description = "Serve food, cook meat, keep the crew fed. Prepare D-Class rations \
+		and load improved rations into the D-Class Ration Dispenser. Better food quality \
+		reduces D-Class unrest and riot risk."
 	department_head = list(JOB_HUMAN_RESOURCES_DIRECTOR)
 	faction = FACTION_STATION
 	total_positions = 2

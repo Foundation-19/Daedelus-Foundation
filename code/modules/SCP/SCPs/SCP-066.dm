@@ -116,33 +116,33 @@
 		if(1)
 			playsound(src, pick(gentle_sounds), 30, FALSE)
 			user.visible_message(
-				"<span class='notice'>[src] produces a gentle chime.</span>",
-				"<span class='notice'>[src] plays a soft tone in your hands.</span>"
+				span_notice("[src] produces a gentle chime."),
+				span_notice("[src] plays a soft tone in your hands.")
 			)
 		if(2)
 			playsound(src, pick(gentle_sounds), 60, FALSE)
 			user.visible_message(
-				"<span class='notice'>[src] emits a pleasant melody.</span>",
-				"<span class='notice'>[src] plays a pleasant tune.</span>"
+				span_notice("[src] emits a pleasant melody."),
+				span_notice("[src] plays a pleasant tune.")
 			)
 		if(3)
 			if(prob(50))
 				playsound(src, pick(eric_sounds), 70, FALSE)
 				user.visible_message(
-					"<span class='warning'>[src] says something indistinct.</span>",
-					"<span class='warning'>[src] murmurs something you can't quite make out.</span>"
+					span_warning("[src] says something indistinct."),
+					span_warning("[src] murmurs something you can't quite make out.")
 				)
 			else
 				playsound(src, pick(severe_sounds), 80, FALSE)
 				user.visible_message(
-					"<span class='warning'>[src] produces a loud, jarring note!</span>",
-					"<span class='warning'>[src] blasts a loud sound, making you wince!</span>"
+					span_warning("[src] produces a loud, jarring note!"),
+					span_warning("[src] blasts a loud sound, making you wince!")
 				)
 		if(4)
 			playsound(src, pick(severe_sounds), 100, FALSE)
 			user.visible_message(
-				"<span class='danger'>[src] blasts a deafening crash of sound!</span>",
-				"<span class='danger'>[src] unleashes a deafening crash of sound that rattles your bones!</span>"
+				span_danger("[src] blasts a deafening crash of sound!"),
+				span_danger("[src] unleashes a deafening crash of sound that rattles your bones!")
 			)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
@@ -157,8 +157,8 @@
 		if(5)
 			playsound(src, pick(severe_sounds), 120, FALSE)
 			user.visible_message(
-				"<span class='bolddanger'>[src] erupts with a catastrophic burst of sound!</span>",
-				"<span class='bolddanger'>[src] erupts with an earth-shaking blast of sound!</span>"
+				span_bolddanger("[src] erupts with a catastrophic burst of sound!"),
+				span_bolddanger("[src] erupts with an earth-shaking blast of sound!")
 			)
 			for(var/mob/living/carbon/human/H in range(3, src))
 				var/obj/item/organ/ears/E = H.getorganslot(ORGAN_SLOT_EARS)
@@ -191,14 +191,14 @@
 
 /obj/item/scp066/proc/say_eric(mob/user)
 	has_said_eric = TRUE
-	visible_message("<span class='warning'>[src] vibrates intensely and speaks in a deep, resonant voice:</span>")
+	visible_message(span_warning("[src] vibrates intensely and speaks in a deep, resonant voice:"))
 	say("Eric?")
 	playsound(src, 'sound/voice/hiss1.ogg', 100, FALSE)
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5)
-		to_chat(H, "<span class='warning'>The voice reverberates through your skull. Something feels wrong.</span>")
+		to_chat(H, span_warning("The voice reverberates through your skull. Something feels wrong."))
 		hook_scp_interaction(H, "SCP-066", INTERACTION_TYPE_OBSERVATION, list("eric_event" = TRUE))
 
 	addtimer(CALLBACK(src, PROC_REF(post_eric_effect)), 5 SECONDS)
@@ -212,7 +212,7 @@
 			continue
 		if(prob(30))
 			H.adjust_drowsyness(5 SECONDS)
-			to_chat(H, "<span class='warning'>A strange heaviness settles in your mind.</span>")
+			to_chat(H, span_warning("A strange heaviness settles in your mind."))
 
 	if(prob(40))
 		playsound(loc, pick(gentle_sounds), 50, FALSE)
@@ -223,7 +223,7 @@
 			continue
 		if(prob(25))
 			H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
-			to_chat(H, "<span class='warning'>You feel a brief, sharp headache.</span>")
+			to_chat(H, span_warning("You feel a brief, sharp headache."))
 
 /obj/item/scp066/proc/scp066_alert()
 	var/area/A = get_area(src)
@@ -264,20 +264,20 @@
 /obj/item/scp066/examine(mob/user)
 	. = ..()
 	if(imitating)
-		. += "<span class='warning'>Something about this [name] seems wrong...</span>"
+		. += span_warning("Something about this [name] seems wrong...")
 	else
-		. += "<span class='notice'>A small metal sphere. It occasionally produces faint sounds.</span>"
+		. += span_notice("A small metal sphere. It occasionally produces faint sounds.")
 
 	if(interaction_count > 0 && ishuman(user))
 		if(interaction_count >= 10)
-			. += "<span class='danger'>It has been handled many times. Further interaction may be extremely dangerous.</span>"
+			. += span_danger("It has been handled many times. Further interaction may be extremely dangerous.")
 		else if(interaction_count >= 5)
-			. += "<span class='warning'>It has been handled several times. It seems to be getting more reactive.</span>"
+			. += span_warning("It has been handled several times. It seems to be getting more reactive.")
 		else
-			. += "<span class='notice'>It has been handled a few times.</span>"
+			. += span_notice("It has been handled a few times.")
 
 	if(has_said_eric)
-		. += "<span class='warning'>It seems to be searching for something... someone.</span>"
+		. += span_warning("It seems to be searching for something... someone.")
 
 /obj/item/scp066/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()

@@ -102,7 +102,7 @@
 
 	for(var/mob/living/carbon/human/H in range(8, src))
 		if(H.stat != DEAD)
-			to_chat(H, "<span class='danger'>The video recording's effects intensify dramatically!</span>")
+			to_chat(H, span_danger("The video recording's effects intensify dramatically!"))
 
 	activation_events = 50
 
@@ -111,7 +111,7 @@
 	people_affected += length(targets)
 
 	for(var/mob/living/carbon/human/H in targets)
-		to_chat(H, "<span class='danger'>You experience SCP-1981's ultimate video manipulation!</span>")
+		to_chat(H, span_danger("You experience SCP-1981's ultimate video manipulation!"))
 		H.adjustBruteLoss(25)
 		if(H.stamina)
 			H.stamina.adjust(-30)
@@ -128,7 +128,7 @@
 
 	// Automatic response to interaction
 	if(user.stat != DEAD)
-		to_chat(user, "<span class='danger'>As you touch the video recording, you see disturbing imagery...</span>")
+		to_chat(user, span_danger("As you touch the video recording, you see disturbing imagery..."))
 
 		hook_scp_interaction(user, "SCP-1981", "video_viewing")
 
@@ -145,9 +145,9 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.SCP)
-			to_chat(user, "<span class='warning'>This is SCP-1981, a video recording that causes reality distortion.</span>")
+			to_chat(user, span_warning("This is SCP-1981, a video recording that causes reality distortion."))
 		else
-			to_chat(user, "<span class='danger'>A disturbing video recording that seems to distort reality.</span>")
+			to_chat(user, span_danger("A disturbing video recording that seems to distort reality."))
 
 // Status display for admin/research purposes
 /obj/item/scp1981/proc/get_status()
@@ -186,7 +186,7 @@
 
 	var/list/status = get_status()
 	for(var/line in status)
-		to_chat(src, "<span class='notice'>[line]</span>")
+		to_chat(src, span_notice("[line]"))
 
 // Persistence system
 /obj/item/scp1981/proc/save_persistence_data()

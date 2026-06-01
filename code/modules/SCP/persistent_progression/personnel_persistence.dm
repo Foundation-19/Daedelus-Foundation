@@ -154,23 +154,14 @@ SUBSYSTEM_DEF(personnel_persistence)
 	// Process performance reviews
 	process_performance_reviews()
 
-	// Simulate personnel changes over time
-	for(var/ckey in personnel_records)
-		var/datum/personnel_record/record = personnel_records[ckey]
-		if(record.status == "ACTIVE")
-			// Calculate real performance based on actual game data
-			record.performance_rating = calculate_real_performance(record.ckey)
+	// Process assignments
+	process_assignments()
 
-			// Calculate real salary based on position and performance
-			record.salary = calculate_real_salary(record.position, record.performance_rating)
-
-			// Calculate real clearance level based on position and performance
-			record.clearance_level = calculate_real_clearance(record.position, record.performance_rating)
-
-			record.last_updated = world.time
+	// Update training records
+	update_training_records()
 
 	// Save data periodically
-	if(world.time % 3000 == 0) // Every 5 minutes
+	if(world.time % 3000 == 0)
 		save_personnel_data()
 
 /datum/personnel_persistence_manager/proc/add_personnel_record(var/ckey, var/real_name, var/department, var/position, var/salary = 50000, var/clearance_level = 1)
@@ -348,13 +339,11 @@ SUBSYSTEM_DEF(personnel_persistence)
 	for(var/assignment_id in assignments)
 		var/datum/assignment/assignment = assignments[assignment_id]
 		if(assignment.status == "ACTIVE")
-			// Simulate assignment completion
-			if(prob(10)) // 10% chance to complete
+			if(prob(1))
 				assignment.status = "COMPLETED"
 				assignment.end_date = world.time
 				assignment.completion_rating = rand(60, 100)
 
-				// Update employee performance
 				var/datum/personnel_record/record = personnel_records[assignment.employee_ckey]
 				if(record)
 					record.performance_rating = min(100, record.performance_rating + (assignment.completion_rating - 80) / 10)
@@ -363,29 +352,18 @@ SUBSYSTEM_DEF(personnel_persistence)
 	for(var/training_id in training_records)
 		var/datum/training_record/training = training_records[training_id]
 		if(training.status == "IN_PROGRESS")
-			// Simulate training completion
-			if(prob(15)) // 15% chance to complete
+			if(prob(1))
 				training.status = "COMPLETED"
 				training.completion_date = world.time
 				training.score = rand(70, 100)
 
-				// Add certification if score is high enough
 				if(training.score >= 80)
 					var/datum/personnel_record/record = personnel_records[training.employee_ckey]
 					if(record)
 						record.certifications += training.training_name
 
 /datum/personnel_persistence_manager/proc/process_performance_reviews()
-	// Simulate automatic performance reviews
-	for(var/ckey in personnel_records)
-		var/datum/personnel_record/record = personnel_records[ckey]
-		if(record.status == "ACTIVE" && prob(5)) // 5% chance per cycle
-			// Generate automatic review
-			var/reviewer_ckey = "SYSTEM"
-			var/performance_rating = record.performance_rating + rand(-10, 10)
-			performance_rating = max(0, min(100, performance_rating))
-
-			add_performance_review(ckey, reviewer_ckey, performance_rating, "Automatic performance review")
+	return
 
 /datum/personnel_persistence_manager/proc/save_personnel_data()
 	var/list/data = list()
@@ -496,7 +474,7 @@ SUBSYSTEM_DEF(personnel_persistence)
 
 /datum/personnel_persistence_manager/proc/save_personnel_data_to_database()
 	if(!SSdbcore.Connect())
-		world.log << "Personnel Persistence: Database connection failed, skipping database save"
+		log_game("Personnel Persistence: Database connection failed, skipping database save")
 		return
 
 	// Save personnel records to database
@@ -529,7 +507,7 @@ SUBSYSTEM_DEF(personnel_persistence)
 		))
 
 		if(!query_save_personnel.warn_execute())
-			world.log << "Personnel Persistence: Failed to save personnel record for [ckey]"
+			log_game("Personnel Persistence: Failed to save personnel record for [ckey]")
 		qdel(query_save_personnel)
 
 	// Save assignments to database
@@ -558,7 +536,7 @@ SUBSYSTEM_DEF(personnel_persistence)
 		))
 
 		if(!query_save_assignment.warn_execute())
-			world.log << "Personnel Persistence: Failed to save assignment [assignment_id]"
+			log_game("Personnel Persistence: Failed to save assignment [assignment_id]")
 		qdel(query_save_assignment)
 
 	// Save performance reviews to database
@@ -586,7 +564,7 @@ SUBSYSTEM_DEF(personnel_persistence)
 		))
 
 		if(!query_save_review.warn_execute())
-			world.log << "Personnel Persistence: Failed to save performance review [review_id]"
+			log_game("Personnel Persistence: Failed to save performance review [review_id]")
 		qdel(query_save_review)
 
 	// Save training records to database
@@ -615,7 +593,7 @@ SUBSYSTEM_DEF(personnel_persistence)
 		))
 
 		if(!query_save_training.warn_execute())
-			world.log << "Personnel Persistence: Failed to save training record [training_id]"
+			log_game("Personnel Persistence: Failed to save training record [training_id]")
 		qdel(query_save_training)
 
 	// Save promotions to database
@@ -642,10 +620,10 @@ SUBSYSTEM_DEF(personnel_persistence)
 		))
 
 		if(!query_save_promotion.warn_execute())
-			world.log << "Personnel Persistence: Failed to save promotion [promotion_id]"
+			log_game("Personnel Persistence: Failed to save promotion [promotion_id]")
 		qdel(query_save_promotion)
 
-	world.log << "Personnel Persistence: Saved [length(personnel_records)] personnel records, [length(assignments)] assignments, [length(performance_reviews)] reviews, [length(training_records)] training records, and [length(promotions)] promotions to database"
+	log_game("Personnel Persistence: Saved [length(personnel_records)] personnel records, [length(assignments)] assignments, [length(performance_reviews)] reviews, [length(training_records)] training records, and [length(promotions)] promotions to database")
 
 /datum/personnel_persistence_manager/proc/load_personnel_data()
 	// First, load existing records from datacore
@@ -748,11 +726,11 @@ SUBSYSTEM_DEF(personnel_persistence)
 
 /datum/personnel_persistence_manager/proc/load_personnel_data_from_database()
 	if(!SSdbcore.Connect())
-		world.log << "Personnel Persistence: Database connection failed, skipping database load"
+		log_game("Personnel Persistence: Database connection failed, skipping database load")
 		return
 
 	// Temporarily disabled database loading to fix compilation issues
-	world.log << "Personnel Persistence: Database loading temporarily disabled"
+	log_game("Personnel Persistence: Database loading temporarily disabled")
 	return
 
 	/*
@@ -761,7 +739,7 @@ SUBSYSTEM_DEF(personnel_persistence)
 		"SELECT ckey, real_name, employee_id, department, position, hire_date, clearance_level, performance_rating, salary, status, skills, certifications, emergency_contact, last_updated FROM [format_table_name('personnel_records')]"
 	)
 	if(!query_load_personnel.warn_execute())
-		world.log << "Personnel Persistence: Could not load personnel records from database (table may not exist)"
+		log_game("Personnel Persistence: Could not load personnel records from database (table may not exist)")
 		qdel(query_load_personnel)
 	else
 		while(query_load_personnel.NextRow())
@@ -801,7 +779,7 @@ SUBSYSTEM_DEF(personnel_persistence)
 		"SELECT assignment_id, employee_ckey, assignment_type, assignment_description, start_date, end_date, status, priority, completion_rating, supervisor_ckey, notes FROM [format_table_name('personnel_assignments')]"
 	)
 	if(!query_load_assignments.warn_execute())
-		world.log << "Personnel Persistence: Could not load assignments from database (table may not exist)"
+		log_game("Personnel Persistence: Could not load assignments from database (table may not exist)")
 		qdel(query_load_assignments)
 	else
 		while(query_load_assignments.NextRow())
@@ -832,7 +810,7 @@ SUBSYSTEM_DEF(personnel_persistence)
 		"SELECT review_id, employee_ckey, reviewer_ckey, review_date, performance_rating, strengths, weaknesses, goals, overall_assessment, next_review_date FROM [format_table_name('personnel_performance_reviews')]"
 	)
 	if(!query_load_reviews.warn_execute())
-		world.log << "Personnel Persistence: Could not load performance reviews from database (table may not exist)"
+		log_game("Personnel Persistence: Could not load performance reviews from database (table may not exist)")
 		qdel(query_load_reviews)
 	else
 		while(query_load_reviews.NextRow())
@@ -863,7 +841,7 @@ SUBSYSTEM_DEF(personnel_persistence)
 		"SELECT training_id, employee_ckey, training_type, training_name, training_date, completion_date, status, score, certification_expiry, trainer_ckey, notes FROM [format_table_name('personnel_training_records')]"
 	)
 	if(!query_load_training.warn_execute())
-		world.log << "Personnel Persistence: Could not load training records from database (table may not exist)"
+		log_game("Personnel Persistence: Could not load training records from database (table may not exist)")
 		qdel(query_load_training)
 	else
 		while(query_load_training.NextRow())
@@ -894,7 +872,7 @@ SUBSYSTEM_DEF(personnel_persistence)
 		"SELECT promotion_id, employee_ckey, old_position, new_position, promotion_date, reason, approver_ckey, salary_increase, clearance_increase FROM [format_table_name('personnel_promotions')]"
 	)
 	if(!query_load_promotions.warn_execute())
-		world.log << "Personnel Persistence: Could not load promotions from database (table may not exist)"
+		log_game("Personnel Persistence: Could not load promotions from database (table may not exist)")
 		qdel(query_load_promotions)
 	else
 		while(query_load_promotions.NextRow())
@@ -916,20 +894,20 @@ SUBSYSTEM_DEF(personnel_persistence)
 			promotions[promotion_id] = promotion
 		qdel(query_load_promotions)
 
-	world.log << "Personnel Persistence: Loaded [length(personnel_records)] personnel records, [length(assignments)] assignments, [length(performance_reviews)] reviews, [length(training_records)] training records, and [length(promotions)] promotions from database"
+	log_game("Personnel Persistence: Loaded [length(personnel_records)] personnel records, [length(assignments)] assignments, [length(performance_reviews)] reviews, [length(training_records)] training records, and [length(promotions)] promotions from database")
 	*/
 
 // Subsystem initialization
 /datum/controller/subsystem/personnel_persistence/Initialize()
-	world.log << "Personnel persistence subsystem initializing..."
+	log_game("Personnel persistence subsystem initializing...")
 	manager = new /datum/personnel_persistence_manager()
-	world.log << "Personnel persistence manager created"
+	log_game("Personnel persistence manager created")
 
 	// Load existing personnel records from datacore
-	world.log << "Loading existing personnel records from datacore..."
+	log_game("Loading existing personnel records from datacore...")
 	manager.load_existing_personnel_records()
 
-	world.log << "Personnel records count at initialization: [length(manager.personnel_records)]"
+	log_game("Personnel records count at initialization: [length(manager.personnel_records)]")
 	return ..()
 
 /datum/controller/subsystem/personnel_persistence/fire()
@@ -1003,15 +981,7 @@ SUBSYSTEM_DEF(personnel_persistence)
 
 // Advanced personnel management procedures
 /datum/personnel_persistence_manager/proc/process_promotions()
-	for(var/ckey in personnel_records)
-		var/datum/personnel_record/record = personnel_records[ckey]
-		if(record.performance_rating >= 90) // High performance for promotion
-			var/promotion_chance = rand(1, 100)
-			if(promotion_chance <= 10) // 10% chance for promotion
-				var/new_position = get_next_position(record.position)
-				if(new_position)
-					add_promotion(ckey, new_position, "SYSTEM", rand(5000, 15000), 1)
-					record.performance_rating = max(50, record.performance_rating - 10) // Reset rating after promotion
+	return
 
 /datum/personnel_persistence_manager/proc/get_next_position(var/current_position)
 	var/list/position_hierarchy = list(
@@ -1046,20 +1016,7 @@ SUBSYSTEM_DEF(personnel_persistence)
 					record.performance_rating = min(100, record.performance_rating + 5)
 
 /datum/personnel_persistence_manager/proc/process_attrition()
-	for(var/ckey in personnel_records)
-		var/datum/personnel_record/record = personnel_records[ckey]
-		if(record.status == "ACTIVE")
-			var/attrition_chance = rand(1, 100)
-			// Higher chance of leaving if performance is low or satisfaction is low
-			if(record.performance_rating < 50)
-				attrition_chance += 20
-			if(staff_satisfaction < 60)
-				attrition_chance += 15
-
-			if(attrition_chance <= 5) // 5% base chance, can go up to 40%
-				record.status = "RESIGNED"
-				record.last_updated = world.time
-				active_staff = max(0, active_staff - 1)
+	return
 
 /datum/personnel_persistence_manager/proc/update_staff_satisfaction()
 	var/total_satisfaction = 0
@@ -1201,75 +1158,47 @@ SUBSYSTEM_DEF(personnel_persistence)
 
 // Load all existing personnel records from SSdatacore
 /datum/personnel_persistence_manager/proc/load_existing_personnel_records()
-	if(!SSdatacore)
-		return
+	log_game("Personnel: Loading existing personnel records from connected players...")
 
-	world.log << "Personnel: Loading existing personnel records from datacore..."
+	for(var/mob/living/carbon/human/H in GLOB.player_list)
+		if(!H.ckey || !H.mind)
+			continue
+		if(H.ckey in personnel_records)
+			continue
 
-	// Load from general records (station records)
-	for(var/datum/data/record/general_record in SSdatacore.get_records(DATACORE_RECORDS_STATION))
-		if(general_record.fields[DATACORE_NAME])
-			var/ckey = ckey(general_record.fields[DATACORE_NAME])
-			if(!(ckey in personnel_records))
-				var/department = "General"
-				var/position = general_record.fields[DATACORE_RANK] || "Staff"
-				var/clearance_level = 1
-				var/performance_rating = 80
+		var/department = "General"
+		var/position = H.job || "Staff"
+		var/clearance_level = 1
 
-				// Determine department based on rank/position
-				if(findtext(position, "Doctor") || findtext(position, "Medical") || findtext(position, "Nurse"))
-					department = "Medical"
-				else if(findtext(position, "Security") || findtext(position, "Guard") || findtext(position, "Agent"))
-					department = "Security"
-				else if(findtext(position, "Research") || findtext(position, "Scientist"))
-					department = "Research"
-				else if(findtext(position, "Engineer") || findtext(position, "Technician"))
-					department = "Engineering"
-				else if(findtext(position, "Admin") || findtext(position, "Director"))
-					department = "Administration"
+		if(findtext(position, "Doctor") || findtext(position, "Medical") || findtext(position, "Nurse"))
+			department = "Medical"
+		else if(findtext(position, "Security") || findtext(position, "Guard") || findtext(position, "Agent"))
+			department = "Security"
+		else if(findtext(position, "Research") || findtext(position, "Scientist"))
+			department = "Research"
+		else if(findtext(position, "Engineer") || findtext(position, "Technician"))
+			department = "Engineering"
+		else if(findtext(position, "Admin") || findtext(position, "Director"))
+			department = "Administration"
 
-				// Set clearance level based on position
-				if(findtext(position, "Chief") || findtext(position, "Director") || findtext(position, "Lead"))
-					clearance_level = 4
-				else if(findtext(position, "Senior") || findtext(position, "Sergeant"))
-					clearance_level = 3
-				else if(findtext(position, "Officer") || findtext(position, "Doctor"))
-					clearance_level = 2
-				else
-					clearance_level = 1
+		if(findtext(position, "Chief") || findtext(position, "Director") || findtext(position, "Lead"))
+			clearance_level = 4
+		else if(findtext(position, "Senior") || findtext(position, "Sergeant"))
+			clearance_level = 3
+		else if(findtext(position, "Officer") || findtext(position, "Doctor"))
+			clearance_level = 2
 
-				// Set performance rating based on health status
-				if(general_record.fields[DATACORE_PHYSICAL_HEALTH] == "*Deceased*")
-					performance_rating = 0
-				else if(general_record.fields[DATACORE_PHYSICAL_HEALTH] == "*Unconscious*")
-					performance_rating = 25
-				else if(general_record.fields[DATACORE_PHYSICAL_HEALTH] == "Physically Unfit")
-					performance_rating = 50
-				else if(general_record.fields[DATACORE_PHYSICAL_HEALTH] == "Active")
-					performance_rating = 80
+		var/datum/personnel_record/record = new /datum/personnel_record(H.ckey, H.real_name, department, position)
+		record.clearance_level = clearance_level
+		record.salary = 50000 + (clearance_level * 10000)
+		record.status = "ACTIVE"
+		record.last_updated = world.time
+		personnel_records[H.ckey] = record
 
-				if(general_record.fields[DATACORE_MENTAL_HEALTH] == "*Insane*")
-					performance_rating = max(0, performance_rating - 50)
-				else if(general_record.fields[DATACORE_MENTAL_HEALTH] == "*Unstable*")
-					performance_rating = max(0, performance_rating - 25)
-				else if(general_record.fields[DATACORE_MENTAL_HEALTH] == "*Watch*")
-					performance_rating = max(0, performance_rating - 10)
-
-				var/datum/personnel_record/personnel_record = new /datum/personnel_record(ckey, general_record.fields[DATACORE_NAME], department, position)
-				personnel_record.clearance_level = clearance_level
-				personnel_record.performance_rating = performance_rating
-				personnel_record.salary = 50000 + (clearance_level * 10000)
-				personnel_record.status = "ACTIVE"
-				personnel_record.last_updated = world.time
-				personnel_records[ckey] = personnel_record
-
-				world.log << "Personnel: Loaded record for [general_record.fields[DATACORE_NAME]] ([department] - [position])"
-
-	// Update total staff count
 	total_staff = length(personnel_records)
 	active_staff = total_staff
 
-	world.log << "Personnel: Loaded [length(personnel_records)] personnel records from datacore"
+	log_game("Personnel: Loaded [length(personnel_records)] personnel records from connected players")
 
 // Clear persistent storage to ensure only real data is used
 /datum/personnel_persistence_manager/proc/clear_persistent_storage()
@@ -1286,8 +1215,8 @@ SUBSYSTEM_DEF(personnel_persistence)
 	var/savefile/S = new /savefile("data/personnel_persistence.json")
 	if(S)
 		S["data"] << null
-		world.log << "Personnel: Cleared persistent storage file"
+		log_game("Personnel: Cleared persistent storage file")
 
-	world.log << "Personnel: Cleared all persistent storage data"
+	log_game("Personnel: Cleared all persistent storage data")
 
 

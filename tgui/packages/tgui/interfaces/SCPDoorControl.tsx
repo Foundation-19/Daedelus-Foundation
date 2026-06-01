@@ -3,7 +3,7 @@ import React from 'react';
 
 import { useBackend } from '../backend';
 import { Box, Button } from '../components';
-import { Window } from '../layouts';
+import { NtosWindow } from '../layouts';
 
 type ZoneState = {
   name: string;
@@ -51,8 +51,8 @@ export const SCPDoorControl = (props) => {
   const { zone_states, total_doors, locked_doors, door_log } = data;
 
   return (
-    <Window theme="scp_terminal" width={600} height={500}>
-      <Window.Content scrollable>
+    <NtosWindow width={600} height={500}>
+      <NtosWindow.Content scrollable>
         <Box
           style={{
             background: C.bg,
@@ -83,7 +83,7 @@ export const SCPDoorControl = (props) => {
             </Box>
             <Box
               style={{
-                fontSize: '9px',
+                fontSize: '11px',
                 color: C.textDim,
                 letterSpacing: '0.12em',
                 marginTop: '2px',
@@ -156,7 +156,7 @@ export const SCPDoorControl = (props) => {
                     }
                     style={{
                       fontFamily: C.mono,
-                      fontSize: '9px',
+                      fontSize: '11px',
                       letterSpacing: '0.1em',
                       background:
                         zone.state === 0
@@ -165,7 +165,7 @@ export const SCPDoorControl = (props) => {
                       border: `1px solid ${zone.state === 0 ? C.green : C.border}`,
                       borderRadius: 0,
                       color: zone.state === 0 ? C.textBright : C.textDim,
-                      padding: '2px 6px',
+                      padding: '4px 8px',
                     }}
                   >
                     NORMAL
@@ -179,7 +179,7 @@ export const SCPDoorControl = (props) => {
                     }
                     style={{
                       fontFamily: C.mono,
-                      fontSize: '9px',
+                      fontSize: '11px',
                       letterSpacing: '0.1em',
                       background:
                         zone.state === 1
@@ -188,7 +188,7 @@ export const SCPDoorControl = (props) => {
                       border: `1px solid ${zone.state === 1 ? C.amber : C.border}`,
                       borderRadius: 0,
                       color: zone.state === 1 ? C.textBright : C.textDim,
-                      padding: '2px 6px',
+                      padding: '4px 8px',
                     }}
                   >
                     LOCK
@@ -202,7 +202,7 @@ export const SCPDoorControl = (props) => {
                     }
                     style={{
                       fontFamily: C.mono,
-                      fontSize: '9px',
+                      fontSize: '11px',
                       letterSpacing: '0.1em',
                       background:
                         zone.state === 2
@@ -211,7 +211,7 @@ export const SCPDoorControl = (props) => {
                       border: `1px solid ${zone.state === 2 ? C.redBright : C.border}`,
                       borderRadius: 0,
                       color: zone.state === 2 ? C.textBright : C.textDim,
-                      padding: '2px 6px',
+                      padding: '4px 8px',
                     }}
                   >
                     FORCE OPEN
@@ -225,7 +225,7 @@ export const SCPDoorControl = (props) => {
                     }
                     style={{
                       fontFamily: C.mono,
-                      fontSize: '9px',
+                      fontSize: '11px',
                       letterSpacing: '0.1em',
                       background:
                         zone.state === 3
@@ -234,7 +234,7 @@ export const SCPDoorControl = (props) => {
                       border: `1px solid ${zone.state === 3 ? C.red : C.border}`,
                       borderRadius: 0,
                       color: zone.state === 3 ? C.textBright : C.textDim,
-                      padding: '2px 6px',
+                      padding: '4px 8px',
                     }}
                   >
                     BOLT
@@ -245,13 +245,13 @@ export const SCPDoorControl = (props) => {
                     }
                     style={{
                       fontFamily: C.mono,
-                      fontSize: '9px',
+                      fontSize: '11px',
                       letterSpacing: '0.1em',
                       background: 'transparent',
                       border: `1px solid ${C.border}`,
                       borderRadius: 0,
                       color: C.textDim,
-                      padding: '2px 6px',
+                      padding: '4px 8px',
                     }}
                   >
                     CYCLE
@@ -342,7 +342,7 @@ export const SCPDoorControl = (props) => {
                     key={`log-${idx}`}
                     style={{
                       marginBottom: '2px',
-                      padding: '2px 6px',
+                      padding: '4px 8px',
                       borderLeft: `2px solid ${C.border}`,
                       background: C.panel,
                       fontSize: '10px',
@@ -370,7 +370,7 @@ export const SCPDoorControl = (props) => {
             <Box
               style={{
                 color: C.textDim,
-                fontSize: '9px',
+                fontSize: '11px',
                 letterSpacing: '0.1em',
               }}
             >
@@ -379,7 +379,7 @@ export const SCPDoorControl = (props) => {
             </Box>
           </Box>
         </Box>
-      </Window.Content>
-    </Window>
+      </NtosWindow.Content>
+    </NtosWindow>
   );
 };

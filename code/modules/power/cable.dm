@@ -23,6 +23,10 @@
 	/// Legacy Baystation12 cable direction vars, used by site53 map
 	var/d1 = 0
 	var/d2 = 0
+	var/c_tag
+	var/department
+	var/initial_gas
+	var/use_power
 
 /obj/structure/cable/Initialize(mapload)
 	. = ..()

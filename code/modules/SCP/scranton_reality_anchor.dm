@@ -195,13 +195,3 @@
 		L.remove_movespeed_modifier(/datum/movespeed_modifier/reality_suppressed)
 	suppressed_mobs = null
 	return ..()
-
-/obj/item/circuitboard/machine/scranton_reality_anchor
-	name = "Scranton Reality Anchor (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SCIENCE
-	build_path = /obj/machinery/scranton_reality_anchor
-	req_components = list(
-		/obj/item/stock_parts/capacitor = 2,
-		/obj/item/stock_parts/scanning_module = 1,
-		/obj/item/stack/sheet/mineral/plasma = 5,
-		/obj/item/stack/cable_coil = 2)

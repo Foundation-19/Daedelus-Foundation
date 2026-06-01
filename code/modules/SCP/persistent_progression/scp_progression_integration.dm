@@ -10,7 +10,7 @@ SUBSYSTEM_DEF(scp_progression_integration)
 
 /datum/controller/subsystem/scp_progression_integration/Initialize()
 	manager = new /datum/scp_progression_manager()
-	world.log << "SCP Progression Integration Subsystem: Initialized"
+	log_game("SCP Progression Integration Subsystem: Initialized")
 	return ..()
 
 /datum/controller/subsystem/scp_progression_integration/fire()
@@ -204,7 +204,7 @@ SUBSYSTEM_DEF(scp_progression_integration)
 	// Use ckey for additional functionality like player-specific progression tracking
 	if(ckey)
 		// Log the SCP playtime for future implementation
-		world.log << "SCP Progression: Player [ckey] played as SCP [scp_id]"
+		log_game("SCP Progression: Player [ckey] played as SCP [scp_id]")
 
 	// Check SCP-specific achievements
 	switch(scp_id)
@@ -301,11 +301,11 @@ SUBSYSTEM_DEF(scp_progression_integration)
 		// Notify player
 		for(var/client/C in GLOB.clients)
 			if(C.ckey == ckey)
-				to_chat(C, "<span class='achievement'>Achievement Unlocked: [achievement_name] - [achievement_desc]</span>")
+				to_chat(C, span_boldnotice("Achievement Unlocked: [achievement_name] - [achievement_desc]"))
 				break
 
 		// Log achievement
-		world.log << "SCP Achievement: [ckey] unlocked [achievement_name] ([achievement_id])"
+		log_game("SCP Achievement: [ckey] unlocked [achievement_name] ([achievement_id])")
 	else
 		already_unlocked = TRUE
 
@@ -432,8 +432,8 @@ SUBSYSTEM_DEF(scp_progression_integration)
 /datum/scp_progression_data/proc/update_scp457_metrics(mob/living/scp/scp)
 	if(istype(scp, /mob/living/scp/scp457))
 		var/mob/living/scp/scp457/scp457 = scp
-		metrics["current_heat"] = scp457.heat_system.current_heat
-		metrics["active_fires"] = length(scp457.fire_system.active_fires)
+		metrics["current_heat"] = scp457.current_heat
+		metrics["active_fires"] = length(scp457.active_fires)
 
 /datum/scp_progression_data/proc/update_scp939_metrics(mob/living/scp/scp)
 	// Update SCP-939 specific metrics

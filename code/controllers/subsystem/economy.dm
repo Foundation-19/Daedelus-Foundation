@@ -130,6 +130,8 @@ SUBSYSTEM_DEF(economy)
 				/// We don't use transfering, because we already know there's enough money.
 				bank_account.payday()
 
+			if(!length(GLOB.announcement_systems))
+				continue
 			var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
 			if(!announcer)
 				continue //sucks to suck lmao
@@ -149,6 +151,8 @@ SUBSYSTEM_DEF(economy)
 				)
 
 		else
+			if(!length(GLOB.announcement_systems))
+				continue
 			var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
 			if(!announcer)
 				continue //sucks to suck lmao

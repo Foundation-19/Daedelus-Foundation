@@ -52,7 +52,7 @@
 
 	var/obj/item/card/id/id_card = H.get_idcard(TRUE)
 	if(!id_card || !(ACCESS_MEDICAL in id_card.access))
-		to_chat(H, "<span class='warning'>Requires Medical access to operate quarantine systems.</span>")
+		to_chat(H, span_warning("Requires Medical access to operate quarantine systems."))
 		return
 
 	if(quarantine_active)
@@ -84,10 +84,10 @@
 		var/area/A = get_area(H)
 		if(istype(A, /area/scp/medical/quarantine/treatment_a) || istype(A, /area/scp/medical/quarantine/treatment_b))
 			quarantined_patients += H.ckey
-			to_chat(H, "<span class='warning'>Quarantine protocols activated. You are now under medical quarantine. Do not leave the treatment bay.</span>")
+			to_chat(H, span_warning("Quarantine protocols activated. You are now under medical quarantine. Do not leave the treatment bay."))
 
 	report_lockdown_to_round_log("Medical quarantine activated", 0)
-	to_chat(user, "<span class='notice'>Quarantine protocols activated. Airlocks sealed.</span>")
+	to_chat(user, span_notice("Quarantine protocols activated. Airlocks sealed."))
 
 /obj/machinery/quarantine_console/proc/lift_quarantine(mob/user)
 	quarantine_active = FALSE
@@ -100,15 +100,15 @@
 			A.unlock()
 
 	priority_announce("Medical quarantine has been lifted. All quarantine patients cleared for release.", "QUARANTINE LIFTED", null, ANNOUNCER_DEFAULT)
-	to_chat(user, "<span class='notice'>Quarantine lifted. Airlocks unlocked.</span>")
+	to_chat(user, span_notice("Quarantine lifted. Airlocks unlocked."))
 
 /obj/machinery/quarantine_console/proc/run_decontamination(mob/user)
 	if(decon_active)
-		to_chat(user, "<span class='warning'>Decontamination already in progress.</span>")
+		to_chat(user, span_warning("Decontamination already in progress."))
 		return
 
 	decon_active = TRUE
-	to_chat(user, "<span class='notice'>Decontamination sequence initiated.</span>")
+	to_chat(user, span_notice("Decontamination sequence initiated."))
 
 	var/list/patients = list()
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
@@ -121,12 +121,12 @@
 			patients += H
 
 	if(!length(patients))
-		to_chat(user, "<span class='warning'>No patients in decontamination chamber.</span>")
+		to_chat(user, span_warning("No patients in decontamination chamber."))
 		decon_active = FALSE
 		return
 
 	for(var/mob/living/carbon/human/H in patients)
-		to_chat(H, "<span class='warning'>Decontamination spray activated! The chamber fills with sterilizing agents.</span>")
+		to_chat(H, span_warning("Decontamination spray activated! The chamber fills with sterilizing agents."))
 		H.adjustFireLoss(5)
 
 		if(H.sanity)
@@ -140,15 +140,15 @@
 				break
 
 		if(cured)
-			to_chat(H, "<span class='green'>You feel the infection receding... Treatment appears effective!</span>")
+			to_chat(H, span_nicegreen("You feel the infection receding... Treatment appears effective!"))
 		else
-			to_chat(H, "<span class='warning'>The decontamination stings but doesn't seem to help your condition.</span>")
+			to_chat(H, span_warning("The decontamination stings but doesn't seem to help your condition."))
 
 	addtimer(CALLBACK(src, .proc/finish_decontamination), 100)
 
 /obj/machinery/quarantine_console/proc/finish_decontamination()
 	decon_active = FALSE
-	visible_message("<span class='notice'>[src] indicates decontamination cycle complete.</span>")
+	visible_message(span_notice("[src] indicates decontamination cycle complete."))
 
 // Quarantine Scanner - Detects infections
 /obj/machinery/quarantine_scanner
@@ -166,7 +166,7 @@
 	if(!ishuman(user))
 		return
 	if(world.time < scan_cooldown)
-		to_chat(user, "<span class='warning'>Scanner recharging.</span>")
+		to_chat(user, span_warning("Scanner recharging."))
 		return
 
 	var/mob/living/carbon/human/H = user
@@ -188,17 +188,17 @@
 		if(istype(P, /datum/pathogen/foundation) && !istype(P, /datum/pathogen/foundation/scp008))
 			pestilence_level = 100
 
-	to_chat(H, "<span class='boldnotice'>=== Bio-Scan Results ===</span>")
+	to_chat(H, span_boldnotice("=== Bio-Scan Results ==="))
 	if(length(infections))
-		to_chat(H, "<span class='danger'>ANOMALOUS BIOLOGICAL AGENTS DETECTED:</span>")
+		to_chat(H, span_danger("ANOMALOUS BIOLOGICAL AGENTS DETECTED:"))
 		for(var/inf in infections)
-			to_chat(H, "<span class='danger'>- [inf]</span>")
-		to_chat(H, "<span class='warning'>QUARANTINE RECOMMENDED</span>")
+			to_chat(H, span_danger("- [inf]"))
+		to_chat(H, span_warning("QUARANTINE RECOMMENDED"))
 	else
-		to_chat(H, "<span class='green'>No anomalous biological agents detected. Subject is clear.</span>")
+		to_chat(H, span_nicegreen("No anomalous biological agents detected. Subject is clear."))
 
 	if(pestilence_level > 0)
-		to_chat(H, "<span class='userdanger'>PESTILENCE DETECTED - SCP-049 INFECTION CONFIRMED - IMMEDIATE QUARANTINE REQUIRED</span>")
+		to_chat(H, span_userdanger("PESTILENCE DETECTED - SCP-049 INFECTION CONFIRMED - IMMEDIATE QUARANTINE REQUIRED"))
 
 // Treatment Bed
 /obj/machinery/stasis/quarantine_bed
@@ -228,9 +228,9 @@
 				if(istype(P, /datum/pathogen/foundation/scp008))
 					if(prob(60))
 						qdel(P)
-						to_chat(H, "<span class='green'>SCP-008 infection successfully treated!</span>")
+						to_chat(H, span_nicegreen("SCP-008 infection successfully treated!"))
 					else
-						to_chat(H, "<span class='warning'>Treatment partially effective. Infection weakened but not eliminated.</span>")
+						to_chat(H, span_warning("Treatment partially effective. Infection weakened but not eliminated."))
 					break
 		if("Apply SCP-049 Countermeasure")
 			H.adjustToxLoss(-15)
@@ -239,9 +239,9 @@
 				if(istype(P, /datum/pathogen/foundation))
 					if(prob(40))
 						qdel(P)
-						to_chat(H, "<span class='green'>Pestilence successfully treated!</span>")
+						to_chat(H, span_nicegreen("Pestilence successfully treated!"))
 					else
-						to_chat(H, "<span class='warning'>Treatment partially effective. Pestilence remains.</span>")
+						to_chat(H, span_warning("Treatment partially effective. Pestilence remains."))
 					break
 		if("General Treatment")
 			H.adjustBruteLoss(-15)
@@ -249,7 +249,7 @@
 			H.adjustToxLoss(-10)
 			if(H.sanity)
 				H.sanity.adjust_sanity(10, "quarantine_treatment")
-			to_chat(H, "<span class='notice'>General treatment applied. You feel slightly better.</span>")
+			to_chat(H, span_notice("General treatment applied. You feel slightly better."))
 
 /datum/status_effect/bsl4_contagion
 	id = "bsl4_contagion"

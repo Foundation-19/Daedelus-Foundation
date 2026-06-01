@@ -51,7 +51,7 @@
 		"rounds_as_scp" = rounds_as_scp,
 		"rounds_as_staff" = rounds_as_staff,
 		"overall_rating" = overall_rating,
-		"last_updated" = 0,
+		"last_updated" = last_updated,
 		"achievements" = achievements,
 		"violations" = violations,
 		"access_level" = access_level

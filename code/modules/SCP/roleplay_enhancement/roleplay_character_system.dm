@@ -10,7 +10,7 @@ SUBSYSTEM_DEF(roleplay_character)
 
 /datum/controller/subsystem/roleplay_character/Initialize()
 	manager = new /datum/roleplay_character_manager()
-	world.log << "Roleplay Character Subsystem: Initialized"
+	log_game("Roleplay Character Subsystem: Initialized")
 	return ..()
 
 /datum/controller/subsystem/roleplay_character/fire()
@@ -101,7 +101,7 @@ SUBSYSTEM_DEF(roleplay_character)
 
 	// Link to personnel record if available
 	if(SSpersonnel_persistence && SSpersonnel_persistence.manager)
-		linked_personnel_record = SSpersonnel_persistence.manager.personnel_records[ckey]
+		linked_personnel_record = SSpersonnel_persistence?.manager?.personnel_records[ckey]
 
 /datum/roleplay_character_sheet/proc/process_character_development()
 	// Update character development based on recent activities
@@ -206,7 +206,7 @@ SUBSYSTEM_DEF(roleplay_character)
 	// Note: This will be implemented when character reference is available
 	// for(var/client/C in GLOB.clients)
 	// 	if(C.ckey == character.ckey)
-	// 		to_chat(C, "<span class='notice'>Your character has reached level [character_level]!</span>")
+	// 		to_chat(C, span_notice("Your character has reached level [character_level]!"))
 	// 		break
 
 /datum/roleplay_character_growth/proc/check_growth_milestones(datum/mind/mind)
@@ -315,7 +315,7 @@ SUBSYSTEM_DEF(roleplay_character)
 	character_sheets[ckey] = new_character
 	total_characters_created++
 
-	world.log << "Roleplay Character: Created character [name] ([character_type]) for [ckey]"
+	log_game("Roleplay Character: Created character [name] ([character_type]) for [ckey]")
 	return new_character
 
 /datum/roleplay_character_manager/proc/get_character(ckey)

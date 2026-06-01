@@ -58,9 +58,10 @@
 	// Update mob identity
 	parent_mob.name = scp_name
 	parent_mob.real_name = scp_name
-	parent_mob.vars["scp_designation"] = designation
-	parent_mob.vars["scp_class"] = class_type
-	parent_mob.vars["scp_name"] = scp_name
+	var/mob/living/scp/scp_mob = parent_mob
+	scp_mob.scp_designation = designation
+	scp_mob.scp_class = class_type
+	scp_mob.scp_name = scp_name
 
 	// Set default containment level based on class
 	set_containment_level_by_class(class_type)
@@ -89,7 +90,8 @@
 	containment_status = "breached"
 	breach_count++
 	last_breach_time = world.time
-	parent_mob.vars["containment_status"] = containment_status
+	var/mob/living/scp/scp_mob = parent_mob
+	scp_mob.containment_status = containment_status
 
 	trigger_event(COMPONENT_EVENT_BREACH, list("scp" = parent_mob, "time" = world.time))
 	return TRUE
@@ -99,7 +101,8 @@
 		return FALSE
 
 	containment_status = "contained"
-	parent_mob.vars["containment_status"] = containment_status
+	var/mob/living/scp/scp_mob = parent_mob
+	scp_mob.containment_status = containment_status
 
 	trigger_event(COMPONENT_EVENT_CONTAIN, list("scp" = parent_mob, "time" = world.time))
 	return TRUE

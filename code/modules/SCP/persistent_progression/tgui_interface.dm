@@ -305,8 +305,8 @@
 				ach_data["category"] = achievement.achievement_category
 				ach_data["icon"] = achievement.achievement_icon
 				ach_data["points"] = achievement.achievement_points
-				ach_data["rarity"] = achievement.achievement_rarity
-				ach_data["secret"] = achievement.achievement_secret
+				ach_data["rarity"] = achievement.achievement_tier
+				ach_data["secret"] = achievement.achievement_hidden
 				ach_data["unlocked"] = (achievement_id in player_data.achievements)
 				ach_data["progress"] = player_data.achievement_progress[achievement_id] || 0
 				ach_data["max_progress"] = achievement.achievement_max_progress
@@ -315,7 +315,7 @@
 
 	return data
 
-/datum/persistent_progression_ui/ui_act(action, params)
+/datum/persistent_progression_ui/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
@@ -356,24 +356,25 @@
 
 		if("export_data")
 			var/data_json = user_mind.persistent_data.export_to_json()
-			user << browse(data_json, "window=progression_data;size=600x400;can_close=1;can_resize=1")
+			user << ftp(data_json, "player_progression_[usr.ckey]_[time2text(world.time, "YYYYMMDD_HHMMSS")].json")
+			to_chat(user, span_notice("Progression data downloaded."))
 			. = TRUE
 
 		if("save_data")
 			if(user_mind && user_mind.key)
-				SSpersistent_progression.save_player_data(usr.ckey)
-				to_chat(usr, span_notice("Progression data saved."))
+				SSpersistent_progression.save_player_data(user.ckey)
+				to_chat(user, span_notice("Progression data saved."))
 				. = TRUE
 
 		if("load_data")
 			if(user_mind && user_mind.key)
-				var/datum/persistent_player_data/loaded = SSpersistent_progression.load_player_data(usr.ckey)
+				var/datum/persistent_player_data/loaded = SSpersistent_progression.load_player_data(user.ckey)
 				if(loaded)
-					SSpersistent_progression.player_data[usr.ckey] = loaded
+					SSpersistent_progression.player_data[user.ckey] = loaded
 					user_mind.persistent_data = loaded
-					to_chat(usr, span_notice("Progression data reloaded."))
+					to_chat(user, span_notice("Progression data reloaded."))
 				else
-					to_chat(usr, span_warning("No saved data found."))
+					to_chat(user, span_warning("No saved data found."))
 				. = TRUE
 
 		if("test_action")
@@ -518,7 +519,7 @@
 	data["players"] = players
 	return data
 
-/datum/persistent_progression_admin_ui/ui_act(action, params)
+/datum/persistent_progression_admin_ui/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
@@ -599,26 +600,28 @@
 /datum/persistent_progression_player_view_ui/ui_state(mob/user)
 	return GLOB.always_state
 
-/datum/persistent_progression_player_view_ui/ui_act(action, params)
+/datum/persistent_progression_player_view_ui/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
 
+	var/mob/user = ui.user
 	switch(action)
 		if("export_data")
 			var/datum/persistent_player_data/player_data = SSpersistent_progression.get_player_data(ckey)
 			if(player_data)
 				var/data_json = player_data.export_to_json()
-				usr << browse(data_json, "window=progression_data;size=600x400;can_close=1;can_resize=1")
+				usr << ftp(data_json, "player_progression_[ckey]_[time2text(world.time, "YYYYMMDD_HHMMSS")].json")
+				to_chat(usr, span_notice("Player data downloaded."))
 				. = TRUE
 
 		if("reset_progress")
-			if(alert(usr, "Reset all progress for [ckey]?", "Reset Progress", "Yes", "No") == "Yes")
+			if(alert(user, "Reset all progress for [ckey]?", "Reset Progress", "Yes", "No") == "Yes")
 				var/datum/persistent_player_data/player_data = SSpersistent_progression.get_player_data(ckey)
 				if(player_data)
 					player_data.initialize_default_data()
 					SSpersistent_progression.save_player_data(ckey)
-					to_chat(usr, span_notice("Reset [ckey]'s progress."))
+					to_chat(user, span_notice("Reset [ckey]'s progress."))
 					. = TRUE
 
 		if("close_viewer")

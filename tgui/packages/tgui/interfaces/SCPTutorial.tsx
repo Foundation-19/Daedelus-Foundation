@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { useBackend } from '../backend';
 import { Box, Button, Stack } from '../components';
-import { Window } from '../layouts';
+import { NtosWindow } from '../layouts';
 
 type PageData = {
   id: string;
@@ -51,8 +51,8 @@ export const SCPTutorial = (props) => {
   const categories = [...new Set(pages.map((p) => p.category))];
 
   return (
-    <Window theme="scp_terminal" width={600} height={520}>
-      <Window.Content>
+    <NtosWindow width={600} height={520}>
+      <NtosWindow.Content>
         <Box
           style={{
             background: C.bg,
@@ -249,7 +249,7 @@ export const SCPTutorial = (props) => {
             SCP FOUNDATION — ORIENTATION SYSTEM v1.0
           </Box>
         </Box>
-      </Window.Content>
-    </Window>
+      </NtosWindow.Content>
+    </NtosWindow>
   );
 };

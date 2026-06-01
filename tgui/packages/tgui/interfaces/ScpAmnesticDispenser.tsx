@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import { useBackend } from '../backend';
 import { Box, Button, LabeledList, Section } from '../components';
-import { Window } from '../layouts';
+import { NtosWindow } from '../layouts';
 
 type Data = {
   selected_class: string;
@@ -46,8 +46,8 @@ export const ScpAmnesticDispenser = (props) => {
   const stocks = { 'Class-A': stock_a, 'Class-B': stock_b, 'Class-C': stock_c, 'Class-E': stock_e };
 
   return (
-    <Window theme="scp_terminal" width={500} height={450}>
-      <Window.Content scrollable>
+    <NtosWindow width={500} height={450}>
+      <NtosWindow.Content scrollable>
         <Section title="AMNESTIC DISPENSER">
           <Box
             style={{
@@ -185,7 +185,7 @@ export const ScpAmnesticDispenser = (props) => {
             </Box>
           )}
         </Section>
-      </Window.Content>
-    </Window>
+      </NtosWindow.Content>
+    </NtosWindow>
   );
 };

@@ -1,43 +1,3 @@
-#define EXPERIMENT_PHASE_PREPARATION 1
-#define EXPERIMENT_PHASE_EXECUTION 2
-#define EXPERIMENT_PHASE_OBSERVATION 3
-#define EXPERIMENT_PHASE_CONCLUSION 4
-
-#define EXPERIMENT_OUTCOME_SUCCESS_MAJOR 1
-#define EXPERIMENT_OUTCOME_SUCCESS 2
-#define EXPERIMENT_OUTCOME_SUCCESS_MINOR 3
-#define EXPERIMENT_OUTCOME_NEUTRAL 4
-#define EXPERIMENT_OUTCOME_FAILURE_MINOR 5
-#define EXPERIMENT_OUTCOME_FAILURE 6
-#define EXPERIMENT_OUTCOME_FAILURE_MAJOR 7
-#define EXPERIMENT_OUTCOME_CATASTROPHIC 8
-
-#ifndef EXPERIMENT_TYPE_BEHAVIORAL
-#define EXPERIMENT_TYPE_BEHAVIORAL 1
-#define EXPERIMENT_TYPE_CONTAINMENT 2
-#define EXPERIMENT_TYPE_INTERACTION 3
-#define EXPERIMENT_TYPE_HAZARD 4
-#define EXPERIMENT_TYPE_MEDICAL 5
-#define EXPERIMENT_TYPE_TECHNICAL 6
-#define EXPERIMENT_TYPE_COGNITIVE 7
-#define EXPERIMENT_TYPE_EXPLORATION 8
-#define EXPERIMENT_TYPE_CARE 9
-#define EXPERIMENT_TYPE_OBSERVATION 10
-
-#define EXPERIMENT_RISK_MINIMAL 1
-#define EXPERIMENT_RISK_LOW 2
-#define EXPERIMENT_RISK_MEDIUM 3
-#define EXPERIMENT_RISK_HIGH 4
-#define EXPERIMENT_RISK_CRITICAL 5
-#endif
-
-#define EXPERIMENT_ACCESS_NONE 0
-#define EXPERIMENT_ACCESS_OBSERVE 1
-#define EXPERIMENT_ACCESS_ASSIST 2
-#define EXPERIMENT_ACCESS_STANDARD 3
-#define EXPERIMENT_ACCESS_ADVANCED 4
-#define EXPERIMENT_ACCESS_FULL 5
-
 SUBSYSTEM_DEF(scp_experiments)
 	name = "SCP Experiments"
 	wait = 600
@@ -47,7 +7,7 @@ SUBSYSTEM_DEF(scp_experiments)
 /datum/controller/subsystem/scp_experiments/Initialize()
 	manager = new /datum/scp_experiment_manager()
 	manager.initialize_experiments()
-	world.log << "SCP Experiment System: Initialized"
+	log_game("SCP Experiment System: Initialized")
 	return ..()
 
 /datum/controller/subsystem/scp_experiments/fire()
@@ -72,11 +32,11 @@ SUBSYSTEM_DEF(scp_experiments)
 /datum/scp_experiment_manager/proc/initialize_experiments()
 	load_experiment_templates()
 	initialize_certifications()
-	world.log << "SCP Experiment Manager: Loaded [length(experiment_templates)] experiment templates"
+	log_game("SCP Experiment Manager: Loaded [length(experiment_templates)] experiment templates")
 
 /datum/scp_experiment_manager/proc/load_experiment_templates()
 	initialize_all_scp_experiments()
-	world.log << "SCP Experiment Manager: Template loading initialized"
+	log_game("SCP Experiment Manager: Template loading initialized")
 
 /datum/scp_experiment_manager/proc/initialize_certifications()
 	for(var/job in list("Scientist", "Research Director", "Senior Researcher", "Research Assistant", 
@@ -168,13 +128,13 @@ SUBSYSTEM_DEF(scp_experiments)
 	
 	var/access = can_conduct_experiment(researcher, experiment_type, template.scp_class, template.risk_level)
 	if(access < EXPERIMENT_ACCESS_STANDARD)
-		to_chat(researcher, "<span class='warning'>You are not certified to conduct this experiment.</span>")
+		to_chat(researcher, span_warning("You are not certified to conduct this experiment."))
 		return null
 	
 	var/cooldown_key = "[researcher.ckey]_[scp_id]_[experiment_type]"
 	if(experiment_cooldowns[cooldown_key] && world.time < experiment_cooldowns[cooldown_key])
 		var/remaining = (experiment_cooldowns[cooldown_key] - world.time) / 600
-		to_chat(researcher, "<span class='warning'>This experiment is on cooldown for [round(remaining, 0.1)] more minutes.</span>")
+		to_chat(researcher, span_warning("This experiment is on cooldown for [round(remaining, 0.1)] more minutes."))
 		return null
 	
 	var/exp_id = "exp_[scp_id]_[experiment_type]_[global_experiment_count]"
@@ -187,7 +147,7 @@ SUBSYSTEM_DEF(scp_experiments)
 	
 	SSscp_persistence.manager?.scp_instances?[scp_id]?.add_interaction_record(researcher, "experiment_started:[experiment_type]")
 	
-	to_chat(researcher, "<span class='notice'>Experiment [experiment.name] has begun. Phase: Preparation.</span>")
+	to_chat(researcher, span_notice("Experiment [experiment.name] has begun. Phase: Preparation."))
 	
 	return experiment
 
@@ -285,7 +245,7 @@ SUBSYSTEM_DEF(scp_experiments)
 	
 	var/datum/researcher_data/rd
 	if(SSscp_research && SSscp_research.manager)
-		rd = SSscp_research.manager.get_researcher_profile(researcher.ckey)
+		rd = SSscp_research?.manager?.get_researcher_profile(researcher.ckey)
 		if(rd)
 			rd.research_points += max(0, xp_change)
 			rd.completed_projects++
@@ -295,7 +255,7 @@ SUBSYSTEM_DEF(scp_experiments)
 	
 	if(reward_modifier > 1.0 && SSbudget_system && SSbudget_system.manager)
 		var/budget_reward = round(100 * reward_modifier * experiment_reward_multiplier)
-		SSbudget_system.manager.add_transaction("research", "REVENUE", budget_reward, "experiment_reward", 
+		SSbudget_system?.manager?.add_transaction("research", "REVENUE", budget_reward, "experiment_reward", 
 			"Experiment completion: [exp.name]", researcher.ckey)
 	
 	notify_experiment_result(researcher, exp, outcome, xp_change)
@@ -341,13 +301,13 @@ SUBSYSTEM_DEF(scp_experiments)
 	if(instance)
 		instance.containment_status = "breached"
 		instance.add_breach_record()
-		SSscp_persistence.manager.active_breaches++
+		SSscp_persistence?.manager?.active_breaches++
 	
 	message_admins("CATASTROPHIC EXPERIMENT FAILURE on [exp.scp_id] by [researcher.key]!")
 	
 	for(var/mob/living/carbon/human/H in range(10, researcher))
 		if(H != researcher)
-			to_chat(H, "<span class='danger'>ALERT: Catastrophic experiment failure in [get_area(researcher)]!</span>")
+			to_chat(H, span_danger("ALERT: Catastrophic experiment failure in [get_area(researcher)]!"))
 
 /datum/scp_experiment_manager/proc/register_experiment_template(datum/scp_experiment_template/template)
 	if(!template || !template.template_id)
@@ -363,7 +323,7 @@ SUBSYSTEM_DEF(scp_experiments)
 		return FALSE
 	exp.status = "suspended"
 	if(user)
-		to_chat(user, "<span class='notice'>Experiment [exp.name] has been suspended.</span>")
+		to_chat(user, span_notice("Experiment [exp.name] has been suspended."))
 		log_game("[key_name(user)] suspended experiment [exp.name] ([experiment_id])")
 	return TRUE
 
@@ -375,7 +335,7 @@ SUBSYSTEM_DEF(scp_experiments)
 		return FALSE
 	exp.status = "active"
 	if(user)
-		to_chat(user, "<span class='notice'>Experiment [exp.name] has been resumed.</span>")
+		to_chat(user, span_notice("Experiment [exp.name] has been resumed."))
 	return TRUE
 
 /datum/scp_experiment_manager/proc/terminate_experiment(experiment_id, mob/user)
@@ -388,7 +348,7 @@ SUBSYSTEM_DEF(scp_experiments)
 	completed_experiments[experiment_id] = exp
 	active_experiments -= experiment_id
 	if(user)
-		to_chat(user, "<span class='warning'>Experiment [exp.name] has been terminated.</span>")
+		to_chat(user, span_warning("Experiment [exp.name] has been terminated."))
 		log_game("[key_name(user)] terminated experiment [exp.name] ([experiment_id])")
 	return TRUE
 
@@ -575,7 +535,7 @@ SUBSYSTEM_DEF(scp_experiments)
 			scp_parent = H
 			return
 	if(SSscp_persistence && SSscp_persistence.manager)
-		for(var/instance_id in SSscp_persistence.manager.scp_instances)
+		for(var/instance_id in SSscp_persistence?.manager?.scp_instances)
 			if(instance_id == scp_id)
 				return
 
@@ -616,16 +576,16 @@ SUBSYSTEM_DEF(scp_experiments)
 			phase_name = "Conclusion"
 	
 	if(primary_researcher)
-		to_chat(primary_researcher, "<span class='notice'>Experiment [name] has advanced to: [phase_name] phase.</span>")
+		to_chat(primary_researcher, span_notice("Experiment [name] has advanced to: [phase_name] phase."))
 	
 	for(var/mob/assistant in assistants)
-		to_chat(assistant, "<span class='notice'>Experiment [name] has advanced to: [phase_name] phase.</span>")
+		to_chat(assistant, span_notice("Experiment [name] has advanced to: [phase_name] phase."))
 
 /datum/scp_experiment/proc/conclude_experiment()
 	var/outcome = determine_outcome()
 	
 	if(SSscp_experiments && SSscp_experiments.manager)
-		SSscp_experiments.manager.complete_experiment(experiment_id, outcome, primary_researcher)
+		SSscp_experiments?.manager?.complete_experiment(experiment_id, outcome, primary_researcher)
 
 /datum/scp_experiment/proc/determine_outcome()
 	var/base_success_chance = 50
@@ -666,8 +626,8 @@ SUBSYSTEM_DEF(scp_experiments)
 		return FALSE
 	
 	assistants += assistant
-	to_chat(primary_researcher, "<span class='notice'>[assistant.name] has joined the experiment as an assistant.</span>")
-	to_chat(assistant, "<span class='notice'>You have joined experiment [name] as an assistant.</span>")
+	to_chat(primary_researcher, span_notice("[assistant.name] has joined the experiment as an assistant."))
+	to_chat(assistant, span_notice("You have joined experiment [name] as an assistant."))
 	return TRUE
 
 /datum/scp_experiment/proc/remove_assistant(mob/living/carbon/human/assistant)
@@ -675,8 +635,8 @@ SUBSYSTEM_DEF(scp_experiments)
 		return FALSE
 	
 	assistants -= assistant
-	to_chat(primary_researcher, "<span class='notice'>[assistant.name] has left the experiment.</span>")
-	to_chat(assistant, "<span class='notice'>You have left experiment [name].</span>")
+	to_chat(primary_researcher, span_notice("[assistant.name] has left the experiment."))
+	to_chat(assistant, span_notice("You have left experiment [name]."))
 	return TRUE
 
 /datum/scp_experiment/proc/record_data(key, value)
@@ -700,7 +660,7 @@ SUBSYSTEM_DEF(scp_experiments)
 	var/mob/living/carbon/human/H = src
 	
 	if(!SSscp_experiments || !SSscp_experiments.manager)
-		to_chat(H, "<span class='warning'>Experiment system not available.</span>")
+		to_chat(H, span_warning("Experiment system not available."))
 		return
 	
 	var/datum/scp_experiment_manager/manager = SSscp_experiments.manager
@@ -732,7 +692,7 @@ SUBSYSTEM_DEF(scp_experiments)
 				
 				message += "- [exp["name"]] (Risk: [exp["risk"]], Access: [access_text])[cooldown_text]<br>"
 	
-	to_chat(H, "<span class='notice'>[message]</span>")
+	to_chat(H, span_notice("[message]"))
 
 /mob/proc/conduct_scp_experiment()
 	set name = "Conduct SCP Experiment"
@@ -745,7 +705,7 @@ SUBSYSTEM_DEF(scp_experiments)
 	var/mob/living/carbon/human/H = src
 	
 	if(!SSscp_experiments || !SSscp_experiments.manager)
-		to_chat(H, "<span class='warning'>Experiment system not available.</span>")
+		to_chat(H, span_warning("Experiment system not available."))
 		return
 	
 	var/datum/scp_experiment_manager/manager = SSscp_experiments.manager
@@ -755,7 +715,7 @@ SUBSYSTEM_DEF(scp_experiments)
 		scp_options += scp_id
 	
 	if(!length(scp_options))
-		to_chat(H, "<span class='warning'>No SCPs available for experimentation.</span>")
+		to_chat(H, span_warning("No SCPs available for experimentation."))
 		return
 	
 	var/selected_scp = input(H, "Select an SCP to experiment on:", "SCP Experiment") as null|anything in scp_options
@@ -764,7 +724,7 @@ SUBSYSTEM_DEF(scp_experiments)
 	
 	var/list/available_experiments = manager.get_available_experiments(H, selected_scp)
 	if(!length(available_experiments))
-		to_chat(H, "<span class='warning'>No experiments available for [selected_scp] at your clearance level.</span>")
+		to_chat(H, span_warning("No experiments available for [selected_scp] at your clearance level."))
 		return
 	
 	var/list/experiment_names = list()
@@ -779,7 +739,7 @@ SUBSYSTEM_DEF(scp_experiments)
 	
 	var/datum/scp_experiment_template/template = manager.experiment_templates[selected_exp["id"]]
 	if(!template)
-		to_chat(H, "<span class='warning'>Experiment template not found.</span>")
+		to_chat(H, span_warning("Experiment template not found."))
 		return
 	
 	var/confirm = alert(H, "Start experiment '[template.name]' on [selected_scp]?\nRisk Level: [template.risk_level]\nDuration: [template.base_duration/10] seconds", "Confirm Experiment", "Yes", "No")
@@ -788,9 +748,9 @@ SUBSYSTEM_DEF(scp_experiments)
 	
 	var/datum/scp_experiment/exp = manager.start_experiment(selected_scp, template.experiment_type, H)
 	if(exp)
-		to_chat(H, "<span class='notice'>Experiment started successfully. Check 'View Active Experiments' for progress.</span>")
+		to_chat(H, span_notice("Experiment started successfully. Check 'View Active Experiments' for progress."))
 	else
-		to_chat(H, "<span class='warning'>Failed to start experiment.</span>")
+		to_chat(H, span_warning("Failed to start experiment."))
 
 /mob/proc/view_active_experiments()
 	set name = "View Active Experiments"
@@ -798,7 +758,7 @@ SUBSYSTEM_DEF(scp_experiments)
 	set desc = "View currently active experiments."
 	
 	if(!SSscp_experiments || !SSscp_experiments.manager)
-		to_chat(src, "<span class='warning'>Experiment system not available.</span>")
+		to_chat(src, span_warning("Experiment system not available."))
 		return
 	
 	var/datum/scp_experiment_manager/manager = SSscp_experiments.manager
@@ -827,7 +787,7 @@ SUBSYSTEM_DEF(scp_experiments)
 			message += "- Researcher: [exp.primary_researcher?.name || "Unknown"]<br>"
 			message += "- Assistants: [length(exp.assistants)]<br><br>"
 	
-	to_chat(src, "<span class='notice'>[message]</span>")
+	to_chat(src, span_notice("[message]"))
 
 /proc/get_experiment_type_name(type)
 	switch(type)

@@ -333,7 +333,7 @@ SUBSYSTEM_DEF(security_persistence)
 
 /datum/security_persistence_manager/proc/save_security_data_to_database()
 	if(!SSdbcore.Connect())
-		world.log << "Security Persistence: Database connection failed, skipping database save"
+		log_game("Security Persistence: Database connection failed, skipping database save")
 		return
 
 	// Save security records to database
@@ -359,7 +359,7 @@ SUBSYSTEM_DEF(security_persistence)
 		))
 
 		if(!query_save_record.warn_execute())
-			world.log << "Security Persistence: Failed to save security record for [ckey]"
+			log_game("Security Persistence: Failed to save security record for [ckey]")
 		qdel(query_save_record)
 
 	// Save security incidents to database
@@ -389,7 +389,7 @@ SUBSYSTEM_DEF(security_persistence)
 		))
 
 		if(!query_save_incident.warn_execute())
-			world.log << "Security Persistence: Failed to save security incident [incident_id]"
+			log_game("Security Persistence: Failed to save security incident [incident_id]")
 		qdel(query_save_incident)
 
 	// Save clearance requests to database
@@ -414,7 +414,7 @@ SUBSYSTEM_DEF(security_persistence)
 		))
 
 		if(!query_save_request.warn_execute())
-			world.log << "Security Persistence: Failed to save clearance request [request_id]"
+			log_game("Security Persistence: Failed to save clearance request [request_id]")
 		qdel(query_save_request)
 
 	// Save security protocols to database
@@ -441,7 +441,7 @@ SUBSYSTEM_DEF(security_persistence)
 		))
 
 		if(!query_save_protocol.warn_execute())
-			world.log << "Security Persistence: Failed to save security protocol [protocol_id]"
+			log_game("Security Persistence: Failed to save security protocol [protocol_id]")
 		qdel(query_save_protocol)
 
 	// Save access logs to database
@@ -465,10 +465,10 @@ SUBSYSTEM_DEF(security_persistence)
 		))
 
 		if(!query_save_log.warn_execute())
-			world.log << "Security Persistence: Failed to save access log [log_id]"
+			log_game("Security Persistence: Failed to save access log [log_id]")
 		qdel(query_save_log)
 
-	world.log << "Security Persistence: Saved [length(security_records)] security records, [length(security_incidents)] incidents, [length(clearance_requests)] requests, [length(security_protocols)] protocols, and [length(access_logs)] access logs to database"
+	log_game("Security Persistence: Saved [length(security_records)] security records, [length(security_incidents)] incidents, [length(clearance_requests)] requests, [length(security_protocols)] protocols, and [length(access_logs)] access logs to database")
 
 /datum/security_persistence_manager/proc/load_security_data()
 	// Load from database first (takes precedence)
@@ -564,7 +564,7 @@ SUBSYSTEM_DEF(security_persistence)
 /*
 /datum/security_persistence_manager/proc/load_security_data_from_database()
 	if(!SSdbcore.Connect())
-		world.log << "Security Persistence: Database connection failed, skipping database load"
+		log_game("Security Persistence: Database connection failed, skipping database load")
 		return
 
 	// Load security records from database
@@ -572,7 +572,7 @@ SUBSYSTEM_DEF(security_persistence)
 		"SELECT ckey, real_name, security_clearance, security_rating, security_status, clearance_history, disciplinary_actions, last_updated FROM [format_table_name('security_records')]"
 	)
 	if(!query_load_records.warn_execute())
-		world.log << "Security Persistence: Could not load security records from database (table may not exist)"
+		log_game("Security Persistence: Could not load security records from database (table may not exist)")
 		qdel(query_load_records)
 		return
 
@@ -601,7 +601,7 @@ SUBSYSTEM_DEF(security_persistence)
 		"SELECT incident_id, incident_type, incident_description, severity, location, involved_personnel, witnesses, timestamp, resolved, resolution_notes, security_rating_impact FROM [format_table_name('security_incidents')]"
 	)
 	if(!query_load_incidents.warn_execute())
-		world.log << "Security Persistence: Could not load security incidents from database (table may not exist)"
+		log_game("Security Persistence: Could not load security incidents from database (table may not exist)")
 		qdel(query_load_incidents)
 		return
 
@@ -636,7 +636,7 @@ SUBSYSTEM_DEF(security_persistence)
 		"SELECT request_id, applicant_ckey, requested_clearance, reason, approver_ckey, status, timestamp, approval_notes FROM [format_table_name('security_clearance_requests')]"
 	)
 	if(!query_load_requests.warn_execute())
-		world.log << "Security Persistence: Could not load clearance requests from database (table may not exist)"
+		log_game("Security Persistence: Could not load clearance requests from database (table may not exist)")
 		qdel(query_load_requests)
 		return
 
@@ -663,7 +663,7 @@ SUBSYSTEM_DEF(security_persistence)
 		"SELECT protocol_id, protocol_name, protocol_description, clearance_required, activation_conditions, protocol_steps, status, effectiveness_rating, last_updated FROM [format_table_name('security_protocols')]"
 	)
 	if(!query_load_protocols.warn_execute())
-		world.log << "Security Persistence: Could not load security protocols from database (table may not exist)"
+		log_game("Security Persistence: Could not load security protocols from database (table may not exist)")
 		qdel(query_load_protocols)
 		return
 
@@ -693,7 +693,7 @@ SUBSYSTEM_DEF(security_persistence)
 		"SELECT log_id, ckey, access_point, access_granted, timestamp, clearance_level, reason FROM [format_table_name('security_access_logs')]"
 	)
 	if(!query_load_logs.warn_execute())
-		world.log << "Security Persistence: Could not load access logs from database (table may not exist)"
+		log_game("Security Persistence: Could not load access logs from database (table may not exist)")
 		qdel(query_load_logs)
 		return
 
@@ -714,20 +714,20 @@ SUBSYSTEM_DEF(security_persistence)
 		access_logs[log_id] = log
 	qdel(query_load_logs)
 
-	world.log << "Security Persistence: Loaded [length(security_records)] security records, [length(security_incidents)] incidents, [length(clearance_requests)] requests, [length(security_protocols)] protocols, and [length(access_logs)] access logs from database"
+	log_game("Security Persistence: Loaded [length(security_records)] security records, [length(security_incidents)] incidents, [length(clearance_requests)] requests, [length(security_protocols)] protocols, and [length(access_logs)] access logs from database")
 */
 
 // Subsystem initialization
 /datum/controller/subsystem/security_persistence/Initialize()
-	world.log << "Security persistence subsystem initializing..."
+	log_game("Security persistence subsystem initializing...")
 	manager = new /datum/security_persistence_manager()
-	world.log << "Security persistence manager created"
+	log_game("Security persistence manager created")
 
 	// Load existing security records from datacore
-	world.log << "Loading existing security records from datacore..."
+	log_game("Loading existing security records from datacore...")
 	manager.load_existing_security_records()
 
-	world.log << "Security records count at initialization: [length(manager.security_records)]"
+	log_game("Security records count at initialization: [length(manager.security_records)]")
 	return ..()
 
 /datum/controller/subsystem/security_persistence/fire()
@@ -759,7 +759,7 @@ SUBSYSTEM_DEF(security_persistence)
 	if(!SSdatacore)
 		return
 
-	world.log << "Security: Loading existing security records from datacore..."
+	log_game("Security: Loading existing security records from datacore...")
 
 	// Load from general records (station records)
 	for(var/datum/data/record/general_record in SSdatacore.get_records(DATACORE_RECORDS_STATION))
@@ -772,7 +772,7 @@ SUBSYSTEM_DEF(security_persistence)
 				security_record.last_updated = world.time
 				security_records[ckey] = security_record
 
-				world.log << "Security: Loaded general record for [general_record.fields[DATACORE_NAME]]"
+				log_game("Security: Loaded general record for [general_record.fields[DATACORE_NAME]]")
 
 	// Load from security records (detailed security data)
 	for(var/datum/data/record/security_record in SSdatacore.get_records(DATACORE_RECORDS_SECURITY))
@@ -793,7 +793,7 @@ SUBSYSTEM_DEF(security_persistence)
 
 				existing_record.last_updated = world.time
 
-				world.log << "Security: Updated security record for [security_record.fields[DATACORE_NAME]] (Status: [existing_record.security_status])"
+				log_game("Security: Updated security record for [security_record.fields[DATACORE_NAME]] (Status: [existing_record.security_status])")
 			else
 				// Create new record if general record doesn't exist
 				var/datum/security_record/new_record = new /datum/security_record(ckey, security_record.fields[DATACORE_NAME])
@@ -801,9 +801,9 @@ SUBSYSTEM_DEF(security_persistence)
 					new_record.security_status = security_record.fields[DATACORE_CRIMINAL_STATUS]
 				security_records[ckey] = new_record
 
-				world.log << "Security: Created new security record for [security_record.fields[DATACORE_NAME]]"
+				log_game("Security: Created new security record for [security_record.fields[DATACORE_NAME]]")
 
-	world.log << "Security: Loaded [length(security_records)] security records from datacore"
+	log_game("Security: Loaded [length(security_records)] security records from datacore")
 
 // Add security personnel
 /datum/security_persistence_manager/proc/add_security_personnel(var/ckey, var/real_name, var/clearance_level = 1)
@@ -833,7 +833,7 @@ SUBSYSTEM_DEF(security_persistence)
 	var/list/recommendations = list()
 	var/scan_severity = 0
 
-	world.log << "Security: Starting comprehensive security scan - Type: [scan_type]"
+	log_game("Security: Starting comprehensive security scan - Type: [scan_type]")
 
 	// Always perform all scans for now (simplified)
 	var/list/physical_results = scan_physical_security_systems()
@@ -900,7 +900,7 @@ SUBSYSTEM_DEF(security_persistence)
 		"detailed_results" = scan_results
 	)
 
-	world.log << "Security: Scan completed - [length(threats_found)] threats, [length(vulnerabilities)] vulnerabilities, severity: [scan_severity]"
+	log_game("Security: Scan completed - [length(threats_found)] threats, [length(vulnerabilities)] vulnerabilities, severity: [scan_severity]")
 
 	return final_results
 
@@ -937,7 +937,7 @@ SUBSYSTEM_DEF(security_persistence)
 		results["vulnerabilities"] += "[maintenance_breaches] maintenance access points"
 		results["severity"] += 1
 
-	world.log << "Security: Physical security scan found [threat_count] threats"
+	log_game("Security: Physical security scan found [threat_count] threats")
 	return results
 
 // Access Control Systems Scan
@@ -969,7 +969,7 @@ SUBSYSTEM_DEF(security_persistence)
 		results["vulnerabilities"] += "[over_privileged] personnel with excessive clearance levels"
 		results["severity"] += 1
 
-	world.log << "Security: Access control scan found [threat_count] threats"
+	log_game("Security: Access control scan found [threat_count] threats")
 	return results
 
 // Surveillance Systems Scan
@@ -1007,7 +1007,7 @@ SUBSYSTEM_DEF(security_persistence)
 			results["vulnerabilities"] += "Low surveillance coverage: [round(coverage_ratio * 100)]%"
 			results["severity"] += 2
 
-	world.log << "Security: Surveillance scan found [threat_count] threats, [compromised_cameras]/[total_cameras] cameras compromised"
+	log_game("Security: Surveillance scan found [threat_count] threats, [compromised_cameras]/[total_cameras] cameras compromised")
 	return results
 
 // Communication Systems Scan
@@ -1030,7 +1030,7 @@ SUBSYSTEM_DEF(security_persistence)
 			results["threats"] += "Compromised radio at [radio.loc]"
 			results["severity"] += 1
 
-	world.log << "Security: Communication systems scan found [threat_count] threats"
+	log_game("Security: Communication systems scan found [threat_count] threats")
 	return results
 
 // Database Systems Scan
@@ -1054,7 +1054,7 @@ SUBSYSTEM_DEF(security_persistence)
 
 
 
-	world.log << "Security: Database systems scan found [threat_count] threats"
+	log_game("Security: Database systems scan found [threat_count] threats")
 	return results
 
 // Network Systems Scan
@@ -1069,7 +1069,7 @@ SUBSYSTEM_DEF(security_persistence)
 			results["threats"] += "Compromised telecomms at [telecomms.loc]"
 			results["severity"] += 3
 
-	world.log << "Security: Network systems scan found [threat_count] threats"
+	log_game("Security: Network systems scan found [threat_count] threats")
 	return results
 
 // Personnel Security Scan
@@ -1107,7 +1107,7 @@ SUBSYSTEM_DEF(security_persistence)
 			results["threats"] += "Terminated personnel still in system: [record.real_name]"
 			results["severity"] += 3
 
-	world.log << "Security: Personnel security scan found [threat_count] threats, [low_rating_personnel] low-rated personnel"
+	log_game("Security: Personnel security scan found [threat_count] threats, [low_rating_personnel] low-rated personnel")
 	return results
 
 // Containment Systems Scan
@@ -1147,7 +1147,7 @@ SUBSYSTEM_DEF(security_persistence)
 		results["threats"] += "[high_severity_incidents] high-severity incidents"
 		results["severity"] += high_severity_incidents * 2
 
-	world.log << "Security: Containment systems scan found [threat_count] threats, [containment_breaches] breaches"
+	log_game("Security: Containment systems scan found [threat_count] threats, [containment_breaches] breaches")
 	return results
 
 // Generate Security Recommendations
@@ -1205,8 +1205,8 @@ SUBSYSTEM_DEF(security_persistence)
 	var/savefile/S = new /savefile("data/security_persistence.json")
 	if(S)
 		S["data"] << null
-		world.log << "Security: Cleared persistent storage file"
+		log_game("Security: Cleared persistent storage file")
 
-	world.log << "Security: Cleared all persistent storage data"
+	log_game("Security: Cleared all persistent storage data")
 
 

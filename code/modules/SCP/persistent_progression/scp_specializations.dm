@@ -18,7 +18,7 @@ SUBSYSTEM_DEF(scp_specializations)
 /datum/controller/subsystem/scp_specializations/Initialize()
 	manager = new /datum/specialization_manager()
 	manager.initialize_specializations()
-	world.log << "SCP Specialization System: Initialized"
+	log_game("SCP Specialization System: Initialized")
 	return ..()
 
 /datum/controller/subsystem/scp_specializations/fire()
@@ -193,8 +193,8 @@ SUBSYSTEM_DEF(scp_specializations)
 /datum/specialization_manager/proc/notify_tier_advancement(ckey, track_name, tier_name)
 	for(var/client/C in GLOB.clients)
 		if(C.ckey == ckey)
-			to_chat(C, "<span class='boldnotice'>SPECIALIZATION ADVANCEMENT!</span>")
-			to_chat(C, "<span class='notice'>You have advanced to [tier_name] in [track_name]!</span>")
+			to_chat(C, span_boldnotice("SPECIALIZATION ADVANCEMENT!"))
+			to_chat(C, span_notice("You have advanced to [tier_name] in [track_name]!"))
 			break
 
 /datum/specialization_manager/proc/apply_tier_bonuses(ckey, track_type, tier, old_tier)
@@ -363,14 +363,14 @@ SUBSYSTEM_DEF(scp_specializations)
 	set desc = "View your specialization progress."
 	
 	if(!SSscp_specializations || !SSscp_specializations.manager)
-		to_chat(src, "<span class='warning'>Specialization system not available.</span>")
+		to_chat(src, span_warning("Specialization system not available."))
 		return
 	
 	var/datum/specialization_manager/manager = SSscp_specializations.manager
 	var/datum/player_specialization/ps = manager.get_player_specialization(ckey)
 	
 	if(!ps)
-		to_chat(src, "<span class='warning'>Could not retrieve specialization data.</span>")
+		to_chat(src, span_warning("Could not retrieve specialization data."))
 		return
 	
 	var/list/summary = ps.get_summary()
@@ -405,7 +405,7 @@ SUBSYSTEM_DEF(scp_specializations)
 		message += "- Rating Modifier: +[round(summary["bonuses"]["rating_modifier"] * 100)]%<br>"
 		message += "- Detection Range: +[summary["bonuses"]["detection_range"]]<br>"
 	
-	to_chat(src, "<span class='notice'>[message]</span>")
+	to_chat(src, span_notice("[message]"))
 
 /proc/award_specialization_xp(ckey, track_type, amount)
 	if(!SSscp_specializations || !SSscp_specializations.manager)

@@ -185,15 +185,15 @@ SUBSYSTEM_DEF(psychological_persistence)
 
 // Subsystem initialization
 /datum/controller/subsystem/psychological_persistence/Initialize()
-	world.log << "Psychological persistence subsystem initializing..."
+	log_game("Psychological persistence subsystem initializing...")
 	manager = new /datum/psychological_persistence_manager()
-	world.log << "Psychological persistence manager created"
+	log_game("Psychological persistence manager created")
 
 	// Load existing psychological data from game systems
-	world.log << "Loading existing psychological data..."
+	log_game("Loading existing psychological data...")
 	manager.load_existing_psychological_data()
 
-	world.log << "Mental health records count at initialization: [length(manager.mental_health_records)]"
+	log_game("Mental health records count at initialization: [length(manager.mental_health_records)]")
 	return ..()
 
 /datum/controller/subsystem/psychological_persistence/fire()
@@ -202,7 +202,7 @@ SUBSYSTEM_DEF(psychological_persistence)
 
 // Load existing psychological data from game systems
 /datum/psychological_persistence_manager/proc/load_existing_psychological_data()
-	world.log << "Psychological: Loading existing psychological data..."
+	log_game("Psychological: Loading existing psychological data...")
 
 	// Load from general records (station records)
 	if(SSdatacore)
@@ -232,7 +232,7 @@ SUBSYSTEM_DEF(psychological_persistence)
 					mental_health_records[ckey] = record
 					total_staff_assessed++
 
-	world.log << "Psychological: Loaded [length(mental_health_records)] mental health records"
+	log_game("Psychological: Loaded [length(mental_health_records)] mental health records")
 
 // Add mental health record
 /datum/psychological_persistence_manager/proc/add_mental_health_record(var/ckey, var/real_name)
@@ -524,4 +524,8 @@ SUBSYSTEM_DEF(psychological_persistence)
 // Save psychological data
 /datum/psychological_persistence_manager/proc/save_psychological_data()
 	// This would save data to persistent storage
-	world.log << "Psychological: Saving psychological data to persistent storage"
+	log_game("Psychological: Saving psychological data to persistent storage")
+
+/datum/psychological_persistence_manager/proc/load_psychological_data()
+	// This would load data from persistent storage
+	log_game("Psychological: Loading psychological data from persistent storage")

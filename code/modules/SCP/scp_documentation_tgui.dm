@@ -108,15 +108,11 @@
 	return sections
 
 /datum/scp_documentation_interface/proc/get_section_category(section_key)
-	switch(section_key)
-		if("overview", "components", "human_conversion")
-			return "Core System"
-		if("admin_commands", "troubleshooting")
-			return "Administration"
-		if("technical")
-			return "Technical"
-		else
-			return "General"
+	if(section_key in list("facility_overview", "object_classes", "security_codes", "breach_protocol", "dclass_protocols", "research_protocols", "mtf_protocols", "memetic_hazards"))
+		return "Facility Protocols"
+	if(findtext(section_key, "scp_") == 1)
+		return "SCP Documentation"
+	return "General"
 
 /datum/scp_documentation_interface/proc/refresh_system_status()
 	last_status_update = world.time
@@ -183,35 +179,65 @@
 	var/list/scps = list()
 	var/active_count = 0
 	var/component_count = 0
+	var/list/seen_ids = list()
 
-	for(var/mob/living/M in GLOB.mob_list)
-		if(QDELETED(M))
+	for(var/mob/living/scp/S in GLOB.mob_list)
+		if(QDELETED(S))
 			continue
-		if(!M.SCP)
+		var/scp_id = SSscp_persistence?.manager?.get_scp_id(S)
+		if(!scp_id)
+			scp_id = S.SCP?.designation || "UNKNOWN"
+		if(scp_id in seen_ids)
 			continue
+		seen_ids[scp_id] = TRUE
 
 		active_count++
-		var/uses_components = M.SCP.uses_advanced_components
+		var/uses_components = S.SCP?.uses_advanced_components
 		if(uses_components)
 			component_count++
 
 		var/list/scp_data = list(
-			"id" = M.SCP.designation,
-			"name" = M.SCP.name,
-			"classification" = M.SCP.classification,
-			"type" = "[M.type]",
+			"id" = scp_id,
+			"name" = S.SCP?.name || S.name,
+			"classification" = S.SCP?.classification || "Unknown",
+			"type" = "[S.type]",
 			"uses_components" = uses_components,
-			"player_controlled" = !!M.ckey,
-			"player_name" = M.ckey || "NPC",
-			"health" = M.health,
-			"max_health" = M.maxHealth,
-			"location" = "[get_area_name(M)]",
-			"status" = M.stat == DEAD ? "Dead" : (M.stat == UNCONSCIOUS ? "Unconscious" : "Alive")
+			"player_controlled" = !!S.ckey,
+			"player_name" = S.ckey || "NPC",
+			"health" = S.health,
+			"max_health" = S.maxHealth,
+			"location" = "[get_area_name(S)]",
+			"status" = S.stat == DEAD ? "Dead" : (S.stat == UNCONSCIOUS ? "Unconscious" : "Alive")
 		)
 
-		// Add component information if available
-		if(uses_components && M.SCP.advanced_components)
-			scp_data["components"] = get_scp_components_data(M)
+		if(uses_components && S.SCP.advanced_components)
+			scp_data["components"] = get_scp_components_data(S)
+
+		scps += list(scp_data)
+
+	for(var/obj/O in GLOB.SCP_list)
+		if(QDELETED(O))
+			continue
+		var/scp_id = SSscp_persistence?.manager?.get_scp_id(O)
+		if(!scp_id || (scp_id in seen_ids))
+			continue
+		seen_ids[scp_id] = TRUE
+
+		active_count++
+
+		var/list/scp_data = list(
+			"id" = scp_id,
+			"name" = O.name,
+			"classification" = "Unknown",
+			"type" = "[O.type]",
+			"uses_components" = FALSE,
+			"player_controlled" = FALSE,
+			"player_name" = "NPC",
+			"health" = 0,
+			"max_health" = 0,
+			"location" = "[get_area_name(O)]",
+			"status" = "Active"
+		)
 
 		scps += list(scp_data)
 
@@ -356,19 +382,20 @@
 		if(QDELETED(M))
 			continue
 		if(M.SCP?.designation == scp_id)
-			to_chat(admin_client, "<span class='boldnotice'>=== SCP-[scp_id] Detailed Analysis ===</span>")
-			to_chat(admin_client, "<span class='notice'>Name: [M.SCP.name]</span>")
-			to_chat(admin_client, "<span class='notice'>Classification: [M.SCP.classification]</span>")
-			to_chat(admin_client, "<span class='notice'>Type: [M.type]</span>")
-			to_chat(admin_client, "<span class='notice'>Player: [M.ckey || "NPC"]</span>")
-			to_chat(admin_client, "<span class='notice'>Health: [M.health]/[M.maxHealth]</span>")
-			to_chat(admin_client, "<span class='notice'>Location: [get_area_name(M)]</span>")
+			to_chat(admin_client, span_boldnotice("=== SCP-[scp_id] Detailed Analysis ==="))
+			to_chat(admin_client, span_notice("Name: [M.SCP.name]"))
+			to_chat(admin_client, span_notice("Classification: [M.SCP.classification]"))
+			to_chat(admin_client, span_notice("Type: [M.type]"))
+			var/player_name = M.ckey || "NPC"
+			to_chat(admin_client, span_notice("Player: [player_name]"))
+			to_chat(admin_client, span_notice("Health: [M.health]/[M.maxHealth]"))
+			to_chat(admin_client, span_notice("Location: [get_area_name(M)]"))
 
 			if(M.SCP.advanced_components)
-				to_chat(admin_client, "<span class='notice'>Components: [length(M.SCP.advanced_components.components)]</span>")
+				to_chat(admin_client, span_notice("Components: [length(M.SCP.advanced_components.components)]"))
 				for(var/component_id in M.SCP.advanced_components.components)
 					var/datum/scp_advanced_component/component = M.SCP.advanced_components.components[component_id]
-					to_chat(admin_client, "<span class='notice'>  • [component.name] v[component.version] ([component.component_state])</span>")
+					to_chat(admin_client, span_notice("  • [component.name] v[component.version] ([component.component_state])"))
 			return
 
 /datum/scp_documentation_interface/proc/examine_component_details(scp_id, component_id)
@@ -378,18 +405,17 @@
 		if(M.SCP?.designation == scp_id && M.SCP.advanced_components)
 			var/datum/scp_advanced_component/component = M.SCP.advanced_components.components[component_id]
 			if(component)
-				to_chat(admin_client, "<span class='boldnotice'>=== Component Analysis: [component.name] ===</span>")
-				to_chat(admin_client, "<span class='notice'>Version: [component.version]</span>")
-				to_chat(admin_client, "<span class='notice'>Category: [component.component_category]</span>")
-				to_chat(admin_client, "<span class='notice'>State: [component.component_state]</span>")
-				to_chat(admin_client, "<span class='notice'>Priority: [component.component_priority]</span>")
-				to_chat(admin_client, "<span class='notice'>Errors: [component.error_count]</span>")
-				to_chat(admin_client, "<span class='notice'>Updates: [component.update_count]</span>")
-				to_chat(admin_client, "<span class='notice'>Interfaces: [english_list(component.provided_interfaces)]</span>")
+				to_chat(admin_client, span_boldnotice("=== Component Analysis: [component.name] ==="))
+				to_chat(admin_client, span_notice("Version: [component.version]"))
+				to_chat(admin_client, span_notice("Category: [component.component_category]"))
+				to_chat(admin_client, span_notice("State: [component.component_state]"))
+				to_chat(admin_client, span_notice("Priority: [component.component_priority]"))
+				to_chat(admin_client, span_notice("Errors: [component.error_count]"))
+				to_chat(admin_client, span_notice("Updates: [component.update_count]"))
+				to_chat(admin_client, span_notice("Interfaces: [english_list(component.provided_interfaces)]"))
 			return
 
 /datum/scp_documentation_interface/proc/export_documentation_to_file()
-	var/filename = "data/scp_documentation_export_[time2text(world.time, "YYYY-MM-DD_hh-mm-ss")].json"
 	var/list/export_data = list(
 		"system_info" = list(
 			"version" = doc_manager.current_version,
@@ -402,26 +428,27 @@
 		"performance_metrics" = get_performance_metrics()
 	)
 
-	rustg_file_write(json_encode(export_data), filename)
-	to_chat(admin_client, "<span class='notice'>Documentation exported to [filename]</span>")
+	var/json_data = json_encode(export_data)
+	admin_client << ftp(json_data, "scp_documentation_[time2text(world.time, "YYYYMMDD_HHMMSS")].json")
+	to_chat(admin_client, span_notice("Documentation data downloaded."))
 
 /datum/scp_documentation_interface/proc/run_system_diagnostics()
-	to_chat(admin_client, "<span class='boldnotice'>=== SCP System Diagnostics ===</span>")
+	to_chat(admin_client, span_boldnotice("=== SCP System Diagnostics ==="))
 
 	// Check core systems
 	var/issues_found = 0
 
 	if(!ispath(/datum/scp_advanced_component))
-		to_chat(admin_client, "<span class='warning'>❌ Advanced components not available</span>")
+		to_chat(admin_client, span_warning("❌ Advanced components not available"))
 		issues_found++
 	else
-		to_chat(admin_client, "<span class='notice'>✅ Advanced components available</span>")
+		to_chat(admin_client, span_notice("✅ Advanced components available"))
 
 	if(!GLOB_SCP_NETWORK)
-		to_chat(admin_client, "<span class='warning'>⚠️ SCP Network not initialized</span>")
+		to_chat(admin_client, span_warning("⚠️ SCP Network not initialized"))
 		issues_found++
 	else
-		to_chat(admin_client, "<span class='notice'>✅ SCP Network active ([length(GLOB_SCP_NETWORK.connected_scps)] connected)</span>")
+		to_chat(admin_client, span_notice("✅ SCP Network active ([length(GLOB_SCP_NETWORK.connected_scps)] connected)"))
 
 	// Check active SCPs with issues
 	for(var/mob/living/M in GLOB.mob_list)
@@ -439,13 +466,13 @@
 				error_components++
 
 		if(error_components > 0)
-			to_chat(admin_client, "<span class='warning'>⚠️ SCP-[M.SCP.designation] has [error_components] error components</span>")
+			to_chat(admin_client, span_warning("⚠️ SCP-[M.SCP.designation] has [error_components] error components"))
 			issues_found++
 
 	if(issues_found == 0)
-		to_chat(admin_client, "<span class='notice'>✅ No issues detected - System is healthy</span>")
+		to_chat(admin_client, span_notice("✅ No issues detected - System is healthy"))
 	else
-		to_chat(admin_client, "<span class='warning'>Found [issues_found] potential issues</span>")
+		to_chat(admin_client, span_warning("Found [issues_found] potential issues"))
 
 /datum/scp_documentation_interface/proc/search_documentation(search_term)
 	var/list/results = list()
@@ -467,12 +494,14 @@
 				"match_type" = found_in_title ? "title" : "content"
 			))
 
-	to_chat(admin_client, "<span class='boldnotice'>=== Search Results for '[search_term]' ===</span>")
+	to_chat(admin_client, span_boldnotice("=== Search Results for '[search_term]' ==="))
 	if(length(results))
 		for(var/list/result in results)
-			to_chat(admin_client, "<span class='notice'>• [result["title"]] (matched in [result["match_type"]])</span>")
+			var/result_title = result["title"]
+			var/result_match = result["match_type"]
+			to_chat(admin_client, span_notice("• [result_title] (matched in [result_match])"))
 	else
-		to_chat(admin_client, "<span class='warning'>No results found for '[search_term]'</span>")
+		to_chat(admin_client, span_warning("No results found for '[search_term]'"))
 
 // Helper proc for comparing component usage lists by count
 /proc/cmp_component_usage_dsc(list/a, list/b)

@@ -131,7 +131,7 @@
 
 /datum/objective/ci_breach_assist/check_completion()
 	if(SSscp_persistence && SSscp_persistence.manager)
-		return SSscp_persistence.manager.active_breaches > 0 || SSscp_persistence.manager.global_containment_stability < 80
+		return SSscp_persistence?.manager?.active_breaches > 0 || SSscp_persistence?.manager?.global_containment_stability < 80
 	return FALSE
 
 /datum/objective/ci_extract_dclass
@@ -179,6 +179,11 @@
 		/datum/objective/ci_breach_assist,
 		/datum/objective/ci_extract_dclass,
 		/datum/objective/ci_intel_gather,
+		/datum/objective/ci_budget_drain,
+		/datum/objective/ci_info_breach,
+		/datum/objective/ci_network_sabotage,
+		/datum/objective/ci_ethics_undermine,
+		/datum/objective/ci_goi_contact,
 	)
 
 	for(var/i in 1 to num_objectives)
@@ -188,13 +193,7 @@
 		objectives += O
 		O.update_explanation_text()
 
-/datum/antagonist/chaos_insurgency/on_gain()
-	. = ..()
-	generate_ci_objectives()
-	if(owner.current)
-		var/datum/action/innate/insurgency_equipment/equipment = new()
-		equipment.Grant(owner.current)
-		equip_ci_operative()
+
 
 /datum/antagonist/chaos_insurgency/proc/equip_ci_operative()
 	var/mob/living/carbon/human/H = owner.current
@@ -229,11 +228,11 @@
 	var/mob/living/carbon/human/H = user
 	var/datum/antagonist/chaos_insurgency/ci = H.mind?.has_antag_datum(/datum/antagonist/chaos_insurgency)
 	if(!ci)
-		to_chat(H, "<span class='warning'>You don't know how to use this device.</span>")
+		to_chat(H, span_warning("You don't know how to use this device."))
 		return
 
 	if(length(captured_intel) >= intel_capacity)
-		to_chat(H, "<span class='warning'>Camera memory full. [length(captured_intel)]/[intel_capacity] intel gathered.</span>")
+		to_chat(H, span_warning("Camera memory full. [length(captured_intel)]/[intel_capacity] intel gathered."))
 		return
 
 	var/list/nearby_scps = list()
@@ -242,18 +241,18 @@
 			nearby_scps += M
 
 	if(!length(nearby_scps))
-		to_chat(H, "<span class='warning'>No SCP entities in view to document.</span>")
+		to_chat(H, span_warning("No SCP entities in view to document."))
 		return
 
 	var/mob/living/target_scp = pick(nearby_scps)
 	var/scp_name = target_scp.SCP.designation ? "SCP-[target_scp.SCP.designation]" : target_scp.name
 	captured_intel += scp_name
-	to_chat(H, "<span class='notice'>Intelligence captured on [scp_name]. ([length(captured_intel)]/[intel_capacity])</span>")
+	to_chat(H, span_notice("Intelligence captured on [scp_name]. ([length(captured_intel)]/[intel_capacity])"))
 
 	for(var/datum/objective/ci_intel_gather/O in ci.objectives)
 		O.intel_collected++
 		if(O.intel_collected >= O.intel_required)
-			to_chat(H, "<span class='green'>Intelligence objective complete!</span>")
+			to_chat(H, span_nicegreen("Intelligence objective complete!"))
 
 // CI Breach Assist Device
 /obj/item/ci_breach_device
@@ -267,24 +266,107 @@
 	if(!ishuman(user))
 		return
 	if(uses <= 0)
-		to_chat(user, "<span class='warning'>Device depleted.</span>")
+		to_chat(user, span_warning("Device depleted."))
 		return
 
 	var/mob/living/carbon/human/H = user
 	var/datum/antagonist/chaos_insurgency/ci = H.mind?.has_antag_datum(/datum/antagonist/chaos_insurgency)
 	if(!ci)
-		to_chat(H, "<span class='warning'>You don't know how to use this device.</span>")
+		to_chat(H, span_warning("You don't know how to use this device."))
 		return
 
 	uses--
-	to_chat(H, "<span class='notice'>Containment override activated! [uses] uses remaining.</span>")
+	to_chat(H, span_notice("Containment override activated! [uses] uses remaining."))
 
 	var/list/breachable_scps = list("SCP-173", "SCP-049", "SCP-096", "SCP-035", "SCP-939")
 	hook_scp_breach(pick(breachable_scps), H)
 
 	for(var/datum/objective/ci_breach_assist/O in ci.objectives)
-		to_chat(H, "<span class='notice'>Breach assist objective progress updated.</span>")
+		to_chat(H, span_notice("Breach assist objective progress updated."))
 
 /obj/item/ci_breach_device/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[uses] uses remaining.</span>"
+	. += span_notice("[uses] uses remaining.")
+
+/datum/objective/ci_budget_drain
+	name = "drain department budget"
+	var/target_department = "science"
+	var/drain_required = 2000
+	var/initial_budget = 0
+
+/datum/objective/ci_budget_drain/New()
+	..()
+	var/list/depts = list("security", "science", "medical", "engineering")
+	target_department = pick(depts)
+	explanation_text = "Drain the [target_department] department's budget by at least [drain_required] credits through sabotage, resource waste, or misappropriation."
+	if(SSfoundation_budget)
+		var/datum/department_budget/B = SSfoundation_budget?.department_budgets[target_department]
+		if(B)
+			initial_budget = B.remaining
+
+/datum/objective/ci_budget_drain/check_completion()
+	if(!SSfoundation_budget)
+		return FALSE
+	var/datum/department_budget/B = SSfoundation_budget?.department_budgets[target_department]
+	if(!B)
+		return FALSE
+	var/drain = initial_budget - B.remaining
+	return drain >= drain_required
+
+/datum/objective/ci_info_breach
+	name = "cause information breach"
+	var/breaches_required = 2
+
+/datum/objective/ci_info_breach/New()
+	..()
+	explanation_text = "Cause [breaches_required] information security breaches by compromising RAISA systems, stealing classified documents, or exploiting network vulnerabilities."
+
+/datum/objective/ci_info_breach/check_completion()
+	if(!SSraisa)
+		return FALSE
+	return SSraisa.active_breaches >= breaches_required
+
+/datum/objective/ci_network_sabotage
+	name = "sabotage facility network"
+	var/target_integrity = 40
+
+/datum/objective/ci_network_sabotage/New()
+	..()
+	explanation_text = "Reduce facility network integrity below [target_integrity]% by sabotaging server racks, compromising nodes, or allowing SCP-079 unchecked network access."
+
+/datum/objective/ci_network_sabotage/check_completion()
+	if(!SSit_network)
+		return FALSE
+	return SSit_network.overall_integrity <= target_integrity
+
+/datum/objective/ci_ethics_undermine
+	name = "undermine ethics committee"
+	var/violations_required = 3
+
+/datum/objective/ci_ethics_undermine/New()
+	..()
+	explanation_text = "Generate [violations_required] ethics violations against Foundation personnel through framing, entrapment, or provoking genuine violations."
+
+/datum/objective/ci_ethics_undermine/check_completion()
+	if(!SSethics_committee)
+		return FALSE
+	return SSethics_committee?.violations.len >= violations_required
+
+/datum/objective/ci_goi_contact
+	name = "establish GOI contact"
+	var/target_goi = "Chaos Insurgency"
+	var/target_standing = 60
+
+/datum/objective/ci_goi_contact/New()
+	..()
+	var/list/gois = list("MCD", "Sarkic Cult", "Church of the Broken God", "Serpent's Hand")
+	target_goi = pick(gois)
+	explanation_text = "Improve standing with [target_goi] to [target_standing] or above by filing favorable intel, sending communiques, or completing tasks that benefit their interests."
+
+/datum/objective/ci_goi_contact/check_completion()
+	if(!SSgoi_relations)
+		return FALSE
+	var/standing = SSgoi_relations.goi_standing[target_goi]
+	if(isnull(standing))
+		return FALSE
+	return standing >= target_standing

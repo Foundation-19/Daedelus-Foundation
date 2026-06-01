@@ -145,6 +145,7 @@
 		to_chat(usr, span_notice("[S.name] — CONTAINED"))
 
 /mob/dead/observer/var/scp_ghost_hud_active = FALSE
+/mob/dead/observer/var/datum/hud/ghost_scp/scp_ghost_hud_datum = null
 
 /mob/dead/observer/verb/toggle_scp_hud()
 	set name = "Toggle SCP HUD"
@@ -154,12 +155,14 @@
 	if(!client)
 		return
 
-	var/datum/hud/ghost_scp/scp_hud_datum = new(src)
 	if(scp_ghost_hud_active)
 		scp_ghost_hud_active = FALSE
-		scp_hud_datum.hide_from(src)
+		if(scp_ghost_hud_datum)
+			scp_ghost_hud_datum.hide_from(src)
 		to_chat(src, span_notice("SCP HUD disabled."))
 	else
 		scp_ghost_hud_active = TRUE
-		scp_hud_datum.show_to(src)
+		if(!scp_ghost_hud_datum)
+			scp_ghost_hud_datum = new(src)
+		scp_ghost_hud_datum.show_to(src)
 		to_chat(src, span_notice("SCP HUD enabled. Use the buttons to track SCPs."))

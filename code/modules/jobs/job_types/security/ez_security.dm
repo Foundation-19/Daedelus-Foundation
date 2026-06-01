@@ -1,6 +1,8 @@
 /datum/job/junior_ez_guard
 	title = JOB_JUNIOR_EZ_GUARD
-	description = "Oversee EZ security, protect members of Command, assist the Containment Areas when required."
+	description = "Patrol the EZ perimeter and command areas under supervision. Screen \
+		visitors, protect command personnel, and assist containment zones when needed. \
+		Learn VIP protection protocols from senior agents."
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_GUARD_COMMANDER)
 	faction = FACTION_STATION
@@ -32,7 +34,7 @@
 	suit = /obj/item/clothing/suit/armor/vest/scp/medarmor/cadet
 	suit_store = /obj/item/gun/energy/disabler
 	backpack_contents = list(/obj/item/storage/evidencebag = 1)
-	belt = /obj/item/modular_computer/tablet/pda/security
+	belt = /obj/item/modular_computer/tablet/pda/foundation_guard
 	ears = /obj/item/radio/headset/headset_sec/alt
 	head = /obj/item/clothing/head/helmet/scp/security/cadet/hat
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -62,7 +64,9 @@
 
 /datum/job/ez_guard
 	title = JOB_EZ_GUARD
-	description = "Oversee EZ security, protect members of Command, assist the Containment Areas when required."
+	description = "Maintain EZ security and protect command personnel. Assign VIP protection \
+		details via the VIP Protection Console, conduct security screenings, and respond \
+		to threats in the administrative areas."
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_GUARD_COMMANDER)
 	faction = FACTION_STATION
@@ -94,7 +98,7 @@
 	suit = /obj/item/clothing/suit/armor/vest/scp/medarmor
 	suit_store = /obj/item/gun/energy/disabler
 	backpack_contents = list(/obj/item/storage/evidencebag = 1)
-	belt = /obj/item/modular_computer/tablet/pda/security
+	belt = /obj/item/modular_computer/tablet/pda/foundation_guard
 	ears = /obj/item/radio/headset/headset_sec/alt
 	head = /obj/item/clothing/head/helmet/scp/hczsecurityguard
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -125,7 +129,9 @@
 
 /datum/job/senior_ez_guard
 	title = JOB_SENIOR_EZ_GUARD
-	description = "Oversee EZ security, protect members of Command, assist the Containment Areas when required."
+	description = "Lead EZ security teams and coordinate VIP protection. Manage protection \
+		details for command staff, oversee security screenings, investigate threats to \
+		personnel, and train probationary agents."
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_GUARD_COMMANDER)
 	faction = FACTION_STATION
@@ -157,7 +163,7 @@
 	suit = /obj/item/clothing/suit/armor/vest/scp/medarmor
 	suit_store = /obj/item/gun/energy/disabler
 	backpack_contents = list(/obj/item/storage/evidencebag = 1)
-	belt = /obj/item/modular_computer/tablet/pda/security
+	belt = /obj/item/modular_computer/tablet/pda/foundation_guard
 	ears = /obj/item/radio/headset/headset_sec/alt
 	head = /obj/item/clothing/head/helmet/scp/hczsecurityguard
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -188,7 +194,9 @@
 
 /datum/job/ez_commander
 	title = JOB_EZ_ZONE_SUPERVISOR
-	description = "Oversee EZ security, protect members of Command, assist the Containment Areas when required."
+	description = "Command all EZ security operations. Authorize VIP protection details, \
+		coordinate with command staff on security matters, manage the VIP Protection Console, \
+		and liaise with the Guard Commander on facility-wide security posture."
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_GUARD_COMMANDER)
 	faction = FACTION_STATION
@@ -220,7 +228,7 @@
 	suit = /obj/item/clothing/suit/armor/vest/scp/medarmor
 	suit_store = /obj/item/gun/energy/disabler
 	backpack_contents = list(/obj/item/storage/evidencebag = 1)
-	belt = /obj/item/modular_computer/tablet/pda/security
+	belt = /obj/item/modular_computer/tablet/pda/foundation_guard
 	ears = /obj/item/radio/headset/headset_sec/alt
 	head = /obj/item/clothing/head/helmet/scp/hczsecurityguard
 	shoes = /obj/item/clothing/shoes/jackboots

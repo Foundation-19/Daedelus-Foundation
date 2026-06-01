@@ -99,7 +99,7 @@
 
 	data["research_points"] = 0
 	if(SSscp_research?.manager)
-		data["research_points"] = SSscp_research.manager.total_research_points
+		data["research_points"] = SSscp_research?.manager?.total_research_points
 
 	data["has_bsl_access"] = FALSE
 	if(ishuman(user))
@@ -120,9 +120,9 @@
 
 	return data
 
-/obj/machinery/computer/pathogen_research_console/ui_act(action, params)
+/obj/machinery/computer/pathogen_research_console/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
-	var/mob/user = usr
+	var/mob/user = ui.user
 	if(.)
 		return
 

@@ -1,28 +1,8 @@
 /datum/job/junior_lcz_guard
 	title = JOB_JUNIOR_LCZ_GUARD
-	description = "Ensure the security of Euclid anomalies in the LCZ, alongside maintaining the CDZ, and the Class D population. "
-	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
-	department_head = list(JOB_GUARD_COMMANDER)
-	faction = FACTION_STATION
-	total_positions = 5
-	spawn_positions = 5
-	supervisors = "the LCZ Zone Junior Lieutenant"
-	selection_color = "#490A0D"
-	minimal_player_age = 7
-	exp_requirements = 300
-	exp_required_type = EXP_TYPE_CREW
-	exp_granted_type = EXP_TYPE_CREW
-	employers = list(/datum/employer/scp)
-	outfits = list("Default" = list(SPECIES_HUMAN = /datum/outfit/job/junior_lcz_guard))
-	paycheck = PAYCHECK_HARD
-	paycheck_department = ACCOUNT_SEC
-	mind_traits = list(TRAIT_DONUT_LOVER)
-	liver_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
-	departments_list = list(/datum/job_department/security)
-	family_heirlooms = list(/obj/item/book/manual/wiki/security_space_law, /obj/item/clothing/head/beret/sec)
-	mail_goodies = list(/obj/item/food/donut/caramel = 10, /obj/item/food/donut/matcha = 10, /obj/item/food/donut/blumpkin = 5, /obj/item/clothing/mask/whistle = 5, /obj/item/melee/baton/security/boomerang/loaded = 1)
-	rpg_title = "Guard"
-	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE | JOB_REOPEN_ON_ROUNDSTART_LOSS | JOB_ASSIGN_QUIRKS | JOB_CAN_BE_INTERN
+	description = "Patrol LCZ corridors and the CDZ under supervision. Conduct D-Class \
+		searches for contraband, escort D-Class to testing, and report suspicious \
+		activity to senior guards. Use your patrol route to learn containment procedures."
 
 /datum/outfit/job/junior_lcz_guard
 	name = "LCZ Cadet"
@@ -31,14 +11,7 @@
 	uniform = /obj/item/clothing/under/scp/security/lcz/cadet
 	suit = /obj/item/clothing/suit/armor/vest/scp/medarmor/cadet
 	suit_store = /obj/item/gun/energy/disabler
-	backpack_contents = list(/obj/item/storage/evidencebag = 1)
-	belt = /obj/item/modular_computer/tablet/pda/security
-	ears = /obj/item/radio/headset/headset_sec/alt
-	gloves = /obj/item/clothing/gloves/combat
-	shoes = /obj/item/clothing/shoes/jackboots
-	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	l_pocket = /obj/item/restraints/handcuffs
-	r_pocket = /obj/item/assembly/flash/handheld
+	backpack_contents = list(/obj/item/storage/evidencebag = 1, /obj/item/scp_specimen_kit = 1)
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
@@ -61,7 +34,9 @@
 
 /datum/job/lcz_guard
 	title = JOB_LCZ_GUARD
-	description = "Ensure the security of Euclid anomalies in the LCZ, alongside maintaining the CDZ, and the Class D population. "
+	description = "Maintain LCZ security and manage D-Class populations. Search for \
+		contraband, escort D-Class to testing, respond to containment breaches, and \
+		operate the guard patrol console for escort assignments."
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_GUARD_COMMANDER)
 	faction = FACTION_STATION
@@ -93,7 +68,7 @@
 	suit = /obj/item/clothing/suit/armor/vest/scp/medarmor
 	suit_store = /obj/item/gun/energy/disabler
 	backpack_contents = list(/obj/item/storage/evidencebag = 1)
-	belt = /obj/item/modular_computer/tablet/pda/security
+	belt = /obj/item/modular_computer/tablet/pda/foundation_guard
 	ears = /obj/item/radio/headset/headset_sec/alt
 	head = /obj/item/clothing/head/helmet/scp/security
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -124,7 +99,9 @@
 
 /datum/job/senior_lcz_guard
 	title = JOB_SENIOR_LCZ_GUARD
-	description = "Ensure the security of Euclid anomalies in the LCZ, alongside maintaining the CDZ, and the Class D population. "
+	description = "Lead LCZ guard squads and coordinate D-Class operations. Train \
+		cadets, assign patrol routes, manage the CDZ, and handle D-Class riot \
+		suppression using the Riot Control Console."
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_GUARD_COMMANDER)
 	faction = FACTION_STATION
@@ -156,7 +133,7 @@
 	suit = /obj/item/clothing/suit/armor/vest/scp/medarmor
 	suit_store = /obj/item/gun/energy/disabler
 	backpack_contents = list(/obj/item/storage/evidencebag = 1)
-	belt = /obj/item/modular_computer/tablet/pda/security
+	belt = /obj/item/modular_computer/tablet/pda/foundation_guard
 	ears = /obj/item/radio/headset/headset_sec/alt
 	head = /obj/item/clothing/head/helmet/scp/security
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -187,7 +164,9 @@
 
 /datum/job/lcz_commander
 	title = JOB_LCZ_ZONE_JUNIOR_LIEUTENANT
-	description = "Ensure the security of Euclid anomalies in the LCZ, alongside maintaining the CDZ, and the Class D population. "
+	description = "Command all LCZ security operations. Authorize D-Class testing, \
+		coordinate guard deployments, manage the LCZ patrol console, and liaise \
+		with the Guard Commander on facility-wide security matters."
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_GUARD_COMMANDER)
 	faction = FACTION_STATION
@@ -219,7 +198,7 @@
 	suit = /obj/item/clothing/suit/armor/vest/scp/lczcomm
 	suit_store = /obj/item/gun/energy/disabler
 	backpack_contents = list(/obj/item/storage/evidencebag = 1)
-	belt = /obj/item/modular_computer/tablet/pda/security
+	belt = /obj/item/modular_computer/tablet/pda/foundation_guard
 	ears = /obj/item/radio/headset/headset_sec/alt
 	head = /obj/item/clothing/head/helmet/scp/security/lczcom
 	shoes = /obj/item/clothing/shoes/jackboots

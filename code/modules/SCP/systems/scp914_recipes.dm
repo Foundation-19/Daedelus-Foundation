@@ -256,6 +256,123 @@ GLOBAL_LIST_INIT(scp914_recipes, init_scp914_recipes())
 			null, null,\
 			null, null, null)
 
+	// ===== SCP ITEMS =====
+	recipes += new /datum/scp914_recipe(/obj/item/reagent_containers/pill/scp500, "SCP-500 panacea pill",\
+		null, /obj/item/reagent_containers/pill,\
+		/obj/item/reagent_containers/pill/scp500, /obj/item/reagent_containers/pill/scp500, /obj/item/reagent_containers/pill/scp500)
+
+	recipes += new /datum/scp914_recipe(/obj/item/storage/pill_bottle/scp500, "SCP-500 pill bottle",\
+		/obj/item/stack/sheet/plastic, /obj/item/stack/sheet/plastic,\
+		/obj/item/storage/pill_bottle, /obj/item/storage/pill_bottle/scp500, /obj/item/storage/pill_bottle/scp500)
+
+	recipes += new /datum/scp914_recipe(/obj/item/clothing/mask/cigarette/scp013, "SCP-013 Blue Lady cigarette",\
+		null, /obj/item/clothing/mask/cigarette,\
+		/obj/item/clothing/mask/cigarette, /obj/item/clothing/mask/cigarette, /obj/item/clothing/mask/cigarette)
+
+	recipes += new /datum/scp914_recipe(/obj/item/scp113, "SCP-113 gender stone",\
+		/obj/item/stack/ore/slag, /obj/item/stack/ore/diamond,\
+		/obj/item/scp113, /obj/item/scp113, /obj/item/scp113)
+
+	recipes += new /datum/scp914_recipe(/obj/item/clothing/neck/scp427, "SCP-427 healing locket",\
+		/obj/item/stack/sheet/mineral/silver, /obj/item/stack/sheet/mineral/silver,\
+		/obj/item/clothing/neck/scp427, /obj/item/clothing/neck/scp427, /obj/item/clothing/neck/scp427)
+
+	recipes += new /datum/scp914_recipe(/obj/item/scp513, "SCP-513 cowbell",\
+		/obj/item/stack/rods, /obj/item/stack/rods,\
+		/obj/item/scp513, /obj/item/scp513, /obj/item/scp513)
+
+	recipes += new /datum/scp914_recipe(/obj/item/scp066, "SCP-066 Eric's Toy",\
+		/obj/item/stack/rods, /obj/item/stack/rods,\
+		/obj/item/scp066, /obj/item/scp066, /obj/item/scp066)
+
+	recipes += new /datum/scp914_recipe(/obj/item/paper/scp012, "SCP-012 bad composition",\
+		null, /obj/item/paper,\
+		/obj/item/paper/scp012, /obj/item/paper/scp012, /obj/item/paper/scp012)
+
+	recipes += new /datum/scp914_recipe(/obj/item/clothing/glasses/scp178, "SCP-178 3D glasses",\
+		/obj/item/stack/sheet/glass, /obj/item/clothing/glasses/regular,\
+		/obj/item/clothing/glasses/scp178, /obj/item/clothing/glasses/scp178, /obj/item/clothing/glasses/scp178)
+
+	recipes += new /datum/scp914_recipe(/obj/item/clothing/mask/gas/scp1499, "SCP-1499 gas mask",\
+		/obj/item/stack/cable_coil, /obj/item/clothing/mask/gas,\
+		/obj/item/clothing/mask/gas/scp1499, /obj/item/clothing/mask/gas/scp1499, /obj/item/clothing/mask/gas/scp1499)
+
+	recipes += new /datum/scp914_recipe(/obj/item/clothing/ring/scp714, "SCP-714 jade ring",\
+		/obj/item/stack/ore/slag, /obj/item/stack/ore/diamond,\
+		/obj/item/clothing/ring/scp714, /obj/item/clothing/ring/scp714, /obj/item/clothing/ring/scp714)
+
+	recipes += new /datum/scp914_recipe(/obj/item/clothing/ring/scp399, "SCP-399 atomic ring",\
+		/obj/item/stack/rods, /obj/item/stack/sheet/mineral/diamond,\
+		/obj/item/clothing/ring/scp399, /obj/item/clothing/ring/scp399, /obj/item/clothing/ring/scp399)
+
+	recipes += new /datum/scp914_recipe(/obj/item/material/twohanded/baseballbat/scp2398, "SCP-2398 K.O. bat",\
+		/obj/item/stack/sheet/iron, /obj/item/material/twohanded/baseballbat,\
+		/obj/item/material/twohanded/baseballbat/scp2398, /obj/item/material/twohanded/baseballbat/scp2398, /obj/item/material/twohanded/baseballbat/scp2398)
+
+	recipes += new /datum/scp914_recipe(/obj/item/device/scp1471, "SCP-1471 MalO phone",\
+		/obj/item/stack/cable_coil, /obj/item/stack/cable_coil,\
+		/obj/item/device/scp1471, /obj/item/device/scp1471, /obj/item/device/scp1471)
+
+	recipes += new /datum/scp914_recipe(/obj/item/clothing/mask/scp035, "SCP-035 possessive mask",\
+		null, /obj/item/stack/sheet/mineral/silver,\
+		/obj/item/clothing/mask/scp035, /obj/item/clothing/mask/scp035, /obj/item/clothing/mask/scp035)
+
+	recipes += new /datum/scp914_recipe(/obj/item/clothing/suit/scp5000, "SCP-5000 strange suit",\
+		/obj/item/stack/sheet/iron, /obj/item/clothing/suit/armor/vest,\
+		/obj/item/clothing/suit/scp5000, /obj/item/clothing/suit/scp5000, /obj/item/clothing/suit/scp5000)
+
+	recipes += new /datum/scp914_recipe(/obj/item/scp3199_egg, "SCP-3199 egg",\
+		/obj/item/food/egg, /obj/item/food/egg,\
+		/obj/item/scp3199_egg, /obj/item/scp3199_egg, /obj/item/scp3199_egg)
+
+	recipes += new /datum/scp914_recipe(/obj/item/clothing/mask/cigarette/scp420j, "SCP-420-J joint",\
+		/obj/item/food/grown/cannabis, /obj/item/food/grown/cannabis,\
+		/obj/item/clothing/mask/cigarette/scp420j, /obj/item/clothing/mask/cigarette/scp420j, /obj/item/clothing/mask/cigarette/scp420j)
+
+	recipes += new /datum/scp914_recipe(/obj/item/storage/fancy/cigarettes/scp420j, "SCP-420-J herb bag",\
+		null, /obj/item/paper,\
+		/obj/item/storage/fancy/cigarettes, /obj/item/storage/fancy/cigarettes/scp420j, /obj/item/storage/fancy/cigarettes/scp420j)
+
+	recipes += new /datum/scp914_recipe(/obj/item/reagent_containers/glass/bottle/scp008, "SCP-008 sample",\
+		null, /obj/item/reagent_containers/glass/bottle,\
+		/obj/item/reagent_containers/glass/bottle/scp008, /obj/item/reagent_containers/glass/bottle/scp008, /obj/item/reagent_containers/glass/bottle/scp008)
+
+	recipes += new /datum/scp914_recipe(/obj/item/reagent_containers/glass/bottle/scp610, "SCP-610 sample",\
+		null, /obj/item/reagent_containers/glass/bottle,\
+		/obj/item/reagent_containers/glass/bottle/scp610, /obj/item/reagent_containers/glass/bottle/scp610, /obj/item/reagent_containers/glass/bottle/scp610)
+
+	recipes += new /datum/scp914_recipe(/obj/item/scp1981, "SCP-1981 videotape",\
+		null, /obj/item/tape,\
+		/obj/item/scp1981, /obj/item/scp1981, /obj/item/scp1981)
+
+	recipes += new /datum/scp914_recipe(/obj/item/scp_decontamination_wand, "anomalous decontamination wand",\
+		null, /obj/item/healthanalyzer,\
+		/obj/item/scp_decontamination_wand, /obj/item/scp_decontamination_wand, /obj/item/scp_decontamination_wand)
+
+	recipes += new /datum/scp914_recipe(/obj/item/anomalous_evidence_bag, "anomalous evidence bag",\
+		null, /obj/item/storage/bag,\
+		/obj/item/anomalous_evidence_bag, /obj/item/anomalous_evidence_bag, /obj/item/anomalous_evidence_bag)
+
+	recipes += new /datum/scp914_recipe(/obj/item/scp_specimen_kit, "SCP specimen collection kit",\
+		/obj/item/stack/sheet/plastic, /obj/item/storage/medkit,\
+		/obj/item/scp_specimen_kit, /obj/item/scp_specimen_kit, /obj/item/scp_specimen_kit)
+
+	recipes += new /datum/scp914_recipe(/obj/item/surgical_disk/foundation, "Foundation surgical programs disk",\
+		null, /obj/item/disk,\
+		/obj/item/surgical_disk/foundation, /obj/item/surgical_disk/foundation, /obj/item/surgical_disk/foundation)
+
+	recipes += new /datum/scp914_recipe(/obj/item/implantcase/amnestic, "amnestic implant case",\
+		null, /obj/item/implantcase,\
+		/obj/item/implantcase/amnestic, /obj/item/implantcase/amnestic, /obj/item/implantcase/amnestic)
+
+	recipes += new /datum/scp914_recipe(/obj/item/implantcase/containment, "containment chip case",\
+		null, /obj/item/implantcase,\
+		/obj/item/implantcase/containment, /obj/item/implantcase/containment, /obj/item/implantcase/containment)
+
+	recipes += new /datum/scp914_recipe(/obj/item/storage/medkit/scp_emergency, "SCP zone emergency kit",\
+		/obj/item/stack/sheet/plastic, /obj/item/storage/medkit,\
+		/obj/item/storage/medkit/scp_emergency, /obj/item/storage/medkit/scp_emergency, /obj/item/storage/medkit/advanced)
+
 	return recipes
 
 /proc/scp914_find_recipe(obj/item/input)

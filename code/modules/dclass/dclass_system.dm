@@ -9,7 +9,7 @@ SUBSYSTEM_DEF(dclass)
 
 /datum/controller/subsystem/dclass/Initialize()
 	manager = new /datum/dclass_manager()
-	world.log << "D-Class Management Subsystem: Initialized"
+	log_world("D-Class Management Subsystem: Initialized")
 	return ..()
 
 /datum/controller/subsystem/dclass/fire()
@@ -31,6 +31,8 @@ SUBSYSTEM_DEF(dclass)
 	var/last_routine_update = 0
 	var/routine_update_interval = 300 // 5 minutes
 	var/datum/dclass_faction_manager/faction_manager
+	var/datum/dclass_persistence_manager/persistence_manager
+	var/datum/dclass_event_manager/event_manager
 
 /datum/dclass_manager/New()
 	. = ..()
@@ -43,6 +45,9 @@ SUBSYSTEM_DEF(dclass)
 	faction_manager = new /datum/dclass_faction_manager()
 	initialize_events()
 	initialize_persistence()
+
+/datum/dclass_manager/proc/initialize_persistence()
+	persistence_manager = new /datum/dclass_persistence_manager()
 
 /datum/dclass_manager/proc/process_dclass()
 	// Update current time slot
@@ -214,6 +219,62 @@ SUBSYSTEM_DEF(dclass)
 		"access" = list("medical_bay", "pharmacy"),
 		"risk" = 3,
 		"reward" = 50
+	)
+	work_assignments["janitorial"] = list(
+		"name" = "Janitorial Duty",
+		"description" = "Clean and decontaminate SCP containment zones",
+		"tools" = list("mop", "anomalous_decon_kit"),
+		"access" = list("lcz_common", "hcz_common"),
+		"risk" = 2,
+		"reward" = 30
+	)
+	work_assignments["specimen_handling"] = list(
+		"name" = "Specimen Handling",
+		"description" = "Transport and catalog SCP research specimens under supervision",
+		"tools" = list("specimen_kit", "evidence_bags"),
+		"access" = list("research_lab", "specimen_storage"),
+		"risk" = 4,
+		"reward" = 60
+	)
+	work_assignments["laundry_decon"] = list(
+		"name" = "Anomalous Laundry Decon",
+		"description" = "Process contaminated clothing through anomalous decontamination wash",
+		"tools" = list("detergent", "anomalous_cleaner"),
+		"access" = list("laundry_room", "decon_station"),
+		"risk" = 2,
+		"reward" = 35
+	)
+	work_assignments["construction"] = list(
+		"name" = "Containment Construction",
+		"description" = "Assist with building and reinforcing SCP containment cells",
+		"tools" = list("wrench", "metal_sheets", "rebar"),
+		"access" = list("construction_zone", "material_storage"),
+		"risk" = 3,
+		"reward" = 45
+	)
+	work_assignments["testing_subject"] = list(
+		"name" = "Testing Subject",
+		"description" = "Participate in supervised SCP testing procedures",
+		"tools" = list("monitoring_device", "recorder"),
+		"access" = list("testing_chamber", "observation_deck"),
+		"risk" = 5,
+		"reward" = 100
+	)
+	work_assignments["document_archival"] = list(
+		"name" = "Document Archival",
+		"description" = "Scan and file SCP documentation into the Foundation archive",
+		"tools" = list("scanner", "filing_supplies"),
+		"access" = list("archive_room", "records_office"),
+		"risk" = 1,
+		"reward" = 15
+	)
+	work_assignments["botany_sample"] = list(
+		"name" = "Botany Collection",
+		"description" = "Collect and preserve anomalous plant specimens under supervision",
+		"tools" = list("sample_kit", "preservation_vials"),
+		"access" = list("hydroponics", "specimen_storage"),
+		"risk" = 2,
+		"reward" = 25
 	)
 
 // Process work assignments

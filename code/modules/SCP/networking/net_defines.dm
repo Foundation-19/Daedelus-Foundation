@@ -1,0 +1,10 @@
+#define NET_CHANNEL_CONTAINMENT "containment"
+#define NET_CHANNEL_RESEARCH "research"
+#define NET_CHANNEL_SECURITY "security"
+#define NET_CHANNEL_COMMAND "command"
+#define NET_CMD_ALERT "alert"
+#define NET_CMD_STATUS "status"
+#define NET_CMD_QUERY "query"
+#define NET_CMD_CONTROL "control"
+#define NET_TRANSMIT_WIRED 1
+#define NET_TRANSMIT_WIRELESS 2

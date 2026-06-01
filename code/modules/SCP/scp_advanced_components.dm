@@ -320,6 +320,11 @@
 	parent_mob = target_mob
 	parent_mob.vars["advanced_component_manager"] = src
 	last_update = world.time
+	effect_manager = new /datum/scp_component_effect_manager()
+	communicator = new /datum/scp_component_communicator()
+	database = new /datum/scp_component_database()
+	if(target_mob && target_mob.SCP)
+		persistence_key = "scp_[target_mob.SCP.designation]"
 
 /datum/component_manager_advanced/proc/add_component(component_type, component_id, list/component_config = list())
 	if(component_id in components)
@@ -583,7 +588,7 @@
 
 	// Also output to world log for debugging
 	if(log_level >= 4)
-		world.log << log_entry
+		log_game(log_entry)
 
 /datum/component_manager_advanced/proc/get_log_entries(count = 10)
 	var/start_index = max(1, length(error_log) - count + 1)

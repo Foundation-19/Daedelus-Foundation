@@ -289,7 +289,7 @@ const SystemOverview = ({
                   ml={1}
                 />
                 <Button
-                  content="Export Data"
+                  content="Download Data"
                   icon="download"
                   onClick={() => act('export_documentation')}
                   color="green"
@@ -950,7 +950,7 @@ const SystemDiagnostics = ({ systemStatus, performanceMetrics, act }) => {
 
               <Box mb={2}>
                 <Button
-                  content="Export Diagnostic Report"
+                  content="Download Diagnostic Report"
                   icon="download"
                   onClick={() => act('export_documentation')}
                   color="orange"

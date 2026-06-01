@@ -52,6 +52,7 @@
 	update_icon()
 
 /obj/machinery/fusion_fuel_injector/update_icon()
+	. = ..()
 	if(active)
 		icon_state = "core1"
 	else

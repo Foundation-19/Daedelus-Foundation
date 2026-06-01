@@ -1258,6 +1258,9 @@
 	if(forensics)
 		. = forensics.wash(clean_types) || .
 
+	if(clean_types & CLEAN_TYPE_FINGERPRINTS)
+		clean_forensic()
+
 	// Basically "if has washable coloration"
 	if(length(atom_colours) >= WASHABLE_COLOUR_PRIORITY && atom_colours[WASHABLE_COLOUR_PRIORITY])
 		remove_atom_colour(WASHABLE_COLOUR_PRIORITY)

@@ -54,7 +54,7 @@
 	head = /obj/item/clothing/head/hardhat
 	shoes = /obj/item/clothing/shoes/workboots
 	gloves = /obj/item/clothing/gloves/color/yellow
-	l_pocket = /obj/item/modular_computer/tablet/pda/engineering
+	l_pocket = /obj/item/modular_computer/tablet/pda/foundation_engineer
 	r_pocket = /obj/item/t_scanner
 
 	backpack = /obj/item/storage/backpack/industrial

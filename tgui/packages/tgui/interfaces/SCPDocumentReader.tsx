@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import { useBackend } from '../backend';
 import { Box, Button, Input, Section, Tabs } from '../components';
-import { Window } from '../layouts';
+import { NtosWindow } from '../layouts';
 
 type DocSummary = {
   id: string;
@@ -236,8 +236,8 @@ export const SCPDocumentReader = (props) => {
 
   if (selectedId && allDocuments[selectedId]) {
     return (
-      <Window theme="scp_terminal" width={600} height={700}>
-        <Window.Content scrollable>
+      <NtosWindow width={600} height={700}>
+        <NtosWindow.Content scrollable>
           <Box
             style={{
               background: C.bg,
@@ -251,8 +251,8 @@ export const SCPDocumentReader = (props) => {
               onBack={() => setSelectedId(null)}
             />
           </Box>
-        </Window.Content>
-      </Window>
+        </NtosWindow.Content>
+      </NtosWindow>
     );
   }
 
@@ -263,8 +263,8 @@ export const SCPDocumentReader = (props) => {
     : documents;
 
   return (
-    <Window theme="scp_terminal" width={500} height={600}>
-      <Window.Content scrollable>
+    <NtosWindow width={500} height={600}>
+      <NtosWindow.Content scrollable>
         <Box
           style={{
             background: C.bg,
@@ -372,7 +372,7 @@ export const SCPDocumentReader = (props) => {
             );
           })}
         </Box>
-      </Window.Content>
-    </Window>
+      </NtosWindow.Content>
+    </NtosWindow>
   );
 };

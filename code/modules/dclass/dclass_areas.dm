@@ -192,23 +192,6 @@
 	name = "Escape Route Point"
 	var/route_difficulty = 3
 
-/obj/structure/dclass_bunk
-	name = "D-Class Bunk"
-	desc = "A simple metal frame with a thin mattress."
-	icon = 'icons/obj/structures.dmi'
-	icon_state = "bed"
-	anchored = TRUE
-
-/obj/structure/dclass_bunk/attack_hand(mob/user)
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	var/datum/dclass_player/player = SSdclass?.manager?.get_dclass_player(H.ckey)
-	if(player)
-		to_chat(H, span_notice("You rest. Credits: [player.credits], Trust: [player.trust_points]%"))
-	else
-		to_chat(H, span_notice("A cold, uncomfortable bunk."))
-
 /obj/machinery/dclass_announcement
 	name = "D-Class Announcement Panel"
 	desc = "Announcements for D-Class."

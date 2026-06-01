@@ -89,7 +89,7 @@
 				H.sanity.adjust_sanity(-5, "voice_mimicry")
 
 			if(prob(30))
-				H.visible_message("<span class='warning'>[H] looks confused and frightened.</span>")
+				H.visible_message(span_warning("[H] looks confused and frightened."))
 
 /datum/scp939_pack_system
 	var/mob/living/scp/scp939/owner = null
@@ -222,7 +222,7 @@
 
 	profile["trust_level"] = max(0, profile["trust_level"] - 10)
 
-	target.visible_message("<span class='warning'>[target] looks increasingly terrified.</span>")
+	target.visible_message(span_warning("[target] looks increasingly terrified."))
 	return TRUE
 
 /datum/scp939_psychology_system/proc/exploit_social_bonds(mob/living/carbon/human/target, relationship)
@@ -461,7 +461,7 @@
 		return
 
 	target.adjustBruteLoss(25)
-	owner.visible_message("<span class='danger'>[owner] viciously attacks [target]!</span>")
+	owner.visible_message(span_danger("[owner] viciously attacks [target]!"))
 
 	if(target.sanity)
 		target.sanity.adjust_sanity(-20, "scp939_attack")

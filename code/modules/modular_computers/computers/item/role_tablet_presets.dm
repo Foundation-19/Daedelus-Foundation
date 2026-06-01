@@ -226,3 +226,75 @@
 	saved_identification = "D-Class"
 	saved_job = "D-Class"
 
+/obj/item/modular_computer/tablet/pda/foundation_command
+	name = "Command PDA"
+	default_disk = /obj/item/computer_hardware/hard_drive/role/foundation_command
+	greyscale_colors = "#1a3a6a#4488ff"
+	saved_identification = "Command"
+
+/obj/item/modular_computer/tablet/pda/foundation_tribunal
+	name = "Tribunal PDA"
+	default_disk = /obj/item/computer_hardware/hard_drive/role/foundation_tribunal
+	greyscale_colors = "#2a0a2a#9933cc"
+	saved_identification = "Tribunal"
+
+/obj/item/modular_computer/tablet/pda/foundation_security
+	name = "Security PDA"
+	default_disk = /obj/item/computer_hardware/hard_drive/role/foundation_security
+	greyscale_colors = "#6a1a1a#cc2222"
+	saved_identification = "Security"
+
+/obj/item/modular_computer/tablet/pda/foundation_science
+	name = "Science PDA"
+	default_disk = /obj/item/computer_hardware/hard_drive/role/foundation_science
+	greyscale_colors = "#2a1a4a#9933ff"
+	saved_identification = "Science"
+
+/obj/item/modular_computer/tablet/pda/foundation_medical
+	name = "Medical PDA"
+	default_disk = /obj/item/computer_hardware/hard_drive/role/foundation_medical
+	greyscale_colors = "#e8e8f0#3399ff"
+	saved_identification = "Medical"
+
+/obj/item/modular_computer/tablet/pda/foundation_ethics
+	name = "Ethics PDA"
+	default_disk = /obj/item/computer_hardware/hard_drive/role/foundation_ethics
+	greyscale_colors = "#f5f5dc#d4a017"
+	saved_identification = "Ethics"
+
+/obj/item/modular_computer/tablet/pda/foundation_investigations
+	name = "Investigations PDA"
+	default_disk = /obj/item/computer_hardware/hard_drive/role/foundation_investigations
+	greyscale_colors = "#3a3a3a#888888"
+	saved_identification = "Investigations"
+
+/obj/item/modular_computer/tablet/pda/foundation_comms
+	name = "Communications PDA"
+	default_disk = /obj/item/computer_hardware/hard_drive/role/foundation_comms
+	greyscale_colors = "#1a3a6a#22aaff"
+	saved_identification = "Communications"
+
+/obj/item/modular_computer/tablet/pda/foundation_coordination
+	name = "Coordination PDA"
+	default_disk = /obj/item/computer_hardware/hard_drive/role/foundation_coordination
+	greyscale_colors = "#2a5a3a#44cc66"
+	saved_identification = "Coordination"
+
+/obj/item/modular_computer/tablet/pda/foundation_guard
+	name = "Guard PDA"
+	default_disk = /obj/item/computer_hardware/hard_drive/role/foundation_guard
+	greyscale_colors = "#4a2a1a#cc8844"
+	saved_identification = "Guard"
+
+/obj/item/modular_computer/tablet/pda/foundation_research
+	name = "Research PDA"
+	default_disk = /obj/item/computer_hardware/hard_drive/role/foundation_research
+	greyscale_colors = "#3a1a5a#bb44ff"
+	saved_identification = "Research"
+
+/obj/item/modular_computer/tablet/pda/foundation_engineer
+	name = "Engineer PDA"
+	default_disk = /obj/item/computer_hardware/hard_drive/role/foundation_engineer
+	greyscale_colors = "#6a5a1a#ddaa33"
+	saved_identification = "Engineer"
+
