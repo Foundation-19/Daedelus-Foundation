@@ -114,6 +114,10 @@
 	name = "\improper LCZ Secondary Offices"
 	icon_state = "lcz_office"
 
+/area/station/lcz/restroom
+	name = "\improper LCZ Restroom"
+	icon_state = "lcz"
+
 /area/station/security/lcz
 	name = "\improper LCZ Security Post"
 	icon_state = "security"
@@ -243,6 +247,9 @@
 /area/station/euclid_scp/scp_173
 	name = "SCP-173 Containment"
 
+/area/station/euclid_scp/scp_066
+	name = "SCP-066 Containment"
+
 /area/station/safe_scp/scp_914
 	name = "SCP-914 Containment"
 
@@ -257,6 +264,9 @@
 
 /area/station/safe_scp/scp_294
 	name = "SCP-294 Containment"
+
+/area/station/safe_scp/scp_263
+	name = "SCP-263 Containment"
 
 /area/station/safe_scp/scp_storage
 	name = "LCZ Anomalous Item Storage"
