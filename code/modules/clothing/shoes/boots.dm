@@ -82,7 +82,7 @@
 
 /obj/item/clothing/shoes/workboots
 	name = "work boots"
-	desc = "Mars-issue Engineering lace-up work boots for the especially blue-collar."
+	desc = "Some heavy-duty, durable footwear designed to protect feet from hazards in demanding environments like construction sites, factories, and farms."
 	icon_state = "workboots"
 	inhand_icon_state = "jackboots"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'

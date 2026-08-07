@@ -55,9 +55,38 @@
 	name = "LCZ Maintenance"
 	icon_state = "lczmaint"
 
+/area/station/engineering/lcz/emergency
+	name = "LCZ Emergency Power Room"
+	icon_state = "maint_electrical"
+
 /area/station/maintenance/lcz/entrance
 	name = "LCZ Entrance Maintenance"
-	icon_state = "lczentmaint"
+
+/area/station/engineering/lcz/entrance/substation
+	name = "LCZ Substation Control Room"
+	icon_state = "maint_electrical"
+
+/area/station/maintenance/cdcz
+	name = "CDCZ South Maintenance"
+	icon_state = "cdczmaint"
+
+/area/station/maintenance/cdcz/east
+	name = "CDCZ East Maintenance"
+
+/area/station/engineering/cdcz/substation
+	name = "CDCZ Substation Control Room"
+	icon_state = "maint_electrical"
+
+/area/station/engineering/cdcz/storage
+	name = "CDCZ Engineering Storage"
+	icon_state = "engine_storage"
+
+/area/station/engineering/cdcz/atmos
+	name = "CDCZ Emergency Atmospherics"
+	icon_state = "atmos"
+
+/area/station/maintenance/cdcz/upper
+	name = "CDCZ Upper Maintenance"
 
 /area/station/safe_scp
 	name = "Safe SCP Containment"
@@ -145,10 +174,6 @@
 	name = "\improper CDCZ Hallway"
 	icon_state = "cdcz_hall"
 
-/area/station/cdcz/cells
-	name = "\improper CDCZ Cells"
-	icon_state = "cdcz_cells"
-
 /area/station/cdcz/hallway/entrance
 	name = "\improper CDCZ Entrance Hallway"
 	icon_state = "cdcz_enthall"
@@ -205,10 +230,6 @@
 	name = "\improper CDCZ Lounge"
 	icon_state = "cdcz_lounge"
 
-/area/station/cdcz/luxury/cells
-	name = "\improper CDCZ Luxury Cells"
-	icon_state = "cdcz_luxcells"
-
 /area/station/security/cdcz/checkpoint
 	name = "\improper CDCZ Security Checkpoint"
 	icon_state = "checkpoint"
@@ -221,11 +242,34 @@
 	name = "\improper CDCZ Control Room"
 	icon_state = "security"
 
+/area/station/security/cdcz/mining_post
+	name = "\improper CDCZ Mining Security Post"
+	icon_state = "checkpoint"
+
 /area/station/ai_monitored/security/cdcz_armory
 	name = "\improper CDCZ Armory"
 	icon_state = "armory"
 	ambience_index = AMBIENCE_DANGER
 	airlock_wires = /datum/wires/airlock/security
+
+/area/station/medical/cdcz/medical
+	name = "\improper CDCZ Medical Lobby"
+	icon_state = "cdcz_medical"
+
+/area/station/medical/cdcz/medical/treatment
+	name = "\improper CDCZ Medical Treatment Center"
+
+/area/station/medical/cdcz/medical/reception
+	name = "\improper CDCZ Medical Reception"
+
+/area/station/medical/cdcz/medical/pharmacy
+	name = "\improper CDCZ Medical Pharmacy"
+
+/area/station/medical/cdcz/medical/storage
+	name = "\improper CDCZ Medical Storage"
+
+/area/station/medical/cdcz/medical/morgue
+	name = "\improper CDCZ Medical Morgue"
 
 /area/station/engineering/lcz/tech_storage
 	name = "\improper LCZ Technical Storage"

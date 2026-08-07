@@ -70,16 +70,30 @@
 
 /obj/structure/closet/wardrobe/orange
 	name = "prison wardrobe"
-	desc = "It's a storage unit for prisoner attire."
 	icon_door = "orange"
 
 /obj/structure/closet/wardrobe/orange/PopulateContents()
 	for(var/i in 1 to 3)
-		new /obj/item/clothing/under/rank/classd(src)
+		new /obj/item/clothing/under/color/orange(src)
 	for(var/i in 1 to 3)
 		new /obj/item/clothing/shoes/sneakers/orange(src)
 	return
 
+/obj/structure/closet/wardrobe/classd
+	name = "class-d wardrobe"
+	desc = "It's a storage unit for Class-D Personnel attire."
+	icon_door = "orange"
+
+/obj/structure/closet/wardrobe/classd/PopulateContents()
+	for(var/i in 1 to 2)
+		new /obj/item/clothing/under/rank/classd(src)
+	for(var/i in 1 to 2)
+		new /obj/item/clothing/under/rank/classd/undershirt(src)
+	for(var/i in 1 to 2)
+		new /obj/item/clothing/under/rank/classd/turtleneck(src)
+	for(var/i in 1 to 6)
+		new /obj/item/clothing/shoes/workboots(src)
+	return
 
 /obj/structure/closet/wardrobe/yellow
 	name = "yellow wardrobe"
@@ -95,7 +109,6 @@
 	new /obj/item/clothing/mask/bandana/gold(src)
 	new /obj/item/clothing/mask/bandana/gold(src)
 	return
-
 
 /obj/structure/closet/wardrobe/white
 	name = "white wardrobe"

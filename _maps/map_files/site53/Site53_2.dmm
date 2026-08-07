@@ -38,7 +38,7 @@
 	},
 /obj/structure/extinguisher_cabinet/directional/north,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/security/cdcz/mining_post)
 "ae" = (
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron,
@@ -97,8 +97,9 @@
 /obj/item/flashlight/lamp{
 	pixel_y = 4
 	},
+/obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical)
 "am" = (
 /obj/structure/rack/shelf,
 /obj/effect/spawner/random/engineering/toolbox,
@@ -106,7 +107,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "an" = (
 /turf/closed/wall/r_wall/prepainted/cdcz,
 /area/station/cdcz/gym)
@@ -120,7 +121,7 @@
 /turf/open/floor/iron/edge{
 	dir = 8
 	},
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "ap" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
@@ -163,11 +164,11 @@
 	dir = 4
 	},
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical)
 "au" = (
 /obj/structure/railing,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz/east)
 "av" = (
 /obj/effect/turf_decal/tile/cdcz_orange/anticorner/contrasted{
 	dir = 4
@@ -175,7 +176,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/orange,
 /turf/open/floor/iron,
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "aw" = (
 /obj/structure/table/wood,
 /obj/item/paicard,
@@ -265,7 +266,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/space)
+/area/station/engineering/cdcz/atmos)
 "aH" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
@@ -359,13 +360,13 @@
 /obj/effect/spawner/random/maintenance,
 /obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/engineering/cdcz/atmos)
 "aU" = (
 /obj/effect/turf_decal/siding/thinplating_new/light{
 	dir = 4
 	},
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "aV" = (
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4
@@ -374,12 +375,15 @@
 	dir = 8
 	},
 /area/station/hallway/ez/hub)
+"aW" = (
+/turf/open/floor/iron/white/herringbone,
+/area/station/medical/cdcz/medical/treatment)
 "aX" = (
 /obj/structure/overfloor_catwalk/iron_dark,
 /obj/effect/spawner/random/trash/garbage,
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "aY" = (
 /obj/effect/turf_decal/tile/ez_orange{
 	dir = 8
@@ -521,7 +525,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "bq" = (
 /obj/structure/railing{
 	dir = 6
@@ -587,7 +591,7 @@
 	},
 /obj/effect/spawner/random/structure/grille,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "by" = (
 /obj/structure/hedge,
 /obj/effect/turf_decal/siding/wood{
@@ -598,6 +602,9 @@
 "bz" = (
 /obj/effect/turf_decal/tile/cdcz_orange/opposingcorners,
 /obj/machinery/light/small/directional/east,
+/obj/machinery/flasher/directional/east{
+	id = "Cell 1"
+	},
 /turf/open/floor/iron/dark,
 /area/station/security/cdcz/post)
 "bA" = (
@@ -664,7 +671,7 @@
 	},
 /obj/structure/closet/firecloset,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz/east)
 "bJ" = (
 /obj/machinery/door/airlock/public/glass{
 	dir = 4;
@@ -677,7 +684,7 @@
 	name = "CDCZ Medical Pharmacy"
 	},
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/medical/cdcz/medical/pharmacy)
 "bL" = (
 /obj/effect/turf_decal/tile/white/opposingcorners,
 /obj/structure/table/reinforced,
@@ -720,7 +727,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white/herringbone,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "bQ" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
@@ -768,7 +775,10 @@
 /obj/structure/overfloor_catwalk/iron_dark,
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
+"bX" = (
+/turf/open/floor/iron/dark/herringbone,
+/area/station/security/cdcz/mining_post)
 "bY" = (
 /obj/machinery/photocopier/faxmachine,
 /obj/structure/sign/warning/nosmoking{
@@ -825,7 +835,7 @@
 	},
 /obj/effect/turf_decal/siding/thinplating_new/light/corner,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "ch" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 8
@@ -853,7 +863,7 @@
 /obj/effect/spawner/random/structure/crate,
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "cl" = (
 /obj/structure/railing{
 	dir = 4
@@ -969,7 +979,7 @@
 "cz" = (
 /obj/structure/overfloor_catwalk/iron,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/engineering/cdcz/atmos)
 "cA" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin{
@@ -1044,7 +1054,7 @@
 	},
 /obj/structure/sink/directional/east,
 /turf/open/floor/iron,
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "cJ" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -1058,7 +1068,7 @@
 /obj/item/clothing/mask/surgical,
 /obj/machinery/defibrillator_mount/directional/north,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "cL" = (
 /obj/structure/scp151{
 	pixel_y = 32
@@ -1090,7 +1100,7 @@
 /obj/structure/extinguisher_cabinet/directional/south,
 /obj/structure/sink/directional/north,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/morgue)
 "cP" = (
 /obj/effect/turf_decal/tile/euclid/fourcorners,
 /obj/effect/turf_decal/stripes/corner{
@@ -1153,7 +1163,7 @@
 	name = "CDCZ Cell Maintenance"
 	},
 /turf/open/floor/iron/dark/textured_large,
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "cY" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/structure/chair/sofa/bench,
@@ -1173,11 +1183,12 @@
 /obj/machinery/photocopier/faxmachine,
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/security/cdcz/mining_post)
 "db" = (
 /obj/machinery/door/airlock/cdcz{
 	name = "CDCZ Storage Closet"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/level2,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/cdcz/hallway/entrance)
 "dc" = (
@@ -1413,7 +1424,7 @@
 "dF" = (
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/pharmacy)
 "dG" = (
 /obj/effect/turf_decal/tile/lcz_tan/anticorner/contrasted{
 	dir = 1
@@ -1426,6 +1437,9 @@
 /obj/effect/spawner/structure/window/prepainted/cdcz,
 /turf/open/floor/iron/plating,
 /area/station/cdcz/assembly)
+"dI" = (
+/turf/closed/wall/prepainted/cdcz,
+/area/station/medical/cdcz/medical/storage)
 "dJ" = (
 /obj/structure/railing{
 	dir = 1
@@ -1436,7 +1450,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark/smooth_large,
-/area/space)
+/area/station/maintenance/cdcz)
 "dK" = (
 /obj/structure/table/wood,
 /obj/machinery/telephone{
@@ -1444,6 +1458,11 @@
 	},
 /turf/open/floor/carpet,
 /area/station/service/ez/bar/backroom)
+"dL" = (
+/obj/structure/table/reinforced,
+/obj/machinery/button/door,
+/turf/open/floor/iron/dark,
+/area/station/security/cdcz/post)
 "dM" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 4
@@ -1468,7 +1487,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/space)
+/area/station/engineering/cdcz/atmos)
 "dQ" = (
 /turf/closed/wall/prepainted/cdcz,
 /area/station/security/cdcz/checkpoint)
@@ -1483,7 +1502,7 @@
 	pixel_x = 10
 	},
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "dS" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/structure/closet/secure_closet{
@@ -1492,7 +1511,7 @@
 	},
 /obj/machinery/newscaster/directional/north,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/security/cdcz/mining_post)
 "dT" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood/corner{
@@ -1511,11 +1530,11 @@
 /area/station/safe_scp/scp_storage)
 "dW" = (
 /obj/machinery/door/airlock/atmos{
-	name = "CDCZ Atmospherics"
+	name = "CDCZ Emergency Atmospherics"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/level3,
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/engineering/cdcz/atmos)
 "dX" = (
 /obj/effect/turf_decal/tile/safe/diagonal_centre,
 /obj/structure/table/glass,
@@ -1599,7 +1618,7 @@
 /obj/machinery/power/smes/engineering,
 /obj/machinery/light/small/directional/south,
 /turf/open/floor/iron,
-/area/space)
+/area/station/engineering/cdcz/substation)
 "eh" = (
 /obj/effect/turf_decal/siding/thinplating_new/light{
 	dir = 1
@@ -1653,7 +1672,7 @@
 "em" = (
 /obj/machinery/light/small/maintenance/directional/south,
 /turf/open/floor/iron/dark,
-/area/space)
+/area/station/maintenance/cdcz)
 "en" = (
 /turf/open/floor/carpet/grey,
 /area/station/security/lcz/lieutenant)
@@ -1669,7 +1688,7 @@
 "ep" = (
 /obj/structure/chair/office/light,
 /turf/open/floor/carpet/blue,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "eq" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/bottle/holywater{
@@ -1698,11 +1717,11 @@
 /obj/structure/overfloor_catwalk/iron,
 /obj/effect/landmark/pestspawn,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/engineering/cdcz/atmos)
 "es" = (
 /obj/machinery/iv_drip,
 /turf/open/floor/iron/white/herringbone,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "et" = (
 /turf/closed/wall/r_wall/prepainted/lcz,
 /area/station/safe_scp/scp_999)
@@ -1744,7 +1763,7 @@
 /turf/open/floor/iron/edge{
 	dir = 4
 	},
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "eA" = (
 /obj/effect/mapping_helpers/broken_floor,
 /obj/effect/spawner/random/structure/closet_maintenance,
@@ -1759,7 +1778,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "eC" = (
 /obj/machinery/shower/directional/west,
 /obj/effect/turf_decal/tile/cdcz_orange/half/contrasted{
@@ -1797,7 +1816,7 @@
 	dir = 8
 	},
 /turf/open/floor/carpet/blue,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "eI" = (
 /obj/structure/railing{
 	dir = 5
@@ -1835,7 +1854,7 @@
 /obj/structure/rack/shelf,
 /obj/effect/spawner/random/maintenance/four,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "eN" = (
 /obj/effect/spawner/random/trash/graffiti,
 /turf/open/floor/iron,
@@ -1844,7 +1863,7 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /obj/machinery/vending/drugs,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/pharmacy)
 "eP" = (
 /obj/structure/chair/sofa/right{
 	color = "#4d3118"
@@ -1861,7 +1880,7 @@
 /obj/item/stack/sheet/mineral/plasma,
 /obj/item/stack/sheet/mineral/plasma,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/pharmacy)
 "eR" = (
 /obj/structure/bed,
 /turf/open/floor/iron/dark/herringbone,
@@ -1877,9 +1896,9 @@
 "eT" = (
 /obj/machinery/chem_heater,
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/machinery/newscaster/directional/north,
+/obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/pharmacy)
 "eU" = (
 /obj/structure/railing{
 	dir = 10
@@ -1912,7 +1931,7 @@
 	},
 /obj/effect/turf_decal/siding/thinplating_new/light,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "eX" = (
 /obj/machinery/door/airlock/glass{
 	dir = 4;
@@ -2004,7 +2023,7 @@
 /obj/effect/turf_decal/stripes/box,
 /obj/structure/ladder/up,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "fj" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
@@ -2132,22 +2151,11 @@
 /turf/open/floor/carpet/green,
 /area/station/service/ez/chapel)
 "fx" = (
-/obj/structure/closet/secure_closet{
-	name = "class-d locker"
-	},
-/obj/item/clothing/shoes/sneakers/black,
-/obj/item/clothing/shoes/sneakers/black,
-/obj/item/clothing/shoes/sneakers/black,
-/obj/item/clothing/under/rank/classd,
-/obj/item/clothing/under/rank/classd,
-/obj/item/clothing/under/rank/classd,
-/obj/item/restraints/handcuffs,
-/obj/item/restraints/handcuffs,
-/obj/item/restraints/handcuffs,
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
 	},
 /obj/machinery/status_display/evac/directional/west,
+/obj/structure/closet/secure_closet/classd,
 /turf/open/floor/iron/dark/small,
 /area/space)
 "fy" = (
@@ -2228,7 +2236,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "fH" = (
 /obj/effect/turf_decal/tile/cdcz_orange{
 	dir = 1
@@ -2274,6 +2282,9 @@
 "fN" = (
 /obj/effect/turf_decal/tile/cdcz_orange/opposingcorners,
 /obj/machinery/light/small/directional/west,
+/obj/machinery/flasher/directional/west{
+	id = "Cell 2"
+	},
 /turf/open/floor/iron/dark,
 /area/station/security/cdcz/post)
 "fO" = (
@@ -2335,7 +2346,7 @@
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/item/radio/intercom/directional/east,
 /turf/open/floor/iron,
-/area/station/maintenance/lcz/entrance)
+/area/station/engineering/lcz/entrance/substation)
 "fY" = (
 /obj/structure/stairs/west{
 	icon = 'icons/turf/floors.dmi';
@@ -2352,7 +2363,7 @@
 "ga" = (
 /obj/structure/chair/office/tactical,
 /turf/open/floor/wood/parquet,
-/area/station/cdcz/luxury/cells)
+/area/station/cdcz/luxury)
 "gb" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/clothing/costume,
@@ -2379,7 +2390,7 @@
 	pixel_y = 5
 	},
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/pharmacy)
 "gf" = (
 /obj/effect/turf_decal/siding/thinplating_new/light{
 	dir = 8
@@ -2401,10 +2412,10 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /obj/structure/extinguisher_cabinet/directional/west,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/pharmacy)
 "gh" = (
 /turf/closed/wall/prepainted/cdcz,
-/area/space)
+/area/station/medical/cdcz/medical/morgue)
 "gi" = (
 /obj/effect/turf_decal/tile/white/anticorner/contrasted{
 	dir = 1
@@ -2442,6 +2453,9 @@
 /obj/effect/turf_decal/tile/cdcz_orange/half/contrasted,
 /turf/open/floor/iron/showroomfloor,
 /area/station/cdcz/showers)
+"go" = (
+/turf/open/floor/iron/plating,
+/area/station/maintenance/cdcz/east)
 "gp" = (
 /obj/machinery/door/airlock/lcz/safe{
 	name = "SCP-2398 Containment"
@@ -2468,7 +2482,7 @@
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance/six,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "gt" = (
 /obj/effect/turf_decal/tile/safe/anticorner/contrasted{
 	dir = 8
@@ -2493,7 +2507,7 @@
 	},
 /obj/item/radio/intercom/directional/south,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical)
 "gv" = (
 /obj/effect/turf_decal/tile/white/half/contrasted{
 	dir = 1
@@ -2540,14 +2554,18 @@
 /obj/structure/overfloor_catwalk/iron_dark,
 /obj/effect/landmark/blobstart,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz/east)
 "gA" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 10
 	},
 /obj/structure/hedge,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
+"gB" = (
+/obj/effect/turf_decal/tile/white/fourcorners,
+/turf/open/floor/iron/dark,
+/area/station/security/cdcz/post)
 "gC" = (
 /obj/effect/turf_decal/tile/safe/diagonal_centre,
 /obj/structure/table/reinforced/rglass,
@@ -2613,7 +2631,7 @@
 	pixel_x = -5
 	},
 /turf/open/floor/iron/dark/herringbone,
-/area/space)
+/area/station/medical/cdcz/medical/morgue)
 "gI" = (
 /obj/effect/turf_decal/tile/cdcz_orange/opposingcorners,
 /obj/structure/toilet{
@@ -2685,7 +2703,7 @@
 	pixel_y = -3
 	},
 /turf/open/floor/carpet/blue,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "gR" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
@@ -2766,7 +2784,7 @@
 "ha" = (
 /obj/machinery/light/floor/has_bulb,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/morgue)
 "hb" = (
 /obj/effect/turf_decal/tile/science_blue/opposingcorners,
 /obj/machinery/photocopier/faxmachine,
@@ -2968,14 +2986,14 @@
 /obj/effect/spawner/random/maintenance/two,
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "hE" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 5
 	},
 /obj/structure/hedge,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "hF" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -3187,26 +3205,26 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister,
 /obj/structure/sign/warning/nosmoking{
 	pixel_y = -32
 	},
 /obj/machinery/light/directional/south,
+/obj/machinery/portable_atmospherics/canister/air,
 /turf/open/floor/iron,
-/area/space)
+/area/station/engineering/cdcz/atmos)
 "ii" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 5
 	},
 /turf/open/floor/iron/dark/herringbone,
-/area/space)
+/area/station/security/cdcz/mining_post)
 "ij" = (
 /obj/effect/mapping_helpers/broken_floor,
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance/three,
 /obj/machinery/light/small/maintenance/directional/north,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "ik" = (
 /obj/structure/closet/crate/trashcart,
 /turf/open/floor/iron/plating,
@@ -3223,7 +3241,7 @@
 	dir = 1
 	},
 /turf/open/floor/wood/parquet,
-/area/station/cdcz/luxury/cells)
+/area/station/cdcz/luxury)
 "in" = (
 /obj/effect/turf_decal/tile/euclid/fourcorners,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
@@ -3242,7 +3260,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "ip" = (
 /obj/effect/turf_decal/tile/safe/half/contrasted{
 	dir = 4
@@ -3253,6 +3271,16 @@
 /obj/machinery/newscaster/directional/east,
 /turf/open/floor/iron/dark,
 /area/station/safe_scp/scp_529)
+"iq" = (
+/obj/effect/turf_decal/tile/white/anticorner/contrasted{
+	dir = 8
+	},
+/obj/machinery/light_switch/directional/south,
+/obj/item/kirbyplants{
+	icon_state = "plant-21"
+	},
+/turf/open/floor/iron/dark,
+/area/station/security/cdcz/post)
 "ir" = (
 /obj/effect/turf_decal/tile/safe/half/contrasted{
 	dir = 1
@@ -3298,7 +3326,7 @@
 /obj/effect/spawner/random/trash/mopbucket,
 /obj/effect/mapping_helpers/burnt_floor,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "iy" = (
 /obj/effect/turf_decal/tile/safe/half/contrasted{
 	dir = 1
@@ -3394,7 +3422,7 @@
 	name = "CDCZ Medical Staff Area"
 	},
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "iM" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "CDCZ Armory";
@@ -3433,7 +3461,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/maintenance/cdcz/east)
 "iQ" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark/end{
 	dir = 1
@@ -3448,6 +3476,10 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark/smooth_large,
 /area/space)
+"iS" = (
+/obj/effect/spawner/structure/window/reinforced/prepainted/cdcz,
+/turf/open/floor/iron/plating,
+/area/station/security/cdcz/mining_post)
 "iT" = (
 /obj/machinery/light/small/maintenance/directional/north,
 /obj/effect/spawner/random/trash/graffiti,
@@ -3491,7 +3523,7 @@
 "iY" = (
 /obj/structure/overfloor_catwalk/iron,
 /turf/open/floor/iron/plating,
-/area/station/maintenance/lcz)
+/area/station/engineering/lcz/emergency)
 "iZ" = (
 /obj/effect/turf_decal/tile/science_blue/opposingcorners,
 /obj/structure/table/reinforced,
@@ -3543,6 +3575,17 @@
 	dir = 1
 	},
 /area/station/safe_scp/scp_storage)
+"je" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "CDCZ Maintenance";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/level2,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/textured_large,
+/area/station/maintenance/cdcz)
 "jf" = (
 /obj/effect/turf_decal/tile/white/half/contrasted{
 	dir = 4
@@ -3592,7 +3635,7 @@
 /obj/item/stock_parts/cell/high,
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron,
-/area/station/maintenance/lcz/entrance)
+/area/station/engineering/lcz/entrance/substation)
 "jl" = (
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
 /turf/open/floor/iron/smooth,
@@ -3609,7 +3652,7 @@
 	},
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/pharmacy)
 "jo" = (
 /obj/effect/turf_decal/tile/dark_red/anticorner/contrasted{
 	dir = 1
@@ -3744,7 +3787,7 @@
 /obj/item/clothing/suit/caution,
 /obj/item/clothing/suit/caution,
 /obj/item/clothing/suit/caution,
-/obj/item/radio/intercom/directional/west,
+/obj/machinery/newscaster/directional/west,
 /turf/open/floor/iron/dark/small,
 /area/station/cdcz/custodial)
 "jF" = (
@@ -3753,7 +3796,7 @@
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/structure/extinguisher_cabinet/directional/west,
 /turf/open/floor/iron,
-/area/station/maintenance/lcz/entrance)
+/area/station/engineering/lcz/entrance/substation)
 "jG" = (
 /obj/structure/closet/crate/bin,
 /obj/effect/turf_decal/siding/wideplating_new/dark,
@@ -3797,7 +3840,7 @@
 /obj/structure/railing,
 /obj/effect/spawner/random/structure/closet_maintenance,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz/east)
 "jL" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/structure/hedge,
@@ -3805,6 +3848,13 @@
 /obj/item/radio/intercom/directional/north,
 /turf/open/floor/iron/dark/small,
 /area/station/cdcz/hallway/entrance)
+"jM" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 10
+	},
+/obj/machinery/flasher/portable,
+/turf/open/floor/iron/dark/small,
+/area/station/security/cdcz/post)
 "jN" = (
 /obj/structure/table/reinforced/rglass,
 /obj/item/paper_bin{
@@ -3819,7 +3869,7 @@
 	pixel_x = 5
 	},
 /turf/open/floor/carpet/blue,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "jO" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
@@ -3855,7 +3905,7 @@
 /obj/item/soap{
 	pixel_y = -6
 	},
-/obj/machinery/newscaster/directional/east,
+/obj/machinery/airalarm/directional/east,
 /turf/open/floor/iron/dark/small,
 /area/station/cdcz/custodial)
 "jR" = (
@@ -3916,8 +3966,14 @@
 /obj/effect/turf_decal/tile/white/anticorner/contrasted{
 	dir = 4
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
+/obj/machinery/door_timer{
+	name = "Solitary Cell 2";
+	id = "Cell 2";
+	pixel_y = 32
+	},
+/obj/structure/closet/secure_closet/brig{
+	name = "Solitary Cell 2 Locker";
+	id = "Cell 2"
 	},
 /turf/open/floor/iron/dark,
 /area/station/security/cdcz/post)
@@ -4025,14 +4081,14 @@
 /obj/machinery/light/small/maintenance/directional/west,
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "kl" = (
 /obj/machinery/door/airlock/cdcz{
 	dir = 4;
 	name = "CDCZ Cell"
 	},
 /turf/open/floor/iron/dark/textured_large,
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "km" = (
 /obj/effect/turf_decal/tile/ez_orange/anticorner/contrasted,
 /turf/open/floor/iron,
@@ -4292,7 +4348,7 @@
 /obj/structure/overfloor_catwalk/iron,
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/engineering/cdcz/atmos)
 "kU" = (
 /obj/structure/railing{
 	dir = 4
@@ -4331,7 +4387,7 @@
 /turf/open/floor/iron/edge{
 	dir = 4
 	},
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "kZ" = (
 /turf/closed/wall/prepainted/lcz,
 /area/station/lcz/offices)
@@ -4347,7 +4403,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/space)
+/area/station/engineering/cdcz/atmos)
 "lb" = (
 /obj/structure/table/glass,
 /obj/item/radio/intercom/directional/east,
@@ -4390,7 +4446,7 @@
 	},
 /obj/item/radio/intercom/directional/south,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "ld" = (
 /obj/machinery/door/firedoor/heavy,
 /obj/machinery/door/airlock/lcz/euclid{
@@ -4422,7 +4478,7 @@
 /obj/effect/spawner/random/maintenance/two,
 /obj/machinery/light/small/maintenance/directional/north,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "lh" = (
 /obj/effect/turf_decal/tile/ez_orange/anticorner/contrasted,
 /obj/structure/railing/corner,
@@ -4440,7 +4496,7 @@
 /obj/structure/closet/crate/bin,
 /obj/machinery/light/directional/south,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "lk" = (
 /turf/open/floor/iron/dark/textured_large,
 /area/station/safe_scp/scp_914)
@@ -4450,7 +4506,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical)
 "lm" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/structure/chair/sofa/bench/left,
@@ -4496,7 +4552,7 @@
 /obj/machinery/light/small/maintenance/directional/north,
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "lt" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 1
@@ -4542,7 +4598,7 @@
 /obj/effect/spawner/random/maintenance/four,
 /obj/machinery/light/small/maintenance/directional/north,
 /turf/open/floor/iron,
-/area/space)
+/area/station/maintenance/cdcz)
 "lx" = (
 /obj/effect/turf_decal/tile/lcz_tan/half/contrasted{
 	dir = 8
@@ -4584,7 +4640,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "lD" = (
 /turf/closed/wall/r_wall/prepainted/cdcz,
 /area/station/cdcz/assembly)
@@ -4605,13 +4661,14 @@
 /obj/item/reagent_containers/spray/cleaner,
 /obj/item/soap,
 /obj/item/soap,
+/obj/machinery/status_display/evac/directional/west,
 /turf/open/floor/iron/dark/small,
 /area/station/cdcz/custodial)
 "lF" = (
 /obj/effect/mapping_helpers/burnt_floor,
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron,
-/area/space)
+/area/station/maintenance/cdcz)
 "lG" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
@@ -4642,7 +4699,7 @@
 /obj/effect/spawner/random/structure/table_or_rack,
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "lK" = (
 /obj/effect/turf_decal/tile/cdcz_orange/opposingcorners,
 /obj/machinery/airalarm/directional/west,
@@ -4672,8 +4729,9 @@
 	pixel_y = 13;
 	pixel_x = 8
 	},
+/obj/machinery/newscaster/directional/south,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "lN" = (
 /obj/effect/turf_decal/tile/euclid/half/contrasted{
 	dir = 4
@@ -4726,7 +4784,7 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /obj/machinery/status_display/evac/directional/north,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/pharmacy)
 "lV" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -4805,8 +4863,14 @@
 /obj/effect/turf_decal/tile/white/anticorner/contrasted{
 	dir = 1
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
+/obj/machinery/door_timer{
+	name = "Solitary Cell 1";
+	id = "Cell 1";
+	pixel_y = 32
+	},
+/obj/structure/closet/secure_closet/brig{
+	name = "Solitary Cell 1 Locker";
+	id = "Cell 1"
 	},
 /turf/open/floor/iron/dark,
 /area/station/security/cdcz/post)
@@ -4909,7 +4973,7 @@
 	name = "CDCZ Luxury Cell"
 	},
 /turf/open/floor/iron/dark/textured_large,
-/area/station/cdcz/luxury/cells)
+/area/station/cdcz/luxury)
 "mw" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
@@ -4983,6 +5047,10 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/euclid_scp/scp_066)
+"mF" = (
+/obj/effect/turf_decal/tile/white/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/station/security/cdcz/mining_post)
 "mG" = (
 /obj/item/reagent_containers/glass/bowl,
 /obj/item/food/candy,
@@ -5012,7 +5080,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark/herringbone,
-/area/space)
+/area/station/security/cdcz/mining_post)
 "mK" = (
 /obj/effect/turf_decal/tile/safe/anticorner/contrasted,
 /turf/open/floor/iron/dark,
@@ -5026,12 +5094,12 @@
 	dir = 9
 	},
 /turf/open/floor/iron,
-/area/space)
+/area/station/engineering/cdcz/atmos)
 "mM" = (
 /obj/structure/fluff/broken_flooring/singular/directional/south,
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "mN" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 10
@@ -5078,7 +5146,7 @@
 /obj/effect/spawner/random/structure/crate,
 /obj/machinery/light/small/maintenance/directional/south,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz/east)
 "mV" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
@@ -5127,7 +5195,7 @@
 	},
 /obj/machinery/portable_atmospherics/pump,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz/east)
 "na" = (
 /obj/machinery/door/airlock/lcz/euclid{
 	name = "SCP-151 Containment"
@@ -5148,7 +5216,7 @@
 	},
 /obj/machinery/light/small/directional/east,
 /turf/open/floor/iron,
-/area/station/maintenance/lcz/entrance)
+/area/station/engineering/lcz/entrance/substation)
 "nd" = (
 /obj/effect/turf_decal/siding/thinplating_new/light,
 /obj/effect/turf_decal/tile/lcz_tan/half/contrasted{
@@ -5278,7 +5346,7 @@
 /obj/effect/spawner/random/structure/girder,
 /obj/effect/spawner/random/structure/grille,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "nu" = (
 /obj/effect/turf_decal/siding/thinplating_new/light,
 /obj/effect/turf_decal/tile/safe/half/contrasted{
@@ -5312,7 +5380,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz/east)
 "ny" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -5340,7 +5408,7 @@
 	},
 /obj/structure/curtain/cloth/fancy,
 /turf/open/floor/wood/parquet,
-/area/station/cdcz/luxury/cells)
+/area/station/cdcz/luxury)
 "nB" = (
 /obj/effect/spawner/structure/window/reinforced/prepainted/lcz,
 /obj/machinery/door/firedoor/heavy,
@@ -5350,6 +5418,9 @@
 	},
 /turf/open/floor/iron/plating,
 /area/station/euclid_scp/scp_151)
+"nC" = (
+/turf/closed/wall/prepainted/cdcz,
+/area/station/medical/cdcz/medical)
 "nD" = (
 /obj/effect/turf_decal/tile/lcz_tan/half/contrasted{
 	dir = 4
@@ -5367,7 +5438,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/space)
+/area/station/engineering/cdcz/atmos)
 "nF" = (
 /obj/structure/railing{
 	dir = 8
@@ -5378,35 +5449,6 @@
 /obj/effect/spawner/random/trash/janitor_supplies,
 /turf/open/floor/iron/plating,
 /area/station/maintenance/lcz/entrance)
-"nG" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark{
-	dir = 4
-	},
-/obj/structure/closet{
-	name = "D-Class storage locker"
-	},
-/obj/item/clothing/shoes/sneakers/black,
-/obj/item/clothing/shoes/sneakers/black,
-/obj/item/clothing/shoes/sneakers/black,
-/obj/item/clothing/shoes/sneakers/black,
-/obj/item/clothing/shoes/sneakers/black,
-/obj/item/clothing/shoes/sneakers/black,
-/obj/item/clothing/shoes/sneakers/black,
-/obj/item/clothing/shoes/sneakers/black,
-/obj/item/clothing/shoes/sneakers/black,
-/obj/item/clothing/shoes/sneakers/black,
-/obj/item/clothing/under/rank/classd,
-/obj/item/clothing/under/rank/classd,
-/obj/item/clothing/under/rank/classd,
-/obj/item/clothing/under/rank/classd,
-/obj/item/clothing/under/rank/classd,
-/obj/item/clothing/under/rank/classd,
-/obj/item/clothing/under/rank/classd,
-/obj/item/clothing/under/rank/classd,
-/obj/item/clothing/under/rank/classd,
-/obj/item/clothing/under/rank/classd,
-/turf/open/floor/iron/dark/small,
-/area/station/cdcz/hallway/entrance)
 "nH" = (
 /obj/effect/turf_decal/tile/ez_orange,
 /turf/open/floor/iron/corner,
@@ -5417,7 +5459,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical)
 "nJ" = (
 /turf/closed/wall/prepainted/cdcz,
 /area/station/cdcz/assembly)
@@ -5438,6 +5480,10 @@
 /obj/structure/extinguisher_cabinet/directional/north,
 /turf/open/floor/iron/dark/small,
 /area/station/safe_scp/scp_294)
+"nM" = (
+/obj/effect/spawner/structure/window/reinforced/prepainted/cdcz,
+/turf/open/floor/iron/plating,
+/area/station/medical/cdcz/medical/morgue)
 "nN" = (
 /obj/machinery/light/directional/west,
 /obj/effect/turf_decal/siding/wideplating_new/dark{
@@ -5522,7 +5568,7 @@
 	name = "CDCZ Rafters Maintenance"
 	},
 /turf/open/floor/iron/plating,
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "nY" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner{
 	dir = 1
@@ -5577,7 +5623,7 @@
 	},
 /obj/machinery/light/directional/north,
 /turf/open/floor/wood/parquet,
-/area/station/cdcz/luxury/cells)
+/area/station/cdcz/luxury)
 "oe" = (
 /obj/structure/closet/crate/bin,
 /turf/open/floor/iron/white/side{
@@ -5659,7 +5705,7 @@
 /obj/effect/mapping_helpers/broken_floor,
 /obj/effect/spawner/random/engineering/canister,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "oq" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
@@ -5805,7 +5851,7 @@
 /obj/structure/rack/shelf,
 /obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/iron,
-/area/space)
+/area/station/maintenance/cdcz)
 "oJ" = (
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/iron/dark,
@@ -5830,7 +5876,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical)
 "oN" = (
 /obj/structure/holohoop{
 	pixel_y = 26
@@ -5930,11 +5976,12 @@
 	},
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/storage)
 "oW" = (
 /obj/machinery/door/airlock/cdcz/glass{
 	name = "Class-D Containment Zone"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/level2,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/cdcz/hallway/entrance)
 "oX" = (
@@ -5949,7 +5996,7 @@
 	name = "CDCZ Mining Security Post"
 	},
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/security/cdcz/mining_post)
 "oZ" = (
 /obj/machinery/holopad,
 /turf/open/floor/wood/parquet,
@@ -6081,7 +6128,7 @@
 /obj/structure/extinguisher_cabinet/directional/east,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/iron,
-/area/station/maintenance/lcz)
+/area/station/engineering/lcz/emergency)
 "pt" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 1
@@ -6100,7 +6147,7 @@
 /obj/structure/closet/crate/freezer/surplus_limbs,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "pw" = (
 /obj/effect/turf_decal/tile/safe/diagonal_centre,
 /turf/open/floor/iron/dark/diagonal,
@@ -6232,7 +6279,7 @@
 /obj/structure/overfloor_catwalk/iron_dark,
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "pP" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
@@ -6260,15 +6307,16 @@
 /area/station/maintenance/lcz)
 "pS" = (
 /obj/effect/turf_decal/tile/white/fourcorners,
+/obj/machinery/light_switch/directional/west,
 /turf/open/floor/iron/dark,
 /area/station/security/cdcz/control)
 "pT" = (
 /obj/machinery/door/airlock/highsecurity{
-	name = "LCZ Power Maintenance"
+	name = "LCZ Substation Control Room"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/level3,
 /turf/open/floor/iron/dark/textured_large,
-/area/station/maintenance/lcz/entrance)
+/area/station/engineering/lcz/entrance/substation)
 "pU" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 4
@@ -6366,7 +6414,7 @@
 "qg" = (
 /obj/structure/overfloor_catwalk/iron_dark,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz/east)
 "qh" = (
 /obj/effect/turf_decal/tile/white/anticorner/contrasted,
 /obj/structure/extinguisher_cabinet/directional/east,
@@ -6385,7 +6433,7 @@
 "qk" = (
 /obj/effect/spawner/random/trash/graffiti,
 /turf/open/floor/iron/dark,
-/area/space)
+/area/station/maintenance/cdcz)
 "ql" = (
 /obj/machinery/door/airlock/lcz/safe{
 	dir = 4;
@@ -6426,7 +6474,7 @@
 "qo" = (
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron,
-/area/space)
+/area/station/maintenance/cdcz)
 "qp" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/siding/wood{
@@ -6441,7 +6489,7 @@
 "qr" = (
 /obj/structure/fluff/broken_flooring/singular/directional/west,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "qs" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
@@ -6474,7 +6522,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/maintenance/cdcz/east)
 "qw" = (
 /obj/structure/railing,
 /obj/effect/spawner/random/structure/crate,
@@ -6506,7 +6554,7 @@
 /obj/machinery/papershredder,
 /obj/machinery/requests_console/departmental/directional/north,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "qA" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -6540,7 +6588,7 @@
 /area/space)
 "qE" = (
 /turf/open/floor/carpet/blue,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "qF" = (
 /obj/structure/railing{
 	dir = 8
@@ -6640,11 +6688,11 @@
 /area/station/cdcz/basketball)
 "qP" = (
 /obj/machinery/door/airlock/highsecurity{
-	name = "LCZ Emergency Power Maintenance"
+	name = "LCZ Emergency Power Room"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/level3,
 /turf/open/floor/iron/dark/textured_large,
-/area/station/maintenance/lcz)
+/area/station/engineering/lcz/emergency)
 "qQ" = (
 /turf/closed/wall/r_wall/prepainted/lcz,
 /area/station/lcz/restroom)
@@ -6865,7 +6913,7 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/structure/closet/crate/bin,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical)
 "rv" = (
 /obj/machinery/button/door/directional/south{
 	id_tag = "lcz_lieutenantoffice";
@@ -6913,7 +6961,7 @@
 	},
 /obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/storage)
 "rz" = (
 /obj/effect/turf_decal/tile/white/half/contrasted,
 /obj/structure/sign/warning/securearea/armory{
@@ -7029,7 +7077,7 @@
 /obj/effect/spawner/random/trash/box,
 /obj/effect/spawner/random/maintenance/six,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "rK" = (
 /obj/effect/turf_decal/tile/safe/half/contrasted{
 	dir = 8
@@ -7135,7 +7183,7 @@
 /obj/effect/spawner/random/trash/janitor_supplies,
 /obj/structure/railing,
 /turf/open/floor/plating,
-/area/space)
+/area/station/maintenance/cdcz/east)
 "rY" = (
 /obj/structure/altar_of_gods,
 /obj/item/storage/book/bible,
@@ -7170,7 +7218,7 @@
 /turf/open/floor/iron/edge{
 	dir = 4
 	},
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "sc" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
@@ -7200,12 +7248,12 @@
 /turf/open/floor/iron/edge{
 	dir = 8
 	},
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "sg" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/effect/turf_decal/siding/thinplating_new/light,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical)
 "sh" = (
 /obj/machinery/light/small/maintenance/directional/east,
 /obj/effect/spawner/random/structure/crate_abandoned,
@@ -7247,7 +7295,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz/east)
 "sn" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
@@ -7297,7 +7345,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "st" = (
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron/plating,
@@ -7329,11 +7377,11 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "sx" = (
 /obj/machinery/light/directional/north,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/engineering/cdcz/storage)
 "sy" = (
 /obj/effect/turf_decal/tile/lcz_tan/anticorner/contrasted{
 	dir = 4
@@ -7475,7 +7523,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "sP" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
@@ -7515,7 +7563,7 @@
 "sQ" = (
 /obj/machinery/smartfridge/chemistry/preloaded,
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/medical/cdcz/medical/pharmacy)
 "sR" = (
 /obj/effect/turf_decal/tile/lcz_tan/anticorner/contrasted{
 	dir = 4
@@ -7559,7 +7607,7 @@
 "sV" = (
 /obj/machinery/status_display/evac/directional/north,
 /turf/open/floor/iron/plating,
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "sW" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "LCZ Maintenance"
@@ -7679,7 +7727,7 @@
 	},
 /obj/structure/closet/emcloset,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "tn" = (
 /obj/effect/spawner/random/structure/chair_maintenance{
 	dir = 4
@@ -7718,7 +7766,7 @@
 	name = "Dr. No-License"
 	},
 /turf/open/floor/iron/white/herringbone,
-/area/space)
+/area/station/medical/cdcz/medical)
 "ts" = (
 /obj/effect/turf_decal/tile/white/opposingcorners,
 /obj/machinery/button/door/directional/west{
@@ -7727,6 +7775,13 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/safe_scp/scp_294)
+"tt" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 4
+	},
+/obj/structure/closet/wardrobe/classd,
+/turf/open/floor/iron/dark/small,
+/area/station/cdcz/hallway/entrance)
 "tu" = (
 /obj/structure/table/glass,
 /obj/item/scalpel,
@@ -7735,7 +7790,7 @@
 	},
 /obj/machinery/power/apc/auto_name/directional/west,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/morgue)
 "tv" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
@@ -7759,7 +7814,7 @@
 	pixel_y = 1
 	},
 /turf/open/floor/iron/white/herringbone,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "ty" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/spawner/random/structure/closet_empty/crate,
@@ -7769,7 +7824,7 @@
 "tz" = (
 /obj/machinery/bodyscanner_console,
 /turf/open/floor/iron/white/herringbone,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "tA" = (
 /obj/effect/turf_decal/tile/ez_orange/half/contrasted{
 	dir = 1
@@ -7794,7 +7849,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "tD" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -7864,6 +7919,9 @@
 	dir = 1
 	},
 /area/station/security/cdcz/control)
+"tK" = (
+/turf/closed/wall/prepainted/cdcz,
+/area/station/medical/cdcz/medical/treatment)
 "tL" = (
 /obj/structure/chair/stool/bar/directional/north,
 /obj/effect/turf_decal/siding/wideplating_new/dark,
@@ -7888,7 +7946,7 @@
 	dir = 2
 	},
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/morgue)
 "tO" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
@@ -7976,7 +8034,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/storage)
 "ua" = (
 /obj/machinery/door/airlock/public/glass{
 	dir = 4;
@@ -8089,7 +8147,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/maintenance/cdcz/east)
 "uo" = (
 /obj/structure/railing{
 	dir = 1
@@ -8098,7 +8156,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/space)
+/area/station/maintenance/cdcz)
 "up" = (
 /obj/effect/turf_decal/tile/dark_red/half/contrasted{
 	dir = 1
@@ -8118,7 +8176,7 @@
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "us" = (
 /obj/effect/turf_decal/tile/science_blue/opposingcorners,
 /obj/structure/rack/shelf,
@@ -8156,7 +8214,7 @@
 /obj/structure/rack/shelf,
 /obj/machinery/requests_console/departmental/directional/north,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/security/cdcz/mining_post)
 "uv" = (
 /obj/machinery/bookbinder,
 /obj/effect/turf_decal/siding/wood{
@@ -8222,8 +8280,15 @@
 /turf/open/floor/iron,
 /area/station/cdcz/hallway)
 "uF" = (
-/turf/closed/wall/r_wall/prepainted/cdcz,
-/area/station/cdcz/cells)
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 8
+	},
+/obj/structure/bedsheetbin{
+	pixel_y = 6
+	},
+/obj/structure/table,
+/turf/open/floor/iron/dark/small,
+/area/station/cdcz/custodial)
 "uG" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
@@ -8268,7 +8333,7 @@
 /obj/machinery/status_display/evac/directional/south,
 /obj/machinery/light/directional/south,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical)
 "uM" = (
 /obj/effect/turf_decal/tile/science_blue/opposingcorners,
 /turf/open/floor/iron/white,
@@ -8289,7 +8354,7 @@
 /obj/machinery/papershredder,
 /obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/security/cdcz/mining_post)
 "uQ" = (
 /obj/effect/turf_decal/trimline/euclid/line,
 /obj/effect/turf_decal/trimline/euclid/filled/warning{
@@ -8309,8 +8374,9 @@
 	pixel_y = 4
 	},
 /obj/structure/sign/departments/exam_room/directional/west,
+/obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical)
 "uS" = (
 /obj/structure/overfloor_catwalk/iron_dark,
 /obj/effect/spawner/random/trash/moisture_trap,
@@ -8324,7 +8390,7 @@
 /obj/machinery/light/small/maintenance/directional/south,
 /obj/effect/spawner/random/trash/mess,
 /turf/open/floor/iron/dark,
-/area/space)
+/area/station/maintenance/cdcz)
 "uV" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
@@ -8345,7 +8411,7 @@
 "uX" = (
 /obj/effect/mapping_helpers/burnt_floor,
 /turf/open/floor/iron,
-/area/space)
+/area/station/maintenance/cdcz)
 "uY" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 6
@@ -8362,7 +8428,7 @@
 "va" = (
 /obj/effect/spawner/random/trash/garbage,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "vb" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 5
@@ -8456,7 +8522,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/space)
+/area/station/engineering/cdcz/atmos)
 "vo" = (
 /obj/effect/turf_decal/siding/thinplating_new/corner{
 	dir = 4
@@ -8496,7 +8562,7 @@
 /obj/structure/overfloor_catwalk/iron_dark,
 /obj/effect/spawner/random/structure/barricade,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "vu" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /obj/effect/turf_decal/tile/safe/half,
@@ -8586,7 +8652,7 @@
 "vE" = (
 /obj/machinery/atmospherics/components/trinary/filter,
 /turf/open/floor/iron,
-/area/space)
+/area/station/engineering/cdcz/atmos)
 "vF" = (
 /obj/effect/turf_decal/tile/safe/half/contrasted{
 	dir = 1
@@ -8638,7 +8704,7 @@
 	},
 /obj/machinery/light/directional/south,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/morgue)
 "vL" = (
 /obj/effect/turf_decal/tile/safe/anticorner/contrasted{
 	dir = 4
@@ -8702,7 +8768,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/orange,
 /turf/open/floor/iron,
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "vT" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -8754,7 +8820,7 @@
 /obj/structure/hedge,
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "wa" = (
 /obj/effect/turf_decal/tile/cdcz_orange/anticorner/contrasted{
 	dir = 8
@@ -8765,7 +8831,7 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/structure/sink/directional/west,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "wc" = (
 /obj/effect/turf_decal/tile/dark_red/half/contrasted{
 	dir = 4
@@ -8852,7 +8918,7 @@
 /obj/structure/overfloor_catwalk/iron_dark,
 /obj/effect/landmark/pestspawn,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz/east)
 "wn" = (
 /obj/effect/turf_decal/tile/cdcz_orange/opposingcorners,
 /obj/structure/bed{
@@ -8861,6 +8927,7 @@
 /obj/item/bedsheet/orange{
 	dir = 1
 	},
+/obj/machinery/status_display/evac/directional/north,
 /turf/open/floor/iron/dark,
 /area/station/security/cdcz/post)
 "wo" = (
@@ -8938,6 +9005,10 @@
 	},
 /turf/open/floor/iron/dark,
 /area/space)
+"wy" = (
+/obj/effect/spawner/structure/window/reinforced/prepainted/cdcz,
+/turf/open/floor/iron/plating,
+/area/station/medical/cdcz/medical/treatment)
 "wz" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
@@ -8950,6 +9021,7 @@
 /obj/item/clothing/suit/caution,
 /obj/item/clothing/suit/caution,
 /obj/item/clothing/suit/caution,
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/iron/dark/small,
 /area/station/cdcz/custodial)
 "wA" = (
@@ -8967,7 +9039,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/level2,
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/maintenance/cdcz)
 "wC" = (
 /obj/structure/hedge,
 /obj/effect/turf_decal/siding/wideplating_new/dark{
@@ -8980,6 +9052,13 @@
 /obj/structure/urinal/directional/east,
 /turf/open/floor/iron/white/herringbone,
 /area/station/lcz/restroom)
+"wE" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 4
+	},
+/obj/machinery/washing_machine,
+/turf/open/floor/iron/dark/small,
+/area/station/cdcz/custodial)
 "wF" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
@@ -9014,13 +9093,20 @@
 "wK" = (
 /turf/open/floor/iron,
 /area/station/service/ez/janitor)
+"wL" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 8
+	},
+/obj/structure/closet/wardrobe/classd,
+/turf/open/floor/iron/dark/small,
+/area/station/cdcz/custodial)
 "wM" = (
 /obj/structure/railing{
 	dir = 6
 	},
 /obj/effect/spawner/random/structure/closet_empty/crate/with_loot,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz/east)
 "wN" = (
 /obj/structure/bookcase/random/fiction,
 /turf/open/floor/iron/dark/small,
@@ -9059,7 +9145,7 @@
 	},
 /obj/machinery/status_display/evac/directional/north,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/security/cdcz/mining_post)
 "wT" = (
 /turf/closed/wall/prepainted/cdcz,
 /area/station/cdcz/hydroponics)
@@ -9257,7 +9343,7 @@
 /obj/structure/reagent_dispensers/beerkeg,
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "xo" = (
 /obj/effect/turf_decal/siding/wood/end{
 	dir = 4
@@ -9466,11 +9552,11 @@
 "xQ" = (
 /obj/structure/closet/secure_closet/chemical,
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/item/radio/intercom/directional/north,
 /obj/item/storage/box/beakers,
 /obj/item/reagent_containers/spray/cleaner,
+/obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/pharmacy)
 "xR" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner,
 /obj/effect/turf_decal/tile/euclid/anticorner/contrasted{
@@ -9518,7 +9604,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "xY" = (
 /turf/open/floor/iron/dark,
 /area/station/security/cdcz/post)
@@ -9557,7 +9643,7 @@
 	},
 /obj/machinery/portable_atmospherics/scrubber,
 /turf/open/floor/iron,
-/area/space)
+/area/station/engineering/cdcz/atmos)
 "yd" = (
 /obj/effect/turf_decal/tile/safe/half/contrasted{
 	dir = 8
@@ -9590,7 +9676,7 @@
 /obj/machinery/light/directional/north,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/storage)
 "yg" = (
 /obj/effect/turf_decal/tile/white/opposingcorners,
 /turf/open/floor/iron/dark,
@@ -9629,7 +9715,7 @@
 /obj/machinery/light/small/maintenance/directional/south,
 /obj/effect/spawner/random/structure/tank_holder,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "yl" = (
 /obj/effect/turf_decal/tile/safe/diagonal_centre,
 /obj/structure/table/reinforced/rglass,
@@ -9734,22 +9820,11 @@
 /turf/open/floor/iron/white,
 /area/station/safe_scp/scp_storage)
 "yy" = (
-/obj/structure/closet/secure_closet{
-	name = "class-d locker"
-	},
-/obj/item/clothing/shoes/sneakers/black,
-/obj/item/clothing/shoes/sneakers/black,
-/obj/item/clothing/shoes/sneakers/black,
-/obj/item/clothing/under/rank/classd,
-/obj/item/clothing/under/rank/classd,
-/obj/item/clothing/under/rank/classd,
-/obj/item/restraints/handcuffs,
-/obj/item/restraints/handcuffs,
-/obj/item/restraints/handcuffs,
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
 	},
 /obj/machinery/airalarm/directional/west,
+/obj/structure/closet/secure_closet/classd,
 /turf/open/floor/iron/dark/small,
 /area/space)
 "yz" = (
@@ -9813,10 +9888,10 @@
 	},
 /obj/machinery/newscaster/directional/south,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "yE" = (
 /turf/open/floor/iron/white/herringbone,
-/area/space)
+/area/station/medical/cdcz/medical)
 "yF" = (
 /obj/effect/turf_decal/tile/white{
 	dir = 8
@@ -9841,7 +9916,7 @@
 	},
 /obj/structure/sign/departments/exam_room/directional/west,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical)
 "yI" = (
 /obj/structure/railing{
 	dir = 1
@@ -9897,7 +9972,7 @@
 	},
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "yP" = (
 /obj/effect/turf_decal/tile/science_blue/opposingcorners,
 /obj/structure/table/reinforced,
@@ -9924,7 +9999,7 @@
 /obj/item/stock_parts/cell/high,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/iron,
-/area/space)
+/area/station/engineering/cdcz/substation)
 "yT" = (
 /obj/structure/bed/maint,
 /obj/effect/decal/cleanable/cobweb,
@@ -9954,11 +10029,11 @@
 /obj/effect/spawner/random/structure/tank_holder,
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "yY" = (
 /obj/structure/rack/shelf,
 /turf/open/floor/iron,
-/area/space)
+/area/station/maintenance/cdcz)
 "yZ" = (
 /obj/effect/turf_decal/tile/safe/anticorner/contrasted{
 	dir = 1
@@ -10017,7 +10092,7 @@
 /obj/effect/spawner/random/maintenance/three,
 /obj/machinery/light/small/maintenance/directional/south,
 /turf/open/floor/iron,
-/area/space)
+/area/station/maintenance/cdcz)
 "zi" = (
 /obj/structure/table,
 /obj/item/clipboard,
@@ -10051,13 +10126,14 @@
 /turf/open/floor/iron/edge,
 /area/station/hallway/ez/hub)
 "zn" = (
-/obj/structure/lattice,
-/turf/open/openspace,
-/area/station/cdcz/cells)
+/obj/structure/closet/secure_closet/evidence,
+/obj/effect/turf_decal/siding/wideplating_new/dark,
+/turf/open/floor/iron/dark/small,
+/area/station/security/cdcz/post)
 "zo" = (
 /obj/effect/spawner/random/trash/mess,
 /turf/open/floor/iron,
-/area/space)
+/area/station/maintenance/cdcz)
 "zp" = (
 /obj/effect/turf_decal/tile/safe/half/contrasted{
 	dir = 8
@@ -10081,7 +10157,7 @@
 	},
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "zs" = (
 /obj/effect/spawner/random/structure/table,
 /turf/open/floor/iron/plating,
@@ -10107,7 +10183,7 @@
 	dir = 10
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/station/maintenance/cdcz/east)
 "zw" = (
 /obj/effect/spawner/random/engineering/tank,
 /obj/structure/railing{
@@ -10115,14 +10191,14 @@
 	},
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "zx" = (
 /obj/machinery/door/airlock/medical{
 	dir = 4;
 	name = "CDCZ Medical Morgue"
 	},
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/medical/cdcz/medical/morgue)
 "zy" = (
 /obj/machinery/appliance/cooker/oven,
 /turf/open/floor/iron/dark/small,
@@ -10193,11 +10269,15 @@
 	},
 /turf/open/floor/iron/dark/small,
 /area/station/security/lcz/armory)
+"zH" = (
+/obj/effect/spawner/structure/window/prepainted/cdcz,
+/turf/open/floor/iron/plating,
+/area/station/medical/cdcz/medical)
 "zI" = (
 /obj/item/radio/intercom/directional/south,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/storage)
 "zJ" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/iron/cafeteria,
@@ -10241,11 +10321,14 @@
 /obj/machinery/light/small/maintenance/directional/south,
 /obj/effect/spawner/random/engineering/canister,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "zP" = (
 /obj/effect/mapping_helpers/burnt_floor,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
+"zQ" = (
+/turf/closed/wall/r_wall/prepainted/maints,
+/area/station/engineering/lcz/entrance/substation)
 "zR" = (
 /turf/closed/wall/r_wall/prepainted/lcz,
 /area/station/euclid_scp/scp_513)
@@ -10289,11 +10372,14 @@
 "zY" = (
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron/plating,
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "zZ" = (
 /obj/effect/spawner/random/trash/mess,
 /turf/open/floor/iron/dark,
 /area/station/maintenance/lcz)
+"Aa" = (
+/turf/closed/wall/r_wall/prepainted/maints,
+/area/station/maintenance/cdcz/east)
 "Ab" = (
 /obj/effect/turf_decal/tile/safe/anticorner/contrasted,
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner{
@@ -10368,7 +10454,7 @@
 /obj/structure/closet/secure_closet/medical1,
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/pharmacy)
 "Al" = (
 /turf/closed/wall/prepainted/lcz,
 /area/station/security/cdcz/checkpoint)
@@ -10378,7 +10464,7 @@
 	name = "CDCZ Medical Reception"
 	},
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "An" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 8
@@ -10457,7 +10543,7 @@
 	dir = 9
 	},
 /turf/open/floor/iron/dark/herringbone,
-/area/space)
+/area/station/security/cdcz/mining_post)
 "Ax" = (
 /obj/effect/turf_decal/tile/white/half/contrasted{
 	dir = 1
@@ -10617,6 +10703,9 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/safe_scp/scp_storage)
+"AP" = (
+/turf/closed/wall/r_wall/prepainted/maints,
+/area/station/engineering/cdcz/substation)
 "AQ" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
@@ -10653,7 +10742,7 @@
 /obj/machinery/vitals_monitor,
 /obj/item/radio/intercom/directional/north,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "AW" = (
 /obj/effect/turf_decal/tile/safe/anticorner/contrasted{
 	dir = 8
@@ -10672,7 +10761,7 @@
 	},
 /obj/machinery/newscaster/directional/south,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical)
 "AY" = (
 /obj/effect/turf_decal/siding/thinplating_new/corner,
 /obj/effect/turf_decal/tile/cdcz_orange/anticorner/contrasted{
@@ -10823,7 +10912,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/edge,
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "Bs" = (
 /turf/closed/wall/prepainted/ez,
 /area/station/commons/ez/lounge)
@@ -10834,7 +10923,7 @@
 /obj/structure/hedge,
 /obj/structure/sign/departments/morgue/directional/west,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "Bu" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -10871,7 +10960,7 @@
 	},
 /obj/item/radio/intercom/directional/north,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/morgue)
 "By" = (
 /obj/effect/spawner/random/structure/chair_maintenance{
 	dir = 4
@@ -10945,7 +11034,7 @@
 "BG" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "BH" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
@@ -10984,6 +11073,9 @@
 /obj/machinery/papershredder,
 /turf/open/floor/iron/dark/small,
 /area/station/security/cdcz/post)
+"BN" = (
+/turf/closed/wall/r_wall/prepainted/cdcz,
+/area/station/security/cdcz/mining_post)
 "BO" = (
 /obj/effect/turf_decal/tile/dark_red/half/contrasted{
 	dir = 8
@@ -11080,7 +11172,7 @@
 	pixel_y = 8
 	},
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "Cb" = (
 /obj/structure/railing{
 	dir = 4
@@ -11090,7 +11182,7 @@
 /obj/effect/spawner/random/decoration/carpet,
 /obj/structure/closet/crate/engineering,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "Cc" = (
 /obj/structure/rack,
 /obj/item/storage/medkit/brute,
@@ -11099,7 +11191,7 @@
 	dir = 5
 	},
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/storage)
 "Cd" = (
 /obj/machinery/light/directional/south,
 /obj/effect/turf_decal/tile/safe/opposingcorners,
@@ -11111,7 +11203,7 @@
 	name = "CDCZ Medical Lobby"
 	},
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/medical/cdcz/medical)
 "Cf" = (
 /obj/effect/turf_decal/tile/lcz_tan/half/contrasted,
 /obj/effect/turf_decal/siding/thinplating_new/light{
@@ -11153,6 +11245,9 @@
 /obj/effect/turf_decal/tile/green/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/station/service/ez/chapel)
+"Ck" = (
+/turf/closed/wall/r_wall/prepainted/maints,
+/area/station/maintenance/cdcz)
 "Cl" = (
 /obj/structure/railing{
 	dir = 1
@@ -11161,7 +11256,7 @@
 	icon_state = "crateopen"
 	},
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "Cm" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 4
@@ -11182,7 +11277,7 @@
 	pixel_x = -7
 	},
 /turf/open/floor/iron/dark/herringbone,
-/area/space)
+/area/station/medical/cdcz/medical/morgue)
 "Co" = (
 /obj/structure/bookcase/random/adult,
 /obj/effect/turf_decal/siding/wood{
@@ -11285,7 +11380,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/morgue)
 "CB" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
@@ -11299,7 +11394,7 @@
 /obj/structure/railing,
 /obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "CD" = (
 /obj/structure/overfloor_catwalk/iron_dark,
 /obj/effect/mapping_helpers/broken_floor,
@@ -11434,7 +11529,7 @@
 	},
 /obj/machinery/light/small/directional/west,
 /turf/open/floor/iron,
-/area/station/maintenance/lcz)
+/area/station/engineering/lcz/emergency)
 "CU" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -11473,6 +11568,7 @@
 /obj/effect/turf_decal/tile/cdcz_orange/opposingcorners,
 /obj/structure/bed,
 /obj/item/bedsheet/orange,
+/obj/machinery/status_display/evac/directional/north,
 /turf/open/floor/iron/dark,
 /area/station/security/cdcz/post)
 "Da" = (
@@ -11483,7 +11579,7 @@
 	icon_state = "plant-21"
 	},
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "Db" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -11520,6 +11616,10 @@
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/station/lcz/hallway)
+"Df" = (
+/obj/structure/overfloor_catwalk/iron_dark,
+/turf/open/floor/iron/plating,
+/area/station/maintenance/cdcz)
 "Dg" = (
 /obj/effect/turf_decal/tile/white/half/contrasted{
 	dir = 4
@@ -11577,7 +11677,7 @@
 /obj/item/stack/rods/fifty,
 /obj/effect/spawner/random/trash/janitor_supplies,
 /turf/open/floor/iron,
-/area/space)
+/area/station/engineering/cdcz/atmos)
 "Dp" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
@@ -11647,7 +11747,7 @@
 	name = "CDCZ Medical Morgue"
 	},
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/medical/cdcz/medical/morgue)
 "Dy" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
@@ -11745,14 +11845,14 @@
 /area/station/euclid_scp/scp_513)
 "DM" = (
 /turf/open/floor/wood/parquet,
-/area/station/cdcz/luxury/cells)
+/area/station/cdcz/luxury)
 "DN" = (
 /obj/machinery/door/airlock/engineering{
 	name = "CDCZ Engineering Storage"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/level3,
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/engineering/cdcz/storage)
 "DO" = (
 /obj/structure/table/reinforced,
 /obj/item/taperecorder{
@@ -11788,7 +11888,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/space)
+/area/station/engineering/cdcz/atmos)
 "DR" = (
 /obj/structure/table/wood,
 /obj/machinery/recharger{
@@ -11802,7 +11902,7 @@
 /obj/machinery/power/smes,
 /obj/machinery/light/small/directional/east,
 /turf/open/floor/iron,
-/area/station/maintenance/lcz)
+/area/station/engineering/lcz/emergency)
 "DT" = (
 /turf/open/floor/carpet,
 /area/station/service/ez/bar/backroom)
@@ -11833,7 +11933,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "DX" = (
 /obj/machinery/door/airlock/public/glass{
 	dir = 4;
@@ -11863,8 +11963,9 @@
 /turf/open/floor/wood/parquet,
 /area/station/service/ez/bar)
 "Ea" = (
-/turf/closed/wall/r_wall/prepainted/cdcz,
-/area/station/cdcz/luxury/cells)
+/obj/effect/spawner/structure/window/prepainted/cdcz,
+/turf/open/floor/iron/plating,
+/area/station/cdcz/custodial)
 "Eb" = (
 /obj/effect/turf_decal/tile/safe/half/contrasted{
 	dir = 4
@@ -11916,7 +12017,7 @@
 	pixel_x = 8
 	},
 /turf/open/floor/iron/dark/herringbone,
-/area/space)
+/area/station/medical/cdcz/medical/morgue)
 "Eh" = (
 /obj/structure/extinguisher_cabinet/directional/north,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
@@ -11924,7 +12025,7 @@
 	},
 /obj/machinery/light_switch/directional/west,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "Ei" = (
 /obj/machinery/vending/autodrobe/all_access,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
@@ -12147,7 +12248,7 @@
 	dir = 9
 	},
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/storage)
 "EK" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
@@ -12168,7 +12269,7 @@
 "EM" = (
 /obj/effect/spawner/random/trash/garbage,
 /turf/open/floor/iron/dark,
-/area/space)
+/area/station/maintenance/cdcz)
 "EN" = (
 /obj/structure/railing{
 	dir = 4
@@ -12375,7 +12476,7 @@
 /obj/structure/extinguisher_cabinet/directional/north,
 /obj/effect/turf_decal/siding/thinplating_new/light,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "Fm" = (
 /obj/effect/turf_decal/tile/lcz_tan/anticorner/contrasted,
 /obj/effect/turf_decal/siding/thinplating_new/light/corner{
@@ -12395,7 +12496,7 @@
 "Fo" = (
 /obj/effect/spawner/random/trash/graffiti,
 /turf/open/floor/iron,
-/area/space)
+/area/station/maintenance/cdcz)
 "Fp" = (
 /obj/effect/spawner/structure/window/prepainted/cdcz,
 /turf/open/floor/iron/plating,
@@ -12407,7 +12508,7 @@
 	},
 /obj/effect/spawner/random/trash/moisture_trap,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "Fr" = (
 /turf/open/floor/iron/plating,
 /area/space)
@@ -12427,6 +12528,10 @@
 	},
 /turf/open/floor/iron/dark/herringbone,
 /area/station/security/cdcz/checkpoint)
+"Fu" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/iron/white,
+/area/station/medical/cdcz/medical)
 "Fv" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "LCZ Technical Storage"
@@ -12482,7 +12587,7 @@
 /obj/item/reagent_containers/blood/o_minus,
 /obj/machinery/status_display/ai/directional/west,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "FA" = (
 /obj/structure/railing{
 	dir = 8
@@ -12508,17 +12613,26 @@
 	dir = 8
 	},
 /area/station/lcz/offices/secondary)
+"FD" = (
+/obj/structure/overfloor_catwalk/iron,
+/turf/open/floor/iron/plating,
+/area/station/engineering/cdcz/substation)
 "FF" = (
 /turf/open/floor/iron/large,
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "FG" = (
 /obj/machinery/light/small/directional/west,
 /obj/machinery/power/smes/engineering,
 /turf/open/floor/iron,
-/area/station/maintenance/lcz/entrance)
+/area/station/engineering/lcz/entrance/substation)
 "FH" = (
-/turf/closed/wall/prepainted/cdcz,
-/area/station/cdcz/cells)
+/obj/effect/turf_decal/tile/white/anticorner/contrasted,
+/obj/machinery/airalarm/directional/south,
+/obj/item/kirbyplants{
+	icon_state = "plant-21"
+	},
+/turf/open/floor/iron/dark,
+/area/station/security/cdcz/post)
 "FI" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "CDCZ Maintenance";
@@ -12529,7 +12643,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/maintenance/cdcz)
 "FJ" = (
 /obj/effect/turf_decal/tile/lcz_tan/diagonal_centre,
 /obj/machinery/light/floor/has_bulb,
@@ -12547,7 +12661,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/space)
+/area/station/engineering/cdcz/atmos)
 "FL" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "LCZ Maintenance";
@@ -12572,7 +12686,7 @@
 /obj/effect/spawner/random/maintenance/two,
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "FO" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/iron/plating,
@@ -12641,7 +12755,7 @@
 "FX" = (
 /obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/iron/plating,
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "FY" = (
 /obj/effect/turf_decal/tile/lcz_tan/half/contrasted{
 	dir = 4
@@ -12665,7 +12779,7 @@
 /obj/structure/overfloor_catwalk/iron,
 /obj/machinery/status_display/evac/directional/east,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/engineering/cdcz/substation)
 "Gb" = (
 /obj/effect/turf_decal/tile/safe/anticorner/contrasted{
 	dir = 8
@@ -12704,7 +12818,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "Gg" = (
 /obj/structure/overfloor_catwalk/iron_dark,
 /obj/effect/mapping_helpers/burnt_floor,
@@ -12724,7 +12838,7 @@
 "Gi" = (
 /obj/structure/table/reinforced,
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/security/cdcz/mining_post)
 "Gj" = (
 /obj/effect/turf_decal/tile/ez_orange/anticorner/contrasted{
 	dir = 8
@@ -12751,7 +12865,7 @@
 	},
 /obj/item/radio/intercom/directional/west,
 /turf/open/floor/iron,
-/area/station/maintenance/lcz)
+/area/station/engineering/lcz/emergency)
 "Gm" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/effect/turf_decal/tile/white/opposingcorners,
@@ -12760,7 +12874,7 @@
 "Gn" = (
 /obj/effect/spawner/structure/window/prepainted/cdcz,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "Go" = (
 /turf/closed/wall/prepainted/cdcz,
 /area/station/cdcz/luxury/lounge)
@@ -12775,7 +12889,7 @@
 /obj/structure/rack/shelf,
 /obj/item/stack/sheet/mineral/uranium/ten,
 /turf/open/floor/iron,
-/area/station/maintenance/lcz)
+/area/station/engineering/lcz/emergency)
 "Gr" = (
 /obj/effect/turf_decal/tile/cdcz_orange/half/contrasted{
 	dir = 4
@@ -12787,7 +12901,7 @@
 /turf/open/floor/iron/edge{
 	dir = 8
 	},
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "Gs" = (
 /obj/effect/spawner/random/trash/moisture_trap,
 /turf/open/floor/iron/plating,
@@ -12808,7 +12922,7 @@
 /obj/effect/turf_decal/siding/thinplating_new/light,
 /obj/machinery/light/directional/north,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "Gv" = (
 /obj/effect/turf_decal/tile/ez_orange/anticorner/contrasted{
 	dir = 1
@@ -12860,7 +12974,7 @@
 /obj/machinery/status_display/evac/directional/north,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "GB" = (
 /obj/effect/turf_decal/tile/euclid/fourcorners,
 /obj/effect/turf_decal/stripes/line{
@@ -12910,7 +13024,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical)
 "GH" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
@@ -12941,7 +13055,7 @@
 	dir = 10
 	},
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz/east)
 "GK" = (
 /obj/effect/turf_decal/siding/thinplating_new/light{
 	dir = 1
@@ -12980,7 +13094,7 @@
 /obj/effect/spawner/random/structure/grille,
 /obj/machinery/light/small/maintenance/directional/north,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz/east)
 "GP" = (
 /obj/effect/turf_decal/tile/white/opposingcorners,
 /obj/structure/table/reinforced,
@@ -13002,7 +13116,7 @@
 	icon_state = "plant-21"
 	},
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "GS" = (
 /obj/structure/bookcase/random/adult,
 /obj/effect/turf_decal/siding/wood{
@@ -13153,7 +13267,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/level2,
 /obj/effect/mapping_helpers/airlock/unres,
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/maintenance/cdcz/east)
 "Hp" = (
 /turf/closed/wall/r_wall/prepainted/cdcz,
 /area/station/cdcz/cafeteria)
@@ -13179,7 +13293,7 @@
 "Ht" = (
 /obj/structure/closet/secure_closet/engineering_electrical,
 /turf/open/floor/iron,
-/area/station/maintenance/lcz/entrance)
+/area/station/engineering/lcz/entrance/substation)
 "Hu" = (
 /turf/open/floor/iron/dark,
 /area/space)
@@ -13250,7 +13364,7 @@
 /obj/machinery/light/small/maintenance/directional/east,
 /obj/effect/spawner/random/trash/garbage,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "HD" = (
 /obj/effect/turf_decal/tile/cdcz_orange/half/contrasted{
 	dir = 8
@@ -13287,7 +13401,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "HH" = (
 /obj/structure/railing{
 	dir = 4
@@ -13328,7 +13442,7 @@
 /obj/effect/spawner/random/trash/garbage,
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "HO" = (
 /obj/effect/turf_decal/tile/white/opposingcorners,
 /obj/machinery/holopad,
@@ -13355,7 +13469,7 @@
 /obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/extinguisher_cabinet/directional/south,
 /turf/open/floor/iron,
-/area/space)
+/area/station/engineering/cdcz/substation)
 "HS" = (
 /turf/closed/wall/r_wall/prepainted/maints,
 /area/station/maintenance/ez)
@@ -13416,7 +13530,7 @@
 "Ia" = (
 /obj/effect/turf_decal/tile/blue/fourcorners,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "Ib" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/structure/closet/crate/bin,
@@ -13447,8 +13561,9 @@
 	pixel_x = 4;
 	pixel_y = 5
 	},
+/obj/machinery/newscaster/directional/west,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/pharmacy)
 "Ie" = (
 /obj/structure/table,
 /obj/item/storage/bag/tray/cafeteria{
@@ -13489,7 +13604,7 @@
 "Ij" = (
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "Ik" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=CDCZ_East2";
@@ -13594,7 +13709,7 @@
 /turf/open/floor/iron/edge{
 	dir = 1
 	},
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "Ix" = (
 /obj/item/storage/pill_bottle/ryetalyn,
 /obj/effect/turf_decal/siding/wideplating_new/dark{
@@ -13606,7 +13721,7 @@
 /obj/structure/closet/secure_closet/medical1,
 /obj/item/storage/medkit/advanced,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/storage)
 "Iy" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "CDCZ Maintenance";
@@ -13637,13 +13752,14 @@
 	pixel_x = 8;
 	pixel_y = -9
 	},
+/obj/machinery/power/apc/auto_name/directional/east,
 /turf/open/floor/iron/dark/small,
 /area/station/cdcz/custodial)
 "IC" = (
 /obj/structure/overfloor_catwalk/iron,
 /obj/machinery/status_display/evac/directional/south,
 /turf/open/floor/iron/plating,
-/area/station/maintenance/lcz/entrance)
+/area/station/engineering/lcz/entrance/substation)
 "ID" = (
 /turf/closed/wall/prepainted/lcz,
 /area/station/lcz/restroom)
@@ -13657,12 +13773,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/euclid_scp/scp_012)
+"IF" = (
+/obj/effect/spawner/structure/window/reinforced/plasma/prepainted/cdcz,
+/turf/open/floor/iron/plating,
+/area/station/medical/cdcz/medical/pharmacy)
 "IG" = (
 /obj/machinery/bodyscanner{
 	dir = 4
 	},
 /turf/open/floor/iron/white/herringbone,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "IH" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
@@ -13676,7 +13796,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood/parquet,
-/area/station/cdcz/luxury/cells)
+/area/station/cdcz/luxury)
 "IJ" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
@@ -13689,7 +13809,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz/east)
 "IL" = (
 /obj/effect/turf_decal/tile/safe{
 	dir = 1
@@ -13706,7 +13826,7 @@
 /obj/effect/spawner/random/structure/crate,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark/smooth_large,
-/area/space)
+/area/station/maintenance/cdcz)
 "IO" = (
 /obj/effect/turf_decal/tile/neutral/half,
 /obj/structure/railing/corner/end/flip{
@@ -13728,7 +13848,7 @@
 	},
 /obj/effect/turf_decal/siding/thinplating_new/light,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "IR" = (
 /obj/effect/turf_decal/tile/white/half/contrasted{
 	dir = 4
@@ -13820,6 +13940,13 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/euclid_scp/scp_012)
+"Jd" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 6
+	},
+/obj/machinery/flasher/portable,
+/turf/open/floor/iron/dark/small,
+/area/station/security/cdcz/post)
 "Je" = (
 /obj/effect/spawner/random/entertainment/arcade{
 	dir = 4
@@ -13875,7 +14002,7 @@
 /obj/machinery/light/directional/south,
 /obj/machinery/power/apc/auto_name/directional/south,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "Jm" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
@@ -13905,7 +14032,7 @@
 /turf/open/floor/iron/edge{
 	dir = 8
 	},
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "Jq" = (
 /obj/effect/mapping_helpers/broken_floor,
 /obj/structure/railing{
@@ -13936,7 +14063,10 @@
 	dir = 6
 	},
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz/east)
+"Ju" = (
+/turf/closed/wall/prepainted/cdcz,
+/area/station/medical/cdcz/medical/reception)
 "Jv" = (
 /obj/effect/turf_decal/tile/ez_orange/anticorner/contrasted{
 	dir = 8
@@ -13962,7 +14092,7 @@
 /obj/structure/table/glass,
 /obj/machinery/autoclave,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "Jy" = (
 /obj/structure/table/glass,
 /obj/item/storage/box/masks{
@@ -13974,7 +14104,7 @@
 	pixel_y = 4
 	},
 /turf/open/floor/iron/white/herringbone,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "Jz" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -14096,7 +14226,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/engineering/cdcz/atmos)
 "JP" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
@@ -14166,7 +14296,7 @@
 /obj/structure/hedge,
 /obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "JZ" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -14191,7 +14321,7 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/spawner/random/trash/box,
 /turf/open/floor/iron/dark/smooth_large,
-/area/space)
+/area/station/maintenance/cdcz)
 "Kd" = (
 /obj/machinery/power/apc/auto_name/directional/west,
 /turf/open/floor/iron/white/side{
@@ -14207,7 +14337,7 @@
 	},
 /obj/machinery/portable_atmospherics/pump,
 /turf/open/floor/iron,
-/area/space)
+/area/station/engineering/cdcz/atmos)
 "Kf" = (
 /obj/effect/turf_decal/tile/cdcz_orange/opposingcorners,
 /obj/item/radio/intercom/prison/directional/east,
@@ -14260,6 +14390,9 @@
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron/plating,
 /area/station/maintenance/lcz/entrance)
+"Kn" = (
+/turf/closed/wall/prepainted/maints,
+/area/station/maintenance/cdcz)
 "Ko" = (
 /obj/effect/turf_decal/tile/white/half/contrasted{
 	dir = 4
@@ -14277,7 +14410,7 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
-/obj/structure/sign/departments/custodian_alt/directional/north,
+/obj/structure/sign/departments/custodian_alt/directional/west,
 /turf/open/floor/iron,
 /area/station/cdcz/hallway)
 "Kr" = (
@@ -14427,7 +14560,7 @@
 /obj/structure/railing,
 /obj/effect/spawner/random/engineering/atmospherics_portable,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "KI" = (
 /obj/effect/turf_decal/tile/ez_orange/half/contrasted{
 	dir = 1
@@ -14596,6 +14729,7 @@
 	pixel_y = -2;
 	pixel_x = 4
 	},
+/obj/machinery/light_switch/directional/east,
 /turf/open/floor/iron/dark/small,
 /area/station/cdcz/custodial)
 "La" = (
@@ -14656,7 +14790,7 @@
 	pixel_x = 6
 	},
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical)
 "Li" = (
 /turf/closed/wall/r_wall/prepainted/ez,
 /area/station/service/ez/library)
@@ -14743,7 +14877,7 @@
 	dir = 9
 	},
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz/east)
 "Lw" = (
 /obj/machinery/modular_computer/console/preset/curator{
 	dir = 8
@@ -14783,7 +14917,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/storage)
 "LA" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
@@ -14890,7 +15024,7 @@
 /obj/structure/overfloor_catwalk/iron,
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/engineering/cdcz/atmos)
 "LO" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -14902,7 +15036,7 @@
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "LQ" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
@@ -14942,12 +15076,12 @@
 /obj/effect/spawner/random/engineering/canister,
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "LU" = (
 /obj/machinery/newscaster/directional/south,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/storage)
 "LV" = (
 /obj/effect/turf_decal/tile/euclid/fourcorners,
 /obj/effect/turf_decal/stripes/corner{
@@ -15016,7 +15150,7 @@
 	},
 /obj/effect/spawner/random/trash/mess,
 /turf/open/floor/iron/dark,
-/area/space)
+/area/station/maintenance/cdcz)
 "Mc" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
@@ -15053,7 +15187,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/level2,
 /obj/effect/mapping_helpers/airlock/unres,
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/maintenance/cdcz)
 "Mg" = (
 /obj/effect/turf_decal/tile/euclid/diagonal_centre,
 /turf/open/floor/iron/dark/diagonal,
@@ -15096,7 +15230,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/engineering/cdcz/atmos)
 "Mm" = (
 /obj/structure/tank_holder/extinguisher,
 /obj/machinery/light/small/maintenance/directional/south,
@@ -15147,7 +15281,7 @@
 	},
 /obj/structure/reagent_dispensers/foamtank,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "Mu" = (
 /obj/effect/turf_decal/tile/cdcz_orange/opposingcorners,
 /obj/machinery/light/directional/west,
@@ -15211,7 +15345,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "MB" = (
 /obj/effect/turf_decal/tile/euclid/fourcorners,
 /obj/effect/turf_decal/stripes/full,
@@ -15241,19 +15375,22 @@
 	dir = 1
 	},
 /area/station/lcz/offices)
+"MF" = (
+/turf/closed/wall/r_wall/prepainted/maints,
+/area/station/engineering/lcz/emergency)
 "MG" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},
 /obj/structure/closet/crate/bin,
 /turf/open/floor/wood/parquet,
-/area/station/cdcz/luxury/cells)
+/area/station/cdcz/luxury)
 "MH" = (
 /obj/structure/overfloor_catwalk/iron_dark,
 /obj/effect/mapping_helpers/broken_floor,
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "MI" = (
 /obj/structure/railing{
 	dir = 4
@@ -15422,7 +15559,7 @@
 /obj/effect/turf_decal/tile/cdcz_orange/anticorner/contrasted,
 /obj/structure/sink/directional/west,
 /turf/open/floor/iron,
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "Nc" = (
 /obj/effect/turf_decal/trimline/euclid/line{
 	dir = 8
@@ -15454,7 +15591,7 @@
 	},
 /obj/effect/spawner/random/engineering/canister,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "Nh" = (
 /obj/machinery/light/small/maintenance/directional/south,
 /obj/structure/railing{
@@ -15462,7 +15599,7 @@
 	},
 /obj/effect/spawner/random/structure/crate,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "Ni" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
@@ -15471,7 +15608,7 @@
 /obj/machinery/light/directional/south,
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "Nj" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "LCZ Medical Post"
@@ -15522,7 +15659,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood/parquet,
-/area/station/cdcz/luxury/cells)
+/area/station/cdcz/luxury)
 "Np" = (
 /turf/open/floor/iron/dark,
 /area/station/security/lcz/scp_914)
@@ -15535,7 +15672,7 @@
 	},
 /obj/effect/turf_decal/siding/thinplating_new/light,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "Nr" = (
 /obj/effect/turf_decal/tile/euclid/diagonal_centre,
 /turf/open/floor/iron/dark/diagonal,
@@ -15544,7 +15681,7 @@
 /obj/structure/rack/shelf,
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "Nt" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Restaraunt"
@@ -15567,7 +15704,10 @@
 "Nw" = (
 /obj/structure/closet/secure_closet/engineering_electrical,
 /turf/open/floor/iron,
-/area/space)
+/area/station/engineering/cdcz/substation)
+"Nx" = (
+/turf/closed/wall/r_wall/prepainted/cdcz,
+/area/station/medical/cdcz/medical)
 "Ny" = (
 /obj/structure/table/glass,
 /obj/machinery/newscaster/directional/west,
@@ -15585,7 +15725,7 @@
 	},
 /obj/machinery/space_heater,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz/east)
 "NA" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 6
@@ -15602,7 +15742,7 @@
 	dir = 5
 	},
 /turf/open/floor/iron,
-/area/space)
+/area/station/engineering/cdcz/atmos)
 "NC" = (
 /obj/structure/bookcase/random/reference,
 /obj/effect/turf_decal/siding/wood,
@@ -15705,7 +15845,7 @@
 	},
 /obj/structure/closet/cabinet,
 /turf/open/floor/wood/parquet,
-/area/station/cdcz/luxury/cells)
+/area/station/cdcz/luxury)
 "NQ" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
@@ -15714,7 +15854,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "NR" = (
 /obj/machinery/door/airlock/lcz/safe/glass{
 	name = "SCP-999 Containment Chamber"
@@ -15730,12 +15870,11 @@
 /obj/structure/overfloor_catwalk/iron,
 /obj/machinery/status_display/evac/directional/north,
 /turf/open/floor/iron/plating,
-/area/station/maintenance/lcz)
+/area/station/engineering/lcz/emergency)
 "NT" = (
-/obj/effect/turf_decal/tile/green/opposingcorners,
-/obj/machinery/status_display/evac/directional/north,
-/turf/open/floor/iron,
-/area/station/cdcz/custodial)
+/obj/effect/landmark/event_spawn,
+/turf/open/floor/iron/dark,
+/area/station/security/cdcz/post)
 "NU" = (
 /obj/effect/spawner/structure/window/reinforced/prepainted/cdcz,
 /turf/open/floor/iron/plating,
@@ -15767,7 +15906,7 @@
 	name = "CDCZ Medical Operating Room"
 	},
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "Oa" = (
 /obj/effect/turf_decal/tile/white/half/contrasted{
 	dir = 8
@@ -15775,6 +15914,10 @@
 /obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron/dark,
 /area/station/security/lcz/scp_914)
+"Ob" = (
+/obj/effect/spawner/structure/window/reinforced/prepainted/cdcz,
+/turf/open/floor/iron/plating,
+/area/station/medical/cdcz/medical/reception)
 "Oc" = (
 /obj/effect/spawner/random/structure/tank_holder,
 /turf/open/floor/iron/plating,
@@ -15830,7 +15973,7 @@
 	pixel_y = 10
 	},
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "Oh" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -15864,7 +16007,7 @@
 /obj/structure/rack/shelf,
 /obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "Om" = (
 /obj/effect/turf_decal/tile/safe/opposingcorners,
 /mob/living/simple_animal/friendly/scp131/scp131B,
@@ -15884,11 +16027,11 @@
 "Oo" = (
 /obj/effect/spawner/random/trash/mess,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "Op" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "Oq" = (
 /obj/effect/turf_decal/tile/cdcz_orange/anticorner/contrasted,
 /obj/effect/turf_decal/siding/thinplating_new/corner{
@@ -16038,12 +16181,15 @@
 	},
 /obj/structure/hedge,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "OK" = (
 /obj/structure/scp216,
 /obj/machinery/status_display/evac/directional/east,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/safe_scp/scp_216)
+"OL" = (
+/turf/closed/wall/r_wall/prepainted/cdcz,
+/area/station/medical/cdcz/medical/treatment)
 "OM" = (
 /obj/effect/turf_decal/tile/safe{
 	dir = 8
@@ -16085,7 +16231,7 @@
 /obj/effect/spawner/random/structure/tank_holder,
 /obj/machinery/light/small/maintenance/directional/north,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz/east)
 "OR" = (
 /obj/effect/turf_decal/tile/science_blue/opposingcorners,
 /obj/machinery/holopad,
@@ -16096,7 +16242,7 @@
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/morgue)
 "OT" = (
 /obj/structure/railing,
 /obj/machinery/space_heater,
@@ -16134,28 +16280,23 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/station/lcz/restroom)
 "OY" = (
-/obj/structure/closet/secure_closet{
-	name = "class-d locker"
-	},
-/obj/item/clothing/shoes/sneakers/black,
-/obj/item/clothing/shoes/sneakers/black,
-/obj/item/clothing/shoes/sneakers/black,
-/obj/item/clothing/under/rank/classd,
-/obj/item/clothing/under/rank/classd,
-/obj/item/clothing/under/rank/classd,
-/obj/item/restraints/handcuffs,
-/obj/item/restraints/handcuffs,
-/obj/item/restraints/handcuffs,
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
 	},
 /obj/machinery/power/apc/auto_name/directional/west,
+/obj/structure/closet/secure_closet/classd,
 /turf/open/floor/iron/dark/small,
 /area/space)
 "OZ" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 6
+	},
+/obj/item/paper_bin{
+	pixel_y = 5
+	},
+/obj/item/pen{
+	pixel_y = 5
 	},
 /turf/open/floor/iron/dark/herringbone,
 /area/station/security/cdcz/control)
@@ -16184,6 +16325,26 @@
 /obj/effect/turf_decal/tile/lcz_tan/anticorner/contrasted,
 /turf/open/floor/iron/white,
 /area/station/lcz/hallway)
+"Pd" = (
+/obj/structure/table/reinforced,
+/obj/machinery/button/flasher{
+	pixel_y = 7;
+	pixel_x = -6
+	},
+/obj/machinery/button/flasher{
+	pixel_y = 7;
+	pixel_x = 6
+	},
+/obj/machinery/button/flasher{
+	pixel_y = -3;
+	pixel_x = 6
+	},
+/obj/machinery/button/flasher{
+	pixel_y = -3;
+	pixel_x = -6
+	},
+/turf/open/floor/iron/dark,
+/area/station/security/cdcz/post)
 "Pe" = (
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 1
@@ -16213,8 +16374,9 @@
 "Ph" = (
 /obj/machinery/chem_dispenser,
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
+/obj/item/radio/intercom/directional/west,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/pharmacy)
 "Pi" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 9
@@ -16228,7 +16390,7 @@
 /obj/machinery/portable_atmospherics/scrubber,
 /obj/machinery/light/small/maintenance/directional/south,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz/east)
 "Pk" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -16291,7 +16453,7 @@
 /obj/structure/closet/crate/trashcart,
 /obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "Ps" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/table/wood,
@@ -16302,11 +16464,11 @@
 	pixel_y = 4
 	},
 /turf/open/floor/wood/parquet,
-/area/station/cdcz/luxury/cells)
+/area/station/cdcz/luxury)
 "Pt" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/storage)
 "Pu" = (
 /obj/structure/table,
 /obj/item/lipstick/jade{
@@ -16337,7 +16499,7 @@
 /obj/structure/closet/crate/bin,
 /obj/structure/reagent_dispensers/wall/peppertank/directional/north,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/security/cdcz/mining_post)
 "Py" = (
 /obj/effect/turf_decal/tile/safe/half/contrasted{
 	dir = 4
@@ -16389,7 +16551,7 @@
 /obj/effect/spawner/random/engineering/material_rare,
 /obj/effect/spawner/random/engineering/material_rare,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "PD" = (
 /obj/machinery/door/airlock/silver{
 	name = "Showers"
@@ -16468,6 +16630,11 @@
 	},
 /turf/open/floor/wood/parquet,
 /area/station/safe_scp/scp_999)
+"PN" = (
+/obj/structure/railing,
+/obj/effect/spawner/random/structure/closet_maintenance,
+/turf/open/floor/iron/plating,
+/area/station/maintenance/cdcz)
 "PO" = (
 /obj/structure/hedge,
 /obj/effect/turf_decal/siding/wideplating_new/dark{
@@ -16512,6 +16679,11 @@
 /obj/effect/spawner/structure/window/reinforced/prepainted/maints,
 /turf/open/floor/iron/plating,
 /area/station/maintenance/lcz/entrance)
+"PV" = (
+/obj/machinery/recharge_station,
+/obj/effect/turf_decal/siding/wideplating_new/dark,
+/turf/open/floor/iron/dark/small,
+/area/station/security/cdcz/post)
 "PX" = (
 /obj/effect/turf_decal/tile/safe/half/contrasted{
 	dir = 4
@@ -16530,7 +16702,7 @@
 	name = "CDCZ Medical Storage"
 	},
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/medical/cdcz/medical/storage)
 "PZ" = (
 /obj/effect/turf_decal/tile/white/anticorner/contrasted{
 	dir = 4
@@ -16548,7 +16720,7 @@
 /obj/machinery/light/small/directional/north,
 /obj/machinery/modular_computer/console/preset/engineering,
 /turf/open/floor/iron,
-/area/space)
+/area/station/engineering/cdcz/substation)
 "Qc" = (
 /obj/effect/spawner/random/clothing/costume,
 /obj/structure/rack,
@@ -16772,7 +16944,7 @@
 /obj/structure/closet/emcloset,
 /obj/machinery/light/small/maintenance/directional/north,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "QF" = (
 /obj/structure/toilet{
 	pixel_y = 8
@@ -16838,7 +17010,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "QN" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Staircase"
@@ -16879,7 +17051,7 @@
 /obj/structure/overfloor_catwalk/iron_dark,
 /obj/effect/spawner/random/trash/garbage,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "QS" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
@@ -16993,7 +17165,7 @@
 "Rh" = (
 /obj/effect/spawner/random/clothing/wardrobe_closet,
 /turf/open/floor/iron,
-/area/space)
+/area/station/maintenance/cdcz)
 "Ri" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -17049,7 +17221,7 @@
 	dir = 4
 	},
 /turf/open/floor/carpet/blue,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "Ro" = (
 /obj/effect/turf_decal/tile/white/opposingcorners,
 /obj/structure/chair/office{
@@ -17061,11 +17233,14 @@
 /obj/effect/spawner/random/structure/crate_abandoned,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark/smooth_large,
-/area/space)
+/area/station/maintenance/cdcz)
 "Rq" = (
 /obj/structure/chair,
 /turf/open/floor/iron/dark/herringbone,
 /area/space)
+"Rr" = (
+/turf/open/floor/iron/dark/herringbone,
+/area/station/medical/cdcz/medical/morgue)
 "Rs" = (
 /obj/structure/table/wood/fancy,
 /obj/effect/turf_decal/siding/wideplating_new/dark,
@@ -17102,12 +17277,12 @@
 /obj/effect/spawner/random/structure/crate,
 /obj/effect/mapping_helpers/burnt_floor,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "Ry" = (
 /obj/structure/railing,
 /obj/structure/closet/firecloset,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "Rz" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood{
@@ -17119,7 +17294,7 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/effect/turf_decal/siding/thinplating_new/light/corner,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical)
 "RB" = (
 /obj/effect/turf_decal/tile/safe/diagonal_centre,
 /obj/structure/table/reinforced/rglass,
@@ -17157,6 +17332,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/euclid_scp/scp_151)
+"RF" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "CDCZ Laundry Room"
+	},
+/turf/open/floor/iron/dark/textured_large,
+/area/station/cdcz/custodial)
 "RG" = (
 /obj/machinery/button/door{
 	pixel_y = 7;
@@ -17247,6 +17428,10 @@
 /obj/effect/turf_decal/tile/euclid/half/contrasted,
 /turf/open/floor/iron/dark,
 /area/station/euclid_scp/scp_173)
+"RO" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/iron/white,
+/area/station/medical/cdcz/medical/treatment)
 "RP" = (
 /obj/effect/spawner/structure/window/prepainted/ez,
 /turf/open/floor/iron/plating,
@@ -17535,7 +17720,7 @@
 /obj/structure/rack/shelf,
 /obj/effect/spawner/random/maintenance/three,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "SA" = (
 /obj/machinery/door/airlock/cdcz/glass{
 	dir = 4;
@@ -17564,7 +17749,7 @@
 /obj/structure/hedge,
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/security/cdcz/mining_post)
 "SE" = (
 /obj/effect/turf_decal/siding/thinplating_new,
 /obj/effect/turf_decal/tile/cdcz_orange/half/contrasted{
@@ -17630,7 +17815,7 @@
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "SM" = (
 /turf/closed/wall/r_wall/prepainted/cdcz,
 /area/station/cdcz/hallway)
@@ -17721,7 +17906,7 @@
 	dir = 10
 	},
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical)
 "SW" = (
 /obj/structure/sign/painting/library{
 	pixel_x = -32
@@ -17743,7 +17928,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/storage)
 "SZ" = (
 /obj/effect/turf_decal/tile/lcz_tan{
 	dir = 4
@@ -17835,7 +18020,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark/textured_large,
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "Tj" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/structure/hedge,
@@ -17960,7 +18145,7 @@
 	},
 /obj/structure/tank_dispenser/oxygen,
 /turf/open/floor/iron,
-/area/space)
+/area/station/engineering/cdcz/atmos)
 "TB" = (
 /obj/machinery/light/directional/west,
 /obj/effect/turf_decal/siding/wood{
@@ -18013,7 +18198,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "TH" = (
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood,
@@ -18035,7 +18220,7 @@
 /area/space)
 "TK" = (
 /turf/closed/wall/prepainted/cdcz,
-/area/station/cdcz/luxury/cells)
+/area/station/cdcz/luxury)
 "TL" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
@@ -18050,7 +18235,7 @@
 /obj/structure/overfloor_catwalk/iron_dark,
 /obj/effect/mapping_helpers/burnt_floor,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "TO" = (
 /obj/effect/turf_decal/tile/safe/half/contrasted{
 	dir = 1
@@ -18067,7 +18252,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/space)
+/area/station/engineering/cdcz/atmos)
 "TQ" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 1
@@ -18154,7 +18339,7 @@
 /obj/item/reagent_containers/spray/cleaner,
 /obj/item/defibrillator/loaded,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/storage)
 "TY" = (
 /obj/item/wrench,
 /obj/item/stack/sheet/glass{
@@ -18209,7 +18394,7 @@
 /obj/item/storage/medkit/regular,
 /obj/machinery/light/directional/south,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "Ue" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
@@ -18299,7 +18484,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "Ur" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
@@ -18309,7 +18494,7 @@
 	pixel_y = 8
 	},
 /turf/open/floor/wood/parquet,
-/area/station/cdcz/luxury/cells)
+/area/station/cdcz/luxury)
 "Us" = (
 /obj/structure/railing{
 	dir = 4
@@ -18361,7 +18546,7 @@
 /obj/machinery/vending/wallmed/directional/west,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "Uy" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner{
 	dir = 8
@@ -18475,7 +18660,7 @@
 /obj/structure/railing,
 /obj/effect/spawner/random/structure/crate,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "UM" = (
 /obj/machinery/light/directional/east,
 /obj/effect/turf_decal/siding/wood{
@@ -18593,6 +18778,9 @@
 /obj/machinery/vending/boozeomat,
 /turf/open/floor/iron/dark/small,
 /area/station/service/ez/bar)
+"Vf" = (
+/turf/closed/wall/r_wall/prepainted/cdcz,
+/area/station/medical/cdcz/medical/storage)
 "Vg" = (
 /obj/machinery/door/airlock/security{
 	dir = 4;
@@ -18635,7 +18823,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "Vk" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Chapel"
@@ -18647,7 +18835,7 @@
 /obj/effect/spawner/random/structure/girder,
 /obj/machinery/light/small/maintenance/directional/north,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "Vm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/trash/garbage,
@@ -18713,10 +18901,10 @@
 "Vs" = (
 /obj/machinery/door/airlock/medical/glass{
 	dir = 4;
-	name = "CDCZ Medical Post"
+	name = "CDCZ Medical Treatment Center"
 	},
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "Vt" = (
 /obj/effect/turf_decal/tile/cdcz_orange{
 	dir = 1
@@ -18743,7 +18931,7 @@
 /area/station/maintenance/lcz)
 "Vy" = (
 /turf/open/floor/iron/plating,
-/area/station/cdcz/cells)
+/area/station/cdcz/hallway)
 "Vz" = (
 /obj/effect/turf_decal/tile/science_blue/opposingcorners,
 /obj/structure/table/reinforced,
@@ -18791,7 +18979,7 @@
 	},
 /obj/machinery/light/directional/north,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/morgue)
 "VF" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
@@ -18958,12 +19146,12 @@
 /area/station/euclid_scp/scp_513)
 "Wd" = (
 /obj/machinery/door/airlock/highsecurity{
-	name = "CDCZ Power Maintenance";
+	name = "CDCZ Substation Control Room";
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/level3,
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/engineering/cdcz/substation)
 "We" = (
 /obj/effect/turf_decal/siding/thinplating_new/light{
 	dir = 4
@@ -18984,7 +19172,7 @@
 /obj/item/stock_parts/cell/high,
 /obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/iron,
-/area/station/maintenance/lcz)
+/area/station/engineering/lcz/emergency)
 "Wg" = (
 /obj/machinery/light/small/maintenance/directional/north,
 /obj/structure/railing/corner{
@@ -19001,6 +19189,9 @@
 /obj/effect/spawner/structure/window/prepainted/ez,
 /turf/open/floor/iron/plating,
 /area/station/commons/ez/cryo)
+"Wj" = (
+/turf/closed/wall/r_wall/prepainted/cdcz,
+/area/station/medical/cdcz/medical/morgue)
 "Wk" = (
 /obj/structure/stairs/north,
 /turf/open/floor/iron/stairs/medium,
@@ -19044,7 +19235,7 @@
 	},
 /obj/effect/spawner/random/trash/garbage,
 /turf/open/floor/iron/dark,
-/area/space)
+/area/station/maintenance/cdcz)
 "Wp" = (
 /obj/effect/turf_decal/tile/green/diagonal_centre,
 /turf/open/floor/iron/white/diagonal,
@@ -19058,7 +19249,7 @@
 /obj/structure/table/optable,
 /obj/machinery/status_display/evac/directional/west,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/morgue)
 "Ws" = (
 /obj/structure/railing{
 	dir = 4
@@ -19084,7 +19275,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark/herringbone,
-/area/space)
+/area/station/security/cdcz/mining_post)
 "Ww" = (
 /obj/effect/turf_decal/tile/euclid/half/contrasted{
 	dir = 4
@@ -19119,7 +19310,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark/herringbone,
-/area/space)
+/area/station/security/cdcz/mining_post)
 "WB" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
@@ -19134,7 +19325,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/space)
+/area/station/engineering/cdcz/atmos)
 "WD" = (
 /obj/structure/fluff/broken_flooring/pile/directional/west,
 /obj/machinery/status_display/evac/directional/north,
@@ -19147,7 +19338,7 @@
 /obj/structure/fluff/broken_flooring/pile/directional/north,
 /obj/effect/spawner/random/engineering/tank,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "WF" = (
 /obj/structure/railing,
 /obj/structure/rack,
@@ -19169,6 +19360,7 @@
 	id_tag = "cdcz_check_south_access";
 	name = "CDCZ Checkpoint South Entrance Access Shutters"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/level2,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/security/cdcz/checkpoint)
 "WI" = (
@@ -19232,6 +19424,9 @@
 /obj/machinery/newscaster/directional/north,
 /turf/open/floor/iron/dark,
 /area/station/safe_scp/scp_216)
+"WP" = (
+/turf/closed/wall/prepainted/maints,
+/area/station/maintenance/cdcz/east)
 "WQ" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
@@ -19267,7 +19462,7 @@
 	},
 /obj/structure/closet/emcloset,
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz/east)
 "WU" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/safe/opposingcorners,
@@ -19299,7 +19494,7 @@
 "WY" = (
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/iron,
-/area/space)
+/area/station/maintenance/cdcz)
 "WZ" = (
 /obj/machinery/chem_master/condimaster{
 	name = "CondiMaster Neo"
@@ -19380,7 +19575,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/plating,
-/area/space)
+/area/station/maintenance/cdcz)
 "Xj" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/requests_console/directional/north,
@@ -19463,7 +19658,7 @@
 	dir = 4
 	},
 /obj/structure/closet/l3closet/classd,
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/item/radio/intercom/directional/west,
 /turf/open/floor/iron/dark/small,
 /area/station/cdcz/custodial)
 "Xu" = (
@@ -19497,7 +19692,7 @@
 /obj/effect/spawner/random/structure/crate_loot,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark/smooth_large,
-/area/space)
+/area/station/maintenance/cdcz)
 "Xy" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -19608,6 +19803,9 @@
 /obj/machinery/computer/secure_data,
 /turf/open/floor/iron/dark,
 /area/station/security/lcz)
+"XM" = (
+/turf/open/floor/iron/plating,
+/area/station/engineering/cdcz/storage)
 "XN" = (
 /obj/structure/chair/comfy/black,
 /turf/open/floor/iron/dark,
@@ -19638,6 +19836,9 @@
 /obj/machinery/light/red/directional/north,
 /turf/open/floor/iron/dark,
 /area/station/euclid_scp/scp_012)
+"XT" = (
+/turf/closed/wall/r_wall/prepainted/maints,
+/area/station/engineering/cdcz/storage)
 "XU" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
@@ -19645,7 +19846,7 @@
 /obj/effect/turf_decal/siding/thinplating_new/light,
 /obj/structure/sign/departments/chemistry/pharmacy/directional/north,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "XV" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/structure/table/reinforced,
@@ -19655,7 +19856,7 @@
 /turf/open/floor/iron/dark/small,
 /area/station/safe_scp/scp_294)
 "XW" = (
-/turf/closed/mineral,
+/turf/closed/indestructible/rock,
 /area/space)
 "XX" = (
 /obj/effect/turf_decal/siding/wood{
@@ -19723,7 +19924,7 @@
 	dir = 8
 	},
 /obj/structure/reagent_dispensers/watertank,
-/obj/machinery/airalarm/directional/north,
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/iron/dark/small,
 /area/station/cdcz/custodial)
 "Yh" = (
@@ -19763,6 +19964,7 @@
 	id_tag = "cdcz_check_north_access";
 	name = "CDCZ Checkpoint North Entrance Access Shutters"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/level2,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/security/cdcz/checkpoint)
 "Yl" = (
@@ -19784,7 +19986,7 @@
 "Yo" = (
 /obj/structure/overfloor_catwalk/iron,
 /turf/open/floor/iron/plating,
-/area/station/maintenance/lcz/entrance)
+/area/station/engineering/lcz/entrance/substation)
 "Yp" = (
 /obj/effect/turf_decal/tile/euclid/fourcorners,
 /obj/structure/railing{
@@ -19807,8 +20009,10 @@
 /turf/open/floor/iron/dark,
 /area/station/security/lcz)
 "Ys" = (
-/turf/open/openspace,
-/area/station/cdcz/cells)
+/obj/effect/turf_decal/tile/green/opposingcorners,
+/obj/machinery/light/small/directional/north,
+/turf/open/floor/iron,
+/area/station/cdcz/custodial)
 "Yt" = (
 /obj/machinery/computer/libraryconsole,
 /obj/structure/table/wood,
@@ -19911,6 +20115,9 @@
 /obj/machinery/status_display/ai/directional/north,
 /turf/open/floor/wood,
 /area/station/safe_scp/scp_529)
+"YG" = (
+/turf/closed/wall/r_wall/prepainted/cdcz,
+/area/station/medical/cdcz/medical/pharmacy)
 "YH" = (
 /obj/effect/turf_decal/tile/science_blue/opposingcorners,
 /obj/machinery/holopad,
@@ -19975,6 +20182,9 @@
 /obj/effect/turf_decal/tile/cdcz_orange/opposingcorners,
 /turf/open/floor/iron,
 /area/station/cdcz/luxury/commissary)
+"YQ" = (
+/turf/closed/wall/r_wall/prepainted/maints,
+/area/station/engineering/cdcz/atmos)
 "YR" = (
 /obj/structure/table,
 /obj/machinery/telephone{
@@ -20022,7 +20232,7 @@
 /obj/item/stack/medical/suture,
 /obj/item/radio/intercom/directional/south,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "YW" = (
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
@@ -20127,14 +20337,14 @@
 /obj/machinery/photocopier/faxmachine,
 /obj/machinery/newscaster/directional/north,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/reception)
 "Zj" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 6
 	},
 /obj/machinery/vending/medical,
 /turf/open/floor/iron/dark/small,
-/area/space)
+/area/station/medical/cdcz/medical/storage)
 "Zk" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -20193,6 +20403,9 @@
 /obj/item/paper/fluff/scp/scp_216,
 /turf/open/floor/iron/dark,
 /area/station/safe_scp/scp_216)
+"Zr" = (
+/turf/open/floor/iron/plating,
+/area/station/maintenance/cdcz)
 "Zs" = (
 /obj/effect/turf_decal/tile/science_blue/opposingcorners,
 /obj/machinery/firealarm/directional/south,
@@ -20202,7 +20415,7 @@
 /obj/machinery/iv_drip,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "Zu" = (
 /obj/effect/spawner/random/entertainment/toy,
 /turf/open/floor/carpet/orange,
@@ -20213,7 +20426,7 @@
 	},
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/wood/parquet,
-/area/station/cdcz/luxury/cells)
+/area/station/cdcz/luxury)
 "Zw" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
@@ -20355,14 +20568,17 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark/smooth_large,
-/area/space)
+/area/station/maintenance/cdcz)
+"ZN" = (
+/turf/closed/wall/r_wall/prepainted/cdcz,
+/area/station/medical/cdcz/medical/reception)
 "ZO" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/effect/turf_decal/siding/thinplating_new/light{
 	dir = 1
 	},
 /turf/open/floor/iron/white,
-/area/space)
+/area/station/medical/cdcz/medical)
 "ZP" = (
 /obj/effect/spawner/structure/window/reinforced/prepainted/lcz,
 /turf/open/floor/iron/plating,
@@ -20382,7 +20598,7 @@
 	pixel_y = 3
 	},
 /turf/open/floor/iron,
-/area/space)
+/area/station/engineering/cdcz/substation)
 "ZR" = (
 /obj/effect/turf_decal/tile/cdcz_orange/anticorner/contrasted{
 	dir = 8
@@ -20412,7 +20628,7 @@
 "ZU" = (
 /obj/machinery/smartfridge/organ,
 /turf/open/floor/iron/dark/textured_large,
-/area/space)
+/area/station/medical/cdcz/medical/treatment)
 "ZV" = (
 /obj/structure/table/wood,
 /obj/item/taperecorder,
@@ -94110,11 +94326,11 @@ XW
 XW
 XW
 XW
-KJ
-KJ
-KJ
-KJ
-KJ
+Wj
+Wj
+Wj
+Wj
+Wj
 XW
 XW
 XW
@@ -94367,11 +94583,11 @@ XW
 XW
 XW
 XW
-KJ
+Wj
 tu
 Wr
 OS
-KJ
+Wj
 XW
 XW
 XW
@@ -94624,11 +94840,11 @@ XW
 XW
 XW
 XW
-KJ
+Wj
 Bx
 ha
 cO
-KJ
+Wj
 XW
 XW
 XW
@@ -94880,13 +95096,13 @@ XW
 XW
 XW
 XW
-KJ
-KJ
-Hw
+Wj
+Wj
+nM
 Dx
-Hw
-KJ
-KJ
+nM
+Wj
+Wj
 XW
 XW
 XW
@@ -95137,13 +95353,13 @@ XW
 XW
 XW
 XW
-KJ
+Wj
 tN
-tj
-tj
-tj
+Rr
+Rr
+Rr
 CA
-KJ
+Wj
 XW
 XW
 XW
@@ -95394,13 +95610,13 @@ XW
 XW
 XW
 XW
-KJ
+Wj
 tN
-tj
+Rr
 Cn
-tj
+Rr
 CA
-KJ
+Wj
 XW
 XW
 XW
@@ -95651,18 +95867,18 @@ XW
 XW
 XW
 XW
-KJ
+Wj
 VE
-tj
+Rr
 Eg
-tj
+Rr
 vK
-KJ
-KJ
-KJ
-KJ
-KJ
-KJ
+Wj
+Vf
+Vf
+Vf
+Vf
+Vf
 XW
 XW
 XW
@@ -95908,18 +96124,18 @@ XW
 XW
 XW
 XW
-KJ
+Wj
 tN
-tj
+Rr
 gH
-tj
+Rr
 CA
 gh
 Pt
 Cc
 SY
 oV
-KJ
+Vf
 XW
 XW
 XW
@@ -96165,18 +96381,18 @@ XW
 XW
 XW
 XW
-KJ
+Wj
 tN
-tj
-tj
-tj
+Rr
+Rr
+Rr
 CA
 gh
 Pt
 Pt
 Pt
 zI
-KJ
+Vf
 XW
 XW
 XW
@@ -96422,7 +96638,7 @@ XW
 XW
 XW
 XW
-KJ
+Wj
 gh
 gh
 zx
@@ -96433,7 +96649,7 @@ yf
 Lz
 Ix
 TX
-KJ
+Vf
 XW
 XW
 XW
@@ -96676,21 +96892,21 @@ XW
 XW
 XW
 XW
-KJ
-KJ
-KJ
-KJ
-gh
+OL
+OL
+OL
+OL
+tK
 Bt
 Ia
 hE
-gh
+dI
 Zj
 Pt
 Pt
 Pt
 LU
-KJ
+Vf
 XW
 XW
 XW
@@ -96933,7 +97149,7 @@ XW
 XW
 XW
 XW
-KJ
+OL
 cK
 Ux
 pv
@@ -96947,7 +97163,7 @@ Pt
 EJ
 tZ
 ry
-KJ
+Vf
 XW
 XW
 XW
@@ -97190,21 +97406,21 @@ XW
 XW
 XW
 XW
-KJ
+OL
 GA
-Pt
-Pt
+RO
+RO
 NZ
 IQ
-yE
+aW
 Uq
-gh
-gh
-gh
-gh
-gh
-gh
-KJ
+dI
+dI
+dI
+dI
+dI
+dI
+Vf
 XW
 XW
 XW
@@ -97222,22 +97438,22 @@ aO
 aO
 aO
 aO
-Ea
-Ea
-Ea
-Ea
-Ea
-Ea
-Ea
-Ea
-Ea
-Ea
-Ea
-Ea
-Ea
-Ea
-Ea
-Ea
+az
+az
+az
+az
+az
+az
+az
+az
+az
+az
+az
+az
+az
+az
+az
+az
 XW
 XW
 XW
@@ -97447,21 +97663,21 @@ XW
 XW
 XW
 XW
-KJ
+OL
 AV
 Zt
 wb
-Hw
+wy
 IQ
-yE
+aW
 lM
-gh
-gh
+tK
+tK
 io
 Fz
 io
-gh
-KJ
+tK
+OL
 XW
 XW
 XW
@@ -97494,7 +97710,7 @@ TK
 nA
 II
 NP
-Ea
+az
 XW
 XW
 XW
@@ -97649,11 +97865,11 @@ XW
 XW
 XW
 XW
-dU
-dU
-dU
-dU
-dU
+MF
+MF
+MF
+MF
+MF
 Un
 fM
 Du
@@ -97704,22 +97920,22 @@ XW
 XW
 XW
 XW
-KJ
-gh
-gh
-gh
-gh
+YG
+YG
+YG
+YG
+YG
 Fl
-yE
+aW
 lc
-gh
+tK
 cg
 NQ
 NQ
 NQ
 bp
-KJ
-KJ
+OL
+OL
 XW
 XW
 XW
@@ -97751,7 +97967,7 @@ TK
 od
 DM
 Ps
-Ea
+az
 XW
 XW
 XW
@@ -97906,11 +98122,11 @@ XW
 XW
 XW
 XW
-dU
+MF
 Wf
 CT
 Gl
-dU
+MF
 yC
 Ou
 Ou
@@ -97961,22 +98177,22 @@ XW
 XW
 XW
 XW
-KJ
+YG
 Ph
 gg
 Id
-KJ
+YG
 XU
-yE
+aW
 Og
-gh
+tK
 Gu
 tz
-gh
+tK
 tz
 Uq
 Jl
-KJ
+OL
 XW
 XW
 XW
@@ -98008,7 +98224,7 @@ TK
 Zv
 ga
 im
-Ea
+az
 XW
 XW
 XW
@@ -98163,7 +98379,7 @@ XW
 XW
 XW
 XW
-dU
+MF
 NS
 iY
 iY
@@ -98218,22 +98434,22 @@ XW
 XW
 XW
 XW
-KJ
+YG
 eT
 jn
 ge
-Hw
+IF
 Nq
-yE
+aW
 Uq
-Hw
+wy
 IQ
 IG
 Gn
 IG
 Uq
 yD
-KJ
+OL
 XW
 XW
 XW
@@ -98265,7 +98481,7 @@ TK
 MG
 No
 Ur
-Ea
+az
 XW
 XW
 XW
@@ -98420,11 +98636,11 @@ XW
 XW
 XW
 XW
-dU
+MF
 ps
 DS
 Gq
-dU
+MF
 vv
 Ou
 CD
@@ -98475,13 +98691,13 @@ XW
 XW
 XW
 XW
-KJ
+YG
 lU
 dF
 dF
 bK
 eW
-yE
+aW
 Uq
 iL
 IQ
@@ -98490,7 +98706,7 @@ Gn
 tx
 Uq
 Ca
-KJ
+OL
 XW
 XW
 XW
@@ -98522,17 +98738,17 @@ TK
 TK
 mv
 TK
-Ea
-kC
-kC
-kC
-kC
-kC
-kC
-kC
-kC
-kC
-kC
+az
+Ck
+Ck
+Ck
+Ck
+Ck
+Ck
+Ck
+Ck
+Ck
+Ck
 XW
 XW
 XW
@@ -98677,11 +98893,11 @@ XW
 XW
 XW
 XW
-dU
-dU
-dU
-dU
-dU
+MF
+MF
+MF
+MF
+MF
 ik
 Ou
 Yv
@@ -98732,7 +98948,7 @@ XW
 XW
 XW
 XW
-KJ
+YG
 xQ
 dF
 eQ
@@ -98740,14 +98956,14 @@ sQ
 MA
 lC
 xX
-Hw
+wy
 IQ
 bP
 Gn
 bP
 Uq
 YV
-KJ
+OL
 XW
 XW
 XW
@@ -98785,11 +99001,11 @@ Fq
 HN
 rJ
 xn
-PT
+Kn
 BG
 Op
 bx
-kC
+Ck
 XW
 XW
 XW
@@ -98989,22 +99205,22 @@ XW
 XW
 XW
 XW
-KJ
+YG
 Ak
 dF
 eO
-gh
+YG
 gA
 Ia
 OJ
-gh
+tK
 Gu
 es
-gh
+tK
 es
 Uq
 Ni
-KJ
+OL
 XW
 XW
 XW
@@ -99037,16 +99253,16 @@ IP
 IP
 kM
 Iy
-qg
+Df
 bW
-qg
+Df
 TN
 pO
 FI
-qg
+Df
 QR
 Nh
-kC
+Ck
 XW
 XW
 XW
@@ -99246,22 +99462,22 @@ XW
 XW
 XW
 XW
-KJ
-KJ
-KJ
-KJ
-gh
-gh
+YG
+YG
+YG
+YG
+YG
+Ju
 Am
-gh
-gh
+Ju
+Ju
 fG
 lC
 lC
 lC
 xX
-KJ
-KJ
+OL
+OL
 XW
 XW
 XW
@@ -99294,16 +99510,16 @@ ud
 ud
 zD
 az
-kC
-kC
-kC
-kC
-kC
-kC
+Ck
+Ck
+Ck
+Ck
+Ck
+Ck
 Ng
 bW
 Cl
-kC
+Ck
 XW
 XW
 XW
@@ -99506,18 +99722,18 @@ XW
 XW
 XW
 XW
-KJ
-gh
+ZN
+Ju
 Eh
 TG
 Da
-gh
-gh
-Hw
+ZN
+OL
+wy
 Vs
-Hw
-gh
-KJ
+wy
+OL
+OL
 XW
 XW
 XW
@@ -99556,13 +99772,13 @@ XW
 XW
 XW
 XW
-kC
-PT
-un
-PT
-kC
-kC
-kC
+Ck
+Kn
+je
+Kn
+Ck
+Ck
+Ck
 XW
 XW
 XW
@@ -99763,18 +99979,18 @@ XW
 XW
 XW
 XW
-KJ
+ZN
 JY
 Vj
 aU
 lj
-gh
+ZN
 yH
 RA
 at
 GG
 uR
-KJ
+Nx
 XW
 XW
 XW
@@ -99813,13 +100029,13 @@ OC
 OC
 OC
 XW
-kC
+Ck
 Ry
-qg
+Df
 ZM
 Rp
 IN
-kC
+Ck
 XW
 XW
 XW
@@ -100020,18 +100236,18 @@ XW
 XW
 XW
 XW
-KJ
+ZN
 qz
 Gf
 jN
 Rn
-Hw
+Ob
 Lh
 sg
 yE
 ZO
 gu
-an
+Nx
 an
 an
 an
@@ -100070,13 +100286,13 @@ Qq
 cC
 OC
 XW
-kC
+Ck
 Vl
 TN
 uo
 qk
 em
-kC
+Ck
 XW
 XW
 XW
@@ -100277,18 +100493,18 @@ XW
 XW
 XW
 XW
-KJ
+ZN
 dR
 Gf
 qE
 ep
 yO
-Pt
+Fu
 sg
 tr
 ZO
 uL
-mk
+nC
 rW
 lK
 Ec
@@ -100327,13 +100543,13 @@ VA
 nZ
 OC
 XW
-kC
-jK
+Ck
+PN
 MH
 Mb
 IN
 Kc
-kC
+Ck
 XW
 XW
 XW
@@ -100534,18 +100750,18 @@ XW
 XW
 XW
 XW
-KJ
+ZN
 Zi
 Gf
 gQ
 eH
-Hw
+Ob
 ru
 sg
 yE
 ZO
 AX
-mk
+nC
 rW
 lz
 lz
@@ -100584,13 +100800,13 @@ jg
 qO
 OC
 XW
-kC
+Ck
 yX
-qg
+Df
 Wo
 IN
 Xx
-kC
+Ck
 XW
 XW
 XW
@@ -100791,18 +101007,18 @@ XW
 XW
 XW
 XW
-KJ
+ZN
 vZ
 HG
 DW
 Ud
-gh
+ZN
 SV
 oM
 ll
 nI
 ak
-mk
+nC
 AK
 lz
 lz
@@ -100841,13 +101057,13 @@ kj
 cw
 OC
 XW
-kC
+Ck
 QE
-qg
+Df
 uo
 EM
 uU
-kC
+Ck
 XW
 XW
 XW
@@ -101048,18 +101264,18 @@ XW
 XW
 XW
 XW
-KJ
-gh
+ZN
+ZN
 Jx
 SL
 GR
-gh
-gh
-Gn
+ZN
+nC
+zH
 Ce
-Gn
-gh
-mk
+zH
+nC
+nC
 AK
 lz
 lz
@@ -101098,13 +101314,13 @@ Pv
 Ui
 OC
 XW
-kC
+Ck
 lJ
 bW
 dJ
 IN
 Rp
-kC
+Ck
 XW
 XW
 XW
@@ -101305,12 +101521,12 @@ XW
 XW
 XW
 XW
-KJ
-gh
-gh
-gh
-gh
-gh
+XW
+ZN
+ZN
+ZN
+ZN
+ZN
 Bl
 lu
 pz
@@ -101354,14 +101570,14 @@ OC
 OC
 OC
 OC
-kC
-kC
-PT
-un
-PT
-kC
-kC
-kC
+Ck
+Ck
+Kn
+je
+Kn
+Ck
+Ck
+Ck
 XW
 XW
 XW
@@ -101556,14 +101772,14 @@ Ej
 Ej
 Ej
 XW
-XW
-XW
-XW
 UQ
 UQ
 UQ
 UQ
-tR
+UQ
+UQ
+UQ
+UQ
 tR
 Bl
 FP
@@ -101607,16 +101823,16 @@ ZR
 SM
 Cb
 kk
-PT
+Kn
 Mt
 Pr
 hD
 PC
-PT
+Kn
 zr
-qg
+Df
 tm
-kC
+Ck
 XW
 XW
 XW
@@ -101813,15 +102029,15 @@ XW
 XW
 XW
 XW
-XW
-XW
-XW
 UQ
+wE
+wE
+Ea
 Xt
 lE
 jE
 wz
-UQ
+Ea
 Kq
 FP
 Oz
@@ -101865,7 +102081,7 @@ Aq
 QR
 TN
 Mf
-qg
+Df
 MH
 HC
 TN
@@ -101873,7 +102089,7 @@ Mf
 bW
 QR
 yk
-kC
+Ck
 XW
 XW
 XW
@@ -102070,11 +102286,11 @@ XW
 XW
 XW
 XW
-XW
-XW
-XW
 UQ
-NT
+Ys
+di
+RF
+di
 di
 di
 di
@@ -102121,16 +102337,16 @@ vz
 SM
 op
 bW
-PT
-PT
-PT
-PT
-PT
-PT
-PT
+Kn
+Kn
+Kn
+Kn
+Kn
+Kn
+Kn
 Rx
 FN
-kC
+Ck
 XW
 XW
 XW
@@ -102327,15 +102543,15 @@ XW
 XW
 XW
 XW
-XW
-XW
-XW
 UQ
+uF
+wL
+Ea
 Yg
 IB
 jQ
 KZ
-tR
+Ea
 jj
 FP
 Oz
@@ -102345,49 +102561,49 @@ Ew
 uC
 uw
 UX
-FH
-FH
+Bl
+Bl
 kl
-FH
-FH
-FH
+Bl
+Bl
+Bl
 kl
-FH
-FH
+Bl
+Bl
 Oz
 UX
-FH
-FH
+Bl
+Bl
 kl
-FH
-FH
-FH
+Bl
+Bl
+Bl
 kl
-FH
-FH
+Bl
+Bl
 Oz
 UX
-FH
-FH
+Bl
+Bl
 kl
-FH
-FH
-FH
+Bl
+Bl
+Bl
 kl
-FH
-uF
-PT
+Bl
+SM
+Kn
 nt
-PT
+Kn
 LP
 va
 Fo
 qo
 qr
-kC
-kC
-kC
-kC
+Ck
+Ck
+Ck
+Ck
 XW
 XW
 XW
@@ -102584,9 +102800,9 @@ XW
 XW
 XW
 XW
-XW
-XW
-XW
+UQ
+UQ
+UQ
 HX
 HX
 HX
@@ -102602,46 +102818,46 @@ Ie
 wR
 uw
 UX
-FH
+Bl
 tC
 kY
 cI
-FH
+Bl
 tC
 kY
 cI
-FH
+Bl
 Oz
 UX
-FH
+Bl
 tC
 kY
 cI
-FH
+Bl
 tC
 kY
 cI
-FH
+Bl
 Oz
 UX
-FH
+Bl
 tC
 kY
 cI
-FH
+Bl
 tC
 kY
 cI
-uF
+SM
 CC
-qg
-PT
+Df
+Kn
 lw
 Ij
 eM
 Ol
 zh
-kC
+Ck
 XW
 XW
 XW
@@ -102859,46 +103075,46 @@ xW
 wR
 uw
 UX
-FH
+Bl
 Br
 FF
 Iw
-FH
+Bl
 Br
 FF
 Iw
-FH
+Bl
 Oz
 UX
-FH
+Bl
 Br
 FF
 Iw
-FH
+Bl
 Br
 FF
 Iw
-FH
+Bl
 Oz
 UX
-FH
+Bl
 Br
 FF
 Iw
-FH
+Bl
 Br
 FF
 Iw
-uF
+SM
 lg
 bW
 wB
-Fr
+Zr
 qo
 zP
 WY
 zo
-kC
+Ck
 XW
 XW
 XW
@@ -103116,46 +103332,46 @@ mw
 bk
 uw
 UX
-FH
+Bl
 av
 Gr
 vS
-FH
+Bl
 av
 Jp
 vS
-FH
+Bl
 Oz
 UX
-FH
+Bl
 av
 ao
 vS
-FH
+Bl
 av
 Jp
 vS
-FH
+Bl
 Oz
 UX
-FH
+Bl
 av
 ao
 vS
-FH
+Bl
 av
 Jp
 vS
-uF
+SM
 LT
 QR
-PT
+Kn
 gs
 Oo
 yY
 WE
 Ns
-kC
+Ck
 XW
 XW
 XW
@@ -103373,46 +103589,46 @@ uw
 uw
 uw
 rk
-FH
-FH
-FH
-FH
-FH
-FH
-FH
-FH
-FH
+Bl
+Bl
+Bl
+Bl
+Bl
+Bl
+Bl
+Bl
+Bl
 Oz
 rk
-FH
-FH
-FH
-FH
-FH
-FH
-FH
-FH
-FH
+Bl
+Bl
+Bl
+Bl
+Bl
+Bl
+Bl
+Bl
+Bl
 Oz
 rk
-FH
-FH
-FH
-FH
-FH
-FH
-FH
-FH
-uF
+Bl
+Bl
+Bl
+Bl
+Bl
+Bl
+Bl
+Bl
+SM
 KH
-qg
-PT
+Df
+Kn
 ur
 WY
 uX
 va
 Ij
-kC
+Ck
 XW
 XW
 XW
@@ -103630,46 +103846,46 @@ Ew
 uC
 uw
 UX
-FH
+Bl
 sO
 ez
 QM
-FH
+Bl
 sO
 sb
 QM
-FH
+Bl
 Oz
 UX
-FH
+Bl
 sO
 sb
 QM
-FH
+Bl
 sO
 sb
 QM
-FH
+Bl
 Oz
 UX
-FH
+Bl
 sO
 sb
 QM
-FH
+Bl
 sO
 sb
 QM
-uF
+SM
 ls
 aX
-PT
+Kn
 ij
 Fo
 Sz
 oI
 zO
-kC
+Ck
 XW
 XW
 XW
@@ -103887,46 +104103,46 @@ OF
 wR
 uw
 UX
-FH
+Bl
 Br
 FF
 Iw
-FH
+Bl
 Br
 FF
 Iw
-FH
+Bl
 Oz
 UX
-FH
+Bl
 Br
 FF
 Iw
-FH
+Bl
 Br
 FF
 Iw
-FH
+Bl
 Oz
 UX
-FH
+Bl
 Br
 FF
 Iw
-FH
+Bl
 Br
 FF
 Iw
-uF
-jK
+SM
+PN
 bW
-PT
+Kn
 Rh
 va
-Fr
+Zr
 mM
 lF
-kC
+Ck
 XW
 XW
 XW
@@ -104144,46 +104360,46 @@ VV
 wR
 uw
 UX
-FH
+Bl
 sw
 sf
 Nb
-FH
+Bl
 sw
 sf
 Nb
-FH
+Bl
 Oz
 UX
-FH
+Bl
 sw
 sf
 Nb
-FH
+Bl
 sw
 sf
 Nb
-FH
+Bl
 Oz
 UX
-FH
+Bl
 sw
 sf
 Nb
-FH
+Bl
 sw
 sf
 Nb
-uF
-PT
+SM
+Kn
 vt
-PT
-kC
-kC
-kC
-kC
-kC
-kC
+Kn
+Ck
+Ck
+Ck
+Ck
+Ck
+Ck
 XW
 XW
 XW
@@ -104401,41 +104617,41 @@ mw
 bk
 uw
 UX
-FH
-FH
+Bl
+Bl
 kl
-FH
-FH
-FH
+Bl
+Bl
+Bl
 kl
-FH
-FH
+Bl
+Bl
 Oz
 UX
-FH
-FH
+Bl
+Bl
 kl
-FH
-FH
-FH
+Bl
+Bl
+Bl
 kl
-FH
-FH
+Bl
+Bl
 Oz
 UX
-FH
-FH
+Bl
+Bl
 kl
-FH
-FH
-FH
+Bl
+Bl
+Bl
 kl
-FH
-uF
+Bl
+SM
 UL
 TN
 ss
-kC
+Ck
 XW
 XW
 XW
@@ -104692,7 +104908,7 @@ SM
 ck
 QR
 eB
-kC
+Ck
 XW
 XW
 XW
@@ -104946,10 +105162,10 @@ uw
 uw
 UX
 Aq
-qg
+Df
 bW
 fi
-kC
+Ck
 XW
 XW
 XW
@@ -105206,7 +105422,7 @@ SM
 am
 zw
 Xi
-kC
+Ck
 XW
 XW
 XW
@@ -105461,9 +105677,9 @@ Yf
 Yf
 Hp
 Hp
-kC
-kC
-kC
+Ck
+Ck
+Ck
 XW
 XW
 XW
@@ -105674,8 +105890,8 @@ aD
 hh
 JA
 TL
-nG
-nG
+tt
+tt
 Vv
 Vv
 Vv
@@ -105940,10 +106156,10 @@ qd
 Vv
 mi
 Nd
-RK
+iq
 Vv
+PV
 Uj
-Nd
 Nd
 fu
 Nd
@@ -106199,11 +106415,11 @@ Ax
 xY
 li
 pG
+Jd
 Ax
 xY
 xY
-xY
-xY
+NT
 xY
 xY
 li
@@ -106456,13 +106672,13 @@ vO
 xY
 li
 rm
+gB
 Ax
-xY
 vr
+Pd
 vr
+dL
 vr
-vr
-xY
 li
 EK
 kd
@@ -106713,8 +106929,8 @@ Ax
 xY
 li
 pG
+jM
 Ax
-xY
 xY
 xY
 xY
@@ -106968,10 +107184,10 @@ gI
 Vv
 jZ
 UZ
-hY
+FH
 Vv
+zn
 PZ
-UZ
 UZ
 UZ
 hi
@@ -107732,11 +107948,11 @@ my
 XW
 XW
 XW
-KJ
-KJ
-KJ
-KJ
-KJ
+BN
+BN
+BN
+BN
+BN
 dl
 lv
 Zl
@@ -107988,11 +108204,11 @@ TU
 my
 XW
 XW
-KJ
-KJ
-ba
-ba
-ba
+BN
+BN
+mF
+mF
+mF
 oY
 Gt
 UW
@@ -108245,12 +108461,12 @@ Cf
 my
 XW
 XW
-KJ
+BN
 SD
-ba
-ba
-ba
-KJ
+mF
+mF
+mF
+BN
 fh
 aL
 aL
@@ -108502,12 +108718,12 @@ Fm
 my
 XW
 XW
-KJ
+BN
 uu
-ba
-ba
-ba
-KJ
+mF
+mF
+mF
+BN
 BA
 BA
 AJ
@@ -108759,12 +108975,12 @@ my
 my
 XW
 XW
-KJ
+BN
 ad
-ba
-ba
-ba
-Hw
+mF
+mF
+mF
+iS
 YI
 qD
 RV
@@ -109016,12 +109232,12 @@ Qf
 XW
 XW
 XW
-KJ
+BN
 uP
-ba
+mF
 Aw
 Wv
-Hw
+iS
 sH
 mR
 Xr
@@ -109273,11 +109489,11 @@ Qf
 Qf
 XW
 XW
-KJ
+BN
 wS
-ba
+mF
 mJ
-tj
+bX
 Gi
 sH
 mR
@@ -109530,12 +109746,12 @@ cc
 Qf
 XW
 XW
-KJ
+BN
 da
-ba
+mF
 ii
 WA
-Hw
+iS
 sH
 mR
 Xr
@@ -109787,12 +110003,12 @@ Dn
 Qf
 XW
 XW
-KJ
+BN
 Px
-ba
-ba
-ba
-Hw
+mF
+mF
+mF
+iS
 xd
 lX
 Td
@@ -110044,12 +110260,12 @@ hs
 Qf
 XW
 XW
-KJ
+BN
 dS
-ba
-ba
-ba
-KJ
+mF
+mF
+mF
+BN
 BA
 BA
 BA
@@ -110086,7 +110302,7 @@ lD
 lD
 Jt
 qg
-kC
+Aa
 XW
 XW
 XW
@@ -110301,12 +110517,12 @@ Qf
 Qf
 XW
 XW
-KJ
+BN
 SD
-ba
-ba
-ba
-KJ
+mF
+mF
+mF
+BN
 Sd
 qD
 RV
@@ -110316,11 +110532,11 @@ UT
 UT
 UT
 KJ
-Fr
-Fr
-Fr
-Fr
-PT
+go
+go
+go
+go
+WP
 au
 qg
 qg
@@ -110343,7 +110559,7 @@ qg
 qg
 qg
 qg
-kC
+Aa
 XW
 XW
 XW
@@ -110558,11 +110774,11 @@ Qf
 XW
 XW
 XW
-KJ
-KJ
-ba
-ba
-ba
+BN
+BN
+mF
+mF
+mF
 oY
 oj
 mR
@@ -110573,23 +110789,23 @@ UT
 UT
 UT
 KJ
-Fr
-Fr
-Fr
-Fr
-PT
+go
+go
+go
+go
+WP
 au
 qg
-PT
+WP
 sm
 sm
 sm
 sm
-PT
+WP
 GJ
 qg
 Lv
-PT
+WP
 sm
 sm
 sm
@@ -110597,10 +110813,10 @@ sm
 sm
 sm
 sm
-PT
+WP
 sm
 sm
-kC
+Aa
 XW
 XW
 XW
@@ -110816,11 +111032,11 @@ XW
 XW
 XW
 XW
-KJ
-KJ
-KJ
-KJ
-KJ
+BN
+BN
+BN
+BN
+BN
 gF
 lX
 Td
@@ -110830,34 +111046,34 @@ UT
 UT
 UT
 KJ
-Fr
-Fr
-Fr
-Fr
-PT
+go
+go
+go
+go
+WP
 au
 qg
-kC
-kC
-kC
-kC
-kC
-kC
-PT
+XT
+XT
+XT
+XT
+XT
+XT
+WP
 iP
-PT
-kC
-kC
-kC
-kC
-kC
-kC
-kC
-kC
-kC
-kC
-kC
-kC
+WP
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
 XW
 XW
 XW
@@ -111087,28 +111303,28 @@ KJ
 KJ
 KJ
 KJ
-PT
-PT
+WP
+WP
 un
-PT
-PT
+WP
+WP
 Jt
 qg
-kC
-Fr
-Fr
-Fr
-Fr
-kC
+XT
+XM
+XM
+XM
+XM
+XT
 jK
 qg
 mZ
-kC
+YQ
 la
 FK
 WC
 vn
-kC
+YQ
 XW
 XW
 XW
@@ -111334,7 +111550,7 @@ XW
 XW
 XW
 XW
-kC
+Aa
 au
 qg
 qg
@@ -111351,21 +111567,21 @@ qg
 qv
 qg
 qg
-kC
-Fr
-Fr
-Fr
-Fr
-kC
+XT
+XM
+XM
+XM
+XM
+XT
 OQ
 qg
 Pj
-kC
+YQ
 er
 JO
 cz
 aT
-kC
+YQ
 XW
 XW
 XW
@@ -111591,38 +111807,38 @@ XW
 XW
 XW
 XW
-kC
+Aa
 nx
 sm
 sm
 sm
 sm
-PT
-Fr
-Fr
-Fr
-Fr
-Fr
-Fr
-Fr
-PT
+WP
+go
+go
+go
+go
+go
+go
+go
+WP
 sm
 sm
-kC
-Fr
-Fr
-Fr
-Fr
-kC
+XT
+XM
+XM
+XM
+XM
+XT
 wM
 qg
 Nz
-kC
+YQ
 cz
 mL
 aG
 TP
-kC
+YQ
 XW
 XW
 XW
@@ -111848,28 +112064,28 @@ XW
 XW
 XW
 XW
-kC
-kC
-kC
-kC
-kC
-kC
-kC
-kC
-kC
-kC
-kC
-kC
-kC
-kC
-kC
-kC
-kC
-kC
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+XT
 sx
-Fr
-Fr
-Fr
+XM
+XM
+XM
 DN
 qg
 wm
@@ -111879,7 +112095,7 @@ cz
 DQ
 vE
 ih
-kC
+YQ
 XW
 XW
 XW
@@ -112122,21 +112338,21 @@ XW
 XW
 XW
 XW
-kC
-Fr
-Fr
-Fr
-Fr
-kC
+XT
+XM
+XM
+XM
+XM
+XT
 zv
 gz
 bI
-kC
+YQ
 cz
 NB
 dP
 nE
-kC
+YQ
 XW
 XW
 XW
@@ -112379,21 +112595,21 @@ XW
 XW
 XW
 XW
-kC
-Fr
-Fr
-Fr
-Fr
-kC
+XT
+XM
+XM
+XM
+XM
+XT
 GO
 qg
 mU
-kC
+YQ
 cz
 Ml
 LN
 kT
-kC
+YQ
 XW
 XW
 XW
@@ -112636,21 +112852,21 @@ XW
 XW
 XW
 XW
-kC
-Fr
-Fr
-Fr
-Fr
-kC
+XT
+XM
+XM
+XM
+XM
+XT
 rX
 qg
 WT
-kC
+YQ
 Ke
 TA
 Do
 yc
-kC
+YQ
 XW
 XW
 XW
@@ -112893,21 +113109,21 @@ XW
 XW
 XW
 XW
-kC
-kC
-kC
-kC
-kC
-kC
-kC
+XT
+XT
+XT
+XT
+XT
+AP
+AP
 Wd
-kC
-kC
-kC
-kC
-kC
-kC
-kC
+AP
+AP
+YQ
+YQ
+YQ
+YQ
+YQ
 XW
 XW
 XW
@@ -113155,11 +113371,11 @@ XW
 XW
 XW
 XW
-kC
+AP
 ZQ
-cz
+FD
 Nw
-kC
+AP
 XW
 XW
 XW
@@ -113412,11 +113628,11 @@ XW
 XW
 XW
 XW
-kC
+AP
 Qb
-cz
+FD
 eg
-kC
+AP
 XW
 XW
 XW
@@ -113669,11 +113885,11 @@ XW
 XW
 XW
 XW
-kC
+AP
 yS
 Ga
 HR
-kC
+AP
 XW
 XW
 XW
@@ -113926,11 +114142,11 @@ XW
 XW
 XW
 XW
-kC
-kC
-kC
-kC
-kC
+AP
+AP
+AP
+AP
+AP
 XW
 XW
 XW
@@ -119002,11 +119218,11 @@ JW
 EA
 JW
 JW
-HK
-HK
-HK
-HK
-HK
+zQ
+zQ
+zQ
+zQ
+zQ
 XW
 XW
 XW
@@ -119259,11 +119475,11 @@ JW
 FM
 Wu
 Qz
-HK
+zQ
 Ht
 FG
 jF
-HK
+zQ
 XW
 XW
 XW
@@ -119520,7 +119736,7 @@ pT
 Yo
 Yo
 IC
-HK
+zQ
 XW
 XW
 XW
@@ -119773,11 +119989,11 @@ uS
 qc
 HQ
 dB
-HK
+zQ
 fX
 nc
 jk
-HK
+zQ
 XW
 XW
 XW
@@ -120030,11 +120246,11 @@ HK
 Yw
 HK
 HK
-HK
-HK
-HK
-HK
-HK
+zQ
+zQ
+zQ
+zQ
+zQ
 XW
 XW
 XW
@@ -167881,37 +168097,37 @@ Ii
 rq
 rq
 rq
-FH
-FH
+Bl
+Bl
 nX
-FH
-FH
-FH
+Bl
+Bl
+Bl
 nX
-FH
-FH
+Bl
+Bl
 rq
 Ii
-FH
-FH
+Bl
+Bl
 nX
-FH
-FH
-FH
+Bl
+Bl
+Bl
 nX
-FH
-uF
+Bl
+SM
 rq
 Ii
-FH
-FH
+Bl
+Bl
 nX
-FH
-FH
-FH
+Bl
+Bl
+Bl
 Ti
-FH
-uF
+Bl
+SM
 jx
 PT
 kC
@@ -168138,37 +168354,37 @@ Ii
 rq
 rq
 rq
-FH
-Ys
-zn
-Ys
-FH
-Ys
-zn
-Ys
-FH
+Bl
 rq
 Ii
-FH
-Ys
-zn
-Ys
-FH
-Ys
-zn
-Ys
-uF
+rq
+Bl
 rq
 Ii
-FH
-Ys
-zn
-Ys
-FH
+rq
+Bl
+rq
+Ii
+Bl
+rq
+Ii
+rq
+Bl
+rq
+Ii
+rq
+SM
+rq
+Ii
+Bl
+rq
+Ii
+rq
+Bl
 Vy
 Vy
 Vy
-uF
+SM
 Fr
 Fr
 kC
@@ -168395,37 +168611,37 @@ Ii
 rq
 rq
 rq
-FH
-Ys
-zn
-Ys
-FH
-Ys
-zn
-Ys
-FH
+Bl
 rq
 Ii
-FH
-Ys
-zn
-Ys
-FH
-Ys
-zn
-Ys
-uF
+rq
+Bl
 rq
 Ii
-FH
-Ys
-zn
-Ys
-FH
+rq
+Bl
+rq
+Ii
+Bl
+rq
+Ii
+rq
+Bl
+rq
+Ii
+rq
+SM
+rq
+Ii
+Bl
+rq
+Ii
+rq
+Bl
 FX
 Vy
 Vy
-uF
+SM
 Fr
 Fr
 kC
@@ -168652,37 +168868,37 @@ Ii
 rq
 rq
 rq
-FH
-Ys
-zn
-Ys
-FH
-Ys
-zn
-Ys
-FH
+Bl
 rq
 Ii
-FH
-Ys
-zn
-Ys
-FH
-Ys
-zn
-Ys
-uF
+rq
+Bl
 rq
 Ii
-FH
-Ys
-zn
-Ys
-FH
+rq
+Bl
+rq
+Ii
+Bl
+rq
+Ii
+rq
+Bl
+rq
+Ii
+rq
+SM
+rq
+Ii
+Bl
+rq
+Ii
+rq
+Bl
 Vy
 Vy
 Vy
-uF
+SM
 Fr
 Fr
 kC
@@ -168909,33 +169125,33 @@ Dk
 Ii
 Ii
 Ii
-FH
-FH
-FH
-FH
-FH
-FH
-FH
-FH
-FH
+Bl
+Bl
+Bl
+Bl
+Bl
+Bl
+Bl
+Bl
+Bl
 Ii
 Dk
-FH
-FH
-FH
-FH
-FH
-FH
-FH
-FH
-uF
+Bl
+Bl
+Bl
+Bl
+Bl
+Bl
+Bl
+Bl
+SM
 Ii
 Dk
-FH
-FH
-FH
-FH
-FH
+Bl
+Bl
+Bl
+Bl
+Bl
 sV
 Vy
 Vy
@@ -169166,37 +169382,37 @@ Ii
 rq
 rq
 rq
-FH
-Ys
-zn
-Ys
-FH
-Ys
-zn
-Ys
-FH
+Bl
 rq
 Ii
-FH
-Ys
-zn
-Ys
-FH
-Ys
-zn
-Ys
-uF
+rq
+Bl
 rq
 Ii
-FH
-Ys
-zn
-Ys
-FH
+rq
+Bl
+rq
+Ii
+Bl
+rq
+Ii
+rq
+Bl
+rq
+Ii
+rq
+SM
+rq
+Ii
+Bl
+rq
+Ii
+rq
+Bl
 Vy
 Vy
 Vy
-uF
+SM
 Fr
 Fr
 kC
@@ -169423,37 +169639,37 @@ Ii
 rq
 rq
 rq
-FH
-Ys
-zn
-Ys
-FH
-Ys
-zn
-Ys
-FH
+Bl
 rq
 Ii
-FH
-Ys
-zn
-Ys
-FH
-Ys
-zn
-Ys
-uF
+rq
+Bl
 rq
 Ii
-FH
-Ys
-zn
-Ys
-FH
+rq
+Bl
+rq
+Ii
+Bl
+rq
+Ii
+rq
+Bl
+rq
+Ii
+rq
+SM
+rq
+Ii
+Bl
+rq
+Ii
+rq
+Bl
 zY
 Vy
 Vy
-uF
+SM
 Fr
 Fr
 kC
@@ -169680,37 +169896,37 @@ Ii
 rq
 rq
 rq
-FH
-Ys
-zn
-Ys
-FH
-Ys
-zn
-Ys
-FH
+Bl
 rq
 Ii
-FH
-Ys
-zn
-Ys
-FH
-Ys
-zn
-Ys
-uF
+rq
+Bl
 rq
 Ii
-FH
-Ys
-zn
-Ys
-FH
+rq
+Bl
+rq
+Ii
+Bl
+rq
+Ii
+rq
+Bl
+rq
+Ii
+rq
+SM
+rq
+Ii
+Bl
+rq
+Ii
+rq
+Bl
 Vy
 Vy
 Vy
-uF
+SM
 Fr
 Fr
 kC
@@ -169937,37 +170153,37 @@ Ii
 rq
 rq
 rq
-FH
-FH
+Bl
+Bl
 nX
-FH
-FH
-FH
+Bl
+Bl
+Bl
 nX
-FH
-FH
+Bl
+Bl
 rq
 Ii
-FH
-FH
+Bl
+Bl
 nX
-FH
-FH
-FH
+Bl
+Bl
+Bl
 nX
-FH
-uF
+Bl
+SM
 rq
 Ii
-FH
-FH
+Bl
+Bl
 nX
-FH
-FH
-FH
+Bl
+Bl
+Bl
 Ti
-FH
-uF
+Bl
+SM
 jx
 PT
 kC
