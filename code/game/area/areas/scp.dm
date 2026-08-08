@@ -1,50 +1,54 @@
 /area/station/hallway/ez/hub
-	name = "\improper EZ Hub"
+	name = "EZ Hub"
 	icon_state = "centralhall"
 
 /area/station/service/ez/bar
-	name = "\improper Bar"
+	name = "EZ Bar"
 	icon_state = "bar"
 	airlock_wires = /datum/wires/airlock/service
 	sound_environment = SOUND_AREA_WOODFLOOR
 
 /area/station/service/ez/bar/backroom
-	name = "\improper Bar Backroom"
+	name = "EZ Bar Backroom"
 	icon_state = "bar"
 
 /area/station/service/ez/kitchen
-	name = "\improper Kitchen"
+	name = "EZ Kitchen"
 	icon_state = "kitchen"
 
 /area/station/service/ez/chapel
-	name = "\improper Chapel"
+	name = "EZ Chapel"
 	icon_state = "chapel"
 	ambience_index = AMBIENCE_HOLY
 	flags_1 = NONE
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/station/service/ez/library
-	name = "\improper Public Library"
+	name = "EZ Public Library"
 	icon_state = "library"
 	area_flags = parent_type::area_flags &~ VALID_TERRITORY
 	sound_environment = SOUND_AREA_LARGE_SOFTFLOOR
 
 /area/station/service/ez/janitor
-	name = "\improper Custodial Closet"
+	name = "EZ Custodial Closet"
 	icon_state = "janitor"
 	area_flags = parent_type::area_flags &~ VALID_TERRITORY
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/station/service/ez/chapel/office
-	name = "\improper Chapel Office"
+	name = "EZ Chapel Office"
 	icon_state = "chapeloffice"
 
 /area/station/commons/ez/lounge
-	name = "\improper Lounge"
+	name = "EZ Lounge"
 	icon_state = "lounge"
 
 /area/station/commons/ez/cryo
-	name = "Cryogenics"
+	name = "EZ Cryogenics"
+	icon_state = "cryo"
+
+/area/station/commons/cdcz/cryo
+	name = "CDCZ Cryogenics"
 	icon_state = "cryo"
 
 /area/station/maintenance/ez
@@ -178,6 +182,10 @@
 	name = "\improper CDCZ Entrance Hallway"
 	icon_state = "cdcz_enthall"
 
+/area/station/cdcz/hallway/mining
+	name = "\improper CDCZ Mining Hallway"
+	icon_state = "cdcz_minehall"
+
 /area/station/cdcz/custodial
 	name = "\improper CDCZ Custodial Closet"
 	icon_state = "cdcz_custodial"
@@ -241,6 +249,10 @@
 /area/station/security/cdcz/control
 	name = "\improper CDCZ Control Room"
 	icon_state = "security"
+
+/area/station/security/cdcz/control/armory
+	name = "\improper CDCZ Armory"
+	icon_state = "armory"
 
 /area/station/security/cdcz/mining_post
 	name = "\improper CDCZ Mining Security Post"
