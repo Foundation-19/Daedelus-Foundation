@@ -4,7 +4,7 @@
 // ================================================================
 // CLOSET STUBS
 // ================================================================
-
+/*
 /obj/structure/closet/coffin
 	name = "coffin"
 
@@ -638,3 +638,4 @@
 
 /obj/machinery/computer/upload/robot
 	name = "robot upload console"
+*/

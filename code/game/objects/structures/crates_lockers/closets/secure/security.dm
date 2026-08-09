@@ -330,24 +330,7 @@
 	new /obj/item/flashlight/seclite(src)
 
 /obj/structure/closet/secure_closet/classd
-	name = "class-d equipment locker"
-	req_access = list(ACCESS_SECURITY_LVL2)
-	icon_state = "cd"
-
-/obj/structure/closet/secure_closet/classd/PopulateContents()
-	..()
-	for(var/i in 1 to 3)
-		new /obj/item/clothing/shoes/workboots(src)
-	for(var/i in 1 to 3)
-		new /obj/item/clothing/under/rank/classd(src)
-	for(var/i in 1 to 3)
-		new /obj/item/restraints/handcuffs(src)
-	new /obj/item/clothing/suit/straight_jacket(src)
-	new /obj/item/clothing/mask/muzzle(src)
-	new /obj/item/clothing/glasses/blindfold(src)
-
-/obj/structure/closet/secure_closet/classd
-	name = "class-d equipment locker"
+	name = "Class-D supplies locker"
 	req_access = list(ACCESS_SECURITY_LVL2)
 	icon_state = "cd"
 

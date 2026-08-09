@@ -66,12 +66,12 @@
 #define ACCESS_SERVICE_LVL4 41 //Level 4, Command Wildcard.
 #define ACCESS_SERVICE_LVL5 42 //Level 5, Private Command Wildcard.
 
-#define ACCESS_DCLASS 43 //All D-Class Access codes are Common Wildcards.
+#define ACCESS_DCLASS 43
 #define ACCESS_DCLASS_MINING 44
 #define ACCESS_DCLASS_BOTANY 45
 #define ACCESS_DCLASS_JANITORIAL 46
 #define ACCESS_DCLASS_LUXURY 47
-#define ACCESS_DCLASS_MEDICAL 48
+#define ACCESS_DCLASS_KITCHEN 48
 
 	//BEGIN CENTCOM ACCESS
 	/*Should leave plenty of room if we need to add more access levels.
@@ -251,7 +251,7 @@
 	ACCESS_DCLASS_BOTANY, \
 	ACCESS_DCLASS_JANITORIAL, \
 	ACCESS_DCLASS_LUXURY, \
-	ACCESS_DCLASS_MEDICAL, \
+	ACCESS_DCLASS_KITCHEN, \
 )
 
 /// Command staff/secure accesses, think bridge/armoury, AI upload, notably access to modify ID cards themselves. Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_COMMAND)
@@ -343,7 +343,7 @@
 	ACCESS_DCLASS_BOTANY, \
 	ACCESS_DCLASS_JANITORIAL, \
 	ACCESS_DCLASS_LUXURY, \
-	ACCESS_DCLASS_MEDICAL, \
+	ACCESS_DCLASS_KITCHEN, \
 	)
 /// Name for the Medbay region.
 #define REGION_MEDBAY "Medbay"

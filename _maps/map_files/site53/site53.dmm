@@ -299,7 +299,7 @@
 	id_tag = "CDCZMedWindows";
 	name = "CDCZ Medical Clinic Windows Control";
 	pixel_x = -25;
-	req_access = list(list("ACCESS_SECURITY_LEVEL2","ACCESS_MEDICAL_LEVEL1","ACCESS_DCLASS_MEDICAL"))
+	req_access = list(list("ACCESS_SECURITY_LEVEL2","ACCESS_MEDICAL_LEVEL1"))
 	},
 /obj/effect/turf_decal/corner/blue/mono,
 /obj/structure/bed/roller,
@@ -17988,7 +17988,7 @@
 	id_tag = "CDCZMedWindows";
 	name = "CDCZ Medical Clinic Windows Control";
 	pixel_y = 7;
-	req_access = list(list("ACCESS_SECURITY_LEVEL2","ACCESS_MEDICAL_LEVEL1","ACCESS_DCLASS_MEDICAL"))
+	req_access = list(list("ACCESS_SECURITY_LEVEL2","ACCESS_MEDICAL_LEVEL1"))
 	},
 /obj/effect/turf_decal/corner/red/diagonal,
 /turf/open/floor/iron/dark,
@@ -26322,7 +26322,7 @@
 "fBw" = (
 /obj/machinery/door/airlock/glass/medical{
 	name = "CDCZ Aid Post";
-	req_access = list(list("ACCESS_SECURITY_LEVEL2","ACCESS_DCLASS_MEDICAL"))
+	req_access = list(list("ACCESS_SECURITY_LEVEL2"))
 	},
 /obj/machinery/holosign/surgery{
 	dir = 8;
@@ -44732,7 +44732,7 @@
 /obj/structure/closet/secure/freezer{
 	icon = 'icons/obj/structure/closet/crate/freezer.dmi';
 	name = "Secure Freezer";
-	req_access = list(list("ACCESS_SECURITY_LEVEL2","ACCESS_DCLASS_MEDICAL"))
+	req_access = list(list("ACCESS_SECURITY_LEVEL2"))
 	},
 /obj/item/organ/eyes,
 /obj/item/organ/eyes,
@@ -86152,7 +86152,7 @@
 /obj/item/storage/medkit/regular,
 /obj/item/storage/medkit/regular,
 /obj/structure/closet/secure{
-	req_access = list(list("ACCESS_SECURITY_LEVEL2","ACCESS_DCLASS_MEDICAL"));
+	req_access = list(list("ACCESS_SECURITY_LEVEL2"));
 	name = "Class-D Clinic Doctor's locker";
 	icon_closed = "medical";
 	icon_locked = "medical1";

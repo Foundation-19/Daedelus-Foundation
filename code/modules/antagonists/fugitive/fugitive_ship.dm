@@ -50,6 +50,7 @@
 
 /obj/structure/closet/crate/eva
 	name = "EVA crate"
+	icon_state = "o2crate"
 
 /obj/structure/closet/crate/eva/PopulateContents()
 	..()

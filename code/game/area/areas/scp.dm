@@ -48,7 +48,7 @@
 	icon_state = "cryo"
 
 /area/station/commons/cdcz/cryo
-	name = "CDCZ Cryogenics"
+	name = "CDCZ Staff Cryogenics"
 	icon_state = "cryo"
 
 /area/station/maintenance/ez
@@ -210,6 +210,14 @@
 	name = "\improper CDCZ Cafeteria"
 	icon_state = "cdcz_cafeteria"
 
+/area/station/cdcz/cryo
+	name = "CDCZ Cryogenics"
+	icon_state = "cryo"
+
+/area/station/cdcz/laundry
+	name = "CDCZ Laundry Room"
+	icon_state = "laundry_room"
+
 /area/station/cdcz/kitchen
 	name = "\improper CDCZ Kitchen"
 	icon_state = "cdcz_kitchen"
@@ -221,6 +229,18 @@
 /area/station/cdcz/assembly
 	name = "\improper CDCZ Assembly Hall"
 	icon_state = "cdcz_assembly"
+
+/area/station/cdcz/mining
+	name = "\improper CDCZ Mining Foyer"
+	icon_state = "cdcz_mining"
+
+/area/station/cdcz/mining/processing
+	name = "\improper CDCZ Mining Processing"
+	icon_state = "cdcz_mineproduce"
+
+/area/station/cdcz/mining/equipment
+	name = "\improper CDCZ Mining Equipment Room"
+	icon_state = "cdcz_minestorage"
 
 /area/station/cdcz/luxury
 	name = "\improper CDCZ Luxury Hallway"

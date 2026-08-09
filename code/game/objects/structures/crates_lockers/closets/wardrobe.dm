@@ -80,7 +80,7 @@
 	return
 
 /obj/structure/closet/wardrobe/classd
-	name = "class-d wardrobe"
+	name = "Class-D wardrobe"
 	desc = "It's a storage unit for Class-D Personnel attire."
 	icon_door = "orange"
 

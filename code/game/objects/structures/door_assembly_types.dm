@@ -138,8 +138,8 @@
 	airlock_type = /obj/machinery/door/airlock/virology
 
 /obj/structure/door_assembly/door_assembly_cdcz
-	name = "class-d containment zone airlock assembly"
-	base_name = "class-d containment zone airlock"
+	name = "Class-D containment zone airlock assembly"
+	base_name = "Class-D containment zone airlock"
 	glass_type = /obj/machinery/door/airlock/cdcz/glass
 	airlock_type = /obj/machinery/door/airlock/cdcz
 
