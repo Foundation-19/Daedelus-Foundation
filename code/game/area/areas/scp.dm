@@ -77,6 +77,14 @@
 /area/station/maintenance/cdcz/east
 	name = "CDCZ East Maintenance"
 
+/area/station/maintenance/cdcz/upper
+	name = "CDCZ Upper Maintenance"
+	icon_state = "uppercdczmaint"
+
+/area/station/maintenance/cdcz/mining
+	name = "CDCZ Mining Maintenance"
+	icon_state = "cdczminemaint"
+
 /area/station/engineering/cdcz/substation
 	name = "CDCZ Substation Control Room"
 	icon_state = "maint_electrical"
@@ -88,9 +96,6 @@
 /area/station/engineering/cdcz/atmos
 	name = "CDCZ Emergency Atmospherics"
 	icon_state = "atmos"
-
-/area/station/maintenance/cdcz/upper
-	name = "CDCZ Upper Maintenance"
 
 /area/station/safe_scp
 	name = "Safe SCP Containment"
@@ -149,7 +154,7 @@
 
 /area/station/lcz/restroom
 	name = "\improper LCZ Restroom"
-	icon_state = "lcz"
+	icon_state = "lcz_restroom"
 
 /area/station/security/lcz
 	name = "\improper LCZ Security Post"
@@ -212,11 +217,11 @@
 
 /area/station/cdcz/cryo
 	name = "CDCZ Cryogenics"
-	icon_state = "cryo"
+	icon_state = "cdcz_cryo"
 
 /area/station/cdcz/laundry
 	name = "CDCZ Laundry Room"
-	icon_state = "laundry_room"
+	icon_state = "cdcz_laundry"
 
 /area/station/cdcz/kitchen
 	name = "\improper CDCZ Kitchen"
