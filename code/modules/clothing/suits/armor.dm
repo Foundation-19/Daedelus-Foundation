@@ -404,3 +404,15 @@
 /obj/item/clothing/suit/armor/centcom_formal/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/toggle_icon)
+
+/obj/item/clothing/suit/armor/security
+	name = "\improper security armored vest"
+	desc = "A heavy Foundation-issued security vest fitted with reinforced trauma plating and thick ballistic padding, designed primarily to \
+	absorb blunt-force impacts during containment breaches. A bold \"SECURITY DEPARTMENT\" identifier is stitched across the front carrier, \
+	marking the wearer as on-site security personnel."
+	icon = 'icons/mob/clothing/suits/armor.dmi'
+	icon_state = "guard_vest"
+	slowdown = 0.15
+	body_parts_covered = CHEST|GROIN
+	armor = list(BLUNT = 55, PUNCTURE = 35, SLASH = 40, LASER = 20, ENERGY = 15, BOMB = 45, BIO = 10, FIRE = 15, ACID = 20)
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION | CLOTHING_TESHARI_VARIATION | CLOTHING_VOX_VARIATION

@@ -62,6 +62,15 @@
 /obj/effect/turf_decal/stripes/red/full
 	icon_state = "warn_full_red"
 
+/obj/effect/turf_decal/delivery
+	icon_state = "delivery"
+
+/obj/effect/turf_decal/delivery/white
+	icon_state = "delivery_white"
+
+/obj/effect/turf_decal/delivery/red
+	icon_state = "delivery_red"
+
 /obj/effect/turf_decal/bot
 	icon_state = "bot"
 
@@ -287,8 +296,8 @@
 	icon_state = "siding_end"
 
 /obj/effect/turf_decal/siding/wood
-	icon_state = "siding_wood_line"
-	color = "#55391A"
+	icon_state = "siding_wood"
+	color = "#5d341f"
 
 /obj/effect/turf_decal/siding/wood/corner
 	icon_state = "siding_wood_corner"

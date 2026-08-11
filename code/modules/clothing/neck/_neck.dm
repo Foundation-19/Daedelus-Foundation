@@ -29,37 +29,41 @@
 				. += mutable_appearance('icons/effects/blood.dmi', "maskblood")
 
 /obj/item/clothing/neck/tie
-	name = "tie"
-	desc = "A neosilk clip-on tie."
-	icon = 'icons/obj/clothing/neck.dmi'
-	icon_state = "bluetie"
+	name = "slick tie"
+	desc = "A neosilk tie."
 	inhand_icon_state = "" //no inhands
-	fallback_colors = list(list(16, 20))
-	fallback_icon_state = "tie"
+	icon_state = "tie_greyscale_tied"
+	alternate_worn_layer = LOW_NECK_LAYER
 	w_class = WEIGHT_CLASS_SMALL
 	custom_price = PAYCHECK_ASSISTANT * 1.4
+	greyscale_config = /datum/greyscale_config/ties
+	greyscale_config_worn = /datum/greyscale_config/ties/worn
+	greyscale_colors = "#4d4e4e"
+	flags_1 = IS_PLAYER_COLORABLE_1
 
 /obj/item/clothing/neck/tie/blue
 	name = "blue tie"
-	icon_state = "bluetie"
+	icon_state = "/obj/item/clothing/neck/tie/blue"
+	greyscale_colors = "#5275b6ff"
 
 /obj/item/clothing/neck/tie/red
 	name = "red tie"
-	icon_state = "redtie"
+	icon_state = "/obj/item/clothing/neck/tie/red"
+	greyscale_colors = "#c23838ff"
 
 /obj/item/clothing/neck/tie/black
 	name = "black tie"
-	icon_state = "blacktie"
+	icon_state = "/obj/item/clothing/neck/tie/black"
+	greyscale_colors = "#151516ff"
 
 /obj/item/clothing/neck/tie/horrible
 	name = "horrible tie"
-	desc = "A neosilk clip-on tie. This one is disgusting."
+	desc = "A neosilk tie. This one is disgusting."
+	icon = 'icons/obj/clothing/neck.dmi'
 	icon_state = "horribletie"
-
-/obj/item/clothing/neck/tie/detective
-	name = "loose tie"
-	desc = "A loosely tied necktie, a perfect accessory for the over-worked detective."
-	icon_state = "detective"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_colors = null
 
 /obj/item/clothing/neck/maid
 	name = "maid neck cover"
@@ -109,87 +113,107 @@
 ///////////
 
 /obj/item/clothing/neck/scarf //Default white color, same functionality as beanies.
-	name = "white scarf"
-	icon_state = "scarf"
+	name = "scarf"
 	desc = "A stylish scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks."
+	icon_state = "scarf"
 	w_class = WEIGHT_CLASS_TINY
-	dog_fashion = /datum/dog_fashion/head
 	custom_price = PAYCHECK_ASSISTANT * 1.6
+	greyscale_colors = "#EEEEEE#EEEEEE"
+	greyscale_config = /datum/greyscale_config/scarf
+	greyscale_config_worn = /datum/greyscale_config/scarf/worn
+	flags_1 = IS_PLAYER_COLORABLE_1
 
 /obj/item/clothing/neck/scarf/black
 	name = "black scarf"
-	icon_state = "scarf"
-	color = "#4A4A4B" //Grey but it looks black
+	icon_state = "/obj/item/clothing/neck/scarf/black"
+	greyscale_colors = "#4A4A4B#4A4A4B"
 
 /obj/item/clothing/neck/scarf/pink
 	name = "pink scarf"
-	icon_state = "scarf"
-	color = "#F699CD" //Pink
+	icon_state = "/obj/item/clothing/neck/scarf/pink"
+	greyscale_colors = "#F699CD#F699CD"
 
 /obj/item/clothing/neck/scarf/red
 	name = "red scarf"
-	icon_state = "scarf"
-	color = "#D91414" //Red
+	icon_state = "/obj/item/clothing/neck/scarf/red"
+	greyscale_colors = "#D91414#D91414"
 
 /obj/item/clothing/neck/scarf/green
 	name = "green scarf"
-	icon_state = "scarf"
-	color = "#5C9E54" //Green
+	icon_state = "/obj/item/clothing/neck/scarf/green"
+	greyscale_colors = "#5C9E54#5C9E54"
 
 /obj/item/clothing/neck/scarf/darkblue
 	name = "dark blue scarf"
-	icon_state = "scarf"
-	color = "#1E85BC" //Blue
+	icon_state = "/obj/item/clothing/neck/scarf/darkblue"
+	greyscale_colors = "#1E85BC#1E85BC"
 
 /obj/item/clothing/neck/scarf/purple
 	name = "purple scarf"
-	icon_state = "scarf"
-	color = "#9557C5" //Purple
+	icon_state = "/obj/item/clothing/neck/scarf/purple"
+	greyscale_colors = "#9557C5#9557C5"
 
 /obj/item/clothing/neck/scarf/yellow
 	name = "yellow scarf"
-	icon_state = "scarf"
-	color = "#E0C14F" //Yellow
+	icon_state = "/obj/item/clothing/neck/scarf/yellow"
+	greyscale_colors = "#E0C14F#E0C14F"
 
 /obj/item/clothing/neck/scarf/orange
 	name = "orange scarf"
-	icon_state = "scarf"
-	color = "#C67A4B" //Orange
+	icon_state = "/obj/item/clothing/neck/scarf/orange"
+	greyscale_colors = "#C67A4B#C67A4B"
 
 /obj/item/clothing/neck/scarf/cyan
 	name = "cyan scarf"
-	icon_state = "scarf"
-	color = "#54A3CE" //Cyan
-
-
-//Striped scarves get their own icons
+	icon_state = "/obj/item/clothing/neck/scarf/cyan"
+	greyscale_colors = "#54A3CE#54A3CE"
 
 /obj/item/clothing/neck/scarf/zebra
 	name = "zebra scarf"
-	icon_state = "zebrascarf"
+	icon_state = "/obj/item/clothing/neck/scarf/zebra"
+	greyscale_colors = "#333333#EEEEEE"
 
 /obj/item/clothing/neck/scarf/christmas
 	name = "christmas scarf"
-	icon_state = "christmasscarf"
+	icon_state = "/obj/item/clothing/neck/scarf/christmas"
+	greyscale_colors = "#038000#960000"
 
-//The three following scarves don't have the scarf subtype
-//This is because Ian can equip anything from that subtype
-//However, these 3 don't have corgi versions of their sprites
-/obj/item/clothing/neck/stripedredscarf
-	name = "striped red scarf"
-	icon_state = "stripedredscarf"
-	custom_price = PAYCHECK_ASSISTANT * 0.2
-	supports_variations_flags = CLOTHING_TESHARI_VARIATION
+/obj/item/clothing/neck/large_scarf
+	name = "large scarf"
+	icon_state = "large_scarf"
+	w_class = WEIGHT_CLASS_TINY
+	custom_price = PAYCHECK_ASSISTANT * 1.6
+	greyscale_config = /datum/greyscale_config/scarf
+	greyscale_config_worn = /datum/greyscale_config/scarf/worn
+	greyscale_colors = "#C6C6C6#EEEEEE"
+	flags_1 = IS_PLAYER_COLORABLE_1
 
-/obj/item/clothing/neck/stripedgreenscarf
-	name = "striped green scarf"
-	icon_state = "stripedgreenscarf"
-	custom_price = PAYCHECK_ASSISTANT * 0.2
+/obj/item/clothing/neck/large_scarf/red
+	name = "large red scarf"
+	icon_state = "/obj/item/clothing/neck/large_scarf/red"
+	greyscale_colors = "#8A2908#A06D66"
 
-/obj/item/clothing/neck/stripedbluescarf
-	name = "striped blue scarf"
-	icon_state = "stripedbluescarf"
-	custom_price = PAYCHECK_ASSISTANT * 0.2
+/obj/item/clothing/neck/large_scarf/green
+	name = "large green scarf"
+	icon_state = "/obj/item/clothing/neck/large_scarf/green"
+	greyscale_colors = "#525629#888674"
+
+/obj/item/clothing/neck/large_scarf/blue
+	name = "large blue scarf"
+	icon_state = "/obj/item/clothing/neck/large_scarf/blue"
+	greyscale_colors = "#20396C#6F7F91"
+
+/obj/item/clothing/neck/large_scarf/chaos
+	name = "suspicious looking striped scarf"
+	desc = "Ready to operate."
+	greyscale_colors = "#255629#51472A"
+	armor = list(FIRE = 50, ACID = 40)
+
+/obj/item/clothing/neck/large_scarf/security
+	name = "security striped scarf"
+	desc = "Ready to protect."
+	greyscale_colors = "#CBCCD3#272728"
+	armor = list(FIRE = 50, ACID = 40)
 
 /obj/item/clothing/neck/petcollar
 	name = "pet collar"

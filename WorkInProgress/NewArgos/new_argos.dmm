@@ -16,7 +16,7 @@
 /turf/open/floor/iron/freezer,
 /area/space)
 "bT" = (
-/turf/open/floor/iron/kitchen_coldroom/freezerfloor,
+/turf/open/floor/iron/kitchen_coldroom/freezer,
 /area/space)
 "ce" = (
 /obj/structure/chair/sofa/left{

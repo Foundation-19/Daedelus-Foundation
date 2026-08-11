@@ -54,7 +54,7 @@
 	jobtype = /datum/job/warden
 
 	id_trim = /datum/id_trim/job/warden
-	uniform = /obj/item/clothing/under/rank/security/warden
+	uniform = /obj/item/clothing/under/rank/security/lieutenant
 	suit = /obj/item/clothing/suit/armor/vest/warden/alt
 	suit_store = /obj/item/gun/energy/disabler
 	backpack_contents = list(

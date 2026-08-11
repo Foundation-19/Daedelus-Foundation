@@ -2,7 +2,7 @@
 	name = "paper shredder"
 	desc = "For those documents you don't want seen."
 	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "paperbin0"
+	icon_state = "papershredder0"
 	density = TRUE
 	anchored = TRUE
 	obj_flags = CAN_BE_HIT
@@ -30,7 +30,7 @@
 			return
 		paperamount += paper_result
 		qdel(W)
-		playsound(src, 'sound/items/handling/paper_drop.ogg', 75, TRUE)
+		playsound(src, 'sound/items/pshred.ogg', 75, TRUE)
 		if(paperamount > max_paper)
 			to_chat(user, span_danger("[src] was too full, and shredded paper goes everywhere!"))
 			for(var/i in 1 to (paperamount - max_paper))
@@ -85,7 +85,7 @@
 
 /obj/machinery/papershredder/update_icon_state()
 	. = ..()
-	icon_state = "paperbin[clamp(round(paperamount / 2), 0, 5)]"
+	icon_state = "papershredder[clamp(round(paperamount / 2), 0, 5)]"
 
 /obj/item/shreddedp
 	name = "shredded paper"

@@ -15,6 +15,12 @@
 	glass_type = /obj/machinery/door/airlock/security/glass
 	airlock_type = /obj/machinery/door/airlock/security
 
+/obj/structure/door_assembly/door_assembly_sec_cmd
+	name = "security command airlock assembly"
+	base_name = "security command airlock"
+	glass_type = /obj/machinery/door/airlock/security/command/glass
+	airlock_type = /obj/machinery/door/airlock/security/command
+
 /obj/structure/door_assembly/door_assembly_eng
 	name = "engineering airlock assembly"
 	base_name = "engineering airlock"
@@ -130,6 +136,42 @@
 	base_name = "virology airlock"
 	glass_type = /obj/machinery/door/airlock/virology/glass
 	airlock_type = /obj/machinery/door/airlock/virology
+
+/obj/structure/door_assembly/door_assembly_cdcz
+	name = "Class-D containment zone airlock assembly"
+	base_name = "Class-D containment zone airlock"
+	glass_type = /obj/machinery/door/airlock/cdcz/glass
+	airlock_type = /obj/machinery/door/airlock/cdcz
+
+/obj/structure/door_assembly/door_assembly_lcz
+	name = "light containment zone airlock assembly"
+	base_name = "light containment zone airlock"
+	glass_type = /obj/machinery/door/airlock/lcz/glass
+	airlock_type = /obj/machinery/door/airlock/lcz
+
+/obj/structure/door_assembly/door_assembly_lcz_sci
+	name = "LCZ science airlock assembly"
+	base_name = "LCZ science airlock"
+	glass_type = /obj/machinery/door/airlock/lcz/science/glass
+	airlock_type = /obj/machinery/door/airlock/lcz/science
+
+/obj/structure/door_assembly/door_assembly_lcz_safe
+	name = "LCZ safe containment airlock assembly"
+	base_name = "LCZ safe containment airlock"
+	glass_type = /obj/machinery/door/airlock/lcz/safe/glass
+	airlock_type = /obj/machinery/door/airlock/lcz/safe
+
+/obj/structure/door_assembly/door_assembly_lcz_euclid
+	name = "LCZ euclid containment airlock assembly"
+	base_name = "LCZ euclid containment airlock"
+	glass_type = /obj/machinery/door/airlock/lcz/euclid/glass
+	airlock_type = /obj/machinery/door/airlock/lcz/euclid
+
+/obj/structure/door_assembly/door_assembly_lcz_keter
+	name = "LCZ keter containment airlock assembly"
+	base_name = "LCZ keter containment airlock"
+	glass_type = /obj/machinery/door/airlock/lcz/keter/glass
+	airlock_type = /obj/machinery/door/airlock/lcz/keter
 
 /obj/structure/door_assembly/door_assembly_centcom
 	airlock_type = /obj/machinery/door/airlock/centcom

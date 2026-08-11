@@ -37,7 +37,7 @@
 /area/hallway/primary/central)
 "aag" = (
 /obj/structure/table/wood,
-/obj/item/stamp/hop{
+/obj/item/stamp/sm{
 	pixel_x = -4;
 	pixel_y = 4
 	},
@@ -3535,7 +3535,7 @@
 "alL" = (
 /obj/structure/table/wood,
 /obj/item/folder/red,
-/obj/item/stamp/hos,
+/obj/item/stamp/sc,
 /turf/open/floor/carpet,
 /area/command/heads_quarters/hos)
 "alM" = (
@@ -8211,7 +8211,7 @@
 "aAy" = (
 /obj/structure/table/wood,
 /obj/item/folder/blue,
-/obj/item/stamp/captain,
+/obj/item/stamp/sid,
 /obj/machinery/light/directional/east,
 /obj/machinery/keycard_auth{
 	pixel_x = 28;
@@ -15621,7 +15621,7 @@
 /obj/structure/table,
 /obj/item/clipboard,
 /obj/item/coin/silver,
-/obj/item/stamp/qm,
+/obj/item/stamp/lo,
 /obj/machinery/requests_console/directional/west{
 	announcementConsole = 1;
 	department = "Quartermaster's Desk";
@@ -16556,7 +16556,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
-/obj/item/storage/secure/briefcase,
+/obj/item/storage/briefcase/secure,
 /turf/open/floor/iron,
 /area/commons/vacant_room/commissary)
 "bgV" = (
@@ -23016,7 +23016,7 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
-/obj/item/stamp/rd{
+/obj/item/stamp/sd{
 	pixel_x = -8;
 	pixel_y = 14
 	},
@@ -39977,7 +39977,7 @@
 	pixel_x = -3;
 	pixel_y = 2
 	},
-/obj/item/storage/secure/briefcase{
+/obj/item/storage/briefcase/secure{
 	pixel_x = 2;
 	pixel_y = -2
 	},
@@ -49379,7 +49379,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/item/stamp/cmo{
+/obj/item/stamp/md{
 	pixel_y = 8
 	},
 /obj/item/folder/blue{
@@ -49943,7 +49943,7 @@
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
 /obj/item/lighter,
-/obj/item/stamp/ce,
+/obj/item/stamp/ed,
 /obj/item/stock_parts/cell/high,
 /obj/machinery/keycard_auth{
 	pixel_x = 26;
@@ -53494,7 +53494,7 @@
 /obj/structure/table/wood,
 /obj/item/book/manual/wiki/security_space_law,
 /obj/item/pen/fountain,
-/obj/item/stamp/law,
+/obj/item/stamp/ecl,
 /obj/machinery/newscaster/directional/east,
 /obj/machinery/button/door{
 	id = "lawyer_shutters";

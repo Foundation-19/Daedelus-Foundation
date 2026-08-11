@@ -467,6 +467,21 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/requests_console, 30)
 		return
 	return ..()
 
+/obj/machinery/requests_console/departmental
+	departmentType = 5
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/requests_console/departmental, 30)
+
+/obj/machinery/requests_console/announce
+	announcementConsole = TRUE
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/requests_console/announce, 30)
+
+/obj/machinery/requests_console/announce/head_of_staff
+	departmentType = 6
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/requests_console/announce/head_of_staff, 30)
+
 #undef REQ_EMERGENCY_SECURITY
 #undef REQ_EMERGENCY_ENGINEERING
 #undef REQ_EMERGENCY_MEDICAL

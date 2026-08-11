@@ -99,6 +99,8 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_MINERAL_WALLS S_TURF(56) ///turf/closed/mineral, /turf/closed/indestructible
 #define SMOOTH_GROUP_BOSS_WALLS S_TURF(57) ///turf/closed/indestructible/riveted/boss
 
+#define SMOOTH_GROUP_CARPET_GREY S_TURF(58) ///turf/open/floor/carpet/grey
+
 #define MAX_S_TURF 56 //Always match this value with the one above it.
 
 #define S_OBJ(num) ("-" + #num + ",")

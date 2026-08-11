@@ -216,6 +216,14 @@ GLOBAL_LIST_INIT(department_order_cooldowns, list(
 	req_one_access = REGION_ACCESS_SECURITY
 	dep_groups = list("Security", "Armory")
 
+/obj/machinery/computer/department_orders/classd
+	name = "Class-D order console"
+	circuit = /obj/item/circuitboard/computer/classd_orders
+	department_delivery_areas = list(/area/station/cdcz/hallway)
+	override_access = ACCESS_SECURITY_LVL2
+	req_one_access = REGION_ACCESS_CLASSD
+	dep_groups = list("Service", "Food & Hydroponics", "Livestock", "Costumes & Toys")
+
 /obj/machinery/computer/department_orders/medical
 	name = "medical order console"
 	circuit = /obj/item/circuitboard/computer/medical_orders

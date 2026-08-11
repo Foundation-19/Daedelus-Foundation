@@ -156,7 +156,7 @@
 
 /datum/outfit/nanotrasensoldiercorpse2
 	name = "NT Private Security Officer Corpse"
-	uniform = /obj/item/clothing/under/rank/security/officer
+	uniform = /obj/item/clothing/under/rank/security/guard
 	suit = /obj/item/clothing/suit/armor/vest
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/tackler/combat

@@ -78,8 +78,7 @@
 	new /obj/item/clothing/head/warden/drill(src)
 	new /obj/item/clothing/head/beret/sec/navywarden(src)
 	new /obj/item/clothing/suit/armor/vest/warden/alt(src)
-	new /obj/item/clothing/under/rank/security/warden/formal(src)
-	new /obj/item/clothing/under/rank/security/warden/skirt(src)
+	new /obj/item/clothing/under/rank/security/lieutenant(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/holosign_creator/security(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
@@ -224,9 +223,8 @@
 
 /obj/structure/closet/secure_closet/brig/PopulateContents()
 	..()
-	new /obj/item/clothing/under/rank/prisoner( src )
-	new /obj/item/clothing/under/rank/prisoner/skirt( src )
-	new /obj/item/clothing/shoes/sneakers/orange( src )
+	new /obj/item/clothing/under/rank/classd(src)
+	new /obj/item/clothing/shoes/sneakers/orange(src)
 
 /obj/structure/closet/secure_closet/courtroom
 	name = "courtroom locker"
@@ -327,7 +325,23 @@
 	..()
 	new /obj/item/clothing/suit/armor/vest(src)
 	new /obj/item/clothing/head/helmet/sec(src)
-	new /obj/item/clothing/under/rank/security/officer(src)
-	new /obj/item/clothing/under/rank/security/officer/skirt(src)
+	new /obj/item/clothing/under/rank/security/guard(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/flashlight/seclite(src)
+
+/obj/structure/closet/secure_closet/classd
+	name = "Class-D supplies locker"
+	req_access = list(ACCESS_SECURITY_LVL2)
+	icon_state = "cd"
+
+/obj/structure/closet/secure_closet/classd/PopulateContents()
+	..()
+	for(var/i in 1 to 3)
+		new /obj/item/clothing/shoes/workboots(src)
+	for(var/i in 1 to 3)
+		new /obj/item/clothing/under/rank/classd(src)
+	for(var/i in 1 to 3)
+		new /obj/item/restraints/handcuffs(src)
+	new /obj/item/clothing/suit/straight_jacket(src)
+	new /obj/item/clothing/mask/muzzle(src)
+	new /obj/item/clothing/glasses/blindfold(src)

@@ -326,7 +326,7 @@
 	icon_state = "shirt_stripes"
 	gender = NEUTER
 
-/datum/sprite_accessory/undershirt/tiedye
+/datum/sprite_accessory/undershirtye
 	name = "Shirt (Tie-dye)"
 	icon_state = "shirt_tiedye"
 	gender = NEUTER

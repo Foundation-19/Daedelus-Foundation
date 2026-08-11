@@ -389,9 +389,6 @@
 /obj/machinery/pager
 	name = "pager"
 
-/obj/machinery/papershredder
-	name = "paper shredder"
-
 /obj/machinery/radiocarbon_spectrometer
 	name = "radiocarbon spectrometer"
 	desc = "Analyses the age and composition of materials."

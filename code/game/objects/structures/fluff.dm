@@ -59,6 +59,22 @@
 	desc = "A segment of broken flooring."
 	icon = 'icons/obj/brokentiling.dmi'
 	icon_state = "corner"
+	layer = 2.492
+
+/obj/structure/fluff/broken_flooring/corner
+	icon_state = "corner"
+
+/obj/structure/fluff/broken_flooring/pile
+	icon_state = "pile"
+
+/obj/structure/fluff/broken_flooring/singular
+	icon_state = "singular"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fluff/broken_flooring/corner, 0)
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fluff/broken_flooring/pile, 0)
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fluff/broken_flooring/singular, 0)
 
 /obj/structure/fluff/bus
 	name = "bus"

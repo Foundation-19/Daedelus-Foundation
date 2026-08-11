@@ -51,12 +51,12 @@
 	jobtype = /datum/job/raisa_agent
 
 	id_trim = /datum/id_trim/job/raisa_agent
-	uniform = /obj/item/clothing/under/rank/security/detective
+	uniform = /obj/item/clothing/under/rank/security/guard
 	suit = /obj/item/clothing/suit/det_suit
 	belt = /obj/item/modular_computer/tablet/pda/foundation_investigations
 	gloves = /obj/item/clothing/gloves/forensic
 	head = /obj/item/clothing/head/fedora/det_hat
-	neck = /obj/item/clothing/neck/tie/detective
+	neck = /obj/item/clothing/neck/tie/black
 	shoes = /obj/item/clothing/shoes/laceup
 	l_pocket = /obj/item/toy/crayon/white
 	r_pocket = /obj/item/storage/fancy/cigarettes/dromedaryco

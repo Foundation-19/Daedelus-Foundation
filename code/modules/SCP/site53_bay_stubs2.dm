@@ -66,34 +66,6 @@
 	name = "SCP-012 camera"
 	network = list("scp012")
 
-/obj/item/card/id/dassignment
-	name = "D-Class Assignment ID"
-	trim = /datum/id_trim/job/prisoner
-
-/obj/item/card/id/dassignment/dkitchen
-	name = "Kitchen D-Class ID"
-	trim = /datum/id_trim/job/prisoner/cook
-
-/obj/item/card/id/dassignment/dmining
-	name = "Mining D-Class ID"
-	trim = /datum/id_trim/job/prisoner/miner
-
-/obj/item/card/id/dassignment/djanitorial
-	name = "Janitorial D-Class ID"
-	trim = /datum/id_trim/job/prisoner/janitor
-
-/obj/item/card/id/dassignment/dbotany
-	name = "Botany D-Class ID"
-	trim = /datum/id_trim/job/prisoner/botanist
-
-/obj/item/card/id/dassignment/dmedical
-	name = "Medical D-Class ID"
-	trim = /datum/id_trim/job/prisoner/medic
-
-/obj/item/card/id/classd
-	name = "D-Class ID"
-	trim = /datum/id_trim/job/prisoner
-
 /obj/item/clothing/head/helmet/facecover
 	name = "face cover"
 

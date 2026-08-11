@@ -226,3 +226,19 @@
 /obj/structure/low_wall/prepainted/marsexec
 	wall_paint = PAINT_WALL_MARS
 	stripe_paint = PAINT_STRIPE_MARS
+
+/obj/structure/low_wall/prepainted/lcz
+	color = "#FFFFFF"
+	wall_paint = "#FFFFFF"
+	stripe_paint = "#E0C276"
+
+/obj/structure/low_wall/prepainted/ez
+	stripe_paint = "#ce8245"
+
+/obj/structure/low_wall/prepainted/cdcz
+	color = "#838383"
+	wall_paint = "#838383"
+	stripe_paint = "#ce620a"
+
+/obj/structure/low_wall/prepainted/maints
+	stripe_paint = "#635c20"

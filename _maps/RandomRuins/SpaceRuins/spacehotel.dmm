@@ -1105,12 +1105,12 @@
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/machinery/light/directional/south,
-/turf/open/floor/iron/kitchen_coldroom/freezerfloor,
+/turf/open/floor/iron/kitchen_coldroom/freezer,
 /area/ruin/space/has_grav/hotel/bar)
 "jq" = (
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/effect/decal/cleanable/food/flour,
-/turf/open/floor/iron/kitchen_coldroom/freezerfloor,
+/turf/open/floor/iron/kitchen_coldroom/freezer,
 /area/ruin/space/has_grav/hotel/bar)
 "js" = (
 /obj/effect/turf_decal/stripes/end{
@@ -2382,7 +2382,7 @@
 /obj/item/food/fishmeat/carp,
 /obj/item/food/fishmeat/carp,
 /obj/item/food/fishmeat/carp,
-/turf/open/floor/iron/kitchen_coldroom/freezerfloor,
+/turf/open/floor/iron/kitchen_coldroom/freezer,
 /area/ruin/space/has_grav/hotel/bar)
 "wY" = (
 /obj/machinery/door/airlock/maintenance{

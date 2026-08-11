@@ -30,6 +30,10 @@
 /turf/open/floor/wood/setup_broken_states()
 	return list("wood-broken", "wood-broken2", "wood-broken3", "wood-broken4", "wood-broken5", "wood-broken6", "wood-broken7")
 
+/turf/open/floor/wood/examine(mob/user)
+	. = ..()
+	. += span_notice("There's a few <b>screws</b> and a <b>small crack</b> visible.")
+
 /turf/open/floor/wood/setup_burnt_states()
 	return list("floorscorched1", "floorscorched2")
 
@@ -80,6 +84,28 @@
 
 /turf/open/floor/wood/airless
 	initial_gas = AIRLESS_ATMOS
+
+/turf/open/floor/wood/tile
+	icon_state = "wood_tile"
+	floor_tile = /obj/item/stack/tile/wood/tile
+
+/turf/open/floor/wood/tile/setup_broken_states()
+	return list("wood_tile-broken", "wood_tile-broken2", "wood_tile-broken3")
+
+/turf/open/floor/wood/parquet
+	icon_state = "wood_parquet"
+	floor_tile = /obj/item/stack/tile/wood/parquet
+
+/turf/open/floor/wood/parquet/setup_broken_states()
+	return list("wood_parquet-broken", "wood_parquet-broken2", "wood_parquet-broken3", "wood_parquet-broken4", "wood_parquet-broken5", "wood_parquet-broken6", "wood_parquet-broken7")
+
+/turf/open/floor/wood/large
+	icon_state = "wood_large"
+	floor_tile = /obj/item/stack/tile/wood/large
+
+/turf/open/floor/wood/large/setup_broken_states()
+	return list("wood_large-broken", "wood_large-broken2", "wood_large-broken3")
+
 
 /turf/open/floor/bamboo
 	desc = "A bamboo mat with a decorative trim."
@@ -243,6 +269,14 @@
 	floor_tile = /obj/item/stack/tile/carpet/black
 	smoothing_groups = SMOOTH_GROUP_TURF_OPEN + SMOOTH_GROUP_CARPET_BLACK
 	canSmoothWith = SMOOTH_GROUP_CARPET_BLACK
+
+/turf/open/floor/carpet/grey
+	icon = 'icons/turf/floors/carpet_grey.dmi'
+	icon_state = "carpet_grey-255"
+	base_icon_state = "carpet_grey"
+	floor_tile = /obj/item/stack/tile/carpet/grey
+	smoothing_groups = SMOOTH_GROUP_TURF_OPEN + SMOOTH_GROUP_CARPET_GREY
+	canSmoothWith = SMOOTH_GROUP_CARPET_GREY
 
 /turf/open/floor/carpet/blue
 	icon = 'icons/turf/floors/carpet_blue.dmi'

@@ -98,7 +98,7 @@
 	result = /obj/item/banner/security/mundane
 	time = 40
 	reqs = list(/obj/item/stack/rods = 2,
-				/obj/item/clothing/under/rank/security/officer = 1)
+				/obj/item/clothing/under/rank/security/guard = 1)
 	category = CAT_MISC
 
 /obj/item/banner/medical

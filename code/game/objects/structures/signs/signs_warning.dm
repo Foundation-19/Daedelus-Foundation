@@ -10,10 +10,44 @@
 	icon_state = "securearea"
 	is_editable = TRUE
 
+/obj/structure/sign/warning/safe
+	name = "\improper SAFE SCP sign"
+	sign_change_name = "Warning - Safe-Class SCP"
+	desc = "A warning sign which reads 'SAFE-CLASS'."
+	icon_state = "safe"
+	is_editable = FALSE
+
+/obj/structure/sign/warning/euclid
+	name = "\improper EUCLID SCP sign"
+	sign_change_name = "Warning - Euclid-Class SCP"
+	desc = "A warning sign which reads 'EUCLID-CLASS'."
+	icon_state = "euclid"
+	is_editable = FALSE
+
+/obj/structure/sign/warning/keter
+	name = "\improper KETER SCP sign"
+	sign_change_name = "Warning - Keter-Class SCP"
+	desc = "A warning sign which reads 'KETER-CLASS'."
+	icon_state = "keter"
+	is_editable = FALSE
+
+/obj/structure/sign/warning/thaumiel
+	name = "\improper THAUMIEL SCP sign"
+	sign_change_name = "Warning - Thaumiel-Class SCP"
+	desc = "A warning sign which reads 'THAUMIEL-CLASS'."
+	icon_state = "thaumiel"
+	is_editable = FALSE
+
 /obj/structure/sign/warning/securearea
 	name = "\improper SECURE AREA sign"
 	sign_change_name = "Warning - Secure Area"
 	desc = "A warning sign which reads 'SECURE AREA'."
+	is_editable = TRUE
+
+/obj/structure/sign/warning/securearea/armory
+	name = "\improper ARMORY sign"
+	sign_change_name = "Warning - Armory"
+	desc = "A warning sign which reads 'ARMORY - AUTHORIZED PERSONNEL ONLY'."
 	is_editable = TRUE
 
 /obj/structure/sign/warning/docking

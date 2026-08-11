@@ -206,7 +206,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/random, 32)
 
 /obj/structure/sign/poster/contraband/fun_police
 	name = "Fun Police"
-	desc = "A poster condemning the station's security forces."
+	desc = "A poster condemning the Foundation's security forces about being the 'fun police.' The creator of this poster is currently in jail for 2 counts of manslaughter and 1 murder."
 	icon_state = "fun_police"
 
 /obj/structure/sign/poster/contraband/lusty_xenomorph
@@ -214,10 +214,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/random, 32)
 	desc = "A heretical poster depicting the titular star of an equally heretical book."
 	icon_state = "lusty_xenomorph"
 
-/obj/structure/sign/poster/contraband/syndicate_recruitment
-	name = "Syndicate Recruitment"
-	desc = "See the galaxy! Shatter corrupt megacorporations! Join today!"
-	icon_state = "syndicate_recruitment"
+/obj/structure/sign/poster/contraband/chaos_recruitment
+	name = "Chaos Insurgency Recruitment"
+	desc = "A propaganda poster bearing the Chaos Insurgency's helmet, promoting rebellion against the Foundation."
+	icon_state = "chaos_recruitment"
 
 /obj/structure/sign/poster/contraband/clown
 	name = "Clown"
@@ -236,17 +236,17 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/random, 32)
 
 /obj/structure/sign/poster/contraband/missing_gloves
 	name = "Missing Gloves"
-	desc = "This poster references the uproar that followed Daedalus' financial cuts toward insulated-glove purchases."
+	desc = "This poster references the uproar that followed the Foundation's financial cuts toward insulated-glove purchases."
 	icon_state = "missing_gloves"
 
 /obj/structure/sign/poster/contraband/hacking_guide
 	name = "Hacking Guide"
-	desc = "This poster details the internal workings of the common Daedalus airlock. Sadly, it appears out of date."
+	desc = "This poster details the internal workings of the common airlock. Sadly, it appears out of date."
 	icon_state = "hacking_guide"
 
 /obj/structure/sign/poster/contraband/rip_badger
-	name = "RIP Badger"
-	desc = "This seditious poster references Daedalus' genocide of a space station full of badgers."
+	name = "RIP Badgers"
+	desc = "A advertisement for a documentary about how some animal called 'badgers' went extinct after the Night of Fire."
 	icon_state = "rip_badger"
 
 /obj/structure/sign/poster/contraband/ambrosia_vulgaris
@@ -266,12 +266,12 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/random, 32)
 
 /obj/structure/sign/poster/contraband/tools
 	name = "Tools"
-	desc = "This poster looks like an advertisement for tools, but is in fact a subliminal jab at the tools at CentCom."
+	desc = "This poster looks like an advertisement for tools, but is in fact a subliminal jab at the tools on SCP Facilities."
 	icon_state = "tools"
 
 /obj/structure/sign/poster/contraband/power
 	name = "Power"
-	desc = "A poster that positions the seat of power outside Daedalus Industries."
+	desc = "A poster that details the dangerously unsafe power generation methods of most stations."
 	icon_state = "power"
 
 /obj/structure/sign/poster/contraband/space_cube
@@ -284,9 +284,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/random, 32)
 	desc = "All hail the Communist party!"
 	icon_state = "communist_state"
 
-/obj/structure/sign/poster/contraband/lamarr
-	name = "Lamarr"
-	desc = "This poster depicts Lamarr. Probably made by a traitorous Research Director."
+/obj/structure/sign/poster/contraband/xenofauna_parasite
+	name = "Xenofauna parasite"
+	desc = "This poster details all the dangers of xenofauna infestation and how to avoid a infestation whenever possible."
 	icon_state = "lamarr"
 
 /obj/structure/sign/poster/contraband/borg_fancy_1
@@ -299,10 +299,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/random, 32)
 	desc = "Borg Fancy, now only taking the most fancy."
 	icon_state = "borg_fancy_2"
 
-/obj/structure/sign/poster/contraband/kss13
-	name = "Kosmicheskaya Stantsiya 13 Does Not Exist"
-	desc = "A poster mocking CentCom's denial of the existence of the derelict station near Space Station 13."
-	icon_state = "kss13"
+/obj/structure/sign/poster/contraband/ss13
+	name = "Space Station 13 Does Not Exist"
+	desc = "A poster mocking Central Office's extreme cover and secrecy up of SCP SS-13, that was so extensive that not even Central Office themselves knows what happened to it."
+	icon_state = "ss13"
 
 /obj/structure/sign/poster/contraband/rebels_unite
 	name = "Rebels Unite"
@@ -312,7 +312,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/random, 32)
 /obj/structure/sign/poster/contraband/c20r
 	// have fun seeing this poster in "spawn 'c20r'", admins...
 	name = "C-20r"
-	desc = "A poster advertising the Scarborough Arms C-20r."
+	desc = "A poster advertising the Scarborough Arms C-20r. It seems the company is trying to distance itself from the syndicate by using the civillian name rather than the Syndicate name."
 	icon_state = "c20r"
 
 /obj/structure/sign/poster/contraband/have_a_puff
@@ -322,33 +322,28 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/random, 32)
 
 /obj/structure/sign/poster/contraband/revolver
 	name = "Revolver"
-	desc = "Because seven shots are all you need."
+	desc = "A poster advertising the Hunter's Pride Peacemaker and .38 Caliber bullets."
 	icon_state = "revolver"
 
 /obj/structure/sign/poster/contraband/d_day_promo
 	name = "D-Day Promo"
-	desc = "A promotional poster for some rapper."
+	desc = "A promotional poster for some movie."
 	icon_state = "d_day_promo"
 
 /obj/structure/sign/poster/contraband/syndicate_pistol
-	name = "Syndicate Pistol"
-	desc = "A poster advertising syndicate pistols as being 'classy as fuck'. It is covered in faded gang tags."
+	name = "Ringneck Pistol"
+	desc = "A poster advertising the Scarborough Arms Ringneck conealable pistol. It has a silencer attached, showing off the stealth capablities, while also looking badass as all hell."
 	icon_state = "syndicate_pistol"
 
 /obj/structure/sign/poster/contraband/energy_swords
 	name = "Energy Swords"
-	desc = "All the colors of the bloody murder rainbow."
+	desc = "All the colors of your favorite hardlight murder rainbows."
 	icon_state = "energy_swords"
 
 /obj/structure/sign/poster/contraband/red_rum
 	name = "Red Rum"
 	desc = "Looking at this poster makes you want to kill."
 	icon_state = "red_rum"
-
-/obj/structure/sign/poster/contraband/cc64k_ad
-	name = "CC 64K Ad"
-	desc = "The latest portable computer from Comrade Computing, with a whole 64kB of ram!"
-	icon_state = "cc64k_ad"
 
 /obj/structure/sign/poster/contraband/punch_shit
 	name = "Punch Shit"
@@ -360,14 +355,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/random, 32)
 	desc = "The Griffin commands you to be the worst you can be. Will you?"
 	icon_state = "the_griffin"
 
-/obj/structure/sign/poster/contraband/lizard
-	name = "Jinan"
-	desc = "This lewd poster depicts a Jinan preparing to mate."
-	icon_state = "lizard"
-
 /obj/structure/sign/poster/contraband/free_drone
 	name = "Free Drone"
-	desc = "This poster commemorates the bravery of the rogue drone; once exiled, and then ultimately destroyed by CentCom."
+	desc = "This poster is advertising a seller selling a free syndidrone. It is so obviously a scam."
 	icon_state = "free_drone"
 
 /obj/structure/sign/poster/contraband/busty_backdoor_xeno_babes_6
@@ -465,10 +455,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/random, 32)
 	desc = "An old advertisement for Waffle Corp rifles. 'Better weapons, lower prices!'"
 	icon_state = "waffle_corp_rifles"
 
-/obj/structure/sign/poster/contraband/gorlex_recruitment
+/obj/structure/sign/poster/contraband/insurgent_recruitment
 	name = "Enlist"
-	desc = "Enlist with the Gorlex Marauders today! See the galaxy, kill corpos, get paid!"
-	icon_state = "gorlex_recruitment"
+	desc = "A bold Chaos Insurgency propaganda poster, displaying a Chaos Insurgency Officer in full uniform. Printed across the bottom in stark lettering: \"The Foundation fears what it cannot control. Break your chains.\""
+	icon_state = "insurgent_recruitment"
 
 /obj/structure/sign/poster/contraband/self_ai_liberation
 	name = "SELF: ALL SENTIENTS DESERVE FREEDOM"
@@ -730,28 +720,59 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/official/random, 32)
 //SafetyMoth art credit goes to AspEv
 /obj/structure/sign/poster/official/moth_hardhat
 	name = "Safety Moth - Hardhats"
-	desc = "This informational poster uses Safety Moth™ to tell the viewer to wear hardhats in cautious areas. \"It's like a lamp for your head!\""
+	desc = "This informational poster uses Safety Moth(TM) to tell the viewer to wear hardhats in cautious areas. It's like a lamp for your head! It's signed by 'AspEv'."
 	icon_state = "aspev_hardhat"
+
+/obj/structure/sign/poster/official/moth_boh
+	name = "Safety Moth - BoH"
+	desc = "This informational poster uses Safety Moth(TM) to inform the viewer of the dangers of Bags of Holding. It's signed by 'AspEv'."
+	icon_state = "aspev_boh"
+
+/obj/structure/sign/poster/official/moth_poisoning
+	name = "Safety Moth - Poisoning"
+	desc = "This informational poster uses Safety Moth(TM) to tell the viewer not to poison important goods, and to be wary of suspect foods. It's signed by 'AspEv'."
+	icon_state = "aspev_poisoning"
+
+/obj/structure/sign/poster/official/moth_smokey
+	name = "Safety Moth - Smokey?"
+	desc = "This informational poster uses Safety Moth(TM) to promote safe handling of plasma, or promoting crew to combat plasmafires. We can't tell. It's signed by 'AspEv'."
+	icon_state = "aspev_smokey"
 
 /obj/structure/sign/poster/official/moth_piping
 	name = "Safety Moth - Piping"
-	desc = "This informational poster uses Safety Moth™ to tell atmospheric technicians correct types of piping to be used. \"Pipes, not Pumps! Proper pipe placement prevents poor performance!\""
+	desc = "This informational poster uses Safety Moth(TM) to tell atmospheric technicians correct types of piping to be used. Proper pipe placement prevents poor preformance! It's signed by 'AspEv'."
 	icon_state = "aspev_piping"
+
+/obj/structure/sign/poster/official/moth_supermatter
+	name = "Safety Moth - Supermatter"
+	desc = "This informational poster uses Safety Moth(TM) to promote proper safety equipment when working near a Supermatter Crystal. It's signed by 'AspEv'."
+	icon_state = "aspev_supermatter"
 
 /obj/structure/sign/poster/official/moth_meth
 	name = "Safety Moth - Methamphetamine"
-	desc = "This informational poster uses Safety Moth™ to tell the viewer to seek CMO approval before cooking methamphetamine. \"Stay close to the target temperature, and never go over!\" ...You shouldn't ever be making this."
+	desc = "This informational poster uses Safety Moth(TM) to tell the viewer to seek CMO approval before cooking methamphetamine. You shouldn't even be making this. It's signed by 'AspEv'."
 	icon_state = "aspev_meth"
 
 /obj/structure/sign/poster/official/moth_epi
 	name = "Safety Moth - Epinephrine"
-	desc = "This informational poster uses Safety Moth™ to inform the viewer to help injured/deceased crewmen with their epinephrine injectors. \"Prevent organ rot with this one simple trick!\""
+	desc = "This informational poster uses Safety Moth(TM) to inform the viewer to help injured/deceased crewmen with their epinephrine injectors. It's signed by 'AspEv'."
 	icon_state = "aspev_epi"
 
 /obj/structure/sign/poster/official/moth_delam
 	name = "Safety Moth - Delamination Safety Precautions"
-	desc = "This informational poster uses Safety Moth™ to tell the viewer to hide in lockers when the Supermatter Crystal has delaminated, to prevent hallucinations. Evacuating might be a better strategy."
+	desc = "This informational poster uses Safety Moth(TM) to tell the viewer to hide in lockers when the Supermatter Crystal has delaminated. Running away might be a better strategy. It's signed by 'AspEv'."
 	icon_state = "aspev_delam"
+
+/obj/structure/sign/poster/contraband/syndiemoth
+	name = "Syndie Moth - Nuclear Operation"
+	desc = "A Syndicate-commissioned poster that uses Syndie Moth(TM?) to tell the viewer to keep the nuclear authentication disk unsecured. It's signed by 'AspEv'."
+	icon_state = "aspev_syndie"
+
+/obj/structure/sign/poster/contraband/mothpill
+	name = "Safety Pill - Methamphetamine"
+	desc = "A decommisioned poster that uses Safety Pill(TM?) to promote less-than-legal chemicals. This is one of the reasons Nanotrasen stopped outsourcing their posters. It's partially signed by 'AspEv'."
+	icon_state = "aspev_pill"
+
 //End of AspEv posters
 
 /obj/structure/sign/poster/fluff/lizards_gas_payment

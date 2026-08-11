@@ -39,6 +39,18 @@
 	dictionary_key = /datum/wires/airlock/science
 	proper_name = "Science Airlock"
 
+/datum/wires/airlock/scp
+	dictionary_key = /datum/wires/airlock/scp
+	proper_name = "SCP Containment Airlock"
+
+/datum/wires/airlock/lcz
+	dictionary_key = /datum/wires/airlock/lcz
+	proper_name = "Light Containment Zone Airlock"
+
+/datum/wires/airlock/cdcz
+	dictionary_key = /datum/wires/airlock/cdcz
+	proper_name = "Class-D Containment Zone Airlock"
+
 /datum/wires/airlock/ai
 	dictionary_key = /datum/wires/airlock/ai
 	proper_name = "AI Airlock"

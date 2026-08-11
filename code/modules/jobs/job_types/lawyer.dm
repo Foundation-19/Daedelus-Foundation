@@ -51,7 +51,7 @@
 	r_pocket = /obj/item/clothing/accessory/lawyers_badge
 	l_hand = /obj/item/storage/briefcase/lawyer
 
-	chameleon_extras = /obj/item/stamp/law
+	chameleon_extras = /obj/item/stamp/ecl
 
 /* Commenting this out for now, since it overrides alternate job title outfits
 /datum/outfit/job/lawyer/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

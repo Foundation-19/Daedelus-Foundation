@@ -1256,7 +1256,7 @@
 "BL" = (
 /obj/structure/table/wood,
 /obj/item/folder/white,
-/obj/item/stamp/rd,
+/obj/item/stamp/sd,
 /turf/open/floor/iron/grimy,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "BM" = (

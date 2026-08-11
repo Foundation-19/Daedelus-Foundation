@@ -542,19 +542,6 @@
 /obj/item/clothing/under/rank/medical/scrubs/black
 	name = "Black"
 
-/obj/item/clothing/under/rank/security/comms
-	name = "Comms"
-
-
-/obj/item/clothing/under/rank/security/lcz
-	name = "LCZ"
-
-/obj/item/clothing/under/rank/security/lcz/recontain
-	name = "LCZ Recontain"
-
-/obj/item/clothing/under/rank/warden/lcz
-	name = "Warden LCZ"
-
 /obj/item/clothing/under/solgov/utility/fleet/engineering
 	name = "Solgov Utility Fleet Engineering"
 
@@ -588,11 +575,11 @@
 /obj/item/flashlight/upgraded
 	name = "Upgraded"
 
-/obj/item/folder/nt
-	name = "Nt"
+/obj/item/folder
+	name = "SCP"
 
-/obj/item/folder/nt/rd
-	name = "Nt R&D"
+/obj/item/folder
+	name = "SCP R&D"
 
 /obj/item/food/condiment/barbecue
 	name = "Condiment Barbecue"
@@ -1434,9 +1421,6 @@
 /obj/item/storage/pill_bottle/penicillin
 	name = "Penicillin"
 
-/obj/item/storage/secure/briefcase/nukedisk
-	name = "Nukedisk"
-
 /obj/item/storage/slide_projector
 	name = "Slide Projector"
 
@@ -2030,9 +2014,6 @@
 
 /obj/structure/disposalpipe/up
 	name = "Up"
-
-/obj/structure/filingcabinet/golden
-	name = "Golden"
 
 /obj/structure/filingcabinet/wallcabinet
 	name = "Wallcabinet"

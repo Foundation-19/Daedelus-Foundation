@@ -192,19 +192,19 @@
 	update_armrest()
 
 /obj/structure/chair/comfy/brown
-	color = rgb(255,113,0)
+	color = "#4d3118"
 
 /obj/structure/chair/comfy/beige
-	color = rgb(255,253,195)
+	color = "#b1945f"
 
 /obj/structure/chair/comfy/teal
-	color = rgb(0,255,255)
+	color = "#3cbebe"
 
 /obj/structure/chair/comfy/black
-	color = rgb(167,164,153)
+	color = "#38383a"
 
 /obj/structure/chair/comfy/lime
-	color = rgb(255,251,0)
+	color = "#49ca4f"
 
 /obj/structure/chair/comfy/shuttle
 	name = "shuttle seat"

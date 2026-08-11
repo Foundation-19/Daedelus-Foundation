@@ -8,7 +8,7 @@
 	armor = list(BLUNT = 30, PUNCTURE = 50, SLASH = 100, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, FIRE = 80, ACID = 80)
 	var/tamperproof = 0
 
-	damage_deflection = 18
+	damage_deflection = 25
 
 /obj/structure/closet/crate/secure/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
 	if(prob(tamperproof) && damage_amount >= DAMAGE_PRECISION)
@@ -59,15 +59,56 @@
 	. = ..()
 	new /obj/effect/spawner/random/food_or_drink/pizzaparty(src)
 
+/obj/structure/closet/crate/secure/cargo
+	name = "secure cargo crate"
+	icon_state = "cargo_secure"
+
+/obj/structure/closet/crate/secure/cargo/mining
+	name = "secure mining crate"
+	icon_state = "mining_secure"
+
+/obj/structure/closet/crate/secure/radiation
+	name = "secure radioation crate"
+	icon_state = "radiation_secure"
+
 /obj/structure/closet/crate/secure/engineering
 	desc = "A crate with a lock on it, painted in the scheme of the station's engineers."
 	name = "secure engineering crate"
 	icon_state = "engi_secure_crate"
 
+/obj/structure/closet/crate/secure/engineering/atmos
+	name = "secure atmospherics crate"
+	desc = "A crate with a lock on it, painted in the scheme of the station's atmospherics engineers."
+	icon_state = "atmos_secure"
+
 /obj/structure/closet/crate/secure/science
 	name = "secure science crate"
 	desc = "A crate with a lock on it, painted in the scheme of the station's scientists."
 	icon_state = "scisecurecrate"
+
+/obj/structure/closet/crate/secure/science/robo
+	name = "robotics science crate"
+	icon_state = "robo_secure"
+
+/obj/structure/closet/crate/secure/trashcart
+	desc = "A heavy, metal trashcart with wheels. It has an electronic lock on it."
+	name = "secure trash cart"
+	max_integrity = 250
+	damage_deflection = 10
+	icon_state = "securetrashcart"
+	req_access = list(ACCESS_SERVICE_LVL2)
+
+/obj/structure/closet/crate/secure/trashcart/filled
+
+/obj/structure/closet/crate/secure/trashcart/filled/PopulateContents()
+	. = ..()
+	for(var/i in 1 to rand(8,12))
+		new /obj/effect/spawner/random/trash/deluxe_garbage(src)
+		if(prob(35))
+			new /obj/effect/spawner/random/trash/garbage(src)
+	for(var/i in 1 to rand(4,6))
+		if(prob(30))
+			new /obj/item/storage/bag/trash/filled(src)
 
 /obj/structure/closet/crate/secure/owned
 	name = "private crate"

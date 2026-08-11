@@ -616,12 +616,6 @@
 /obj/effect/turf_decal/spline/fancy/black/corner
 	icon_state = "spline_plain_cee"
 
-/obj/effect/turf_decal/spline/fancy/wood
-	color = "#cb9e04"
-
-/obj/effect/turf_decal/spline/fancy/wood/corner
-	icon_state = "spline_plain_cee"
-
 /obj/effect/turf_decal/spline/plain
 	icon_state = "spline_plain"
 	alpha = 229

@@ -67,14 +67,14 @@
 	new /obj/item/clothing/neck/cloak/hop(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/hop(src)
-
+/*
 /obj/item/storage/bag/garment/hos/PopulateContents()
-	new /obj/item/clothing/under/rank/security/head_of_security/grey(src)
-	new /obj/item/clothing/under/rank/security/head_of_security/skirt(src)
-	new /obj/item/clothing/under/rank/security/head_of_security/alt(src)
-	new /obj/item/clothing/under/rank/security/head_of_security/alt/skirt(src)
-	new /obj/item/clothing/under/rank/security/head_of_security/parade/female(src)
-	new /obj/item/clothing/under/rank/security/head_of_security/parade(src)
+	new /obj/item/clothing/under/rank/security/captain/grey(src)
+	new /obj/item/clothing/under/rank/security/captain/skirt(src)
+	new /obj/item/clothing/under/rank/security/captain/alt(src)
+	new /obj/item/clothing/under/rank/security/captain/alt/skirt(src)
+	new /obj/item/clothing/under/rank/security/captain/parade/female(src)
+	new /obj/item/clothing/under/rank/security/captain/parade(src)
 	new /obj/item/clothing/suit/armor/hos(src)
 	new /obj/item/clothing/suit/armor/hos/hos_formal(src)
 	new /obj/item/clothing/suit/armor/vest/leather(src)
@@ -84,6 +84,7 @@
 	new /obj/item/clothing/mask/gas/sechailer/swat(src)
 	new /obj/item/clothing/neck/cloak/hos(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/security/hos(src)
+*/
 
 /obj/item/storage/bag/garment/research_director/PopulateContents()
 	new /obj/item/clothing/under/rank/rnd/research_director(src)

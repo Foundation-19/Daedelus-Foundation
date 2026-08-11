@@ -19,6 +19,15 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror, 28)
 	if(icon_state == "mirror_broke" && !broken)
 		atom_break(null, mapload)
 
+/obj/structure/mirror/broken
+	icon_state = "mirror_broke"
+
+/obj/structure/mirror/broken/Initialize(mapload)
+	. = ..()
+	atom_break(null, mapload)
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror/broken, 28)
+
 /obj/structure/mirror/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)

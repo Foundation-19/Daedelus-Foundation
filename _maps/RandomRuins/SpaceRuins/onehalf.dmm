@@ -790,7 +790,7 @@
 /obj/item/clothing/suit/space/eva,
 /obj/item/reagent_containers/food/drinks/bottle/rum,
 /obj/item/reagent_containers/food/drinks/bottle/rum,
-/obj/item/folder/syndicate/mining,
+/obj/item/folder/chaos/mining,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/onehalf/bridge)
 "cJ" = (

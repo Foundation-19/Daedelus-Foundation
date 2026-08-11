@@ -242,3 +242,29 @@
 	new /obj/item/card/id/advanced/mining(src)
 	new /obj/item/knife/combat/survival(src)
 	new /obj/item/flashlight/seclite(src)
+
+/obj/machinery/mineral/equipment_vendor/dclass
+	name = "Class-D mining equipment vendor"
+	desc = "An equipment vendor for Class-D that are honored the job of mining, points collected at an ore redemption machine can be spent here."
+	icon = 'icons/obj/machines/mining_machines.dmi'
+	icon_state = "mining"
+	density = TRUE
+	circuit = /obj/item/circuitboard/machine/mining_equipment_vendor/dclass
+	prize_list = list( //if you add something to this, please, for the love of god, sort it by price/type. use tabs and not spaces.
+		new /datum/data/mining_equipment("Whiskey", /obj/item/reagent_containers/food/drinks/bottle/whiskey, 100),
+		new /datum/data/mining_equipment("Absinthe", /obj/item/reagent_containers/food/drinks/bottle/absinthe/premium, 100),
+		new /datum/data/mining_equipment("Bubblegum Gum Packet", /obj/item/storage/box/gum/bubblegum, 100),
+		new /datum/data/mining_equipment("Cigar", /obj/item/clothing/mask/cigarette/cigar/havana, 150),
+		new /datum/data/mining_equipment("Soap", /obj/item/soap/nanotrasen, 200),
+		new /datum/data/mining_equipment("Laser Pointer", /obj/item/laser_pointer, 300),
+		new /datum/data/mining_equipment("Alien Toy", /obj/item/clothing/mask/facehugger/toy, 300),
+		new /datum/data/mining_equipment("Point Transfer Card", /obj/item/card/mining_point_card, 500),
+		new /datum/data/mining_equipment("Survival Medipen", /obj/item/reagent_containers/hypospray/medipen/survival, 500),
+		new /datum/data/mining_equipment("Brute Medkit", /obj/item/storage/medkit/brute, 600),
+		new /datum/data/mining_equipment("Tracking Implant Kit", /obj/item/storage/box/minertracker, 600),
+		new /datum/data/mining_equipment("Advanced Scanner", /obj/item/t_scanner/adv_mining_scanner, 800),
+		new /datum/data/mining_equipment("Luxury Medipen", /obj/item/reagent_containers/hypospray/medipen/survival/luxury, 1000),
+		new /datum/data/mining_equipment("Silver Pickaxe", /obj/item/pickaxe/silver, 1000),
+		new /datum/data/mining_equipment("Mining Conscription Kit", /obj/item/storage/backpack/duffelbag/mining_conscript, 1500),
+		new /datum/data/mining_equipment("Space Cash", /obj/item/stack/spacecash/c1000, 2000),
+	)

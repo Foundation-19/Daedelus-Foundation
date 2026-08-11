@@ -4,7 +4,7 @@
 // ================================================================
 // CLOSET STUBS
 // ================================================================
-
+/*
 /obj/structure/closet/coffin
 	name = "coffin"
 
@@ -239,38 +239,6 @@
 
 /obj/structure/closet/wardrobe/suit
 	name = "suit wardrobe"
-
-// ================================================================
-// CHAIR STUBS
-// ================================================================
-
-/obj/structure/chair/armchair
-	name = "armchair"
-	icon_state = "comfychair"
-
-/obj/structure/chair/armchair/beige
-	name = "beige armchair"
-	color = "#C8A882"
-
-/obj/structure/chair/armchair/black
-	name = "black armchair"
-	color = "#333333"
-
-/obj/structure/chair/armchair/blue
-	name = "blue armchair"
-	color = "#66B2FF"
-
-/obj/structure/chair/armchair/brown
-	name = "brown armchair"
-	color = "#865C2A"
-
-/obj/structure/chair/armchair/green
-	name = "green armchair"
-	color = "#00CC00"
-
-/obj/structure/chair/armchair/red
-	name = "red armchair"
-	color = "#CC0000"
 
 /obj/structure/chair/bar/padded
 	name = "padded bar stool"
@@ -559,14 +527,6 @@
 	name = "anomalous materials sign"
 	desc = "Warning: Anomalous materials storage."
 
-/obj/structure/sign/warning/secure_area
-	name = "secure area sign"
-	desc = "Secure area - authorized personnel only."
-
-/obj/structure/sign/warning/secure_area/armory
-	name = "armory sign"
-	desc = "Armory - authorized personnel only."
-
 /obj/structure/sign/warning/server_room
 	name = "server room sign"
 	desc = "Server room - authorized personnel only."
@@ -678,3 +638,4 @@
 
 /obj/machinery/computer/upload/robot
 	name = "robot upload console"
+*/

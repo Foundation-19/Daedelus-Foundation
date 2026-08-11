@@ -11,7 +11,7 @@
 /datum/outfit/families_police/beatcop
 	name = "Families: Beat Cop"
 
-	uniform = /obj/item/clothing/under/rank/security/officer/beatcop
+	uniform = /obj/item/clothing/under/rank/security/guard
 	back = /obj/item/storage/backpack/duffelbag/cops
 	suit = null
 	shoes = /obj/item/clothing/shoes/combat/swat

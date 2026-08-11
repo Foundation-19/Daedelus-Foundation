@@ -59,14 +59,19 @@
 #define ACCESS_LOGISTICS_LVL4 35 //Level 4, Command Wildcard.
 #define ACCESS_LOGISTICS_LVL5 36 //Level 5, Private Command Wildcard.
 
-#define ACCESS_SERVICE 37 //Common Wildcard.
+#define ACCESS_SERVICE 37
+#define ACCESS_SERVICE_LVL1 38 //Levels 1-3, Common Wildcards.
+#define ACCESS_SERVICE_LVL2 39
+#define ACCESS_SERVICE_LVL3 40
+#define ACCESS_SERVICE_LVL4 41 //Level 4, Command Wildcard.
+#define ACCESS_SERVICE_LVL5 42 //Level 5, Private Command Wildcard.
 
-#define ACCESS_DCLASS 38 //All D-Class Access codes are Common Wildcards.
-#define ACCESS_DCLASS_MINING 39
-#define ACCESS_DCLASS_BOTANY 40
-#define ACCESS_DCLASS_JANITORIAL 41
-#define ACCESS_DCLASS_LUXURY 42
-#define ACCESS_DCLASS_MEDICAL 43
+#define ACCESS_DCLASS 43
+#define ACCESS_DCLASS_MINING 44
+#define ACCESS_DCLASS_BOTANY 45
+#define ACCESS_DCLASS_JANITORIAL 46
+#define ACCESS_DCLASS_LUXURY 47
+#define ACCESS_DCLASS_KITCHEN 48
 
 	//BEGIN CENTCOM ACCESS
 	/*Should leave plenty of room if we need to add more access levels.
@@ -246,7 +251,7 @@
 	ACCESS_DCLASS_BOTANY, \
 	ACCESS_DCLASS_JANITORIAL, \
 	ACCESS_DCLASS_LUXURY, \
-	ACCESS_DCLASS_MEDICAL, \
+	ACCESS_DCLASS_KITCHEN, \
 )
 
 /// Command staff/secure accesses, think bridge/armoury, AI upload, notably access to modify ID cards themselves. Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_COMMAND)
@@ -328,12 +333,17 @@
 	ACCESS_SECURITY_LVL3, \
 	ACCESS_SECURITY_LVL4, \
 	ACCESS_SECURITY_LVL5, \
+	)
+/// Name for the Class-D region.
+#define REGION_CLASSD "Class-D"
+/// Used to seed the accesses_by_region list in SSid_access. A list of all CDCZ regional accesses that are overseen by the Zone Security.
+#define REGION_ACCESS_CLASSD list( \
 	ACCESS_DCLASS, \
 	ACCESS_DCLASS_MINING, \
 	ACCESS_DCLASS_BOTANY, \
 	ACCESS_DCLASS_JANITORIAL, \
 	ACCESS_DCLASS_LUXURY, \
-	ACCESS_DCLASS_MEDICAL, \
+	ACCESS_DCLASS_KITCHEN, \
 	)
 /// Name for the Medbay region.
 #define REGION_MEDBAY "Medbay"

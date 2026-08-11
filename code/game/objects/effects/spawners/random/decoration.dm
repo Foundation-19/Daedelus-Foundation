@@ -23,6 +23,7 @@
 	loot = list(
 		/obj/item/stack/tile/carpet{amount = 30} = 35,
 		/obj/item/stack/tile/carpet/black{amount = 30} = 20,
+		/obj/item/stack/tile/carpet/grey{amount = 30} = 20,
 		/obj/item/stack/tile/carpet/donk/thirty = 15,
 		/obj/item/stack/tile/carpet/stellar/thirty = 15,
 		/obj/item/stack/tile/carpet/executive/thirty = 15,

@@ -805,7 +805,7 @@
 /area/shuttle/syndicate/medical)
 "vv" = (
 /obj/item/clothing/head/hos/syndicate,
-/obj/item/stamp/syndicate{
+/obj/item/stamp/chaos{
 	pixel_x = -7
 	},
 /obj/structure/table/reinforced/plastitaniumglass,

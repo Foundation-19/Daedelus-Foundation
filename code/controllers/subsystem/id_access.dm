@@ -113,6 +113,7 @@ SUBSYSTEM_DEF(id_access)
 /datum/controller/subsystem/id_access/proc/setup_region_lists()
 	accesses_by_region[REGION_ALL_STATION] = REGION_ACCESS_ALL_STATION
 	accesses_by_region[REGION_ALL_GLOBAL] = REGION_ACCESS_ALL_GLOBAL
+	accesses_by_region[REGION_CLASSD] = REGION_ACCESS_CLASSD
 	accesses_by_region[REGION_GENERAL] = REGION_ACCESS_GENERAL
 	accesses_by_region[REGION_SECURITY] = REGION_ACCESS_SECURITY
 	accesses_by_region[REGION_MEDBAY] = REGION_ACCESS_MEDBAY
@@ -301,13 +302,18 @@ SUBSYSTEM_DEF(id_access)
 	desc_by_access["[ACCESS_LOGISTICS_LVL5]"] = "Level 5 Logistics Clearance"
 
 	desc_by_access["[ACCESS_SERVICE]"] = "Service Department Affiliation"
+	desc_by_access["[ACCESS_SERVICE_LVL1]"] = "Level 1 Service Clearance"
+	desc_by_access["[ACCESS_SERVICE_LVL2]"] = "Level 2 Service Clearance"
+	desc_by_access["[ACCESS_SERVICE_LVL3]"] = "Level 3 Service Clearance"
+	desc_by_access["[ACCESS_SERVICE_LVL4]"] = "Level 4 Service Clearance"
+	desc_by_access["[ACCESS_SERVICE_LVL5]"] = "Level 5 Service Clearance"
 
-	desc_by_access["[ACCESS_DCLASS]"] = "Class-D Residential Clearance"
+	desc_by_access["[ACCESS_DCLASS]"] = "Class-D Residential Clearance" // We won't be using this to be honest.
 	desc_by_access["[ACCESS_DCLASS_MINING]"] = "Class-D Mining Clearance"
 	desc_by_access["[ACCESS_DCLASS_BOTANY]"] = "Class-D Hydroponics Clearance"
 	desc_by_access["[ACCESS_DCLASS_JANITORIAL]"] = "Class-D Janitorial Clearance"
 	desc_by_access["[ACCESS_DCLASS_LUXURY]"] = "Class-D Luxury Clearance"
-	desc_by_access["[ACCESS_DCLASS_MEDICAL]"] = "Class-D Medical Clearance"
+	desc_by_access["[ACCESS_DCLASS_KITCHEN]"] = "Class-D Kitchen Clearance"
 
 /**
  * Returns the access bitflags associated with any given access level.

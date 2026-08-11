@@ -29,6 +29,7 @@
 	var/obj/item/assembly_holder/holder = null
 	var/wire_type = WIRE_RECEIVE | WIRE_PULSE
 	var/attachable = FALSE // can this be attached to wires
+	var/assembly_behavior = ASSEMBLY_FUNCTIONAL_OUTPUT // how does the assembly behave with respect to what it's connected to
 	var/datum/wires/connected = null
 	var/next_activate = 0 //When we're next allowed to activate - for spam control
 

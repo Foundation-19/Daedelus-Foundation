@@ -11,8 +11,12 @@
 /obj/machinery/door/airlock/security
 	assemblytype = /obj/structure/door_assembly/door_assembly_sec
 	normal_integrity = 450
-	airlock_paint = "#9F2828"
-	stripe_paint = "#D27428"
+	airlock_paint = "#313131"
+	stripe_paint = "#929292"
+
+/obj/machinery/door/airlock/security/command
+	assemblytype = /obj/structure/door_assembly/door_assembly_sec_cmd
+	stripe_paint = "#282c5f"
 
 /obj/machinery/door/airlock/engineering
 	assemblytype = /obj/structure/door_assembly/door_assembly_eng
@@ -72,6 +76,36 @@
 	airlock_paint = "#BBBBBB"
 	stripe_paint = "#2a7a25"
 
+/obj/machinery/door/airlock/lcz
+	assemblytype = /obj/structure/door_assembly/door_assembly_lcz
+	airlock_paint = "#c5c5c5"
+	stripe_paint = "#E0C276"
+	normal_integrity = 450
+	security_level = 1
+
+/obj/machinery/door/airlock/lcz/science
+	assemblytype = /obj/structure/door_assembly/door_assembly_lcz_sci
+	stripe_paint = "#0545B5"
+
+/obj/machinery/door/airlock/lcz/safe
+	assemblytype = /obj/structure/door_assembly/door_assembly_lcz_safe
+	stripe_paint = "#365034"
+
+/obj/machinery/door/airlock/lcz/euclid
+	assemblytype = /obj/structure/door_assembly/door_assembly_lcz_euclid
+	stripe_paint = "#635424"
+
+/obj/machinery/door/airlock/lcz/keter
+	assemblytype = /obj/structure/door_assembly/door_assembly_lcz_keter
+	stripe_paint = "#65261e"
+
+/obj/machinery/door/airlock/cdcz
+	assemblytype = /obj/structure/door_assembly/door_assembly_cdcz
+	airlock_paint = "#c5c5c5"
+	stripe_paint = "#b65e16"
+	normal_integrity = 450
+	security_level = 1
+
 //////////////////////////////////
 /*
 	Station Airlocks Glass
@@ -100,6 +134,11 @@
 	critical_machine = TRUE //stops greytide virus from opening & bolting doors in critical positions, such as the SM chamber.
 
 /obj/machinery/door/airlock/security/glass
+	opacity = FALSE
+	glass = TRUE
+	normal_integrity = 400
+
+/obj/machinery/door/airlock/security/command/glass
 	opacity = FALSE
 	glass = TRUE
 	normal_integrity = 400
@@ -148,6 +187,36 @@
 /obj/machinery/door/airlock/virology/glass
 	opacity = FALSE
 	glass = TRUE
+
+/obj/machinery/door/airlock/cdcz/glass
+	opacity = FALSE
+	glass = TRUE
+	normal_integrity = 400
+
+/obj/machinery/door/airlock/lcz/glass
+	opacity = FALSE
+	glass = TRUE
+	normal_integrity = 400
+
+/obj/machinery/door/airlock/lcz/science/glass
+	opacity = FALSE
+	glass = TRUE
+	normal_integrity = 400
+
+/obj/machinery/door/airlock/lcz/safe/glass
+	opacity = FALSE
+	glass = TRUE
+	normal_integrity = 400
+
+/obj/machinery/door/airlock/lcz/euclid/glass
+	opacity = FALSE
+	glass = TRUE
+	normal_integrity = 400
+
+/obj/machinery/door/airlock/lcz/keter/glass
+	opacity = FALSE
+	glass = TRUE
+	normal_integrity = 400
 
 /obj/machinery/door/airlock/maintenance/glass
 	opacity = FALSE
@@ -455,8 +524,8 @@
 	has_fill_overlays = FALSE
 	assemblytype = /obj/structure/door_assembly/door_assembly_highsecurity
 	explosion_block = 2
-	normal_integrity = 500
-	security_level = 1
+	normal_integrity = 550
+	security_level = 6
 	damage_deflection = 30
 
 //////////////////////////////////

@@ -719,6 +719,12 @@
 	buildstack = /obj/item/stack/tile/carpet/black
 	icon = 'icons/obj/smooth_structures/fancy_table_black.dmi'
 
+/obj/structure/table/wood/fancy/grey
+	icon_state = "fancy_table_grey-0"
+	base_icon_state = "fancy_table_grey"
+	buildstack = /obj/item/stack/tile/carpet/grey
+	icon = 'icons/obj/smooth_structures/fancy_table_grey.dmi'
+
 /obj/structure/table/wood/fancy/blue
 	icon_state = "fancy_table_blue-0"
 	base_icon_state = "fancy_table_blue"
@@ -845,7 +851,7 @@
 	name = "titanium glass table"
 	desc = "A titanium reinforced glass table, with a fresh coat of NT white paint."
 	icon = 'icons/obj/smooth_structures/titaniumglass_table.dmi'
-	icon_state = "titaniumglass_table-o"
+	icon_state = "titaniumglass_table-0"
 	base_icon_state = "titaniumglass_table"
 	custom_materials = list(/datum/material/alloy/titaniumglass = 2000)
 	buildstack = /obj/item/stack/sheet/titaniumglass

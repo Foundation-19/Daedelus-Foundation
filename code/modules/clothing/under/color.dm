@@ -32,7 +32,7 @@
 			- /obj/item/clothing/under/color/random \
 			- /obj/item/clothing/under/color/grey/ancient \
 			- /obj/item/clothing/under/color/black/ghost \
-			- /obj/item/clothing/under/rank/prisoner \
+			- /obj/item/clothing/under/rank/classd \
 	)
 
 /obj/item/clothing/under/color/random
@@ -53,7 +53,6 @@
 	return pick(
 		subtypesof(/obj/item/clothing/under/color/jumpskirt) \
 			- /obj/item/clothing/under/color/jumpskirt/random \
-			- /obj/item/clothing/under/rank/prisoner/skirt \
 	)
 
 /obj/item/clothing/under/color/jumpskirt/random

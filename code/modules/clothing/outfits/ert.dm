@@ -188,7 +188,7 @@
 	uniform = /obj/item/clothing/under/rank/centcom/officer
 	back = /obj/item/storage/backpack/satchel
 	backpack_contents = list(
-		/obj/item/stamp/centcom = 1,
+		/obj/item/stamp/o5_council = 1,
 		/obj/item/storage/box/survival = 1,
 	)
 	belt = /obj/item/gun/energy/e_gun

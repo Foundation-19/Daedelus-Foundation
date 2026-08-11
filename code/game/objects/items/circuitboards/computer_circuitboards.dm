@@ -567,6 +567,11 @@
 	greyscale_colors = CIRCUIT_COLOR_SUPPLY
 	build_path = /obj/machinery/computer/department_orders/security
 
+/obj/item/circuitboard/computer/classd_orders
+	name = "Class-D Order (Computer Board)"
+	greyscale_colors = CIRCUIT_COLOR_SUPPLY
+	build_path = /obj/machinery/computer/department_orders/classd
+
 /obj/item/circuitboard/computer/medical_orders
 	name = "Medical Order (Computer Board)"
 	greyscale_colors = CIRCUIT_COLOR_SUPPLY

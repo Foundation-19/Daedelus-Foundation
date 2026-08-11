@@ -94,6 +94,10 @@
 	manifest = null
 	update_appearance()
 
+/obj/structure/closet/crate/preopen
+	opened = TRUE
+	icon_state = "crateopen"
+
 /obj/structure/closet/crate/coffin
 	name = "coffin"
 	desc = "It's a burial receptacle for the dearly departed."
@@ -108,7 +112,29 @@
 	close_sound_volume = 50
 	can_install_electronics = FALSE
 
+/obj/structure/closet/crate/trashcart //please make this a generic cart path later after things calm down a little
+	desc = "A heavy, metal trashcart with wheels."
+	name = "trash cart"
+	icon_state = "trashcart"
+	can_install_electronics = FALSE
+
+/obj/structure/closet/crate/trashcart/laundry
+	name = "laundry cart"
+	desc = "A large cart for hauling around large amounts of laundry."
+	icon_state = "laundry"
+	can_weld_shut = FALSE
+
+/obj/structure/closet/crate/trashcart/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/swabable, CELL_LINE_TABLE_SLUDGE, CELL_VIRUS_TABLE_GENERIC, rand(2,3), 15)
+	AddElement(/datum/element/noisy_movement)
+
 /obj/structure/closet/crate/trashcart/filled
+
+/obj/structure/closet/crate/trashcart/filled/Initialize(mapload)
+	. = ..()
+	if(mapload)
+		new /obj/effect/spawner/random/trash/grime(loc) //needs to be done before the trashcart is opened because it spawns things in a range outside of the trashcart
 
 /obj/structure/closet/crate/trashcart/filled/PopulateContents()
 	. = ..()
@@ -116,33 +142,19 @@
 		new /obj/effect/spawner/random/trash/garbage(src)
 		if(prob(12))
 			new /obj/item/storage/bag/trash/filled(src)
-	new /obj/effect/spawner/random/trash/grime(loc)
 
 /obj/structure/closet/crate/internals
 	desc = "An internals crate."
 	name = "internals crate"
 	icon_state = "o2crate"
 
-/obj/structure/closet/crate/trashcart //please make this a generic cart path later after things calm down a little
-	desc = "A heavy, metal trashcart with wheels."
-	name = "trash cart"
-	icon_state = "trashcart"
-	can_install_electronics = FALSE
-
-/obj/structure/closet/crate/trashcart/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
-	. = ..()
-	if(has_gravity())
-		playsound(src, 'sound/effects/roll.ogg', 100, TRUE)
-
-/obj/structure/closet/crate/trashcart/laundry
-	name = "laundry cart"
-	desc = "A large cart for hauling around large amounts of laundry."
-	icon_state = "laundry"
-
 /obj/structure/closet/crate/medical
 	desc = "A medical crate."
 	name = "medical crate"
 	icon_state = "medicalcrate"
+
+/obj/structure/closet/crate/medical/department
+	icon_state = "medical"
 
 /obj/structure/closet/crate/freezer
 	desc = "A freezer."
@@ -167,8 +179,6 @@
 /obj/structure/closet/crate/freezer/Initialize(mapload)
 	. = ..()
 	recursive_organ_check(src)
-
-
 
 /obj/structure/closet/crate/freezer/blood
 	name = "blood freezer"
@@ -203,6 +213,27 @@
 	new /obj/item/bodypart/leg/right/robot/surplus(src)
 	new /obj/item/bodypart/leg/right/robot/surplus(src)
 
+/obj/structure/closet/crate/freezer/organ
+	name = "organ freezer"
+	desc = "A freezer containing a set of organic organs."
+
+/obj/structure/closet/crate/freezer/organ/PopulateContents()
+	. = ..()
+	new /obj/item/organ/heart(src)
+	new /obj/item/organ/lungs(src)
+	new /obj/item/organ/eyes(src)
+	new /obj/item/organ/ears(src)
+	new /obj/item/organ/tongue(src)
+	new /obj/item/organ/liver(src)
+	new /obj/item/organ/stomach(src)
+	new /obj/item/organ/appendix(src)
+
+/obj/structure/closet/crate/freezer/food
+	name = "food icebox"
+	icon_state = "food"
+	base_icon_state = "food"
+
+
 /obj/structure/closet/crate/radiation
 	desc = "A crate with a radiation sign on it."
 	name = "radiation crate"
@@ -213,12 +244,24 @@
 	desc = "All you need to destroy those pesky weeds and pests."
 	icon_state = "hydrocrate"
 
+/obj/structure/closet/crate/cargo
+	name = "cargo crate"
+	icon_state = "cargo"
+
+/obj/structure/closet/crate/cargo/mining
+	name = "mining crate"
+	icon_state = "mining"
+
 /obj/structure/closet/crate/engineering
 	name = "engineering crate"
 	icon_state = "engi_crate"
 
 /obj/structure/closet/crate/engineering/electrical
 	icon_state = "engi_e_crate"
+
+/obj/structure/closet/crate/engineering/atmos
+	name = "atmospherics crate"
+	icon_state = "atmos"
 
 /obj/structure/closet/crate/rcd
 	desc = "A crate for the storage of an RCD."
@@ -236,6 +279,10 @@
 	desc = "A science crate."
 	icon_state = "scicrate"
 
+/obj/structure/closet/crate/science/robo
+	name = "robotics crate"
+	icon_state = "robo"
+
 /obj/structure/closet/crate/solarpanel_small
 	name = "budget solar panel crate"
 	icon_state = "engi_e_crate"
@@ -250,15 +297,24 @@
 
 /obj/structure/closet/crate/goldcrate
 	name = "gold crate"
+	desc = "A rectangular steel crate. It seems to be painted to look like gold."
+	icon_state = "gold"
+	base_icon_state = "gold"
 
 /obj/structure/closet/crate/goldcrate/PopulateContents()
 	..()
+	new /obj/item/storage/belt/champion(src)
+
+/obj/structure/closet/crate/goldcrate/populate_contents_immediate()
+	. = ..()
+
 	for(var/i in 1 to 3)
 		new /obj/item/stack/sheet/mineral/gold(src, 1, FALSE)
-	new /obj/item/storage/belt/champion(src)
 
 /obj/structure/closet/crate/silvercrate
 	name = "silver crate"
+	desc = "A rectangular steel crate. It seems to be painted to look like silver."
+	icon_state = "silver"
 
 /obj/structure/closet/crate/silvercrate/PopulateContents()
 	..()
@@ -267,8 +323,12 @@
 
 /obj/structure/closet/crate/decorations
 	icon_state = "engi_crate"
+	base_icon_state = "engi_crate"
 
 /obj/structure/closet/crate/decorations/PopulateContents()
 	. = ..()
 	for(var/i in 1 to 4)
 		new /obj/effect/spawner/random/decoration/generic(src)
+
+/obj/structure/closet/crate/add_to_roundstart_list()
+	return

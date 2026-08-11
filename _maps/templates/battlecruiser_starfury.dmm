@@ -2830,7 +2830,7 @@
 /area/shuttle/sbc_starfury)
 "iG" = (
 /obj/structure/table/wood,
-/obj/item/folder/syndicate/red{
+/obj/item/folder/chaos/red{
 	pixel_x = -5;
 	pixel_y = 2
 	},
@@ -4678,7 +4678,7 @@
 	pixel_x = -2;
 	pixel_y = 8
 	},
-/obj/item/folder/syndicate/red,
+/obj/item/folder/chaos/red,
 /obj/structure/window/reinforced/survival_pod{
 	dir = 4
 	},

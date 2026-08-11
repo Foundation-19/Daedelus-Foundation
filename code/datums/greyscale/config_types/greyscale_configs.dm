@@ -67,6 +67,24 @@
 	icon_file = 'icons/obj/clothing/belt_overlays.dmi'
 	json_config = 'code/datums/greyscale/json_configs/screwdriver_worn.json'
 
+/datum/greyscale_config/ties
+	name = "Ties"
+	icon_file = 'icons/obj/clothing/neck.dmi'
+	json_config = 'code/datums/greyscale/json_configs/ties.json'
+
+/datum/greyscale_config/ties/worn
+	name = "Ties (Worn)"
+	icon_file = 'icons/mob/clothing/neck.dmi'
+
+/datum/greyscale_config/scarf
+	name = "Scarf"
+	icon_file = 'icons/obj/clothing/neck.dmi'
+	json_config = 'code/datums/greyscale/json_configs/scarf.json'
+
+/datum/greyscale_config/scarf/worn
+	name = "Scarf (Worn)"
+	icon_file = 'icons/mob/clothing/neck.dmi'
+
 /datum/greyscale_config/jumpsuit
 	name = "Jumpsuit"
 	icon_file = 'icons/obj/clothing/under/color.dmi'

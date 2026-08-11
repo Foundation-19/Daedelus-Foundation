@@ -1,0 +1,14 @@
+{
+	"tie_greyscale_tied":
+		{
+		"layers":
+		[
+			{
+				"type": "icon_state",
+				"icon_state": "tie_greyscale_tied",
+				"blend_mode": "overlay",
+				"color_ids": [1]
+			}
+		]
+	}
+}
