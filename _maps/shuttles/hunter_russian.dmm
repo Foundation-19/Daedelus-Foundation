@@ -610,7 +610,7 @@
 "Th" = (
 /obj/effect/turf_decal/bot_red,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/contraband/kss13{
+/obj/structure/sign/poster/contraband/ss13{
 	pixel_y = -32
 	},
 /turf/open/floor/pod/dark,

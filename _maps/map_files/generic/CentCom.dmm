@@ -10715,7 +10715,7 @@
 /turf/open/lava/plasma/snow_air,
 /area/centcom/syndicate_mothership/control)
 "ES" = (
-/obj/structure/sign/poster/contraband/lamarr{
+/obj/structure/sign/poster/contraband/xenofauna_parasite{
 	pixel_y = -32
 	},
 /turf/open/floor/iron/smooth_half{

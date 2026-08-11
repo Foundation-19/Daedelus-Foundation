@@ -3,7 +3,7 @@
 
 /turf/closed/mineral //wall piece
 	name = "rock"
-	icon = 'icons/turf/smoothrocks.dmi'
+	icon = MAP_SWITCH('icons/turf/smoothrocks.dmi', 'icons/turf/mining.dmi')
 	icon_state = "rock"
 
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER

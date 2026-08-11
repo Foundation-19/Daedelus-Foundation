@@ -1,3 +1,33 @@
+// OTHER
+
+/area/outdoors
+	name = "Facility"
+	icon = 'icons/area/areas_station.dmi'
+	icon_state = "mining"
+	has_gravity = TRUE
+	ambience_index = AMBIENCE_MINING
+	sound_environment = SOUND_AREA_ASTEROID
+
+/area/outdoors/surface
+	name = "Facility Grounds"
+	icon_state = "explored"
+	always_unpowered = TRUE
+	power_environ = FALSE
+	power_equip = FALSE
+	power_light = FALSE
+	requires_power = TRUE
+
+/area/outdoors/underground
+	name = "Facility Caves"
+	outdoors = TRUE
+	always_unpowered = TRUE
+	requires_power = TRUE
+	power_environ = FALSE
+	power_equip = FALSE
+	power_light = FALSE
+
+// ENTRANCE ZONE
+
 /area/station/hallway/ez/hub
 	name = "EZ Hub"
 	icon_state = "centralhall"
@@ -47,79 +77,11 @@
 	name = "EZ Cryogenics"
 	icon_state = "cryo"
 
-/area/station/commons/cdcz/cryo
-	name = "CDCZ Staff Cryogenics"
-	icon_state = "cryo"
-
 /area/station/maintenance/ez
 	name = "Lower EZ Maintenance"
 	icon_state = "lowerezmaint"
 
-/area/station/maintenance/lcz
-	name = "LCZ Maintenance"
-	icon_state = "lczmaint"
-
-/area/station/engineering/lcz/emergency
-	name = "LCZ Emergency Power Room"
-	icon_state = "maint_electrical"
-
-/area/station/maintenance/lcz/entrance
-	name = "LCZ Entrance Maintenance"
-
-/area/station/engineering/lcz/entrance/substation
-	name = "LCZ Substation Control Room"
-	icon_state = "maint_electrical"
-
-/area/station/maintenance/cdcz
-	name = "CDCZ South Maintenance"
-	icon_state = "cdczmaint"
-
-/area/station/maintenance/cdcz/east
-	name = "CDCZ East Maintenance"
-
-/area/station/maintenance/cdcz/upper
-	name = "CDCZ Upper Maintenance"
-	icon_state = "uppercdczmaint"
-
-/area/station/maintenance/cdcz/mining
-	name = "CDCZ Mining Maintenance"
-	icon_state = "cdczminemaint"
-
-/area/station/engineering/cdcz/substation
-	name = "CDCZ Substation Control Room"
-	icon_state = "maint_electrical"
-
-/area/station/engineering/cdcz/storage
-	name = "CDCZ Engineering Storage"
-	icon_state = "engine_storage"
-
-/area/station/engineering/cdcz/atmos
-	name = "CDCZ Emergency Atmospherics"
-	icon_state = "atmos"
-
-/area/station/safe_scp
-	name = "Safe SCP Containment"
-	icon_state = "scp_safe"
-	ambience_index = AMBIENCE_DANGER
-	airlock_wires = /datum/wires/airlock/scp
-	sound_environment = SOUND_AREA_STANDARD_STATION
-	holomap_color = "#1c550ecc"
-
-/area/station/euclid_scp
-	name = "Euclid SCP Containment"
-	icon_state = "scp_euclid"
-	ambience_index = AMBIENCE_DANGER
-	airlock_wires = /datum/wires/airlock/scp
-	sound_environment = SOUND_AREA_STANDARD_STATION
-	holomap_color = "#705b15cc"
-
-/area/station/keter_scp
-	name = "Keter SCP Containment"
-	icon_state = "scp_keter"
-	ambience_index = AMBIENCE_DANGER
-	airlock_wires = /datum/wires/airlock/scp
-	sound_environment = SOUND_AREA_STANDARD_STATION
-	holomap_color = "#611717cc"
+// LIGHT CONTAINMENT ZONE
 
 /area/station/lcz
 	name = "Light Containment Zone"
@@ -128,13 +90,6 @@
 	airlock_wires = /datum/wires/airlock/lcz
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	holomap_color = "#cea04acc"
-
-/area/station/cdcz
-	name = "Class-D Containment Zone"
-	icon_state = "cdcz"
-	airlock_wires = /datum/wires/airlock/cdcz
-	sound_environment = SOUND_AREA_STANDARD_STATION
-	holomap_color = "#db710dcc"
 
 /area/station/lcz/hallway
 	name = "\improper LCZ Hallway"
@@ -155,6 +110,14 @@
 /area/station/lcz/restroom
 	name = "\improper LCZ Restroom"
 	icon_state = "lcz_restroom"
+
+/area/station/engineering/lcz/tech_storage
+	name = "\improper LCZ Technical Storage"
+	icon_state = "lcz_techstorage"
+
+/area/station/medical/lcz/med_post
+	name = "\improper LCZ Medical Post"
+	icon_state = "lcz_medpost"
 
 /area/station/security/lcz
 	name = "\improper LCZ Security Post"
@@ -178,6 +141,30 @@
 	icon_state = "armory"
 	ambience_index = AMBIENCE_DANGER
 	airlock_wires = /datum/wires/airlock/security
+
+/area/station/maintenance/lcz
+	name = "LCZ Maintenance"
+	icon_state = "lczmaint"
+
+/area/station/engineering/lcz/emergency
+	name = "LCZ Emergency Power Room"
+	icon_state = "maint_electrical"
+
+/area/station/maintenance/lcz/entrance
+	name = "LCZ Entrance Maintenance"
+
+/area/station/engineering/lcz/entrance/substation
+	name = "LCZ Substation Control Room"
+	icon_state = "maint_electrical"
+
+// CLASS-D CONTAINMENT ZONE
+
+/area/station/cdcz
+	name = "Class-D Containment Zone"
+	icon_state = "cdcz"
+	airlock_wires = /datum/wires/airlock/cdcz
+	sound_environment = SOUND_AREA_STANDARD_STATION
+	holomap_color = "#db710dcc"
 
 /area/station/cdcz/hallway
 	name = "\improper CDCZ Hallway"
@@ -217,6 +204,10 @@
 
 /area/station/cdcz/cryo
 	name = "CDCZ Cryogenics"
+	icon_state = "cdcz_cryo"
+
+/area/station/cdcz/cryo/staff
+	name = "CDCZ Staff Cryogenics"
 	icon_state = "cdcz_cryo"
 
 /area/station/cdcz/laundry
@@ -308,13 +299,58 @@
 /area/station/medical/cdcz/medical/morgue
 	name = "\improper CDCZ Medical Morgue"
 
-/area/station/engineering/lcz/tech_storage
-	name = "\improper LCZ Technical Storage"
-	icon_state = "lcz_techstorage"
+/area/station/maintenance/cdcz
+	name = "CDCZ South Maintenance"
+	icon_state = "cdczmaint"
 
-/area/station/medical/lcz/med_post
-	name = "\improper LCZ Medical Post"
-	icon_state = "lcz_medpost"
+/area/station/maintenance/cdcz/east
+	name = "CDCZ East Maintenance"
+
+/area/station/maintenance/cdcz/upper
+	name = "CDCZ Upper Maintenance"
+	icon_state = "uppercdczmaint"
+
+/area/station/maintenance/cdcz/mining
+	name = "CDCZ Mining Maintenance"
+	icon_state = "cdczminemaint"
+
+/area/station/engineering/cdcz/substation
+	name = "CDCZ Substation Control Room"
+	icon_state = "maint_electrical"
+
+/area/station/engineering/cdcz/storage
+	name = "CDCZ Engineering Storage"
+	icon_state = "engine_storage"
+
+/area/station/engineering/cdcz/atmos
+	name = "CDCZ Emergency Atmospherics"
+	icon_state = "atmos"
+
+// SCP ROOMS
+
+/area/station/safe_scp
+	name = "Safe SCP Containment"
+	icon_state = "scp_safe"
+	ambience_index = AMBIENCE_DANGER
+	airlock_wires = /datum/wires/airlock/scp
+	sound_environment = SOUND_AREA_STANDARD_STATION
+	holomap_color = "#1c550ecc"
+
+/area/station/euclid_scp
+	name = "Euclid SCP Containment"
+	icon_state = "scp_euclid"
+	ambience_index = AMBIENCE_DANGER
+	airlock_wires = /datum/wires/airlock/scp
+	sound_environment = SOUND_AREA_STANDARD_STATION
+	holomap_color = "#705b15cc"
+
+/area/station/keter_scp
+	name = "Keter SCP Containment"
+	icon_state = "scp_keter"
+	ambience_index = AMBIENCE_DANGER
+	airlock_wires = /datum/wires/airlock/scp
+	sound_environment = SOUND_AREA_STANDARD_STATION
+	holomap_color = "#611717cc"
 
 /area/station/euclid_scp/scp_012
 	name = "SCP-012 Containment"
