@@ -99,6 +99,14 @@
 			icon_state = "phone"
 	else
 		icon_state = "phone_answered"
+	if(istype(src, /obj/machinery/telephone/wallphone))
+		if(handset_state == HANDSET_ONHOOK)
+			if(state == STATE_ANSWER)
+				icon_state = "wallphone_ringing"
+			else
+				icon_state = "wallphone"
+		else
+			icon_state = "wallphone_answered"
 	return ..()
 
 //Handset management
@@ -626,6 +634,27 @@
 			continue
 
 		hearing_movable.Hear(rendered, v_sig_data["virtualspeaker"], v_sig_data["language"], v_sig_data["message"], radio_bullshit_override, v_sig_data["spans"], v_sig_data["message_mods"], speaker_location(), message_range = INFINITY)
+
+// Wallphones!
+
+/obj/machinery/telephone/wallphone
+	name = "Utility Wallphone"
+	desc = "A variant of telephone which has been mounted to a wall.. useful when one can't be bothered to find a table."
+	icon_state = "wallphone"
+
+/obj/machinery/telephone/wallphone/Initialize(mapload)
+	. = .. ()
+
+	var/phonedir = src.dir
+	var/image/dial = image('goon/icons/obj/phones.dmi', icon_state = "wallphone_dial", dir = phonedir, layer = LOW_ITEM_LAYER)
+	var/image/rust = image('goon/icons/obj/phones.dmi', icon_state = "wallphone_rust", dir = phonedir, layer = LOW_ITEM_LAYER - 1)
+
+	overlays += dial
+	var/area/phonearea = get_area(src)
+	if(phonearea.outdoors)
+		overlays += rust
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/telephone/wallphone, 28)
 
 
 #undef STATE_WAITING
